@@ -1,0 +1,104 @@
+*****************************************************************
+                                PlanetPhysics
+*****************************************************************
+
+The PlanetPhysics Newsletter
+
+Edition #1
+January 13th, 2006
+www.planetphysics.org
+
+Contents
+
+*  QM:               Time Independent Schrodinger Equation
+*  Mechanics:   Kinetic Energy
+*  EM:                Electric Field
+*  Thermo:        Wien Displacement Law
+*  Math:            Laplacian Operator in Spherical Coordinates
+*  Feedback:    Comments and Questions
+
+*****************************************************************
+
+2005 saw the public opening of  PlanetPhysics and 2006
+promises to be our break out year.  As of today, we have 77
+registered users and 64 encyclopedia entries.  In this
+inaugural issue, we are experimenting with the format of the
+newsletter so feel free to give us feedback to make
+it better.  This newsletter is part of a new initiative to give
+PlanetPhysics a greater feel of community.  Along these lines,
+you'll start to see polls to vote for the entry of the month.
+The winning entry will be set so everyone can contribute and
+edit its contents.  The newsletter is expected to be published
+quarterly until there is more activity around PlanetPhysics.
+Finally, tell all your friends to come visit us and contribute to
+the cause of freeing Physics knowledge.
+
+******************************************************************
+
+** Time Independent Schrodinger Equation **
+
+"The Schr�dinger equation can be a little intimidating the first
+time you see it. One wonders where to begin mathematically
+and what physical situations to work with. In mechanics, we
+always seem to begin with simple examples such as a ball
+dropping from a building, while ignoring things like drag. So
+where do we start with the Schr�dinger equation?"
+
+http://planetphysics.org/encyclopedia/TimeIndependentSchrodingerEquation.html
+
+** Kinetic Energy **
+
+"Kinetic energy is energy associated to motion. The kinetic energy
+of a mechanical system is the work required to bring the system
+from its `rest' state to a `moving' state. When exactly a system is
+considered to be `at rest' depends on the context: a stone is
+usually considered to be at rest when its centre of mass is fixed,
+but in situations where, for example, the stone undergoes a
+change in temperature the movement of the individual particles
+will play a role in the energetic description of the stone."
+
+http://planetphysics.org/encyclopedia/KineticEnergy.html
+
+** Electric Field **
+
+"In physics, an electric field or E-field is an effect produced by an
+Electric Charge that exerts a force on charged objects in its vicinity.
+The SI units of the electric field are newtons per coulomb or volts
+per meter (both are equivalent). Electric fields are composed of
+photons and contain electrical energy with energy density
+proportional to the square of the field intensity. In the static case,
+an electric field is composed of virtual photons being exchanged by
+the charged particle(s) creating the field. In the dynamic case the
+electric field is accompanied by a magnetic field, by a flow of energy,
+and by real photons"
+
+http://planetphysics.org/encyclopedia/ElectricField.html
+
+** Wien Displacement Law **
+
+"The Wien Displacement Law can be used to find the peak wavelength
+of a blackbody at a given temperature.  Planck's radiation law gives us
+a function of $ \lambda$ and temperature so we can find the maximum of this
+function and hence the peak wavelength emitted"
+
+http://planetphysics.org/?op=getobj&from=objects&id=20
+
+** Laplacian Operator in Spherical Coordinates **
+
+"The Laplacian operator in spherical coordinates is"
+
+  $\displaystyle \nabla _{sph}^{2} = \frac{1}{r^2}
+\frac{\partial}{\partial r}\lef... ...\theta}\right) + \frac{1}{r^2
+sin^2 \theta} \frac{\partial^2}{\partial \phi^2} $
+http://planetphysics.org/encyclopedia/LaplacianInSphericalCoordinates.html
+
+** Feedback and Comments **
+
+Since this is the first issue of the newsletter, there are no comments
+to post.  However, with your emails filled with insightful comments and
+questions this area will contain the 'most interesting' received.
+
+* Send Feedback to 
+
+* To be removed from this email list, please reply with
+REMOVE in the subject line.

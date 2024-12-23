@@ -1,0 +1,85 @@
+2004-01-05 apk:
+ - Decomposition of vector_search::search into subroutines for clarity.
+ - Updates to structure weightings and fusion computation.
+ - Bugfix in the Perl client; filtering out newlines.  These seem to have been
+   the source of the majority of crashes I was seeing before.
+
+2003-11-21 pavel:
+ - Added a frequency filter that disregards words that occur less than a
+   given number of times in a field, when structuring queries.
+
+2003-10-16 apk:
+ - Added anti-swap thread and config option.
+ - Fixed a concurrency bug.  This is noticeable if the search engine is being
+   hit by many requests.
+ - Allowed structure inference to be compiled out.
+ 
+2003-09-09 pavel:
+ - Added the query structuring feature. ESSEX now accepts one more command,
+   'structurequery', that takes a set of keywords and returns all structured
+   queries that can be built using those keywords, together with the
+   probability of each structured query being the correct one.
+
+   Macros that determine which combination functions to use are defined in file
+   server/vector_search.h.
+
+   A description of the combination algorithm can be found in "Calado et al.,
+   Searching Web Databases By Structuring Keyword-Based Queries. Proceedings of
+   the 2002 ACM CIKM International Conference on Information and Knowledge
+   Management, p.26-33, November 2002".
+
+2003-06-28 apk :
+ - Changed the field weighting algorithm, so that documents are penalized less
+   for matches in low-weighted fields, relative to matches in high-weighted 
+   fields.  The old multiplier for field weighting was something like:
+
+    fm(d) = sqrt(\sum_f (c_f(d)*w_f)^2) / sqrt(\sum_f c_f(d)^2)
+
+   fm(d) = field multiplier of document d
+   f = field
+   c_f(d) = count of matches in field f in document d
+   
+   In other words, the Euclidian length of the field-match vector for a
+   document, with each dimension scaled by field weight, was compared to the
+   unscaled Euclidian length of the field-match vector for the document.
+
+   Now it is:
+
+    fm(d) = (\sum_f log(1+(1+c_f(d)))*w_f)/(\sum _f log(1+(1+c_f(d)))
+
+   So now the counts are greatly scaled down, and the distance metric is the
+   "taxicab" distance.  I think this expression has better ranking properties.
+
+2003-06-25 apk : 
+ - This was actually done a few weeks ago, but I fixed rankings in ESSEX.  
+   Previously, they had been normalized improperly.
+
+2003-06-01 apk :
+ - The RELAX_POSTINGS flag in the config should work now.  This allows 
+   changing the posting list data structure so that 4 billion documents are 
+   allowed instead of 16.7 million, 256 term frequency levels instead of 16, 
+   and 256 fields instead of 16.
+
+   Clean recompilation may be needed to get this to work.
+
+2003-05-16 apk :
+ - Now only the first time a field weight for a specific field in a query is   
+   encountered will the weight be accepted.  This allows a digital library 
+   client to always append some default weights, but when a user specifies 
+   other weights, they will come first and take precedent.
+ 
+2003-05-15 apk :
+ - Added sample usage perl code.
+
+2003-04-26 apk :
+ - Fixed daemon death upon client connection drop.  This should alleviate 
+   random daemon dissapearance that was being observed.
+
+2003-04-21 apk :
+ - Renamed from "MOSES" to "ESSEX".  
+ - Added field weight support. 
+ - Cleaned up some security issues: it is no longer possible to "spam" the
+   system with spurious terms or words (causing its dictionaries to grow).
+ - Now if you start up ESSEX as root it will try to lock memory; regardless of
+   the user it is set to run as.
+

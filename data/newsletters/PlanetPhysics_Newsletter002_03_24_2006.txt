@@ -1,0 +1,132 @@
+*****************************************************************
+                          PlanetPhysics
+*****************************************************************
+
+The PlanetPhysics Newsletter
+
+Edition #2
+March 24th, 2006
+www.planetphysics.org
+
+Contents
+
+*  Historical:  Works by Einstein, Planck and Fourier
+*  Mechanics:   Centre of Mass
+*  EM:          Loop Example of Biot-Savart Law
+*  Thermo:      Heat
+*  World Edit:  Entropy
+*  Feedback:    Comments and Questions
+
+*****************************************************************
+
+In the months since the last newsletter, PlanetPhysics has 
+started a new initiative to electronically preserve historical 
+works in physics.  Entries have begun on works by Einstein, 
+Fourier and Planck and are described below.  Our ability to make 
+this happen hinges on two things.  First, all works produced in 
+the United States before 1923 are in the public domain, therefore 
+we are within our rights to copy and distribute them on 
+PlanetPhysics.  Secondly, the old-school monk like dedication of 
+patrons is needed to manually copy these works into the LaTeX 
+format.  This may sound absurd in today's high tech world, but 
+without money for fancy OCR equipment we must use the advantage 
+of working together to make sure these works remain free to the 
+world.  You may think this goal is a waste a time, but keep in 
+mind one thing.  Powers at be *cough* Google *cough* and other 
+libraries are quickly digitizing a large number of works and 
+there is no guarantee that the digital copies of public domain
+works, which are now copyrighted by the digitizers, will be 
+freely available to the world.  In the extreme, original works 
+will become more scarce and digitizers will hold the keys to 
+these momentous works.  One last advantage is these works will be
+search-able and connected to entries within PlanetPhysics.  
+You can help by
+
+1) Finding public domain works and making them available to 
+   others to help with the copying (i.e., upload them as books as
+   images, pdf, etc.)
+
+2) Copy, Copy, Copy, but stay within legal copyright laws
+
+3) Proofread entries
+
+Note that a good source of pre 1923 books may be your local 
+library. 
+
+
+*****************************************************************
+
+** Works by Einstein, Planck and Fourier **
+
+The first few sections have been added for the works:
+
+1) "Relativity: The Special and General Theory" by Albert Einstein
+    http://planetphysics.org/encyclopedia/SpecialTheoryOfRelativity.html
+
+2) "The Theory of Heat Radiation" by Max Planck
+    http://planetphysics.org/?op=getobj&from=objects&name=TheoryOfHeatRadiation
+
+3) "The Analytical Theory of Heat" by Joseph Fourier
+    http://planetphysics.org/encyclopedia/AnalyticalTheoryOfHeat.html
+  
+
+** Centre of Mass **
+
+"The centre of mass of an object is a point in space where, for 
+many purposes, the mass of the object may be assumed to be 
+concentrated. For example, an object hung from a string in a 
+uniform gravitational field will have its centre of mass straight 
+below the string. The centre of mass can be used in many other 
+ways to simplify a complicated system by treating it as a point 
+particle..."
+
+http://planetphysics.org/?op=getobj&from=objects&id=96
+
+** Loop Example of Biot-Savart Law **
+
+"Here we will examine two examples of the Biot-Savart law, one 
+simple and the other more challenging. To begin we will find the 
+magnetic field at the center of a current carrying loop as shown 
+in figure 1..."
+
+http://planetphysics.org/encyclopedia/LoopExampleOfBiotSavartLaw.html
+
+** Heat **
+
+"Heat is one of the many forms of energy in the universe around 
+us. It is the measure of how much energy is transferred between 
+objects due to either temperature differences or emitted 
+radiation. Since heat is energy, the SI unit is the joule.
+
+In order to visualize heat, one must understand a little about 
+the underlying mechanisms of heat transfer. This means that the 
+definition of heat encompasses three ways of energy transfer: 
+heat conduction, convection and radiation..."
+
+http://planetphysics.org/encyclopedia/Heat.html
+
+** Entropy **
+
+"Entropy has a long and rich histroy in physics and was developed
+by many scientists over the years including Clausius, Maxwell, 
+Boltzmann, Planck, Gibbs, Pauling and more recently Shannon and 
+Hawking. The applications of entropy are far and wide ranging 
+from engines to black holes. The concept of entropy was 
+introduced by the German R. J. E. Clausius in 1854..."
+
+Note that anyone can edit the entropy article, so please help 
+improve it.
+ 
+http://planetphysics.org/encyclopedia/Entropy.html
+
+** Feedback and Comments **
+
+Please let us know how you like the text only version of the 
+newsletter.  Of course we are considering something more flashy,
+but do not know if it is worth the time, yet.
+
+* Send Feedback to 
+
+* To be removed from this email list, please reply with
+REMOVE in the subject line.
+

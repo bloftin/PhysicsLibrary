@@ -1,0 +1,12 @@
+************************************************************************
+Ben Loftin
+bloftin@phys-x.org
+The changes made to essex to compile with
+fedora 2:
+
+1)  In vector_search.h I commented out the <pthread_alloc> include and
+    replaced it with <cstring>, maybe something with g++ v3?
+
+2) In config.h, STRUCTURE_QUERIES had to be uncommented (defined)
+
+*************************************************************************  

@@ -1,0 +1,16 @@
+User "citideltask"
+Group "citidel"
+
+PidFile "/citidel/www.citidel.org/bin/run/essexd.pid"
+LogFile "/citidel/www.citidel.org/logs/searchd/essex.log"
+
+# minutes between polling memory structures
+#
+PollInterval 15
+
+ListenUnix true
+UnixSocket "/citidel/www.citidel.org/bin/run/essex.sock"
+
+ListenInet false
+BindAddress 0.0.0.0
+ListenPort 1723

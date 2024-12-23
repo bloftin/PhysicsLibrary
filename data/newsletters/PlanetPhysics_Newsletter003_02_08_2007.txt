@@ -1,0 +1,132 @@
+*****************************************************************
+                           PlanetPhysics
+*****************************************************************
+
+The PlanetPhysics Newsletter
+
+Edition # 3
+Feb 8th, 2007
+www.planetphysics.org
+
+Contents:
+
+*  Historical:     Works by Newton, Maxwell and J.J. Thomson
+*  Mechanics:      Path Independence of Work
+*  EM:             Gauss's Law
+*  SR:             Spacetime Interval is Invariant...
+*  Math:           Laplace Equation in Cylindrical Coordinates
+*  Feedback:       Comments and Questions
+
+*****************************************************************
+
+It has been just over a year since the first PlanetPhysics
+newsletter came out and PlanetPhysics has started to grow.  To
+see usage statistics over the last year, follow this link,
+http://www.phys-x.org/usage/
+
+We would like to give a special thanks to the Internet archive,
+http://www.archive.org who has made some historical physics
+works available online and in the public domain, so for your
+convenience we have uploaded them into the books section on
+PlanetPhysics.
+
+Although, we have a substantial number of hits per day and now
+have 253 users, we need more people to contribute content to
+PlanetPhysics.  If you are a little rusty on LaTeX, let us know
+in the forum and we will help you along or publish your notes for
+you.  With spring just around the corner, we will be beginning
+the Spring Topic shortly and you will find more info at the
+top right corner of our homepage.  More than likely, the topic
+will be Electrostatics, so get charged up and find your old
+notes to help us.
+
+Finally, we have paid a small amount of money for Google ads for
+almost 2 months now.  In march we will go over the numbers and
+see if it helped bring people to PlanetPhysics.
+
+*****************************************************************
+
+** Works by Newton, Maxwell and J.J. Thomson **
+
+These entire works have been added in the books section:
+
+1)  "Newton's Principia Sections I. II. III."
+    http://planetphysics.org/?op=getobj&from=books&id=3
+
+2) "A Treatise on Electricity and Magnetism" by James Maxwell
+    http://planetphysics.org/?op=getobj&from=books&id=2
+
+3) "Elements of the Mathematical Theory of
+    Electricity and Magnetism" by J.J. Thomson
+    http://planetphysics.org/?op=getobj&from=books&id=1
+
+
+** Path Independence of Work **
+
+"...Therefore, from the final equation, it is clearly seen
+that the work to move the object from position
+$ \mathbf{r}_{1}$ to $ \mathbf{r}_{2}$ is only dependent
+upon the potential energy at those positions, and not the
+path taken. Note that in the above, the minus sign in front
+of the integral has been dropped; this was done to show, in
+the final result, the amount of work done by the system. That
+is, if the potential energy at the final position is greater
+than that at the initial, then $ W_{12}$ is positive,
+and has done work."
+
+http://planetphysics.org/?op=getobj&from=objects&id=200
+
+** Gauss's Law **
+
+"Gauss's law, one of Maxwell's equations, gives the relation
+between the electric or gravitational flux flowing out a
+closed surface and, respectively, the Electric Charge or mass
+enclosed in the surface. It is applicable whenever the
+inverse-square law holds, the most prominent examples being
+electrostatics and Newtonian gravitation.
+
+If the system in question lacks symmetry, then Gauss's law
+is inapplicable, and integration using Coulomb's law
+is necessary."
+
+http://planetphysics.org/encyclopedia/GausssLaw.html
+
+**spacetime interval is invariant for a Lorentz transformation**
+
+"The spacetime interval between two events
+$ E_1( x_1, y_1, z_1, t_1 ) $ and $ E_2( x_2, y_2, z_2, t_2 )$
+is defined as $\displaystyle (\triangle s)^2 = c^2
+\triangle t^2 - (\triangle x)^2 - (\triangle y)^2 -
+(\triangle z)^2. $
+
+If $ \triangle s$ is in reference frame $ S$,
+then $ \triangle s'$ is in reference frame $ S'$
+moving at a velocity $ u$ along the x-axis. Therefore, to
+show that the spacetime interval is invariant under a
+Lorentz transformation we must show
+
+$\displaystyle (\triangle s)^2 = (\triangle s')^2 $"
+
+** Laplace Equation in Cylindrical Coordinates **
+
+"Solutions to the Laplace equation in cylindrical coordinates
+have wide applicability from fluid mechanics to electrostatics.
+Applying the method of separation of variables to Laplace's
+partial differential equation and then enumerating the various
+forms of solutions will lay down a foundation for solving
+problems in this coordinate system. Finally, the use of Bessel
+functions in the solution reminds us why they are synonymous
+with the cylindrical domain."
+
+http://planetphysics.org/encyclopedia/LaplaceEquationInCylindricalCoordinates.html
+
+** Feedback and Comments **
+
+Please let us know how you like the text only version of the
+newsletter.  Of course we are considering something more flashy,
+but do not know if it is worth the time, yet.
+
+* Send Feedback to ben.loftin@gmail.com
+
+* To be removed from this email list, please reply with
+REMOVE in the subject line.

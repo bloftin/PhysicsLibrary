@@ -1,0 +1,78 @@
+lib/essex/server/vlmap.h:63:	// destructor-- free memory
+lib/essex/server/intmap.h:3: A hashed associative array.  This version is integer-keyed and hence looks 
+lib/essex/server/intmap.h:112:		void operator-=(int _n) { for (int i = 0; i < _n; i--) decrement(); }
+lib/essex/server/intmap.h:113:		void operator--() { decrement(); }
+lib/essex/server/intmap.h:114:		void operator--(int) { decrement(); }
+lib/essex/server/intmap.h:164:	// destructor-- free memory
+lib/essex/server/vlrankmap.h:56:	// destructor-- free memory
+lib/essex/server/intmap.h~:3: A hashed associative array.  This version is integer-keyed and hence looks 
+lib/essex/server/intmap.h~:112:		void operator-=(int _n) { for (int i = 0; i < _n; i--) decrement(); }
+lib/essex/server/intmap.h~:113:		void operator--() { decrement(); }
+lib/essex/server/intmap.h~:114:		void operator--(int) { decrement(); }
+lib/essex/server/intmap.h~:164:	// destructor-- free memory
+lib/essex/server/posting_list.h:39:/* super-compact version... only 4 bytes per posting entry. */
+lib/essex/server/stringmap.h~:121:		void operator-=(int _n) { for (int i = 0; i < _n; i--) decrement(); }
+lib/essex/server/stringmap.h~:122:		void operator--() { decrement(); }
+lib/essex/server/stringmap.h~:123:		void operator--(int) { decrement(); }
+lib/essex/server/rankmm.h:58:	// destructor-- free memory
+lib/essex/server/docrec.h:10:	intmap<char>* words;	// vector-form of the contents of the document
+lib/essex/server/intmap.h.arrays:3: A hashed associative array.  This version is integer-keyed and hence looks 
+lib/essex/server/intmap.h.arrays:112:		void operator-=(int _n) { for (int i = 0; i < _n; i--) decrement(); }
+lib/essex/server/intmap.h.arrays:113:		void operator--() { decrement(); }
+lib/essex/server/intmap.h.arrays:114:		void operator--(int) { decrement(); }
+lib/essex/server/intmap.h.arrays:161:	// destructor-- free memory
+lib/essex/server/stringmap.h:121:		void operator-=(int _n) { for (int i = 0; i < _n; i--) decrement(); }
+lib/essex/server/stringmap.h:122:		void operator--() { decrement(); }
+lib/essex/server/stringmap.h:123:		void operator--(int) { decrement(); }
+lib/Noosphere.pm:169:	$sidebar->setKey('login', $login);
+lib/Noosphere.pm:177:	$sidebar->setKeys('search' => $search, 'admin' => $admin, 'features' => $features);
+lib/Noosphere.pm:178:	$rightbar->setKeys('topusers' => $topusers, 'latesta' => $latesta, 'latestm' => $latestm, 'poll' => $poll);
+lib/Noosphere.pm:179:	$html->setKeys('sidebar' => $sidebar->expand(), 'rightbar' => $rightbar->expand());
+lib/Noosphere.pm:193:	$sidebar->setKeys('login' => $login, 'admin' => $admin, 'features' => $features);
+lib/Noosphere.pm:194:	$html->setKey('sidebar', $sidebar->expand());
+lib/Noosphere.pm:208:	$header->setKey('search', $search);
+lib/Noosphere.pm:210:	$template->setKey('header', $header->expand());
+lib/Noosphere/XML.pm:94:		$xml .= " <author id=\"$author->{userid}\" name=\"$author->{username}\"/>\n";
+lib/Noosphere/XML.pm:199:		$xml .= " <author id=\"$author->{userid}\" name=\"$author->{username}\"/>\n";
+lib/Noosphere/XML.pm:239:	my $dom = $parser->parsefile ($filename);
+lib/Noosphere/Util.pm:200:# check for non-user-allowed HTML tags in user-supplied text.  if one is found,
+lib/Noosphere/Util.pm:342:		return "$yr-$mon-$day at $4";
+lib/Noosphere/Util.pm:349:		return "$yr-$mon-$day at $4";
+lib/Noosphere/Util.pm:1294:	return "$year-$mon-$day";
+lib/Noosphere/Util.pm:1322:	return "$year-$mon-$day $hour:$min";
+lib/Noosphere/Util.pm~:200:# check for non-user-allowed HTML tags in user-supplied text.  if one is found,
+lib/Noosphere/Util.pm~:342:		return "$yr-$mon-$day at $4";
+lib/Noosphere/Util.pm~:349:		return "$yr-$mon-$day at $4";
+lib/Noosphere/Util.pm~:1294:	return "$year-$mon-$day";
+lib/Noosphere/Util.pm~:1322:	return "$year-$mon-$day $hour:$min";
+lib/Noosphere/Messages.pm:284:	if (defined $params->{watch} && $reader->{uid} > 0) {
+lib/Noosphere/Messages.pm:287:				toggleWatch('messages',$1,$reader->{uid});
+lib/Noosphere/Messages.pm:448:	if ($reader->{uid}>0 &&
+lib/Noosphere/Messages.pm:450:			hasWatch('messages',$row->{threadid},$reader->{uid})) {
+lib/Noosphere/Dispatch.pm:31:  if (defined $handler_hr->{$params->{op}}) {
+lib/Noosphere/Dispatch.pm:32:    $content = &{$handler_hr->{$params->{op}}}($params, $userinf, $upload);
+lib/Noosphere/Dispatch.pm:177:  # super-template test
+lib/Noosphere/Versions.pm:376:				 modifier=>$modifier->{'id'},
+lib/Noosphere/Search.pm~:283:	# reassemble the highlighted terms and inter-term text arrays
+lib/Noosphere/Owners.pm:127:			$template->setKey($key, $owner->{$key});
+lib/Noosphere/Config.pm:59:	# regexp strings for detecting screen-scraper user-agents. 
+lib/Noosphere/Config.pm:123:	'robotstxt' => "User-agent: *
+lib/Noosphere/Config.pm:515:		# user-specific stuff
+lib/Noosphere/XSLTemplate.pm:19:	my $doc = $parser->parse_string($template->expand());
+lib/Noosphere/XSLTemplate.pm:179:	my $doc = $parser->parse_string($string);
+lib/Noosphere/XSLTemplate.pm:196:	my $doc = $parser->parse_file($filename);
+lib/Noosphere/Search.pm:297:	# reassemble the highlighted terms and inter-term text arrays
+lib/Noosphere/Orphan.pm:191:			$template->setKey('name', $author->{'username'});
+lib/Noosphere/Orphan.pm:192:			$template->setKey('id', $author->{'userid'});
+lib/Noosphere/Authors.pm~:109:		$template->setKey('userid', $author->{'userid'});
+lib/Noosphere/Authors.pm~:110:		$template->setKey('username', $author->{'username'});
+lib/Noosphere/Authors.pm~:111:		$template->setKey('date', $author->{'ts'});
+lib/Noosphere/Latex.pm:154:	`cp "$template_root/.latex2html-singlerender-init" $dir/.latex2html-init`;
+lib/Noosphere/Latex.pm:327:	my $retval = system("/usr/bin/latex -file-line-error-style $fname.tex");
+lib/Noosphere/Authors.pm:109:		$template->setKey('userid', $author->{'userid'});
+lib/Noosphere/Authors.pm:110:		$template->setKey('username', $author->{'username'});
+lib/Noosphere/Authors.pm:111:		$template->setKey('date', $author->{'ts'});
+lib/Noosphere/Charset.pm:304:# lower-case russian letters
+lib/Noosphere/Charset.pm:349:# convert TeX trigraphs and character-producing commands to UTF8
+lib/Noosphere/Groups.pm:291:	  $html.="<input type=\"checkbox\" name=\"del_$member->{userid}\">";
+lib/Noosphere/Groups.pm:292:	$html.=" <a href=\"".getConfig("main_url")."/?op=getuser&id=$member->{userid}\">$member->{username}</a>";

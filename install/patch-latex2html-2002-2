@@ -1,0 +1,17 @@
+174a175,177
+> # APK - default new directory mode (to prevent asking if not '')
+> $NEWDIR_MODE = '' unless $NEWDIR_MODE;
+> 
+763c766
+< 	next unless (&new_dir($DESTDIR,''));
+---
+> 	next unless (&new_dir($DESTDIR, $NEWDIR_MODE));
+13582a13586,13593
+> 
+> 	# APK - nuke $last_word if it contains kooky URL stuff.
+> 	# TODO: perhaps fix get_last_word() so it is smarter about 
+> 	# \htmladdnormalink tags, and perhaps returns the anchor instead.
+> 	#
+> 	if ($last_word && $last_word=~/http:\/\//) {
+>       $last_word='';
+> 	}

@@ -1,0 +1,22 @@
+Aug 06 17:08:39 -0600 Looks good: 7518
+Aug 06 17:08:39 -0600 Forking UNIX domain listener
+Aug 06 17:08:39 -0600 Forking inet domain listener
+Aug 06 17:10:52 -0600 Looks good: 7605
+Aug 06 17:10:52 -0600 Forking UNIX domain listener
+Aug 06 17:10:52 -0600 Forking inet domain listener
+Aug 06 17:10:53 -0600 Couldn't bind to 0.0.0.0:1723
+Aug 06 17:12:03 -0600 Looks good: 7619
+Aug 06 17:12:03 -0600 Forking UNIX domain listener
+Aug 06 17:12:03 -0600 Forking inet domain listener
+Aug 06 17:12:03 -0600 Couldn't bind to 0.0.0.0:1723
+Aug 06 17:12:58 -0600 Looks good: 7677
+Aug 06 17:12:58 -0600 Forking UNIX domain listener
+Aug 06 17:12:58 -0600 Forking inet domain listener
+Aug 06 17:12:58 -0600 Couldn't bind to 0.0.0.0:1723
+Aug 06 17:25:33 -0600 Looks good: 8437
+Aug 06 17:25:33 -0600 Forking UNIX domain listener
+Aug 06 17:25:33 -0600 Forking inet domain listener
+Aug 06 17:25:57 -0600 Looks good: 8452
+Aug 06 17:25:57 -0600 Forking UNIX domain listener
+Aug 06 17:25:57 -0600 Forking inet domain listener
+Aug 06 17:25:57 -0600 Couldn't bind to 0.0.0.0:1723

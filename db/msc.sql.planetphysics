@@ -1,0 +1,2 @@
+INSERT INTO msc(id,comment,parent,uid) VALUES ('00','GENERAL','0xx',6607);
+
