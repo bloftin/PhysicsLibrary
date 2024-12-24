@@ -1,0 +1,9416 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 20 187 575 604
+%%Creator: FreeHEP Graphics2D Driver
+%%Producer: org.freehep.graphicsio.ps.PSGraphics2D Revision: 1.20 
+%%For: 
+%%Title: 
+%%CreationDate: Friday, September 2, 2005 11:02:16 PM MDT
+%%LanguageLevel: 3
+%%EndComments
+%%BeginProlog
+100 dict dup begin
+
+%
+% File: org/freehep/graphicsio.ps/PSProlog.txt
+% Author: Charles Loomis
+%
+
+% Redefinitions which save some space in the output file.  These are also
+% the same as the PDF operators.
+/q {gsave} def
+/Q {grestore} def
+
+/n {newpath} def
+/m {moveto} def
+/l {lineto} def
+/c {curveto} def
+/h {closepath} def
+
+/re {4 -2 roll moveto
+     dup 0 exch rlineto exch 0 rlineto
+     neg 0 exch rlineto closepath} def
+
+/f {fill} def
+/f* {eofill} def
+/F {gsave vg&FC fill grestore} def
+/F* {gsave vg&FC eofill grestore} def
+
+/s {closepath stroke} def
+/S {stroke} def
+
+/b {closepath gsave vg&FC fill grestore
+    gsave stroke grestore newpath} def
+/B {gsave vg&FC fill grestore gsave stroke grestore newpath} def
+/b* {closepath gsave vg&FC eofill grestore
+    gsave stroke grestore newpath} def
+/B* {gsave vg&FC eofill grestore gsave stroke grestore newpath} def
+
+/g {1 array astore /vg&fcolor exch def} def
+/G {setgray} def
+/k {4 array astore /vg&fcolor exch def} def
+/K {setcmykcolor} def
+/rg {3 array astore /vg&fcolor exch def} def
+/RG {setrgbcolor} def
+
+% Initialize the fill color.
+0 0 0 rg
+
+/vg&FC {mark vg&fcolor aload pop
+        counttomark 1 eq {G} if
+        counttomark 3 eq {RG} if
+        counttomark 4 eq {K} if
+        cleartomark } def
+
+/vg&DFC {/vg&fcolor exch def} def
+
+/vg&C {mark exch aload pop
+       counttomark 1 eq {G} if
+       counttomark 3 eq {RG} if
+       counttomark 4 eq {K} if
+       cleartomark } def
+
+/w {setlinewidth} def
+/j {setlinejoin} def
+/J {setlinecap} def
+/M {setmiterlimit} def
+/d {setdash} def
+/i {setflat} def
+
+/W {clip} def
+/W* {eoclip} def
+
+% Setup the default graphics state.
+% (black; 1 pt. linewidth; miter join; butt-ends; solid)
+/defaultGraphicsState {0 g 1 w 0 j 0 J [] 0 d} def
+
+% Emulation of the rectangle operators for PostScript implementations
+% which do not implement all Level 2 features.  This is an INCOMPLETE
+% emulation; only the "x y width height rect..." form is emulated.
+/*rf {gsave newpath re fill grestore} def
+/*rs {gsave newpath re stroke grestore} def
+/*rc {newpath re clip} def
+/rf  /rectfill where {pop /rectfill}{/*rf} ifelse load def
+/rs  /rectstroke where {pop /rectstroke}{/*rs} ifelse load def
+/rc  /rectclip where {pop /rectclip}{/*rc} ifelse load def
+
+% Emulation of the selectfont operator.  This includes a 20% increase in
+% the fontsize which is necessary to get sizes similar to the Java fonts.
+/*sf {exch findfont exch
+      dup type /arraytype eq {makefont}{scalefont} ifelse setfont} bind def
+/sf /selectfont where {pop {1.2 mul selectfont}}{{1.2 mul *sf}} ifelse def
+
+% Special version of stroke which allows the dash pattern to continue
+% across path segments.  (This may be needed for PostScript although
+% modern printers seem to do this correctly.)
+/vg&stroke {
+  currentdash pop length 0 eq
+  {stroke}
+  {
+    currentdash /vg&doffset exch def pop
+    flattenpath
+    {m vg&resetdash}
+    {2 copy
+     currentpoint
+     3 -1 roll sub dup mul
+     3 1 roll sub dup mul
+     add sqrt
+     3 1 roll l
+     currentdash 3 -1 roll add setdash}
+     {}
+     {h vg&resetdash}
+     pathforall
+     stroke
+     vg&resetdash
+  } ifelse
+} def
+/vg&resetdash {currentdash pop vg&doffset setdash} def
+
+% Initialize variables for safety.
+/delta 0 def
+/xv 0 def  /yv 0 def  /width 0 def  /height 0 def
+
+% Initialize to portrait INTERNATIONAL (Letter-height, A4-width) page.
+/pw 595 def  /ph 791  def  /po true def /ftp false def
+
+% Initialize margins to 20 points.
+/ml 20 def  /mr 20 def  /mt 20 def  /mb 20 def
+
+% Temporary matrices.
+/smatrix 0 def  /nmatrix 0 def
+
+% set page size (usage: <page width><page height> setpagesize)
+/setpagesize {/ph exch def /pw exch def} def
+
+% set page orientation (usage: portrait or landscape)
+/portrait {/po true def} def
+/landscape {/po false def} def
+
+% force natural size for image (usage: naturalsize)
+/naturalsize {/ftp false def} def
+
+% resize image to fill page (usage: fittopage)
+/fittopage {/ftp true def} def
+
+% set margins of the page (usage: <left><bottom><top><right> setmargins)
+/setmargins {/mr exch def /mt exch def /mb exch def /ml exch def} def
+
+% set the graphic's size (usage: <width><height> setsize)
+/setsize {/gh exch def /gw exch def} def
+
+% set the graphic's origin (usage: <x0><y0> setorigin)
+/setorigin {/gy exch def /gx exch def} def
+
+% calculate image center
+/imagecenter {pw ml sub mr sub 2 div ml add
+              ph mt sub mb sub 2 div mb add} def
+
+% calculate the necessary scaling
+/imagescale {po {gw}{gh} ifelse pw ml sub mr sub div
+             po {gh}{gw} ifelse ph mt sub mb sub div
+             2 copy lt {exch} if pop
+             ftp not {1 2 copy lt {exch} if pop} if
+             1 exch div /sfactor exch def
+             /gw gw sfactor mul def /gh gh sfactor mul def} def
+
+% calculate image origin
+/imageorigin {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div po {add}{sub} ifelse} def
+
+% calculate the clipping origin
+/cliporigin  {pw ml sub mr sub 2 div ml add
+              po {gw}{gh} ifelse 2 div sub floor
+              ph mt sub mb sub 2 div mb add
+              po {gh}{gw} ifelse 2 div sub floor} def
+
+% Set the clipping region to the bounding box.
+/cliptobounds {cliporigin po {gw}{gh} ifelse 1 add
+                          po {gh}{gw} ifelse 1 add rc} def
+
+% set the base transformation matrix (usage: setbasematrix)
+/setbasematrix {imageorigin translate
+                po {0}{90} ifelse rotate
+                sfactor sfactor neg scale
+                /defaultmatrix matrix currentmatrix def} def
+
+% The lower-right bias in drawing 1 pt. wide lines.
+/bias  {q 0.5 0.5 translate} def
+/unbias {Q} def
+
+% Draw a line. (x0 y0 x1 y1 line)
+/L {bias n m l S unbias} def
+
+% Polyline primitive.
+/polyline  {n m 1 exch 1 exch
+           {pop currentfile token pop currentfile token pop l} for
+           } def
+
+% Draw a polyline (n x0 y0 OPL x1 y1 x2 y2 ... ... xn yn)
+/OPL {bias polyline S unbias} def
+
+% Draw a closed polyline (n x0 y0 CPL x1 y1 x2 y2 ... ... xn yn)
+/CPL {bias polyline s unbias} def
+
+% Draw a filled polyline (n x0 y0 FPL x1 y1 x2 y2 ... ... xn yn)
+/FPL {polyline h f*} def
+
+% Draw an oval. (x y w h OVL)
+/OVL {matrix currentmatrix /smatrix exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      width 2 div xv add height 2 div yv add translate
+      width currentlinewidth sub 2 div
+      height currentlinewidth sub 2 div neg
+      scale n 0 0 1 5 -2 roll arc
+      smatrix setmatrix S} def
+
+% Draw a filled oval. (x y w h FOVL)
+/FOVL {matrix currentmatrix /smatrix exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      width 2 div xv add height 2 div yv add translate
+      width 2 div
+      height 2 div neg
+      scale n 0 0 m 0 0 1 5 -2 roll arc
+      h smatrix setmatrix f} def
+
+% Draw a rounded rectangle. (x y w h arcwidth archeight RREC)
+/RREC {matrix currentmatrix /smatrix exch def
+      2 div /ah exch def
+      2 div /aw exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      aw ah scale matrix
+      currentmatrix /nmatrix exch def
+      smatrix setmatrix
+      n xv width add aw sub yv m
+      nmatrix setmatrix
+      currentpoint exch 1 add exch
+      currentpoint 1 add exch 1 add exch
+      1 arct smatrix setmatrix
+      xv width add yv height add ah sub l
+      nmatrix setmatrix
+      currentpoint 1 add
+      currentpoint exch 1 sub exch 1 add
+      1 arct smatrix setmatrix
+      xv aw add yv height add l
+      nmatrix setmatrix
+      currentpoint exch 1 sub exch
+      currentpoint exch 1 sub exch 1 sub
+      1 arct smatrix setmatrix
+      xv yv ah add l
+      nmatrix setmatrix
+      currentpoint 1 sub
+      currentpoint exch 1 add exch 1 sub
+      1 arct smatrix setmatrix
+      s} def
+
+% Draw a filled rounded rectangle. (x y w h arcwidth archeight FRREC)
+/FRREC{matrix currentmatrix /smatrix exch def
+      2 div /ah exch def
+      2 div /aw exch def
+      /height exch def /width exch def
+      /yv exch def /xv exch def
+      aw ah scale matrix
+      currentmatrix /nmatrix exch def
+      smatrix setmatrix
+      n xv width add aw sub yv m
+      nmatrix setmatrix
+      currentpoint exch 1 add exch
+      currentpoint 1 add exch 1 add exch
+      1 arct smatrix setmatrix
+      xv width add yv height add ah sub l
+      nmatrix setmatrix
+      currentpoint 1 add
+      currentpoint exch 1 sub exch 1 add
+      1 arct smatrix setmatrix
+      xv aw add yv height add l
+      nmatrix setmatrix
+      currentpoint exch 1 sub exch
+      currentpoint exch 1 sub exch 1 sub
+      1 arct smatrix setmatrix
+      xv yv ah add l
+      nmatrix setmatrix
+      currentpoint 1 sub
+      currentpoint exch 1 add exch 1 sub
+      1 arct smatrix setmatrix
+      h f} def
+
+% Draw a string.  (string x y STR)
+/STR {q m 1 -1 scale recshow Q} def
+
+% Define basic plot symbols.
+/xys   {/siz exch def /yv exch def /xv exch def} def
+/hline {xys n xv siz 2. div sub yv m siz 0 rlineto S} def
+/vline {xys n xv yv siz 2. div sub m 0 siz rlineto S} def
+/plus  {xys n xv yv siz 2. div sub m 0 siz rlineto
+                    xv siz 2. div sub yv m siz 0 rlineto S} def
+/dot   {n 2. div 0 360 arc s} def
+/fdot  {n 2. div 0 360 arc h f} def
+/box   {xys n xv siz 2 sqrt div 2 div sub yv siz 2 sqrt div 2 div sub
+                    siz 2 sqrt div dup rs} def
+/fbox  {xys n xv siz 2 sqrt div 2 div sub yv siz 2 sqrt div 2 div sub
+                       siz 2 sqrt div dup rf} def
+/tridn{xys n xv yv siz 3 sqrt div add m
+                       siz 2. div neg 3 sqrt 2. div siz mul neg rlineto
+                       siz 0 rlineto s} def
+/ftridn{xys n xv yv siz 3 sqrt div add m
+                       siz 2. div neg 3 sqrt 2. div siz mul neg rlineto
+                       siz 0 rlineto h f} def
+
+% Symbols defined in terms of the others.
+/star     {3 copy cross plus} def
+/cross    {xys q xv yv translate 45 rotate 0 0 siz plus Q} def
+/diamond  {xys q xv yv translate 45 rotate 0 0 siz box Q} def
+/fdiamond {xys q xv yv translate 45 rotate 0 0 siz fbox Q} def
+/triup    {xys q xv yv translate 180 rotate 0 0 siz tridn Q} def
+/ftriup   {xys q xv yv translate 180 rotate 0 0 siz ftridn Q} def
+
+% Define the composite fonts used to print Unicode strings.
+% Undefine particular values in an encoding array.
+/vg&undef { {exch dup 3 -1 roll /.notdef put} forall } def
+/vg&redef { {3 -1 roll dup 4 2 roll put} forall } def
+
+% usage: key encoding basefontname vg&newbasefont font
+/vg&newbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: key encoding basefontname vg&newskewedbasefont font
+/vg&newskewedbasefont {
+findfont dup length dict copy
+  begin
+    currentdict /FID undef
+    /Encoding exch def
+    dup /FontName exch def
+    exch FontMatrix exch matrix concatmatrix /FontMatrix exch def
+    currentdict
+  end
+definefont
+} def
+
+% usage: basekey suffix vg&nconcat name
+/vg&nconcat {
+  2 {dup length string cvs exch} repeat
+  dup length 3 -1 roll dup length 3 -1 roll add string
+  dup 0 4 -1 roll dup length 5 1 roll putinterval
+  dup 4 -2 roll exch putinterval cvn
+} def
+
+%usage: fontname vg&skewmatrix matrix
+/vg&skewmatrix {
+findfont dup /FontInfo known
+  {
+    /FontInfo get dup /ItalicAngle known
+    {
+      [ 1 0 4 -1 roll /ItalicAngle get neg dup sin exch cos div 1 0 0 ]
+    }
+    {pop matrix} ifelse
+  }
+  {pop matrix} ifelse
+} def
+
+% usage: newfontname basefontname vg&newcompositefont --
+/vg&newcompositefont {
+/vg&fstyle exch def
+/vg&bfont exch def
+/vg&fname exch def
+<<
+/FontStyleBits vg&fstyle
+/FontType 0
+/FontMatrix matrix
+/FontName vg&fname
+/FMapType 2
+/Encoding [ 0 1 255 {pop 6} for ]
+          dup 16#00 0 put % Latin
+          dup 16#03 1 put % Greek
+          dup 16#20 2 put % Punctuation
+          dup 16#21 3 put % Arrows
+          dup 16#22 4 put % MathOps
+          dup 16#27 5 put % Dingbats
+
+/FDepVector [
+vg&bfont /-UC-Latin vg&nconcat UCLatinEncoding
+vg&bfont vg&newbasefont
+
+vg&bfont vg&skewmatrix
+vg&bfont /-UC-Greek vg&nconcat UCGreekEncoding
+/Symbol vg&newskewedbasefont
+
+vg&bfont /-UC-Punctuation vg&nconcat UCPunctuationEncoding
+vg&bfont vg&newbasefont
+
+/Arrows-UC findfont
+/MathOps-UC findfont
+/Dingbats-UC findfont
+/Undefined-UC findfont ]
+>>
+vg&fname exch definefont pop
+} def
+
+% Null encoding vector (all elements set to .notdef)
+/NullEncoding [ 256 {/.notdef} repeat ] def
+
+% Unicode Latin encoding (unicode codes \u0000-\u00ff)
+/UCLatinEncoding
+  ISOLatin1Encoding dup length array copy
+  dup 16#60 /grave put
+  [ 16#90 16#91 16#92 16#93 16#94 16#95 16#96
+    16#97 16#98 16#9a 16#9b 16#9d 16#9e 16#9f
+  ] vg&undef
+  def
+
+% Unicode Greek encoding (unicode codes \u0370-\u03ff)
+/UCGreekEncoding
+  NullEncoding dup length array copy
+  << 16#91 /Alpha    16#92 /Beta      16#93 /Gamma    16#94 /Delta
+     16#95 /Epsilon  16#96 /Zeta      16#97 /Eta      16#98 /Theta
+     16#99 /Iota     16#9a /Kappa     16#9b /Lambda   16#9c /Mu
+     16#9d /Nu       16#9e /Xi        16#9f /Omicron  16#a0 /Pi
+     16#a1 /Rho      16#a3 /Sigma     16#a4 /Tau      16#a5 /Upsilon
+     16#a6 /Phi      16#a7 /Chi       16#a8 /Psi      16#a9 /Omega
+     16#b1 /alpha    16#b2 /beta      16#b3 /gamma    16#b4 /delta
+     16#b5 /epsilon  16#b6 /zeta      16#b7 /eta      16#b8 /theta
+     16#b9 /iota     16#ba /kappa     16#bb /lambda   16#bc /mu
+     16#bd /nu       16#be /xi        16#bf /omicron  16#c0 /pi
+     16#c1 /rho      16#c2 /sigma1    16#c3 /sigma    16#c4 /tau
+     16#c5 /upsilon  16#c6 /phi1      16#c7 /chi      16#c8 /psi
+     16#c9 /omega    16#7e /semicolon 16#87 /dotmath  16#d1 /theta1
+     16#d2 /Upsilon1 16#d5 /phi       16#d6 /omega1
+  >> vg&redef
+  def
+
+% Unicode punctuation encoding (unicode codes \u2000-\u206f)
+/UCPunctuationEncoding
+  NullEncoding dup length array copy
+  << 16#10 /hyphen          16#11 /hyphen              16#12 /endash
+     16#13 /emdash          16#18 /quoteleft           16#19 /quoteright
+     16#1a /quotesinglbase  16#1b /quotesingle         16#1c /quotedblleft
+     16#1d /quotedblright   16#1e /quotedblbase        16#1f /quotedbl
+     16#20 /dagger          16#21 /daggerdbl           16#22 /bullet
+     16#24 /period          16#26 /ellipsis            16#27 /periodcentered
+     16#30 /perthousand     16#44 /fraction
+     16#70 /zerosuperior    16#74 /foursuperior        16#75 /fivesuperior
+     16#76 /sixsuperior     16#77 /sevensuperior       16#78 /eightsuperior
+     16#79 /ninesuperior    16#7b /hyphensuperior      16#7d /parenleftsuperior
+     16#7e /parenrightsuperior
+     16#80 /zeroinferior    16#84 /fourinferior        16#85 /fiveinferior
+     16#81 /oneinferior     16#82 /twoinferior         16#83 /threeinferior
+     16#86 /sixinferior     16#87 /seveninferior       16#88 /eightinferior
+     16#89 /nineinferior    16#8b /hypheninferior      16#8d /parenleftinferior
+     16#8e /parenrightinferior
+  >> vg&redef
+  def
+
+% Unicode mathematical operators encoding (unicode codes \u2200-\u22ff)
+/UCMathOpsEncoding
+  NullEncoding dup length array copy
+  << 16#00 /universal       16#02 /partialdiff         16#03 /existential
+     16#05 /emptyset        16#06 /Delta               16#07 /gradient
+     16#08 /element         16#09 /notelement          16#0b /suchthat
+     16#0f /product         16#11 /summation           16#12 /minus
+     16#15 /fraction        16#17 /asteriskmath        16#19 /bullet
+     16#1a /radical         16#1d /proportional        16#1e /infinity
+     16#20 /angle           16#23 /bar                 16#27 /logicaland
+     16#28 /logicalor       16#29 /intersection        16#2a /union
+     16#2b /integral        16#34 /therefore           16#36 /colon
+     16#3c /similar         16#45 /congruent           16#48 /approxequal
+     16#60 /notequal        16#61 /equivalence         16#64 /lessequal
+     16#65 /greaterequal    16#82 /propersubset        16#83 /propersuperset
+     16#86 /reflexsubset    16#87 /reflexsuperset      16#95 /circleplus
+     16#97 /circlemultiply  16#a5 /perpendicular       16#03 /existential
+     16#c0 /logicaland      16#c1 /logicalor           16#c2 /intersection
+     16#c3 /union           16#c4 /diamond             16#c5 /dotmath
+  >> vg&redef
+  def
+
+% Unicode arrows encoding (unicode codes \u2190-\u21ff)
+% Also includes those "Letterlike" unicode characters
+% which are available in the symbol font. (unicode codes \u2100-\u214f)
+/UCArrowsEncoding
+  NullEncoding dup length array copy
+  << 16#11 /Ifraktur        16#1c /Rfraktur            16#22 /trademarkserif
+     16#35 /aleph
+     16#90 /arrowleft       16#91 /arrowup             16#92 /arrowright
+     16#93 /arrowdown       16#94 /arrowboth           16#d0 /arrowdblleft
+     16#d1 /arrowdblup      16#d2 /arrowdblright       16#d3 /arrowdbldown
+     16#d4 /arrowdblboth
+  >> vg&redef
+  def
+
+/ZapfDingbats findfont /Encoding get
+dup length array copy /UCDingbatsEncoding exch def
+16#20 1 16#7f {
+  dup 16#20 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+16#a0 1 16#ff {
+  dup 16#40 sub exch
+  UCDingbatsEncoding exch get
+  UCDingbatsEncoding 3 1 roll put
+} for
+UCDingbatsEncoding [ 16#c0 1 16#ff {} for ] vg&undef
+[ 16#00  16#05 16#0a 16#0b  16#28 16#4c 16#4e  16#53 16#54 16#55  16#57 16#5f
+  16#60  16#68 16#69 16#6a  16#6b 16#6c 16#6d  16#6e 16#6f 16#70  16#71 16#72
+  16#73  16#74 16#75 16#95  16#96 16#97 16#b0  16#bf
+] vg&undef pop
+
+% Define the base fonts which don't change.
+/Undefined-UC NullEncoding       /Helvetica    vg&newbasefont pop
+/MathOps-UC   UCMathOpsEncoding  /Symbol       vg&newbasefont pop
+/Arrows-UC    UCArrowsEncoding   /Symbol       vg&newbasefont pop
+/Dingbats-UC  UCDingbatsEncoding /ZapfDingbats vg&newbasefont pop
+
+% Make the SansSerif composite fonts.
+/SansSerif /Helvetica 16#00 vg&newcompositefont
+/SansSerif-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/SansSerif-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/SansSerif-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Serif composite fonts.
+/Serif /Times-Roman 16#00 vg&newcompositefont
+/Serif-Bold /Times-Bold 16#01 vg&newcompositefont
+/Serif-Italic /Times-Italic 16#02 vg&newcompositefont
+/Serif-BoldItalic /Times-BoldItalic 16#03 vg&newcompositefont
+
+% Make the Monospaced composite fonts.
+/Monospaced /Courier 16#00 vg&newcompositefont
+/Monospaced-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Monospaced-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Monospaced-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Dialog composite fonts.
+/Dialog /Helvetica 16#00 vg&newcompositefont
+/Dialog-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/Dialog-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/Dialog-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the DialogInput composite fonts.
+/DialogInput /Helvetica 16#00 vg&newcompositefont
+/DialogInput-Bold /Helvetica-Bold 16#01 vg&newcompositefont
+/DialogInput-Italic /Helvetica-Oblique 16#02 vg&newcompositefont
+/DialogInput-BoldItalic /Helvetica-BoldOblique 16#03 vg&newcompositefont
+
+% Make the Typewriter composite fonts (JDK 1.1 only).
+/Typewriter /Courier 16#00 vg&newcompositefont
+/Typewriter-Bold /Courier-Bold 16#01 vg&newcompositefont
+/Typewriter-Italic /Courier-Oblique 16#02 vg&newcompositefont
+/Typewriter-BoldItalic /Courier-BoldOblique 16#03 vg&newcompositefont
+
+
+/cfontH {
+ dup /fontsize exch def /SansSerif exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHB {
+  dup /fontsize exch def /SansSerif-Bold exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHI {
+ dup /fontsize exch def /SansSerif-Italic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+/cfontHBI {
+ dup /fontsize exch def /SansSerif-BoldItalic exch sf
+ /vg&fontstyles [{cfontH} {cfontHB} {cfontHI} {cfontHBI}] def
+} def
+
+/cfontT {
+ dup /fontsize exch def /Serif exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTB {
+ dup /fontsize exch def /Serif-Bold exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTI {
+ dup /fontsize exch def /Serif-Italic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+/cfontTBI {
+ dup /fontsize exch def /Serif-BoldItalic exch sf
+ /vg&fontstyles [{cfontT} {cfontTB} {cfontTI} {cfontTBI}] def
+} def
+
+/cfontC {
+ dup /fontsize exch def /Typewriter exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCB {
+ dup /fontsize exch def /Typewriter-Bold exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCI {
+ dup /fontsize exch def /Typewriter-Italic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+/cfontCBI {
+ dup /fontsize exch def /Typewriter-BoldItalic exch sf
+ /vg&fontstyles [{cfontC} {cfontCB} {cfontCI} {cfontCBI}] def
+} def
+
+% Darken or lighten the current color.
+/darken {0.7 exch exp 3 copy
+         q 4 -1 roll vg&C
+         currentrgbcolor 3 {4 -2 roll mul} repeat
+         3 array astore Q} def
+
+/displayColorMap
+<< /Cr   [1.00 0.00 0.00]       /Cg     [0.00 1.00 0.00]
+   /Cb   [0.00 0.00 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.00 0.00]       /CGg    [0.00 1.00 0.00]
+   /CGb  [0.00 0.00 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.00 0.00]       /CIg    [0.00 1.00 0.00]
+   /CIb  [0.00 0.00 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/printColorMap
+<< /Cr   [1.00 0.33 0.33]       /Cg     [0.33 1.00 0.33]
+   /Cb   [0.33 0.33 1.00]       /Cc     [1.00 0.00 0.00 0.00]
+   /Cm   [0.00 1.00 0.00 0.00]  /Cy     [0.00 0.00 1.00 0.00]
+   /Co   [1.00 0.78 0.00]       /Cp     [1.00 0.67 0.67]
+   /Cw   [1   ]                 /Cgrl   [0.75]
+   /Cgr  [0.50]                 /Cgrd   [0.25]
+   /Ck   [0   ]
+   /CGr  [1.00 0.33 0.33]       /CGg    [0.33 1.00 0.33]
+   /CGb  [0.33 0.33 1.00]       /CGc    [1.00 0.00 0.00 0.00]
+   /CGm  [0.00 1.00 0.00 0.00]  /CGy    [0.00 0.00 1.00 0.00]
+   /CGo  [1.00 0.78 0.00]       /CGp    [1.00 0.67 0.67]
+   /CGw  [1   ]                 /CGgrl  [0.75]
+   /CGgr [0.50]                 /CGgrd  [0.25]
+   /CGk  [0   ]
+   /CIr  [1.00 0.33 0.33]       /CIg    [0.33 1.00 0.33]
+   /CIb  [0.33 0.33 1.00]       /CIc    [1.00 0.00 0.00 0.00]
+   /CIm  [0.00 1.00 0.00 0.00]  /CIy    [0.00 0.00 1.00 0.00]
+   /CIo  [1.00 0.78 0.00]       /CIp    [1.00 0.67 0.67]
+   /CIw  [1   ]                 /CIgrl  [0.75]
+   /CIgr [0.50]                 /CIgrd  [0.25]
+   /CIk  [0   ]
+>> def
+
+/grayColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [0.75]                 /CGg    [1   ]
+   /CGb  [0.50]                 /CGc    [0.75]
+   /CGm  [0.50]                 /CGy    [1   ]
+   /CGo  [0.75]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [0.25]
+   /CGgr [0.50]                 /CGgrd  [0.75]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+/bwColorMap
+<< /Cr   [0   ]                 /Cg     [0   ]
+   /Cb   [0   ]                 /Cc     [0   ]
+   /Cm   [0   ]                 /Cy     [0   ]
+   /Co   [0   ]                 /Cp     [0   ]
+   /Cw   [0   ]                 /Cgrl   [0   ]
+   /Cgr  [0   ]                 /Cgrd   [0   ]
+   /Ck   [0   ]
+   /CGr  [1   ]                 /CGg    [1   ]
+   /CGb  [1   ]                 /CGc    [1   ]
+   /CGm  [1   ]                 /CGy    [1   ]
+   /CGo  [1   ]                 /CGp    [1   ]
+   /CGw  [0   ]                 /CGgrl  [1   ]
+   /CGgr [1   ]                 /CGgrd  [1   ]
+   /CGk  [1   ]
+   /CIr  [1   ]                 /CIg    [1   ]
+   /CIb  [1   ]                 /CIc    [1   ]
+   /CIm  [1   ]                 /CIy    [1   ]
+   /CIo  [1   ]                 /CIp    [1   ]
+   /CIw  [1   ]                 /CIgrl  [1   ]
+   /CIgr [1   ]                 /CIgrd  [1   ]
+   /CIk  [1   ]
+>> def
+
+%
+% The following routines handle the alignment of and printing of
+% tagged strings.
+%
+
+% Predefine the bounding box values.
+/bbllx 0 def /bblly 0 def /bburx 0 def /bbury 0 def
+
+% This routine pops the first unicode character off of a string and returns
+% the remainder of the string, the character code of first character,
+% and a "true" if the string was non-zero length.
+% <string>      popfirst <remaining string> <true>
+% <null string> popfirst <false>
+/popfirst {
+  dup length 1 gt
+    {dup 0 get /vg&fbyte exch def
+     dup 1 get /vg&cbyte exch def
+     dup length 2 sub 2 exch getinterval true}
+    {pop false} ifelse
+} def
+
+% This routine shows a single unicode character given the font and
+% character codes.
+% <font code> <char code> unicharshow --
+/unicharshow {
+  2 string
+  dup 0 5 -1 roll put
+  dup 1 4 -1 roll put
+  internalshow
+} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and showing the string for recshow.
+% <string> internalshow --
+/internalshow {show} def
+
+% This is an internal routine to alternate between determining the
+% bounding box for stringsize and stroking various ornaments.
+% <string> internalstroke --
+/internalstroke {S} def
+
+% Sets up internalshow to use the null device to determine string size.
+% -- nullinternalshow --
+/nullinternalshow {/internalshow {false charpath flattenpath
+                                  pathbbox updatebbox} def} def
+
+% Sets up internalstroke to use the null device to determine string size.
+% -- nullinternalstroke --
+/nullinternalstroke {
+ /internalstroke {flattenpath pathbbox updatebbox} def} def
+
+% This routine tests to see if the character code matches the first
+% character of a string.
+% <char code> <string> testchar <char code> <true or false>
+/testchar {exch dup 3 -1 roll 0 get eq} def
+
+% Raise the text baseline for superscripts.
+% -- raise --
+/raise {
+  0 fontsize 2 div rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-raise the text baseline for superscripts.
+% -- unraise --
+/unraise {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 2 div neg rmoveto
+} def
+
+% Lower the text baseline for subscripts.
+% -- lower --
+/lower {
+  0 fontsize 3 div neg rmoveto
+  /fontsize fontsize 2 mul 3 div def
+  currentfont /FontName get fontsize sf
+} def
+
+% Un-lower the text baseline for subscripts.
+% -- unlower --
+/unlower {
+  /fontsize fontsize 1.5 mul def
+  0 fontsize 3 div rmoveto
+} def
+
+% Compare the top two elements on the stack and leave only the
+% larger one.
+/maxval {2 copy gt {pop} {exch pop} ifelse} def
+
+% Tokenize a string.  Do not use the usual PostScript token because
+% parentheses will not be interpreted correctly because of rescanning
+% of the string.
+/vg&token {/vg&string exch def /vg&index -1 def /vg&level 0 def
+0 2 vg&string length 2 sub {
+  dup dup 1 add exch vg&string exch get 8 bitshift vg&string 3 -1 roll get or
+  dup 16#f0fe eq {pop 1}{16#f0ff eq {-1}{0} ifelse} ifelse
+  /vg&level exch vg&level add def
+  vg&level 0 eq {/vg&index exch def exit} if pop
+} for
+vg&index 0 ge {
+  vg&string vg&index 2 add dup vg&string length exch sub getinterval
+  vg&index 2 gt {vg&string 2 vg&index 2 sub getinterval}{()} ifelse
+  true}
+{false} ifelse
+} bind def
+
+% Recursively show an unicode string.
+% <string> recshow --
+/recshow {
+  popfirst
+  {
+    % Test to see if this is a string attribute.
+    vg&fbyte 16#f0 and 16#e0 eq
+    {
+      q
+
+      % Font style.
+      currentfont dup /FontStyleBits known {/FontStyleBits get}{pop 0} ifelse
+      vg&cbyte or vg&fontstyles exch get fontsize exch exec
+
+      vg&token pop recshow currentpoint Q m recshow
+    }
+    {
+      vg&fbyte 16#F8 and 16#F0 eq {
+
+        % Superscript and/or subscript.
+        vg&cbyte 16#00 eq {
+          vg&token pop exch vg&token pop 3 -1 roll
+          q raise recshow unraise currentpoint pop Q exch
+          q lower recshow unlower currentpoint pop Q
+          maxval currentpoint exch pop m recshow } if
+
+        % Strikeout.
+        vg&cbyte 16#01 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll fontsize 3 div add moveto
+          fontsize 3 div add lineto internalstroke Q
+          recshow} if
+
+        % Underline.
+        vg&cbyte 16#02 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dashed underline.
+        vg&cbyte 16#03 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J [ vg&uthick 5 mul vg&uthick 2 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Dotted underline.
+        vg&cbyte 16#04 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 1 J [ 0 vg&uthick 3 mul] 0 d
+          vg&underline vg&uthick w
+          currentpoint 4 -2 roll vg&uoffset add moveto
+          vg&uoffset add lineto internalstroke Q
+          recshow} if
+
+        % Thick underline.
+        vg&cbyte 16#05 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Gray thick underline.
+        vg&cbyte 16#06 eq {
+          vg&token pop currentpoint 3 -1 roll recshow
+          q 0 J vg&underline vg&uthick 2 mul w 0.5 setgray
+          currentpoint 4 -2 roll vg&uoffset vg&uthick 2 div sub add moveto
+          vg&uoffset vg&uthick 2 div sub add lineto internalstroke Q
+          recshow} if
+
+        % Overbar.
+        vg&cbyte 16#07 eq {
+          vg&token pop dup stringsize relative 4 1 roll pop pop exch
+          3 -1 roll recshow
+          q 0 J vg&underline vg&uthick w
+          vg&uoffset neg add dup currentpoint pop exch m l internalstroke Q
+          recshow} if
+      }
+      {
+        vg&fbyte vg&cbyte unicharshow recshow
+      } ifelse
+    } ifelse
+  } if
+} def
+
+% Get the underline position and thickness from the current font.
+/vg&underline {
+
+currentfont dup /FontType get 0 eq {/FDepVector get 0 get} if
+dup dup /FontInfo known {
+  /FontInfo get dup
+  dup /UnderlinePosition known {
+    /UnderlinePosition get /vg&uoffset exch def
+  }
+  {
+    pop /vg&uoffset 0 def
+  } ifelse
+  dup /UnderlineThickness known {
+    /UnderlineThickness get /vg&uthick exch def
+  }
+  {
+    pop /vg&uthick 0 def
+  } ifelse
+}
+{
+  pop /vg&uoffset 0 def /vg&uthick 0 def
+} ifelse
+/FontMatrix get
+currentfont dup /FontType get 0 eq
+{/FontMatrix get matrix concatmatrix}{pop} ifelse
+dup 0 vg&uoffset 3 -1 roll transform /vg&uoffset exch def pop
+0 vg&uthick 3 -1 roll transform /vg&uthick exch def pop
+} def
+
+% Make a frame with the coordinates on the stack.
+% <llx> <lly> <urx> <ury> frame --
+/frame {4 copy m 3 1 roll exch l 4 -2 roll l l h} def
+
+% Resets the accumulated bounding box to a degenerate box at the
+% current point.
+% -- resetbbox --
+/resetbbox {
+  currentpoint 2 copy
+  /bbury exch def
+  /bburx exch def
+  /bblly exch def
+  /bbllx exch def
+} def
+
+% Update the accumulated bounding box.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/updatebbox {
+  dup bbury gt {/bbury exch def} {pop} ifelse
+  dup bburx gt {/bburx exch def} {pop} ifelse
+  dup bblly lt {/bblly exch def} {pop} ifelse
+  dup bbllx lt {/bbllx exch def} {pop} ifelse
+} def
+
+% Set the bounding box to the values on the stack.
+% <llx'> <lly'> <urx'> <ury'> updatebbox --
+/restorebbox {
+  /bbury exch def /bburx exch def /bblly exch def /bbllx exch def
+} def
+
+% Push the accumulated bounding box onto the stack.
+% -- pushbbox <llx> <lly> <urx> <ury>
+/pushbbox {bbllx bblly bburx bbury} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> inflate <llx> <lly> <urx> <ury>
+/inflate {
+  2 {fontsize 0.2 mul add 4 1 roll} repeat
+  2 {fontsize 0.2 mul sub 4 1 roll} repeat
+} def
+
+% Make the relative bounding box relative to the currentpoint.
+% <llx'> <lly'> <urx'> <ury'> relative <llx> <lly> <urx> <ury>
+/relative {
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+  currentpoint 3 -1 roll add 3 1 roll add exch 4 2 roll
+} def
+
+% Returns the size of a string appropriate for recshow.
+% <string> stringsize <llx> <lly> <urx> <ury>
+/stringsize {
+  pushbbox /internalshow load /internalstroke load 7 -1 roll
+  q
+  nulldevice 0 0 m
+  nullinternalshow nullinternalstroke
+  resetbbox
+  recshow
+  /internalstroke exch def /internalshow exch def
+  pushbbox 8 -4 roll restorebbox
+  Q
+} def
+
+% Calculate values for string positioning.
+/calcval {4 copy
+  3 -1 roll sub /widy exch def sub neg /widx exch def
+  pop pop /dy exch def /dx exch def} def
+
+% Utilities to position a string.
+% First letter (U=upper, C=center, B=baseline, L=lower)
+% Second letter (L=left, C=center, R=right)
+/align [
+{calcval dx neg widy dy add neg rmoveto} % UL
+{calcval dx neg widy 2 div dy add neg rmoveto} % CL
+{calcval dx neg 0 rmoveto} % BL
+{calcval dx neg dy neg rmoveto} % LL
+{calcval widx dx add neg widy dy add neg rmoveto} % UR
+{calcval widx dx add neg widy 2 div dy add neg rmoveto} % CR
+{calcval widx dx add neg 0 rmoveto} % BR
+{calcval widx dx add neg dy neg rmoveto} % LR
+{calcval widx 2 div dx add neg widy dy add neg rmoveto} % UC
+{calcval widx 2 div dx add neg widy 2 div dy add neg rmoveto} % CC
+{calcval widx 2 div dx add neg 0 rmoveto} % BC
+{calcval widx 2 div dx add neg dy neg rmoveto} % LC
+] def
+
+/vg&str {m q 1 -1 scale dup stringsize 4 copy align 11 -1 roll get exec
+         q inflate relative frame exch exec Q recshow Q} def
+
+end /procDict exch def
+%%EndProlog
+
+%%BeginSetup
+save
+procDict begin
+printColorMap begin
+595 791 setpagesize
+20 20 20 20 setmargins
+0 0 setorigin
+398 298 setsize
+fittopage
+portrait
+imagescale
+cliptobounds
+setbasematrix
+/Helvetica 10 sf
+defaultGraphicsState
+%%EndSetup
+
+0.0 0.0 0.0 RG
+[ 1.0 0.0 0.0 1.0 0.0 0.0 ] defaultmatrix matrix concatmatrix setmatrix
+1.0 w
+2 J
+0 j
+10.0 M
+[ ] 0.0 d
+1.0 1.0 1.0 RG
+0.0 0.0 398.0 298.0 rf
+0.0 0.0 0.0 RG
+1.0 1.0 1.0 RG
+0.0 0.0 398.0 298.0 rf
+0.392157 0.470588 0.215686 RG
+2 214 133 FPL
+220 148
+214 133
+0.388235 0.482353 0.223529 RG
+2 220 148 FPL
+218 149
+214 133
+0.380392 0.498039 0.227451 RG
+2 220 148 FPL
+225 163
+218 149
+0.388235 0.482353 0.223529 RG
+2 214 133 FPL
+218 149
+212 136
+0.45098 0.462745 0.215686 RG
+2 185 130 FPL
+200 131
+198 133
+0.435294 0.458824 0.211765 RG
+2 200 131 FPL
+214 133
+198 133
+0.415686 0.458824 0.211765 RG
+2 200 131 FPL
+214 133
+214 133
+0.435294 0.458824 0.211765 RG
+2 198 133 FPL
+214 133
+212 136
+0.490196 0.454902 0.207843 RG
+2 184 126 FPL
+194 128
+184 126
+0.478431 0.454902 0.207843 RG
+2 194 128 FPL
+192 129
+184 126
+0.466667 0.458824 0.211765 RG
+2 194 128 FPL
+204 131
+192 129
+0.454902 0.458824 0.211765 RG
+2 204 131 FPL
+200 131
+192 129
+0.443137 0.458824 0.211765 RG
+2 204 131 FPL
+214 133
+200 131
+0.478431 0.454902 0.207843 RG
+2 184 126 FPL
+192 129
+185 130
+0.454902 0.458824 0.211765 RG
+2 192 129 FPL
+200 131
+185 130
+0.337255 0.376471 0.184314 RG
+2 214 133 FPL
+225 124
+214 133
+0.329412 0.364706 0.192157 RG
+2 225 124 FPL
+226 124
+214 133
+0.321569 0.352941 0.196078 RG
+2 225 124 FPL
+235 115
+226 124
+0.329412 0.364706 0.192157 RG
+2 214 133 FPL
+226 124
+217 134
+0.317647 0.419608 0.196078 RG
+2 226 160 FPL
+220 146
+222 147
+0.329412 0.407843 0.192157 RG
+2 220 146 FPL
+214 133
+222 147
+0.337255 0.4 0.184314 RG
+2 220 146 FPL
+214 133
+214 133
+0.329412 0.407843 0.192157 RG
+2 222 147 FPL
+214 133
+217 134
+0.309804 0.443137 0.203922 RG
+2 225 163 FPL
+220 148
+225 163
+0.317647 0.431373 0.2 RG
+2 220 148 FPL
+220 146
+225 163
+0.321569 0.419608 0.192157 RG
+2 220 148 FPL
+214 133
+220 146
+0.317647 0.431373 0.2 RG
+2 225 163 FPL
+220 146
+226 160
+0.501961 0.54902 0.25098 RG
+2 214 133 FPL
+204 131
+214 133
+0.517647 0.54902 0.25098 RG
+2 204 131 FPL
+204 130
+214 133
+0.533333 0.54902 0.254902 RG
+2 204 131 FPL
+194 128
+204 130
+0.54902 0.545098 0.254902 RG
+2 194 128 FPL
+193 127
+204 130
+0.564706 0.545098 0.254902 RG
+2 194 128 FPL
+184 126
+193 127
+0.501961 0.54902 0.25098 RG
+2 214 133 FPL
+204 130
+214 133
+0.521569 0.545098 0.254902 RG
+2 204 130 FPL
+203 129
+214 133
+0.537255 0.545098 0.254902 RG
+2 204 130 FPL
+193 127
+203 129
+0.521569 0.545098 0.254902 RG
+2 214 133 FPL
+203 129
+213 130
+0.462745 0.486275 0.278431 RG
+2 231 114 FPL
+226 121
+222 122
+0.466667 0.498039 0.270588 RG
+2 226 121 FPL
+218 127
+222 122
+0.47451 0.513725 0.266667 RG
+2 226 121 FPL
+220 127
+218 127
+0.478431 0.52549 0.262745 RG
+2 220 127 FPL
+214 133
+218 127
+0.482353 0.537255 0.254902 RG
+2 220 127 FPL
+214 133
+214 133
+0.466667 0.498039 0.270588 RG
+2 222 122 FPL
+218 127
+213 130
+0.478431 0.52549 0.262745 RG
+2 218 127 FPL
+214 133
+213 130
+0.431373 0.458824 0.290196 RG
+2 235 115 FPL
+228 121
+235 115
+0.439216 0.47451 0.282353 RG
+2 228 121 FPL
+228 121
+235 115
+0.45098 0.486275 0.278431 RG
+2 228 121 FPL
+221 127
+228 121
+0.458824 0.498039 0.27451 RG
+2 221 127 FPL
+220 127
+228 121
+0.466667 0.513725 0.266667 RG
+2 221 127 FPL
+214 133
+220 127
+0.435294 0.458824 0.290196 RG
+2 235 115 FPL
+228 121
+235 115
+0.447059 0.47451 0.286275 RG
+2 228 121 FPL
+226 121
+235 115
+0.454902 0.486275 0.278431 RG
+2 228 121 FPL
+220 127
+226 121
+0.447059 0.47451 0.286275 RG
+2 235 115 FPL
+226 121
+231 114
+0.270588 0.439216 0.227451 RG
+2 250 161 FPL
+237 162
+238 160
+0.282353 0.443137 0.219608 RG
+2 237 162 FPL
+225 163
+238 160
+0.290196 0.45098 0.215686 RG
+2 237 162 FPL
+225 163
+225 163
+0.282353 0.443137 0.219608 RG
+2 238 160 FPL
+225 163
+226 160
+0.243137 0.435294 0.243137 RG
+2 252 164 FPL
+238 163
+252 164
+0.258824 0.439216 0.235294 RG
+2 238 163 FPL
+237 162
+252 164
+0.270588 0.439216 0.227451 RG
+2 238 163 FPL
+225 163
+237 162
+0.258824 0.439216 0.235294 RG
+2 252 164 FPL
+237 162
+250 161
+0.360784 0.54902 0.247059 RG
+2 225 163 FPL
+214 174
+225 163
+0.372549 0.560784 0.254902 RG
+2 214 174 FPL
+212 174
+225 163
+0.380392 0.576471 0.258824 RG
+2 214 174 FPL
+204 186
+212 174
+0.372549 0.560784 0.254902 RG
+2 225 163 FPL
+212 174
+221 162
+0.384314 0.498039 0.227451 RG
+2 212 136 FPL
+218 149
+216 149
+0.376471 0.509804 0.235294 RG
+2 218 149 FPL
+225 163
+216 149
+0.364706 0.521569 0.239216 RG
+2 218 149 FPL
+225 163
+225 163
+0.376471 0.509804 0.235294 RG
+2 216 149 FPL
+225 163
+221 162
+0.290196 0.45098 0.215686 RG
+2 225 163 FPL
+238 163
+225 163
+0.278431 0.45098 0.223529 RG
+2 238 163 FPL
+239 165
+225 163
+0.266667 0.447059 0.231373 RG
+2 238 163 FPL
+252 164
+239 165
+0.278431 0.45098 0.223529 RG
+2 225 163 FPL
+239 165
+225 166
+0.321569 0.490196 0.227451 RG
+2 207 186 FPL
+216 175
+216 176
+0.313725 0.478431 0.219608 RG
+2 216 175 FPL
+225 163
+216 176
+0.309804 0.466667 0.215686 RG
+2 216 175 FPL
+225 163
+225 163
+0.313725 0.478431 0.219608 RG
+2 216 176 FPL
+225 163
+225 166
+0.337255 0.513725 0.227451 RG
+2 204 186 FPL
+214 174
+204 186
+0.329412 0.501961 0.227451 RG
+2 214 174 FPL
+216 175
+204 186
+0.321569 0.490196 0.223529 RG
+2 214 174 FPL
+225 163
+216 175
+0.329412 0.501961 0.227451 RG
+2 204 186 FPL
+216 175
+207 186
+0.384314 0.572549 0.254902 RG
+2 221 162 FPL
+212 174
+212 172
+0.392157 0.588235 0.262745 RG
+2 212 174 FPL
+204 186
+212 172
+0.396078 0.6 0.266667 RG
+2 212 174 FPL
+204 186
+204 186
+0.392157 0.588235 0.262745 RG
+2 212 172 FPL
+204 186
+203 183
+0.321569 0.352941 0.196078 RG
+2 217 134 FPL
+226 124
+226 126
+0.313725 0.341176 0.2 RG
+2 226 124 FPL
+235 115
+226 126
+0.309804 0.329412 0.203922 RG
+2 226 124 FPL
+235 115
+235 115
+0.313725 0.341176 0.2 RG
+2 226 126 FPL
+235 115
+235 119
+0.72549 0.662745 0.305882 RG
+2 184 126 FPL
+177 134
+184 126
+0.737255 0.67451 0.309804 RG
+2 177 134 FPL
+176 134
+184 126
+0.745098 0.690196 0.317647 RG
+2 177 134 FPL
+170 142
+176 134
+0.752941 0.705882 0.32549 RG
+2 170 142 FPL
+169 142
+176 134
+0.764706 0.717647 0.329412 RG
+2 170 142 FPL
+163 150
+169 142
+0.729412 0.662745 0.305882 RG
+2 184 126 FPL
+176 134
+184 126
+0.741176 0.67451 0.313725 RG
+2 176 134 FPL
+175 134
+184 126
+0.74902 0.690196 0.317647 RG
+2 176 134 FPL
+169 142
+175 134
+0.741176 0.67451 0.313725 RG
+2 184 126 FPL
+175 134
+181 126
+0.764706 0.588235 0.329412 RG
+2 172 106 FPL
+176 113
+176 116
+0.752941 0.6 0.321569 RG
+2 176 113 FPL
+180 121
+176 116
+0.745098 0.611765 0.317647 RG
+2 176 113 FPL
+180 120
+180 121
+0.737255 0.623529 0.309804 RG
+2 180 120 FPL
+184 126
+180 121
+0.72549 0.635294 0.305882 RG
+2 180 120 FPL
+184 126
+184 126
+0.752941 0.6 0.321569 RG
+2 176 116 FPL
+180 121
+181 126
+0.737255 0.623529 0.309804 RG
+2 180 121 FPL
+184 126
+181 126
+0.780392 0.545098 0.341176 RG
+2 173 103 FPL
+177 111
+173 103
+0.772549 0.560784 0.333333 RG
+2 177 111 FPL
+177 111
+173 103
+0.764706 0.576471 0.329412 RG
+2 177 111 FPL
+180 119
+177 111
+0.752941 0.592157 0.321569 RG
+2 180 119 FPL
+180 120
+177 111
+0.745098 0.607843 0.317647 RG
+2 180 119 FPL
+184 126
+180 120
+0.780392 0.545098 0.341176 RG
+2 173 103 FPL
+177 111
+173 103
+0.772549 0.564706 0.333333 RG
+2 177 111 FPL
+176 113
+173 103
+0.764706 0.580392 0.329412 RG
+2 177 111 FPL
+180 120
+176 113
+0.772549 0.564706 0.333333 RG
+2 173 103 FPL
+176 113
+172 106
+0.521569 0.498039 0.227451 RG
+2 167 151 FPL
+175 139
+176 141
+0.513725 0.482353 0.223529 RG
+2 175 139 FPL
+184 126
+176 141
+0.509804 0.470588 0.215686 RG
+2 175 139 FPL
+184 126
+184 126
+0.513725 0.482353 0.223529 RG
+2 176 141 FPL
+184 126
+185 130
+0.545098 0.521569 0.239216 RG
+2 163 150 FPL
+173 138
+163 150
+0.533333 0.509804 0.231373 RG
+2 173 138 FPL
+175 139
+163 150
+0.52549 0.494118 0.227451 RG
+2 173 138 FPL
+184 126
+175 139
+0.533333 0.509804 0.231373 RG
+2 163 150 FPL
+175 139
+167 151
+0.615686 0.537255 0.254902 RG
+2 184 126 FPL
+180 119
+184 126
+0.619608 0.52549 0.262745 RG
+2 180 119 FPL
+182 120
+184 126
+0.627451 0.513725 0.266667 RG
+2 180 119 FPL
+177 111
+182 120
+0.631373 0.498039 0.270588 RG
+2 177 111 FPL
+180 114
+182 120
+0.639216 0.486275 0.278431 RG
+2 177 111 FPL
+173 103
+180 114
+0.619608 0.52549 0.262745 RG
+2 184 126 FPL
+182 120
+186 124
+0.631373 0.498039 0.270588 RG
+2 182 120 FPL
+180 114
+186 124
+0.537255 0.537255 0.258824 RG
+2 213 130 FPL
+203 129
+204 128
+0.54902 0.537255 0.254902 RG
+2 203 129 FPL
+194 127
+204 128
+0.564706 0.541176 0.254902 RG
+2 203 129 FPL
+193 127
+194 127
+0.580392 0.545098 0.254902 RG
+2 193 127 FPL
+184 126
+194 127
+0.592157 0.545098 0.25098 RG
+2 193 127 FPL
+184 126
+184 126
+0.560784 0.537255 0.258824 RG
+2 204 128 FPL
+194 127
+195 126
+0.576471 0.541176 0.254902 RG
+2 194 127 FPL
+184 126
+195 126
+0.592157 0.545098 0.254902 RG
+2 194 127 FPL
+184 126
+184 126
+0.576471 0.541176 0.254902 RG
+2 195 126 FPL
+184 126
+186 124
+0.454902 0.607843 0.266667 RG
+2 203 183 FPL
+188 181
+189 180
+0.470588 0.611765 0.270588 RG
+2 188 181 FPL
+173 180
+189 180
+0.486275 0.611765 0.270588 RG
+2 188 181 FPL
+173 180
+173 180
+0.470588 0.611765 0.270588 RG
+2 189 180 FPL
+173 180
+175 177
+0.411765 0.615686 0.270588 RG
+2 204 186 FPL
+194 184
+204 186
+0.423529 0.615686 0.270588 RG
+2 194 184 FPL
+196 184
+204 186
+0.435294 0.615686 0.270588 RG
+2 194 184 FPL
+183 182
+196 184
+0.447059 0.611765 0.270588 RG
+2 183 182 FPL
+188 181
+196 184
+0.458824 0.611765 0.270588 RG
+2 183 182 FPL
+173 180
+188 181
+0.423529 0.615686 0.270588 RG
+2 204 186 FPL
+196 184
+203 183
+0.447059 0.611765 0.270588 RG
+2 196 184 FPL
+188 181
+203 183
+0.329412 0.545098 0.266667 RG
+2 213 208 FPL
+208 197
+210 197
+0.333333 0.537255 0.254902 RG
+2 208 197 FPL
+204 186
+210 197
+0.341176 0.533333 0.243137 RG
+2 208 197 FPL
+204 186
+204 186
+0.333333 0.537255 0.254902 RG
+2 210 197 FPL
+204 186
+207 186
+0.321569 0.560784 0.290196 RG
+2 210 211 FPL
+207 199
+210 211
+0.32549 0.552941 0.278431 RG
+2 207 199 FPL
+208 197
+210 211
+0.329412 0.545098 0.266667 RG
+2 207 199 FPL
+204 186
+208 197
+0.32549 0.552941 0.278431 RG
+2 210 211 FPL
+208 197
+213 208
+0.341176 0.533333 0.243137 RG
+2 204 186 FPL
+207 199
+204 186
+0.337255 0.541176 0.258824 RG
+2 207 199 FPL
+206 200
+204 186
+0.333333 0.54902 0.270588 RG
+2 207 199 FPL
+210 211
+206 200
+0.337255 0.541176 0.258824 RG
+2 204 186 FPL
+206 200
+202 188
+0.388235 0.529412 0.239216 RG
+2 175 183 FPL
+189 184
+188 185
+0.372549 0.529412 0.235294 RG
+2 189 184 FPL
+204 186
+188 185
+0.360784 0.52549 0.235294 RG
+2 189 184 FPL
+204 186
+204 186
+0.372549 0.529412 0.235294 RG
+2 188 185 FPL
+204 186
+202 188
+0.415686 0.52549 0.231373 RG
+2 173 180 FPL
+188 183
+173 180
+0.403922 0.52549 0.235294 RG
+2 188 183 FPL
+189 184
+173 180
+0.388235 0.52549 0.235294 RG
+2 188 183 FPL
+204 186
+189 184
+0.403922 0.52549 0.235294 RG
+2 173 180 FPL
+189 184
+175 183
+0.266667 0.45098 0.235294 RG
+2 225 166 FPL
+239 165
+237 166
+0.254902 0.443137 0.239216 RG
+2 239 165 FPL
+252 164
+237 166
+0.243137 0.439216 0.247059 RG
+2 239 165 FPL
+252 164
+252 164
+0.254902 0.443137 0.239216 RG
+2 237 166 FPL
+252 164
+249 167
+0.752941 0.686275 0.321569 RG
+2 181 126 FPL
+175 134
+175 133
+0.760784 0.701961 0.32549 RG
+2 175 134 FPL
+169 142
+175 133
+0.768627 0.717647 0.333333 RG
+2 175 134 FPL
+169 142
+169 142
+0.772549 0.729412 0.337255 RG
+2 169 142 FPL
+163 150
+169 142
+0.780392 0.745098 0.341176 RG
+2 169 142 FPL
+163 150
+163 150
+0.768627 0.709804 0.329412 RG
+2 175 133 FPL
+169 142
+169 140
+0.776471 0.729412 0.337255 RG
+2 169 142 FPL
+163 150
+169 140
+0.780392 0.745098 0.341176 RG
+2 169 142 FPL
+163 150
+163 150
+0.776471 0.729412 0.337255 RG
+2 169 140 FPL
+163 150
+163 147
+0.521569 0.568627 0.254902 RG
+2 175 177 FPL
+169 164
+171 164
+0.533333 0.556863 0.25098 RG
+2 169 164 FPL
+163 150
+171 164
+0.541176 0.545098 0.247059 RG
+2 169 164 FPL
+163 150
+163 150
+0.533333 0.556863 0.25098 RG
+2 171 164 FPL
+163 150
+167 151
+0.337255 0.54902 0.270588 RG
+2 202 188 FPL
+206 200
+204 199
+0.329412 0.556863 0.282353 RG
+2 206 200 FPL
+210 211
+204 199
+0.32549 0.560784 0.290196 RG
+2 206 200 FPL
+210 211
+210 211
+0.329412 0.556863 0.282353 RG
+2 204 199 FPL
+210 211
+207 210
+0.509804 0.6 0.266667 RG
+2 173 180 FPL
+168 165
+173 180
+0.517647 0.588235 0.262745 RG
+2 168 165 FPL
+169 164
+173 180
+0.52549 0.572549 0.254902 RG
+2 168 165 FPL
+163 150
+169 164
+0.517647 0.588235 0.262745 RG
+2 173 180 FPL
+169 164
+175 177
+0.627451 0.490196 0.278431 RG
+2 186 124 FPL
+180 114
+182 114
+0.643137 0.478431 0.282353 RG
+2 180 114 FPL
+173 103
+182 114
+0.654902 0.462745 0.290196 RG
+2 180 114 FPL
+173 103
+173 103
+0.643137 0.478431 0.282353 RG
+2 182 114 FPL
+173 103
+177 104
+0.780392 0.776471 0.352941 RG
+2 163 150 FPL
+166 160
+163 150
+0.772549 0.788235 0.356863 RG
+2 166 160 FPL
+166 161
+163 150
+0.764706 0.803922 0.364706 RG
+2 166 160 FPL
+170 170
+166 161
+0.752941 0.819608 0.368627 RG
+2 170 170 FPL
+169 171
+166 161
+0.745098 0.831373 0.376471 RG
+2 170 170 FPL
+173 180
+169 171
+0.780392 0.776471 0.352941 RG
+2 163 150 FPL
+166 161
+163 150
+0.772549 0.792157 0.360784 RG
+2 166 161 FPL
+165 162
+163 150
+0.764706 0.807843 0.364706 RG
+2 166 161 FPL
+169 171
+165 162
+0.772549 0.792157 0.360784 RG
+2 163 150 FPL
+165 162
+161 153
+0.803922 0.756863 0.352941 RG
+2 163 150 FPL
+155 147
+163 150
+0.815686 0.74902 0.364706 RG
+2 155 147 FPL
+155 147
+163 150
+0.831373 0.745098 0.372549 RG
+2 155 147 FPL
+147 144
+155 147
+0.847059 0.737255 0.380392 RG
+2 147 144 FPL
+147 143
+155 147
+0.858824 0.733333 0.392157 RG
+2 147 144 FPL
+140 141
+147 143
+0.803922 0.752941 0.352941 RG
+2 163 150 FPL
+155 147
+163 150
+0.819608 0.74902 0.364706 RG
+2 155 147 FPL
+155 145
+163 150
+0.831373 0.741176 0.372549 RG
+2 155 147 FPL
+147 143
+155 145
+0.819608 0.74902 0.364706 RG
+2 163 150 FPL
+155 145
+163 147
+0.858824 0.745098 0.396078 RG
+2 141 145 FPL
+148 147
+148 148
+0.843137 0.74902 0.384314 RG
+2 148 147 FPL
+155 149
+148 148
+0.831373 0.752941 0.376471 RG
+2 148 147 FPL
+156 148
+155 149
+0.815686 0.752941 0.364706 RG
+2 156 148 FPL
+163 150
+155 149
+0.803922 0.756863 0.356863 RG
+2 156 148 FPL
+163 150
+163 150
+0.831373 0.752941 0.376471 RG
+2 148 148 FPL
+155 149
+154 150
+0.815686 0.756863 0.368627 RG
+2 155 149 FPL
+163 150
+154 150
+0.803922 0.756863 0.356863 RG
+2 155 149 FPL
+163 150
+163 150
+0.815686 0.756863 0.368627 RG
+2 154 150 FPL
+163 150
+161 153
+0.886275 0.72549 0.407843 RG
+2 140 141 FPL
+147 144
+140 141
+0.87451 0.729412 0.4 RG
+2 147 144 FPL
+148 145
+140 141
+0.858824 0.737255 0.392157 RG
+2 147 144 FPL
+155 147
+148 145
+0.843137 0.741176 0.380392 RG
+2 155 147 FPL
+156 148
+148 145
+0.831373 0.74902 0.372549 RG
+2 155 147 FPL
+163 150
+156 148
+0.886275 0.72549 0.407843 RG
+2 140 141 FPL
+148 145
+140 141
+0.87451 0.733333 0.4 RG
+2 148 145 FPL
+148 147
+140 141
+0.858824 0.737255 0.392157 RG
+2 148 145 FPL
+156 148
+148 147
+0.87451 0.733333 0.4 RG
+2 140 141 FPL
+148 147
+141 145
+0.768627 0.807843 0.372549 RG
+2 161 153 FPL
+165 162
+164 162
+0.756863 0.823529 0.376471 RG
+2 165 162 FPL
+168 171
+164 162
+0.74902 0.835294 0.380392 RG
+2 165 162 FPL
+169 171
+168 171
+0.737255 0.847059 0.380392 RG
+2 169 171 FPL
+173 180
+168 171
+0.729412 0.862745 0.384314 RG
+2 169 171 FPL
+173 180
+173 180
+0.74902 0.835294 0.380392 RG
+2 164 162 FPL
+168 171
+167 170
+0.741176 0.847059 0.384314 RG
+2 168 171 FPL
+173 180
+167 170
+0.729412 0.862745 0.384314 RG
+2 168 171 FPL
+173 180
+173 180
+0.741176 0.847059 0.384314 RG
+2 167 170 FPL
+173 180
+170 179
+0.72549 0.882353 0.403922 RG
+2 173 180 FPL
+169 187
+173 180
+0.729412 0.890196 0.415686 RG
+2 169 187 FPL
+168 187
+173 180
+0.737255 0.901961 0.431373 RG
+2 169 187 FPL
+164 194
+168 187
+0.741176 0.909804 0.447059 RG
+2 164 194 FPL
+163 194
+168 187
+0.74902 0.917647 0.458824 RG
+2 164 194 FPL
+160 201
+163 194
+0.72549 0.882353 0.403922 RG
+2 173 180 FPL
+168 187
+173 180
+0.733333 0.894118 0.419608 RG
+2 168 187 FPL
+167 186
+173 180
+0.737255 0.901961 0.435294 RG
+2 168 187 FPL
+163 194
+167 186
+0.733333 0.894118 0.419608 RG
+2 173 180 FPL
+167 186
+170 179
+0.439216 0.54902 0.266667 RG
+2 163 201 FPL
+168 191
+169 192
+0.435294 0.541176 0.254902 RG
+2 168 191 FPL
+173 180
+169 192
+0.435294 0.533333 0.243137 RG
+2 168 191 FPL
+173 180
+173 180
+0.435294 0.541176 0.254902 RG
+2 169 192 FPL
+173 180
+175 183
+0.45098 0.560784 0.290196 RG
+2 160 201 FPL
+166 191
+160 201
+0.447059 0.556863 0.278431 RG
+2 166 191 FPL
+168 191
+160 201
+0.439216 0.54902 0.266667 RG
+2 166 191 FPL
+173 180
+168 191
+0.447059 0.556863 0.278431 RG
+2 160 201 FPL
+168 191
+163 201
+0.835294 0.733333 0.368627 RG
+2 163 147 FPL
+155 145
+156 145
+0.847059 0.729412 0.380392 RG
+2 155 145 FPL
+148 143
+156 145
+0.862745 0.729412 0.388235 RG
+2 155 145 FPL
+147 143
+148 143
+0.87451 0.72549 0.396078 RG
+2 147 143 FPL
+140 141
+148 143
+0.890196 0.721569 0.407843 RG
+2 147 143 FPL
+140 141
+140 141
+0.858824 0.72549 0.388235 RG
+2 156 145 FPL
+148 143
+149 142
+0.87451 0.721569 0.396078 RG
+2 148 143 FPL
+140 141
+149 142
+0.886275 0.721569 0.407843 RG
+2 148 143 FPL
+140 141
+140 141
+0.87451 0.721569 0.396078 RG
+2 149 142 FPL
+140 141
+142 139
+0.745098 0.898039 0.435294 RG
+2 170 179 FPL
+167 186
+166 185
+0.74902 0.905882 0.45098 RG
+2 167 186 FPL
+163 193
+166 185
+0.752941 0.917647 0.462745 RG
+2 167 186 FPL
+163 194
+163 193
+0.752941 0.92549 0.47451 RG
+2 163 194 FPL
+160 201
+163 193
+0.756863 0.937255 0.490196 RG
+2 163 194 FPL
+160 201
+160 201
+0.752941 0.913725 0.462745 RG
+2 166 185 FPL
+163 193
+163 191
+0.756863 0.92549 0.47451 RG
+2 163 193 FPL
+160 201
+163 191
+0.756863 0.933333 0.490196 RG
+2 163 193 FPL
+160 201
+160 201
+0.756863 0.92549 0.47451 RG
+2 163 191 FPL
+160 201
+159 197
+0.266667 0.337255 0.227451 RG
+2 235 119 FPL
+247 127
+246 127
+0.254902 0.341176 0.235294 RG
+2 247 127 FPL
+258 134
+246 127
+0.243137 0.341176 0.243137 RG
+2 247 127 FPL
+258 134
+258 134
+0.254902 0.341176 0.235294 RG
+2 246 127 FPL
+258 134
+256 135
+0.290196 0.321569 0.215686 RG
+2 235 115 FPL
+247 125
+235 115
+0.278431 0.329412 0.223529 RG
+2 247 125 FPL
+247 127
+235 115
+0.266667 0.333333 0.227451 RG
+2 247 125 FPL
+258 134
+247 127
+0.278431 0.329412 0.223529 RG
+2 235 115 FPL
+247 127
+235 119
+0.239216 0.388235 0.247059 RG
+2 256 135 FPL
+254 150
+253 148
+0.235294 0.403922 0.247059 RG
+2 254 150 FPL
+252 164
+253 148
+0.235294 0.415686 0.25098 RG
+2 254 150 FPL
+252 164
+252 164
+0.235294 0.403922 0.247059 RG
+2 253 148 FPL
+252 164
+250 161
+0.309804 0.305882 0.211765 RG
+2 235 115 FPL
+230 103
+235 115
+0.317647 0.294118 0.219608 RG
+2 230 103 FPL
+231 103
+235 115
+0.321569 0.282353 0.223529 RG
+2 230 103 FPL
+225 92
+231 103
+0.317647 0.294118 0.219608 RG
+2 235 115 FPL
+231 103
+237 115
+0.270588 0.32549 0.231373 RG
+2 257 132 FPL
+246 123
+247 123
+0.282353 0.32549 0.223529 RG
+2 246 123 FPL
+235 115
+247 123
+0.290196 0.321569 0.215686 RG
+2 246 123 FPL
+235 115
+235 115
+0.282353 0.32549 0.223529 RG
+2 247 123 FPL
+235 115
+237 115
+0.243137 0.341176 0.243137 RG
+2 258 134 FPL
+247 125
+258 134
+0.258824 0.337255 0.239216 RG
+2 247 125 FPL
+246 123
+258 134
+0.270588 0.329412 0.231373 RG
+2 247 125 FPL
+235 115
+246 123
+0.258824 0.337255 0.239216 RG
+2 258 134 FPL
+246 123
+257 132
+0.466667 0.403922 0.309804 RG
+2 223 94 FPL
+229 105
+227 104
+0.45098 0.419608 0.305882 RG
+2 229 105 FPL
+235 115
+227 104
+0.439216 0.431373 0.298039 RG
+2 229 105 FPL
+235 115
+235 115
+0.45098 0.419608 0.305882 RG
+2 227 104 FPL
+235 115
+231 114
+0.478431 0.368627 0.321569 RG
+2 225 92 FPL
+230 103
+225 92
+0.466667 0.388235 0.317647 RG
+2 230 103 FPL
+229 105
+225 92
+0.458824 0.403922 0.309804 RG
+2 230 103 FPL
+235 115
+229 105
+0.466667 0.388235 0.317647 RG
+2 225 92 FPL
+229 105
+223 94
+0.231373 0.360784 0.25098 RG
+2 258 134 FPL
+255 149
+258 134
+0.235294 0.376471 0.25098 RG
+2 255 149 FPL
+254 150
+258 134
+0.235294 0.388235 0.247059 RG
+2 255 149 FPL
+252 164
+254 150
+0.235294 0.376471 0.25098 RG
+2 258 134 FPL
+254 150
+256 135
+0.227451 0.439216 0.262745 RG
+2 252 164 FPL
+255 176
+252 164
+0.227451 0.447059 0.27451 RG
+2 255 176 FPL
+254 178
+252 164
+0.223529 0.454902 0.282353 RG
+2 255 176 FPL
+258 189
+254 178
+0.227451 0.447059 0.27451 RG
+2 252 164 FPL
+254 178
+249 167
+0.219608 0.447059 0.286275 RG
+2 259 185 FPL
+255 174
+256 174
+0.223529 0.443137 0.27451 RG
+2 255 174 FPL
+252 164
+256 174
+0.227451 0.435294 0.262745 RG
+2 255 174 FPL
+252 164
+252 164
+0.223529 0.443137 0.27451 RG
+2 256 174 FPL
+252 164
+253 163
+0.211765 0.466667 0.305882 RG
+2 258 189 FPL
+255 176
+258 189
+0.215686 0.458824 0.298039 RG
+2 255 176 FPL
+255 174
+258 189
+0.219608 0.45098 0.286275 RG
+2 255 176 FPL
+252 164
+255 174
+0.215686 0.458824 0.298039 RG
+2 258 189 FPL
+255 174
+259 185
+0.231373 0.415686 0.25098 RG
+2 252 164 FPL
+255 149
+252 164
+0.231373 0.403922 0.25098 RG
+2 255 149 FPL
+256 149
+252 164
+0.231373 0.388235 0.25098 RG
+2 255 149 FPL
+258 134
+256 149
+0.231373 0.403922 0.25098 RG
+2 252 164 FPL
+256 149
+253 163
+0.227451 0.458824 0.282353 RG
+2 249 167 FPL
+254 178
+252 178
+0.219608 0.462745 0.294118 RG
+2 254 178 FPL
+258 189
+252 178
+0.215686 0.470588 0.305882 RG
+2 254 178 FPL
+258 189
+258 189
+0.219608 0.462745 0.294118 RG
+2 252 178 FPL
+258 189
+255 188
+0.317647 0.282353 0.227451 RG
+2 237 115 FPL
+231 103
+232 104
+0.329412 0.27451 0.227451 RG
+2 231 103 FPL
+225 92
+232 104
+0.337255 0.262745 0.231373 RG
+2 231 103 FPL
+225 92
+225 92
+0.329412 0.27451 0.227451 RG
+2 232 104 FPL
+225 92
+228 94
+0.227451 0.388235 0.254902 RG
+2 253 163 FPL
+256 149
+256 150
+0.231373 0.372549 0.254902 RG
+2 256 149 FPL
+258 134
+256 150
+0.231373 0.360784 0.25098 RG
+2 256 149 FPL
+258 134
+258 134
+0.231373 0.372549 0.254902 RG
+2 256 150 FPL
+258 134
+259 138
+0.858824 0.568627 0.384314 RG
+2 148 114 FPL
+157 110
+156 111
+0.843137 0.560784 0.376471 RG
+2 157 110 FPL
+165 107
+156 111
+0.831373 0.552941 0.368627 RG
+2 157 110 FPL
+165 106
+165 107
+0.815686 0.545098 0.360784 RG
+2 165 106 FPL
+173 103
+165 107
+0.803922 0.537255 0.352941 RG
+2 165 106 FPL
+173 103
+173 103
+0.831373 0.556863 0.368627 RG
+2 156 111 FPL
+165 107
+164 108
+0.815686 0.54902 0.360784 RG
+2 165 107 FPL
+173 103
+164 108
+0.803922 0.537255 0.352941 RG
+2 165 107 FPL
+173 103
+173 103
+0.815686 0.54902 0.360784 RG
+2 164 108 FPL
+173 103
+172 106
+0.356863 0.580392 0.317647 RG
+2 207 210 FPL
+195 215
+195 214
+0.368627 0.588235 0.329412 RG
+2 195 215 FPL
+183 220
+195 214
+0.376471 0.592157 0.337255 RG
+2 195 215 FPL
+183 220
+183 220
+0.368627 0.588235 0.329412 RG
+2 195 214 FPL
+183 220
+183 218
+0.329412 0.572549 0.309804 RG
+2 210 211 FPL
+197 216
+210 211
+0.345098 0.580392 0.317647 RG
+2 197 216 FPL
+195 215
+210 211
+0.356863 0.584314 0.321569 RG
+2 197 216 FPL
+183 220
+195 215
+0.345098 0.580392 0.317647 RG
+2 210 211 FPL
+195 215
+207 210
+0.627451 0.403922 0.309804 RG
+2 177 104 FPL
+186 95
+186 96
+0.619608 0.388235 0.317647 RG
+2 186 95 FPL
+194 85
+186 96
+0.615686 0.368627 0.321569 RG
+2 186 95 FPL
+194 85
+194 85
+0.619608 0.388235 0.317647 RG
+2 186 96 FPL
+194 85
+195 88
+0.654902 0.431373 0.301961 RG
+2 173 103 FPL
+184 94
+173 103
+0.647059 0.415686 0.305882 RG
+2 184 94 FPL
+186 95
+173 103
+0.635294 0.4 0.313725 RG
+2 184 94 FPL
+194 85
+186 95
+0.647059 0.415686 0.305882 RG
+2 173 103 FPL
+186 95
+177 104
+0.282353 0.552941 0.321569 RG
+2 236 209 FPL
+223 210
+225 209
+0.294118 0.556863 0.313725 RG
+2 223 210 FPL
+210 211
+225 209
+0.305882 0.564706 0.309804 RG
+2 223 210 FPL
+210 211
+210 211
+0.294118 0.556863 0.313725 RG
+2 225 209 FPL
+210 211
+213 208
+0.886275 0.568627 0.407843 RG
+2 146 112 FPL
+155 109
+146 112
+0.87451 0.564706 0.396078 RG
+2 155 109 FPL
+156 109
+146 112
+0.858824 0.560784 0.388235 RG
+2 155 109 FPL
+164 106
+156 109
+0.843137 0.552941 0.380392 RG
+2 164 106 FPL
+165 106
+156 109
+0.831373 0.54902 0.368627 RG
+2 164 106 FPL
+173 103
+165 106
+0.886275 0.568627 0.407843 RG
+2 146 112 FPL
+156 109
+146 112
+0.87451 0.564706 0.396078 RG
+2 156 109 FPL
+157 110
+146 112
+0.858824 0.560784 0.388235 RG
+2 156 109 FPL
+165 106
+157 110
+0.87451 0.564706 0.396078 RG
+2 146 112 FPL
+157 110
+148 114
+0.803922 0.533333 0.352941 RG
+2 173 103 FPL
+164 106
+173 103
+0.815686 0.541176 0.364706 RG
+2 164 106 FPL
+164 106
+173 103
+0.831373 0.545098 0.372549 RG
+2 164 106 FPL
+155 109
+164 106
+0.847059 0.54902 0.380392 RG
+2 155 109 FPL
+155 109
+164 106
+0.858824 0.556863 0.392157 RG
+2 155 109 FPL
+146 112
+155 109
+0.803922 0.533333 0.356863 RG
+2 173 103 FPL
+164 106
+173 103
+0.819608 0.541176 0.368627 RG
+2 164 106 FPL
+164 105
+173 103
+0.831373 0.545098 0.376471 RG
+2 164 106 FPL
+155 109
+164 105
+0.819608 0.541176 0.368627 RG
+2 173 103 FPL
+164 105
+173 102
+0.752941 0.462745 0.380392 RG
+2 191 87 FPL
+185 92
+185 92
+0.760784 0.47451 0.372549 RG
+2 185 92 FPL
+179 97
+185 92
+0.768627 0.490196 0.368627 RG
+2 185 92 FPL
+179 97
+179 97
+0.772549 0.501961 0.360784 RG
+2 179 97 FPL
+173 103
+179 97
+0.780392 0.517647 0.352941 RG
+2 179 97 FPL
+173 103
+173 103
+0.768627 0.486275 0.368627 RG
+2 185 92 FPL
+179 97
+179 97
+0.776471 0.501961 0.360784 RG
+2 179 97 FPL
+173 103
+179 97
+0.780392 0.513725 0.352941 RG
+2 179 97 FPL
+173 103
+173 103
+0.776471 0.501961 0.360784 RG
+2 179 97 FPL
+173 103
+173 102
+0.72549 0.431373 0.384314 RG
+2 194 85 FPL
+187 91
+194 85
+0.737255 0.443137 0.376471 RG
+2 187 91 FPL
+187 91
+194 85
+0.745098 0.458824 0.372549 RG
+2 187 91 FPL
+180 97
+187 91
+0.752941 0.47451 0.368627 RG
+2 180 97 FPL
+179 97
+187 91
+0.764706 0.486275 0.360784 RG
+2 180 97 FPL
+173 103
+179 97
+0.729412 0.431373 0.384314 RG
+2 194 85 FPL
+187 91
+194 85
+0.741176 0.447059 0.380392 RG
+2 187 91 FPL
+185 92
+194 85
+0.74902 0.458824 0.376471 RG
+2 187 91 FPL
+179 97
+185 92
+0.741176 0.447059 0.380392 RG
+2 194 85 FPL
+185 92
+191 87
+0.305882 0.564706 0.309804 RG
+2 210 211 FPL
+224 212
+210 211
+0.298039 0.560784 0.317647 RG
+2 224 212 FPL
+224 212
+210 211
+0.286275 0.552941 0.32549 RG
+2 224 212 FPL
+237 212
+224 212
+0.298039 0.560784 0.317647 RG
+2 210 211 FPL
+224 212
+210 212
+0.34902 0.580392 0.329412 RG
+2 186 220 FPL
+198 216
+198 216
+0.341176 0.576471 0.321569 RG
+2 198 216 FPL
+210 211
+198 216
+0.329412 0.572549 0.309804 RG
+2 198 216 FPL
+210 211
+210 211
+0.341176 0.576471 0.321569 RG
+2 198 216 FPL
+210 211
+210 212
+0.376471 0.592157 0.337255 RG
+2 183 220 FPL
+197 216
+183 220
+0.364706 0.588235 0.333333 RG
+2 197 216 FPL
+198 216
+183 220
+0.34902 0.580392 0.32549 RG
+2 197 216 FPL
+210 211
+198 216
+0.364706 0.588235 0.333333 RG
+2 183 220 FPL
+198 216
+186 220
+0.262745 0.545098 0.337255 RG
+2 237 212 FPL
+224 212
+237 212
+0.27451 0.54902 0.329412 RG
+2 224 212 FPL
+223 210
+237 212
+0.282353 0.552941 0.321569 RG
+2 224 212 FPL
+210 211
+223 210
+0.27451 0.54902 0.329412 RG
+2 237 212 FPL
+223 210
+236 209
+0.894118 0.658824 0.407843 RG
+2 142 139 FPL
+144 130
+144 131
+0.898039 0.639216 0.411765 RG
+2 144 130 FPL
+145 121
+144 131
+0.898039 0.623529 0.411765 RG
+2 144 130 FPL
+145 121
+145 121
+0.898039 0.607843 0.411765 RG
+2 145 121 FPL
+146 112
+145 121
+0.901961 0.588235 0.415686 RG
+2 145 121 FPL
+146 112
+146 112
+0.898039 0.627451 0.411765 RG
+2 144 131 FPL
+145 121
+146 122
+0.898039 0.611765 0.411765 RG
+2 145 121 FPL
+146 112
+146 122
+0.901961 0.592157 0.415686 RG
+2 145 121 FPL
+146 112
+146 112
+0.898039 0.611765 0.411765 RG
+2 146 122 FPL
+146 112
+148 114
+0.901961 0.698039 0.415686 RG
+2 140 141 FPL
+142 131
+140 141
+0.901961 0.682353 0.415686 RG
+2 142 131 FPL
+142 131
+140 141
+0.901961 0.662745 0.415686 RG
+2 142 131 FPL
+144 122
+142 131
+0.901961 0.643137 0.415686 RG
+2 144 122 FPL
+145 121
+142 131
+0.901961 0.627451 0.415686 RG
+2 144 122 FPL
+146 112
+145 121
+0.901961 0.698039 0.415686 RG
+2 140 141 FPL
+142 131
+140 141
+0.901961 0.678431 0.415686 RG
+2 142 131 FPL
+144 130
+140 141
+0.898039 0.658824 0.411765 RG
+2 142 131 FPL
+145 121
+144 130
+0.901961 0.678431 0.415686 RG
+2 140 141 FPL
+144 130
+142 139
+0.415686 0.580392 0.321569 RG
+2 183 218 FPL
+172 209
+173 209
+0.431373 0.576471 0.313725 RG
+2 172 209 FPL
+160 201
+173 209
+0.443137 0.572549 0.309804 RG
+2 172 209 FPL
+160 201
+160 201
+0.431373 0.576471 0.313725 RG
+2 173 209 FPL
+160 201
+163 201
+0.921569 0.768627 0.486275 RG
+2 130 163 FPL
+133 156
+134 157
+0.917647 0.756863 0.470588 RG
+2 133 156 FPL
+137 149
+134 157
+0.913725 0.74902 0.458824 RG
+2 133 156 FPL
+136 149
+137 149
+0.909804 0.737255 0.443137 RG
+2 136 149 FPL
+140 141
+137 149
+0.905882 0.729412 0.431373 RG
+2 136 149 FPL
+140 141
+140 141
+0.909804 0.74902 0.458824 RG
+2 134 157 FPL
+137 149
+137 151
+0.909804 0.741176 0.443137 RG
+2 137 149 FPL
+140 141
+137 151
+0.905882 0.729412 0.431373 RG
+2 137 149 FPL
+140 141
+140 141
+0.909804 0.741176 0.443137 RG
+2 137 151 FPL
+140 141
+141 145
+0.941176 0.780392 0.513725 RG
+2 127 162 FPL
+131 155
+127 162
+0.933333 0.772549 0.501961 RG
+2 131 155 FPL
+132 155
+127 162
+0.929412 0.764706 0.486275 RG
+2 131 155 FPL
+135 148
+132 155
+0.921569 0.752941 0.470588 RG
+2 135 148 FPL
+136 149
+132 155
+0.917647 0.745098 0.458824 RG
+2 135 148 FPL
+140 141
+136 149
+0.937255 0.780392 0.513725 RG
+2 127 162 FPL
+132 155
+127 162
+0.933333 0.772549 0.501961 RG
+2 132 155 FPL
+133 156
+127 162
+0.92549 0.764706 0.486275 RG
+2 132 155 FPL
+136 149
+133 156
+0.933333 0.772549 0.501961 RG
+2 127 162 FPL
+133 156
+130 163
+0.909804 0.631373 0.427451 RG
+2 145 115 FPL
+143 123
+143 123
+0.905882 0.65098 0.423529 RG
+2 143 123 FPL
+141 132
+143 123
+0.905882 0.666667 0.423529 RG
+2 143 123 FPL
+141 132
+141 132
+0.905882 0.682353 0.419608 RG
+2 141 132 FPL
+140 141
+141 132
+0.901961 0.701961 0.419608 RG
+2 141 132 FPL
+140 141
+140 141
+0.909804 0.666667 0.423529 RG
+2 143 123 FPL
+141 132
+141 132
+0.905882 0.682353 0.423529 RG
+2 141 132 FPL
+140 141
+141 132
+0.905882 0.701961 0.419608 RG
+2 141 132 FPL
+140 141
+140 141
+0.905882 0.682353 0.423529 RG
+2 141 132 FPL
+140 141
+139 140
+0.901961 0.592157 0.415686 RG
+2 146 112 FPL
+144 122
+146 112
+0.901961 0.611765 0.415686 RG
+2 144 122 FPL
+144 122
+146 112
+0.905882 0.631373 0.419608 RG
+2 144 122 FPL
+142 131
+144 122
+0.905882 0.647059 0.419608 RG
+2 142 131 FPL
+141 132
+144 122
+0.905882 0.666667 0.419608 RG
+2 142 131 FPL
+140 141
+141 132
+0.901961 0.592157 0.419608 RG
+2 146 112 FPL
+144 122
+146 112
+0.905882 0.611765 0.419608 RG
+2 144 122 FPL
+143 123
+146 112
+0.905882 0.631373 0.423529 RG
+2 144 122 FPL
+141 132
+143 123
+0.905882 0.611765 0.419608 RG
+2 146 112 FPL
+143 123
+145 115
+0.909804 0.72549 0.431373 RG
+2 140 141 FPL
+135 148
+140 141
+0.913725 0.733333 0.447059 RG
+2 135 148 FPL
+135 148
+140 141
+0.921569 0.745098 0.462745 RG
+2 135 148 FPL
+131 155
+135 148
+0.92549 0.752941 0.47451 RG
+2 131 155 FPL
+131 155
+135 148
+0.933333 0.760784 0.490196 RG
+2 131 155 FPL
+127 162
+131 155
+0.909804 0.72549 0.431373 RG
+2 140 141 FPL
+135 148
+140 141
+0.917647 0.733333 0.447059 RG
+2 135 148 FPL
+135 148
+140 141
+0.921569 0.741176 0.462745 RG
+2 135 148 FPL
+131 155
+135 148
+0.917647 0.733333 0.447059 RG
+2 140 141 FPL
+135 148
+139 140
+0.807843 0.921569 0.52549 RG
+2 159 197 FPL
+152 196
+152 195
+0.823529 0.917647 0.533333 RG
+2 152 196 FPL
+145 193
+152 195
+0.835294 0.913725 0.545098 RG
+2 152 196 FPL
+144 194
+145 193
+0.847059 0.909804 0.552941 RG
+2 144 194 FPL
+137 192
+145 193
+0.862745 0.905882 0.564706 RG
+2 144 194 FPL
+137 192
+137 192
+0.835294 0.909804 0.541176 RG
+2 152 195 FPL
+145 193
+145 192
+0.847059 0.909804 0.552941 RG
+2 145 193 FPL
+137 192
+145 192
+0.862745 0.905882 0.560784 RG
+2 145 193 FPL
+137 192
+137 192
+0.847059 0.909804 0.552941 RG
+2 145 192 FPL
+137 192
+139 190
+0.776471 0.941176 0.509804 RG
+2 160 201 FPL
+152 198
+160 201
+0.788235 0.933333 0.517647 RG
+2 152 198 FPL
+152 198
+160 201
+0.803922 0.929412 0.529412 RG
+2 152 198 FPL
+145 195
+152 198
+0.819608 0.921569 0.537255 RG
+2 145 195 FPL
+144 194
+152 198
+0.831373 0.917647 0.545098 RG
+2 145 195 FPL
+137 192
+144 194
+0.776471 0.937255 0.509804 RG
+2 160 201 FPL
+152 198
+160 201
+0.792157 0.933333 0.521569 RG
+2 152 198 FPL
+152 196
+160 201
+0.807843 0.92549 0.529412 RG
+2 152 198 FPL
+144 194
+152 196
+0.792157 0.933333 0.521569 RG
+2 160 201 FPL
+152 196
+159 197
+0.4 0.592157 0.337255 RG
+2 183 220 FPL
+172 211
+183 220
+0.411765 0.588235 0.329412 RG
+2 172 211 FPL
+172 209
+183 220
+0.419608 0.580392 0.321569 RG
+2 172 211 FPL
+160 201
+172 209
+0.411765 0.588235 0.329412 RG
+2 183 220 FPL
+172 209
+183 218
+0.501961 0.643137 0.345098 RG
+2 160 201 FPL
+172 211
+160 201
+0.490196 0.65098 0.356863 RG
+2 172 211 FPL
+172 211
+160 201
+0.47451 0.654902 0.364706 RG
+2 172 211 FPL
+183 220
+172 211
+0.490196 0.65098 0.356863 RG
+2 160 201 FPL
+172 211
+160 202
+0.545098 0.623529 0.368627 RG
+2 140 195 FPL
+150 198
+150 199
+0.537255 0.631373 0.360784 RG
+2 150 198 FPL
+160 201
+150 199
+0.52549 0.635294 0.34902 RG
+2 150 198 FPL
+160 201
+160 201
+0.537255 0.631373 0.360784 RG
+2 150 199 FPL
+160 201
+160 202
+0.576471 0.615686 0.376471 RG
+2 137 192 FPL
+149 197
+137 192
+0.564706 0.619608 0.372549 RG
+2 149 197 FPL
+150 198
+137 192
+0.54902 0.627451 0.364706 RG
+2 149 197 FPL
+160 201
+150 198
+0.564706 0.619608 0.372549 RG
+2 137 192 FPL
+150 198
+140 195
+0.835294 0.541176 0.380392 RG
+2 173 102 FPL
+164 105
+165 104
+0.847059 0.545098 0.388235 RG
+2 164 105 FPL
+156 108
+165 104
+0.862745 0.552941 0.396078 RG
+2 164 105 FPL
+155 109
+156 108
+0.87451 0.560784 0.4 RG
+2 155 109 FPL
+146 112
+156 108
+0.890196 0.564706 0.407843 RG
+2 155 109 FPL
+146 112
+146 112
+0.858824 0.54902 0.396078 RG
+2 165 104 FPL
+156 108
+157 107
+0.87451 0.556863 0.403922 RG
+2 156 108 FPL
+146 112
+157 107
+0.886275 0.564706 0.407843 RG
+2 156 108 FPL
+146 112
+146 112
+0.87451 0.556863 0.403922 RG
+2 157 107 FPL
+146 112
+149 110
+0.286275 0.556863 0.329412 RG
+2 210 212 FPL
+224 212
+222 213
+0.27451 0.552941 0.337255 RG
+2 224 212 FPL
+237 212
+222 213
+0.262745 0.545098 0.341176 RG
+2 224 212 FPL
+237 212
+237 212
+0.27451 0.552941 0.337255 RG
+2 222 213 FPL
+237 212
+234 213
+0.227451 0.317647 0.282353 RG
+2 268 128 FPL
+263 131
+263 130
+0.227451 0.329412 0.27451 RG
+2 263 131 FPL
+258 134
+263 130
+0.231373 0.337255 0.262745 RG
+2 263 131 FPL
+258 134
+258 134
+0.227451 0.329412 0.27451 RG
+2 263 130 FPL
+258 134
+257 132
+0.211765 0.309804 0.305882 RG
+2 271 130 FPL
+265 132
+271 130
+0.219608 0.317647 0.294118 RG
+2 265 132 FPL
+263 131
+271 130
+0.223529 0.321569 0.282353 RG
+2 265 132 FPL
+258 134
+263 131
+0.219608 0.317647 0.294118 RG
+2 271 130 FPL
+263 131
+268 128
+0.227451 0.337255 0.262745 RG
+2 258 134 FPL
+265 132
+258 134
+0.223529 0.333333 0.27451 RG
+2 265 132 FPL
+265 134
+258 134
+0.219608 0.32549 0.286275 RG
+2 265 132 FPL
+271 130
+265 134
+0.223529 0.333333 0.27451 RG
+2 258 134 FPL
+265 134
+259 138
+0.921569 0.733333 0.466667 RG
+2 139 140 FPL
+135 148
+135 146
+0.92549 0.745098 0.478431 RG
+2 135 148 FPL
+131 154
+135 146
+0.933333 0.756863 0.494118 RG
+2 135 148 FPL
+131 155
+131 154
+0.937255 0.764706 0.505882 RG
+2 131 155 FPL
+127 162
+131 154
+0.941176 0.776471 0.517647 RG
+2 131 155 FPL
+127 162
+127 162
+0.933333 0.74902 0.490196 RG
+2 135 146 FPL
+131 154
+131 152
+0.937255 0.764706 0.505882 RG
+2 131 154 FPL
+127 162
+131 152
+0.941176 0.776471 0.517647 RG
+2 131 154 FPL
+127 162
+127 162
+0.937255 0.764706 0.505882 RG
+2 131 152 FPL
+127 162
+128 159
+0.478431 0.654902 0.372549 RG
+2 160 202 FPL
+172 211
+170 211
+0.462745 0.658824 0.376471 RG
+2 172 211 FPL
+183 220
+170 211
+0.45098 0.666667 0.380392 RG
+2 172 211 FPL
+183 220
+183 220
+0.462745 0.658824 0.376471 RG
+2 170 211 FPL
+183 220
+180 219
+0.215686 0.329412 0.286275 RG
+2 259 138 FPL
+265 134
+265 136
+0.215686 0.321569 0.298039 RG
+2 265 134 FPL
+271 130
+265 136
+0.211765 0.309804 0.305882 RG
+2 265 134 FPL
+271 130
+271 130
+0.215686 0.321569 0.298039 RG
+2 265 136 FPL
+271 130
+270 134
+0.556863 0.360784 0.321569 RG
+2 195 88 FPL
+205 89
+204 90
+0.545098 0.356863 0.32549 RG
+2 205 89 FPL
+215 91
+204 90
+0.529412 0.356863 0.32549 RG
+2 205 89 FPL
+215 91
+215 91
+0.513725 0.356863 0.32549 RG
+2 215 91 FPL
+225 92
+215 91
+0.501961 0.352941 0.329412 RG
+2 215 91 FPL
+225 92
+225 92
+0.529412 0.360784 0.32549 RG
+2 204 90 FPL
+215 91
+213 92
+0.517647 0.356863 0.32549 RG
+2 215 91 FPL
+225 92
+213 92
+0.501961 0.356863 0.329412 RG
+2 215 91 FPL
+225 92
+225 92
+0.517647 0.356863 0.32549 RG
+2 213 92 FPL
+225 92
+223 94
+0.235294 0.505882 0.329412 RG
+2 255 188 FPL
+246 200
+245 199
+0.239216 0.517647 0.333333 RG
+2 246 200 FPL
+237 212
+245 199
+0.247059 0.529412 0.341176 RG
+2 246 200 FPL
+237 212
+237 212
+0.239216 0.517647 0.333333 RG
+2 245 199 FPL
+237 212
+236 209
+0.215686 0.486275 0.321569 RG
+2 258 189 FPL
+248 200
+258 189
+0.223529 0.498039 0.32549 RG
+2 248 200 FPL
+246 200
+258 189
+0.231373 0.505882 0.329412 RG
+2 248 200 FPL
+237 212
+246 200
+0.223529 0.498039 0.32549 RG
+2 258 189 FPL
+246 200
+255 188
+0.933333 0.545098 0.490196 RG
+2 139 107 FPL
+142 109
+141 110
+0.92549 0.54902 0.47451 RG
+2 142 109 FPL
+144 111
+141 110
+0.921569 0.556863 0.462745 RG
+2 142 109 FPL
+144 110
+144 111
+0.913725 0.560784 0.447059 RG
+2 144 110 FPL
+146 112
+144 111
+0.909804 0.568627 0.431373 RG
+2 144 110 FPL
+146 112
+146 112
+0.921569 0.556863 0.462745 RG
+2 141 110 FPL
+144 111
+143 112
+0.917647 0.564706 0.447059 RG
+2 144 111 FPL
+146 112
+143 112
+0.909804 0.568627 0.431373 RG
+2 144 111 FPL
+146 112
+146 112
+0.917647 0.564706 0.447059 RG
+2 143 112 FPL
+146 112
+145 115
+0.941176 0.513725 0.513725 RG
+2 140 104 FPL
+142 106
+140 104
+0.933333 0.521569 0.501961 RG
+2 142 106 FPL
+142 107
+140 104
+0.929412 0.533333 0.486275 RG
+2 142 106 FPL
+144 109
+142 107
+0.92549 0.541176 0.470588 RG
+2 144 109 FPL
+144 110
+142 107
+0.917647 0.552941 0.458824 RG
+2 144 109 FPL
+146 112
+144 110
+0.941176 0.513725 0.517647 RG
+2 140 104 FPL
+142 107
+140 104
+0.937255 0.52549 0.501961 RG
+2 142 107 FPL
+142 109
+140 104
+0.929412 0.537255 0.490196 RG
+2 142 107 FPL
+144 110
+142 109
+0.937255 0.52549 0.501961 RG
+2 140 104 FPL
+142 109
+139 107
+0.905882 0.564706 0.431373 RG
+2 146 112 FPL
+144 109
+146 112
+0.913725 0.552941 0.443137 RG
+2 144 109 FPL
+145 109
+146 112
+0.917647 0.545098 0.458824 RG
+2 144 109 FPL
+142 106
+145 109
+0.921569 0.537255 0.47451 RG
+2 142 106 FPL
+143 106
+145 109
+0.929412 0.52549 0.486275 RG
+2 142 106 FPL
+140 104
+143 106
+0.905882 0.564706 0.431373 RG
+2 146 112 FPL
+145 109
+146 112
+0.913725 0.552941 0.447059 RG
+2 145 109 FPL
+146 108
+146 112
+0.917647 0.545098 0.458824 RG
+2 145 109 FPL
+143 106
+146 108
+0.913725 0.552941 0.447059 RG
+2 146 112 FPL
+146 108
+149 110
+0.384314 0.592157 0.388235 RG
+2 186 229 FPL
+185 225
+186 225
+0.384314 0.596078 0.372549 RG
+2 185 225 FPL
+183 220
+186 225
+0.388235 0.596078 0.360784 RG
+2 185 225 FPL
+183 220
+183 220
+0.384314 0.596078 0.372549 RG
+2 186 225 FPL
+183 220
+186 220
+0.388235 0.596078 0.415686 RG
+2 183 231 FPL
+183 225
+183 231
+0.388235 0.596078 0.403922 RG
+2 183 225 FPL
+185 225
+183 231
+0.384314 0.596078 0.388235 RG
+2 183 225 FPL
+183 220
+185 225
+0.388235 0.596078 0.403922 RG
+2 183 231 FPL
+185 225
+186 229
+0.435294 0.670588 0.403922 RG
+2 183 220 FPL
+183 225
+183 220
+0.439216 0.670588 0.419608 RG
+2 183 225 FPL
+182 225
+183 220
+0.439216 0.666667 0.439216 RG
+2 183 225 FPL
+183 231
+182 225
+0.439216 0.670588 0.419608 RG
+2 183 220 FPL
+182 225
+180 219
+0.592157 0.352941 0.329412 RG
+2 194 85 FPL
+204 88
+194 85
+0.576471 0.352941 0.329412 RG
+2 204 88 FPL
+205 88
+194 85
+0.560784 0.356863 0.329412 RG
+2 204 88 FPL
+215 90
+205 88
+0.545098 0.356863 0.329412 RG
+2 215 90 FPL
+215 91
+205 88
+0.529412 0.356863 0.329412 RG
+2 215 90 FPL
+225 92
+215 91
+0.592157 0.352941 0.329412 RG
+2 194 85 FPL
+205 88
+194 85
+0.576471 0.356863 0.329412 RG
+2 205 88 FPL
+205 89
+194 85
+0.556863 0.356863 0.32549 RG
+2 205 88 FPL
+215 91
+205 89
+0.576471 0.356863 0.329412 RG
+2 194 85 FPL
+205 89
+195 88
+0.341176 0.243137 0.243137 RG
+2 225 92 FPL
+232 89
+225 92
+0.337255 0.239216 0.258824 RG
+2 232 89 FPL
+233 91
+225 92
+0.329412 0.231373 0.270588 RG
+2 232 89 FPL
+238 87
+233 91
+0.337255 0.239216 0.258824 RG
+2 225 92 FPL
+233 91
+228 94
+0.517647 0.364706 0.341176 RG
+2 225 92 FPL
+215 90
+225 92
+0.533333 0.364706 0.341176 RG
+2 215 90 FPL
+215 89
+225 92
+0.552941 0.364706 0.341176 RG
+2 215 90 FPL
+204 88
+215 89
+0.568627 0.364706 0.341176 RG
+2 204 88 FPL
+204 87
+215 89
+0.584314 0.364706 0.341176 RG
+2 204 88 FPL
+194 85
+204 87
+0.517647 0.364706 0.341176 RG
+2 225 92 FPL
+215 89
+225 92
+0.537255 0.364706 0.345098 RG
+2 215 89 FPL
+214 89
+225 92
+0.552941 0.360784 0.345098 RG
+2 215 89 FPL
+204 87
+214 89
+0.537255 0.364706 0.345098 RG
+2 225 92 FPL
+214 89
+223 91
+0.494118 0.333333 0.388235 RG
+2 235 87 FPL
+230 89
+229 89
+0.498039 0.345098 0.372549 RG
+2 230 89 FPL
+225 92
+229 89
+0.498039 0.352941 0.356863 RG
+2 230 89 FPL
+225 92
+225 92
+0.498039 0.345098 0.372549 RG
+2 229 89 FPL
+225 92
+223 91
+0.470588 0.313725 0.423529 RG
+2 238 87 FPL
+232 89
+238 87
+0.478431 0.32549 0.407843 RG
+2 232 89 FPL
+230 89
+238 87
+0.486275 0.333333 0.388235 RG
+2 232 89 FPL
+225 92
+230 89
+0.478431 0.32549 0.407843 RG
+2 238 87 FPL
+230 89
+235 87
+0.203922 0.466667 0.329412 RG
+2 258 189 FPL
+264 186
+258 189
+0.2 0.462745 0.345098 RG
+2 264 186 FPL
+264 187
+258 189
+0.192157 0.454902 0.356863 RG
+2 264 186 FPL
+271 184
+264 187
+0.2 0.462745 0.345098 RG
+2 258 189 FPL
+264 187
+257 190
+0.227451 0.505882 0.337255 RG
+2 239 211 FPL
+248 200
+248 201
+0.219608 0.498039 0.329412 RG
+2 248 200 FPL
+258 189
+248 201
+0.215686 0.486275 0.32549 RG
+2 248 200 FPL
+258 189
+258 189
+0.219608 0.498039 0.329412 RG
+2 248 201 FPL
+258 189
+257 190
+0.243137 0.529412 0.341176 RG
+2 237 212 FPL
+248 200
+237 212
+0.235294 0.517647 0.337255 RG
+2 248 200 FPL
+248 200
+237 212
+0.227451 0.505882 0.333333 RG
+2 248 200 FPL
+258 189
+248 200
+0.235294 0.517647 0.337255 RG
+2 237 212 FPL
+248 200
+239 211
+0.196078 0.447059 0.34902 RG
+2 270 181 FPL
+264 185
+264 183
+0.2 0.454902 0.341176 RG
+2 264 185 FPL
+258 189
+264 183
+0.203922 0.466667 0.329412 RG
+2 264 185 FPL
+258 189
+258 189
+0.2 0.454902 0.341176 RG
+2 264 183 FPL
+258 189
+259 185
+0.184314 0.439216 0.376471 RG
+2 271 184 FPL
+264 186
+271 184
+0.192157 0.447059 0.364706 RG
+2 264 186 FPL
+264 185
+271 184
+0.196078 0.45098 0.34902 RG
+2 264 186 FPL
+258 189
+264 185
+0.192157 0.447059 0.364706 RG
+2 271 184 FPL
+264 185
+270 181
+0.32549 0.231373 0.270588 RG
+2 228 94 FPL
+233 91
+234 92
+0.32549 0.223529 0.282353 RG
+2 233 91 FPL
+238 87
+234 92
+0.321569 0.215686 0.290196 RG
+2 233 91 FPL
+238 87
+238 87
+0.32549 0.223529 0.282353 RG
+2 234 92 FPL
+238 87
+239 90
+0.913725 0.537255 0.462745 RG
+2 149 110 FPL
+146 108
+147 107
+0.917647 0.529412 0.47451 RG
+2 146 108 FPL
+144 106
+147 107
+0.92549 0.52549 0.490196 RG
+2 146 108 FPL
+143 106
+144 106
+0.933333 0.517647 0.501961 RG
+2 143 106 FPL
+140 104
+144 106
+0.937255 0.509804 0.517647 RG
+2 143 106 FPL
+140 104
+140 104
+0.921569 0.521569 0.486275 RG
+2 147 107 FPL
+144 106
+145 105
+0.929412 0.517647 0.501961 RG
+2 144 106 FPL
+140 104
+145 105
+0.937255 0.509804 0.513725 RG
+2 144 106 FPL
+140 104
+140 104
+0.929412 0.517647 0.501961 RG
+2 145 105 FPL
+140 104
+143 103
+0.443137 0.666667 0.439216 RG
+2 180 219 FPL
+182 225
+180 224
+0.439216 0.666667 0.454902 RG
+2 182 225 FPL
+183 231
+180 224
+0.439216 0.670588 0.466667 RG
+2 182 225 FPL
+183 231
+183 231
+0.439216 0.666667 0.454902 RG
+2 180 224 FPL
+183 231
+180 228
+0.756863 0.352941 0.486275 RG
+2 188 77 FPL
+190 80
+188 77
+0.74902 0.364706 0.47451 RG
+2 190 80 FPL
+190 80
+188 77
+0.745098 0.372549 0.458824 RG
+2 190 80 FPL
+192 83
+190 80
+0.741176 0.380392 0.443137 RG
+2 192 83 FPL
+191 83
+190 80
+0.733333 0.392157 0.431373 RG
+2 192 83 FPL
+194 85
+191 83
+0.756863 0.356863 0.486275 RG
+2 188 77 FPL
+190 80
+188 77
+0.752941 0.368627 0.47451 RG
+2 190 80 FPL
+188 81
+188 77
+0.74902 0.376471 0.458824 RG
+2 190 80 FPL
+191 83
+188 81
+0.752941 0.368627 0.47451 RG
+2 188 77 FPL
+188 81
+185 79
+0.752941 0.380392 0.458824 RG
+2 185 79 FPL
+188 81
+187 82
+0.745098 0.388235 0.447059 RG
+2 188 81 FPL
+191 84
+187 82
+0.741176 0.396078 0.431373 RG
+2 188 81 FPL
+191 83
+191 84
+0.733333 0.4 0.415686 RG
+2 191 83 FPL
+194 85
+191 84
+0.72549 0.407843 0.403922 RG
+2 191 83 FPL
+194 85
+194 85
+0.741176 0.396078 0.431373 RG
+2 187 82 FPL
+191 84
+189 84
+0.733333 0.403922 0.419608 RG
+2 191 84 FPL
+194 85
+189 84
+0.72549 0.407843 0.403922 RG
+2 191 84 FPL
+194 85
+194 85
+0.733333 0.403922 0.419608 RG
+2 189 84 FPL
+194 85
+191 87
+0.635294 0.352941 0.356863 RG
+2 194 85 FPL
+191 81
+194 85
+0.639216 0.345098 0.376471 RG
+2 191 81 FPL
+192 81
+194 85
+0.647059 0.333333 0.392157 RG
+2 191 81 FPL
+188 77
+192 81
+0.639216 0.345098 0.376471 RG
+2 194 85 FPL
+192 81
+196 85
+0.552941 0.356863 0.345098 RG
+2 223 91 FPL
+214 89
+214 89
+0.568627 0.360784 0.345098 RG
+2 214 89 FPL
+204 87
+214 89
+0.584314 0.360784 0.345098 RG
+2 214 89 FPL
+204 87
+204 87
+0.596078 0.360784 0.341176 RG
+2 204 87 FPL
+194 85
+204 87
+0.611765 0.364706 0.341176 RG
+2 204 87 FPL
+194 85
+194 85
+0.580392 0.360784 0.345098 RG
+2 214 89 FPL
+204 87
+205 87
+0.596078 0.360784 0.345098 RG
+2 204 87 FPL
+194 85
+205 87
+0.611765 0.364706 0.341176 RG
+2 204 87 FPL
+194 85
+194 85
+0.596078 0.360784 0.345098 RG
+2 205 87 FPL
+194 85
+196 85
+0.247059 0.537255 0.388235 RG
+2 239 220 FPL
+238 216
+239 216
+0.247059 0.541176 0.372549 RG
+2 238 216 FPL
+237 212
+239 216
+0.25098 0.541176 0.360784 RG
+2 238 216 FPL
+237 212
+237 212
+0.247059 0.541176 0.372549 RG
+2 239 216 FPL
+237 212
+239 211
+0.25098 0.541176 0.415686 RG
+2 237 223 FPL
+237 217
+237 223
+0.25098 0.541176 0.403922 RG
+2 237 217 FPL
+238 216
+237 223
+0.247059 0.541176 0.388235 RG
+2 237 217 FPL
+237 212
+238 216
+0.25098 0.541176 0.403922 RG
+2 237 223 FPL
+238 216
+239 220
+0.25098 0.541176 0.360784 RG
+2 237 212 FPL
+237 217
+237 212
+0.25098 0.541176 0.376471 RG
+2 237 217 FPL
+235 218
+237 212
+0.25098 0.541176 0.388235 RG
+2 237 217 FPL
+237 223
+235 218
+0.25098 0.541176 0.376471 RG
+2 237 212 FPL
+235 218
+234 213
+0.196078 0.454902 0.356863 RG
+2 257 190 FPL
+264 187
+263 188
+0.192157 0.447059 0.368627 RG
+2 264 187 FPL
+271 184
+263 188
+0.184314 0.439216 0.376471 RG
+2 264 187 FPL
+271 184
+271 184
+0.192157 0.447059 0.368627 RG
+2 263 188 FPL
+271 184
+268 187
+0.254902 0.545098 0.388235 RG
+2 234 213 FPL
+235 218
+234 218
+0.254902 0.545098 0.403922 RG
+2 235 218 FPL
+237 223
+234 218
+0.25098 0.541176 0.415686 RG
+2 235 218 FPL
+237 223
+237 223
+0.254902 0.545098 0.403922 RG
+2 234 218 FPL
+237 223
+234 222
+0.639216 0.329412 0.392157 RG
+2 196 85 FPL
+192 81
+194 82
+0.647059 0.321569 0.407843 RG
+2 192 81 FPL
+188 77
+194 82
+0.658824 0.309804 0.423529 RG
+2 192 81 FPL
+188 77
+188 77
+0.647059 0.321569 0.407843 RG
+2 194 82 FPL
+188 77
+191 78
+0.898039 0.858824 0.54902 RG
+2 139 190 FPL
+135 180
+136 181
+0.905882 0.843137 0.545098 RG
+2 135 180 FPL
+131 172
+136 181
+0.917647 0.831373 0.541176 RG
+2 135 180 FPL
+131 171
+131 172
+0.92549 0.815686 0.537255 RG
+2 131 171 FPL
+127 162
+131 172
+0.937255 0.803922 0.533333 RG
+2 131 171 FPL
+127 162
+127 162
+0.913725 0.831373 0.537255 RG
+2 136 181 FPL
+131 172
+133 172
+0.92549 0.815686 0.537255 RG
+2 131 172 FPL
+127 162
+133 172
+0.933333 0.803922 0.533333 RG
+2 131 172 FPL
+127 162
+127 162
+0.92549 0.815686 0.537255 RG
+2 133 172 FPL
+127 162
+130 163
+0.882353 0.886275 0.568627 RG
+2 137 192 FPL
+134 182
+137 192
+0.890196 0.87451 0.560784 RG
+2 134 182 FPL
+134 182
+137 192
+0.901961 0.858824 0.556863 RG
+2 134 182 FPL
+130 172
+134 182
+0.909804 0.843137 0.54902 RG
+2 130 172 FPL
+131 171
+134 182
+0.917647 0.831373 0.545098 RG
+2 130 172 FPL
+127 162
+131 171
+0.882353 0.886275 0.564706 RG
+2 137 192 FPL
+134 182
+137 192
+0.894118 0.87451 0.560784 RG
+2 134 182 FPL
+135 180
+137 192
+0.901961 0.858824 0.552941 RG
+2 134 182 FPL
+131 171
+135 180
+0.894118 0.87451 0.560784 RG
+2 137 192 FPL
+135 180
+139 190
+0.968627 0.756863 0.6 RG
+2 122 157 FPL
+123 159
+125 161
+0.964706 0.760784 0.584314 RG
+2 123 159 FPL
+126 161
+125 161
+0.960784 0.768627 0.572549 RG
+2 123 159 FPL
+125 161
+126 161
+0.952941 0.776471 0.556863 RG
+2 125 161 FPL
+127 162
+126 161
+0.94902 0.780392 0.545098 RG
+2 125 161 FPL
+127 162
+127 162
+0.964706 0.760784 0.584314 RG
+2 125 161 FPL
+126 161
+127 164
+0.952941 0.776471 0.556863 RG
+2 126 161 FPL
+127 162
+127 164
+0.988235 0.72549 0.631373 RG
+2 121 154 FPL
+123 157
+121 154
+0.980392 0.737255 0.615686 RG
+2 123 157 FPL
+123 157
+121 154
+0.976471 0.745098 0.603922 RG
+2 123 157 FPL
+125 160
+123 157
+0.968627 0.752941 0.588235 RG
+2 125 160 FPL
+125 161
+123 157
+0.964706 0.764706 0.572549 RG
+2 125 160 FPL
+127 162
+125 161
+0.984314 0.729412 0.631373 RG
+2 121 154 FPL
+123 157
+121 154
+0.980392 0.741176 0.619608 RG
+2 123 157 FPL
+123 159
+121 154
+0.972549 0.74902 0.603922 RG
+2 123 157 FPL
+125 161
+123 159
+0.980392 0.741176 0.619608 RG
+2 121 154 FPL
+123 159
+122 157
+0.952941 0.780392 0.545098 RG
+2 127 162 FPL
+125 160
+127 162
+0.956863 0.768627 0.560784 RG
+2 125 160 FPL
+125 159
+127 162
+0.964706 0.760784 0.576471 RG
+2 125 160 FPL
+123 157
+125 159
+0.968627 0.74902 0.588235 RG
+2 123 157 FPL
+123 156
+125 159
+0.976471 0.741176 0.603922 RG
+2 123 157 FPL
+121 154
+123 156
+0.952941 0.776471 0.545098 RG
+2 127 162 FPL
+125 159
+127 162
+0.956863 0.768627 0.560784 RG
+2 125 159 FPL
+125 157
+127 162
+0.964706 0.756863 0.572549 RG
+2 125 159 FPL
+123 156
+125 157
+0.956863 0.768627 0.560784 RG
+2 127 162 FPL
+125 157
+128 159
+0.937255 0.803922 0.537255 RG
+2 127 162 FPL
+130 172
+127 162
+0.929412 0.815686 0.541176 RG
+2 130 172 FPL
+130 173
+127 162
+0.921569 0.831373 0.54902 RG
+2 130 172 FPL
+134 182
+130 173
+0.909804 0.847059 0.552941 RG
+2 134 182 FPL
+134 183
+130 173
+0.901961 0.858824 0.560784 RG
+2 134 182 FPL
+137 192
+134 183
+0.937255 0.803922 0.537255 RG
+2 127 162 FPL
+130 173
+127 162
+0.929412 0.819608 0.545098 RG
+2 130 173 FPL
+131 174
+127 162
+0.917647 0.831373 0.552941 RG
+2 130 173 FPL
+134 183
+131 174
+0.929412 0.819608 0.545098 RG
+2 127 162 FPL
+131 174
+127 164
+0.588235 0.607843 0.466667 RG
+2 137 203 FPL
+137 197
+137 203
+0.588235 0.607843 0.45098 RG
+2 137 197 FPL
+138 198
+137 203
+0.584314 0.607843 0.431373 RG
+2 137 197 FPL
+137 192
+138 198
+0.588235 0.607843 0.45098 RG
+2 137 203 FPL
+138 198
+140 204
+0.87451 0.901961 0.592157 RG
+2 137 192 FPL
+137 196
+137 192
+0.87451 0.901961 0.611765 RG
+2 137 196 FPL
+137 195
+137 192
+0.878431 0.901961 0.631373 RG
+2 137 196 FPL
+137 199
+137 195
+0.878431 0.901961 0.647059 RG
+2 137 199 FPL
+137 198
+137 195
+0.878431 0.901961 0.666667 RG
+2 137 199 FPL
+137 203
+137 198
+0.87451 0.901961 0.592157 RG
+2 137 192 FPL
+137 195
+137 192
+0.878431 0.901961 0.611765 RG
+2 137 195 FPL
+136 194
+137 192
+0.878431 0.898039 0.631373 RG
+2 137 195 FPL
+137 198
+136 194
+0.878431 0.901961 0.611765 RG
+2 137 192 FPL
+136 194
+136 190
+0.921569 0.835294 0.560784 RG
+2 127 164 FPL
+131 174
+130 173
+0.909804 0.847059 0.560784 RG
+2 131 174 FPL
+134 183
+130 173
+0.901961 0.862745 0.564706 RG
+2 131 174 FPL
+134 183
+134 183
+0.894118 0.87451 0.568627 RG
+2 134 183 FPL
+137 192
+134 183
+0.882353 0.890196 0.568627 RG
+2 134 183 FPL
+137 192
+137 192
+0.905882 0.858824 0.568627 RG
+2 130 173 FPL
+134 183
+133 182
+0.894118 0.87451 0.568627 RG
+2 134 183 FPL
+137 192
+133 182
+0.886275 0.886275 0.572549 RG
+2 134 183 FPL
+137 192
+137 192
+0.894118 0.87451 0.568627 RG
+2 133 182 FPL
+137 192
+136 190
+0.584314 0.611765 0.431373 RG
+2 140 204 FPL
+138 198
+140 199
+0.584314 0.611765 0.415686 RG
+2 138 198 FPL
+137 192
+140 199
+0.588235 0.607843 0.4 RG
+2 138 198 FPL
+137 192
+137 192
+0.584314 0.611765 0.415686 RG
+2 140 199 FPL
+137 192
+140 195
+0.964706 0.74902 0.572549 RG
+2 128 159 FPL
+125 157
+126 156
+0.968627 0.741176 0.588235 RG
+2 125 157 FPL
+123 155
+126 156
+0.976471 0.737255 0.603922 RG
+2 125 157 FPL
+123 156
+123 155
+0.980392 0.729412 0.615686 RG
+2 123 156 FPL
+121 154
+123 155
+0.988235 0.72549 0.631373 RG
+2 123 156 FPL
+121 154
+121 154
+0.972549 0.733333 0.596078 RG
+2 126 156 FPL
+123 155
+124 154
+0.980392 0.729412 0.615686 RG
+2 123 155 FPL
+121 154
+124 154
+0.984314 0.721569 0.631373 RG
+2 123 155 FPL
+121 154
+121 154
+0.980392 0.729412 0.615686 RG
+2 124 154 FPL
+121 154
+122 151
+0.882353 0.894118 0.631373 RG
+2 136 190 FPL
+136 194
+136 193
+0.878431 0.898039 0.65098 RG
+2 136 194 FPL
+137 198
+136 193
+0.878431 0.898039 0.666667 RG
+2 136 194 FPL
+137 198
+137 198
+0.878431 0.898039 0.682353 RG
+2 137 198 FPL
+137 203
+137 198
+0.87451 0.901961 0.701961 RG
+2 137 198 FPL
+137 203
+137 203
+0.882353 0.898039 0.666667 RG
+2 136 193 FPL
+137 198
+136 196
+0.878431 0.898039 0.682353 RG
+2 137 198 FPL
+137 203
+136 196
+0.878431 0.901961 0.701961 RG
+2 137 198 FPL
+137 203
+137 203
+0.878431 0.898039 0.682353 RG
+2 136 196 FPL
+137 203
+136 199
+0.231373 0.270588 0.32549 RG
+2 259 107 FPL
+265 119
+264 117
+0.223529 0.282353 0.32549 RG
+2 265 119 FPL
+271 130
+264 117
+0.215686 0.290196 0.321569 RG
+2 265 119 FPL
+271 130
+271 130
+0.223529 0.282353 0.32549 RG
+2 264 117 FPL
+271 130
+268 128
+0.196078 0.329412 0.34902 RG
+2 270 134 FPL
+274 144
+273 145
+0.192157 0.337255 0.364706 RG
+2 274 144 FPL
+277 155
+273 145
+0.184314 0.341176 0.376471 RG
+2 274 144 FPL
+277 155
+277 155
+0.192157 0.337255 0.364706 RG
+2 273 145 FPL
+277 155
+276 156
+0.203922 0.309804 0.329412 RG
+2 271 130 FPL
+274 143
+271 130
+0.2 0.317647 0.341176 RG
+2 274 143 FPL
+274 144
+271 130
+0.192157 0.32549 0.352941 RG
+2 274 143 FPL
+277 155
+274 144
+0.2 0.317647 0.341176 RG
+2 271 130 FPL
+274 144
+270 134
+0.243137 0.243137 0.341176 RG
+2 261 106 FPL
+266 118
+261 106
+0.239216 0.258824 0.337255 RG
+2 266 118 FPL
+265 119
+261 106
+0.231373 0.270588 0.329412 RG
+2 266 118 FPL
+271 130
+265 119
+0.239216 0.258824 0.337255 RG
+2 261 106 FPL
+265 119
+259 107
+0.352941 0.486275 0.537255 RG
+2 271 130 FPL
+268 122
+271 130
+0.364706 0.47451 0.541176 RG
+2 268 122 FPL
+268 122
+271 130
+0.372549 0.458824 0.54902 RG
+2 268 122 FPL
+264 114
+268 122
+0.380392 0.443137 0.552941 RG
+2 264 114 FPL
+264 114
+268 122
+0.392157 0.431373 0.560784 RG
+2 264 114 FPL
+261 106
+264 114
+0.352941 0.486275 0.537255 RG
+2 271 130 FPL
+268 122
+271 130
+0.364706 0.47451 0.545098 RG
+2 268 122 FPL
+267 122
+271 130
+0.372549 0.458824 0.552941 RG
+2 268 122 FPL
+264 114
+267 122
+0.364706 0.47451 0.545098 RG
+2 271 130 FPL
+267 122
+271 130
+0.321569 0.533333 0.6 RG
+2 276 152 FPL
+275 145
+273 141
+0.32549 0.529412 0.584314 RG
+2 275 145 FPL
+272 136
+273 141
+0.333333 0.521569 0.572549 RG
+2 275 145 FPL
+273 137
+272 136
+0.337255 0.513725 0.556863 RG
+2 273 137 FPL
+271 130
+272 136
+0.341176 0.509804 0.545098 RG
+2 273 137 FPL
+271 130
+271 130
+0.32549 0.529412 0.584314 RG
+2 273 141 FPL
+272 136
+271 130
+0.337255 0.513725 0.556863 RG
+2 272 136 FPL
+271 130
+271 130
+0.305882 0.564706 0.631373 RG
+2 277 155 FPL
+275 147
+277 155
+0.309804 0.552941 0.615686 RG
+2 275 147 FPL
+275 146
+277 155
+0.317647 0.545098 0.603922 RG
+2 275 147 FPL
+273 138
+275 146
+0.32549 0.537255 0.588235 RG
+2 273 138 FPL
+273 137
+275 146
+0.329412 0.52549 0.572549 RG
+2 273 138 FPL
+271 130
+273 137
+0.305882 0.564706 0.631373 RG
+2 277 155 FPL
+275 146
+277 155
+0.313725 0.552941 0.619608 RG
+2 275 146 FPL
+275 145
+277 155
+0.317647 0.545098 0.603922 RG
+2 275 146 FPL
+273 137
+275 145
+0.313725 0.552941 0.619608 RG
+2 277 155 FPL
+275 145
+276 152
+0.368627 0.458824 0.560784 RG
+2 271 130 FPL
+267 122
+268 123
+0.380392 0.447059 0.560784 RG
+2 267 122 FPL
+264 115
+268 123
+0.388235 0.431373 0.564706 RG
+2 267 122 FPL
+264 114
+264 115
+0.396078 0.415686 0.568627 RG
+2 264 114 FPL
+261 106
+264 115
+0.407843 0.403922 0.568627 RG
+2 264 114 FPL
+261 106
+261 106
+0.388235 0.431373 0.568627 RG
+2 268 123 FPL
+264 115
+265 116
+0.396078 0.419608 0.568627 RG
+2 264 115 FPL
+261 106
+265 116
+0.407843 0.403922 0.572549 RG
+2 264 115 FPL
+261 106
+261 106
+0.396078 0.419608 0.568627 RG
+2 265 116 FPL
+261 106
+262 110
+0.282353 0.227451 0.317647 RG
+2 239 90 FPL
+250 98
+249 99
+0.27451 0.227451 0.329412 RG
+2 250 98 FPL
+261 106
+249 99
+0.262745 0.231373 0.337255 RG
+2 250 98 FPL
+261 106
+261 106
+0.27451 0.227451 0.329412 RG
+2 249 99 FPL
+261 106
+259 107
+0.305882 0.211765 0.309804 RG
+2 238 87 FPL
+249 97
+238 87
+0.294118 0.219608 0.317647 RG
+2 249 97 FPL
+250 98
+238 87
+0.282353 0.223529 0.321569 RG
+2 249 97 FPL
+261 106
+250 98
+0.294118 0.219608 0.317647 RG
+2 238 87 FPL
+250 98
+239 90
+0.184314 0.388235 0.384314 RG
+2 276 156 FPL
+273 170
+273 168
+0.184314 0.403922 0.384314 RG
+2 273 170 FPL
+271 184
+273 168
+0.180392 0.415686 0.388235 RG
+2 273 170 FPL
+271 184
+271 184
+0.184314 0.403922 0.384314 RG
+2 273 168 FPL
+271 184
+270 181
+0.909804 0.458824 0.541176 RG
+2 143 103 FPL
+149 97
+149 98
+0.901961 0.447059 0.545098 RG
+2 149 97 FPL
+155 92
+149 98
+0.898039 0.431373 0.552941 RG
+2 149 97 FPL
+155 92
+155 92
+0.890196 0.415686 0.560784 RG
+2 155 92 FPL
+161 86
+155 92
+0.882353 0.403922 0.564706 RG
+2 155 92 FPL
+161 86
+161 86
+0.894118 0.431373 0.54902 RG
+2 149 98 FPL
+155 92
+156 92
+0.890196 0.419608 0.556863 RG
+2 155 92 FPL
+161 86
+156 92
+0.882353 0.403922 0.564706 RG
+2 155 92 FPL
+161 86
+161 86
+0.890196 0.419608 0.556863 RG
+2 156 92 FPL
+161 86
+162 87
+0.937255 0.486275 0.533333 RG
+2 140 104 FPL
+147 98
+140 104
+0.92549 0.47451 0.541176 RG
+2 147 98 FPL
+148 98
+140 104
+0.917647 0.458824 0.545098 RG
+2 147 98 FPL
+154 92
+148 98
+0.909804 0.443137 0.54902 RG
+2 154 92 FPL
+155 92
+148 98
+0.898039 0.431373 0.556863 RG
+2 154 92 FPL
+161 86
+155 92
+0.937255 0.486275 0.533333 RG
+2 140 104 FPL
+148 98
+140 104
+0.92549 0.47451 0.541176 RG
+2 148 98 FPL
+149 97
+140 104
+0.917647 0.458824 0.545098 RG
+2 148 98 FPL
+155 92
+149 97
+0.92549 0.47451 0.541176 RG
+2 140 104 FPL
+149 97
+143 103
+0.34902 0.580392 0.447059 RG
+2 210 230 FPL
+197 231
+198 230
+0.364706 0.588235 0.443137 RG
+2 197 231 FPL
+183 231
+198 230
+0.376471 0.592157 0.435294 RG
+2 197 231 FPL
+183 231
+183 231
+0.364706 0.588235 0.443137 RG
+2 198 230 FPL
+183 231
+186 229
+0.517647 0.286275 0.462745 RG
+2 215 79 FPL
+226 83
+225 83
+0.498039 0.290196 0.454902 RG
+2 226 83 FPL
+238 87
+225 83
+0.482353 0.298039 0.447059 RG
+2 226 83 FPL
+238 87
+238 87
+0.498039 0.290196 0.454902 RG
+2 225 83 FPL
+238 87
+235 87
+0.196078 0.458824 0.415686 RG
+2 268 187 FPL
+263 196
+263 196
+0.2 0.462745 0.431373 RG
+2 263 196 FPL
+258 205
+263 196
+0.203922 0.470588 0.443137 RG
+2 263 196 FPL
+258 205
+258 205
+0.2 0.462745 0.431373 RG
+2 263 196 FPL
+258 205
+257 205
+0.184314 0.439216 0.4 RG
+2 271 184 FPL
+264 195
+271 184
+0.192157 0.447059 0.411765 RG
+2 264 195 FPL
+263 196
+271 184
+0.196078 0.454902 0.419608 RG
+2 264 195 FPL
+258 205
+263 196
+0.192157 0.447059 0.411765 RG
+2 271 184 FPL
+263 196
+268 187
+0.972549 0.556863 0.596078 RG
+2 128 126 FPL
+132 118
+132 120
+0.964706 0.545098 0.580392 RG
+2 132 118 FPL
+136 112
+132 120
+0.960784 0.537255 0.568627 RG
+2 132 118 FPL
+136 111
+136 112
+0.956863 0.52549 0.556863 RG
+2 136 111 FPL
+140 104
+136 112
+0.94902 0.513725 0.541176 RG
+2 136 111 FPL
+140 104
+140 104
+0.960784 0.541176 0.568627 RG
+2 132 120 FPL
+136 112
+135 114
+0.956863 0.529412 0.556863 RG
+2 136 112 FPL
+140 104
+135 114
+0.94902 0.513725 0.541176 RG
+2 136 112 FPL
+140 104
+140 104
+0.956863 0.529412 0.556863 RG
+2 135 114 FPL
+140 104
+139 107
+0.45098 0.666667 0.490196 RG
+2 183 231 FPL
+172 226
+183 231
+0.462745 0.658824 0.498039 RG
+2 172 226 FPL
+170 225
+183 231
+0.478431 0.654902 0.505882 RG
+2 172 226 FPL
+160 222
+170 225
+0.462745 0.658824 0.498039 RG
+2 183 231 FPL
+170 225
+180 228
+0.478431 0.65098 0.501961 RG
+2 180 228 FPL
+170 225
+170 224
+0.490196 0.647059 0.513725 RG
+2 170 225 FPL
+160 222
+170 224
+0.501961 0.643137 0.521569 RG
+2 170 225 FPL
+160 222
+160 222
+0.490196 0.647059 0.513725 RG
+2 170 224 FPL
+160 222
+160 220
+0.552941 0.262745 0.494118 RG
+2 215 78 FPL
+223 81
+215 78
+0.541176 0.270588 0.486275 RG
+2 223 81 FPL
+221 81
+215 78
+0.529412 0.27451 0.478431 RG
+2 223 81 FPL
+230 84
+221 81
+0.517647 0.278431 0.470588 RG
+2 230 84 FPL
+226 83
+221 81
+0.505882 0.286275 0.462745 RG
+2 230 84 FPL
+238 87
+226 83
+0.541176 0.270588 0.486275 RG
+2 215 78 FPL
+221 81
+215 79
+0.517647 0.278431 0.470588 RG
+2 221 81 FPL
+226 83
+215 79
+0.368627 0.227451 0.345098 RG
+2 238 87 FPL
+226 83
+238 87
+0.384314 0.223529 0.356863 RG
+2 226 83 FPL
+226 83
+238 87
+0.396078 0.215686 0.364706 RG
+2 226 83 FPL
+215 78
+226 83
+0.384314 0.223529 0.356863 RG
+2 238 87 FPL
+226 83
+238 89
+0.32549 0.243137 0.368627 RG
+2 258 105 FPL
+248 96
+248 97
+0.337255 0.239216 0.360784 RG
+2 248 96 FPL
+238 87
+248 97
+0.345098 0.235294 0.34902 RG
+2 248 96 FPL
+238 87
+238 87
+0.337255 0.239216 0.360784 RG
+2 248 97 FPL
+238 87
+238 89
+0.294118 0.258824 0.376471 RG
+2 261 106 FPL
+249 97
+261 106
+0.305882 0.25098 0.372549 RG
+2 249 97 FPL
+248 96
+261 106
+0.321569 0.247059 0.364706 RG
+2 249 97 FPL
+238 87
+248 96
+0.305882 0.25098 0.372549 RG
+2 261 106 FPL
+248 96
+258 105
+0.180392 0.360784 0.388235 RG
+2 277 155 FPL
+274 170
+277 155
+0.180392 0.376471 0.388235 RG
+2 274 170 FPL
+273 170
+277 155
+0.180392 0.388235 0.384314 RG
+2 274 170 FPL
+271 184
+273 170
+0.180392 0.376471 0.388235 RG
+2 277 155 FPL
+273 170
+276 156
+0.298039 0.698039 0.647059 RG
+2 271 184 FPL
+273 174
+271 184
+0.298039 0.682353 0.647059 RG
+2 273 174 FPL
+273 174
+271 184
+0.301961 0.662745 0.65098 RG
+2 273 174 FPL
+275 165
+273 174
+0.301961 0.643137 0.65098 RG
+2 275 165 FPL
+275 164
+273 174
+0.301961 0.627451 0.65098 RG
+2 275 165 FPL
+277 155
+275 164
+0.298039 0.698039 0.65098 RG
+2 271 184 FPL
+273 174
+271 184
+0.301961 0.678431 0.65098 RG
+2 273 174 FPL
+272 174
+271 184
+0.301961 0.658824 0.654902 RG
+2 273 174 FPL
+275 164
+272 174
+0.301961 0.678431 0.65098 RG
+2 271 184 FPL
+272 174
+270 183
+0.329412 0.74902 0.721569 RG
+2 259 202 FPL
+263 196
+263 195
+0.32549 0.741176 0.705882 RG
+2 263 196 FPL
+267 190
+263 195
+0.317647 0.737255 0.694118 RG
+2 263 196 FPL
+267 190
+267 190
+0.309804 0.729412 0.678431 RG
+2 267 190 FPL
+271 184
+267 190
+0.305882 0.72549 0.662745 RG
+2 267 190 FPL
+271 184
+271 184
+0.317647 0.733333 0.694118 RG
+2 263 195 FPL
+267 190
+266 189
+0.313725 0.729412 0.678431 RG
+2 267 190 FPL
+271 184
+266 189
+0.305882 0.721569 0.662745 RG
+2 267 190 FPL
+271 184
+271 184
+0.313725 0.729412 0.678431 RG
+2 266 189 FPL
+271 184
+270 183
+0.341176 0.780392 0.745098 RG
+2 258 205 FPL
+262 198
+258 205
+0.333333 0.768627 0.733333 RG
+2 262 198 FPL
+262 198
+258 205
+0.329412 0.760784 0.717647 RG
+2 262 198 FPL
+267 191
+262 198
+0.321569 0.74902 0.701961 RG
+2 267 191 FPL
+267 190
+262 198
+0.317647 0.741176 0.690196 RG
+2 267 191 FPL
+271 184
+267 190
+0.341176 0.776471 0.74902 RG
+2 258 205 FPL
+262 198
+258 205
+0.333333 0.768627 0.733333 RG
+2 262 198 FPL
+263 196
+258 205
+0.329412 0.756863 0.721569 RG
+2 262 198 FPL
+267 190
+263 196
+0.333333 0.768627 0.733333 RG
+2 258 205 FPL
+263 196
+259 202
+0.988235 0.564706 0.631373 RG
+2 127 125 FPL
+131 118
+127 125
+0.980392 0.556863 0.615686 RG
+2 131 118 FPL
+132 118
+127 125
+0.976471 0.54902 0.603922 RG
+2 131 118 FPL
+136 111
+132 118
+0.968627 0.537255 0.588235 RG
+2 136 111 FPL
+136 111
+132 118
+0.964706 0.529412 0.572549 RG
+2 136 111 FPL
+140 104
+136 111
+0.984314 0.564706 0.631373 RG
+2 127 125 FPL
+132 118
+127 125
+0.980392 0.560784 0.615686 RG
+2 132 118 FPL
+132 118
+127 125
+0.972549 0.552941 0.596078 RG
+2 132 118 FPL
+136 111
+132 118
+0.980392 0.560784 0.615686 RG
+2 127 125 FPL
+132 118
+128 126
+0.572549 0.309804 0.329412 RG
+2 140 104 FPL
+134 114
+140 104
+0.580392 0.317647 0.345098 RG
+2 134 114 FPL
+134 114
+140 104
+0.584314 0.321569 0.356863 RG
+2 134 114 FPL
+127 125
+134 114
+0.580392 0.317647 0.345098 RG
+2 140 104 FPL
+134 114
+141 104
+0.54902 0.270588 0.337255 RG
+2 159 89 FPL
+150 96
+150 96
+0.556863 0.282353 0.329412 RG
+2 150 96 FPL
+140 104
+150 96
+0.560784 0.290196 0.32549 RG
+2 150 96 FPL
+140 104
+140 104
+0.556863 0.282353 0.329412 RG
+2 150 96 FPL
+140 104
+141 104
+0.533333 0.243137 0.341176 RG
+2 161 86 FPL
+150 95
+161 86
+0.541176 0.258824 0.337255 RG
+2 150 95 FPL
+150 96
+161 86
+0.54902 0.270588 0.333333 RG
+2 150 95 FPL
+140 104
+150 96
+0.541176 0.258824 0.337255 RG
+2 161 86 FPL
+150 96
+159 89
+0.607843 0.847059 0.662745 RG
+2 163 222 FPL
+173 226
+173 226
+0.592157 0.854902 0.65098 RG
+2 173 226 FPL
+183 231
+173 226
+0.580392 0.858824 0.639216 RG
+2 173 226 FPL
+183 231
+183 231
+0.592157 0.854902 0.65098 RG
+2 173 226 FPL
+183 231
+183 230
+0.329412 0.572549 0.466667 RG
+2 210 232 FPL
+197 231
+210 232
+0.341176 0.580392 0.458824 RG
+2 197 231 FPL
+197 231
+210 232
+0.352941 0.584314 0.45098 RG
+2 197 231 FPL
+183 231
+197 231
+0.341176 0.580392 0.458824 RG
+2 210 232 FPL
+197 231
+210 230
+0.552941 0.862745 0.635294 RG
+2 183 231 FPL
+192 231
+183 231
+0.541176 0.858824 0.643137 RG
+2 192 231 FPL
+190 231
+183 231
+0.529412 0.854902 0.65098 RG
+2 192 231 FPL
+201 231
+190 231
+0.517647 0.847059 0.658824 RG
+2 201 231 FPL
+197 231
+190 231
+0.505882 0.843137 0.666667 RG
+2 201 231 FPL
+210 232
+197 231
+0.541176 0.858824 0.643137 RG
+2 183 231 FPL
+190 231
+183 230
+0.517647 0.847059 0.658824 RG
+2 190 231 FPL
+197 231
+183 230
+0.654902 0.831373 0.682353 RG
+2 160 222 FPL
+168 225
+160 222
+0.643137 0.835294 0.678431 RG
+2 168 225 FPL
+167 224
+160 222
+0.631373 0.843137 0.670588 RG
+2 168 225 FPL
+175 228
+167 224
+0.615686 0.847059 0.662745 RG
+2 175 228 FPL
+173 226
+167 224
+0.603922 0.85098 0.658824 RG
+2 175 228 FPL
+183 231
+173 226
+0.643137 0.835294 0.678431 RG
+2 160 222 FPL
+167 224
+163 222
+0.615686 0.847059 0.662745 RG
+2 167 224 FPL
+173 226
+163 222
+0.831373 0.380392 0.537255 RG
+2 162 87 FPL
+170 84
+170 85
+0.819608 0.372549 0.529412 RG
+2 170 84 FPL
+179 81
+170 85
+0.803922 0.368627 0.52549 RG
+2 170 84 FPL
+179 81
+179 81
+0.788235 0.360784 0.517647 RG
+2 179 81 FPL
+188 77
+179 81
+0.776471 0.352941 0.509804 RG
+2 179 81 FPL
+188 77
+188 77
+0.803922 0.368627 0.521569 RG
+2 170 85 FPL
+179 81
+177 82
+0.792157 0.360784 0.517647 RG
+2 179 81 FPL
+188 77
+177 82
+0.776471 0.352941 0.509804 RG
+2 179 81 FPL
+188 77
+188 77
+0.792157 0.360784 0.517647 RG
+2 177 82 FPL
+188 77
+185 79
+0.262745 0.545098 0.439216 RG
+2 237 223 FPL
+224 227
+237 223
+0.27451 0.552941 0.447059 RG
+2 224 227 FPL
+222 227
+237 223
+0.286275 0.556863 0.45098 RG
+2 224 227 FPL
+210 232
+222 227
+0.27451 0.552941 0.447059 RG
+2 237 223 FPL
+222 227
+234 222
+0.286275 0.556863 0.447059 RG
+2 234 222 FPL
+222 227
+222 226
+0.298039 0.560784 0.454902 RG
+2 222 227 FPL
+210 232
+222 226
+0.305882 0.564706 0.466667 RG
+2 222 227 FPL
+210 232
+210 232
+0.298039 0.560784 0.454902 RG
+2 222 226 FPL
+210 232
+210 230
+0.607843 0.282353 0.466667 RG
+2 191 78 FPL
+203 78
+203 79
+0.592157 0.27451 0.478431 RG
+2 203 78 FPL
+215 78
+203 79
+0.580392 0.266667 0.490196 RG
+2 203 78 FPL
+215 78
+215 78
+0.592157 0.27451 0.478431 RG
+2 203 79 FPL
+215 78
+215 79
+0.654902 0.298039 0.447059 RG
+2 188 77 FPL
+197 78
+188 77
+0.643137 0.294118 0.45098 RG
+2 197 78 FPL
+195 78
+188 77
+0.631373 0.290196 0.458824 RG
+2 197 78 FPL
+206 78
+195 78
+0.615686 0.282353 0.466667 RG
+2 206 78 FPL
+203 78
+195 78
+0.603922 0.278431 0.470588 RG
+2 206 78 FPL
+215 78
+203 78
+0.643137 0.294118 0.45098 RG
+2 188 77 FPL
+195 78
+191 78
+0.615686 0.282353 0.466667 RG
+2 195 78 FPL
+203 78
+191 78
+0.227451 0.505882 0.439216 RG
+2 257 205 FPL
+247 214
+248 213
+0.235294 0.517647 0.435294 RG
+2 247 214 FPL
+237 223
+248 213
+0.243137 0.529412 0.435294 RG
+2 247 214 FPL
+237 223
+237 223
+0.235294 0.517647 0.435294 RG
+2 248 213 FPL
+237 223
+239 220
+0.858824 0.384314 0.564706 RG
+2 161 86 FPL
+170 83
+161 86
+0.847059 0.376471 0.552941 RG
+2 170 83 FPL
+170 83
+161 86
+0.831373 0.372549 0.545098 RG
+2 170 83 FPL
+179 80
+170 83
+0.815686 0.368627 0.537255 RG
+2 179 80 FPL
+179 81
+170 83
+0.803922 0.360784 0.52549 RG
+2 179 80 FPL
+188 77
+179 81
+0.858824 0.384314 0.564706 RG
+2 161 86 FPL
+170 83
+161 86
+0.847059 0.380392 0.552941 RG
+2 170 83 FPL
+170 84
+161 86
+0.831373 0.376471 0.545098 RG
+2 170 83 FPL
+179 81
+170 84
+0.847059 0.380392 0.552941 RG
+2 161 86 FPL
+170 84
+162 87
+0.466667 0.211765 0.309804 RG
+2 188 77 FPL
+174 82
+188 77
+0.478431 0.215686 0.317647 RG
+2 174 82 FPL
+174 82
+188 77
+0.490196 0.219608 0.32549 RG
+2 174 82 FPL
+161 86
+174 82
+0.478431 0.215686 0.317647 RG
+2 188 77 FPL
+174 82
+188 79
+0.427451 0.196078 0.329412 RG
+2 212 80 FPL
+200 78
+200 79
+0.435294 0.2 0.321569 RG
+2 200 78 FPL
+188 77
+200 79
+0.447059 0.203922 0.309804 RG
+2 200 78 FPL
+188 77
+188 77
+0.435294 0.2 0.321569 RG
+2 200 79 FPL
+188 77
+188 79
+0.4 0.184314 0.337255 RG
+2 215 78 FPL
+201 78
+215 78
+0.411765 0.192157 0.333333 RG
+2 201 78 FPL
+200 78
+215 78
+0.423529 0.196078 0.32549 RG
+2 201 78 FPL
+188 77
+200 78
+0.411765 0.192157 0.333333 RG
+2 215 78 FPL
+200 78
+212 80
+0.215686 0.486275 0.45098 RG
+2 258 205 FPL
+248 214
+258 205
+0.223529 0.498039 0.447059 RG
+2 248 214 FPL
+247 214
+258 205
+0.227451 0.505882 0.439216 RG
+2 248 214 FPL
+237 223
+247 214
+0.223529 0.498039 0.447059 RG
+2 258 205 FPL
+247 214
+257 205
+0.407843 0.886275 0.72549 RG
+2 237 223 FPL
+244 217
+237 223
+0.4 0.87451 0.729412 RG
+2 244 217 FPL
+244 217
+237 223
+0.392157 0.858824 0.737255 RG
+2 244 217 FPL
+251 211
+244 217
+0.380392 0.843137 0.741176 RG
+2 251 211 FPL
+251 211
+244 217
+0.372549 0.831373 0.74902 RG
+2 251 211 FPL
+258 205
+251 211
+0.407843 0.886275 0.72549 RG
+2 237 223 FPL
+244 217
+237 223
+0.4 0.87451 0.733333 RG
+2 244 217 FPL
+244 216
+237 223
+0.392157 0.858824 0.737255 RG
+2 244 217 FPL
+251 211
+244 216
+0.4 0.87451 0.733333 RG
+2 237 223 FPL
+244 216
+236 222
+0.486275 0.921569 0.768627 RG
+2 213 230 FPL
+221 227
+221 227
+0.470588 0.917647 0.756863 RG
+2 221 227 FPL
+229 225
+221 227
+0.458824 0.913725 0.74902 RG
+2 221 227 FPL
+229 225
+229 225
+0.443137 0.909804 0.737255 RG
+2 229 225 FPL
+237 223
+229 225
+0.431373 0.905882 0.729412 RG
+2 229 225 FPL
+237 223
+237 223
+0.458824 0.909804 0.74902 RG
+2 221 227 FPL
+229 225
+228 224
+0.443137 0.909804 0.741176 RG
+2 229 225 FPL
+237 223
+228 224
+0.431373 0.905882 0.729412 RG
+2 229 225 FPL
+237 223
+237 223
+0.443137 0.909804 0.741176 RG
+2 228 224 FPL
+237 223
+236 222
+0.513725 0.941176 0.780392 RG
+2 210 232 FPL
+219 229
+210 232
+0.501961 0.933333 0.772549 RG
+2 219 229 FPL
+220 228
+210 232
+0.486275 0.929412 0.764706 RG
+2 219 229 FPL
+228 226
+220 228
+0.470588 0.921569 0.752941 RG
+2 228 226 FPL
+229 225
+220 228
+0.458824 0.917647 0.745098 RG
+2 228 226 FPL
+237 223
+229 225
+0.513725 0.937255 0.780392 RG
+2 210 232 FPL
+220 228
+210 232
+0.501961 0.933333 0.772549 RG
+2 220 228 FPL
+221 227
+210 232
+0.486275 0.92549 0.764706 RG
+2 220 228 FPL
+229 225
+221 227
+0.501961 0.933333 0.772549 RG
+2 210 232 FPL
+221 227
+213 230
+0.396078 0.219608 0.372549 RG
+2 238 89 FPL
+226 83
+228 85
+0.407843 0.211765 0.376471 RG
+2 226 83 FPL
+215 78
+228 85
+0.423529 0.207843 0.380392 RG
+2 226 83 FPL
+215 78
+215 78
+0.407843 0.211765 0.376471 RG
+2 228 85 FPL
+215 78
+218 81
+0.305882 0.658824 0.658824 RG
+2 270 183 FPL
+272 174
+272 175
+0.301961 0.639216 0.654902 RG
+2 272 174 FPL
+275 165
+272 175
+0.301961 0.623529 0.654902 RG
+2 272 174 FPL
+275 164
+275 165
+0.301961 0.607843 0.65098 RG
+2 275 164 FPL
+277 155
+275 165
+0.298039 0.588235 0.65098 RG
+2 275 164 FPL
+277 155
+277 155
+0.305882 0.627451 0.654902 RG
+2 272 175 FPL
+275 165
+274 166
+0.301961 0.611765 0.654902 RG
+2 275 165 FPL
+277 155
+274 166
+0.301961 0.592157 0.65098 RG
+2 275 165 FPL
+277 155
+277 155
+0.301961 0.611765 0.654902 RG
+2 274 166 FPL
+277 155
+276 158
+0.580392 0.317647 0.356863 RG
+2 141 104 FPL
+134 114
+135 113
+0.588235 0.329412 0.368627 RG
+2 134 114 FPL
+127 125
+135 113
+0.592157 0.337255 0.376471 RG
+2 134 114 FPL
+127 125
+127 125
+0.588235 0.329412 0.368627 RG
+2 135 113 FPL
+127 125
+130 122
+0.517647 0.847059 0.666667 RG
+2 183 230 FPL
+197 231
+195 230
+0.498039 0.839216 0.67451 RG
+2 197 231 FPL
+210 232
+195 230
+0.482353 0.835294 0.682353 RG
+2 197 231 FPL
+210 232
+210 232
+0.498039 0.839216 0.67451 RG
+2 195 230 FPL
+210 232
+207 231
+0.486275 0.219608 0.329412 RG
+2 188 79 FPL
+174 82
+176 83
+0.501961 0.223529 0.337255 RG
+2 174 82 FPL
+161 86
+176 83
+0.513725 0.227451 0.341176 RG
+2 174 82 FPL
+161 86
+161 86
+0.501961 0.223529 0.337255 RG
+2 176 83 FPL
+161 86
+164 87
+0.396078 0.858824 0.745098 RG
+2 236 222 FPL
+244 216
+242 217
+0.384314 0.843137 0.74902 RG
+2 244 216 FPL
+250 211
+242 217
+0.376471 0.831373 0.752941 RG
+2 244 216 FPL
+251 211
+250 211
+0.364706 0.815686 0.752941 RG
+2 251 211 FPL
+258 205
+250 211
+0.356863 0.803922 0.756863 RG
+2 251 211 FPL
+258 205
+258 205
+0.376471 0.831373 0.752941 RG
+2 242 217 FPL
+250 211
+249 211
+0.368627 0.815686 0.756863 RG
+2 250 211 FPL
+258 205
+249 211
+0.356863 0.803922 0.756863 RG
+2 250 211 FPL
+258 205
+258 205
+0.368627 0.815686 0.756863 RG
+2 249 211 FPL
+258 205
+255 206
+0.984314 0.658824 0.635294 RG
+2 122 151 FPL
+124 143
+124 143
+0.988235 0.639216 0.635294 RG
+2 124 143 FPL
+126 134
+124 143
+0.988235 0.623529 0.639216 RG
+2 124 143 FPL
+126 134
+126 134
+0.988235 0.607843 0.643137 RG
+2 126 134 FPL
+127 125
+126 134
+0.992157 0.588235 0.643137 RG
+2 126 134 FPL
+127 125
+127 125
+0.988235 0.627451 0.635294 RG
+2 124 143 FPL
+126 134
+126 134
+0.988235 0.611765 0.639216 RG
+2 126 134 FPL
+127 125
+126 134
+0.992157 0.592157 0.643137 RG
+2 126 134 FPL
+127 125
+127 125
+0.988235 0.611765 0.639216 RG
+2 126 134 FPL
+127 125
+128 126
+0.992157 0.698039 0.647059 RG
+2 121 154 FPL
+123 144
+121 154
+0.992157 0.682353 0.647059 RG
+2 123 144 FPL
+123 144
+121 154
+0.992157 0.662745 0.647059 RG
+2 123 144 FPL
+125 135
+123 144
+0.992157 0.643137 0.643137 RG
+2 125 135 FPL
+126 134
+123 144
+0.992157 0.627451 0.643137 RG
+2 125 135 FPL
+127 125
+126 134
+0.992157 0.698039 0.647059 RG
+2 121 154 FPL
+123 144
+121 154
+0.992157 0.678431 0.643137 RG
+2 123 144 FPL
+124 143
+121 154
+0.988235 0.658824 0.643137 RG
+2 123 144 FPL
+126 134
+124 143
+0.992157 0.678431 0.643137 RG
+2 121 154 FPL
+124 143
+122 151
+0.54902 0.627451 0.498039 RG
+2 160 220 FPL
+149 211
+150 212
+0.564706 0.619608 0.494118 RG
+2 149 211 FPL
+137 203
+150 212
+0.576471 0.615686 0.486275 RG
+2 149 211 FPL
+137 203
+137 203
+0.564706 0.619608 0.494118 RG
+2 150 212 FPL
+137 203
+140 204
+0.980392 0.737255 0.654902 RG
+2 122 157 FPL
+124 164
+122 157
+0.976471 0.741176 0.666667 RG
+2 124 164 FPL
+123 162
+122 157
+0.972549 0.74902 0.678431 RG
+2 124 164 FPL
+125 172
+123 162
+0.968627 0.756863 0.690196 RG
+2 125 172 FPL
+124 166
+123 162
+0.964706 0.760784 0.701961 RG
+2 125 172 FPL
+127 179
+124 166
+0.976471 0.741176 0.666667 RG
+2 122 157 FPL
+123 162
+121 154
+0.968627 0.756863 0.690196 RG
+2 123 162 FPL
+124 166
+121 154
+0.905882 0.858824 0.72549 RG
+2 136 199 FPL
+133 193
+133 193
+0.913725 0.843137 0.733333 RG
+2 133 193 FPL
+130 186
+133 193
+0.921569 0.831373 0.741176 RG
+2 133 193 FPL
+130 186
+130 186
+0.929412 0.815686 0.745098 RG
+2 130 186 FPL
+127 179
+130 186
+0.937255 0.803922 0.752941 RG
+2 130 186 FPL
+127 179
+127 179
+0.921569 0.831373 0.733333 RG
+2 133 193 FPL
+130 186
+130 186
+0.929412 0.815686 0.745098 RG
+2 130 186 FPL
+127 179
+130 186
+0.937255 0.803922 0.752941 RG
+2 130 186 FPL
+127 179
+127 179
+0.929412 0.815686 0.745098 RG
+2 130 186 FPL
+127 179
+127 179
+0.882353 0.886275 0.721569 RG
+2 137 203 FPL
+134 195
+137 203
+0.894118 0.87451 0.729412 RG
+2 134 195 FPL
+134 194
+137 203
+0.901961 0.858824 0.733333 RG
+2 134 195 FPL
+130 187
+134 194
+0.909804 0.843137 0.737255 RG
+2 130 187 FPL
+130 186
+134 194
+0.921569 0.831373 0.745098 RG
+2 130 187 FPL
+127 179
+130 186
+0.886275 0.886275 0.721569 RG
+2 137 203 FPL
+134 194
+137 203
+0.894118 0.87451 0.72549 RG
+2 134 194 FPL
+133 193
+137 203
+0.905882 0.858824 0.729412 RG
+2 134 194 FPL
+130 186
+133 193
+0.894118 0.87451 0.72549 RG
+2 137 203 FPL
+133 193
+136 199
+0.286275 0.258824 0.431373 RG
+2 258 114 FPL
+260 110
+258 110
+0.286275 0.258824 0.415686 RG
+2 260 110 FPL
+261 106
+258 110
+0.282353 0.262745 0.4 RG
+2 260 110 FPL
+261 106
+261 106
+0.286275 0.258824 0.415686 RG
+2 258 110 FPL
+261 106
+258 105
+0.415686 0.388235 0.592157 RG
+2 261 106 FPL
+261 110
+261 106
+0.415686 0.388235 0.611765 RG
+2 261 110 FPL
+261 110
+261 106
+0.415686 0.392157 0.631373 RG
+2 261 110 FPL
+261 113
+261 110
+0.415686 0.392157 0.647059 RG
+2 261 113 FPL
+261 114
+261 110
+0.415686 0.392157 0.666667 RG
+2 261 113 FPL
+261 117
+261 114
+0.415686 0.388235 0.592157 RG
+2 261 106 FPL
+261 110
+261 106
+0.415686 0.392157 0.611765 RG
+2 261 110 FPL
+262 112
+261 106
+0.411765 0.392157 0.631373 RG
+2 261 110 FPL
+261 114
+262 112
+0.415686 0.392157 0.611765 RG
+2 261 106 FPL
+262 112
+262 110
+0.278431 0.262745 0.466667 RG
+2 261 117 FPL
+261 112
+261 117
+0.282353 0.262745 0.45098 RG
+2 261 112 FPL
+260 110
+261 117
+0.282353 0.258824 0.431373 RG
+2 261 112 FPL
+261 106
+260 110
+0.282353 0.262745 0.45098 RG
+2 261 117 FPL
+260 110
+258 114
+0.341176 0.509804 0.74902 RG
+2 271 147 FPL
+273 149
+271 147
+0.333333 0.517647 0.733333 RG
+2 273 149 FPL
+273 148
+271 147
+0.329412 0.52549 0.721569 RG
+2 273 149 FPL
+275 152
+273 148
+0.32549 0.533333 0.705882 RG
+2 275 152 FPL
+274 150
+273 148
+0.317647 0.541176 0.694118 RG
+2 275 152 FPL
+277 155
+274 150
+0.333333 0.517647 0.733333 RG
+2 271 147 FPL
+273 148
+271 145
+0.32549 0.533333 0.705882 RG
+2 273 148 FPL
+274 150
+271 145
+0.305882 0.564706 0.662745 RG
+2 277 155 FPL
+275 152
+277 155
+0.309804 0.556863 0.678431 RG
+2 275 152 FPL
+275 153
+277 155
+0.317647 0.54902 0.694118 RG
+2 275 152 FPL
+273 149
+275 153
+0.32549 0.537255 0.705882 RG
+2 273 149 FPL
+273 150
+275 153
+0.329412 0.529412 0.721569 RG
+2 273 149 FPL
+271 147
+273 150
+0.305882 0.564706 0.662745 RG
+2 277 155 FPL
+275 153
+277 155
+0.313725 0.560784 0.678431 RG
+2 275 153 FPL
+274 154
+277 155
+0.317647 0.552941 0.694118 RG
+2 275 153 FPL
+273 150
+274 154
+0.313725 0.560784 0.678431 RG
+2 277 155 FPL
+274 154
+276 158
+0.309804 0.552941 0.654902 RG
+2 276 152 FPL
+274 150
+276 152
+0.313725 0.54902 0.666667 RG
+2 274 150 FPL
+275 151
+276 152
+0.317647 0.541176 0.678431 RG
+2 274 150 FPL
+273 147
+275 151
+0.321569 0.533333 0.690196 RG
+2 273 147 FPL
+274 150
+275 151
+0.32549 0.529412 0.701961 RG
+2 273 147 FPL
+271 145
+274 150
+0.313725 0.54902 0.666667 RG
+2 276 152 FPL
+275 151
+277 155
+0.321569 0.533333 0.690196 RG
+2 275 151 FPL
+274 150
+277 155
+0.94902 0.780392 0.74902 RG
+2 127 179 FPL
+125 171
+127 179
+0.956863 0.772549 0.733333 RG
+2 125 171 FPL
+125 173
+127 179
+0.960784 0.764706 0.721569 RG
+2 125 171 FPL
+123 162
+125 173
+0.964706 0.756863 0.705882 RG
+2 123 162 FPL
+124 166
+125 173
+0.972549 0.74902 0.694118 RG
+2 123 162 FPL
+121 154
+124 166
+0.956863 0.772549 0.733333 RG
+2 127 179 FPL
+125 173
+127 179
+0.964706 0.756863 0.705882 RG
+2 125 173 FPL
+124 166
+127 179
+0.592157 0.439216 0.4 RG
+2 121 154 FPL
+124 166
+121 154
+0.588235 0.447059 0.411765 RG
+2 124 166 FPL
+125 166
+121 154
+0.580392 0.45098 0.423529 RG
+2 124 166 FPL
+127 179
+125 166
+0.588235 0.447059 0.411765 RG
+2 121 154 FPL
+125 166
+122 153
+0.592157 0.388235 0.396078 RG
+2 128 128 FPL
+124 141
+125 141
+0.596078 0.403922 0.392157 RG
+2 124 141 FPL
+121 154
+125 141
+0.596078 0.415686 0.392157 RG
+2 124 141 FPL
+121 154
+121 154
+0.596078 0.403922 0.392157 RG
+2 125 141 FPL
+121 154
+122 153
+0.596078 0.360784 0.388235 RG
+2 127 125 FPL
+124 139
+127 125
+0.596078 0.376471 0.392157 RG
+2 124 139 FPL
+124 141
+127 125
+0.596078 0.388235 0.392157 RG
+2 124 139 FPL
+121 154
+124 141
+0.596078 0.376471 0.392157 RG
+2 127 125 FPL
+124 141
+128 128
+0.545098 0.505882 0.45098 RG
+2 130 181 FPL
+133 192
+134 192
+0.537255 0.517647 0.443137 RG
+2 133 192 FPL
+137 203
+134 192
+0.533333 0.529412 0.439216 RG
+2 133 192 FPL
+137 203
+137 203
+0.537255 0.517647 0.443137 RG
+2 134 192 FPL
+137 203
+139 202
+0.52549 0.635294 0.52549 RG
+2 160 222 FPL
+149 212
+160 222
+0.541176 0.631373 0.513725 RG
+2 149 212 FPL
+149 211
+160 222
+0.552941 0.623529 0.505882 RG
+2 149 212 FPL
+137 203
+149 211
+0.541176 0.631373 0.513725 RG
+2 160 222 FPL
+149 211
+160 220
+0.513725 0.545098 0.439216 RG
+2 137 203 FPL
+149 212
+137 203
+0.501961 0.54902 0.447059 RG
+2 149 212 FPL
+149 212
+137 203
+0.490196 0.552941 0.454902 RG
+2 149 212 FPL
+160 222
+149 212
+0.501961 0.54902 0.447059 RG
+2 137 203 FPL
+149 212
+139 202
+0.560784 0.486275 0.45098 RG
+2 127 179 FPL
+132 191
+127 179
+0.552941 0.498039 0.45098 RG
+2 132 191 FPL
+133 192
+127 179
+0.545098 0.505882 0.447059 RG
+2 132 191 FPL
+137 203
+133 192
+0.552941 0.498039 0.45098 RG
+2 127 179 FPL
+133 192
+130 181
+0.407843 0.396078 0.631373 RG
+2 262 110 FPL
+262 112
+262 113
+0.411765 0.392157 0.65098 RG
+2 262 112 FPL
+261 115
+262 113
+0.411765 0.392157 0.666667 RG
+2 262 112 FPL
+261 114
+261 115
+0.411765 0.392157 0.682353 RG
+2 261 114 FPL
+261 117
+261 115
+0.415686 0.388235 0.701961 RG
+2 261 114 FPL
+261 117
+261 117
+0.411765 0.396078 0.666667 RG
+2 262 113 FPL
+261 115
+262 116
+0.411765 0.392157 0.682353 RG
+2 261 115 FPL
+261 117
+262 116
+0.415686 0.392157 0.701961 RG
+2 261 115 FPL
+261 117
+261 117
+0.411765 0.392157 0.682353 RG
+2 262 116 FPL
+261 117
+262 119
+0.321569 0.556863 0.698039 RG
+2 276 158 FPL
+274 154
+274 155
+0.32549 0.545098 0.709804 RG
+2 274 154 FPL
+273 151
+274 155
+0.333333 0.537255 0.72549 RG
+2 274 154 FPL
+273 150
+273 151
+0.337255 0.52549 0.737255 RG
+2 273 150 FPL
+271 147
+273 151
+0.341176 0.513725 0.74902 RG
+2 273 150 FPL
+271 147
+271 147
+0.329412 0.541176 0.721569 RG
+2 274 155 FPL
+273 151
+272 153
+0.337255 0.529412 0.737255 RG
+2 273 151 FPL
+271 147
+272 153
+0.341176 0.513725 0.74902 RG
+2 273 151 FPL
+271 147
+271 147
+0.337255 0.529412 0.737255 RG
+2 272 153 FPL
+271 147
+270 150
+0.580392 0.447059 0.427451 RG
+2 122 153 FPL
+125 166
+125 164
+0.576471 0.454902 0.435294 RG
+2 125 166 FPL
+127 179
+125 164
+0.572549 0.466667 0.447059 RG
+2 125 166 FPL
+127 179
+127 179
+0.576471 0.454902 0.435294 RG
+2 125 164 FPL
+127 179
+128 175
+0.490196 0.552941 0.458824 RG
+2 139 202 FPL
+149 212
+149 210
+0.478431 0.556863 0.462745 RG
+2 149 212 FPL
+160 222
+149 210
+0.466667 0.564706 0.470588 RG
+2 149 212 FPL
+160 222
+160 222
+0.478431 0.556863 0.462745 RG
+2 149 210 FPL
+160 222
+159 219
+0.529412 0.239216 0.388235 RG
+2 159 98 FPL
+160 92
+159 93
+0.529412 0.235294 0.372549 RG
+2 160 92 FPL
+161 86
+159 93
+0.52549 0.235294 0.360784 RG
+2 160 92 FPL
+161 86
+161 86
+0.529412 0.235294 0.372549 RG
+2 159 93 FPL
+161 86
+159 89
+0.52549 0.231373 0.415686 RG
+2 161 97 FPL
+161 92
+161 97
+0.52549 0.235294 0.403922 RG
+2 161 92 FPL
+160 92
+161 97
+0.52549 0.235294 0.388235 RG
+2 161 92 FPL
+161 86
+160 92
+0.52549 0.235294 0.403922 RG
+2 161 97 FPL
+160 92
+159 98
+0.52549 0.231373 0.360784 RG
+2 161 86 FPL
+161 92
+161 86
+0.52549 0.231373 0.376471 RG
+2 161 92 FPL
+163 92
+161 86
+0.521569 0.231373 0.388235 RG
+2 161 92 FPL
+161 97
+163 92
+0.52549 0.231373 0.376471 RG
+2 161 86 FPL
+163 92
+164 87
+0.470588 0.815686 0.705882 RG
+2 210 232 FPL
+207 228
+210 232
+0.478431 0.807843 0.72549 RG
+2 207 228 FPL
+205 227
+210 232
+0.486275 0.796078 0.741176 RG
+2 207 228 FPL
+204 224
+205 227
+0.478431 0.807843 0.72549 RG
+2 210 232 FPL
+205 227
+207 231
+0.54902 0.898039 0.858824 RG
+2 207 222 FPL
+208 226
+209 225
+0.545098 0.905882 0.843137 RG
+2 208 226 FPL
+210 228
+209 225
+0.541176 0.917647 0.831373 RG
+2 208 226 FPL
+209 229
+210 228
+0.537255 0.92549 0.815686 RG
+2 209 229 FPL
+210 232
+210 228
+0.533333 0.937255 0.803922 RG
+2 209 229 FPL
+210 232
+210 232
+0.537255 0.913725 0.831373 RG
+2 209 225 FPL
+210 228
+211 227
+0.537255 0.92549 0.815686 RG
+2 210 228 FPL
+210 232
+211 227
+0.533333 0.933333 0.803922 RG
+2 210 228 FPL
+210 232
+210 232
+0.537255 0.92549 0.815686 RG
+2 211 227 FPL
+210 232
+213 230
+0.568627 0.882353 0.886275 RG
+2 204 224 FPL
+206 226
+204 224
+0.560784 0.890196 0.87451 RG
+2 206 226 FPL
+206 226
+204 224
+0.556863 0.901961 0.858824 RG
+2 206 226 FPL
+208 229
+206 226
+0.54902 0.909804 0.843137 RG
+2 208 229 FPL
+209 229
+206 226
+0.545098 0.917647 0.831373 RG
+2 208 229 FPL
+210 232
+209 229
+0.564706 0.882353 0.886275 RG
+2 204 224 FPL
+206 226
+204 224
+0.560784 0.894118 0.87451 RG
+2 206 226 FPL
+208 226
+204 224
+0.552941 0.901961 0.858824 RG
+2 206 226 FPL
+209 229
+208 226
+0.560784 0.894118 0.87451 RG
+2 204 224 FPL
+208 226
+207 222
+0.494118 0.796078 0.737255 RG
+2 207 231 FPL
+205 227
+204 227
+0.498039 0.788235 0.756863 RG
+2 205 227 FPL
+204 224
+204 227
+0.498039 0.776471 0.772549 RG
+2 205 227 FPL
+204 224
+204 224
+0.498039 0.788235 0.756863 RG
+2 204 227 FPL
+204 224
+202 224
+0.521569 0.227451 0.388235 RG
+2 164 87 FPL
+163 92
+164 91
+0.521569 0.231373 0.403922 RG
+2 163 92 FPL
+161 97
+164 91
+0.52549 0.231373 0.415686 RG
+2 163 92 FPL
+161 97
+161 97
+0.521569 0.231373 0.403922 RG
+2 164 91 FPL
+161 97
+164 96
+0.388235 0.180392 0.415686 RG
+2 215 89 FPL
+215 84
+215 89
+0.392157 0.180392 0.403922 RG
+2 215 84 FPL
+213 83
+215 89
+0.392157 0.180392 0.388235 RG
+2 215 84 FPL
+215 78
+213 83
+0.392157 0.180392 0.403922 RG
+2 215 89 FPL
+213 83
+212 89
+0.435294 0.2 0.403922 RG
+2 215 78 FPL
+215 84
+215 78
+0.435294 0.203922 0.419608 RG
+2 215 84 FPL
+216 85
+215 78
+0.431373 0.203922 0.439216 RG
+2 215 84 FPL
+215 89
+216 85
+0.435294 0.203922 0.419608 RG
+2 215 78 FPL
+216 85
+218 81
+0.396078 0.184314 0.388235 RG
+2 212 89 FPL
+213 83
+212 84
+0.392157 0.184314 0.372549 RG
+2 213 83 FPL
+215 78
+212 84
+0.392157 0.180392 0.360784 RG
+2 213 83 FPL
+215 78
+215 78
+0.392157 0.184314 0.372549 RG
+2 212 84 FPL
+215 78
+212 80
+0.352941 0.780392 0.776471 RG
+2 258 205 FPL
+256 203
+258 205
+0.356863 0.772549 0.788235 RG
+2 256 203 FPL
+255 203
+258 205
+0.364706 0.764706 0.803922 RG
+2 256 203 FPL
+254 200
+255 203
+0.368627 0.752941 0.819608 RG
+2 254 200 FPL
+253 200
+255 203
+0.376471 0.745098 0.831373 RG
+2 254 200 FPL
+252 197
+253 200
+0.352941 0.780392 0.776471 RG
+2 258 205 FPL
+255 203
+258 205
+0.360784 0.772549 0.792157 RG
+2 255 203 FPL
+254 203
+258 205
+0.364706 0.764706 0.807843 RG
+2 255 203 FPL
+253 200
+254 203
+0.360784 0.772549 0.792157 RG
+2 258 205 FPL
+254 203
+255 206
+0.368627 0.733333 0.827451 RG
+2 253 194 FPL
+255 198
+255 197
+0.364706 0.745098 0.811765 RG
+2 255 198 FPL
+257 201
+255 197
+0.360784 0.756863 0.8 RG
+2 255 198 FPL
+256 202
+257 201
+0.352941 0.764706 0.788235 RG
+2 256 202 FPL
+258 205
+257 201
+0.34902 0.776471 0.772549 RG
+2 256 202 FPL
+258 205
+258 205
+0.360784 0.74902 0.8 RG
+2 255 197 FPL
+257 201
+257 199
+0.356863 0.764706 0.788235 RG
+2 257 201 FPL
+258 205
+257 199
+0.34902 0.776471 0.772549 RG
+2 257 201 FPL
+258 205
+258 205
+0.356863 0.764706 0.788235 RG
+2 257 199 FPL
+258 205
+259 202
+0.384314 0.72549 0.858824 RG
+2 252 197 FPL
+254 200
+252 197
+0.376471 0.733333 0.847059 RG
+2 254 200 FPL
+254 199
+252 197
+0.372549 0.745098 0.831373 RG
+2 254 200 FPL
+256 203
+254 199
+0.364706 0.752941 0.815686 RG
+2 256 203 FPL
+256 202
+254 199
+0.360784 0.760784 0.803922 RG
+2 256 203 FPL
+258 205
+256 202
+0.384314 0.72549 0.858824 RG
+2 252 197 FPL
+254 199
+252 197
+0.376471 0.733333 0.843137 RG
+2 254 199 FPL
+255 198
+252 197
+0.372549 0.741176 0.827451 RG
+2 254 199 FPL
+256 202
+255 198
+0.376471 0.733333 0.843137 RG
+2 252 197 FPL
+255 198
+253 194
+0.572549 0.309804 0.443137 RG
+2 140 120 FPL
+134 123
+140 120
+0.580392 0.317647 0.435294 RG
+2 134 123 FPL
+133 124
+140 120
+0.584314 0.32549 0.423529 RG
+2 134 123 FPL
+127 125
+133 124
+0.580392 0.317647 0.435294 RG
+2 140 120 FPL
+133 124
+139 124
+0.580392 0.329412 0.423529 RG
+2 139 124 FPL
+133 124
+134 126
+0.588235 0.337255 0.411765 RG
+2 133 124 FPL
+127 125
+134 126
+0.592157 0.341176 0.4 RG
+2 133 124 FPL
+127 125
+127 125
+0.588235 0.337255 0.411765 RG
+2 134 126 FPL
+127 125
+128 128
+0.592157 0.337255 0.4 RG
+2 127 125 FPL
+134 123
+127 125
+0.588235 0.329412 0.411765 RG
+2 134 123 FPL
+135 121
+127 125
+0.580392 0.321569 0.419608 RG
+2 134 123 FPL
+140 120
+135 121
+0.588235 0.329412 0.411765 RG
+2 127 125 FPL
+135 121
+130 122
+0.635294 0.776471 0.772549 RG
+2 173 217 FPL
+166 220
+173 217
+0.639216 0.788235 0.756863 RG
+2 166 220 FPL
+167 220
+173 217
+0.647059 0.796078 0.737255 RG
+2 166 220 FPL
+160 222
+167 220
+0.639216 0.788235 0.756863 RG
+2 173 217 FPL
+167 220
+175 218
+0.45098 0.560784 0.486275 RG
+2 160 222 FPL
+166 220
+160 222
+0.45098 0.552941 0.498039 RG
+2 166 220 FPL
+166 218
+160 222
+0.447059 0.545098 0.505882 RG
+2 166 220 FPL
+173 217
+166 218
+0.45098 0.552941 0.498039 RG
+2 160 222 FPL
+166 218
+159 219
+0.639216 0.8 0.737255 RG
+2 175 218 FPL
+167 220
+169 220
+0.647059 0.811765 0.721569 RG
+2 167 220 FPL
+160 222
+169 220
+0.658824 0.819608 0.705882 RG
+2 167 220 FPL
+160 222
+160 222
+0.647059 0.811765 0.721569 RG
+2 169 220 FPL
+160 222
+163 222
+0.431373 0.207843 0.439216 RG
+2 218 81 FPL
+216 85
+218 85
+0.431373 0.203922 0.454902 RG
+2 216 85 FPL
+215 89
+218 85
+0.435294 0.203922 0.466667 RG
+2 216 85 FPL
+215 89
+215 89
+0.431373 0.203922 0.454902 RG
+2 218 85 FPL
+215 89
+218 90
+0.580392 0.321569 0.415686 RG
+2 130 122 FPL
+135 121
+135 121
+0.576471 0.313725 0.431373 RG
+2 135 121 FPL
+140 120
+135 121
+0.572549 0.309804 0.443137 RG
+2 135 121 FPL
+140 120
+140 120
+0.576471 0.313725 0.431373 RG
+2 135 121 FPL
+140 120
+141 119
+0.372549 0.768627 0.807843 RG
+2 255 206 FPL
+254 203
+253 204
+0.376471 0.756863 0.823529 RG
+2 254 203 FPL
+252 201
+253 204
+0.380392 0.74902 0.835294 RG
+2 254 203 FPL
+253 200
+252 201
+0.380392 0.737255 0.847059 RG
+2 253 200 FPL
+252 197
+252 201
+0.384314 0.729412 0.862745 RG
+2 253 200 FPL
+252 197
+252 197
+0.380392 0.74902 0.835294 RG
+2 253 204 FPL
+252 201
+251 202
+0.384314 0.741176 0.847059 RG
+2 252 201 FPL
+252 197
+251 202
+0.384314 0.729412 0.862745 RG
+2 252 201 FPL
+252 197
+252 197
+0.384314 0.741176 0.847059 RG
+2 251 202 FPL
+252 197
+249 199
+0.45098 0.545098 0.505882 RG
+2 159 219 FPL
+166 218
+164 217
+0.443137 0.537255 0.517647 RG
+2 166 218 FPL
+173 217
+164 217
+0.439216 0.533333 0.529412 RG
+2 166 218 FPL
+173 217
+173 217
+0.443137 0.537255 0.517647 RG
+2 164 217 FPL
+173 217
+170 215
+0.545098 0.439216 0.513725 RG
+2 140 175 FPL
+133 177
+140 175
+0.54902 0.447059 0.501961 RG
+2 133 177 FPL
+134 178
+140 175
+0.552941 0.454902 0.490196 RG
+2 133 177 FPL
+127 179
+134 178
+0.54902 0.447059 0.501961 RG
+2 140 175 FPL
+134 178
+141 177
+0.564706 0.466667 0.466667 RG
+2 127 179 FPL
+133 177
+127 179
+0.560784 0.458824 0.478431 RG
+2 133 177 FPL
+134 175
+127 179
+0.552941 0.45098 0.490196 RG
+2 133 177 FPL
+140 175
+134 175
+0.560784 0.458824 0.478431 RG
+2 127 179 FPL
+134 175
+128 175
+0.552941 0.458824 0.490196 RG
+2 141 177 FPL
+134 178
+135 179
+0.556863 0.462745 0.478431 RG
+2 134 178 FPL
+127 179
+135 179
+0.564706 0.470588 0.466667 RG
+2 134 178 FPL
+127 179
+127 179
+0.556863 0.462745 0.478431 RG
+2 135 179 FPL
+127 179
+130 181
+0.556863 0.447059 0.486275 RG
+2 128 175 FPL
+134 175
+133 173
+0.552941 0.443137 0.501961 RG
+2 134 175 FPL
+140 175
+133 173
+0.545098 0.435294 0.513725 RG
+2 134 175 FPL
+140 175
+140 175
+0.552941 0.443137 0.501961 RG
+2 133 173 FPL
+140 175
+139 171
+0.384314 0.435294 0.72549 RG
+2 262 119 FPL
+265 128
+265 127
+0.376471 0.45098 0.733333 RG
+2 265 128 FPL
+268 137
+265 127
+0.368627 0.462745 0.741176 RG
+2 265 128 FPL
+268 137
+268 137
+0.360784 0.47451 0.745098 RG
+2 268 137 FPL
+271 147
+268 137
+0.352941 0.490196 0.752941 RG
+2 268 137 FPL
+271 147
+271 147
+0.368627 0.462745 0.733333 RG
+2 265 127 FPL
+268 137
+268 136
+0.360784 0.47451 0.745098 RG
+2 268 137 FPL
+271 147
+268 136
+0.352941 0.490196 0.752941 RG
+2 268 137 FPL
+271 147
+271 147
+0.360784 0.47451 0.745098 RG
+2 268 136 FPL
+271 147
+271 145
+0.407843 0.403922 0.721569 RG
+2 261 117 FPL
+264 127
+261 117
+0.396078 0.415686 0.729412 RG
+2 264 127 FPL
+264 127
+261 117
+0.388235 0.431373 0.733333 RG
+2 264 127 FPL
+268 137
+264 127
+0.380392 0.447059 0.737255 RG
+2 268 137 FPL
+268 137
+264 127
+0.368627 0.458824 0.745098 RG
+2 268 137 FPL
+271 147
+268 137
+0.407843 0.403922 0.721569 RG
+2 261 117 FPL
+264 127
+261 117
+0.396078 0.419608 0.72549 RG
+2 264 127 FPL
+265 128
+261 117
+0.388235 0.435294 0.729412 RG
+2 264 127 FPL
+268 137
+265 128
+0.396078 0.419608 0.72549 RG
+2 261 117 FPL
+265 128
+262 119
+0.321569 0.247059 0.498039 RG
+2 238 107 FPL
+249 112
+248 110
+0.305882 0.25098 0.494118 RG
+2 249 112 FPL
+261 117
+248 110
+0.294118 0.258824 0.486275 RG
+2 249 112 FPL
+261 117
+261 117
+0.305882 0.25098 0.494118 RG
+2 248 110 FPL
+261 117
+258 114
+0.34902 0.513725 0.776471 RG
+2 271 147 FPL
+267 154
+271 147
+0.356863 0.521569 0.788235 RG
+2 267 154 FPL
+267 154
+271 147
+0.360784 0.533333 0.803922 RG
+2 267 154 FPL
+263 161
+267 154
+0.364706 0.541176 0.819608 RG
+2 263 161 FPL
+262 162
+267 154
+0.372549 0.552941 0.831373 RG
+2 263 161 FPL
+258 168
+262 162
+0.352941 0.513725 0.776471 RG
+2 271 147 FPL
+267 154
+271 147
+0.356863 0.52549 0.792157 RG
+2 267 154 FPL
+266 156
+271 147
+0.364706 0.537255 0.803922 RG
+2 267 154 FPL
+262 162
+266 156
+0.356863 0.52549 0.792157 RG
+2 271 147 FPL
+266 156
+270 150
+0.360784 0.545098 0.803922 RG
+2 270 150 FPL
+266 156
+267 157
+0.364706 0.54902 0.815686 RG
+2 266 156 FPL
+262 162
+267 157
+0.372549 0.556863 0.831373 RG
+2 266 156 FPL
+262 162
+262 162
+0.376471 0.560784 0.847059 RG
+2 262 162 FPL
+258 168
+262 162
+0.384314 0.568627 0.858824 RG
+2 262 162 FPL
+258 168
+258 168
+0.372549 0.556863 0.827451 RG
+2 267 157 FPL
+262 162
+263 163
+0.376471 0.564706 0.843137 RG
+2 262 162 FPL
+258 168
+263 163
+0.384314 0.568627 0.858824 RG
+2 262 162 FPL
+258 168
+258 168
+0.376471 0.564706 0.843137 RG
+2 263 163 FPL
+258 168
+259 169
+0.352941 0.486275 0.756863 RG
+2 271 147 FPL
+268 137
+271 147
+0.364706 0.47451 0.74902 RG
+2 268 137 FPL
+267 137
+271 147
+0.372549 0.458824 0.745098 RG
+2 268 137 FPL
+264 127
+267 137
+0.380392 0.443137 0.741176 RG
+2 264 127 FPL
+263 126
+267 137
+0.392157 0.431373 0.733333 RG
+2 264 127 FPL
+261 117
+263 126
+0.356863 0.486275 0.756863 RG
+2 271 147 FPL
+267 137
+271 147
+0.368627 0.47451 0.752941 RG
+2 267 137 FPL
+266 136
+271 147
+0.376471 0.458824 0.74902 RG
+2 267 137 FPL
+263 126
+266 136
+0.368627 0.47451 0.752941 RG
+2 271 147 FPL
+266 136
+268 146
+0.431373 0.384314 0.72549 RG
+2 261 117 FPL
+253 114
+261 117
+0.443137 0.376471 0.737255 RG
+2 253 114 FPL
+253 114
+261 117
+0.458824 0.372549 0.745098 RG
+2 253 114 FPL
+246 111
+253 114
+0.47451 0.368627 0.752941 RG
+2 246 111 FPL
+245 112
+253 114
+0.486275 0.360784 0.764706 RG
+2 246 111 FPL
+238 108
+245 112
+0.431373 0.384314 0.729412 RG
+2 261 117 FPL
+253 114
+261 117
+0.447059 0.380392 0.741176 RG
+2 253 114 FPL
+252 116
+261 117
+0.458824 0.376471 0.74902 RG
+2 253 114 FPL
+245 112
+252 116
+0.447059 0.380392 0.741176 RG
+2 261 117 FPL
+252 116
+259 119
+0.380392 0.458824 0.752941 RG
+2 268 146 FPL
+266 136
+265 137
+0.388235 0.447059 0.745098 RG
+2 266 136 FPL
+263 127
+265 137
+0.396078 0.431373 0.741176 RG
+2 266 136 FPL
+263 126
+263 127
+0.4 0.415686 0.733333 RG
+2 263 126 FPL
+261 117
+263 127
+0.407843 0.403922 0.72549 RG
+2 263 126 FPL
+261 117
+261 117
+0.396078 0.431373 0.741176 RG
+2 265 137 FPL
+263 127
+262 128
+0.403922 0.419608 0.733333 RG
+2 263 127 FPL
+261 117
+262 128
+0.407843 0.403922 0.72549 RG
+2 263 127 FPL
+261 117
+261 117
+0.403922 0.419608 0.733333 RG
+2 262 128 FPL
+261 117
+259 119
+0.345098 0.235294 0.52549 RG
+2 238 108 FPL
+249 112
+238 108
+0.333333 0.243137 0.513725 RG
+2 249 112 FPL
+249 112
+238 108
+0.317647 0.247059 0.505882 RG
+2 249 112 FPL
+261 117
+249 112
+0.333333 0.243137 0.513725 RG
+2 238 108 FPL
+249 112
+238 107
+0.380392 0.537255 0.831373 RG
+2 257 164 FPL
+262 158
+261 158
+0.372549 0.529412 0.819608 RG
+2 262 158 FPL
+266 152
+261 158
+0.368627 0.52549 0.803922 RG
+2 262 158 FPL
+266 153
+266 152
+0.360784 0.517647 0.788235 RG
+2 266 153 FPL
+271 147
+266 152
+0.352941 0.509804 0.776471 RG
+2 266 153 FPL
+271 147
+271 147
+0.368627 0.521569 0.803922 RG
+2 261 158 FPL
+266 152
+264 152
+0.360784 0.517647 0.792157 RG
+2 266 152 FPL
+271 147
+264 152
+0.352941 0.509804 0.776471 RG
+2 266 152 FPL
+271 147
+271 147
+0.360784 0.517647 0.792157 RG
+2 264 152 FPL
+271 147
+268 146
+0.384314 0.564706 0.858824 RG
+2 258 168 FPL
+263 161
+258 168
+0.376471 0.552941 0.847059 RG
+2 263 161 FPL
+262 160
+258 168
+0.372549 0.545098 0.831373 RG
+2 263 161 FPL
+267 154
+262 160
+0.368627 0.537255 0.815686 RG
+2 267 154 FPL
+266 153
+262 160
+0.360784 0.52549 0.803922 RG
+2 267 154 FPL
+271 147
+266 153
+0.384314 0.564706 0.858824 RG
+2 258 168 FPL
+262 160
+258 168
+0.380392 0.552941 0.847059 RG
+2 262 160 FPL
+262 158
+258 168
+0.376471 0.545098 0.831373 RG
+2 262 160 FPL
+266 153
+262 158
+0.380392 0.552941 0.847059 RG
+2 258 168 FPL
+262 158
+257 164
+0.462745 0.380392 0.752941 RG
+2 259 119 FPL
+252 116
+253 117
+0.47451 0.372549 0.760784 RG
+2 252 116 FPL
+245 112
+253 117
+0.490196 0.368627 0.768627 RG
+2 252 116 FPL
+245 112
+245 112
+0.501961 0.360784 0.772549 RG
+2 245 112 FPL
+238 108
+245 112
+0.517647 0.352941 0.780392 RG
+2 245 112 FPL
+238 108
+238 108
+0.486275 0.368627 0.768627 RG
+2 253 117 FPL
+245 112
+246 114
+0.501961 0.360784 0.776471 RG
+2 245 112 FPL
+238 108
+246 114
+0.513725 0.352941 0.780392 RG
+2 245 112 FPL
+238 108
+238 108
+0.501961 0.360784 0.776471 RG
+2 246 114 FPL
+238 108
+239 112
+0.54902 0.266667 0.439216 RG
+2 141 119 FPL
+151 108
+150 108
+0.541176 0.254902 0.435294 RG
+2 151 108 FPL
+161 97
+150 108
+0.533333 0.243137 0.435294 RG
+2 151 108 FPL
+161 97
+161 97
+0.541176 0.254902 0.435294 RG
+2 150 108 FPL
+161 97
+159 98
+0.552941 0.772549 0.780392 RG
+2 202 224 FPL
+192 222
+193 222
+0.568627 0.768627 0.784314 RG
+2 192 222 FPL
+183 220
+193 222
+0.584314 0.768627 0.784314 RG
+2 192 222 FPL
+182 219
+183 220
+0.596078 0.768627 0.784314 RG
+2 182 219 FPL
+173 217
+183 220
+0.611765 0.764706 0.788235 RG
+2 182 219 FPL
+173 217
+173 217
+0.580392 0.772549 0.784314 RG
+2 193 222 FPL
+183 220
+184 220
+0.596078 0.768627 0.784314 RG
+2 183 220 FPL
+173 217
+184 220
+0.611765 0.768627 0.788235 RG
+2 183 220 FPL
+173 217
+173 217
+0.596078 0.768627 0.784314 RG
+2 184 220 FPL
+173 217
+175 218
+0.517647 0.764706 0.788235 RG
+2 204 224 FPL
+194 221
+204 224
+0.533333 0.764706 0.788235 RG
+2 194 221 FPL
+193 222
+204 224
+0.552941 0.768627 0.788235 RG
+2 194 221 FPL
+183 219
+193 222
+0.568627 0.768627 0.788235 RG
+2 183 219 FPL
+182 219
+193 222
+0.584314 0.768627 0.788235 RG
+2 183 219 FPL
+173 217
+182 219
+0.517647 0.764706 0.788235 RG
+2 204 224 FPL
+193 222
+204 224
+0.537255 0.768627 0.788235 RG
+2 193 222 FPL
+192 222
+204 224
+0.552941 0.768627 0.784314 RG
+2 193 222 FPL
+182 219
+192 222
+0.537255 0.768627 0.788235 RG
+2 204 224 FPL
+192 222
+202 224
+0.486275 0.215686 0.447059 RG
+2 164 96 FPL
+176 97
+176 96
+0.478431 0.215686 0.454902 RG
+2 176 97 FPL
+188 98
+176 96
+0.466667 0.211765 0.466667 RG
+2 176 97 FPL
+188 98
+188 98
+0.478431 0.215686 0.454902 RG
+2 176 96 FPL
+188 98
+188 97
+0.513725 0.227451 0.439216 RG
+2 161 97 FPL
+174 97
+161 97
+0.501961 0.223529 0.447059 RG
+2 174 97 FPL
+176 97
+161 97
+0.486275 0.219608 0.45098 RG
+2 174 97 FPL
+188 98
+176 97
+0.501961 0.223529 0.447059 RG
+2 161 97 FPL
+176 97
+164 96
+0.52549 0.807843 0.921569 RG
+2 225 207 FPL
+218 213
+219 212
+0.533333 0.823529 0.917647 RG
+2 218 213 FPL
+212 218
+219 212
+0.545098 0.835294 0.913725 RG
+2 218 213 FPL
+211 218
+212 218
+0.552941 0.847059 0.909804 RG
+2 211 218 FPL
+204 224
+212 218
+0.564706 0.862745 0.905882 RG
+2 211 218 FPL
+204 224
+204 224
+0.541176 0.835294 0.909804 RG
+2 219 212 FPL
+212 218
+213 217
+0.552941 0.847059 0.909804 RG
+2 212 218 FPL
+204 224
+213 217
+0.560784 0.862745 0.905882 RG
+2 212 218 FPL
+204 224
+204 224
+0.552941 0.847059 0.909804 RG
+2 213 217 FPL
+204 224
+207 222
+0.560784 0.290196 0.45098 RG
+2 140 120 FPL
+150 109
+140 120
+0.556863 0.278431 0.447059 RG
+2 150 109 FPL
+151 108
+140 120
+0.54902 0.266667 0.439216 RG
+2 150 109 FPL
+161 97
+151 108
+0.556863 0.278431 0.447059 RG
+2 140 120 FPL
+151 108
+141 119
+0.533333 0.243137 0.435294 RG
+2 161 97 FPL
+150 109
+161 97
+0.541176 0.258824 0.443137 RG
+2 150 109 FPL
+151 110
+161 97
+0.545098 0.270588 0.447059 RG
+2 150 109 FPL
+140 120
+151 110
+0.541176 0.258824 0.443137 RG
+2 161 97 FPL
+151 110
+162 100
+0.494118 0.227451 0.454902 RG
+2 185 101 FPL
+173 99
+173 100
+0.505882 0.227451 0.447059 RG
+2 173 99 FPL
+161 97
+173 100
+0.513725 0.231373 0.439216 RG
+2 173 99 FPL
+161 97
+161 97
+0.505882 0.227451 0.447059 RG
+2 173 100 FPL
+161 97
+162 100
+0.466667 0.211765 0.466667 RG
+2 188 98 FPL
+174 97
+188 98
+0.482353 0.219608 0.462745 RG
+2 174 97 FPL
+173 99
+188 98
+0.494118 0.223529 0.454902 RG
+2 174 97 FPL
+161 97
+173 99
+0.482353 0.219608 0.462745 RG
+2 188 98 FPL
+173 99
+185 101
+0.509804 0.776471 0.941176 RG
+2 225 206 FPL
+218 212
+225 206
+0.517647 0.788235 0.933333 RG
+2 218 212 FPL
+218 212
+225 206
+0.529412 0.803922 0.929412 RG
+2 218 212 FPL
+211 218
+218 212
+0.537255 0.819608 0.921569 RG
+2 211 218 FPL
+211 218
+218 212
+0.545098 0.831373 0.917647 RG
+2 211 218 FPL
+204 224
+211 218
+0.509804 0.776471 0.937255 RG
+2 225 206 FPL
+218 212
+225 206
+0.521569 0.792157 0.933333 RG
+2 218 212 FPL
+218 213
+225 206
+0.529412 0.807843 0.92549 RG
+2 218 212 FPL
+211 218
+218 213
+0.521569 0.792157 0.933333 RG
+2 225 206 FPL
+218 213
+225 207
+0.556863 0.733333 0.772549 RG
+2 175 215 FPL
+185 218
+185 217
+0.545098 0.733333 0.768627 RG
+2 185 218 FPL
+194 220
+185 217
+0.529412 0.737255 0.768627 RG
+2 185 218 FPL
+194 221
+194 220
+0.513725 0.737255 0.768627 RG
+2 194 221 FPL
+204 224
+194 220
+0.501961 0.741176 0.764706 RG
+2 194 221 FPL
+204 224
+204 224
+0.529412 0.733333 0.772549 RG
+2 185 217 FPL
+194 220
+194 219
+0.517647 0.737255 0.768627 RG
+2 194 220 FPL
+204 224
+194 219
+0.501961 0.737255 0.768627 RG
+2 194 220 FPL
+204 224
+204 224
+0.517647 0.737255 0.768627 RG
+2 194 219 FPL
+204 224
+203 221
+0.592157 0.741176 0.764706 RG
+2 173 217 FPL
+183 219
+173 217
+0.576471 0.741176 0.764706 RG
+2 183 219 FPL
+184 219
+173 217
+0.560784 0.741176 0.768627 RG
+2 183 219 FPL
+194 221
+184 219
+0.545098 0.737255 0.768627 RG
+2 194 221 FPL
+194 221
+184 219
+0.529412 0.737255 0.768627 RG
+2 194 221 FPL
+204 224
+194 221
+0.592157 0.741176 0.764706 RG
+2 173 217 FPL
+184 219
+173 217
+0.576471 0.741176 0.768627 RG
+2 184 219 FPL
+185 218
+173 217
+0.556863 0.737255 0.768627 RG
+2 184 219 FPL
+194 221
+185 218
+0.576471 0.741176 0.768627 RG
+2 173 217 FPL
+185 218
+175 215
+0.478431 0.72549 0.772549 RG
+2 204 224 FPL
+214 215
+204 224
+0.466667 0.705882 0.780392 RG
+2 214 215 FPL
+214 213
+204 224
+0.458824 0.690196 0.784314 RG
+2 214 215 FPL
+225 206
+214 213
+0.466667 0.705882 0.780392 RG
+2 204 224 FPL
+214 213
+203 221
+0.392157 0.219608 0.501961 RG
+2 218 90 FPL
+228 99
+228 98
+0.380392 0.223529 0.513725 RG
+2 228 99 FPL
+238 108
+228 98
+0.368627 0.227451 0.521569 RG
+2 228 99 FPL
+238 108
+238 108
+0.380392 0.223529 0.513725 RG
+2 228 98 FPL
+238 108
+238 107
+0.423529 0.207843 0.490196 RG
+2 215 89 FPL
+226 98
+215 89
+0.407843 0.211765 0.498039 RG
+2 226 98 FPL
+228 99
+215 89
+0.396078 0.219608 0.505882 RG
+2 226 98 FPL
+238 108
+228 99
+0.407843 0.211765 0.498039 RG
+2 215 89 FPL
+228 99
+218 90
+0.380392 0.631373 0.866667 RG
+2 259 169 FPL
+257 178
+257 177
+0.384314 0.65098 0.866667 RG
+2 257 178 FPL
+254 187
+257 177
+0.384314 0.666667 0.870588 RG
+2 257 178 FPL
+254 188
+254 187
+0.384314 0.682353 0.870588 RG
+2 254 188 FPL
+252 197
+254 187
+0.388235 0.701961 0.87451 RG
+2 254 188 FPL
+252 197
+252 197
+0.384314 0.666667 0.866667 RG
+2 257 177 FPL
+254 187
+255 186
+0.384314 0.682353 0.870588 RG
+2 254 187 FPL
+252 197
+255 186
+0.388235 0.701961 0.870588 RG
+2 254 187 FPL
+252 197
+252 197
+0.384314 0.682353 0.870588 RG
+2 255 186 FPL
+252 197
+253 194
+0.423529 0.196078 0.447059 RG
+2 188 97 FPL
+201 93
+200 93
+0.411765 0.192157 0.443137 RG
+2 201 93 FPL
+215 89
+200 93
+0.4 0.184314 0.435294 RG
+2 201 93 FPL
+215 89
+215 89
+0.411765 0.192157 0.443137 RG
+2 200 93 FPL
+215 89
+212 89
+0.403922 0.72549 0.882353 RG
+2 252 197 FPL
+243 200
+252 197
+0.415686 0.729412 0.890196 RG
+2 243 200 FPL
+242 200
+252 197
+0.431373 0.737255 0.901961 RG
+2 243 200 FPL
+234 203
+242 200
+0.447059 0.741176 0.909804 RG
+2 234 203 FPL
+233 204
+242 200
+0.458824 0.74902 0.917647 RG
+2 234 203 FPL
+225 206
+233 204
+0.403922 0.72549 0.882353 RG
+2 252 197 FPL
+242 200
+252 197
+0.419608 0.733333 0.894118 RG
+2 242 200 FPL
+241 202
+252 197
+0.435294 0.737255 0.901961 RG
+2 242 200 FPL
+233 204
+241 202
+0.419608 0.733333 0.894118 RG
+2 252 197 FPL
+241 202
+249 199
+0.435294 0.745098 0.898039 RG
+2 249 199 FPL
+241 202
+241 202
+0.45098 0.74902 0.905882 RG
+2 241 202 FPL
+233 204
+241 202
+0.462745 0.752941 0.917647 RG
+2 241 202 FPL
+233 204
+233 204
+0.47451 0.752941 0.92549 RG
+2 233 204 FPL
+225 206
+233 204
+0.490196 0.756863 0.937255 RG
+2 233 204 FPL
+225 206
+225 206
+0.462745 0.752941 0.913725 RG
+2 241 202 FPL
+233 204
+233 205
+0.47451 0.756863 0.92549 RG
+2 233 204 FPL
+225 206
+233 205
+0.490196 0.756863 0.933333 RG
+2 233 204 FPL
+225 206
+225 206
+0.47451 0.756863 0.92549 RG
+2 233 205 FPL
+225 206
+225 207
+0.556863 0.329412 0.486275 RG
+2 145 146 FPL
+142 133
+142 135
+0.560784 0.321569 0.478431 RG
+2 142 133 FPL
+140 120
+142 135
+0.564706 0.309804 0.466667 RG
+2 142 133 FPL
+140 120
+140 120
+0.560784 0.321569 0.478431 RG
+2 142 135 FPL
+140 120
+139 124
+0.458824 0.490196 0.552941 RG
+2 170 215 FPL
+166 204
+166 205
+0.462745 0.478431 0.556863 RG
+2 166 204 FPL
+163 194
+166 205
+0.470588 0.466667 0.564706 RG
+2 166 204 FPL
+163 194
+163 194
+0.462745 0.478431 0.556863 RG
+2 166 205 FPL
+163 194
+161 194
+0.439216 0.513725 0.545098 RG
+2 173 217 FPL
+168 206
+173 217
+0.447059 0.501961 0.54902 RG
+2 168 206 FPL
+166 204
+173 217
+0.454902 0.490196 0.552941 RG
+2 168 206 FPL
+163 194
+166 204
+0.447059 0.501961 0.54902 RG
+2 173 217 FPL
+166 204
+170 215
+0.545098 0.337255 0.513725 RG
+2 146 145 FPL
+143 133
+146 145
+0.552941 0.333333 0.501961 RG
+2 143 133 FPL
+142 133
+146 145
+0.556863 0.32549 0.486275 RG
+2 143 133 FPL
+140 120
+142 133
+0.552941 0.333333 0.501961 RG
+2 146 145 FPL
+142 133
+145 146
+0.541176 0.270588 0.45098 RG
+2 162 100 FPL
+151 110
+153 110
+0.552941 0.282353 0.45098 RG
+2 151 110 FPL
+140 120
+153 110
+0.560784 0.290196 0.454902 RG
+2 151 110 FPL
+140 120
+140 120
+0.552941 0.282353 0.45098 RG
+2 153 110 FPL
+140 120
+143 121
+0.564706 0.309804 0.466667 RG
+2 140 120 FPL
+143 133
+140 120
+0.560784 0.317647 0.482353 RG
+2 143 133 FPL
+145 133
+140 120
+0.552941 0.321569 0.494118 RG
+2 143 133 FPL
+146 145
+145 133
+0.560784 0.317647 0.482353 RG
+2 140 120 FPL
+145 133
+143 121
+0.627451 0.690196 0.784314 RG
+2 167 195 FPL
+170 206
+171 205
+0.619608 0.705882 0.780392 RG
+2 170 206 FPL
+173 217
+171 205
+0.615686 0.72549 0.772549 RG
+2 170 206 FPL
+173 217
+173 217
+0.619608 0.705882 0.780392 RG
+2 171 205 FPL
+173 217
+175 215
+0.654902 0.658824 0.796078 RG
+2 163 194 FPL
+168 206
+163 194
+0.647059 0.678431 0.788235 RG
+2 168 206 FPL
+170 206
+163 194
+0.635294 0.694118 0.784314 RG
+2 168 206 FPL
+173 217
+170 206
+0.647059 0.678431 0.788235 RG
+2 163 194 FPL
+170 206
+167 195
+0.466667 0.686275 0.784314 RG
+2 203 221 FPL
+214 213
+212 213
+0.45098 0.67451 0.792157 RG
+2 214 213 FPL
+225 206
+212 213
+0.439216 0.658824 0.796078 RG
+2 214 213 FPL
+225 206
+225 206
+0.45098 0.67451 0.792157 RG
+2 212 213 FPL
+225 206
+221 205
+0.356863 0.196078 0.454902 RG
+2 235 108 FPL
+225 98
+225 100
+0.368627 0.192157 0.447059 RG
+2 225 98 FPL
+215 89
+225 100
+0.376471 0.184314 0.439216 RG
+2 225 98 FPL
+215 89
+215 89
+0.368627 0.192157 0.447059 RG
+2 225 100 FPL
+215 89
+215 91
+0.329412 0.203922 0.466667 RG
+2 238 108 FPL
+226 98
+238 108
+0.345098 0.2 0.462745 RG
+2 226 98 FPL
+225 98
+238 108
+0.356863 0.192157 0.454902 RG
+2 226 98 FPL
+215 89
+225 98
+0.345098 0.2 0.462745 RG
+2 238 108 FPL
+225 98
+235 108
+0.443137 0.203922 0.466667 RG
+2 188 98 FPL
+201 93
+188 98
+0.435294 0.2 0.458824 RG
+2 201 93 FPL
+201 93
+188 98
+0.423529 0.192157 0.45098 RG
+2 201 93 FPL
+215 89
+201 93
+0.435294 0.2 0.458824 RG
+2 188 98 FPL
+201 93
+188 97
+0.4 0.184314 0.439216 RG
+2 215 89 FPL
+201 93
+215 89
+0.411765 0.192157 0.447059 RG
+2 201 93 FPL
+201 95
+215 89
+0.419608 0.196078 0.454902 RG
+2 201 93 FPL
+188 98
+201 95
+0.411765 0.192157 0.447059 RG
+2 215 89 FPL
+201 95
+215 91
+0.486275 0.756863 0.937255 RG
+2 225 206 FPL
+234 203
+225 206
+0.47451 0.74902 0.929412 RG
+2 234 203 FPL
+234 203
+225 206
+0.458824 0.745098 0.921569 RG
+2 234 203 FPL
+243 200
+234 203
+0.443137 0.737255 0.909804 RG
+2 243 200 FPL
+243 199
+234 203
+0.431373 0.733333 0.901961 RG
+2 243 200 FPL
+252 197
+243 199
+0.486275 0.752941 0.937255 RG
+2 225 206 FPL
+234 203
+225 206
+0.47451 0.74902 0.929412 RG
+2 234 203 FPL
+235 201
+225 206
+0.458824 0.741176 0.917647 RG
+2 234 203 FPL
+243 199
+235 201
+0.47451 0.74902 0.929412 RG
+2 225 206 FPL
+235 201
+226 203
+0.388235 0.592157 0.87451 RG
+2 258 168 FPL
+256 178
+258 168
+0.388235 0.611765 0.87451 RG
+2 256 178 FPL
+256 178
+258 168
+0.388235 0.631373 0.87451 RG
+2 256 178 FPL
+254 187
+256 178
+0.388235 0.647059 0.870588 RG
+2 254 187 FPL
+254 188
+256 178
+0.388235 0.666667 0.870588 RG
+2 254 187 FPL
+252 197
+254 188
+0.388235 0.592157 0.87451 RG
+2 258 168 FPL
+256 178
+258 168
+0.388235 0.611765 0.87451 RG
+2 256 178 FPL
+257 178
+258 168
+0.384314 0.631373 0.870588 RG
+2 256 178 FPL
+254 188
+257 178
+0.388235 0.611765 0.87451 RG
+2 258 168 FPL
+257 178
+259 169
+0.388235 0.698039 0.87451 RG
+2 252 197 FPL
+254 187
+252 197
+0.388235 0.682353 0.87451 RG
+2 254 187 FPL
+254 187
+252 197
+0.392157 0.662745 0.878431 RG
+2 254 187 FPL
+256 178
+254 187
+0.392157 0.643137 0.878431 RG
+2 256 178 FPL
+255 177
+254 187
+0.392157 0.627451 0.878431 RG
+2 256 178 FPL
+258 168
+255 177
+0.388235 0.698039 0.87451 RG
+2 252 197 FPL
+254 187
+252 197
+0.392157 0.678431 0.878431 RG
+2 254 187 FPL
+253 186
+252 197
+0.392157 0.658824 0.878431 RG
+2 254 187 FPL
+255 177
+253 186
+0.392157 0.678431 0.878431 RG
+2 252 197 FPL
+253 186
+250 195
+0.458824 0.733333 0.921569 RG
+2 226 203 FPL
+235 201
+234 201
+0.447059 0.729412 0.909804 RG
+2 235 201 FPL
+243 199
+234 201
+0.431373 0.729412 0.901961 RG
+2 235 201 FPL
+243 199
+243 199
+0.415686 0.72549 0.894118 RG
+2 243 199 FPL
+252 197
+243 199
+0.403922 0.721569 0.882353 RG
+2 243 199 FPL
+252 197
+252 197
+0.431373 0.72549 0.905882 RG
+2 234 201 FPL
+243 199
+242 198
+0.419608 0.721569 0.894118 RG
+2 243 199 FPL
+252 197
+242 198
+0.403922 0.721569 0.886275 RG
+2 243 199 FPL
+252 197
+252 197
+0.419608 0.721569 0.894118 RG
+2 242 198 FPL
+252 197
+250 195
+0.54902 0.317647 0.494118 RG
+2 143 121 FPL
+145 133
+146 131
+0.54902 0.329412 0.505882 RG
+2 145 133 FPL
+146 145
+146 131
+0.545098 0.337255 0.513725 RG
+2 145 133 FPL
+146 145
+146 145
+0.54902 0.329412 0.505882 RG
+2 146 131 FPL
+146 145
+149 142
+0.415686 0.196078 0.458824 RG
+2 215 91 FPL
+201 95
+203 95
+0.431373 0.2 0.462745 RG
+2 201 95 FPL
+188 98
+203 95
+0.443137 0.203922 0.470588 RG
+2 201 95 FPL
+188 98
+188 98
+0.431373 0.2 0.462745 RG
+2 203 95 FPL
+188 98
+191 99
+0.396078 0.658824 0.882353 RG
+2 250 195 FPL
+253 186
+252 187
+0.392157 0.639216 0.878431 RG
+2 253 186 FPL
+255 177
+252 187
+0.392157 0.623529 0.878431 RG
+2 253 186 FPL
+255 177
+255 177
+0.392157 0.607843 0.878431 RG
+2 255 177 FPL
+258 168
+255 177
+0.388235 0.588235 0.87451 RG
+2 255 177 FPL
+258 168
+258 168
+0.396078 0.627451 0.882353 RG
+2 252 187 FPL
+255 177
+254 178
+0.392157 0.611765 0.878431 RG
+2 255 177 FPL
+258 168
+254 178
+0.392157 0.592157 0.878431 RG
+2 255 177 FPL
+258 168
+258 168
+0.392157 0.611765 0.878431 RG
+2 254 178 FPL
+258 168
+256 170
+0.545098 0.388235 0.521569 RG
+2 139 171 FPL
+143 158
+142 159
+0.545098 0.372549 0.521569 RG
+2 143 158 FPL
+146 145
+142 159
+0.541176 0.360784 0.52549 RG
+2 143 158 FPL
+146 145
+146 145
+0.545098 0.372549 0.521569 RG
+2 142 159 FPL
+146 145
+145 146
+0.541176 0.415686 0.52549 RG
+2 140 175 FPL
+143 160
+140 175
+0.541176 0.403922 0.52549 RG
+2 143 160 FPL
+143 158
+140 175
+0.541176 0.388235 0.521569 RG
+2 143 160 FPL
+146 145
+143 158
+0.541176 0.403922 0.52549 RG
+2 140 175 FPL
+143 158
+139 171
+0.505882 0.45098 0.545098 RG
+2 161 194 FPL
+150 184
+151 186
+0.517647 0.443137 0.537255 RG
+2 150 184 FPL
+140 175
+151 186
+0.529412 0.439216 0.533333 RG
+2 150 184 FPL
+140 175
+140 175
+0.517647 0.443137 0.537255 RG
+2 151 186 FPL
+140 175
+141 177
+0.537255 0.388235 0.529412 RG
+2 148 148 FPL
+144 161
+145 161
+0.541176 0.403922 0.529412 RG
+2 144 161 FPL
+140 175
+145 161
+0.541176 0.415686 0.52549 RG
+2 144 161 FPL
+140 175
+140 175
+0.541176 0.403922 0.529412 RG
+2 145 161 FPL
+140 175
+142 174
+0.486275 0.45098 0.560784 RG
+2 163 194 FPL
+151 184
+163 194
+0.498039 0.45098 0.552941 RG
+2 151 184 FPL
+150 184
+163 194
+0.505882 0.447059 0.545098 RG
+2 151 184 FPL
+140 175
+150 184
+0.498039 0.45098 0.552941 RG
+2 163 194 FPL
+150 184
+161 194
+0.541176 0.360784 0.52549 RG
+2 146 145 FPL
+143 160
+146 145
+0.541176 0.376471 0.52549 RG
+2 143 160 FPL
+144 161
+146 145
+0.541176 0.388235 0.52549 RG
+2 143 160 FPL
+140 175
+144 161
+0.541176 0.376471 0.52549 RG
+2 146 145 FPL
+144 161
+148 148
+0.529412 0.435294 0.533333 RG
+2 140 175 FPL
+151 184
+140 175
+0.517647 0.439216 0.541176 RG
+2 151 184 FPL
+153 184
+140 175
+0.505882 0.439216 0.54902 RG
+2 151 184 FPL
+163 194
+153 184
+0.517647 0.439216 0.541176 RG
+2 140 175 FPL
+153 184
+142 174
+0.505882 0.439216 0.54902 RG
+2 142 174 FPL
+153 184
+152 182
+0.498039 0.443137 0.556863 RG
+2 153 184 FPL
+163 194
+152 182
+0.486275 0.45098 0.560784 RG
+2 153 184 FPL
+163 194
+163 194
+0.498039 0.443137 0.556863 RG
+2 152 182 FPL
+163 194
+163 190
+0.533333 0.352941 0.803922 RG
+2 238 108 FPL
+234 115
+238 108
+0.541176 0.364706 0.815686 RG
+2 234 115 FPL
+234 116
+238 108
+0.545098 0.372549 0.831373 RG
+2 234 115 FPL
+229 122
+234 116
+0.54902 0.380392 0.847059 RG
+2 229 122 FPL
+230 123
+234 116
+0.556863 0.392157 0.858824 RG
+2 229 122 FPL
+225 129
+230 123
+0.533333 0.356863 0.803922 RG
+2 238 108 FPL
+234 116
+238 108
+0.541176 0.368627 0.819608 RG
+2 234 116 FPL
+235 117
+238 108
+0.545098 0.376471 0.831373 RG
+2 234 116 FPL
+230 123
+235 117
+0.541176 0.368627 0.819608 RG
+2 238 108 FPL
+235 117
+239 112
+0.341176 0.243137 0.529412 RG
+2 225 129 FPL
+232 118
+225 129
+0.337255 0.235294 0.517647 RG
+2 232 118 FPL
+231 117
+225 129
+0.333333 0.227451 0.505882 RG
+2 232 118 FPL
+238 108
+231 117
+0.337255 0.235294 0.517647 RG
+2 225 129 FPL
+231 117
+223 126
+0.337255 0.227451 0.505882 RG
+2 223 126 FPL
+231 117
+229 117
+0.329412 0.219608 0.498039 RG
+2 231 117 FPL
+238 108
+229 117
+0.32549 0.215686 0.486275 RG
+2 231 117 FPL
+238 108
+238 108
+0.329412 0.219608 0.498039 RG
+2 229 117 FPL
+238 108
+235 108
+0.541176 0.380392 0.835294 RG
+2 239 112 FPL
+235 117
+235 118
+0.545098 0.388235 0.847059 RG
+2 235 117 FPL
+230 123
+235 118
+0.552941 0.396078 0.862745 RG
+2 235 117 FPL
+230 123
+230 123
+0.560784 0.4 0.87451 RG
+2 230 123 FPL
+225 129
+230 123
+0.564706 0.407843 0.890196 RG
+2 230 123 FPL
+225 129
+225 129
+0.54902 0.396078 0.858824 RG
+2 235 118 FPL
+230 123
+232 124
+0.556863 0.403922 0.87451 RG
+2 230 123 FPL
+225 129
+232 124
+0.564706 0.407843 0.886275 RG
+2 230 123 FPL
+225 129
+225 129
+0.556863 0.403922 0.87451 RG
+2 232 124 FPL
+225 129
+228 130
+0.458824 0.541176 0.909804 RG
+2 237 156 FPL
+244 160
+244 159
+0.447059 0.545098 0.901961 RG
+2 244 160 FPL
+251 163
+244 159
+0.431373 0.552941 0.898039 RG
+2 244 160 FPL
+251 164
+251 163
+0.415686 0.560784 0.890196 RG
+2 251 164 FPL
+258 168
+251 163
+0.403922 0.564706 0.882353 RG
+2 251 164 FPL
+258 168
+258 168
+0.431373 0.54902 0.894118 RG
+2 244 159 FPL
+251 163
+250 161
+0.419608 0.556863 0.890196 RG
+2 251 163 FPL
+258 168
+250 161
+0.403922 0.564706 0.882353 RG
+2 251 163 FPL
+258 168
+258 168
+0.419608 0.556863 0.890196 RG
+2 250 161 FPL
+258 168
+257 164
+0.403922 0.568627 0.882353 RG
+2 258 168 FPL
+251 165
+258 168
+0.415686 0.564706 0.894118 RG
+2 251 165 FPL
+250 165
+258 168
+0.431373 0.560784 0.901961 RG
+2 251 165 FPL
+243 162
+250 165
+0.447059 0.552941 0.909804 RG
+2 243 162 FPL
+242 162
+250 165
+0.458824 0.54902 0.921569 RG
+2 243 162 FPL
+235 159
+242 162
+0.403922 0.568627 0.886275 RG
+2 258 168 FPL
+250 165
+258 168
+0.419608 0.564706 0.894118 RG
+2 250 165 FPL
+249 166
+258 168
+0.435294 0.560784 0.905882 RG
+2 250 165 FPL
+242 162
+249 166
+0.419608 0.564706 0.894118 RG
+2 258 168 FPL
+249 166
+256 170
+0.486275 0.533333 0.937255 RG
+2 235 159 FPL
+243 162
+235 159
+0.47451 0.541176 0.92549 RG
+2 243 162 FPL
+243 161
+235 159
+0.458824 0.545098 0.917647 RG
+2 243 162 FPL
+251 165
+243 161
+0.443137 0.54902 0.909804 RG
+2 251 165 FPL
+251 164
+243 161
+0.431373 0.556863 0.898039 RG
+2 251 165 FPL
+258 168
+251 164
+0.486275 0.533333 0.937255 RG
+2 235 159 FPL
+243 161
+235 159
+0.47451 0.541176 0.92549 RG
+2 243 161 FPL
+244 160
+235 159
+0.458824 0.545098 0.917647 RG
+2 243 161 FPL
+251 164
+244 160
+0.47451 0.541176 0.92549 RG
+2 235 159 FPL
+244 160
+237 156
+0.435294 0.568627 0.905882 RG
+2 256 170 FPL
+249 166
+249 167
+0.45098 0.560784 0.913725 RG
+2 249 166 FPL
+242 163
+249 167
+0.462745 0.552941 0.921569 RG
+2 249 166 FPL
+242 162
+242 163
+0.47451 0.545098 0.929412 RG
+2 242 162 FPL
+235 159
+242 163
+0.490196 0.537255 0.937255 RG
+2 242 162 FPL
+235 159
+235 159
+0.462745 0.556863 0.921569 RG
+2 249 167 FPL
+242 163
+242 164
+0.47451 0.54902 0.929412 RG
+2 242 163 FPL
+235 159
+242 164
+0.490196 0.537255 0.937255 RG
+2 242 163 FPL
+235 159
+235 159
+0.47451 0.54902 0.929412 RG
+2 242 164 FPL
+235 159
+235 162
+0.45098 0.231373 0.505882 RG
+2 191 123 FPL
+189 110
+188 112
+0.45098 0.223529 0.498039 RG
+2 189 110 FPL
+188 98
+188 112
+0.454902 0.215686 0.486275 RG
+2 189 110 FPL
+188 98
+188 98
+0.45098 0.223529 0.498039 RG
+2 188 112 FPL
+188 98
+185 101
+0.45098 0.215686 0.486275 RG
+2 188 98 FPL
+191 110
+188 98
+0.447059 0.223529 0.498039 RG
+2 191 110 FPL
+193 111
+188 98
+0.439216 0.227451 0.505882 RG
+2 191 110 FPL
+194 123
+193 111
+0.447059 0.223529 0.498039 RG
+2 188 98 FPL
+193 111
+191 99
+0.435294 0.243137 0.529412 RG
+2 194 123 FPL
+191 110
+194 123
+0.443137 0.239216 0.517647 RG
+2 191 110 FPL
+189 110
+194 123
+0.447059 0.231373 0.505882 RG
+2 191 110 FPL
+188 98
+189 110
+0.443137 0.239216 0.517647 RG
+2 194 123 FPL
+189 110
+191 123
+0.564706 0.662745 0.988235 RG
+2 214 183 FPL
+218 190
+214 183
+0.552941 0.67451 0.980392 RG
+2 218 190 FPL
+218 190
+214 183
+0.545098 0.690196 0.976471 RG
+2 218 190 FPL
+221 198
+218 190
+0.537255 0.705882 0.968627 RG
+2 221 198 FPL
+222 198
+218 190
+0.52549 0.717647 0.964706 RG
+2 221 198 FPL
+225 206
+222 198
+0.564706 0.662745 0.984314 RG
+2 214 183 FPL
+218 190
+214 183
+0.552941 0.67451 0.980392 RG
+2 218 190 FPL
+220 190
+214 183
+0.545098 0.690196 0.972549 RG
+2 218 190 FPL
+222 198
+220 190
+0.552941 0.67451 0.980392 RG
+2 214 183 FPL
+220 190
+217 183
+0.435294 0.627451 0.807843 RG
+2 225 206 FPL
+220 194
+225 206
+0.447059 0.611765 0.815686 RG
+2 220 194 FPL
+218 194
+225 206
+0.458824 0.596078 0.819608 RG
+2 220 194 FPL
+214 183
+218 194
+0.447059 0.611765 0.815686 RG
+2 225 206 FPL
+218 194
+221 205
+0.537255 0.686275 0.972549 RG
+2 217 183 FPL
+220 190
+220 189
+0.529412 0.701961 0.964706 RG
+2 220 190 FPL
+222 198
+220 189
+0.52549 0.717647 0.960784 RG
+2 220 190 FPL
+222 198
+222 198
+0.517647 0.729412 0.956863 RG
+2 222 198 FPL
+225 206
+222 198
+0.509804 0.745098 0.94902 RG
+2 222 198 FPL
+225 206
+225 206
+0.521569 0.709804 0.960784 RG
+2 220 189 FPL
+222 198
+223 196
+0.517647 0.729412 0.956863 RG
+2 222 198 FPL
+225 206
+223 196
+0.509804 0.745098 0.94902 RG
+2 222 198 FPL
+225 206
+225 206
+0.517647 0.729412 0.956863 RG
+2 223 196 FPL
+225 206
+226 203
+0.466667 0.6 0.819608 RG
+2 221 205 FPL
+218 194
+216 195
+0.47451 0.584314 0.827451 RG
+2 218 194 FPL
+214 183
+216 195
+0.478431 0.564706 0.831373 RG
+2 218 194 FPL
+214 183
+214 183
+0.47451 0.584314 0.827451 RG
+2 216 195 FPL
+214 183
+212 185
+0.439216 0.227451 0.505882 RG
+2 191 99 FPL
+193 111
+194 110
+0.435294 0.235294 0.517647 RG
+2 193 111 FPL
+194 123
+194 110
+0.435294 0.243137 0.529412 RG
+2 193 111 FPL
+194 123
+194 123
+0.435294 0.235294 0.517647 RG
+2 194 110 FPL
+194 123
+196 121
+0.505882 0.32549 0.541176 RG
+2 149 142 FPL
+161 144
+161 143
+0.498039 0.32549 0.552941 RG
+2 161 144 FPL
+173 146
+161 143
+0.486275 0.321569 0.560784 RG
+2 161 144 FPL
+173 146
+173 146
+0.498039 0.32549 0.552941 RG
+2 161 143 FPL
+173 146
+173 143
+0.529412 0.341176 0.533333 RG
+2 146 145 FPL
+160 146
+146 145
+0.517647 0.337255 0.541176 RG
+2 160 146 FPL
+161 144
+146 145
+0.505882 0.329412 0.545098 RG
+2 160 146 FPL
+173 146
+161 144
+0.517647 0.337255 0.541176 RG
+2 146 145 FPL
+161 144
+149 142
+0.627451 0.6 0.819608 RG
+2 185 179 FPL
+174 187
+176 187
+0.643137 0.615686 0.811765 RG
+2 174 187 FPL
+163 194
+176 187
+0.654902 0.627451 0.807843 RG
+2 174 187 FPL
+163 194
+163 194
+0.643137 0.615686 0.811765 RG
+2 176 187 FPL
+163 194
+167 195
+0.505882 0.337255 0.54902 RG
+2 172 149 FPL
+159 147
+160 149
+0.517647 0.341176 0.541176 RG
+2 159 147 FPL
+146 145
+160 149
+0.529412 0.341176 0.533333 RG
+2 159 147 FPL
+146 145
+146 145
+0.517647 0.341176 0.541176 RG
+2 160 149 FPL
+146 145
+148 148
+0.486275 0.321569 0.560784 RG
+2 173 146 FPL
+160 146
+173 146
+0.498039 0.329412 0.556863 RG
+2 160 146 FPL
+159 147
+173 146
+0.505882 0.333333 0.54902 RG
+2 160 146 FPL
+146 145
+159 147
+0.498039 0.329412 0.556863 RG
+2 173 146 FPL
+159 147
+172 149
+0.466667 0.443137 0.572549 RG
+2 163 194 FPL
+173 185
+163 194
+0.462745 0.431373 0.580392 RG
+2 173 185 FPL
+173 183
+163 194
+0.454902 0.419608 0.584314 RG
+2 173 185 FPL
+184 176
+173 183
+0.462745 0.431373 0.580392 RG
+2 163 194 FPL
+173 183
+163 190
+0.615686 0.564706 0.831373 RG
+2 184 176 FPL
+173 185
+184 176
+0.627451 0.584314 0.827451 RG
+2 173 185 FPL
+174 187
+184 176
+0.635294 0.6 0.819608 RG
+2 173 185 FPL
+163 194
+174 187
+0.627451 0.584314 0.827451 RG
+2 184 176 FPL
+174 187
+185 179
+0.454902 0.419608 0.580392 RG
+2 163 190 FPL
+173 183
+172 183
+0.447059 0.407843 0.588235 RG
+2 173 183 FPL
+184 176
+172 183
+0.439216 0.4 0.592157 RG
+2 173 183 FPL
+184 176
+184 176
+0.447059 0.407843 0.588235 RG
+2 172 183 FPL
+184 176
+181 175
+0.537255 0.462745 0.913725 RG
+2 228 130 FPL
+230 140
+231 139
+0.529412 0.47451 0.917647 RG
+2 230 140 FPL
+233 149
+231 139
+0.52549 0.490196 0.92549 RG
+2 230 140 FPL
+233 149
+233 149
+0.517647 0.501961 0.933333 RG
+2 233 149 FPL
+235 159
+233 149
+0.509804 0.517647 0.937255 RG
+2 233 149 FPL
+235 159
+235 159
+0.521569 0.486275 0.921569 RG
+2 231 139 FPL
+233 149
+234 147
+0.517647 0.501961 0.929412 RG
+2 233 149 FPL
+235 159
+234 147
+0.509804 0.513725 0.937255 RG
+2 233 149 FPL
+235 159
+235 159
+0.517647 0.501961 0.929412 RG
+2 234 147 FPL
+235 159
+237 156
+0.564706 0.431373 0.905882 RG
+2 225 129 FPL
+228 139
+225 129
+0.552941 0.443137 0.913725 RG
+2 228 139 FPL
+229 139
+225 129
+0.545098 0.458824 0.917647 RG
+2 228 139 FPL
+232 149
+229 139
+0.537255 0.47451 0.921569 RG
+2 232 149 FPL
+233 149
+229 139
+0.52549 0.486275 0.929412 RG
+2 232 149 FPL
+235 159
+233 149
+0.564706 0.431373 0.905882 RG
+2 225 129 FPL
+229 139
+225 129
+0.552941 0.447059 0.913725 RG
+2 229 139 FPL
+230 140
+225 129
+0.545098 0.458824 0.917647 RG
+2 229 139 FPL
+233 149
+230 140
+0.552941 0.447059 0.913725 RG
+2 225 129 FPL
+230 140
+228 130
+0.388235 0.247059 0.537255 RG
+2 196 121 FPL
+211 125
+210 124
+0.372549 0.247059 0.541176 RG
+2 211 125 FPL
+225 129
+210 124
+0.360784 0.25098 0.541176 RG
+2 211 125 FPL
+225 129
+225 129
+0.372549 0.247059 0.541176 RG
+2 210 124 FPL
+225 129
+223 126
+0.52549 0.588235 0.964706 RG
+2 235 162 FPL
+228 169
+226 172
+0.537255 0.6 0.968627 RG
+2 228 169 FPL
+220 177
+226 172
+0.545098 0.611765 0.976471 RG
+2 228 169 FPL
+221 176
+220 177
+0.552941 0.623529 0.980392 RG
+2 221 176 FPL
+214 183
+220 177
+0.564706 0.635294 0.988235 RG
+2 221 176 FPL
+214 183
+214 183
+0.537255 0.6 0.968627 RG
+2 226 172 FPL
+220 177
+217 183
+0.552941 0.623529 0.980392 RG
+2 220 177 FPL
+214 183
+217 183
+0.509804 0.545098 0.952941 RG
+2 235 159 FPL
+228 167
+235 159
+0.517647 0.560784 0.956863 RG
+2 228 167 FPL
+228 167
+235 159
+0.529412 0.576471 0.964706 RG
+2 228 167 FPL
+221 175
+228 167
+0.537255 0.592157 0.968627 RG
+2 221 175 FPL
+221 176
+228 167
+0.545098 0.607843 0.976471 RG
+2 221 175 FPL
+214 183
+221 176
+0.509804 0.545098 0.952941 RG
+2 235 159 FPL
+228 167
+235 159
+0.521569 0.564706 0.956863 RG
+2 228 167 FPL
+228 169
+235 159
+0.529412 0.580392 0.964706 RG
+2 228 167 FPL
+221 176
+228 169
+0.521569 0.564706 0.956863 RG
+2 235 159 FPL
+228 169
+235 162
+0.415686 0.25098 0.541176 RG
+2 194 123 FPL
+210 126
+194 123
+0.403922 0.25098 0.541176 RG
+2 210 126 FPL
+211 125
+194 123
+0.388235 0.247059 0.541176 RG
+2 210 126 FPL
+225 129
+211 125
+0.403922 0.25098 0.541176 RG
+2 194 123 FPL
+211 125
+196 121
+0.411765 0.290196 0.631373 RG
+2 225 129 FPL
+215 127
+225 129
+0.423529 0.290196 0.631373 RG
+2 215 127 FPL
+217 128
+225 129
+0.435294 0.294118 0.635294 RG
+2 215 127 FPL
+204 125
+217 128
+0.447059 0.294118 0.635294 RG
+2 204 125 FPL
+208 127
+217 128
+0.458824 0.294118 0.635294 RG
+2 204 125 FPL
+194 123
+208 127
+0.423529 0.290196 0.631373 RG
+2 225 129 FPL
+217 128
+223 132
+0.447059 0.294118 0.635294 RG
+2 217 128 FPL
+208 127
+223 132
+0.360784 0.360784 0.658824 RG
+2 235 159 FPL
+230 144
+235 159
+0.372549 0.345098 0.654902 RG
+2 230 144 FPL
+228 143
+235 159
+0.380392 0.333333 0.647059 RG
+2 230 144 FPL
+225 129
+228 143
+0.372549 0.345098 0.654902 RG
+2 235 159 FPL
+228 143
+231 158
+0.384314 0.333333 0.65098 RG
+2 231 158 FPL
+228 143
+227 145
+0.392157 0.321569 0.643137 RG
+2 228 143 FPL
+225 129
+227 145
+0.396078 0.305882 0.639216 RG
+2 228 143 FPL
+225 129
+225 129
+0.392157 0.321569 0.643137 RG
+2 227 145 FPL
+225 129
+223 132
+0.392157 0.439216 0.690196 RG
+2 214 183 FPL
+225 171
+214 183
+0.388235 0.427451 0.686275 RG
+2 225 171 FPL
+224 169
+214 183
+0.380392 0.411765 0.678431 RG
+2 225 171 FPL
+235 159
+224 169
+0.388235 0.427451 0.686275 RG
+2 214 183 FPL
+224 169
+213 179
+0.384314 0.407843 0.678431 RG
+2 213 179 FPL
+224 169
+222 168
+0.376471 0.396078 0.67451 RG
+2 224 169 FPL
+235 159
+222 168
+0.364706 0.384314 0.666667 RG
+2 224 169 FPL
+235 159
+235 159
+0.376471 0.396078 0.67451 RG
+2 222 168 FPL
+235 159
+231 158
+0.454902 0.282353 0.54902 RG
+2 173 143 FPL
+183 133
+182 133
+0.447059 0.27451 0.54902 RG
+2 183 133 FPL
+194 123
+182 133
+0.439216 0.262745 0.545098 RG
+2 183 133 FPL
+194 123
+194 123
+0.447059 0.27451 0.54902 RG
+2 182 133 FPL
+194 123
+191 123
+0.501961 0.54902 0.839216 RG
+2 214 183 FPL
+204 181
+214 183
+0.517647 0.54902 0.839216 RG
+2 204 181 FPL
+204 181
+214 183
+0.533333 0.552941 0.839216 RG
+2 204 181 FPL
+194 178
+204 181
+0.54902 0.552941 0.839216 RG
+2 194 178 FPL
+193 179
+204 181
+0.564706 0.552941 0.839216 RG
+2 194 178 FPL
+184 176
+193 179
+0.501961 0.54902 0.839216 RG
+2 214 183 FPL
+204 181
+214 183
+0.521569 0.552941 0.839216 RG
+2 204 181 FPL
+202 182
+214 183
+0.537255 0.552941 0.839216 RG
+2 204 181 FPL
+193 179
+202 182
+0.521569 0.552941 0.839216 RG
+2 214 183 FPL
+202 182
+212 185
+0.537255 0.556863 0.835294 RG
+2 212 185 FPL
+202 182
+203 183
+0.54902 0.552941 0.835294 RG
+2 202 182 FPL
+193 180
+203 183
+0.564706 0.552941 0.839216 RG
+2 202 182 FPL
+193 179
+193 180
+0.580392 0.552941 0.839216 RG
+2 193 179 FPL
+184 176
+193 180
+0.592157 0.54902 0.839216 RG
+2 193 179 FPL
+184 176
+184 176
+0.560784 0.556863 0.835294 RG
+2 203 183 FPL
+193 180
+194 181
+0.576471 0.552941 0.839216 RG
+2 193 180 FPL
+184 176
+194 181
+0.592157 0.552941 0.839216 RG
+2 193 180 FPL
+184 176
+184 176
+0.576471 0.552941 0.839216 RG
+2 194 181 FPL
+184 176
+185 179
+0.454902 0.298039 0.639216 RG
+2 223 132 FPL
+208 127
+209 129
+0.470588 0.298039 0.635294 RG
+2 208 127 FPL
+194 123
+209 129
+0.486275 0.294118 0.635294 RG
+2 208 127 FPL
+194 123
+194 123
+0.470588 0.298039 0.635294 RG
+2 209 129 FPL
+194 123
+195 126
+0.466667 0.305882 0.564706 RG
+2 173 146 FPL
+184 135
+173 146
+0.462745 0.294118 0.560784 RG
+2 184 135 FPL
+183 133
+173 146
+0.454902 0.282353 0.552941 RG
+2 184 135 FPL
+194 123
+183 133
+0.462745 0.294118 0.560784 RG
+2 173 146 FPL
+183 133
+173 143
+0.509804 0.305882 0.639216 RG
+2 194 123 FPL
+184 135
+194 123
+0.517647 0.321569 0.643137 RG
+2 184 135 FPL
+184 136
+194 123
+0.52549 0.333333 0.65098 RG
+2 184 135 FPL
+173 146
+184 136
+0.517647 0.321569 0.643137 RG
+2 194 123 FPL
+184 136
+195 126
+0.521569 0.337255 0.65098 RG
+2 195 126 FPL
+184 136
+186 137
+0.533333 0.34902 0.654902 RG
+2 184 136 FPL
+173 146
+186 137
+0.541176 0.360784 0.658824 RG
+2 184 136 FPL
+173 146
+173 146
+0.533333 0.34902 0.654902 RG
+2 186 137 FPL
+173 146
+177 147
+0.45098 0.447059 0.694118 RG
+2 186 173 FPL
+200 178
+200 176
+0.435294 0.45098 0.694118 RG
+2 200 178 FPL
+214 183
+200 176
+0.415686 0.45098 0.698039 RG
+2 200 178 FPL
+214 183
+214 183
+0.435294 0.45098 0.694118 RG
+2 200 176 FPL
+214 183
+213 179
+0.490196 0.454902 0.698039 RG
+2 184 176 FPL
+194 178
+184 176
+0.478431 0.454902 0.698039 RG
+2 194 178 FPL
+192 177
+184 176
+0.466667 0.454902 0.698039 RG
+2 194 178 FPL
+204 181
+192 177
+0.454902 0.45098 0.694118 RG
+2 204 181 FPL
+200 178
+192 177
+0.443137 0.45098 0.694118 RG
+2 204 181 FPL
+214 183
+200 178
+0.478431 0.454902 0.698039 RG
+2 184 176 FPL
+192 177
+186 173
+0.454902 0.45098 0.694118 RG
+2 192 177 FPL
+200 178
+186 173
+0.458824 0.352941 0.580392 RG
+2 181 175 FPL
+177 161
+176 162
+0.462745 0.341176 0.576471 RG
+2 177 161 FPL
+173 146
+176 162
+0.470588 0.329412 0.572549 RG
+2 177 161 FPL
+173 146
+173 146
+0.462745 0.341176 0.576471 RG
+2 176 162 FPL
+173 146
+172 149
+0.439216 0.376471 0.592157 RG
+2 184 176 FPL
+178 161
+184 176
+0.447059 0.364706 0.588235 RG
+2 178 161 FPL
+177 161
+184 176
+0.454902 0.352941 0.580392 RG
+2 178 161 FPL
+173 146
+177 161
+0.447059 0.364706 0.588235 RG
+2 184 176 FPL
+177 161
+181 175
+0.545098 0.388235 0.670588 RG
+2 173 146 FPL
+178 161
+173 146
+0.533333 0.4 0.67451 RG
+2 178 161 FPL
+180 162
+173 146
+0.52549 0.415686 0.682353 RG
+2 178 161 FPL
+184 176
+180 162
+0.533333 0.4 0.67451 RG
+2 173 146 FPL
+180 162
+177 147
+0.521569 0.411765 0.678431 RG
+2 177 147 FPL
+180 162
+182 160
+0.513725 0.427451 0.686275 RG
+2 180 162 FPL
+184 176
+182 160
+0.509804 0.439216 0.690196 RG
+2 180 162 FPL
+184 176
+184 176
+0.513725 0.427451 0.686275 RG
+2 182 160 FPL
+184 176
+186 173
+0.0 0.0 0.0 RG
+121.0 10.0 moveto
+q 1 -1 scale
+/SansSerif findfont 10.0 scalefont setfont
+(\000t\000r\000u\000n\000c\000a\000t\000i\000o\000n\000:) show
+Q
+170.0 10.0 moveto
+q 1 -1 scale
+/SansSerif findfont 10.0 scalefont setfont
+(\000\240) show
+Q
+173.0 10.0 moveto
+q 1 -1 scale
+/SansSerif findfont 10.0 scalefont setfont
+(\000t\000r\000u\000n\000c\000a\000t\000e\000d) show
+Q
+217.0 10.0 moveto
+q 1 -1 scale
+/SansSerif findfont 10.0 scalefont setfont
+(\000\240) show
+Q
+220.0 10.0 moveto
+q 1 -1 scale
+/SansSerif findfont 10.0 scalefont setfont
+(\000i\000c\000o\000s\000a\000h\000e\000d\000r\000o\000n) show
+Q
+[ 1.0 0.0 0.0 1.0 0.0 0.0 ] defaultmatrix matrix concatmatrix setmatrix
+end end restore showpage
+
+%%Trailer
+%%EOF
