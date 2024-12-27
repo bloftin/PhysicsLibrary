@@ -142,8 +142,8 @@ Disallow: /?*",
 					  
 	# root server directories
 	#
-	"template_path"=>"$Noosphere::baseconf::base_config{BASE_DIR}/templates",
-	"stemplate_path"=>"$Noosphere::baseconf::base_config/var/www/pp/noosphere/stemplates",
+	"template_path"=>"$Noosphere::baseconf::base_config{BASE_DIR}/stemplates",
+	"stemplate_path"=>"$Noosphere::baseconf::base_config/var/www/pp/stemplates",
 	"cache_root"=>"$Noosphere::baseconf::base_config{BASE_DIR}/data/cache",
     "file_root"=>"$Noosphere::baseconf::base_config{BASE_DIR}/data/files",
 	"symbol_root"=>"$Noosphere::baseconf::base_config{BASE_DIR}/data/symbols",
@@ -237,7 +237,7 @@ Disallow: /?*",
 	# various limits and counts
 	#
 	'useractivity_max'=>50,			# show last this many users.
-	"news_frontpage_count"=>10,
+	"news_frontpage_count"=>1,
 	"page_widget_width"=>15,
 	"news_list_page"=>30,
 	"message_maxcols"=>65,
@@ -249,7 +249,7 @@ Disallow: /?*",
 	"topusers_2weeks"=>"10",
 	"latest_additions"=>"20",
 	"latest_revisions"=>"20",
-	"latest_messages"=>"30",
+	"latest_messages"=>"1",
 	"search_results_page"=>10,
 	"listings_page"=>20,
 					  
@@ -501,7 +501,10 @@ Disallow: /?*",
 	#    when unicode.pl loads latin1
 	#    which in turn in sub do_require_extension (in latex2html)
 	#    resets $NO_UTF and $USE_UTF flag
-	"l2h_opts" => "-antialias -html_version 4.0,latin1,unicode",
+	#    Ben - testing nonstopmode so renderall does not prompt user on error
+	#"l2h_opts" => "-antialias html_version 4.0,latin1,unicode",
+	# BEN - latest noosphere has no l2h optons
+    "l2h_opts" => "",
 					  
 	# message stuff
 	"msgstylesel" => {flat=>'Flat',threaded=>'Threaded'},
@@ -621,7 +624,8 @@ Disallow: /?*",
 # 
 sub getConfig {
   my $key = shift;
- 
+  #dwarn "getConfig key: ";
+  #dwarn $key; 
   my %config = CONFIG;
  
   return $config{$key}; 
@@ -662,7 +666,7 @@ sub tabledesc {
 
   # read in the descriptions from the database
   #
-  if (not defined %tdesc) {
+  if (not %tdesc) {
     my ($rv,$sth) = dbSelect($dbh,{WHAT=>"*",FROM=>'tdesc'}); 
 	my @rows = dbGetRows($sth);
 	foreach my $row (@rows) {
@@ -680,7 +684,7 @@ sub tablename {
 
   # read in the descriptions from the database
   #
-  if (not defined %tname) {
+  if (not %tname) {
     my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>'tdesc'}); 
 	my @rows = dbGetRows($sth);
 	foreach my $row (@rows) {
@@ -698,7 +702,7 @@ sub tableid {
 
   # cache the lookup table
   #
-  if (not defined %table_id) {
+  if (not %table_id) {
     my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>'tdesc'}); 
 	my @rows = dbGetRows($sth);
 	foreach my $row (@rows) {

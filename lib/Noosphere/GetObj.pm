@@ -13,12 +13,16 @@ sub getObj {
 	my $desc = 0;
 	my $nomsg = 0;
 	
+	dwarn "name";
+	dwarn $name;
+	dwarn "id";
+	dwarn $id;
+
 	# resolve name query into id so we only have one method to write code for
 	#
 	if (defined($name)) {
 		$id = getidbyname($name);
-	}
-	
+	}		
 	return errorMessage('Could not find object! Contact an admin!') if ($id == -1);
 
 	# query up the object
@@ -67,15 +71,19 @@ sub getObj {
 	# render object type specific stuff
 	#
 	if ($params->{'from'} eq 'news') {
+		dwarn "renderNews";
 		$html = renderNews($rec);
 	} 
 	elsif ($params->{'from'} eq getConfig('en_tbl')) {
+		dwarn "renderEncyclopediaObj";
 		$html = renderEncyclopediaObj($rec, $params, $userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('collab_tbl')) {
+		dwarn "renderCollab";
 		$html = renderCollab($rec, $params, $userinf);
 	}
 	elsif ($params->{'from'} eq 'forums') {
+		dwarn "renderForum";
 		$html = renderForum($rec);
 		# Should newest-first be forced here?	-LBH
 		#$desc=1;
@@ -83,22 +91,27 @@ sub getObj {
 	elsif ($params->{'from'} eq getConfig('papers_tbl') || 
 		$params->{'from'} eq getConfig('exp_tbl') ||
 		$params->{'from'} eq getConfig('books_tbl')) {
-		
+		dwarn "renderGeneric";	
 		$html = renderGeneric($params,$userinf, $rec);
 	} 
 	elsif ($params->{'from'} eq getConfig('polls_tbl')) {
+		dwarn "viewPoll";
 		$html = viewPoll($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('req_tbl')) {
+		dwarn "getReq";
 		$html = getReq($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('user_tbl')) {
+		dwarn "getUser";
 		$html = getUser($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('cor_tbl')) {
+		dwarn "renderCorrection";
 		$html = renderCorrection($params,$userinf);
 	}
 	else {
+		dwarn "object type not supported for viewing yet";
 		return errorMessage('object type not supported for viewing yet.'); 
 	}
  

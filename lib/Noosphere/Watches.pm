@@ -111,6 +111,8 @@ sub listWatches {
 	elsif (defined $params->{'delall'}) {
 		($rv,$sth) = dbLowLevelSelect($dbh,"select uid from $wtbl where userid=$userinf->{uid} offset $offset limit $page") if getConfig('dbms') eq 'pg';
 		($rv,$sth) = dbLowLevelSelect($dbh,"select uid from $wtbl where userid=$userinf->{uid} limit $offset, $page") if getConfig('dbms') eq 'mysql';
+		($rv,$sth) = dbLowLevelSelect($dbh,"select uid from $wtbl where userid=$userinf->{uid} limit $offset, $page") if getConfig('dbms') eq 'MariaDB';
+
 		my @rows = dbGetRows($sth);
 		foreach my $row (@rows) {
 			($rv,$sth) = dbDelete($dbh,{FROM=>$wtbl,WHERE=>"uid=$row->{uid}"});
@@ -131,6 +133,7 @@ sub listWatches {
 	#
 	($rv,$sth) = dbLowLevelSelect($dbh,"select * from $wtbl where userid=$userinf->{uid} order by tbl offset $offset limit $page") if getConfig('dbms') eq 'pg';
 	($rv,$sth) = dbLowLevelSelect($dbh,"select * from $wtbl where userid=$userinf->{uid} order by tbl limit $offset, $page") if getConfig('dbms') eq 'mysql';
+	($rv,$sth) = dbLowLevelSelect($dbh,"select * from $wtbl where userid=$userinf->{uid} order by tbl limit $offset, $page") if getConfig('dbms') eq 'MariaDB';
 
 	my @rows = dbGetRows($sth);
 

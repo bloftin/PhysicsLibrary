@@ -1,10 +1,13 @@
 #!/usr/bin/perl
 use strict;
 
-use Apache;
-#Ben added compat line for testing
-#use Apache2::compat;
-use DBI();
+use Apache::DBI;
+use Apache2::Request;
+use Apache2::RequestIO;
+use Apache2::RequestUtil;
+use Apache2::RequestRec;
+use Apache2::Upload;
+
 use XML::LibXML;
 use XML::LibXSLT;
 
@@ -81,10 +84,10 @@ use Noosphere::Linkpolicy;
 
 $ENV{MOD_PERL} or die "not running under mod_perl!";
 
-# Ben added to try to debug connection problems
-$Apache::DBI::DEBUG = 0;
+# debug connection problems
+#$Apache::DBI::DEBUG = 0;
 
-# Ben added the init to save connection overhead on very first
+# init to save connection overhead on very first
 # request of every child
 
 

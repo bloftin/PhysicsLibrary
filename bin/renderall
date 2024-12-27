@@ -9,7 +9,7 @@
 ###############################################################################
 
 use DBI;
-use lib '/var/www/pp/noosphere/lib';
+use lib '/var/www/pp/lib';
 
 use Noosphere qw($dbh $DEBUG);
 use Noosphere::DB;
@@ -21,7 +21,7 @@ use Noosphere::Util;
 my @methods = ('l2h', 'png','src');
 #my @methods = ('l2h');
 my $table = Noosphere::getConfig('en_tbl');
-my $runfile = "/var/www/pp/noosphere/bin/run/renderall.running";
+my $runfile = "/var/www/pp/bin/run/renderall.running";
 
 $|=1;
 
@@ -47,6 +47,7 @@ my ($rv,$sth) = Noosphere::dbLowLevelSelect($dbh,"select cache.objectid from cac
 while (my $row = $sth->fetchrow_hashref()) {
 	print "dangling cacheref ($row->{objectid}), deleting\n";
 	Noosphere::deletecacheflags($table,$row->{objectid});
+	
 }
 $sth->finish();
 
@@ -80,6 +81,8 @@ foreach my $method (@methods) {
 	
 		open(OLDOUT, ">&STDOUT");
 		open STDOUT, ">>/var/www/pp/log/stdout-renderall";
+		print "\ncacheObject: table:\n $table";	
+		print "rec:\n @{[%rec]}\n";
 		Noosphere::cacheObject($table, $rec, $method);
 		open(STDOUT, ">&OLDOUT");
 
@@ -102,6 +105,7 @@ sub getNextRow {
 	my $int;
 	$int = "interval '10 minutes'" if Noosphere::getConfig('dbms') eq 'pg';
 	$int = "interval 10 MINUTE" if Noosphere::getConfig('dbms') eq 'mysql';
+	$int = "interval 10 MINUTE" if Noosphere::getConfig('dbms') eq 'MariaDB';
 	
 	my ($rv,$sth) = Noosphere::dbSelect($dbh,{
 		 WHAT => "cache.objectid,cache.build,cache.touched,$table.title",

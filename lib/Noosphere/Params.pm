@@ -179,7 +179,8 @@ sub parseParams {
   my %params;
   my $upload;
  
-
+  dwarn "get_params:\n @{[%get_params]}\n";
+  dwarn "post_params:\n @{[%post_params]}\n";	
   # parse GET params
   #
   if (scalar keys %get_params) {

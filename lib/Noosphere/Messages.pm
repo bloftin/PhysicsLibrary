@@ -115,7 +115,7 @@ sub getLatestMessages_data {
 # get XML data for most recent messages
 #
 sub getLatestMessagesXML {
-#	dwarn "Latest Messages ^^^^^";
+	dwarn "Latest Messages ^^^^^";
 	my $params = shift;
 	my $userinf = shift;
 
@@ -156,7 +156,7 @@ sub getLatestMessagesXML {
 	$sth->finish();
 
 	$xml .= "	</messages>";
-#	dwarn "XML messages are : $xml";	
+    dwarn "XML latest messages are : $xml";	
 	return $xml;
 }
 

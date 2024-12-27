@@ -59,8 +59,13 @@ sub FileCache::isCurrent
 {
     my $obj = shift;
     my $info = stat $obj->{"PATH"};
-
-    return $info->mtime <= $obj->{"CACHETIME"};
+	
+	if ( $info ) {
+    		return $info->mtime <= $obj->{"CACHETIME"};
+	} else {
+		warn "warning. couldn't stat object path";
+		return 0;
+	}
 }
 
 1;

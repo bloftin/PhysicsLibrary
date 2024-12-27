@@ -33,6 +33,9 @@ sub getNagList {
 	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid, title, filed, objectid, filed + interval graceint SECOND, unix_timestamp(now()) - graceint - unix_timestamp(filed) as elapsed",FROM=>$cor,WHERE=>"closed is null and now() - interval graceint SECOND - filed + now() >= interval $times->{nagstart} + now()"})
 		if (getConfig('dbms') eq 'mysql');
 
+	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid, title, filed, objectid, filed + interval graceint SECOND, unix_timestamp(now()) - graceint - unix_timestamp(filed) as elapsed",FROM=>$cor,WHERE=>"closed is null and now() - interval graceint SECOND - filed + now() >= interval $times->{nagstart} + now()"})
+        if (getConfig('dbms') eq 'MariaDB');
+
 	my @rows = dbGetRows($sth);
 
 	foreach my $row (@rows) {
@@ -74,6 +77,9 @@ sub sendNag {
 	($rv,$sth) = dbLowLevelSelect($dbh,"select interval $elapsed SECOND + now() >= interval $times->{nagstart} + now() as nag, interval $elapsed SECOND + now() >= interval $times->{adopt} + now() as adopt, interval $elapsed SECOND + now() >= interval $times->{orphan} + now() as orphan")
 		if (getConfig('dbms') eq 'mysql');
 
+	($rv,$sth) = dbLowLevelSelect($dbh,"select interval $elapsed SECOND + now() >= interval $times->{nagstart} + now() as nag, interval $elapsed SECOND + now() >= interval $times->{adopt} + now() as adopt, interval $elapsed SECOND + now() >= interval $times->{orphan} + now() as orphan")
+        if (getConfig('dbms') eq 'MariaDB'); 
+
 	my $should = $sth->fetchrow_hashref();
 	$sth->finish();
 
@@ -90,6 +96,8 @@ sub sendNag {
 
 	($rv,$sth) = dbLowLevelSelect($dbh,"select now() + interval $times->{naginterval} as nextnag, timestamp '$filed' + interval $times->{adopt} as adopt, timestamp '$filed' + interval $times->{orphan} as orphan")
 		if (getConfig('dbms') eq 'mysql');
+	($rv,$sth) = dbLowLevelSelect($dbh,"select now() + interval $times->{naginterval} as nextnag, timestamp '$filed' + interval $times->{adopt} as adopt, timestamp '$filed' + interval $times->{orphan} as orphan")
+        if (getConfig('dbms') eq 'MariaDB');
 
 	my $dates = $sth->fetchrow_hashref();
 
@@ -154,6 +162,9 @@ sub alreadyNagged {
 	($rv,$sth) = dbSelect($dbh,{WHAT => "now() - lastnag + now() < interval $times->{naginterval} + now() as nag",FROM => $table,WHERE => "cid=$cid"})
 		if (getConfig('dbms') eq 'mysql');
 
+	($rv,$sth) = dbSelect($dbh,{WHAT => "now() - lastnag + now() < interval $times->{naginterval} + now() as nag",FROM => $table,WHERE => "cid=$cid"})
+        if (getConfig('dbms') eq 'MariaDB');
+
 	my $should = $sth->fetchrow_hashref();
 	$sth->finish();
 
@@ -210,7 +221,9 @@ sub updateGracePeriod {
 		if (getConfig('dbms') eq 'pg');
 	($rv,$sth) = dbUpdate(WHAT=>$table,SET=>"graceint = unix_timestamp(now()) - unix_timestamp(filed)",WHERE=>"uid=$cid")
 		if (getConfig('dbms') eq 'mysql');
-		
+	($rv,$sth) = dbUpdate(WHAT=>$table,SET=>"graceint = unix_timestamp(now()) - unix_timestamp(filed)",WHERE=>"uid=$cid")
+        if (getConfig('dbms') eq 'MariaDB');
+	
 	$sth->finish();
 }
 
@@ -1070,6 +1083,7 @@ sub insertCorrection {
 	my $gracedef;
 	$gracedef = "interval '0 days'" if (getConfig('dbms') eq 'pg');
 	$gracedef = "0" if (getConfig('dbms') eq 'mysql');
+	$gracedef = "0" if (getConfig('dbms') eq 'MariaDB');
 
 	my ($rv,$sth) = dbInsert($dbh,{INTO=>$table,
 	 COLS=>'filed,uid,objectid,userid,graceint,type,title,data',

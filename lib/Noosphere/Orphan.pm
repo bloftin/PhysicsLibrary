@@ -315,7 +315,7 @@ sub orphanCount {
 
 	# to support pre-subselect Mysql, we have to get a little extravagant..
 	#
-	if (getConfig('dbms') eq 'mysql') {
+	if ((getConfig('dbms') eq 'mysql') or (getConfig('dbms') eq 'MariaDB')) {
 		# get the max elapsed time over all corrections per objecti
 		#
 		$dbh->do("create temporary table foo select objectid, max(unix_timestamp(now()) - graceint - unix_timestamp(filed)) as maxelapsed from corrections where closed is null group by objectid");
@@ -364,7 +364,7 @@ sub orphanage {
 		if (getConfig('dbms') eq 'pg');
 
 	# a little more extravagant for Mysql < 4.0 
-	if (getConfig('dbms') eq 'mysql') {
+	if ((getConfig('dbms') eq 'mysql') or (getConfig('dbms') eq 'MariaDB')) {
 
 		# TODO: make this a heap temporary table?
 		$dbh->do("create temporary table foo select objectid,max(unix_timestamp(now()) - graceint - unix_timestamp(filed)) as maxelapsed from corrections where closed is null group by objectid");
@@ -427,6 +427,8 @@ sub isAdoptable
 	 	if (getConfig('dbms') eq 'pg');
 
 	($rv, $sth) = dbSelect($dbh, { WHAT => '*', FROM => getConfig('cor_tbl'), WHERE => "objectid = $uid and closed is null and from_unixtime(unix_timestamp(filed + interval $times->{adopt}) - graceint) < now()" }) if (getConfig('dbms') eq 'mysql');
+
+	($rv, $sth) = dbSelect($dbh, { WHAT => '*', FROM => getConfig('cor_tbl'), WHERE => "objectid = $uid and closed is null and from_unixtime(unix_timestamp(filed + interval $times->{adopt}) - graceint) < now()" }) if (getConfig('dbms') eq 'MariaDB');
 
 	if($sth->rows() > 0) {
 		$sth->finish();
@@ -578,6 +580,8 @@ sub autoOrphan	{
 
 	($rv,$sth) = dbLowLevelSelect($dbh,"select interval $elapsed SECOND + now() >= interval $times->{orphan} + now() as orphan")
 		if (getConfig('dbms') eq 'mysql');
+	
+	($rv,$sth) = dbLowLevelSelect($dbh,"select interval $elapsed SECOND + now() >= interval $times->{orphan} + now() as orphan")                                                                                                                        if (getConfig('dbms') eq 'MariaDB');
 
 	my $should = $sth->fetchrow_hashref();
 	$sth->finish();

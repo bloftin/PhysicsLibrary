@@ -3,6 +3,7 @@ package Noosphere;
 use strict;
 use Noosphere::Util;
 use Noosphere::Charset;
+use HTML::Entities;
 
 # needed for when we require images.pl
 #
@@ -184,6 +185,7 @@ sub singleRenderLaTeX {
 	my $image;
 	$image = octify(readFile($dir . '/img1.png')) if getConfig('dbms') eq 'pg';
 	$image = readFile($dir . '/img1.png') if getConfig('dbms') eq 'mysql';
+	$image = readFile($dir . '/img1.png') if getConfig('dbms') eq 'MariaDB';
 
 	# read in the align mode
 	#
@@ -261,7 +263,7 @@ sub renderLaTeX {
 	# flat png image output (nicest looking)
 	#
 	if ( $method eq "png" ) {
-
+		print "png started\n";
 		$latex = png_preprocess($latex);
 	
 		my $retval = latex_error_check($fname, $latex);
@@ -277,15 +279,16 @@ sub renderLaTeX {
 		else {
 			write_error_output($fname, $table, $id, $method);
 		}
+		print "png ended\n";
 	}
 	
 	# latex2html output (best-looking for the [download] speed)
 	#
 	elsif ( $method eq "l2h" ) {
-
+		print "l2h started\n";
 		my $retval = latex_error_check($fname, $latex);
 
-		if (!$retval) {
+		if (1) {
 			
 			write_out_latex($fname, $latex);
 
@@ -296,24 +299,41 @@ sub renderLaTeX {
 		else {
 			write_error_output($fname, $table, $id, $method);
 		}
+		print "l2h ended \n";
 	}
 
 	# source output ... just make HTML presentable and print to output file
 	#
 	elsif ( $method eq "src" ) {
+		print "src started\n";
 		write_out_latex($fname, $latex);
 
-		$ENV{TERM} = "xterm";
+		# BEN - bringing in new code from noosphere
+		# 2007-06-06 - ".html" added a-la Thomas Foregger
+#		system("rm -f .$fname.tex.html.swp");	# just in case vim crashed before
+		my @lines = split( /\n/, $latex );
+		foreach my $l (@lines) {
+			encode_entities($l);
+		}
 
-		system(getConfig('vimcmd')." $dir/$fname.tex".' +:so\ \\'.getConfig('stemplate_path').'/2pmhtml.vim +:w\!\ '.getConfig('rendering_output_file').' +:q +:q 2>/dev/null');
-	
+		my $cleaned =  join("\n<br/>", @lines);
+		#write to file
+		my $outfilename = getConfig('rendering_output_file');
+		open( OUT, ">$outfilename" );
+		print OUT $cleaned;
+		close(OUT);
+
+		#$ENV{TERM} = "xterm";
+		## commented out as it was popping up during renderall for things like no newline at EOF
+		##BENsystem(getConfig('vimcmd')." $dir/$fname.tex".' +:so\ \\'.getConfig('stemplate_path').'/2pmhtml.vim +:w\!\ '.getConfig('rendering_output_file').' +:q +:q 2>/dev/null');
+		#print "src ended\n";
 	}
 	
 	chdir $cwd;
 }
 
 # do a non-fonts render just to check syntax of LaTeX
-#
+#
 sub latex_error_check {
 	my $fname = shift;
 	my $latex = shift;
@@ -330,7 +350,7 @@ sub latex_error_check {
 
 	# run with easily-parsable line-error option
 	#
-	my $retval = system("/usr/bin/latex -file-line-error-style $fname.tex");
+	my $retval = system("/usr/bin/latex -file-line-error-style -interaction=nonstopmode $fname.tex");
 
 	return $retval;
 }
@@ -426,19 +446,17 @@ sub render_png {
 	}
 
 	# make a dvi (run latex twice to get numberings for refs)
-	#
 	if ($latex =~ /\\($reruns)\W/) { 
 		 system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
 	}
-	# final rendering run
+	# final rendering runi
 	system("/usr/bin/latex -interaction=batchmode $fullname.tex");
 
+	print "dvips cmd: /usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps";
 	# make a postscript file
-	#
 	system("/usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps");
 
 	# make a pnm 
-	#
 	system("/usr/bin/gs -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pnmraw -r100 -sOutputFile=$fullname%03d.pnm $fullname.ps");
 
 	# make the output file
@@ -748,10 +766,10 @@ sub postProcessL2hIndex {
 #
 sub writeLinksToFile {
 	my ($table,$id,$method,$links) = @_;
-
+	
 	my $path = getConfig('cache_root');
 	my $dir = "$path/$table/$id/$method";
-
+	print "writeLinksToFile dir:\n $dir";
 	open OUTFILE,">$dir/pmlinks.html";
 	print OUTFILE "$links";
 	close OUTFILE;

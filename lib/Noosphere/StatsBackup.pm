@@ -163,7 +163,8 @@ sub unclassifiedObjects {
 		if (getConfig('dbms') eq 'pg');
 	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from users as u, objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null and u.uid=o.userid order by lower(o.title) limit $offset, $limit")
 		if (getConfig('dbms') eq 'mysql');
-
+	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from users as u, objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null and u.uid=o.userid order by lower(o.title) limit $offset, $limit")
+        if (getConfig('dbms') eq 'MariaDB');
 
 	#my $total = $sth->rows();
 	$template->addText("<unclassifiedlist>");
@@ -250,6 +251,11 @@ sub getSystemStats {
 		['last year',">now() - interval 365 DAY"]
 	] if getConfig('dbms') eq 'mysql';
 	
+	$periods = [
+        ['total',"<= now()"],                                                                                                   ['last day',">now() - interval 1 DAY"],                                                                                 ['last week',">now() - interval 7 DAY"],                                                                                ['last month',">now() - interval 30 DAY"],
+        ['last year',">now() - interval 365 DAY"]
+    ] if getConfig('dbms') eq 'MariaDB';
+
 	my $timefields = {
 		'objects'=>'created',
 		'users'=>'joined',
@@ -377,7 +383,8 @@ sub getTopUsers_callback {
 	my $where;
 	$where = "score.userid=users.uid and occured>(CURRENT_TIMESTAMP+'-2 weeks')" if getConfig('dbms') eq 'pg';
 	$where = "score.userid=users.uid and occured>now()-interval 14 DAY" if getConfig('dbms') eq 'mysql';
-	
+	$where = "score.userid=users.uid and occured>now()-interval 14 DAY" if getConfig('dbms') eq 'MariaDB';
+
 	my ($rv2, $sth2) = dbSelect($dbh,{WHAT => 'sum(score.delta) as sum,users.username,users.uid',
 		FROM => 'score,users',
 		WHERE => $where,
@@ -432,6 +439,9 @@ sub getLatest_data {
 	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid,name,title,dayofweek($datefield)-1 as dow, concat(extract(YEAR from $datefield), '-', extract(MONTH from $datefield), '-', extract(DAY from $datefield)) as ymd", FROM=>getConfig('en_tbl'), 'ORDER BY'=>$datefield, DESC=>'', WHERE=>($type eq 'modifications' ? 'modified > created' : ''), LIMIT=>$limit})
 		if getConfig('dbms') eq 'mysql';
 	
+	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid,name,title,dayofweek($datefield)-1 as dow, concat(extract(YEAR from $datefield), '-', extract(MONTH from $datefield), '-', extract(DAY from $datefield)) as ymd", FROM=>getConfig('en_tbl'), 'ORDER BY'=>$datefield, DESC=>'', WHERE=>($type eq 'modifications' ? 'modified > created' : ''), LIMIT=>$limit})
+        if getConfig('dbms') eq 'MariaDB'; 
+
 	if (! $rv) {
 		dwarn "latest $type query error\n";
 		return "query error";

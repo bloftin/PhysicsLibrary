@@ -8,131 +8,131 @@ use vars qw{%ICHAR_TO_ASCII %ICHAR_TO_HTML $DEBUG $dbh};
 # table to convert ISO-8859-1 chars into ASCII.
 #
 %ICHAR_TO_ASCII=(
- 'ÿ'=>'y',
- 'ý'=>'y',
- 'ü'=>'u',
- 'û'=>'u',
- 'ú'=>'u',
- 'ù'=>'u',
- 'ø'=>'o',
- 'ö'=>'o',
- 'õ'=>'o',
- 'ô'=>'o',
- 'ó'=>'o',
- 'ò'=>'o',
- 'ñ'=>'n',
- 'ð'=>'o',
- 'ï'=>'i',
- 'î'=>'i',
- 'í'=>'i',
- 'ì'=>'i',
- 'ë'=>'e',
- 'ê'=>'e',
- 'é'=>'e',
- 'è'=>'e',
- 'ç'=>'c',
- 'æ'=>'ae',
- 'å'=>'a',
- 'ä'=>'ae',
- 'ã'=>'a',
- 'â'=>'a',
- 'á'=>'a',
- 'à'=>'a',
- 'ß'=>'ss',
- 'Ý'=>'Y',
- 'Ü'=>'U',
- 'Û'=>'U',
- 'Ú'=>'U',
- 'Ù'=>'U',
- 'Ø'=>'O',
- 'Ö'=>'Oe',
- 'Õ'=>'O',
- 'Ô'=>'O',
- 'Ó'=>'O',
- 'Ò'=>'O',
- 'Ñ'=>'N',
- 'Ð'=>'D',
- 'Ï'=>'I',
- 'Î'=>'I',
- 'Í'=>'I',
- 'Ì'=>'I',
- 'Ë'=>'E',
- 'Ê'=>'E',
- 'É'=>'E',
- 'È'=>'E',
- 'Ç'=>'C',
- 'Æ'=>'Ae',
- 'Å'=>'A',
- 'Ä'=>'Ae',
- 'Ã'=>'A',
- 'Â'=>'A',
- 'Á'=>'A',
- 'À'=>'A'
+ 'ï¿½'=>'y',
+ 'ï¿½'=>'y',
+ 'ï¿½'=>'u',
+ 'ï¿½'=>'u',
+ 'ï¿½'=>'u',
+ 'ï¿½'=>'u',
+ 'ï¿½'=>'o',
+ 'ï¿½'=>'o',
+ 'ï¿½'=>'o',
+ 'ï¿½'=>'o',
+ 'ï¿½'=>'o',
+ 'ï¿½'=>'o',
+ 'ï¿½'=>'n',
+ 'ï¿½'=>'o',
+ 'ï¿½'=>'i',
+ 'ï¿½'=>'i',
+ 'ï¿½'=>'i',
+ 'ï¿½'=>'i',
+ 'ï¿½'=>'e',
+ 'ï¿½'=>'e',
+ 'ï¿½'=>'e',
+ 'ï¿½'=>'e',
+ 'ï¿½'=>'c',
+ 'ï¿½'=>'ae',
+ 'ï¿½'=>'a',
+ 'ï¿½'=>'ae',
+ 'ï¿½'=>'a',
+ 'ï¿½'=>'a',
+ 'ï¿½'=>'a',
+ 'ï¿½'=>'a',
+ 'ï¿½'=>'ss',
+ 'ï¿½'=>'Y',
+ 'ï¿½'=>'U',
+ 'ï¿½'=>'U',
+ 'ï¿½'=>'U',
+ 'ï¿½'=>'U',
+ 'ï¿½'=>'O',
+ 'ï¿½'=>'Oe',
+ 'ï¿½'=>'O',
+ 'ï¿½'=>'O',
+ 'ï¿½'=>'O',
+ 'ï¿½'=>'O',
+ 'ï¿½'=>'N',
+ 'ï¿½'=>'D',
+ 'ï¿½'=>'I',
+ 'ï¿½'=>'I',
+ 'ï¿½'=>'I',
+ 'ï¿½'=>'I',
+ 'ï¿½'=>'E',
+ 'ï¿½'=>'E',
+ 'ï¿½'=>'E',
+ 'ï¿½'=>'E',
+ 'ï¿½'=>'C',
+ 'ï¿½'=>'Ae',
+ 'ï¿½'=>'A',
+ 'ï¿½'=>'Ae',
+ 'ï¿½'=>'A',
+ 'ï¿½'=>'A',
+ 'ï¿½'=>'A',
+ 'ï¿½'=>'A'
 );
 
 # table to convert ISO-8859-1 chars into HTML entities.
 #
 %ICHAR_TO_HTML=(
- 'ÿ'=>'&yuml;',
- 'ý'=>'&yacute;',
- 'ü'=>'&uuml;',
- 'û'=>'&ucirc;',
- 'ú'=>'&uacute;',
- 'ù'=>'&ugrave;',
- 'ø'=>'&oslash;',
- 'ö'=>'&ouml;',
- 'õ'=>'&otilde;',
- 'ô'=>'&ocirc;',
- 'ó'=>'&oacute;',
- 'ò'=>'&ograve;',
- 'ñ'=>'&ntilde;',
- 'ð'=>'&eth;',
- 'ï'=>'&iuml;',
- 'î'=>'&icirc;',
- 'í'=>'&iacute;',
- 'ì'=>'&igrave;',
- 'ë'=>'&euml;',
- 'ê'=>'&ecirc;',
- 'é'=>'&eacute;',
- 'è'=>'&egrave;',
- 'ç'=>'&ccedil;',
- 'æ'=>'&aelig;',
- 'å'=>'&aring;',
- 'ä'=>'&auml;',
- 'ã'=>'&atilde;',
- 'â'=>'&acirc;',
- 'á'=>'&aacute;',
- 'à'=>'&agrave;',
- 'ß'=>'&szlig;',
- 'Ý'=>'&Yacute;',
- 'Ü'=>'&Uuml;',
- 'Û'=>'&Ucirc;',
- 'Ú'=>'&Uacute;',
- 'Ù'=>'&Ugrave;',
- 'Ø'=>'&Oslash;',
- 'Ö'=>'&Ouml;',
- 'Õ'=>'&Otilde;',
- 'Ô'=>'&Ocirc;',
- 'Ó'=>'&Oacute;',
- 'Ò'=>'&Ograve;',
- 'Ñ'=>'&Ntilde;',
- 'Ð'=>'&ETH;',
- 'Ï'=>'&Iuml;',
- 'Î'=>'&Icirc;',
- 'Í'=>'&Iacute;',
- 'Ì'=>'&Igrave;',
- 'Ë'=>'&Euml;',
- 'Ê'=>'&Ecirc;',
- 'É'=>'&Eacute;',
- 'È'=>'&Egrave;',
- 'Ç'=>'&Ccedil;',
- 'Æ'=>'&AElig;',
- 'Å'=>'&Aring;',
- 'Ä'=>'&Auml;',
- 'Ã'=>'&Atilde;',
- 'Â'=>'&Acirc;',
- 'Á'=>'&Aacute;',
- 'À'=>'&Agrave;'
+ 'ï¿½'=>'&yuml;',
+ 'ï¿½'=>'&yacute;',
+ 'ï¿½'=>'&uuml;',
+ 'ï¿½'=>'&ucirc;',
+ 'ï¿½'=>'&uacute;',
+ 'ï¿½'=>'&ugrave;',
+ 'ï¿½'=>'&oslash;',
+ 'ï¿½'=>'&ouml;',
+ 'ï¿½'=>'&otilde;',
+ 'ï¿½'=>'&ocirc;',
+ 'ï¿½'=>'&oacute;',
+ 'ï¿½'=>'&ograve;',
+ 'ï¿½'=>'&ntilde;',
+ 'ï¿½'=>'&eth;',
+ 'ï¿½'=>'&iuml;',
+ 'ï¿½'=>'&icirc;',
+ 'ï¿½'=>'&iacute;',
+ 'ï¿½'=>'&igrave;',
+ 'ï¿½'=>'&euml;',
+ 'ï¿½'=>'&ecirc;',
+ 'ï¿½'=>'&eacute;',
+ 'ï¿½'=>'&egrave;',
+ 'ï¿½'=>'&ccedil;',
+ 'ï¿½'=>'&aelig;',
+ 'ï¿½'=>'&aring;',
+ 'ï¿½'=>'&auml;',
+ 'ï¿½'=>'&atilde;',
+ 'ï¿½'=>'&acirc;',
+ 'ï¿½'=>'&aacute;',
+ 'ï¿½'=>'&agrave;',
+ 'ï¿½'=>'&szlig;',
+ 'ï¿½'=>'&Yacute;',
+ 'ï¿½'=>'&Uuml;',
+ 'ï¿½'=>'&Ucirc;',
+ 'ï¿½'=>'&Uacute;',
+ 'ï¿½'=>'&Ugrave;',
+ 'ï¿½'=>'&Oslash;',
+ 'ï¿½'=>'&Ouml;',
+ 'ï¿½'=>'&Otilde;',
+ 'ï¿½'=>'&Ocirc;',
+ 'ï¿½'=>'&Oacute;',
+ 'ï¿½'=>'&Ograve;',
+ 'ï¿½'=>'&Ntilde;',
+ 'ï¿½'=>'&ETH;',
+ 'ï¿½'=>'&Iuml;',
+ 'ï¿½'=>'&Icirc;',
+ 'ï¿½'=>'&Iacute;',
+ 'ï¿½'=>'&Igrave;',
+ 'ï¿½'=>'&Euml;',
+ 'ï¿½'=>'&Ecirc;',
+ 'ï¿½'=>'&Eacute;',
+ 'ï¿½'=>'&Egrave;',
+ 'ï¿½'=>'&Ccedil;',
+ 'ï¿½'=>'&AElig;',
+ 'ï¿½'=>'&Aring;',
+ 'ï¿½'=>'&Auml;',
+ 'ï¿½'=>'&Atilde;',
+ 'ï¿½'=>'&Acirc;',
+ 'ï¿½'=>'&Aacute;',
+ 'ï¿½'=>'&Agrave;'
 );
 
 use constant DAYS=>
@@ -512,7 +512,7 @@ sub nextval {
 
 	# 'simulate' sequences in mysql (using tables)
 	#
-	if (getConfig('dbms') eq 'mysql') {
+	if ((getConfig('dbms') eq 'mysql') or (getConfig('dbms') eq 'MariaDB')) {
 		
 		# insert dummy row
 		my $sth = $dbh->prepare("insert into $sequence values()");
@@ -1528,6 +1528,40 @@ sub gettypebox {
 	$tsel .= '</select>';
 
 	return $tsel;
+}
+
+sub buildStringUsingXSLT {
+	my $xml = shift;
+	my $xslfile = shift;
+
+	my $DEBUG = 1;
+
+	warn "Rendering Stylesheet $xslfile\n";
+#	$xml = encode_utf8($xml);
+	$xml =~ s/&nbsp;/&#160;/g;
+
+	my ($parser, $xslt, $src, $style_doc, $stylesheet, $results, $out);
+        $parser = XML::LibXML->new();
+        $xslt = XML::LibXSLT->new();
+	eval {
+        $src = $parser->parse_string( $xml );
+	};
+	if ( $@ ) {
+		open(OUT, '>/tmp/jerror.xml');
+		print OUT $xml;
+		close(OUT);
+		return "This site is currently under development. Debug message for developer: Error rendering $xslfile.\n$@";
+	}
+        $style_doc = $parser->parse_file( $xslfile );
+        $stylesheet = $xslt->parse_stylesheet($style_doc);
+        $results = $stylesheet->transform( $src );
+        $out = $stylesheet->output_as_chars( $results );
+
+	if ( $xslfile =~ /article/ and $DEBUG ) {
+		warn "Output = [\n$out\n]\n";
+	}
+
+        return $out;
 }
 
 # sendMail - send an email message with to name, with subject and body

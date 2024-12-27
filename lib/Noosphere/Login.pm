@@ -111,7 +111,7 @@ sub handleLogin {
 # get the contents of the login/logged-in box displayed on the left
 #
 sub getLoginBox {
-	my $params = shift;
+	#my $params = shift;
 	my $user_info = shift;
 
 	my $data = $user_info->{'data'};
@@ -143,19 +143,21 @@ sub getLoginBox {
 		$login->setKey('id',$user_info->{uid});
 	}
 	else {
+		my $xml = '';
+		my $writer = new XML::Writer(OUTPUT=>\$xml);
+		$writer->startTag("login");
+		$writer->startTag("main_url");
+		$writer->characters(getConfig("main_url"));
+		$writer->endTag("main_url");
+	        $writer->endTag("login");
+
+		my $xslt = getConfig("stemplate_path") . "/login.xsl";
+		my $loginbox = buildStringUsingXSLT( $xml, $xslt );
+		return $loginbox;
+
 		$boxtitle = 'Login';
 		$login = new Template('login.html');
 		my $error = 'login error';
-
-		# handle deactivated account situation
-		#
-		if (user_registered($params->{user}, 'username') &&
-			!isUserActive($params->{user})) {
-		
-			$error = 'account deactivated';
-		}
-
-		$login->setKey('error', $params->{op} eq 'login' ? $error : '');
 	}
 	
 	return makeBox($boxtitle, $login->expand());

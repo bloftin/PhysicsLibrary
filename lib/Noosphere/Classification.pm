@@ -84,7 +84,7 @@ sub printclass {
 		if ($curns ne $row->{ns}) {
 			$nsprintable =~ s/ /&nbsp;/;
 			if (nb($nslink)) {
-				$html .= "<td valign=\"top\"><font size=\"$fs\"><a target=\"planetphysics_popup\" href=\"$nslink\">$nsprintable</a>:&nbsp;</font></td>";
+				$html .= "<td valign=\"top\"><font size=\"$fs\"><a target=\"physicslibrary_popup\" href=\"$nslink\">$nsprintable</a>:&nbsp;</font></td>";
 			} else {
 				$html .= "<td><font size=\"$fs\">$nsprintable:&nbsp;</font></td>";
 			}

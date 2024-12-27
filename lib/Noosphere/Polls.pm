@@ -57,7 +57,13 @@ sub insertNewPoll {
 		COLS=>'uid,userid,start,finish,options,title',
 		VALUES=>"$nextid,$userinf->{uid},now(),CURRENT_TIMESTAMP + interval $ttl,'".sq($params->{response})."','".sq($params->{question})."'"}
 	) if (getConfig('dbms') eq 'mysql');
-								 
+	
+	($rv, $sth) = dbInsert($dbh,{
+        INTO=>'polls',
+        COLS=>'uid,userid,start,finish,options,title',
+        VALUES=>"$nextid,$userinf->{uid},now(),CURRENT_TIMESTAMP + interval $ttl,'".sq($params->{response})."','".sq($params->{question})."'"}
+    ) if (getConfig('dbms') eq 'MariaDB');
+						 
 	if (!$rv) {
 		dwarn "error inserting poll";
 		return errorMessage("Could not insert poll!");

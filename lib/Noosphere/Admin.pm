@@ -478,6 +478,8 @@ sub cacheControl {
 			if (getConfig('dbms') eq 'pg');
 		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='l2h' order by lower(e.title) limit $offset, $limit")
 			if (getConfig('dbms') eq 'mysql');
+		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='l2h' order by lower(e.title) limit $offset, $limit")
+            if (getConfig('dbms') eq 'MariaDB');
 
 		my @rows = dbGetRows($sth);
 

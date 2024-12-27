@@ -17,7 +17,7 @@
   
 	<br />
   
-	  Enter a classification string (See <a target="planetphysics.popup" href="{//globals/main_url}/?op=mscbrowse">MSC</a>):
+	  Enter a classification string (See <a target="physicslibrary.popup" href="{//globals/main_url}/?op=mscbrowse">MSC</a>):
 	<br />
 	
 	<input type="text" name="class" size="75">

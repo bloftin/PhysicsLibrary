@@ -1,7 +1,7 @@
 package Noosphere;
 use strict;
 
-use lib '/var/www/pp/noosphere/essex/essex_2004-01-05';
+use lib '/var/www/pp/essex/essex_2004-01-05';
 use SearchClient;
 
 use Noosphere::Config;

@@ -110,7 +110,7 @@
 		
 			<br /> <br />
 
-			Classification (See <a target="planetphysics.popup" href="{//globals/main_url}/?op=mscbrowse">MSC</a>):
+			Classification (See <a target="physicslibrary.popup" href="{//globals/main_url}/?op=mscbrowse">MSC</a>):
 
 			<br />
 		

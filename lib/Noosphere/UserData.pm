@@ -144,7 +144,9 @@ sub userEditObjectList {
 		if (getConfig('dbms') eq 'pg');
 	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
 		if (getConfig('dbms') eq 'mysql');
-	
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+        if (getConfig('dbms') eq 'MariaDB');
+
 	if (not defined $rv) {
 		dwarn "error getting objects for user $uid";
 		return errorMessage("Error with object query. contact an admin.");
@@ -349,15 +351,20 @@ sub userGenericList {
 
 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
-	
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
+
 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit"  if getConfig('dbms') eq 'pg';
 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'mysql';
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'MariaDB';
 
 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
 	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
 	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+
+	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
 	# structure holding the specifics
 	#

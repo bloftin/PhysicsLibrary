@@ -1,0 +1,72 @@
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+			
+				<!-- logo -->
+				<a href="http://<NS:template mainsiteaddr/>"><img src="http://<NS:template imagesiteaddr/>/images/physicslibrarylogo.png" alt="<NS:template sitename/>"/></a>
+			</td>
+
+		</tr>
+
+		</table>
+
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		
+		<tr>
+			<td colspan="4">
+
+				<table width="100%" border="0" cellpadding="2">
+					<tr>
+						<td align="left">
+							<!-- slogan -->
+							&nbsp;<font color="#000000" face="sans-serif"><i><NS:template slogan/></i></font>
+						</td>
+
+							
+
+						<td align="right">
+				
+							<table><tr>
+							
+							<td>
+
+							<!-- quick links -->
+
+							<font size="-2">
+								<a href="<NS:template main_url/>/encyclopedia">Encyclopedia</a> |
+								<!--<a href="<NS:template main_url/>/?op=browse&amp;from=books">Books</a> |
+								<a href="<NS:template main_url/>/?op=browse&amp;from=papers">Papers</a> |
+								<a href="<NS:template main_url/>/?op=browse&amp;from=lec">Expositions</a> |
+								<a href="<NS:template main_url/>/?op=reqlist">Requests</a> |-->
+								<a href="<NS:template main_url/>/?op=forums">Forums</a> |
+								<a href="<NS:template main_url/>/?op=sitedoc">Docs</a> |
+								<!-- APK - we should update this PURL to the below ASAP -->
+								<!--<a href="http://purl.oclc.org/NET/PMWiki/">Wiki</a> |-->
+								<!--<a href="http://planetx.cc.vt.edu/AsteroidMeta/PlanetMath">Wiki</a> |-->
+								<a href="<NS:template main_url/>/?op=randomentry">Random</a> |
+								<!--<a href="http://<NS:template staticsiteaddr/>/doc/rss.html">RSS</a> |-->
+
+								&nbsp;
+
+							</font>
+		
+							</td>
+
+							<!-- search box -->
+
+							<td>
+
+							<NS:template search raw/>
+
+							</td>
+
+							</tr></table>
+
+						</td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+	</table>
+	

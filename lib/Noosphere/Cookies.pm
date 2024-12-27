@@ -35,17 +35,17 @@ sub parseCookies {
 	my $req = shift;
 	
 	my $buf = $req->header_in("Cookie");
-	
+	dwarn "Cookie header_in:\n $buf";	
 	my @data = split(/;\s*/,$buf);
-	
+	dwarn print join(", ", @data);
 	my %cookies;
 	
-	#dwarn "cookies\n" if (scalar @data);
+	dwarn "cookies: \n" if (scalar @data);
 	foreach my $cookie (@data) {
 		
 		my ($key,$val) = split(/=/,$cookie);
 		$cookies{$key} = $val;
-		#dwarn "\t$key=>$val\n"; 
+		dwarn "\t$key=>$val\n"; 
 	}
 
 	return %cookies; 

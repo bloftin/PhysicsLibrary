@@ -137,6 +137,8 @@ sub getRandomEntry {
 		if getConfig('dbms') eq 'pg';
 	$count = dbEval("count(*) from $tbl")
 		if getConfig('dbms') eq 'mysql';
+	$count = dbEval("count(*) from $tbl")
+        if getConfig('dbms') eq 'MariaDB';
 
         $index = int(rand($count));
        
@@ -147,6 +149,8 @@ sub getRandomEntry {
 		if getConfig('dbms') eq 'pg';
 	$uid = dbEval("uid from $tbl limit $index,1")
 		if getConfig('dbms') eq 'mysql';
+	$uid = dbEval("uid from $tbl limit $index,1")
+        if getConfig('dbms') eq 'MariaDB';
 
 	# "stuff" the proper getobj params
 	#
@@ -456,7 +460,8 @@ sub getTypeString {
 #
 sub getEncyclopedia {
 	my $params = shift;
-	
+
+	dwarn "getEncyclopedia start";	
 	my $idx = $params->{idx};
 	my $content = '';
 	my $letter = '';
@@ -559,6 +564,7 @@ sub getEncyclopedia {
 	<tr>
 		<td>$interact</td>
 	</tr></table>";
+	dwarn "getEncyclopedia end";
 	return $html;
 }
 

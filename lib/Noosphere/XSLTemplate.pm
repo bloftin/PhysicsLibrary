@@ -8,30 +8,43 @@ sub XSLTemplate::new
 {
 	my ($class, $file) = @_;
 	my $tpath = getConfig("stemplate_path");
-	#dwarn "PP stemplate_path is\n";
-   	#dwarn $tpath;
-        #dwarn "PP stemplate file is\n";
-	#dwarn $file;
+	dwarn "PP stemplate_path is\n";
+   	dwarn $tpath;
+    dwarn "PP stemplate file is\n";
+	dwarn $file;
  	my $tobj = {};
 # This document parsing needs to be cached!
-	my $template = new Template("template.xsl");
+	my $template = new Template("template.xsl", warnings => 1);
 	my $fcache = new FileCache("$tpath/$file");
-
+	dwarn "fcache text: \n";
+	dwarn $fcache->{"TEXT"};
+	dwarn "\nAfter fcache text\n";
 	$template->setKey('content', $fcache->{"TEXT"});
-
+	dwarn "After setKey";
 	my $parser = XML::LibXML->new();
+	dwarn "After LimbXML->new";
 	my $doc = $parser->parse_string($template->expand());
-
+	dwarn "After parse_string";
 	bless $tobj, $class;
-
+	dwarn "After bless";
 	$tobj->{'KEY_MAP'} = getXSLKeyMap($fcache->{'TEXT'});
+	dwarn "After getXSLKeyMap";
 	$tobj->{'SET_KEYS'} = {};
+	dwarn "AFter SET_KEYS";
 	$tobj->{'NAME'} = $file;
+	dwarn "After NAME";
 	$tobj->{'XSLT'} = XML::LibXSLT->new();
+	dwarn "After LibXSLT->new";
+	dwarn "doc: $doc\n";
+	eval {
 	$tobj->{'STYLESHEET'} = $tobj->{'XSLT'}->parse_stylesheet($doc);
+	};
+	warn $@ if $@;
+	dwarn "parse_stylesheet";
 	$tobj->{'TEXT'} = "";
+	dwarn "After text empty";
 	$tobj->{'PARAMS'} = {'admin' => 0};
-	
+	dwarn "After PARAMS admin";
 	return $tobj;
 }
 
@@ -165,7 +178,7 @@ sub XSLTemplate::expand
 	<!ENTITY nbsp \"&#160;\">
     <!ENTITY \% iso-lat1 PUBLIC \"ISO 8879:1986//ENTITIES Added Latin 1//EN/
 /XML\" \"file://".getConfig('entity_dir')."/iso-lat1.ent\">
- 
+
     \%iso-lat1;
 ]>";
 
@@ -175,23 +188,68 @@ sub XSLTemplate::expand
 	# add in some globals 
 	$obj->{'TEXT'} .= "<globals>".getConfig('xsl_globals')."</globals>";
 	
-	my $string = $header."<NSXSLT>\n".
-					$obj->{'TEXT'}."</NSXSLT>\n";
+	my $string = $header."\n<NSXSLT>\n".  $obj->{'TEXT'}."\n</NSXSLT>\n";
+
+#	warn "The XML Input string is:----------------\n$string--------------------\n";
 	
 
 	my $doc = $parser->parse_string($string);
-        #dwarn "XML PARAMS";
-	#dwarn %{$obj->{"PARAMS"}};									
-	my $results = $obj->{"STYLESHEET"}->transform($doc, %{$obj->{"PARAMS"}});
 
+	my $results = $obj->{"STYLESHEET"}->transform($doc);
 	my $transformed = $obj->{"STYLESHEET"}->output_string($results);
 	$transformed =~ s/<!DOCTYPE.+?>//;	# remove doctype so we can embed this
+
+#	warn "The output from the transform is:--------------\n$transformed\n----------------\n";
 
 	# BB: XSL library does not set this flag on
 	Encode::_utf8_on($transformed);
 
 	return $transformed;
 }
+
+# sub XSLTemplate::expand
+# {
+# 	my $obj = shift;
+	
+# 	my $parser = XML::LibXML->new();
+# 	#my $entitysite = Noosphere::getConfig('entity_dir');
+# 	my $entitysite = getAddr("entity");
+# 	dwarn "entitysite:\n $entitysite";
+# 	my $header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+# <!DOCTYPE NSXSLT [
+# 	<!ENTITY nbsp \"&#160;\">
+#     <!ENTITY \% iso-lat1 PUBLIC \"ISO 8879:1986//ENTITIES Added Latin 1//EN/
+# /XML\" \"file://".getConfig('entity_dir')."/iso-lat1.ent\">
+ 
+#     \%iso-lat1;
+# ]>";
+
+# 	# make sure there are no bare ampersands
+# 	$obj->{'TEXT'} =~ s/&(?!(?:\w+|#\d+);)/&amp;/og;
+
+# 	# add in some globals 
+# 	$obj->{'TEXT'} .= "<globals>".getConfig('xsl_globals')."</globals>";
+	
+#     my $string = $header."\n<NSXSLT>\n".  $obj->{'TEXT'}."\n</NSXSLT>\n";	
+
+# 	my $doc = $parser->parse_string($string);
+#     dwarn "doc:\n$doc\n";
+# 	dwarn "XML PARAMS";
+# 	dwarn %{$obj->{"PARAMS"}};
+# 	dwarn "STYLESHEET";
+# 	dwarn $obj->{"STYLESHEET"};
+# 	dwarn "doc expand: $doc\n";
+# 	my $results = $obj->{"STYLESHEET"}->transform($doc, %{$obj->{"PARAMS"}});
+# 	dwarn "After transform";
+# 	my $transformed = $obj->{"STYLESHEET"}->output_string($results);
+# 	dwarn "After output_string";
+# 	$transformed =~ s/<!DOCTYPE.+?>//;	# remove doctype so we can embed this
+# 	dwarn "AFter remove doctype";
+# 	# BB: XSL library does not set this flag on
+# 	Encode::_utf8_on($transformed);
+# 	dwarn "After utf8_on";
+# 	return $transformed;
+# }
 
 sub XSLTemplate::expandFile
 {
