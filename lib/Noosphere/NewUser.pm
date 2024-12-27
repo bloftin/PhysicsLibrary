@@ -183,8 +183,8 @@ sub checkHash {
 # dwarn "user is $ticket{'user'} email is $ticket{'email'}";
  
 	my $hash = sha1_hex(join(':',@ticket{qw(user email)}),SECRET);
- dwarn "checking, hash is $hash";
- dwarn "ticket hash is $ticket{'hash'}";
+ 	dwarn "checking, hash is $hash";
+ 	dwarn "ticket hash is $ticket{'hash'}";
 	return $error unless ($ticket{"hash"} eq $hash);
 	return ''; 
 }

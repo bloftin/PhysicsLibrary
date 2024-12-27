@@ -22,7 +22,7 @@ sub setCookie {
 	$cookie = join ('; ', "$key=$val", "path=$pth", $expires);
 	#$cookie="$key=$val; expires=$exp; path=$pth";
 	dwarn "setting cookie $cookie";
-	$req->header_out("Set-Cookie"=>"$cookie");
+	$req->headers_out->add("set-cookie" => "$cookie");
 }
 
 sub clearCookie {

@@ -110,8 +110,8 @@ sub handleLogin {
 
 # get the contents of the login/logged-in box displayed on the left
 #
-sub getLoginBox {
-	#my $params = shift;
+sub getLoginBoxOld {
+	my $params = shift;
 	my $user_info = shift;
 
 	my $data = $user_info->{'data'};
@@ -143,6 +143,72 @@ sub getLoginBox {
 		$login->setKey('id',$user_info->{uid});
 	}
 	else {
+		$boxtitle = 'Login';
+		$login = new Template('login.html');
+		my $error = 'login error';
+
+		# handle deactivated account situation
+		#
+		if (user_registered($params->{user}, 'username') &&
+			!isUserActive($params->{user})) {
+		
+			$error = 'account deactivated';
+		}
+
+		$login->setKey('error', $params->{op} eq 'login' ? $error : '');
+	}
+	
+	return makeBox($boxtitle, $login->expand());
+}
+
+sub getLoginBox {
+#	my $params = shift;
+	my $user_info = shift;
+
+	my $data = $user_info->{'data'};
+	
+	my $boxtitle;
+	my $login;
+	my $template;
+	
+	if (defined $user_info->{'ticket'} && $user_info->{'uid'} > 0) {
+		my $mail = getNewMailCount($user_info);
+		my $corrections = countPendingCorrections($user_info);
+		my $notices = getNoticeCount($user_info);
+		my $xml = '';
+		my $username = $data->{'username'};
+		my $writer = new XML::Writer(OUTPUT=>\$xml);
+		$writer->startTag("logged_in");
+		# BEN: Roles have not been upgraded to yet
+		#if ( is_editor( $user_info->{'uid'} ) ) {
+		#	$writer->startTag("editor");
+		#	$writer->endTag("editor");	
+		#}
+		$writer->startTag("username");
+		$writer->characters($username);
+		$writer->endTag("username");
+		$writer->startTag('mail');
+		$writer->characters($mail);
+		$writer->endTag('mail');
+		$writer->startTag('notices');
+		$writer->characters($notices);
+		$writer->endTag('notices');
+		$writer->startTag('corrections');
+		$writer->characters($corrections);
+		$writer->endTag('corrections');
+	    $writer->endTag("logged_in");
+
+		my $xslt = getConfig("stemplate_path") . "/loggedin.xsl";
+		my $loginbox = buildStringUsingXSLT( $xml, $xslt );
+
+		return $loginbox;
+		return "ERROR\n";
+		$login = new Template('userbox.html');
+
+#		$login->setKey('bullet', getBullet());
+#		$login->setKey('id',$user_info->{uid});
+#		$login->setKey('url', hashToParams($params));
+	} else {
 		my $xml = '';
 		my $writer = new XML::Writer(OUTPUT=>\$xml);
 		$writer->startTag("login");
@@ -158,9 +224,20 @@ sub getLoginBox {
 		$boxtitle = 'Login';
 		$login = new Template('login.html');
 		my $error = 'login error';
+
+		# handle deactivated account situation
+		#
+		#if (user_registered($params->{user}, 'username') &&
+		#	!isUserActive($params->{user})) {
+		
+		#	$error = 'account deactivated';
+		#}
+
+		#$login->setKey('url', hashToParams($params));
+		#$login->setKey('error', $params->{op} eq 'login' ? $error : '');
 	}
 	
-	return makeBox($boxtitle, $login->expand());
+#	return $login->expand();
 }
 
 1;

@@ -30,7 +30,7 @@
                         </div>
                         <div id="go_to_padding">
                             <div id="go_to">
-                                Browse Encyclopedia By: <a href="/browse/objects/">Subject</a> | <a href="/?op=enlist;mode=hits">Popularity</a> | <a href="/encyclopedia/">More</a>
+                                Browse Encyclopedia By: <a href="/encyclopedia/">Encyclopedia</a>
                             </div>
                         </div>
                         <div id="latest_padding">

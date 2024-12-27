@@ -253,27 +253,25 @@ sub sendOutput {
 	my $req = shift;
 	my $html = shift;
 	my $status = shift || 200;
-
 	my $len = bytes::length($html);
+
 	$req->status($status);
 	$req->content_type('text/html;charset=UTF-8');
-#	$req->content_language('en');
-	$req->header_out('Content-Length'=>$len);
-	$req->send_http_header;
+#    $req->content_language('en');
+	$req->headers_out->add('content-length' => $len);
+#	$req->send_http_header;
 	$req->print($html);
-	#dwarn $html;
 	$req->rflush(); 
 }
 
 sub serveImage {
 	my ($req, $id) = @_;
-
 	my $image = getImage($id);
-	my $len = length($image);
+	my $len = bytes::length($image);
 
 	$req->content_type('image/png');
-	$req->header_out('Content-Length'=>$len);
-	$req->send_http_header;
+	$req->headers_out->add('content-length' => $len);
+#	$req->send_http_header;
 	$req->print($image);
 	$req->rflush();
 }
@@ -358,7 +356,7 @@ sub handler {
 	dwarn "cookies:\n @{[%cookies]}\n";
 	my $html = '';
 
-	$AllowCache = 0;	# default to allow client caching
+	$AllowCache = 1;	# default to allow client caching
 
 	# uri remapping
 	# we use this instead of a mod_rewrite-ish thing
@@ -617,7 +615,7 @@ sub buildMainPage {
 	$writer->raw($header);
 	$writer->endTag("header");
 	$writer->startTag("login");
-	#$writer->raw($loginbox);
+	$writer->raw($loginbox);
 	$writer->endTag("login");
 	#$writer->raw($logosbox);
 	$writer->endTag("mainpage");
@@ -626,11 +624,18 @@ sub buildMainPage {
 	my $xslt = getConfig("stemplate_path") . "/mainpage.xsl";
 
 	warn "building with:\n\n\n\n\n\n\n\n$xmlstring\n\n\n\n\n\n\n";
-	open( OUT, ">/tmp/mainpage.xml");
+	open( OUT, ">/tmp/xmlstring.xml");
 	print OUT $xmlstring;
 	close(OUT);
 	
 	my $mainpage = buildStringUsingXSLT( $xmlstring, $xslt );
+
+	warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
+	open( OUT, ">/tmp/mainpage.xml");
+	print OUT $mainpage;
+	close(OUT);
+
+	return $mainpage;
 
 }
 
@@ -689,10 +694,18 @@ sub buildViewPage {
 	#my $page = buildStringUsingXSLT( $xmlstring, $xslt );
 	#return $page;
 	my $template = new Template('view.html');
+
 	fillInLeftBar($template,$params,$userinf);
 	##$template->addText($xmlstring);
+	
 	$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
 	headerAndCSS($template, $params);
+	my $nocache = '
+		<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">';
+
+	$template->setKey('metacache', ($AllowCache ? '' : $nocache));
 	return $template->expand();
 
 }
