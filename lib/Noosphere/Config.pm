@@ -133,7 +133,7 @@ Disallow: /?*",
 
 	#BB: the list of additional files to serve from (these are cached)
 	#    they are served from `files' virtual directory
-	'cachedfiles' => {'style.css' => ["$Noosphere::baseconf::base_config{BASE_DIR}/stemplates/style.css",'text/css'] },
+	'cachedfiles' => {'style.css' => ["$Noosphere::baseconf::base_config{BASE_DIR}/data/files/style.css",'text/css'] },
 
 	# email addresses for the system mail account
 	#
@@ -490,6 +490,7 @@ Disallow: /?*",
 	# 
 	"spellcmd" => "/usr/bin/ispell -a", 
 	"wgetcmd" => "/usr/bin/wget -nv", 
+	"latex2htmlcmd" => $Noosphere::baseconf::base_config{latex2htmlcmd},
 	"tidycmd" => "/usr/bin/tidy",
 	#BB: made location of vim and sendmail configurable
 	"vimcmd" => "/usr/bin/vim",

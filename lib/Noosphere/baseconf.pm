@@ -13,6 +13,10 @@ use vars qw(%base_config);
 	BASE_DIR => '/var/www/pp',
 	ENTITY_DIR => '/var/www/pp/data/entities',
 
+	# Commands
+
+	latex2htmlcmd => '/usr/bin/latex2html',
+
 	# Web paths
 	
 	MAIN_SITE => 'physicslibrary.org',

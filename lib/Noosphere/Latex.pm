@@ -4,6 +4,7 @@ use strict;
 use Noosphere::Util;
 use Noosphere::Charset;
 use HTML::Entities;
+use Cwd;
 
 # needed for when we require images.pl
 #
@@ -138,7 +139,7 @@ sub variant_exists {
 sub singleRenderLaTeX {
 	my $math = shift;
 	my $variants = shift || getConfig('single_render_variants');
-
+	dwarn "singleRenderLaTeX started";
 	# make a rendering directory in /tmp
 	# 
 	my $suffix = 0;
@@ -147,7 +148,9 @@ sub singleRenderLaTeX {
 		$suffix++;
 	}
 	my $dir = $root . $suffix;
+	dwarn "singleRenderLaTeX dir to make: $dir";
 	mkdir $dir;
+	dwarn "after mkdir $dir;";
 
 	# copy over templates we need
 	#
@@ -209,7 +212,7 @@ sub singleRenderLaTeX {
         # Ben, testing this since what happens is that the dir created in tmp
         # cannot be deleted if the latex2html process does not finish
         # this is a horrible way to solve this problem so expect this to be temprorary
-
+	dwarn "singleRenderLaTeX ended";
 	return 0;	# return success
 }
 
@@ -222,6 +225,7 @@ sub renderLaTeX {
 	my $method = shift;
 	my $fname = shift;
 
+	dwarn "renderLaTeX started";
 	if (not defined($table) or $table eq '.') {
 		$table = "temp";
 		$id =~ /\/(.*)$/;
@@ -229,7 +233,9 @@ sub renderLaTeX {
 	}
 	
 	my $path = getConfig('cache_root');
+	dwarn "renderLaTeX path: $path";
 	my $dir = "$path/$table/$id";
+	dwarn "renderLaTeX dir: $dir";
 
 	if (not defined($fname)) {
 		dwarn "had to use default name when rendering object $id!\n";
@@ -237,10 +243,11 @@ sub renderLaTeX {
 	}
 
 	my $cwd = `pwd`;
-	
+	dwarn "renderLaTeX cwd: $cwd";
 	# make sure the object directory is there & clean
 	#
 	if ( ! -e $dir ) {
+		dwarn "renderLaTeX object not there, mkdir $dir";
 		mkdir $dir;
 	}
 	chdir $dir;
@@ -248,7 +255,9 @@ sub renderLaTeX {
 	# make sure output method dir is there
 	#
 	$dir = "$dir/$method";
+	dwarn "renderLaTeX dir method: $dir";
 	if ( ! -e $dir ) {
+		dwarn "renderLaTeX object not there, mkdir for dir method $dir";
 		mkdir $dir;
 	}
 	chdir $dir;
@@ -256,14 +265,14 @@ sub renderLaTeX {
 	# get web URL for rendered images
 	#
 	my $url = getConfig('cache_url')."/$table/$id/$method";
-
+	dwarn "renderLaTeX url: $url";
 	# BB: convert UTF8 international characters to TeX
 	$latex = UTF8toTeX($latex);
 
 	# flat png image output (nicest looking)
 	#
 	if ( $method eq "png" ) {
-		print "png started\n";
+		dwarn "renderLaTeX png started\n";
 		$latex = png_preprocess($latex);
 	
 		my $retval = latex_error_check($fname, $latex);
@@ -279,13 +288,13 @@ sub renderLaTeX {
 		else {
 			write_error_output($fname, $table, $id, $method);
 		}
-		print "png ended\n";
+		dwarn "renderLaTeX png ended\n";
 	}
 	
 	# latex2html output (best-looking for the [download] speed)
 	#
 	elsif ( $method eq "l2h" ) {
-		print "l2h started\n";
+		dwarn "renderLaTeX l2h png started\n";
 		my $retval = latex_error_check($fname, $latex);
 
 		if (1) {
@@ -299,7 +308,7 @@ sub renderLaTeX {
 		else {
 			write_error_output($fname, $table, $id, $method);
 		}
-		print "l2h ended \n";
+		dwarn "renderLaTeX l2h png ended\n";
 	}
 
 	# source output ... just make HTML presentable and print to output file
@@ -328,12 +337,12 @@ sub renderLaTeX {
 		##BENsystem(getConfig('vimcmd')." $dir/$fname.tex".' +:so\ \\'.getConfig('stemplate_path').'/2pmhtml.vim +:w\!\ '.getConfig('rendering_output_file').' +:q +:q 2>/dev/null');
 		#print "src ended\n";
 	}
-	
+	dwarn "renderLaTeX end";
 	chdir $cwd;
 }
 
 # do a non-fonts render just to check syntax of LaTeX
-#
+#
 sub latex_error_check {
 	my $fname = shift;
 	my $latex = shift;
@@ -362,8 +371,11 @@ sub render_l2h {
 	my $latex = shift;
 	my $url = shift;
 
+	my $cwd = getcwd();
 	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
+	dwarn "render_l2h before cp .latex2tml-init, tpath $tpath, cwd $cwd";
 	`cp $tpath/.latex2html-init .`;
+	dwarn "render_l2h after cp .latex2tml-init";
 
 	# run latex to get an aux file for refs
 	#
@@ -374,30 +386,45 @@ sub render_l2h {
 	# init graphics AA flag
 	$ENV{'GS_GRAPHICSAA'} = 0;
 
+	my $renderProgram = "";
+	my $run = "";
+	
 	# run l2h
-	my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." $fname >error.out 2>&1");
+	$renderProgram = getConfig('latex2htmlcmd');
+	warn "calling from here";
+	$run = "$renderProgram " . getConfig ('l2h_opts'). " $fname >error.out 2>&1";
+
+	# run l2h
+	#my $cmd = getConfig('timeoutprog') . "$run";
+	my $cmd = "$run";
+	warn "EXECING $cmd\n";
+	my $retval = system($cmd);
+
+	#my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." $fname >error.out 2>&1");
 
 	# run latex2html again after deleting some image files if these images 
 	# need to be antialiased
 	#
-	if ($retval == 0) {
-		my @aaimages = getAAImages();
-		if (scalar @aaimages) {
+	##if ($retval == 0) {
+	##	my @aaimages = getAAImages();
+	##	if (scalar @aaimages) {
 			# delete all of the offending image files.	when we re-render, they
 			# will be the only images l2h re-processes.
 			#
-			foreach my $file (@aaimages) {
-				unlink $file;
-			}
+	##		foreach my $file (@aaimages) {
+	##			unlink $file;
+	##		}
 
 			# turn on our graphics anti-alias flag
-			$ENV{'GS_GRAPHICSAA'} = 1;
+	##		$ENV{'GS_GRAPHICSAA'} = 1;
 
 			# run l2h again (ignore retval- if there were no errors before, there
 			# shouldn't be any now)
-			system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." $fname >/dev/null 2>&1");
-		}
-	}
+			#system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." $fname >/dev/null 2>&1");
+	##		system($cmd);
+
+	##	}
+	##}
  
 	# post process l2h's HTML output
 	#
@@ -682,7 +709,7 @@ sub renderError {
 sub getAAImages {
 	
 	my @imgfiles = ();
-
+	dwarn " getAAImages Started";
 	# we use the images.pl file l2h produces (should be in the current dir.)
 	do "images.pl";
 
@@ -701,7 +728,7 @@ sub getAAImages {
 
 		delete $cached_env_img{$key};	# clear all entries
 	}
-
+	dwarn " getAAImages Ended";
 	return @imgfiles;
 }
 

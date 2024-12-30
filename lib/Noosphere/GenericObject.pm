@@ -147,7 +147,76 @@ sub insertGeneric {
 
 # gets the intro screen ("lobby") to the generic object browsing section
 # 
+sub browseGenericNew {
+	
+	my $xmlstring = '';
+	my $writer = new XML::Writer( OUTPUT=>\$xmlstring, UNSAFE=>1 );
+	$writer->startTag("genericlobby");
+	
+	$writer->endTag("genericlobby");
+	my $xslt = getConfig("stemplate_path") . "/genericlobby.xsl";
+	
+	my $mainpage = buildStringUsingXSLT( $xmlstring, $xslt );
+
+	return $mainpage;
+
+}
 sub browseGeneric {
+
+	my $params = shift;
+
+	dwarn "browseGeneric start";	
+	# get plural section descriptor
+	#
+	
+
+	my $idx = $params->{idx};
+	my $content = '';
+	my $letter = '';
+	
+	my $table = getConfig('en_tbl');
+	my $index = getConfig('index_tbl');
+
+	if (defined($idx)) {
+		$letter = pack('C',$idx);
+	}
+	
+	# link to the msc browser for encylcopedia
+	#
+	# Need to switch on section type to give different intros
+	my $intro = "<p>Papers are research-calibre (though not necessarily published) expositions of some topic. You can browse papers</p>";
+
+	$content .=$intro;
+
+	$content .= "<center><a href=\"".getConfig("main_url")."/?op=listobj;from=papers\"> Chronologically</center>";
+	
+	
+	# build output
+	#
+	my $section = getIsA($params->{from}, 1);
+	
+	#$template->addText("<genericlobby name=\"$section\" table=\"$params->{from}\">");
+	$content = clearBox(getConfig('projname').' Browse '.$section ,$content);
+	my $interact .= makeBox("Interact","<center><a href=\"".getConfig("main_url")."/?op=addobj;to=papers\">add ". $section ."</center>");
+	my $html = "<table width=\"100%\" cellpadding=\"2\" cellspacing=\"0\">
+		<tr>
+		<td>$content</td>
+	</tr>
+	<tr>
+		<td><center>
+		 XXX entries total.  <br />
+		 XXX concepts total.
+		 </center>
+		</td>
+	</tr>
+	<tr>
+		<td>$interact</td>
+	</tr></table>";
+	dwarn "browseGeneric end";
+	return $html;
+}
+
+sub browseGenericOld {
 	my $params = shift;
 	my $userinf = shift;
 

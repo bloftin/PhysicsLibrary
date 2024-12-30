@@ -572,6 +572,20 @@ sub getEncyclopedia {
 #
 sub addEncyclopedia {
 	my ($params,$user_info,$upload) = @_;
+	
+	my $xmlstring = '';
+	my $writer = new XML::Writer( OUTPUT=>\$xmlstring, UNSAFE=>1 );
+	$writer->startTag("addencyclopedia");	
+	$writer->endTag("addencyclopedia");
+
+	my $xslt = getConfig("stemplate_path") . "/addencyclopedia.xsl";
+
+	my $mainpage = buildStringUsingXSLT( $xmlstring, $xslt );
+
+	return $mainpage;
+}
+sub addEncyclopediaOld {
+	my ($params,$user_info,$upload) = @_;
  
 	my $template = new XSLTemplate('addencyclopedia.xsl');
 	my $table = getConfig('en_tbl');
@@ -583,7 +597,9 @@ sub addEncyclopedia {
 	# handle post - done editing
 	#
 	if (defined $params->{'post'}) {
+		dwarn "insertEncyclopedia before";
 		return insertEncyclopedia($params, $user_info);
+		dwarn "insertEncyclopedia before";
 	}
  
 	# handle preview 
@@ -592,19 +608,25 @@ sub addEncyclopedia {
 		$AllowCache = 0;	# kill caching
 
 		previewEncyclopedia($template,$params,$user_info);
+		dwarn "Preview handleFileManager before";
 		handleFileManager($template,$params,$upload);
+		dwarn "Preview handleFileManager after";
 	} 
 
 	elsif (defined($params->{filebox})) {
+		dwarn " handleFileManager before";
 		handleFileManager($template, $params, $upload);
+		dwarn " handleFileManager after";
 	}
  
 	# initial request, return blank form
 	#
 	else {
+		dwarn "initial request, return blank form";
 		# initialize parent data
 		#
 		if ($params->{parent}) {
+			dwarn "return blank form parent: $params->{parent}" ;
 			$template->setKeys(
 				'parent' => $params->{parent},
 				'title' => $params->{title},
@@ -614,14 +636,18 @@ sub addEncyclopedia {
 		# initialize request data
 		#
 		if ($params->{request}) {
+			dwarn "initialize request data:  $params->{request}";
 			$template->setKey('title', $params->{title});
 		}
 		$template->setKey('preamble', $user_info->{data}->{preamble});
-
+		dwarn " handleFileManager before";
 		handleFileManager($template, $params);
+		dwarn " handleFileManager after";
 	}
  
+	dwarn "refreshAddEncyclopedia before";
 	refreshAddEncyclopedia($template, $params);
+	dwarn "refreshAddEncyclopedia after";
 
 	$template->addText('</entry>');
 	
@@ -959,7 +985,9 @@ sub previewEncyclopedia {
 	# do our rendering if there were no errors
 	#
 	if ($error eq '') {
+		dwarn "renderEnPreview Before";
 		my $preview = renderEnPreview(1, $params, $method);
+		dwarn "renderEnPreview End";
 		$template->setKey('showpreview', $preview);
 
 	}
@@ -967,13 +995,18 @@ sub previewEncyclopedia {
 	# if there were no errors, put up the "post" button.
 	#
 	if ($error eq '') {
+		dwarn "set key preview Before";
 		$template->setKey('post', '<input TYPE="submit" name="post" VALUE="post" />');
+		dwarn "set key preview After";
 	}
 	
 	# insert error messages
 	#
 	$error .= $warn;	 # toss in warnings now
-	if ($error ne '') { $error .= '<hr />'; }
+	if ($error ne '') { 
+		dwarn "previewEncyclopedia Error + warn $error ";
+		$error .= '<hr />'; 
+	}
 	$template->setKey('error', $error);
 }
 
@@ -1068,6 +1101,7 @@ sub renderEnPreview {
 	my $params = shift;
 	my $method = shift;
 	
+	dwarn "renderEnPreview Started";
 	my $title = swaptitle($params->{'title'});
 	my $math = $params->{'data'};
 	my $name = normalize(swaptitle($title));
@@ -1076,22 +1110,27 @@ sub renderEnPreview {
  
 	# figure out cache dir. it really should already exist for us.
 	#
+	dwarn "defined tempdir: $params->{'tempdir'}";
 	if (defined $params->{'tempdir'}) {
+		
 		$dir = $params->{'tempdir'};
+		dwarn "tempdir: $dir";
 	} else {
+		dwarn "makeTempCacheDir Before";
 		$dir = makeTempCacheDir();
+		dwarn "makeTempCacheDir After, made dir $dir";
 #	dwarn "temp cache dir = $dir";
 		$params->{'tempdir'} = $dir;
 	}
-	#dwarn "going to try to render a preview to $dir";
+	dwarn "going to try to render a preview to $dir";
  
 	# copy files from main dir to method subdir
 	#
-	#dwarn "preview files go in $root/$dir/$method";
+	dwarn "preview files go in $root/$dir/$method";
 	if (not -e "$root/$dir/$method") {
 		mkdir "$root/$dir/$method";
 	}
-	#dwarn "changing dir to $dir";
+	dwarn "changing dir to $root/$dir";
 	chdir "$root/$dir";
 	my @files = <*>;
 	my @methoddirs = getMethods();
@@ -1100,17 +1139,21 @@ sub renderEnPreview {
 			`cp $file $method`;
 		}
 	}
+	dwarn "changing dir to $root";
 	chdir "$root";
 	
 	# remove old rendering file if it exists
 	#
 	my $outfile = getConfig('rendering_output_file');
+	dwarn "outfile is $outfile";
 	if (-e "$root/$dir/$method/$outfile") {
+		dwarn "outfile existed so removing: $root/$dir/$method/$outfile";
 		`rm $root/$dir/$method/$outfile`;
 	}
 	
 	# do the rendering
 	#
+	dwarn "prepareEntryForRendering before call";
 	my ($latex,$links) = prepareEntryForRendering($newent,
 		$params->{'preamble'},
 		$math,
@@ -1121,7 +1164,7 @@ sub renderEnPreview {
 		$params->{'table'},
 		defined $params->{'id'} ? $params->{'id'} : '0',
 		$params->{'class'});
-
+	dwarn "prepareEntryForRendering after call";
 	my $table = getConfig('en_tbl');
 	renderLaTeX('.', $dir, $latex, $method, $name);
 	
@@ -1130,8 +1173,13 @@ sub renderEnPreview {
 	my $file = "$root/$dir/$method/$outfile";
 	#my $size = (stat($file))[7];
 	#if ( defined($size) && $size > 0 ) {
-		my $preview = mathBox(mathTitle($title,'title'),readFile($file));
-		return $preview;
+	dwarn "READING Preview from $file\n";
+	#my $preview = mathBox(mathTitle($title,'title'),readFile($file));
+	my $text = readFile($file);
+	dwarn "PREVIEW FILE CONTAINS $text";
+	dwarn "renderEnPreview Ended";
+	#	return $preview;
+	return mathBox(mathTitle($title), $text);
 	#} 
 }
 

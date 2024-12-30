@@ -149,6 +149,40 @@ sub getFrontPage {
 # get main menu box
 # 
 sub getMainMenu {
+	
+		#my $mail = getNewMailCount($user_info);
+		#my $corrections = countPendingCorrections($user_info);
+		#my $notices = getNoticeCount($user_info);
+		my $xml = '';
+		#my $username = $data->{'username'};
+		my $writer = new XML::Writer(OUTPUT=>\$xml);
+		$writer->startTag("mainmenu");
+		# BEN: Roles have not been upgraded to yet
+		#if ( is_editor( $user_info->{'uid'} ) ) {
+		#	$writer->startTag("editor");
+		#	$writer->endTag("editor");	
+		#}
+		##$writer->startTag("username");
+		##$writer->characters($username);
+		##$writer->endTag("username");
+		##$writer->startTag('mail');
+		##$writer->characters($mail);
+		##$writer->endTag('mail');
+		##$writer->startTag('notices');
+		##$writer->characters($notices);
+		##$writer->endTag('notices');
+		##$writer->startTag('corrections');
+		##$writer->characters($corrections);
+		##$writer->endTag('corrections');
+	    $writer->endTag("mainmenu");
+
+		my $xslt = getConfig("stemplate_path") . "/mainmenu.xsl";
+		my $mainmenubox = buildStringUsingXSLT( $xml, $xslt );
+
+		return $mainmenubox;
+}
+
+sub getMainMenuOld {
 	my $template = new XSLTemplate("mainmenu.xsl");
 	dwarn("MainMenu Started");
 	$template->addText('<mainmenu>');
@@ -237,14 +271,15 @@ sub headerAndCSS {
 	my $template = shift;
 	my $params = shift;
 
-	my $search = getSearchBox($params);
+	
+	#my $search = getSearchBox($params);
 	my $header = new Template('header.html');
 	my $style = new Template('style.css');
 
-	$header->setKey('search', $search);
+	#$header->setKey('search', $search);
 
 	$template->setKey('header', $header->expand());
-	$template->setKey('style', $style->expand());
+	#$template->setKey('style', $style->expand());
 }
 
 # final sending of response to web request
@@ -253,15 +288,17 @@ sub sendOutput {
 	my $req = shift;
 	my $html = shift;
 	my $status = shift || 200;
-	my $len = bytes::length($html);
+	my $len = length($html);
 
-	$req->status($status);
+	#$req->status($status);
 	$req->content_type('text/html;charset=UTF-8');
 #    $req->content_language('en');
-	$req->headers_out->add('content-length' => $len);
+	#$req->headers_out->add('content-length' => $len);
+	my $content_type = $req->content_type;
+	dwarn "sendOutput req content type: $content_type";
 #	$req->send_http_header;
 	$req->print($html);
-	$req->rflush(); 
+	$req->rflush();  
 }
 
 sub serveImage {
@@ -279,7 +316,7 @@ sub serveImage {
 # BB: cached files stored in %CACHEDFILES
 #     key exists -- file should be cached
 #     key defined -- file has been cached
-sub serveFile {
+sub serveFileOld {
 	my ($req, $name) = @_;
 	my $html = '';
 	unless (%CACHEDFILES) {
@@ -305,6 +342,40 @@ sub serveFile {
 	$req->print($html);
 	$req->rflush(); 
 	return;	
+}
+
+sub serveFile {
+	my ($req, $name) = @_;
+	my $html = '';
+	unless (%CACHEDFILES) {
+		my $cachelist = getConfig('cachedfiles');
+		%CACHEDFILES = %$cachelist;
+		foreach my $key (keys %CACHEDFILES) {
+			undef $CACHEDFILES{$key};
+		}
+	}
+	unless (defined $CACHEDFILES{$name}) {
+		my $filenames = getConfig('cachedfiles');
+		$CACHEDFILES{$name} = [readFile($filenames->{$name}->[0]), $filenames->{$name}->[1] ];
+	}
+	$html = $CACHEDFILES{$name}->[0];
+
+	warn "reading in $name";
+	my $file = readFile($name);
+	my $len = bytes::length($file);
+#	$req->content_type($CACHEDFILES{$name}->[1]);
+	$req->headers_out->add("content-length" => "$len");
+#	$req->send_http_header;
+	warn "returning size = $len";
+	#warn "$file";
+	$req->print($file);
+	$req->rflush(); 
+
+	return;	
+
+	unless (exists $CACHEDFILES{$name}) {
+		return 404;	
+	}
 }
 
 sub initNoosphere {
@@ -533,11 +604,11 @@ sub handler {
 		$content = getViewTemplateContent($params,\%user_info,$upload);
 		dwarn "getViewTemplateContent: content:\n$content";
 		if ($content ne '' ) {
-			dwarn "buildViewPage started"; 
-			my $viewcontent = buildViewPage($content, \%user_info, $params);
-			dwarn "buildViewPage ended"; 
-			sendOutput( $req, $viewcontent );
-			return;
+			dwarn "view.html template"; 
+			$template = new Template('view.html');
+			fillInLeftBar($template,$params,\%user_info);
+			$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
+			
 			#dwarn "view.html template"; 
 			#$template = new Template('view.html');
 			#fillInLeftBar($template,$params,\%user_info);
@@ -555,11 +626,11 @@ sub handler {
 		}
 		else
 		{
-			return 404;
+			dwarn "Something wrong 404";
 		}
-
+		dwarn "headerAndCSS before";
 		headerAndCSS($template, $params);
-	
+		dwarn "headerAndCSS after";
 		# handle caching
 		#
 		my $nocache = '
@@ -569,13 +640,35 @@ sub handler {
 
 		$template->setKey('metacache', ($AllowCache ? '' : $nocache));
 		$html = $template->expand();
+		open( OUT, ">/tmp/viewpage.xml");
+		print OUT $html;
+		close(OUT);
 	} 
 	
 	
 	# finish and send output
 	#
-	#dwarn "Before sending output";
-	sendOutput($req, $html);
+	dwarn "Before sending output";
+	my $content_type = $req->content_type;
+	dwarn "req content type: $content_type";
+	#sendOutput($req, $html);
+	#my $len = length($html);
+	my $len = bytes::length($html);
+
+	#$req->status($status);
+	$req->status(200);
+	#$req->content_type('text/html;charset=UTF-8');
+	$req->content_type('text/html');
+	dwarn "set after content type: $content_type";
+#    $req->content_language('en');
+	$req->header_out('Content-Length'=>$len);
+	#$req->send_http_header;
+	#$req->header_add(content_type => 'text/html');
+	$req->headers_out->add('content-length' => $len);
+	$req->print($html);
+	$req->rflush(); 
+
+	dwarn "After sending output";
 #	$dbh->disconnect();
 }
 
@@ -597,7 +690,8 @@ sub buildMainPage {
 	#my $xslt = getConfig("stemplate_path") . "/logos.xsl";
 	#my $logosbox = buildStringUsingXSLT( '<temp></temp>', $xslt );
 
-
+	my $mainMenubox = getMainMenu();
+	
 	my $xmlstring = '';
 	my $writer = new XML::Writer( OUTPUT=>\$xmlstring, UNSAFE=>1 );
 	$writer->startTag("mainpage");
@@ -618,6 +712,10 @@ sub buildMainPage {
 	$writer->raw($loginbox);
 	$writer->endTag("login");
 	#$writer->raw($logosbox);
+	$writer->startTag("mainmenu");
+	$writer->raw($mainMenubox);
+	$writer->endTag("mainmenu");
+	
 	$writer->endTag("mainpage");
 
 
@@ -634,6 +732,8 @@ sub buildMainPage {
 	open( OUT, ">/tmp/mainpage.xml");
 	print OUT $mainpage;
 	close(OUT);
+
+	
 
 	return $mainpage;
 
@@ -706,7 +806,11 @@ sub buildViewPage {
 		<META HTTP-EQUIV="Expires" CONTENT="-1">';
 
 	$template->setKey('metacache', ($AllowCache ? '' : $nocache));
-	return $template->expand();
+	my $html = '';
+	dwarn "buildViewPage before expand";
+	$html = $template->expand();
+	dwarn "buildViewPage after  expand, html: \n$html";
+	return $html;
 
 }
 

@@ -183,14 +183,18 @@ sub handleFileManager {
 	# and set $params->{tempdir}
 	#
 	if (nb($params->{'tempdir'})) {
+		
 		$ftemplate->setKey('tempdir', $params->{'tempdir'});
 		$dest = getConfig('cache_root')."/$params->{tempdir}";
+		dwarn "fileManager tempdir: $ftemplate, $dest";
 	} elsif (nb($params->{'id'})) {
 		$dest = getConfig('file_root')."/$table/$params->{id}";
+		dwarn "fileManager id: $ftemplate, $dest";
 	} else {	# make a new cache dir if we have no info
 		$params->{'tempdir'} = makeTempCacheDir();
 		$ftemplate->setKey('tempdir', $params->{'tempdir'});
 		$dest = getConfig('cache_root')."/$params->{tempdir}";
+		dwarn "fileManager new cache dir: $params->{'tempdir'}, $ftemplate, $dest";
 	}
 
 	#dwarn "managing files in box at $dest";
@@ -198,6 +202,7 @@ sub handleFileManager {
 	# grab URLs 
 	#
 	if (defined $params->{filebox} && $params->{filebox} eq "upload" && nb($params->{fb_urls})) {
+		dwarn "fileManager grab urls: $params->{filebox}, nb($params->{fb_urls})";
 		my @urls = split(/\s*\n\s*/,$params->{fb_urls});
 		foreach my $url (@urls) {
 			if (not wget($url,$dest)) {
@@ -210,13 +215,14 @@ sub handleFileManager {
 		$ftemplate->setKey('fb_urls', $params->{fb_urls});
 		}
 	} else {
+		dwarn "fileManager grab urls else set key";
 		$ftemplate->setKey('fb_urls', $params->{fb_urls});
 	}
 	
 	# move an uploaded file
 	#
 	if (defined $upload and $upload->{'filename'}) {
-		#dwarn "moving uploaded file $upload->{tempfile} to $dest/$upload->{filename}";
+		dwarn "moving uploaded file $upload->{tempfile} to $dest/$upload->{filename}";
 		`mv $upload->{tempfile} $dest/$upload->{filename}`;
 		$changes = 1;
 	}
@@ -224,6 +230,7 @@ sub handleFileManager {
 	# handle file removal request
 	# 
 	if (nb($params->{'remove'})) {
+		dwarn "fileManager handle file removal request";
 		my @files = map("$dest/$_",split(',',$params->{'remove'}));
 		my $cnt = unlink @files; 
 	if ($cnt > 0 ) { $changes = 1; }
@@ -234,6 +241,7 @@ sub handleFileManager {
 	my $filelist = '';
 	my $rmlist = '';
 	if ( -e $dest ) {
+		dwarn "file removal chooser and file list";
 		my $cwd = `pwd`;
 		chomp $cwd;
 		chdir $dest; 
@@ -268,6 +276,7 @@ sub handleFileManager {
 			}
 		}
 	} else {
+		dwarn "rmlist is [no files]";
 		$rmlist = "[no files]";
 	}
 	
@@ -276,13 +285,15 @@ sub handleFileManager {
 	$ftemplate->setKeys('rmlist' => $rmlist, 'ferror' => $ferror, 'filelist' => $filelist);
 	$params->{'filechanges'} = "yes" if ($changes == 1);
 	if (nb($params->{'filechanges'})) {
+		dwarn "filemanager template set key";
 		$ftemplate->setKey('filechanges', $params->{'filechanges'});
 	}
 	
 	# combine file manager template and parent template
 	#
-	$template->setKey('fmanager', $ftemplate->expand());
 
+	$template->setKey('fmanager', $ftemplate->expand());
+	dwarn "handleFileManager ended";
 	return $template;
 }
 
