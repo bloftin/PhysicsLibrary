@@ -13,6 +13,71 @@ sub siteDoc {
 	my $params = shift;
 	my $userinf = shift;
 
+	##my $template = new XSLTemplate('sitedoc.xsl');
+
+	##$template->addText('<sitedoc>');
+
+	##$template->addText("	<loggedin>1</loggedin>") if $userinf->{'uid'} > 0;
+
+	# get a list of collaborations that are site docs and are publicly 
+	# *writeable*
+	#
+	my $collab = getConfig('collab_tbl');
+	my $acl = getConfig('acl_tbl');
+	my $sth = $dbh->prepare("select objectid from $acl where tbl='$collab' and _write = 1 and user_or_group = 'u' and default_or_normal = 'd'");
+	$sth->execute();
+
+	my @uids = (-1);	# so the "in ($list)" statement is always valid 
+
+	while (my $row = $sth->fetchrow_arrayref()) {
+		dwarn "found  collab that are public";
+		push @uids, $row->[0];
+	}
+	$sth->finish();
+
+	my $uidlist = join(', ', @uids);
+	dwarn "list of collabs that are public (uids):\n $uidlist";
+	# get the intersection of the above list of IDs and the collaborations
+	# that are site docs
+	#
+	my $xml = getCollabObjList($userinf, "sitedoc = 1");
+	dwarn "After getCollabObjList, xml:\n $xml";
+	##$template->addText($xml);
+
+	##$template->addText('</sitedoc>');
+
+	##return $template->expand();
+
+	my $xmlstring = '';
+	my $writer = new XML::Writer( OUTPUT=>\$xmlstring, UNSAFE=>1 );
+	$writer->startTag("sitedoc");
+	$writer->startTag("items");
+	$writer->raw($xml);
+	$writer->endTag("items");	
+	$writer->endTag("sitedoc");
+
+
+	my $xslt = getConfig("stemplate_path") . "/sitedoc.xsl";
+
+	#warn "building with:\n\n\n\n\n\n\n\n$xmlstring\n\n\n\n\n\n\n";
+	open( OUT, ">/tmp/sitedoc_xmlstring.xml");
+	print OUT $xmlstring;
+	close(OUT);
+	
+	my $sitedoc = buildStringUsingXSLT( $xmlstring, $xslt );
+
+	#warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
+	open( OUT, ">/tmp/sitedoc.xml");
+	print OUT $sitedoc;
+	close(OUT);
+
+	return $sitedoc;
+}
+
+sub siteDocOld {
+	my $params = shift;
+	my $userinf = shift;
+
 	my $template = new XSLTemplate('sitedoc.xsl');
 
 	$template->addText('<sitedoc>');
@@ -99,6 +164,59 @@ sub siteDoc {
 	$template->addText('</sitedoc>');
 
 	return $template->expand();
+}
+
+sub getCollabObjList {
+	my $userinf = shift;
+	my $where = shift; # something like "sitedoc = 1", "sitedoc = 0", etc
+
+	my $xml = "";
+
+	my $collab = getConfig('collab_tbl');
+
+	my $q = "select * from $collab where $where";
+	my $sth = $dbh->prepare($q);
+	$sth->execute();
+
+	while (my $row = $sth->fetchrow_hashref()) {
+		dwarn "found item int getCollabObjList, where = $where";
+		$xml .= '	<docitem>';
+
+		$xml .= "		<uid>$row->{uid}</uid>";
+		$xml .= "		<title>".htmlescape($row->{'title'})."</title>";
+
+		if (defined $row->{'abstract'}) {
+			my $ab = $row->{'abstract'};
+			$ab =~ s/\s+/ /gs;
+			$xml .= "		<abstract>".htmlescape($ab)."</abstract>";
+		}
+		
+		# need to get lastedit information 
+		#
+		my $edits = getConfig('author_tbl');
+		my $sth2 = $dbh->prepare("select userid, ts from $edits where tbl='$collab' and objectid=$row->{uid} order by ts desc limit 1");
+		$sth2->execute();
+		my $lastedit = $sth2->fetchrow_hashref();
+		$sth2->finish();
+
+		if (defined $lastedit) {
+			my $lastwhen = mdhm($lastedit->{'ts'});
+			my $lastuser = lookupfield(getConfig('user_tbl'), 'username', "uid=$lastedit->{userid}");
+
+			$xml .= "		<lastedit>";
+			$xml .= "			<who>$lastuser</who>";
+			$xml .= "			<when>$lastwhen</when>";
+			$xml .= "		</lastedit>";
+		}
+
+		my $owner = lookupfield(getConfig('user_tbl'), 'username', "uid=$row->{userid}");
+		$xml .= "		<ownername>$owner</ownername>";
+		$xml .= "		<owner>1</owner>" if $row->{'userid'} == $userinf->{'uid'};
+
+		$xml .= '	</docitem>';
+	}
+
+	return $xml;
 }
 
 # display main collab screen, show's your collaborations, and collaborations

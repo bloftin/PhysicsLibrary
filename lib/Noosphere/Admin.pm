@@ -3,6 +3,58 @@ use strict;
 
 use Noosphere::IR;
 
+# take a collab and add it as a site doc
+#
+sub addSiteDoc {
+	my $params = shift;
+	my $userinf = shift;
+	
+	return loginExpired() if ($userinf->{'uid'} <= 0);
+	
+	return errorMessage("You don't have access to that function") if ($userinf->{data}->{access} < getConfig('access_admin'));
+
+	# process an addition
+	#
+	if (defined $params->{'id'}) {
+		
+		my $collab = getConfig('collab_tbl');
+
+		# set site doc flag
+		#
+		my $sth = $dbh->prepare("update $collab set sitedoc = 1 where uid = $params->{id}");
+		$sth->execute();
+		$sth->finish();
+
+		# update ACL to ensure world-writeable flag
+		#
+		my $acl = getConfig('acl_tbl');
+		$sth = $dbh->prepare("update acl set _write = 1 where tbl='$collab' and objectid = $params->{id} and default_or_normal = 'd'");
+		$sth->execute();
+		$sth->finish();
+	}
+
+	my $template = new XSLTemplate('addsitedoc.xsl');
+
+	$template->addText('<addsitedoc>');
+
+	$template->addText("	<loggedin>1</loggedin>") if $userinf->{'uid'} > 0;
+
+	my $collab = getConfig('collab_tbl');
+
+	# get the intersection of the above list of IDs and the collaborations
+	# that are site docs
+	#
+	dwarn "getCollabObjList before";
+	my $xml = getCollabObjList($userinf, "sitedoc = 0 and published = 1");
+	dwarn "getCollabObjList after";
+	$template->addText($xml);
+
+	$template->addText('</addsitedoc>');
+
+	return $template->expand();
+}
+
+
 # admin score editing function
 #
 sub editScore {
