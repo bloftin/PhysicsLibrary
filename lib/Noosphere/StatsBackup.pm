@@ -284,7 +284,7 @@ sub getSystemStats {
 
 	$html .= "<center>";
 
-	my $uptime = `/usr/bin/uptime`;
+	my $uptime = system("/usr/bin/uptime");
 	$uptime =~ /up ([0-9]+ [a-z]+),/;
 	$html .= "<br>System uptime : $1<br><br>";
 

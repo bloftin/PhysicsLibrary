@@ -27,7 +27,7 @@ sub dispatch {
   my $upload = shift || {};
   
   my $content = '';
-
+  dwarn "Dispatch handler_hr: $handler_hr->{$params->{op}}";
   if (defined $handler_hr->{$params->{op}}) {
     $content = &{$handler_hr->{$params->{op}}}($params, $userinf, $upload);
   }

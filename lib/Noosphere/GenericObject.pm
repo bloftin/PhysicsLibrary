@@ -12,6 +12,7 @@ package Noosphere;
 ###############################################################################
 
 use strict;
+use Cwd qw(chdir);
 
 # add a generic object 
 #
@@ -448,7 +449,8 @@ sub getCoverImageXML {
 		}
 	}
 
-	chdir $cwd;
+	##chdir $cwd;
+	chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
 	return $xml;
 }
 

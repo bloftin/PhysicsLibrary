@@ -3,6 +3,8 @@ package Noosphere;
 use strict;
 use Noosphere::XML;
 use XML::DOM;
+use Cwd qw(chdir);
+use File::Path qw(make_path); 
 
 # roll back an object to a particular version.  must be owner!
 #
@@ -25,7 +27,8 @@ sub rollBack {
 	
 		if (-e $dir) {
 
-			chdir "$dir";
+			##chdir "$dir";
+			chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
 	
 			my @files = <*>;
 
@@ -335,7 +338,7 @@ sub snapshot {
 
 	my $dir = getConfig('version_root').'/'."$table/$id";
 
-	mkdir "$dir" if (not -e "$dir");
+	make_path("$dir", {verbose => 1}) if (not -e "$dir");
 
 	open OUTFILE, ">$dir/$filename.xml";	
 	print OUTFILE $xml;
@@ -358,7 +361,8 @@ sub getVersionList {
 	
 	if (-e $dir) {
 
-		chdir "$dir";
+		##chdir "$dir";
+		chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
 	
 		my @files = <*>;
 
@@ -511,7 +515,8 @@ sub readVersions {
 
 	if (-e $dir) {
 
-		chdir "$dir";
+		##chdir "$dir";
+		chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
 	
 		my @files = <*>;
 
@@ -555,7 +560,9 @@ sub getVersionDiff {
 	writeFile($oldfile,"xxxxxxxx\nzzzzzzzzzzzzzz\n".$vers[0]);
 	writeFile($newfile,"yyyyyyyy\nzzzzzzzzzzzzzz\n".$vers[1]);
 	my $ftext = readFile(getConfig('diffcmd')." -b -c -C2000 $newfile $oldfile 2>/dev/null |");
-	unlink $oldfile, $newfile;
+	dwarn("Before getVersionDif unlink");
+	sytem("unlink $oldfile, $newfile");
+	dwarn("After getVersionDif unlink");
 	my @diff = split(/\n/,$ftext);
 	my $difflen = (scalar @diff)-9; # number of lines in diff except `x' and `y' 
 

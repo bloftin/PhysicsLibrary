@@ -1,6 +1,7 @@
 package Noosphere;
 #use strict;
-
+use Apache2::SubProcess ();
+use Noosphere::Util;
 use Noosphere::StatCache;
 
 # get count of unproven theorems
@@ -253,8 +254,11 @@ sub getSystemStats {
 	] if getConfig('dbms') eq 'mysql';
 	
 	$periods = [
-        ['total',"<= now()"],                                                                                                   ['last day',">now() - interval 1 DAY"],                                                                                 ['last week',">now() - interval 7 DAY"],                                                                                ['last month',">now() - interval 30 DAY"],
-        ['last year',">now() - interval 365 DAY"]
+        ['total',"<= now()"],
+		['last day',">now() - interval 1 DAY"],
+		['last week',">now() - interval 7 DAY"],
+		['last month',">now() - interval 30 DAY"],
+		['last year',">now() - interval 365 DAY"]
     ] if getConfig('dbms') eq 'MariaDB';
 
 	my $timefields = {
@@ -285,14 +289,28 @@ sub getSystemStats {
 
 	$html .= "<center>";
 
-	my $uptime = `/usr/bin/uptime`;
-	$uptime =~ /up ([0-9]+ [a-z]+),/;
-	$html .= "<br>System uptime : $1<br><br>";
+	# get the global request object (requires PerlOptions +GlobalRequest)
+    my $r = Apache2::RequestUtil->request;
+
+	##my $uptime = system("/usr/bin/uptime");
+	my $updtime = "Feature not working yet";
+
+	my $dir = '/var/www/pp/data/cache/temp';
+	my $program = "/usr/bin/uptime";
+
+	my $command = "$program 2>&1";
+	($in_fh, $out_fh, $err_fh) = $r->spawn_proc_prog($program);
+	my $output = read_data($out_fh);
+ 	my $error  = read_data($err_fh);
+
+	$html .= "<br>System uptime : $output<br><br>";
 
 	$html .= "</center>";
 
 	return paddingTable(clearBox(getConfig('projname').' Stats',$html));
 }
+
+
 
 # getTopUsers - get the top users box that shows top users by score
 #

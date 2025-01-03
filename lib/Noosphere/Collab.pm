@@ -1,5 +1,9 @@
 package Noosphere;
 use strict;
+use File::Path qw(make_path); 
+use Cwd qw(chdir);
+use File::Copy qw( copy );
+use File::Remove 'remove';
 
 require Noosphere::Util;
 
@@ -594,33 +598,41 @@ sub renderCollabPreview {
  
 	# figure out cache dir. it really should already exist for us.
 	#
+	dwarn "renderCollabPreview start";
 	if (defined $params->{'tempdir'}) {
+		
 		$dir = $params->{'tempdir'};
+		dwarn "renderCollabPreview tempdir defined:\n $dir";
 	} else {
 		$dir = makeTempCacheDir();
 		$params->{'tempdir'} = $dir;
+		dwarn "renderCollabPreview tempdir not defined, define now:\n $dir";
 	}
+	dwarn "renderCollabPreview ended";
  
 	# copy files from main dir to method subdir
 	#
 	if (not -e "$root/$dir/$method") {
-		mkdir "$root/$dir/$method";
+		#changing to make_path as mkdir is causing apache/mod_perl problem/crash
+		make_path("$root/$dir/$method", {verbose => 1});
 	}
-	chdir "$root/$dir";
+	##chdir "$root/$dir";
+	chdir("$root/$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
 	my @files = <*>;
 	my @methoddirs = getMethods();
 	foreach my $file (@files) {
 		if (not inset($file,@methoddirs)) {
-			`cp $file $method`;
+			copy($file,$method);
 		}
 	}
-	chdir "$root";
+	##chdir "$root";
+	chdir("$root");# or dwarn "ERROR chdir: cannot change: $!\n";
 	
 	# remove old rendering file if it exists
 	#
 	my $outfile = getConfig('rendering_output_file');
 	if (-e "$root/$dir/$method/$outfile") {
-		`rm $root/$dir/$method/$outfile`;
+		remove("$root/$dir/$method/$outfile");
 	}
 	
 	my $table = getConfig('collab_tbl');

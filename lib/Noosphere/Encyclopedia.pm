@@ -11,6 +11,10 @@ use Noosphere::ACL;
 use Noosphere::IR;
 use Noosphere::Crossref;
 use Noosphere::Authors;
+use File::chdir;
+use File::Path qw(make_path); 
+use File::Copy qw( copy );
+use File::Remove 'remove';
 
 # display an encyclopedia object
 # 
@@ -572,16 +576,156 @@ sub getEncyclopedia {
 #
 sub addEncyclopedia {
 	my ($params,$user_info,$upload) = @_;
+	dwarn "addEncyclopedia Started";
+	my $template = new XSLTemplate('addencyclopedia.xsl');
+	my $table = getConfig('en_tbl');
+
+	$template->addText('<entry>');
+ 
+	return errorMessage('You can\'t post anonymously.') if ($user_info->{uid} <= 0);
+ 
 	
+	# handle post - done editing
+	#
+	if (defined $params->{'post'}) {
+		dwarn "insertEncyclopedia before";
+		return insertEncyclopedia($params, $user_info);
+		dwarn "insertEncyclopedia before";
+	}
+ 
+	# handle preview 
+	#
+	elsif (defined $params->{'preview'}) {
+		$AllowCache = 0;	# kill caching
+		dwarn "addEncyclopedia previewEncyclopedia before";
+		previewEncyclopedia($template,$params,$user_info);
+		dwarn "addEncyclopedia previewEncyclopedia after";
+		dwarn "Preview handleFileManager before";
+		handleFileManager($template,$params,$upload);
+		dwarn "Preview handleFileManager after";
+	} 
+
+	elsif (defined($params->{filebox})) {
+		dwarn " handleFileManager before";
+		handleFileManager($template, $params, $upload);
+		dwarn " handleFileManager after";
+	}
+ 
+	# initial request, return blank form
+	#
+	else {
+		dwarn "initial request, return blank form";
+		# initialize parent data
+		#
+		if ($params->{parent}) {
+			dwarn "return blank form parent: $params->{parent}" ;
+			$template->setKeys(
+				'parent' => $params->{parent},
+				'title' => $params->{title},
+				'class' => classstring($table, getidbyname($params->{parent}))
+			);
+		}
+		# initialize request data
+		#
+		if ($params->{request}) {
+			dwarn "initialize request data:  $params->{request}";
+			$template->setKey('title', $params->{title});
+		}
+		$template->setKey('preamble', $user_info->{data}->{preamble});
+		dwarn " handleFileManager before";
+		handleFileManager($template, $params);
+		dwarn " handleFileManager after";
+	}
+	 
+	dwarn "refreshAddEncyclopedia before";
+	refreshAddEncyclopedia($template, $params);
+	dwarn "refreshAddEncyclopedia after";
+
+	$template->addText('</entry>');
+
+	dwarn "addEncyclopedia end";
+	return paddingTable(clearBox('Add to the Encyclopedia',$template->expand()));
+}
+
+sub addEncyclopediaHybrid {
+	my ($params,$user_info,$upload) = @_;
+	dwarn "addEncyclopedia Started";
+	#my $table = getConfig('en_tbl');
+
+	#my $template = new XSLTemplate;
+	#$template->addText('<entry>');
+
+	return errorMessage('You can\'t post anonymously.') if ($user_info->{uid} <= 0);
+ 
+	# handle post - done editing
+	#
+	if (defined $params->{'post'}) {
+		dwarn "Add ency - params - post";
+		#dwarn "insertEncyclopedia before";
+		#return insertEncyclopedia($params, $user_info);
+		#dwarn "insertEncyclopedia before";
+	}
+ 
+	# handle preview 
+	#
+	elsif (defined $params->{'preview'}) {
+		dwarn "Add ency - params - preview";
+		$AllowCache = 0;	# kill caching
+
+		#previewEncyclopedia($template,$params,$user_info);
+		dwarn "Preview handleFileManager before";
+		#handleFileManager($template,$params,$upload);
+		dwarn "Preview handleFileManager after";
+	} 
+
+	elsif (defined($params->{filebox})) {
+		dwarn " handleFileManager before";
+		#handleFileManager($template, $params, $upload);
+		dwarn " handleFileManager after";
+	}
+ 
+	# initial request, return blank form
+	#
+	else {
+		dwarn "initial request, return blank form";
+		# initialize parent data
+		#
+		if ($params->{parent}) {
+			dwarn "return blank form parent: $params->{parent}" ;
+			#$template->setKeys(
+			#	'parent' => $params->{parent},
+			#	'title' => $params->{title},
+			#	'class' => classstring($table, getidbyname($params->{parent}))
+			#);
+		}
+		# initialize request data
+		#
+		if ($params->{request}) {
+			dwarn "initialize request data:  $params->{request}";
+			#$template->setKey('title', $params->{title});
+		}
+		#$template->setKey('preamble', $user_info->{data}->{preamble});
+		dwarn " handleFileManager before";
+		#handleFileManager($template, $params);
+		dwarn " handleFileManager after";
+	}
+ 
+	dwarn "refreshAddEncyclopedia before";
+	#refreshAddEncyclopedia($template, $params);
+	dwarn "refreshAddEncyclopedia after";
+
+	#$template->addText('</entry>');
+
 	my $xmlstring = '';
 	my $writer = new XML::Writer( OUTPUT=>\$xmlstring, UNSAFE=>1 );
 	$writer->startTag("addencyclopedia");	
 	$writer->endTag("addencyclopedia");
+	
 
 	my $xslt = getConfig("stemplate_path") . "/addencyclopedia.xsl";
 
 	my $mainpage = buildStringUsingXSLT( $xmlstring, $xslt );
-
+	dwarn "addEncyclopedia Ended";
 	return $mainpage;
 }
 sub addEncyclopediaOld {
@@ -971,7 +1115,7 @@ sub refreshAddEncyclopedia {
 #
 sub previewEncyclopedia {
 	my ($template, $params, $userinf) = @_;
-	
+	dwarn "previewEncyclopedia started";
 	my $name = normalize(swaptitle($params->{'title'}));
 	my $error = '';
 	my $warn = '';
@@ -988,6 +1132,7 @@ sub previewEncyclopedia {
 		dwarn "renderEnPreview Before";
 		my $preview = renderEnPreview(1, $params, $method);
 		dwarn "renderEnPreview End";
+		#my $preview = "<p>This is renderEnPreview,a simple HTML page with one paragraph.</p>";
 		$template->setKey('showpreview', $preview);
 
 	}
@@ -1007,6 +1152,7 @@ sub previewEncyclopedia {
 		dwarn "previewEncyclopedia Error + warn $error ";
 		$error .= '<hr />'; 
 	}
+	dwarn "previewEncyclopedia ended";
 	$template->setKey('error', $error);
 }
 
@@ -1096,6 +1242,10 @@ sub checkEncyclopediaEntry {
 
 # rendering wrapper - returns an error message if rendering fails.
 #
+#sub renderEnPreview {
+#	my $preview = "<p>This is renderEnPreview,a simple HTML page with one paragraph.</p>";
+#	return $preview;
+#}
 sub renderEnPreview {
 	my $newent = shift;	 # new entry flag
 	my $params = shift;
@@ -1110,7 +1260,7 @@ sub renderEnPreview {
  
 	# figure out cache dir. it really should already exist for us.
 	#
-	dwarn "defined tempdir: $params->{'tempdir'}";
+	dwarn "defined before tempdir";
 	if (defined $params->{'tempdir'}) {
 		
 		$dir = $params->{'tempdir'};
@@ -1119,7 +1269,6 @@ sub renderEnPreview {
 		dwarn "makeTempCacheDir Before";
 		$dir = makeTempCacheDir();
 		dwarn "makeTempCacheDir After, made dir $dir";
-#	dwarn "temp cache dir = $dir";
 		$params->{'tempdir'} = $dir;
 	}
 	dwarn "going to try to render a preview to $dir";
@@ -1128,27 +1277,33 @@ sub renderEnPreview {
 	#
 	dwarn "preview files go in $root/$dir/$method";
 	if (not -e "$root/$dir/$method") {
-		mkdir "$root/$dir/$method";
+		dwarn "preview files something odd here had to make_path: $root/$dir/$method";
+		make_path("$root/$dir/$method", {verbose => 1})
+
 	}
 	dwarn "changing dir to $root/$dir";
-	chdir "$root/$dir";
+	##chdir "$root/$dir";
+	#chdir("$root/$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD = "$root/$dir";  # chdir seems to be crashing mod_perl, looking for worarounds
 	my @files = <*>;
 	my @methoddirs = getMethods();
 	foreach my $file (@files) {
 		if (not inset($file,@methoddirs)) {
-			`cp $file $method`;
+			copy($file, $method);
+			dwarn "copy file: $file to method: $method";
 		}
 	}
 	dwarn "changing dir to $root";
-	chdir "$root";
-	
+	##chdir "$root";
+	#chdir("$root");# or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD = "$root"; 
 	# remove old rendering file if it exists
 	#
 	my $outfile = getConfig('rendering_output_file');
 	dwarn "outfile is $outfile";
 	if (-e "$root/$dir/$method/$outfile") {
 		dwarn "outfile existed so removing: $root/$dir/$method/$outfile";
-		`rm $root/$dir/$method/$outfile`;
+		remove("$root/$dir/$method/$outfile");
 	}
 	
 	# do the rendering
@@ -1175,11 +1330,15 @@ sub renderEnPreview {
 	#if ( defined($size) && $size > 0 ) {
 	dwarn "READING Preview from $file\n";
 	#my $preview = mathBox(mathTitle($title,'title'),readFile($file));
-	my $text = readFile($file);
-	dwarn "PREVIEW FILE CONTAINS $text";
-	dwarn "renderEnPreview Ended";
+	#my $text = readFile($file);
+	#dwarn "PREVIEW FILE CONTAINS\n $text";
+	#dwarn "renderEnPreview Ended";
 	#	return $preview;
-	return mathBox(mathTitle($title), $text);
+	my $preview = mathBox(mathTitle($title,'title'),readFile($file));
+	return $preview;
+	##return mathBox(mathTitle($title), $text);
+	#my $preview = "<p>This is renderEnPreview5,a simple HTML page with one paragraph.</p>";
+	#return $preview;
 	#} 
 }
 

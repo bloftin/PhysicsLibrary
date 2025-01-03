@@ -6,6 +6,7 @@ use Noosphere::Util;
 use Noosphere::XSLTemplate;
 use HTML::Tidy;
 use XML::Writer;
+use File::chdir;
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
 
@@ -56,7 +57,8 @@ sub inMaintenance {
 #
 sub getNoTemplateContent {
 	my ($params, $user_info, $upload) = @_;
-	
+	#my $content_type = $req->content_type;
+	#dwarn "headerAndCSS started req content type: $content_type";
 	if ($MAINTENANCE == 1) {
 		return getMaintenance();
 	}
@@ -64,7 +66,7 @@ sub getNoTemplateContent {
 	if ($params->{'op'} eq 'robotstxt') {
 		return getConfig('robotstxt');
 	}
-
+	dwarn "getNoTemplateContent params->op: $params->{'op'}";
 	my $content = dispatch(\%NONTEMPLATE, $params, $user_info, $upload); 
 	
 	return $content;
@@ -74,7 +76,8 @@ sub getNoTemplateContent {
 #
 sub getViewTemplateContent {
 	my ($params, $user_info, $upload) = @_;
-	
+	#my $content_type = $req->content_type;
+	#dwarn "headerAndCSS started req content type: $content_type";
 	# find function call in handler table and execute it with standard params
 	#
 	dwarn "getViewTemplateContent params: $params\n";
@@ -87,6 +90,8 @@ sub getViewTemplateContent {
 #
 sub getMainTemplateContent {
 	my $userinf = shift;
+	#my $content_type = $req->content_type;
+	#dwarn "headerAndCSS started req content type: $content_type";
 	my $content = '';
 	
 	# op=news or op=main
@@ -122,6 +127,8 @@ sub getFrontPage {
 	my $params = shift;
 	my $userinf = shift;
 	dwarn "getFrontPage started";
+	#my $content_type = $req->content_type;
+	#dwarn "headerAndCSS started req content type: $content_type";
 #	my $template = new XSLTemplate('frontpage.xsl');
 
 	
@@ -150,6 +157,8 @@ sub getFrontPage {
 # 
 sub getMainMenu {
 	
+		#my $content_type = $req->content_type;
+		#dwarn "headerAndCSS started req content type: $content_type";
 		#my $mail = getNewMailCount($user_info);
 		#my $corrections = countPendingCorrections($user_info);
 		#my $notices = getNoticeCount($user_info);
@@ -225,6 +234,8 @@ sub fillInSideBars {
 	my $params = shift;
 	my $userinf = shift;
 	dwarn("fillInSideBars Started");
+	#my $content_type = $req->content_type;
+	#dwarn "headerAndCSS started req content type: $content_type";
 	my $sidebar = new Template("sidebar.html");
 	my $rightbar = new Template("rightbar.html");
 	my $login = getLoginBox($userinf);
@@ -249,6 +260,8 @@ sub fillInLeftBar {
 	my $params = shift;
 	my $userinf = shift;
 	dwarn("fillInLeftBar Started");
+	#my $content_type = $req->content_type;
+	#dwarn "headerAndCSS started req content type: $content_type";
 	my $sidebar = new Template("sidebar.html");
 	
 	my $login = getLoginBox($userinf);
@@ -270,14 +283,17 @@ sub fillInLeftBar {
 sub headerAndCSS {
 	my $template = shift;
 	my $params = shift;
-
 	
+	dwarn "headerAndCSS started";
+	#my $content_type = $req->content_type;
+	#dwarn "headerAndCSS started req content type: $content_type";
 	#my $search = getSearchBox($params);
 	my $header = new Template('header.html');
-	my $style = new Template('style.css');
+	#my $style = new Template('style.css');
 
 	#$header->setKey('search', $search);
 
+	dwarn "headerAndCSS ended";
 	$template->setKey('header', $header->expand());
 	#$template->setKey('style', $style->expand());
 }
@@ -288,6 +304,27 @@ sub sendOutput {
 	my $req = shift;
 	my $html = shift;
 	my $status = shift || 200;
+	my $len = bytes::length($html);
+
+	$req->status($status);
+	$req->content_type('text/html;charset=UTF-8');
+#    $req->content_language('en');
+	$req->headers_out->add('content-length' => $len);
+#	$req->send_http_header;
+	my $content_type = $req->content_type;
+	dwarn "sendOutput req content type: $content_type";
+	open( OUT, ">/tmp/sendOutput.html");
+	print OUT $html;
+	close(OUT);
+	$req->print($html);
+	$req->rflush(); 
+}
+
+sub sendOutputOld {
+	my $req = shift;
+	my $html = shift;
+	my $status = shift || 200;
+	dwarn "sendOutput started";
 	my $len = length($html);
 
 	#$req->status($status);
@@ -298,6 +335,7 @@ sub sendOutput {
 	dwarn "sendOutput req content type: $content_type";
 #	$req->send_http_header;
 	$req->print($html);
+	dwarn "sendOutput ended";
 	$req->rflush();  
 }
 
@@ -316,7 +354,7 @@ sub serveImage {
 # BB: cached files stored in %CACHEDFILES
 #     key exists -- file should be cached
 #     key defined -- file has been cached
-sub serveFileOld {
+sub serveFile {
 	my ($req, $name) = @_;
 	my $html = '';
 	unless (%CACHEDFILES) {
@@ -344,7 +382,7 @@ sub serveFileOld {
 	return;	
 }
 
-sub serveFile {
+sub serveFileNew {
 	my ($req, $name) = @_;
 	my $html = '';
 	unless (%CACHEDFILES) {
@@ -409,25 +447,41 @@ sub cgi_handler {
 # main noosphere mod_perl entry point
 #
 sub handler {
-        dwarn "Noosphere Entry Point";
-	#my $req = shift;
+	dwarn "Noosphere Entry Point";
+		#my $req = shift;
 	#Ben, latest noosphere getting request this way
-	my $req = Apache2::Request->new(shift);
+	#my $req = Apache2::Request->new(shift);
+	my $req = Apache2::RequestUtil->request;
+	# $req->content_type('text/plain');
+	# my $dir = '/var/www/pp/data/cache/temp/95/l2h';
+	# my $renderProgram = getConfig('latex2htmlcmd');
+	# local $CWD = "$dir"; 
+	# #my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." $fname >error.out 2>&1");
+	# my $fname = "Test.tex";
+	# my $command = getConfig('base_dir'). $renderProgram .getConfig('l2h_opts')." $fname >error.out 2>&1";
+	# my $output = `$command`;
+	# $req->print("Command: $command\nCommand Output:\n$output");
+	# return Apache2::Const::OK;
+
 	#my $req = Apache->request();
         #my $PPreq = Apache2::RequestUtil->request();
 	#dwarn $PPreq->param();
+	my $content_type = $req->content_type;
+	dwarn "Before parseParams started req content type: $content_type";
 	my ($params,$upload) = parseParams($req);
         #dwarn "Params";
         #dwarn $params;
         #dwarn "Upload";
         #dwarn $upload;
 	dwarn "After parseParams";
+	$content_type = $req->content_type;
+	dwarn "After parseParams started req content type: $content_type";
 	my %cookies = parseCookies($req);
 	dwarn "After parseCookies";
 	dwarn "cookies:\n @{[%cookies]}\n";
 	my $html = '';
 
-	$AllowCache = 1;	# default to allow client caching
+	$AllowCache = 0;	# default to allow client caching
 
 	# uri remapping
 	# we use this instead of a mod_rewrite-ish thing
@@ -575,6 +629,7 @@ sub handler {
 	# handle serving of images
 	#
 	if ($params->{op} eq 'getimage') {
+		dwarn "servImage before";
 		serveImage($req, $params->{id});
 		return;	
 	}
@@ -591,24 +646,51 @@ sub handler {
 
 	# check for any content that isn't meant for any template
 	#
+	$content_type = $req->content_type;
+	dwarn "getNoTemplateContent started req content type: $content_type";
 	$html = getNoTemplateContent($params, \%user_info, $upload);
 	# if none, process template stuff
 	#
 	if ($html eq '') {
 		dwarn "No params process template stuff";
+		$content_type = $req->content_type;
+		dwarn "No params process template stuff started req content type: $content_type";
 		my $content;
 		my $template;
 		$NoosphereTitle = '';
 		dwarn "Process Template inputs, params:\n$params";
 		dwarn "hash params:\n @{[$params]}\n";
 		$content = getViewTemplateContent($params,\%user_info,$upload);
-		dwarn "getViewTemplateContent: content:\n$content";
+		#dwarn "getViewTemplateContent: content:\n$content";
 		if ($content ne '' ) {
+			
+			
 			dwarn "view.html template"; 
+			$content_type = $req->content_type;
+			dwarn "view.html started req content type: $content_type";
 			$template = new Template('view.html');
 			fillInLeftBar($template,$params,\%user_info);
 			$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
+			headerAndCSS($template, $params);
+			#
+			my $nocache = '
+			<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+			<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+			<META HTTP-EQUIV="Expires" CONTENT="-1">';
+
+			$template->setKey('metacache', ($AllowCache ? '' : $nocache));
+
+			$html = $template->expand();
+			#warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
+			open( OUT, ">/tmp/view.xml");
+			print OUT $html;
+			close(OUT);
+			# handle caching
+		
+		
+			sendOutput( $req, $html );
 			
+			return;
 			#dwarn "view.html template"; 
 			#$template = new Template('view.html');
 			#fillInLeftBar($template,$params,\%user_info);
@@ -617,58 +699,42 @@ sub handler {
 			#$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
 		}
 		# front page
-		elsif ($uri =~ /^\/?$/) {
+		else {
+
+			$content_type = $req->content_type;
+			dwarn "frontpage started req content type: $content_type";
 			$content = buildMainPage(\%user_info);
-			warn "content = $content";
+			#warn "content = $content";
 			sendOutput($req, $content);
 			warn "got past opening main.html template content\n";
-			return;
+			return;	
+
 		}
-		else
-		{
-			dwarn "Something wrong 404";
-		}
-		dwarn "headerAndCSS before";
-		headerAndCSS($template, $params);
-		dwarn "headerAndCSS after";
+
+		#headerAndCSS($template, $params);
+	
 		# handle caching
 		#
-		my $nocache = '
-		<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
-		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-		<META HTTP-EQUIV="Expires" CONTENT="-1">';
+		#my $nocache = '
+		#<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		#<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		#<META HTTP-EQUIV="Expires" CONTENT="-1">';
 
-		$template->setKey('metacache', ($AllowCache ? '' : $nocache));
-		$html = $template->expand();
-		open( OUT, ">/tmp/viewpage.xml");
-		print OUT $html;
-		close(OUT);
+		#$template->setKey('metacache', ($AllowCache ? '' : $nocache));
+		#$html = $template->expand();
+
+		#open( OUT, ">/tmp/viewpage.xml");
+		#print OUT $html;
+		#close(OUT);
+		
 	} 
-	
+	return;
 	
 	# finish and send output
 	#
-	dwarn "Before sending output";
-	my $content_type = $req->content_type;
-	dwarn "req content type: $content_type";
+	#dwarn "Before sending output";
 	#sendOutput($req, $html);
-	#my $len = length($html);
-	my $len = bytes::length($html);
-
-	#$req->status($status);
-	$req->status(200);
-	#$req->content_type('text/html;charset=UTF-8');
-	$req->content_type('text/html');
-	dwarn "set after content type: $content_type";
-#    $req->content_language('en');
-	$req->header_out('Content-Length'=>$len);
-	#$req->send_http_header;
-	#$req->header_add(content_type => 'text/html');
-	$req->headers_out->add('content-length' => $len);
-	$req->print($html);
-	$req->rflush(); 
-
-	dwarn "After sending output";
+	#dwarn "After sending output";
 #	$dbh->disconnect();
 }
 
@@ -721,14 +787,14 @@ sub buildMainPage {
 
 	my $xslt = getConfig("stemplate_path") . "/mainpage.xsl";
 
-	warn "building with:\n\n\n\n\n\n\n\n$xmlstring\n\n\n\n\n\n\n";
+	#warn "building with:\n\n\n\n\n\n\n\n$xmlstring\n\n\n\n\n\n\n";
 	open( OUT, ">/tmp/xmlstring.xml");
 	print OUT $xmlstring;
 	close(OUT);
 	
 	my $mainpage = buildStringUsingXSLT( $xmlstring, $xslt );
 
-	warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
+	#warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
 	open( OUT, ">/tmp/mainpage.xml");
 	print OUT $mainpage;
 	close(OUT);
@@ -809,7 +875,8 @@ sub buildViewPage {
 	my $html = '';
 	dwarn "buildViewPage before expand";
 	$html = $template->expand();
-	dwarn "buildViewPage after  expand, html: \n$html";
+	#dwarn "buildViewPage after  expand, html: \n$html";
+	
 	return $html;
 
 }

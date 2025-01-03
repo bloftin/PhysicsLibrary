@@ -200,7 +200,10 @@ sub prepareEntryForRendering {
 	if ( $method eq "src" ) {
 		return ($latex,$links);
 	} else {
-		return ($template->expand(),$links);
+		my $returnTemplate = $template->expand();
+		dwarn "links:\n $links";
+		dwarn "prepareEntryForRendering template:\n$returnTemplate";
+		return ($returnTemplate,$links);
 	}
 }
 

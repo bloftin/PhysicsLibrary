@@ -1,8 +1,11 @@
 package Noosphere;
 use strict;
-
+use Cwd qw(chdir);
+use File::Path qw(make_path); 
+use File::Copy::Recursive qw(pathrm);
 use Unicode::String qw(latin1 utf8 utf16);
-
+use Config;
+use constant PERLIO_IS_ENABLED => $Config{useperlio};
 use vars qw{%ICHAR_TO_ASCII %ICHAR_TO_HTML $DEBUG $dbh};
 
 # table to convert ISO-8859-1 chars into ASCII.
@@ -302,12 +305,14 @@ sub chdirFileBox {
 	my $id = shift;
 
 	my $fileroot = getConfig('file_root'); 
-	my $cwd = `pwd`; 
+	my $cwd = getcwd();; 
 	chomp $cwd; 
 	
 	my $dir = "$fileroot/$table/$id";
 	if (-e $dir) { 
-		chdir $dir; 
+		##chdir $dir; 
+		chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
+		
 	} else { 
 	return ''; 
 	}
@@ -663,7 +668,8 @@ sub getFileListXML {
 	}
 	$xml .= "</files>";
 
-	chdir $cwd;
+	##chdir $cwd;
+	chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
 
 	return '' if (!$count);
 
@@ -890,7 +896,7 @@ sub removeTempCacheDir {
 
 	return if ((not defined($cachedir)) or $cachedir eq "");
 
-	system('rm','-rf',"$root/$cachedir");
+	pathrm("$root/$cachedir");
 }
 
 # get a temporary cache directory name
@@ -906,7 +912,7 @@ sub makeTempCacheDir {
 		$i++;
 	}
 
-	mkdir "$path/$i"; 		# making the dir grabs it
+	make_path("$path/$i", {verbose => 1});
 	return "temp/$i";
 }
 
@@ -1619,6 +1625,16 @@ sub writeFile {
 	print OUTFILE $data;
 
 	close OUTFILE;
+}
+
+# helper function to work w/ and w/o perlio-enabled Perl
+sub read_data {
+	my($fh) = @_;
+	my $data;
+	if (PERLIO_IS_ENABLED || IO::Select->new($fh)->can_read(10)) {
+		$data = <$fh>;
+	}
+	return defined $data ? $data : '';
 }
 
 1;

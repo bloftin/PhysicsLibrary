@@ -17,7 +17,7 @@ sub XSLTemplate::new
 	my $template = new Template("template.xsl", warnings => 1);
 	my $fcache = new FileCache("$tpath/$file");
 	dwarn "fcache text: \n";
-	dwarn $fcache->{"TEXT"};
+	#dwarn $fcache->{"TEXT"};
 	dwarn "\nAfter fcache text\n";
 	$template->setKey('content', $fcache->{"TEXT"});
 	dwarn "After setKey";
@@ -35,7 +35,7 @@ sub XSLTemplate::new
 	dwarn "After NAME";
 	$tobj->{'XSLT'} = XML::LibXSLT->new();
 	dwarn "After LibXSLT->new";
-	dwarn "doc: $doc\n";
+	#dwarn "doc: $doc\n";
 	eval {
 	$tobj->{'STYLESHEET'} = $tobj->{'XSLT'}->parse_stylesheet($doc);
 	};

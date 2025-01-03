@@ -4,7 +4,12 @@ use strict;
 use Noosphere::Util;
 use Noosphere::Charset;
 use HTML::Entities;
-use Cwd;
+use HTML::Tidy;
+use Apache2::SubProcess ();
+use File::chdir;
+use File::Copy qw( copy );
+use File::Path qw(make_path); 
+use File::Copy::Recursive qw(pathrm);
 
 # needed for when we require images.pl
 #
@@ -149,13 +154,15 @@ sub singleRenderLaTeX {
 	}
 	my $dir = $root . $suffix;
 	dwarn "singleRenderLaTeX dir to make: $dir";
-	mkdir $dir;
-	dwarn "after mkdir $dir;";
+	make_path("$dir", {verbose => 1});
+	dwarn "after make_path $dir;";
 
 	# copy over templates we need
 	#
 	my $template_root = getConfig('stemplate_path');
-	`cp "$template_root/.latex2html-singlerender-init" $dir/.latex2html-init`;
+	# BEN TODO - need to confirm this fix of string command actually works
+	#system("cp $template_root/.latex2html-singlerender-init $dir/.latex2html-init");
+	copy("$template_root/.latex2html-singlerender-init", "$dir/.latex2html-init");
 
 	my $prefix = getConfig('single_render_template_prefix');
 
@@ -171,15 +178,17 @@ sub singleRenderLaTeX {
 	my $template = new Template($prefix . "_$variant.tex");
 	$template->setKey('math', $math);
 	writeFile("$dir/single_render.tex", $template->expand());
-	chdir $dir;
-        #Ben - error.out is filling the harddrive, remove for now
-        my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." single_render.tex > /dev/null 2>&1");
-        #my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." single_render.tex > /dev/null 2>&1");
+	##chdir $dir;
+	#chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD = "$dir";
+	#Ben - error.out is filling the harddrive, remove for now
+	my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." single_render.tex > /dev/null 2>&1");
+	#my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." single_render.tex > /dev/null 2>&1");
 
 	# abort if a render failed
 	#
 	if ($retval > 0) {
-                        `rm -rf $dir`;
+			pathrm($dir);
 			return $retval;
 	}
 
@@ -208,10 +217,10 @@ sub singleRenderLaTeX {
 	
 	# remove the rendering directory
 	#
-	`rm -rf $dir`;
-        # Ben, testing this since what happens is that the dir created in tmp
-        # cannot be deleted if the latex2html process does not finish
-        # this is a horrible way to solve this problem so expect this to be temprorary
+	pathrm($dir);
+	# Ben, testing this since what happens is that the dir created in tmp
+	# cannot be deleted if the latex2html process does not finish
+	# this is a horrible way to solve this problem so expect this to be temprorary
 	dwarn "singleRenderLaTeX ended";
 	return 0;	# return success
 }
@@ -242,26 +251,28 @@ sub renderLaTeX {
 		$fname = "obj";								 # generic name
 	}
 
-	my $cwd = `pwd`;
-	dwarn "renderLaTeX cwd: $cwd";
+	#my $cwd = getcwd();
+	#dwarn "renderLaTeX cwd: $cwd";
 	# make sure the object directory is there & clean
 	#
 	if ( ! -e $dir ) {
-		dwarn "renderLaTeX object not there, mkdir $dir";
-		mkdir $dir;
+		dwarn "renderLaTeX object not there, make_path $dir";
+		make_path("$dir", {verbose => 1});
 	}
-	chdir $dir;
-
+	##chdir $dir;
+	##chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD = "$dir"; 
 	# make sure output method dir is there
 	#
 	$dir = "$dir/$method";
 	dwarn "renderLaTeX dir method: $dir";
 	if ( ! -e $dir ) {
-		dwarn "renderLaTeX object not there, mkdir for dir method $dir";
-		mkdir $dir;
+		dwarn "renderLaTeX object not there, make_path for dir method $dir";
+		make_path("$dir", {verbose => 1});
 	}
-	chdir $dir;
-
+	##chdir $dir;
+	##chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD = "$dir"; 
 	# get web URL for rendered images
 	#
 	my $url = getConfig('cache_url')."/$table/$id/$method";
@@ -294,7 +305,7 @@ sub renderLaTeX {
 	# latex2html output (best-looking for the [download] speed)
 	#
 	elsif ( $method eq "l2h" ) {
-		dwarn "renderLaTeX l2h png started\n";
+		dwarn "renderLaTeX l2h started\n";
 		my $retval = latex_error_check($fname, $latex);
 
 		if (1) {
@@ -302,13 +313,13 @@ sub renderLaTeX {
 			write_out_latex($fname, $latex);
 
 			# l2h rendering core
-			render_l2h($fname, $latex, $url);
+			render_l2h($fname, $latex, $url, $dir);
 		} 
 		
 		else {
 			write_error_output($fname, $table, $id, $method);
 		}
-		dwarn "renderLaTeX l2h png ended\n";
+		dwarn "renderLaTeX l2h ended\n";
 	}
 
 	# source output ... just make HTML presentable and print to output file
@@ -338,7 +349,9 @@ sub renderLaTeX {
 		#print "src ended\n";
 	}
 	dwarn "renderLaTeX end";
-	chdir $cwd;
+	##chdir $cwd;
+	#chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
+	#local $CWD = "$cwd"; # we should not have to do this, the local $CWD should go back once scope leaves but need to test first
 }
 
 # do a non-fonts render just to check syntax of LaTeX
@@ -359,8 +372,9 @@ sub latex_error_check {
 
 	# run with easily-parsable line-error option
 	#
-	my $retval = system("/usr/bin/latex -file-line-error-style -interaction=nonstopmode $fname.tex");
-
+	dwarn "Executing system cmd : /usr/bin/latex -file-line-error-style -interaction=nonstopmode $fname.tex";
+	## BEN my $retval = system("/usr/bin/latex -file-line-error-style -interaction=nonstopmode $fname.tex");
+	my $retval = 1;
 	return $retval;
 }
 
@@ -370,17 +384,23 @@ sub render_l2h {
 	my $fname = shift;
 	my $latex = shift;
 	my $url = shift;
+	my $dir = shift;
 
-	my $cwd = getcwd();
+	#my $cwd = getcwd();
+	local $CWD = "$dir";
 	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
-	dwarn "render_l2h before cp .latex2tml-init, tpath $tpath, cwd $cwd";
-	`cp $tpath/.latex2html-init .`;
+	dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
+	## BEN TODO system("cp $tpath/.latex2html-init .");
+	copy("$tpath/.latex2html-init","$dir");
+	
 	dwarn "render_l2h after cp .latex2tml-init";
+	dwarn "dir: $dir";
 
 	# run latex to get an aux file for refs
 	#
 	if ($latex =~ /\\($reruns)\W/) { 
-		system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
+		dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
+		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
 	}
 
 	# init graphics AA flag
@@ -392,15 +412,24 @@ sub render_l2h {
 	# run l2h
 	$renderProgram = getConfig('latex2htmlcmd');
 	warn "calling from here";
-	$run = "$renderProgram " . getConfig ('l2h_opts'). " $fname >error.out 2>&1";
+	$run = $renderProgram;#"$renderProgram " . getConfig ('l2h_opts'). " $dir/$fname";
 
 	# run l2h
 	#my $cmd = getConfig('timeoutprog') . "$run";
 	my $cmd = "$run";
-	warn "EXECING $cmd\n";
-	my $retval = system($cmd);
-
-	#my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." $fname >error.out 2>&1");
+	warn "EXECING $run\n";
+	# get the global request object (requires PerlOptions +GlobalRequest)
+    my $r = Apache2::RequestUtil->request;
+	my $in_fh = "";
+	my $out_fh = "";
+	my $err_fh = "";
+	my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
+	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($run,\@run_args);
+	my $output = read_data($out_fh);
+ 	my $error  = read_data($err_fh);
+	dwarn "latex2html input: " . scalar($in_fh);
+	dwarn "latex2html output: $output";
+	dwarn "latex2html error: $error";
 
 	# run latex2html again after deleting some image files if these images 
 	# need to be antialiased
@@ -428,7 +457,7 @@ sub render_l2h {
  
 	# post process l2h's HTML output
 	#
-	postProcessL2hIndex($url);
+	postProcessL2hIndex($url,$dir);
 }
 
 
@@ -455,6 +484,7 @@ sub render_png {
 	my $latex = shift;
 	my $url = shift;
 
+	dwarn "render_png: this function should not work yet";
 	# see if there are any hyperlinks.
 	#
 	my $haslinks = ($latex =~ /\\htmladdnormallink/);
@@ -566,7 +596,8 @@ sub get_latex_error_data {
 
 	# change to working dir
 	#
-	chdir(getConfig('cache_root')."/$table/$id/$method");
+	#chdir(getConfig('cache_root')."/$table/$id/$method");
+	local $CWD = getConfig('cache_root')."/$table/$id/$method"; 
 
 	# open and read log
 	#
@@ -577,6 +608,7 @@ sub get_latex_error_data {
 	# scan log just for error lines; pick them out and return essential data
 	#
 	while ($log =~ /^\S+\.tex:(\d+):\s+(.+?)$/mgo) {
+		
 		my $line = $1;
 		my $error = $2;
 		
@@ -606,7 +638,9 @@ sub explainError {
 
 	# we'll also need to open the source file for printing
 	#
-	chdir(getConfig('cache_root')."/$table/$id/$method");
+	#chdir(getConfig('cache_root')."/$table/$id/$method");
+	local $CWD = getConfig('cache_root')."/$table/$id/$method";
+	
 	open SRCFILE, $srcfile;
 	my @srclines = <SRCFILE>;
 	close SRCFILE;
@@ -640,6 +674,7 @@ sub write_error_output {
 	my $table = shift;		# path components
 	my $id = shift;
 	my $method = shift;
+	my $dir = shift;
 
 	my $logfile = "$name.log";
 
@@ -738,6 +773,7 @@ sub getAAImages {
 # 
 sub postProcessL2hIndex {
 	my $url = shift;
+	my $dir = shift;
 
 	my $path = getConfig('cache_root');
 
@@ -745,48 +781,80 @@ sub postProcessL2hIndex {
 	# file, with some minor post-processing
 	#
 	my $file = '';
-
+	my $file_in = '';
+	my $file_path = "$dir/index.html";
 	# read output of l2h, running it through tidy to get XHTML
-	#
-	$file = readFile(getConfig('tidycmd')." -wrap 1024 -asxml index.html 2>/dev/null |");
-	
+	# tidycmd causing apahce crash - need sub process?
+	## BEN TODO $file = readFile(getConfig('tidycmd')." -wrap 1024 -asxml index.html 2>/dev/null |");
+	dwarn "opening file $file_path";
+	#sleep 1;  #need a better way to check for when file is ready to open ugh
+	# Tyring a simple poll method with timeout
+	my $max_wait_time = 30; # in seconds
+	my $poll_interval = 1;  # in seconds
+	my $elapsed_time = 0;
+
+	while ($elapsed_time < $max_wait_time) {
+		if (-e $file_path) {
+			dwarn "File found: $file_path in $elapsed_time seconds";
+			last;
+		}
+		sleep($poll_interval);
+		$elapsed_time += $poll_interval;
+	}
+
+	if ($elapsed_time >= $max_wait_time) {
+		dwarn "File did not appear within the wait time, $max_wait_time.";
+	}
+
+	open(FILEIN, $file_path) or dwarn "postProcessL2hIndex could not open $file_path";
+	$file_in = do {local $/; <FILEIN> };
 	# pull out just the body, clean some stuff up
 	#
+	dwarn "postProcessL2hIndex before tidy:\n $file_in";
+	my $tidy = HTML::Tidy->new({output_xhtml => 1, wrap => 1024 });
+
+	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
+	$file = $tidy->clean( $file_in );
+	dwarn "postProcessL2hIndex after tidy:\n $file";
+
 	$file =~ /<body.*?>(.*?)<hr\s*?\/>\s*?<\/body>/sio;
 	$file = $1;
+	dwarn "postProcessL2hIndex 1st regular expression:\n $file";
 	$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$1\"/igso;
+	dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
 	
 	# add title tooltips
 	$file =~ s/(alt="(.+?)")/$1 title="$2" /igso;
+	dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
 	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
-
+	dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
-	open OUTFILE,">".getConfig('rendering_output_file');
+	open OUTFILE,">", "$dir/".getConfig('rendering_output_file');
 	print OUTFILE "$file";
 	close OUTFILE;
 	
-=quote
+
 	# something went wrong, replace rendering output file with the contents of 
 	# error.out, with some minor post-processing (pull out just error section)
 	#
-	else {
-		$file = readFile("error.out");
-		$file =~ s/^.*?(\*\*\* Error:)/$1/gs;
-		$file =~ s/Died at.+$//gs;
-		$file =~ s/\n+/\n/gs;
+	# else {
+	# 	$file = readFile("error.out");
+	# 	$file =~ s/^.*?(\*\*\* Error:)/$1/gs;
+	# 	$file =~ s/Died at.+$//gs;
+	# 	$file =~ s/\n+/\n/gs;
 	
-		my $newfile = $file;
-		while ($file =~ /<<([0-9]+)>>/gs) {
-			my $num = $1;
-			$newfile =~ s/<<$num>>(.*?)<<$num>>/{$1}/gs;
-		}
-		$file = $newfile;
-		$file = tohtmlascii($file);
-		$file =~ s/\n/<br \/>/gs;
-		$file = "<table border=\"0\" width=\"100%\"><tr><td><font color=\"#ff0000\"><b>$file</b></font></td></tr></table>";
-	}
-=cut
+	# 	my $newfile = $file;
+	# 	while ($file =~ /<<([0-9]+)>>/gs) {
+	# 		my $num = $1;
+	# 		$newfile =~ s/<<$num>>(.*?)<<$num>>/{$1}/gs;
+	# 	}
+	# 	$file = $newfile;
+	# 	$file = tohtmlascii($file);
+	# 	$file =~ s/\n/<br \/>/gs;
+	# 	$file = "<table border=\"0\" width=\"100%\"><tr><td><font color=\"#ff0000\"><b>$file</b></font></td></tr></table>";
+	# }
+
 }
 
 # write reference links to a file in the rendering output dir
