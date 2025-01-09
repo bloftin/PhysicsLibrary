@@ -65,7 +65,7 @@ sub getMscCommentById {
 
 # search the MSC for a string
 #
-sub mscSearch {
+sub pacsSearch {
 	my $params = shift;
 	
 	my $html = '';
@@ -115,12 +115,56 @@ sub mscSearch {
 	return paddingTable(clearBox('MSC Search',$html));
 }
 
+sub pacsBrowse {
+	my $params = shift;
+	dwarn "pacsBrowse start";
+	my $id = $params->{'id'};
+	my $domain = $params->{'from'} || 'categories';
+
+    my $file = 'pacsbrowse.tt';
+	my $htmlout = "";
+	my $domainSwitch = 0;
+	my $idSwitch = 0;
+
+	# top level
+	#
+	# change -XX to .
+	if(not(defined($id))) {
+		$idSwitch = 0;
+		if ($domain ne 'categories') {
+			$domainSwitch = 0;
+		}
+		else
+		{
+			$domainSwitch = 1;
+		}
+	}
+
+    my $vars = {
+        category      => "PACS",
+		idSwitch      => $idSwitch,
+		domainSwitch  => $domainSwitch,
+		my_dbh_ref    => $dbh,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
+	dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
+	dwarn "pacsBrowse end";
+    return $htmlout;
+}
+
 # the generic MSC browser; this can be used to either browse the MSC structure
 #	itself, or the set of objects within MSC categories in a particular table.
 #
-sub mscBrowse {
+sub mscBrowseOld {
 	my $params = shift;
 
+	dwarn "mscBrowse start";
 	my $types = $params->{'types'};
 	my $id = $params->{'id'};
 	my $domain = $params->{'from'} || 'categories';
@@ -240,6 +284,7 @@ sub mscBrowse {
 	}
 
 	$template->addText('</mscset>');
+	dwarn "mscBrowse end";
 	return paddingTable($template->expand());
 }
 

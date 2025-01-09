@@ -6,7 +6,7 @@ use strict;
 #
 sub getLicense {
   
-  return paddingTable(clearBox("GNU Free Documentation License",(new Template("license.html"))->expand())); 
+  return paddingTable(clearBox("Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License",(new TemplateNS("license.html"))->expand())); 
   
 }
 
@@ -14,7 +14,7 @@ sub getLicense {
 #
 sub getAbout {
 
-  return paddingTable(clearBox('The '.getConfig('projname').' Story',(new Template('about.html'))->expand())); 
+  return paddingTable(clearBox('The '.getConfig('projname').' Story',(new TemplateNS('about.html'))->expand())); 
   
 }
 
@@ -22,13 +22,13 @@ sub getAbout {
 #
 sub getFeedback {
 
-  return paddingTable(clearBox('Feedback',(new Template('feedback.html'))->expand()));
+  return paddingTable(clearBox('Feedback',(new TemplateNS('feedback.html'))->expand()));
 
 }
 # get the Google seach page
 #
 sub getGoogleSearch {
-  return paddingTable(clearBox('Search',(new Template('googlesearch.html'))->expand()));
+  return paddingTable(clearBox('Search',(new TemplateNS('googlesearch.html'))->expand()));
 }
 
 1;

@@ -221,7 +221,7 @@ sub checkVote {
 	my $params=shift;
 	my $userinfo=shift;
 	my $error="";
-	my $template=new Template('error.html');
+	my $template=new TemplateNS('error.html');
 	
 	# some basic checks
 	#

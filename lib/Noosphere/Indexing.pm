@@ -36,7 +36,7 @@ sub indexTitle {
 	deleteTitle($table,$objectid);	 # precautionary delete
 
 	my $ichar = getIndexChar(mangleTitle($title));
-
+	dwarn "indexTitle:\ntitle:\n$title\nobjectid:\n$objectid\ntable:\n$table\nownerid:\n$ownerid\ncname:\n$cname\nsource:\n$source\nichar:\n$ichar";
 	my ($rv,$sth) = dbInsert($dbh,{INTO=>$index,COLS=>'objectid,tbl,userid,title,cname,source,ichar',VALUES=>"$objectid,'$table',$ownerid,'".sq($title)."','$cname', '$source', '$ichar'"});
 	$sth->finish();
 }
@@ -79,6 +79,7 @@ sub wordIndexEntry {
 		# insert into word list (will not do anything if word is there)
 		#
 		$dbh->{PrintError} = 0;	# no, we dont need to see uniqueness errors.
+		dwarn "insert into 'words' word, $word";
 		my ($rv,$sth) = dbInsert($dbh,{INTO=>'words',COLS=>'word',VALUES=>"'$word'"});
 		$sth->finish();
 		$dbh->{PrintError} = 1;

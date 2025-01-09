@@ -14,7 +14,7 @@ sub XSLTemplate::new
 	dwarn $file;
  	my $tobj = {};
 # This document parsing needs to be cached!
-	my $template = new Template("template.xsl", warnings => 1);
+	my $template = new TemplateNS("template.xsl", warnings => 1);
 	my $fcache = new FileCache("$tpath/$file");
 	dwarn "fcache text: \n";
 	#dwarn $fcache->{"TEXT"};

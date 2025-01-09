@@ -24,7 +24,7 @@ sub renderEncyclopediaObj {
 	my $userinf = shift;
  
 	my $method = $params->{'method'} || $userinf->{'prefs'}->{'method'};
-	my $html = new Template('encyclopediaobject.html');
+	my $html = new TemplateNS('encyclopediaobject.html');
 	my $en = getConfig('en_tbl');
 	my $content = getRenderedContentHtml($en,$rec,$method);
 	my $contentbox = '';
@@ -577,6 +577,7 @@ sub getEncyclopedia {
 sub addEncyclopedia {
 	my ($params,$user_info,$upload) = @_;
 	dwarn "addEncyclopedia Started";
+	dwarn "addEncyclopedia start cwd: $CWD";
 	my $template = new XSLTemplate('addencyclopedia.xsl');
 	my $table = getConfig('en_tbl');
 
@@ -590,7 +591,8 @@ sub addEncyclopedia {
 	if (defined $params->{'post'}) {
 		dwarn "insertEncyclopedia before";
 		return insertEncyclopedia($params, $user_info);
-		dwarn "insertEncyclopedia before";
+		dwarn "insertEncyclopedia after";
+		dwarn "insertEncyclopedia after cwd: $CWD";
 	}
  
 	# handle preview 
@@ -600,15 +602,18 @@ sub addEncyclopedia {
 		dwarn "addEncyclopedia previewEncyclopedia before";
 		previewEncyclopedia($template,$params,$user_info);
 		dwarn "addEncyclopedia previewEncyclopedia after";
+		dwarn "previewEncyclopedia after cwd: $CWD";
 		dwarn "Preview handleFileManager before";
 		handleFileManager($template,$params,$upload);
 		dwarn "Preview handleFileManager after";
+		dwarn "handleFileManager after cwd: $CWD";
 	} 
 
 	elsif (defined($params->{filebox})) {
 		dwarn " handleFileManager before";
 		handleFileManager($template, $params, $upload);
 		dwarn " handleFileManager after";
+		dwarn "handleFileManager after cwd: $CWD";
 	}
  
 	# initial request, return blank form
@@ -634,16 +639,19 @@ sub addEncyclopedia {
 		$template->setKey('preamble', $user_info->{data}->{preamble});
 		dwarn " handleFileManager before";
 		handleFileManager($template, $params);
-		dwarn " handleFileManager after";
+		dwarn "handleFileManager after";
+		dwarn "handleFileManager after cwd: $CWD";
 	}
 	 
 	dwarn "refreshAddEncyclopedia before";
 	refreshAddEncyclopedia($template, $params);
 	dwarn "refreshAddEncyclopedia after";
+	dwarn "refreshAddEncyclopedia after cwd: $CWD";
 
 	$template->addText('</entry>');
 
 	dwarn "addEncyclopedia end";
+	dwarn "addEncyclopedia end cwd: $CWD";
 	return paddingTable(clearBox('Add to the Encyclopedia',$template->expand()));
 }
 
@@ -730,7 +738,7 @@ sub addEncyclopediaHybrid {
 }
 sub addEncyclopediaOld {
 	my ($params,$user_info,$upload) = @_;
- 
+	
 	my $template = new XSLTemplate('addencyclopedia.xsl');
 	my $table = getConfig('en_tbl');
 
@@ -809,9 +817,9 @@ sub deleteSynonyms {
 	# delete existing synonyms if existing record
 	#
 	if (defined $uid) {
-	my ($rv,$sth) = dbDelete($dbh,{FROM=>$index,WHERE=>"tbl='$table' and objectid=$uid and type>1"});
-	
-	$sth->finish();
+		dwarn "Deleting Synonym:\nindex:\n$index\ntable:\n$table\nuid:\n$uid";
+		my ($rv,$sth) = dbDelete($dbh,{FROM=>$index,WHERE=>"tbl='$table' and objectid=$uid and type>1"});
+		$sth->finish();
 	}
 }
 
@@ -872,7 +880,7 @@ sub createSynonyms {
 		my @syns = splitindexterms($synonyms);
 		foreach my $syn (@syns) {
 			#warn "processing synonym $syn";
-			#dwarn "processing synonym (type=$type) $syn";
+			dwarn "processing synonym (type=$type) $syn";
 			$syn =~ s/^\s*//;
 			$syn =~ s/\s*$//;	
 			my $sname = uniquename(swaptitle($syn),$name);
@@ -881,6 +889,7 @@ sub createSynonyms {
 		
 			# insert records into main object index table
 			#
+			dwarn "Create Synonyms:\nindex:\n$index\nuid:\n$uid\ntable:\n$table\nuserid:\n$userid\nsyn:\n$syn\nsname:\n$sname\ntype:\n$type\nsource:\n$source\nichar:\n$ichar";
 			my $sth = $dbh->prepare("insert into $index (objectid,tbl,userid,title,cname,type,source,ichar) values (?,?,?,?,?,?,?,?)");
 			my $rv = $sth->execute($uid, $table, $userid, $syn, $sname, $type, $source, $ichar);
 			$sth->finish();
@@ -921,17 +930,27 @@ sub insertEncyclopedia {
 	my $pronunciation = normalizePronunciation($params->{title}, $params->{pronounce});
 
 	my $table = getConfig('en_tbl'); 
+	dwarn "nextval before";
 	my $next = nextval("${table}_uid_seq");
-	
+	dwarn "nextval after";
+
 	my $cols = 'created, modified,uid,version,type,userid,title,preamble,data,name,related,synonyms,defines,keywords,pronounce,self, parentid';
 
 	my $parentid = undef;
 	if (nb($params->{'parent'})) {
 		$parentid = getidbyname($params->{'parent'});
 	}
-
+	dwarn "insertEncyclopedia:";
+	dwarn "insert into $table ($cols) values (now(), now(), ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	my $sth = $dbh->prepare("insert into $table ($cols) values (now(), now(), ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	my $ouid = $userinf->{'uid'};
+	my $otitle = $params->{'title'};
+	my $opreamble = $params->{'preamble'};
+	my $odata = $params->{'data'};
+	my $oself = $params->{'self'};
 
+	dwarn "insert execute";
+	dwarn "next:\n$next\ntype:\n$type\nuid:\n$ouid\ntitle:\n$otitle\npreamble:\n$opreamble\ndata:\n$odata\nname:\n$name\nrelated:\n$related\nsynonyms:\n$synonyms\ndefines:\n$defines\nkeywords:\n$keywords\npronunciation\n$pronunciation\nparentid:\n$parentid";
 	my $rv = $sth->execute($next, $type, $userinf->{'uid'}, $params->{'title'}, $params->{'preamble'}, $params->{'data'}, $name, $related, $synonyms, $defines, $keywords, $pronunciation, ($params->{'self'} eq 'on' ? 1 : 0), $parentid);
 
 	if (! $rv) {
@@ -942,8 +961,9 @@ sub insertEncyclopedia {
 
 	# take care of files
 	#
+	dwarn "Before moveTempFilesToBox";
 	moveTempFilesToBox($params,$next,getConfig('en_tbl'));
-
+	dwarn "After moveTempFilesToBox";
 	# handle title indexing
 	#
 	indexTitle($table,$params->{id},$userinf->{uid},$params->{title},$name);
@@ -961,11 +981,11 @@ sub insertEncyclopedia {
 	
 	# index this entry (for linking)
 	#
-	wordIndexEntry(getConfig('en_tbl'),$params);
+	#wordIndexEntry(getConfig('en_tbl'),$params);
 
 	# index this entry (for IR)
 	#
-	irIndex(getConfig('en_tbl'),$params);
+	##irIndex(getConfig('en_tbl'),$params);
 
 	# handle classification
 	#
@@ -1119,7 +1139,7 @@ sub previewEncyclopedia {
 	my $name = normalize(swaptitle($params->{'title'}));
 	my $error = '';
 	my $warn = '';
-	
+	dwarn "previewEncyclopedia start cwd: $CWD";
 	my $method = $userinf->{'prefs'}->{'method'} || 'l2h';
 	
 	# check for errors in entered data
@@ -1153,6 +1173,7 @@ sub previewEncyclopedia {
 		$error .= '<hr />'; 
 	}
 	dwarn "previewEncyclopedia ended";
+	dwarn "previewEncyclopedia end cwd: $CWD";
 	$template->setKey('error', $error);
 }
 
@@ -1171,7 +1192,7 @@ sub checkEncyclopediaEntry {
 	# check for lack of classification
 	#
 	if (blank($params->{class}) && getConfig('classification_supported') == 1) {
-		$warn .= "Please classify your entry.	If you need help, try using the <a href=\"".getConfig("main_url")."/?op=mscbrowse\">MSC search</a>.<br />";
+		$warn .= "Please classify your entry.	If you need help, try using the <a href=\"".getConfig("main_url")."/?op=pacsbrowse\">PACS search</a>.<br />";
 	}
 	
 	# check title
@@ -1252,6 +1273,7 @@ sub renderEnPreview {
 	my $method = shift;
 	
 	dwarn "renderEnPreview Started";
+	dwarn "renderEnPreview start cwd: $CWD";
 	my $title = swaptitle($params->{'title'});
 	my $math = $params->{'data'};
 	my $name = normalize(swaptitle($title));
@@ -1281,10 +1303,12 @@ sub renderEnPreview {
 		make_path("$root/$dir/$method", {verbose => 1})
 
 	}
+	dwarn "renderEnPreview before chdr cwd: $CWD";
 	dwarn "changing dir to $root/$dir";
 	##chdir "$root/$dir";
 	#chdir("$root/$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
 	local $CWD = "$root/$dir";  # chdir seems to be crashing mod_perl, looking for worarounds
+	dwarn "renderEnPreview after chdr cwd: $CWD";
 	my @files = <*>;
 	my @methoddirs = getMethods();
 	foreach my $file (@files) {
@@ -1296,7 +1320,9 @@ sub renderEnPreview {
 	dwarn "changing dir to $root";
 	##chdir "$root";
 	#chdir("$root");# or dwarn "ERROR chdir: cannot change: $!\n";
+	dwarn "renderEnPreview before chdr cwd: $CWD";
 	local $CWD = "$root"; 
+	dwarn "renderEnPreview after chdr cwd: $CWD";
 	# remove old rendering file if it exists
 	#
 	my $outfile = getConfig('rendering_output_file');
@@ -1309,6 +1335,7 @@ sub renderEnPreview {
 	# do the rendering
 	#
 	dwarn "prepareEntryForRendering before call";
+	dwarn "renderEnPreview before prepareEntryForRendering cwd: $CWD";
 	my ($latex,$links) = prepareEntryForRendering($newent,
 		$params->{'preamble'},
 		$math,
@@ -1320,8 +1347,10 @@ sub renderEnPreview {
 		defined $params->{'id'} ? $params->{'id'} : '0',
 		$params->{'class'});
 	dwarn "prepareEntryForRendering after call";
+	dwarn "renderEnPreview after prepareEntryForRendering cwd: $CWD";
 	my $table = getConfig('en_tbl');
 	renderLaTeX('.', $dir, $latex, $method, $name);
+	dwarn "renderEnPreview after renderLaTeX cwd: $CWD";
 	
 	# if we succeeded, show preview
 	#
@@ -1345,7 +1374,7 @@ sub renderEnPreview {
 # get a little associations guidelines screen 
 #
 sub getAssocGuidelines {
-	my $guidelines = new Template('assoc_guidelines.html');
+	my $guidelines = new TemplateNS('assoc_guidelines.html');
 
 	return paddingTable(clearBox('Association Guidelines', $guidelines->expand()));
 }
@@ -1353,9 +1382,9 @@ sub getAssocGuidelines {
 # get a little latex guidelines screen 
 #
 sub getLatexGuidelines {
-	my $guidelines = new Template('latex_guidelines.html');
+	my $guidelines = new TemplateNS('latex_guidelines.html');
 	my $file = getConfig('entry_template');
-	my $latextemplate = new Template($file);
+	my $latextemplate = new TemplateNS($file);
 
 	$latextemplate->setKeys('packages' => '$packages', 'preamble' => '$preamble', 'math' => '$math');
 	$guidelines->setKey('template', $latextemplate->expand());

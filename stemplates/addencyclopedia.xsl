@@ -67,7 +67,7 @@
 		<xsl:if test="//globals/classification_supported = 1">
 			<br /> <br />
 
-			Classification (See <a target="planetphysics.popup" href="{//globals/main_url}/?op=mscbrowse">PACS</a>):
+			Classification (See <a target="planetphysics.popup" href="{//globals/main_url}/?op=pacsbrowse">PACS</a>):
 
 			<br />
 		
@@ -80,7 +80,7 @@
 		
 			<br />
 
-			<font size="-2">(examples: "msc:11F02", "msc:11F02, msc:11F03, msc:05R16". "msc:" can be ommitted, assumed by default.)</font>
+			<font size="-2">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be ommitted, assumed by default.)</font>
 		</xsl:if>
 
 		<br /> <br />

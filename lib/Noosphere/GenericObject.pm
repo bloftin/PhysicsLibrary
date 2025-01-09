@@ -339,7 +339,7 @@ sub renderGeneric {
 	my $userinf = shift;
 	my $rec = shift;
 
-	my $outertemplate = new Template('genericobj.html');
+	my $outertemplate = new TemplateNS('genericobj.html');
 	my $template = new XSLTemplate('genericobj.xsl');
 
 	my $interact = makeBox('Interact', getGenericInteract($params->{from}, $rec));

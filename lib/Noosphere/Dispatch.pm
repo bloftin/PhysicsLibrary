@@ -79,7 +79,7 @@ sub dispatch {
   # msc stuff
   #
   'mscsearch' => \&mscSearch,
-  'mscbrowse' => \&mscBrowse,
+  'pacsbrowse' => \&pacsBrowse,
  
   # user info
   #
@@ -237,6 +237,7 @@ sub dispatch {
   'about' => \&getAbout,
   'feedback' => \&getFeedback,
   'sitedoc' => \&siteDoc,  # collaborative site docs
+  'templatetestperl' => \&templateTestPerl,  # A page dedicated to Template Toolkit testing
 
   # misc
   #

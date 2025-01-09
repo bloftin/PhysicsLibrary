@@ -97,7 +97,7 @@ sub printclass {
 			my $fss = $fs-1;
 			$desc = "<font size=\"$fss\">(".getHierarchicalMscComment($row->{cat}).")</font>";
 		}
-		$html .= "<td><font size=\"$fs\"><a href=\"".getConfig("main_url")."/?op=mscbrowse&amp;from=$tbl&amp;id=$row->{cat}\">$row->{cat}</a> $desc</font></td>";
+		$html .= "<td><font size=\"$fs\"><a href=\"".getConfig("main_url")."/?op=pacsbrowse&amp;from=$tbl&amp;id=$row->{cat}\">$row->{cat}</a> $desc</font></td>";
 		$html .= "</tr>";
 	}
 

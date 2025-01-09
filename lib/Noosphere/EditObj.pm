@@ -9,7 +9,7 @@ sub genericEditor {
 	my $userinf = shift;
 	my $upload = shift;
 	
-	my $template = new Template('genericedit.html');
+	my $template = new TemplateNS('genericedit.html');
 	my $schemas = getConfig('generic_schema');
 	my $schema = $schemas->{$params->{from}};
 

@@ -1352,13 +1352,14 @@ sub xrefTitleInvalidate {
 
 	my $wid = getwid($words[0]);
  
-	#dwarn "*** xref: invalidating for new title $title" if ($DEBUG);
-	#dwarn "*** xref: first word is $wid";
+	dwarn "*** xref: invalidating for new title $title" if ($DEBUG);
+	dwarn "*** xref: first word is $wid";
 	
 	return if (not $wid);
 
 	# select objects that contain the first significant word
 	#
+	dwarn "xrefTitleInvalidate select objects that contain the first sig word: widx:\n$widx\nwid:\n$wid\ntbl:\n$table";
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'distinct objectid',FROM=>$widx,WHERE=>"wid=$wid and tbl='$table'"});
 	
 	# go through and invalidate them all
@@ -1366,6 +1367,7 @@ sub xrefTitleInvalidate {
 	while (my $row = $sth->fetchrow_hashref()) {
 		# TODO: somehow we need to be able to kill a process which might 
 		# be building this object (the build flag would be on but valid off)
+		dwarn "xrefTitleInvalidate invalidate";
 		setbuildflag_off($table,$row->{objectid});
 		setvalidflag_off($table,$row->{objectid});
 	}

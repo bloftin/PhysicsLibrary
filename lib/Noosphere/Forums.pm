@@ -21,7 +21,7 @@ sub getForumsTop {
 	}
 
 	my @rows = dbGetRows($sth);
-	my $template = new Template('forums_main.html');
+	my $template = new TemplateNS('forums_main.html');
 	
 	if (@rows) {
 		$index .= "<dl>";
@@ -48,7 +48,7 @@ sub renderForum {
 	my $rec = shift;
 	my $table = getConfig('forum_tbl');
 	
-	my $template = new Template('forumobj.html');
+	my $template = new TemplateNS('forumobj.html');
 	
 	my $forumobj = clearBox("Forum: $rec->{title}","<center>Welcome to the $rec->{title} forum!</center><hr width=\"100%\" size=1 noshade>".$rec->{data}."<p><center>[ <a href=\"".getConfig("main_url")."/?op=forums\">back to forums top</a> ]</center>");
 	

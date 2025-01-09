@@ -1,12 +1,13 @@
 package Noosphere;
 use strict;
 use Cwd qw(chdir);
-use File::Path qw(make_path); 
+use File::Path qw(make_path remove_tree); 
 use File::Copy::Recursive qw(pathrm);
 use Unicode::String qw(latin1 utf8 utf16);
 use Config;
 use constant PERLIO_IS_ENABLED => $Config{useperlio};
 use vars qw{%ICHAR_TO_ASCII %ICHAR_TO_HTML $DEBUG $dbh};
+use File::chdir;
 
 # table to convert ISO-8859-1 chars into ASCII.
 #
@@ -303,7 +304,7 @@ sub octify {
 sub chdirFileBox {
 	my $table = shift;
 	my $id = shift;
-
+	warn "chdriFile Box Started";
 	my $fileroot = getConfig('file_root'); 
 	my $cwd = getcwd();; 
 	chomp $cwd; 
@@ -507,6 +508,21 @@ sub lookuptitle {
 sub nextval {
 	my $sequence = shift;
 	
+	if (getConfig('dbms') eq 'MariaDB') {
+		# insert dummy row
+		my $sth = $dbh->prepare("insert into $sequence values()");
+		$sth->execute();
+
+		# get id of primary key
+		my $iid = $sth->last_insert_id();
+		$sth->finish();
+
+		# clean up so table doesn't grow without bound
+		$dbh->do("delete from $sequence where val < $iid");
+
+		return $iid;
+	}
+
 	if (getConfig('dbms') eq 'pg') {
 		my ($rv,$sth) = dbLowLevelSelect($dbh,"select nextval('$sequence')");
 		my $row = $sth->fetchrow_hashref();
@@ -515,9 +531,10 @@ sub nextval {
 		return $row->{'nextval'};
 	}
 
+
 	# 'simulate' sequences in mysql (using tables)
 	#
-	if ((getConfig('dbms') eq 'mysql') or (getConfig('dbms') eq 'MariaDB')) {
+	if (getConfig('dbms') eq 'mysql') {
 		
 		# insert dummy row
 		my $sth = $dbh->prepare("insert into $sequence values()");
@@ -532,6 +549,7 @@ sub nextval {
 
 		return $iid;
 	}
+	
 }
 
 # convert a number to the corresponding ascii string 
@@ -893,10 +911,10 @@ sub getidbyname {
 sub removeTempCacheDir {
 	my $cachedir=shift;
 	my $root=getConfig('cache_root');
-
+	dwarn "curernt directory in removeTempCacheDir $CWD";
 	return if ((not defined($cachedir)) or $cachedir eq "");
-
-	pathrm("$root/$cachedir");
+	dwarn "removeTempCacheDir: $root/$cachedir";
+	remove_tree("$root/$cachedir");
 }
 
 # get a temporary cache directory name
@@ -1008,7 +1026,7 @@ sub objectTitleByName {
 }
 
 sub loginExpired {
-	my $template=new Template('error.html');
+	my $template=new TemplateNS('error.html');
 	
 	$template->setKey('error', 'Login Expired');
 

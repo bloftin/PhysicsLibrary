@@ -67,7 +67,7 @@ use Noosphere::Help;
 use Noosphere::Requests;
 use Noosphere::Watches;
 use Noosphere::IR;
-use Noosphere::Template;
+use Noosphere::TemplateNS;
 use Noosphere::FileCache;
 use Noosphere::Pronounce;
 use Noosphere::Orphan;

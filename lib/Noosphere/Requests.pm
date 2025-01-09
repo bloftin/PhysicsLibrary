@@ -276,7 +276,7 @@ sub addReq {
 
 	return needAccount() if ($userinf->{'uid'} <= 0);
 	
-	my $template=new Template('addreq.html');
+	my $template=new TemplateNS('addreq.html');
 	my $error='';
 
 	if (defined $params->{submit}) {
@@ -390,7 +390,7 @@ sub updateReq {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $template = new Template("updatereq.html");
+	my $template = new TemplateNS("updatereq.html");
 	my $error = '';
 
 	return errorMessage("You have to be logged in for this!") if ($userinf->{uid} <= 0);
@@ -593,7 +593,7 @@ sub getReq {
 
 	my $id = $params->{id};
 
-	my $template = new Template('reqobj.html');
+	my $template = new TemplateNS('reqobj.html');
 
 	my $html = '';
 	my $table = getConfig('req_tbl');

@@ -170,7 +170,7 @@ sub getObj {
 sub renderNews {
 	my $rec = shift;
 
-	my $html = new Template('newsobj.html');
+	my $html = new TemplateNS('newsobj.html');
 
 	my $newsbox = clearBox($rec->{'title'},formatnewsitem_full($rec));
 	my $interact = makeBox('Interact',getNewsInteract($rec));

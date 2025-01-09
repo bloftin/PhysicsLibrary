@@ -1,7 +1,7 @@
 package Noosphere;
 
 use strict;
-use Noosphere::Template;
+use Noosphere::TemplateNS;
 
 # take a table and object ID and return the path fragment leading to that 
 # object's cache directory
@@ -192,7 +192,7 @@ sub moveTempFilesToBox {
 	#
 	dwarn "*** move temp files to box: changing to dir $source";
 	##chdir "$source";
-	chdir("$source") or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD ="$source" or dwarn "ERROR chdir: cannot change: $!\n";
 	$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
 	my $dir = `pwd`;
 	$dir =~ s/\s*$//;
@@ -225,7 +225,7 @@ sub handleFileManager {
 	my $params = shift;
 	my $upload = shift;
 	
-	my $ftemplate = new Template('filemanagerform.html');
+	my $ftemplate = new TemplateNS('filemanagerform.html');
 	my $table = $params->{'from'};
 	my $dest = '';
 	my $ferror = '';

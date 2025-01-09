@@ -33,7 +33,7 @@ sub replyMail	{
 	
 	return needAccount() if $userinf->{'uid'} <= 0;
 
-	my $template = new Template('replymail.html');
+	my $template = new TemplateNS('replymail.html');
 	my $error = '';
 
 	if (defined $params->{post}) {
@@ -215,7 +215,7 @@ sub mailBox {
 	my $params = shift;
 	my $userinf = shift;
 	
-	my $template = new Template('mailbox.html');
+	my $template = new TemplateNS('mailbox.html');
 	my $list = '';
 
 	return errorMessage('Must be logged in to use mail') if ($userinf->{uid} < 1);
@@ -265,7 +265,7 @@ sub sentMail {
 	my $userinf = shift;
 	
 	my $scale = 2;
-	my $template = new Template('pmsentmail.html');
+	my $template = new TemplateNS('pmsentmail.html');
 	my $offset = $params->{'offset'} || 0;
 	my $limit = int($userinf->{'prefs'}->{'pagelength'} / $scale);
 
@@ -335,7 +335,7 @@ sub oldMail {
 	my $params = shift;
 	my $userinf = shift;
 	
-	my $template = new Template('oldmail.html');
+	my $template = new TemplateNS('oldmail.html');
 	my $list = '';
 	my $scale = 2;
 	my $offset = $params->{'offset'} || 0;
@@ -397,7 +397,7 @@ sub sendMailForm {
 	my $params = shift;
 	my $userinf = shift;
 	
-	my $template = new Template('sendmail.html');
+	my $template = new TemplateNS('sendmail.html');
 	my $error = '';
 
 	return needAccount() if $userinf->{'uid'} <= 0;

@@ -19,7 +19,7 @@ sub pwChange {
     return errorMessage("Invalid password change URL.");
   }
   
-  my $template = new Template('pwchange.html');
+  my $template = new TemplateNS('pwchange.html');
 
   # handle submission
   #
@@ -66,7 +66,7 @@ sub changePassword {
 sub pwChangeRequest {
   my $params = shift;
 
-  my $template = new Template('reqpwchange.html');
+  my $template = new TemplateNS('reqpwchange.html');
   my $error = "";
 
   if (defined $params->{submit}) {

@@ -175,7 +175,7 @@ sub singleRenderLaTeX {
 	# do the rendering
 	#
 	require Noosphere::Template;
-	my $template = new Template($prefix . "_$variant.tex");
+	my $template = new TemplateNS($prefix . "_$variant.tex");
 	$template->setKey('math', $math);
 	writeFile("$dir/single_render.tex", $template->expand());
 	##chdir $dir;
@@ -352,6 +352,7 @@ sub renderLaTeX {
 	##chdir $cwd;
 	#chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
 	#local $CWD = "$cwd"; # we should not have to do this, the local $CWD should go back once scope leaves but need to test first
+	#local $CWD = "$path"; 
 }
 
 # do a non-fonts render just to check syntax of LaTeX

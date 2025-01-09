@@ -232,7 +232,7 @@ sub updateGracePeriod {
 sub rejectCorrection {
 	my $params = shift;
 	my $userinf = shift;
-	my $template = new Template('rejectcor.html');
+	my $template = new TemplateNS('rejectcor.html');
 
 	# process rejection
 	#
@@ -257,7 +257,7 @@ sub retractCorrectionUI {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $template = new Template('retractcor.html');
+	my $template = new TemplateNS('retractcor.html');
 
 	# process retraction 
 	#
@@ -766,7 +766,7 @@ sub renderCorrection {
 	my $pending = 0;
 	my $table = getConfig('en_tbl');
 
-	my $template = new Template('corobj.html');
+	my $template = new TemplateNS('corobj.html');
 	 
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>"corrections.*,users.username,$table.userid as ownerid",
 		FROM=>"corrections,users,$table",
@@ -983,7 +983,7 @@ sub postCorrection {
 	my $params = shift;
 	my $userinf = shift;
 	
-	my $template = new Template('correct.html');
+	my $template = new TemplateNS('correct.html');
 	my $error = '';
 	my $table = getConfig('en_tbl');
 	my %obj;

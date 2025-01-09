@@ -6,7 +6,7 @@ use Noosphere::FileCache;
 # Template::new - retrieve a template object (load from file if necessary)
 # Contrast with "getTemplate"
 #
-sub Template::new
+sub TemplateNS::new
 {
 	my ($class, $file) = @_;
 	my $tpath = getConfig("stemplate_path");
@@ -39,7 +39,7 @@ sub templateFromText
 # Template::resetKeys - clears all keys in a template object and resets the
 # basic default keys (.*siteaddr, etc.)
 #
-sub Template::resetKeys
+sub TemplateNS::resetKeys
 {
 	my $tobj = shift;
 	my $addrhash = getConfig("siteaddrs");
@@ -63,7 +63,7 @@ sub Template::resetKeys
 
 # Template::setKey - associates a value with a key in the given template
 #
-sub Template::setKey
+sub TemplateNS::setKey
 {
 	my ($tobj, $key, $value) = @_;
 
@@ -72,7 +72,7 @@ sub Template::setKey
 
 # Template::setKeys - given a hash, sets keys for each keypair
 #
-sub Template::setKeys
+sub TemplateNS::setKeys
 {
 	my ($tobj, %param) = @_;
 
@@ -84,7 +84,7 @@ sub Template::setKeys
 # Template::setKeyIfUnset - associates a value with a key only if no
 # association already exists
 #
-sub Template::setKeyIfUnset
+sub TemplateNS::setKeyIfUnset
 {
 	my ($tobj, $key, $value) = @_;
 
@@ -94,7 +94,7 @@ sub Template::setKeyIfUnset
 # Template::setKeysIfUnset - given a hash, sets keys for each keypair that
 # isn't already set
 #
-sub Template::setKeysIfUnset
+sub TemplateNS::setKeysIfUnset
 {
 	my ($tobj, %param) = @_;
 
@@ -106,7 +106,7 @@ sub Template::setKeysIfUnset
 # Template::unsetKey - disassociates a key from any value in the given
 # template
 #
-sub Template::unsetKey
+sub TemplateNS::unsetKey
 {
 	my ($tobj, $key) = @_;
 
@@ -116,7 +116,7 @@ sub Template::unsetKey
 # Template::unsetKeys - disassociates keys in the list from any values in
 # the given template
 #
-sub Template::unsetKeys
+sub TemplateNS::unsetKeys
 {
 	my $tobj = shift;
 	my @ids = @_;
@@ -129,7 +129,7 @@ sub Template::unsetKeys
 # Template::expand - expands all template parameters in the template object's
 # text and returns the expansion
 #
-sub Template::expand
+sub TemplateNS::expand
 {
 	my $tobj = shift;
 	my $text = $tobj->{"TEXT"};
@@ -206,7 +206,7 @@ sub templateExpandDefaults
 # Template::requestsKey - returns true if the template text has a tag
 # corresponding to the given key
 #
-sub Template::requestsKey
+sub TemplateNS::requestsKey
 {
 	my ($tobj, $key) = @_;
 
@@ -217,7 +217,7 @@ sub Template::requestsKey
 sub templateTest
 {
 	my ($params, $user_info) = @_;
-	my $tobj = new Template("supertest.html");
+	my $tobj = new TemplateNS("supertest.html");
 
 	foreach my $key (keys %$params) {
 		$tobj->setKey($key, $params->{$key});

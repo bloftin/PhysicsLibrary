@@ -1,11 +1,12 @@
 package Noosphere;
 
 use strict;
-use Noosphere::Template;
-#use Cwd;
+use Noosphere::TemplateNS;
+use Cwd;
 use File::chdir;
-use File::Path qw(make_path); 
-use Cwd qw(chdir);
+use File::Path qw(make_path remove_tree); 
+use File::Remove 'remove';
+###use Cwd qw(chdir);
 use File::Copy::Recursive qw(rcopy pathrm rmove);
 
 # determine if a directory is "bad"; either nonexistant, equal to root
@@ -102,6 +103,7 @@ sub copyBoxFilesToTemp {
 	my $table = shift;
 	my $params = shift;
 
+	dwarn "copyBoxFilesToTemp  start cwd: $CWD";
 	my $id = $params->{'id'};
 	my $fileroot = getConfig('file_root');
 	my $cacheroot = getConfig('cache_root');
@@ -115,7 +117,7 @@ sub copyBoxFilesToTemp {
 
 	#system("cp -r $source/* $dest");
 	rcopy_glob("$source/*", $dest) or dwarn "Problem copying Box Files to Temp: $!";
-
+	dwarn "copyBoxFilesToTemp  end cwd: $CWD";
 }
 
 # moveTempFilesToBox - move temporary cache dir files to file box.
@@ -141,10 +143,12 @@ sub moveTempFilesToBox {
 	my $source = "$cacheroot/$params->{tempdir}";
 	
 	# make sure file box directory exists and is clear
-	#
+	dwarn "source:\n$source\ndest:\n$dest";
 	if (-e $dest) {
-		pathrm("$dest/*");
+		dwarn "destination exists, remove all files in $dest";
+		remove("$dest/*");
 	} else {
+		dwarn "destination does not exist, make";
 		make_path("$dest", {verbose => 1});
 	}
 
@@ -152,9 +156,11 @@ sub moveTempFilesToBox {
 	#
 	dwarn "*** move temp files to box: changing to dir $source";
 	##chdir "$source";
-	chdir("$source");# or dwarn "ERROR chdir: cannot change: $!\n";
+	##chdir("$source");# or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD = "$source";
 	my $dir = getcwd();
 	$dir =~ s/\s*$//;
+	dwarn "temp dir to remove: $dir";
 	if (baddir($dir)) {
 		dwarn "*** move temp files to box: failed to change to dir $source, ended up in root! aborting.";
 	return;
@@ -163,15 +169,21 @@ sub moveTempFilesToBox {
 	my @methoddirs = getMethods();
 	foreach my $file (@files) {
 		if (not inset($file,@methoddirs)) {
+			dwarn "attempt to move $file,$dest";
 			rmove($file, $dest);
 		} else {
-			pathrm("$file");
+			dwarn "attempt to remove $file, all is removed in removeTempCacheDir";
+			#remove_tree("$file");
+			#pathrm("$file");
 		}
 	}
 
 	# clean up cache dir
 	#
-	removeTempCacheDir($params->{'tempdir'});
+	local $CWD = $cacheroot;
+	dwarn "curernt directory $CWD";
+	#removeTempCacheDir($params->{'tempdir'});
+	dwarn "curernt directory after removeTempCacheDir: $CWD";
 }
 
 # handleFileManager - get files, display manager, uses new template system
@@ -181,7 +193,7 @@ sub handleFileManager {
 	my $params = shift;
 	my $upload = shift;
 	
-	my $ftemplate = new Template('filemanagerform.html');
+	my $ftemplate = new TemplateNS('filemanagerform.html');
 	my $table = $params->{'from'};
 	my $dest = '';
 	my $ferror = '';
@@ -359,14 +371,14 @@ sub wget {
 	my $source = shift;	 # source url to download from
 	my $dest = shift;		# local location (directory) to place file in
 	my $cmd = getConfig('wgetcmd');
-	my $cwd = getcwd();
+	#my $cwd = getcwd();
 	dwarn "Wget strted: probably wont work";
 	if (not -d $dest) {
 		return 0;
 	}
 
 	##chdir $dest;
-	chdir("$dest");# or dwarn "ERROR chdir: cannot change: $!\n"; 
+	local $CWD ="$dest";# or dwarn "ERROR chdir: cannot change: $!\n"; 
 	
 	
 	my @args = split(/\s+/,$cmd);
@@ -375,7 +387,7 @@ sub wget {
 
 	my $ret = (($?>>8)==0)?1:0;
 	##chdir $cwd;
-	chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n"; 
+	#local $CWD ="$cwd";# or dwarn "ERROR chdir: cannot change: $!\n"; 
 
 	return $ret;
 }

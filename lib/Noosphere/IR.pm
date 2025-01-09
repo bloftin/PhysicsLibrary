@@ -108,51 +108,51 @@ sub irIndex {
 
 	# start searchclient connection
 	#
-	my $se;
-	$se = SearchClient->new(Sock => getConfig('searchd_sock'))
-		if $mode eq 'normal';
-	$se = SearchClient->new(Sock => getConfig('searchd_test_sock'))
-		if $mode eq 'test';
+	##my $se;
+	##$se = SearchClient->new(Sock => getConfig('searchd_sock'))
+	##	if $mode eq 'normal';
+	##$se = SearchClient->new(Sock => getConfig('searchd_test_sock'))
+	##	if $mode eq 'test';
 
-	if (not defined $se) {
-		warn "couldn't start search client";
-		return;
-	}
+	##if (not defined $se) {
+	##	warn "couldn't start search client";
+	##	return;
+	##}
 
 	# delete any existing indexed chunks for this record
 	#
-	$se->unindex($indexid);
+	##$se->unindex($indexid);
 
 	# loop through each field, indexing them under this identifier
 	#
-	foreach my $field (keys %$fields) {
-		my $indexfield = $fields->{$field};
+	# foreach my $field (keys %$fields) {
+	# 	my $indexfield = $fields->{$field};
 
-		my $text = $row->{$field};
+	# 	my $text = $row->{$field};
 
-		# hack to look up what we really want for "related" 
-		# (the titles of the entries we're referring to)
-		#
-		if ($table eq getConfig('en_tbl') && $field eq 'related') {
-			$text = getTitleStrings($row->{$field});
-		}
+	# 	# hack to look up what we really want for "related" 
+	# 	# (the titles of the entries we're referring to)
+	# 	#
+	# 	if ($table eq getConfig('en_tbl') && $field eq 'related') {
+	# 		$text = getTitleStrings($row->{$field});
+	# 	}
 	
-		# get a cleaned and translated wordlist
-		#
-		my @wordlist = irWordList($text);
+	# 	# get a cleaned and translated wordlist
+	# 	#
+	# 	my @wordlist = irWordList($text);
 
-		next if ($#wordlist < 0);
+	# 	next if ($#wordlist < 0);
 
-		# do the indexing
-		#
-		#warn "indexing words for $indexid, $indexfield";
-		$se->index($indexid, $indexfield, [@wordlist]) 
-            or return 0; # failure
-	}
+	# 	# do the indexing
+	# 	#
+	# 	#warn "indexing words for $indexid, $indexfield";
+	# 	$se->index($indexid, $indexfield, [@wordlist]) 
+    #         or return 0; # failure
+	# }
 
 	# close search engine connection
 	#
-	$se->finish();
+	##$se->finish();
 
     return 1; # success
 }

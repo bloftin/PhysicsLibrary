@@ -7,7 +7,7 @@ require Noosphere::Encyclopedia;
 require Noosphere::Crossref;
 require Noosphere::Layout;
 require Noosphere::Latex;
-require Noosphere::Template;
+require Noosphere::TemplateNS;
 
 # entry point for getting an image which is a single TeX math object.
 #
@@ -167,8 +167,9 @@ sub prepareEntryForRendering {
 	my $id = shift;
 	my $class = shift;
 	
+	dwarn "prepareEntryForRendering start cwd: $CWD";
 	my $file = getConfig('entry_template');
-	my $template = new Template($file);	
+	my $template = new TemplateNS($file);	
  
 	# handle cross-referencing 
 	#
@@ -196,6 +197,8 @@ sub prepareEntryForRendering {
 	#
 	$template->setKeys('preamble' => $preamble, 'math' => $latex);
 	if (nb($packages)) { $template->setKey('packages', $packages) if (nb($packages)); }
+
+	dwarn "prepareEntryForRendering end cwd: $CWD";
 
 	if ( $method eq "src" ) {
 		return ($latex,$links);

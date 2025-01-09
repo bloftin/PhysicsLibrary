@@ -2,6 +2,7 @@ package Noosphere;
 
 use strict;
 use Socket;
+use Template;
 
 # a settings "main menu" screen.  enables us to unload things from the userbox.
 #
@@ -50,14 +51,9 @@ sub changeUserScore {
  
 	# TODO - we need a transaction here for updating both rows at the same time
 	#
-	my ($rv,$sth)=dbUpdate($dbh,{WHAT=>'users',
-															 SET=>"score=score+$delta",
-								 WHERE=>"uid=$id"});
+	my ($rv,$sth)=dbUpdate($dbh,{WHAT=>'users',SET=>"score=score+$delta",WHERE=>"uid=$id"});
 	$sth->finish();
-	($rv,$sth)=dbInsert($dbh,{INTO=>'score',
-															 COLS=>'userid,delta',
-								 VALUES=>"$id,$delta"});
-	
+	($rv,$sth)=dbInsert($dbh,{INTO=>'score',COLS=>'userid,delta',VALUES=>"$id,$delta"});
 	$sth->finish();
 
 	# invalidate top user statistics
@@ -446,7 +442,7 @@ sub userGenericList {
 sub editUserPrefs {
 	my ($params, $user_info) = @_;
  
-	my $content = new Template('editprefs.html');
+	my $content = new TemplateNS('editprefs.html');
 	my $prefs = $user_info->{'prefs'};
 	my $groupings = getConfig('prefs_groupings');
 	my $inputs = '';
@@ -489,7 +485,7 @@ sub editUserPrefs {
 sub editUserData {
  my ($params, $user_info) = @_;
  
- my $content = new Template('edituser.html');
+ my $content = new TemplateNS('edituser.html');
  my $data = $user_info->{'data'};
  my $html = '';
 
@@ -631,12 +627,74 @@ sub getUser_wrapper {
 
 	my $template = getUser($params, $userinf);
 
-	return $template->expand();
+	return $template;
 }
 
 # getUser - get/display a user's info
 #
 sub getUser {
+	my $params = shift;
+	my $userinf = shift;
+
+	dwarn "getUser start";
+	my $id = $params->{id};
+	my $htmlout = '';
+
+	my $isadmin = ($userinf->{data}->{access} >= getConfig('access_admin'));
+	my $loggedin = ($userinf->{uid} > 0);
+	my $loggedinvalue = $userinf->{uid};
+	dwarn "logged in: $loggedinvalue";
+
+	# extract info
+	#
+	(my $rv, my $sth) = dbSelect($dbh,{WHAT => '*', 
+									FROM => 'users',
+									WHERE => "users.uid=$id"});
+
+	my $rec = $sth->fetchrow_hashref();	
+
+	my $mc = getrowcount('messages',"userid=$rec->{uid}");
+	my $msg_link = "".getConfig("main_url")."/?op=usermsgs;id=$rec->{uid}";
+	my $oc = getrowcount(getConfig('index_tbl'),"userid=$rec->{uid} and type = 1 and tbl != 'users'");
+	my $obj_link = "".getConfig("main_url")."/?op=userobjs;id=$rec->{uid}";
+	my $crc = getCorrectionsReceivedCount($rec->{uid});
+	my $crc_link = "".getConfig("main_url")."/?op=usercorsr;id=$rec->{uid}";
+	my $cfc = getCorrectionsFiledCount($rec->{uid});
+	my $cfc_link = "".getConfig("main_url")."/?op=usercorsf;id=$rec->{uid}";
+	my $uname = urlescape($rec->{'username'});
+	my $pmail = getConfig("main_url")."/?op=sendmail&amp;sendto=$uname";
+	
+	my $file = 'dispuser.tt';
+
+	my $vars = {
+        userID        => $id,
+		isadmin       => $isadmin,
+		loggedin      => $loggedin,
+		parsePrefs    => \&parsePrefs,
+		mc            => $mc,
+		oc            => $oc,
+		crc           => $crc,
+		cfc           => $cfc,
+		pmail         => $pmail,
+		msg_link      => $msg_link,
+		obj_link      => $obj_link,
+		crc_link      => $crc_link,
+		cfc_link      => $cfc_link,
+		my_dbh_ref    => $dbh,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
+	dwarn "template html:\n$htmlout\nreturn value:\n$ret";
+	dwarn "getUser end";
+    return $htmlout;
+
+}
+sub getUserOld {
 	my $params = shift;
 	my $userinf = shift;
 	

@@ -122,7 +122,7 @@ sub getLoginBoxOld {
 
 	if (defined $user_info->{'ticket'} && $user_info->{'uid'} > 0) {
 		$boxtitle = $data->{'username'};
-		$login = new Template('userbox.html');
+		$login = new TemplateNS('userbox.html');
 
 		# handle counts 
 		#
@@ -144,7 +144,7 @@ sub getLoginBoxOld {
 	}
 	else {
 		$boxtitle = 'Login';
-		$login = new Template('login.html');
+		$login = new TemplateNS('login.html');
 		my $error = 'login error';
 
 		# handle deactivated account situation
@@ -203,7 +203,7 @@ sub getLoginBox {
 
 		return $loginbox;
 		return "ERROR\n";
-		$login = new Template('userbox.html');
+		$login = new TemplateNS('userbox.html');
 
 #		$login->setKey('bullet', getBullet());
 #		$login->setKey('id',$user_info->{uid});
@@ -222,7 +222,7 @@ sub getLoginBox {
 		return $loginbox;
 
 		$boxtitle = 'Login';
-		$login = new Template('login.html');
+		$login = new TemplateNS('login.html');
 		my $error = 'login error';
 
 		# handle deactivated account situation

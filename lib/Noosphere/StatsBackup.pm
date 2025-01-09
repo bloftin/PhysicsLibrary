@@ -355,7 +355,7 @@ sub getTopUsers {
 	$topa .= "</font>\n";
 	$topw .= "</font>\n";
 
-	my $template = new Template("topusers.html");
+	my $template = new TemplateNS("topusers.html");
 
 	$template->setKeys('alltime' => $topa, 'twoweeks' => $topw);
 

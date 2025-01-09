@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>PACS Browser</title>
+  </head>
+  <body>
+    [% USE DBI( dbh = my_dbh_ref ) %]
+    <p> idSwitch: [% idSwitch %] </p>    
+    <p> domainSwitch: [% domainSwitch %] </p>    
+    <p>[% category %]:  </p>
+    [% IF domainSwitch %]
+      [% FOREACH pacs = DBI.query("select msc.id, msc.comment from msc where (msc.id like '%-XX') order by msc.id") %]
+        <p> [% pacs.id %], [% pacs.comment %]  </p>
+      [% END %]
+    #[% ELSE %]
+    #  content
+    #[% END %]
+    [% FOREACH pacs = DBI.query("select * from msc") %]
+      <p> [% pacs.id %], [% pacs.comment %]  </p>
+    [% END %]
+    <div class="footer">
+      This is the footer.
+    </div>
+  </body>
+</html>

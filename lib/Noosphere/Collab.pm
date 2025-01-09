@@ -1,11 +1,47 @@
 package Noosphere;
 use strict;
 use File::Path qw(make_path); 
-use Cwd qw(chdir);
+use File::chdir;
 use File::Copy qw( copy );
 use File::Remove 'remove';
+use Template;
+use vars qw{$dbh $DEBUG};
 
 require Noosphere::Util;
+
+sub templateTestPerl
+{
+	my $params = shift;
+	dwarn "templateTestPerl start";
+	my @pacs_ids;
+
+	my ($rv,$sth)=Noosphere::dbSelect($dbh,{WHAT=>'*',FROM=>'msc'});
+
+	my @rows = dbGetRows($sth);
+
+	foreach my $row (@rows) {
+		my $rowID = $row->{id};
+		push(@pacs_ids,  $rowID);
+	}
+
+    my $file = 'greeting.tt';
+	my $htmlout = "";
+    my $vars = {
+        message  => "Hello World\n",
+		pacs_id  => \@pacs_ids,
+		my_dbh_ref => $dbh,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
+	#dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
+	dwarn "templateTestPerl end";
+    return $htmlout;
+}
 
 # collaborative site documentation center.
 #
@@ -409,7 +445,7 @@ sub renderCollab {
 
 	$template->expand();
 
-	my $outertemplate = new Template('collabobj.html');
+	my $outertemplate = new TemplateNS('collabobj.html');
 
 	$outertemplate->setKey('collab', $template->expand());
 
@@ -735,7 +771,7 @@ sub renderCollabPreview {
 		make_path("$root/$dir/$method", {verbose => 1});
 	}
 	##chdir "$root/$dir";
-	chdir("$root/$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
+	$CWD = "$root/$dir";# or dwarn "ERROR chdir: cannot change: $!\n";
 	my @files = <*>;
 	my @methoddirs = getMethods();
 	foreach my $file (@files) {
@@ -744,7 +780,8 @@ sub renderCollabPreview {
 		}
 	}
 	##chdir "$root";
-	chdir("$root");# or dwarn "ERROR chdir: cannot change: $!\n";
+	$CWD = "$root";
+	##chdir("$root");
 	
 	# remove old rendering file if it exists
 	#

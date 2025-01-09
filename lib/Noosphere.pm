@@ -236,8 +236,8 @@ sub fillInSideBars {
 	dwarn("fillInSideBars Started");
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
-	my $sidebar = new Template("sidebar.html");
-	my $rightbar = new Template("rightbar.html");
+	my $sidebar = new TemplateNS("sidebar.html");
+	my $rightbar = new TemplateNS("rightbar.html");
 	my $login = getLoginBox($userinf);
 	$sidebar->setKey('login', $login);
 	my $search = getSearchBox($params);
@@ -262,7 +262,7 @@ sub fillInLeftBar {
 	dwarn("fillInLeftBar Started");
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
-	my $sidebar = new Template("sidebar.html");
+	my $sidebar = new TemplateNS("sidebar.html");
 	
 	my $login = getLoginBox($userinf);
 	dwarn("Before getMainMenu Started");
@@ -288,7 +288,7 @@ sub headerAndCSS {
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
 	#my $search = getSearchBox($params);
-	my $header = new Template('header.html');
+	my $header = new TemplateNS('header.html');
 	#my $style = new Template('style.css');
 
 	#$header->setKey('search', $search);
@@ -564,7 +564,7 @@ sub handler {
 		my $from = $1;
 		my $id = $2;
 		dwarn "URI: remapping op from id";
-		$params->{'op'} = 'mscbrowse';
+		$params->{'op'} = 'pacsbrowse';
 		$params->{'from'} = $from;
 		$params->{'id'} = $id;
 	}
@@ -573,7 +573,7 @@ sub handler {
 
 		my $from = $1;
 		dwarn "URI: remapping op from";
-		$params->{'op'} = 'mscbrowse';
+		$params->{'op'} = 'pacsbrowse';
 		$params->{'from'} = $from;
 	}
 
@@ -668,7 +668,7 @@ sub handler {
 			dwarn "view.html template"; 
 			$content_type = $req->content_type;
 			dwarn "view.html started req content type: $content_type";
-			$template = new Template('view.html');
+			$template = new TemplateNS('view.html');
 			fillInLeftBar($template,$params,\%user_info);
 			$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
 			headerAndCSS($template, $params);
@@ -744,10 +744,10 @@ sub buildMainPage {
 	#get login from template
 	# if the login succeeds we need to display the menu otherwise a login
 	# TODO - prompt with a possible error message.
-	my $headt = new Template( 'head.html' );
+	my $headt = new TemplateNS( 'head.html' );
 	my $head = $headt->expand();
 
-	my $headert = new Template( 'header.html' );
+	my $headert = new TemplateNS( 'header.html' );
 	my $header = $headert->expand();
 
 	
@@ -859,7 +859,7 @@ sub buildViewPage {
 	#my $xslt = getConfig("stemplate_path") . "/view.xsl";
 	#my $page = buildStringUsingXSLT( $xmlstring, $xslt );
 	#return $page;
-	my $template = new Template('view.html');
+	my $template = new TemplateNS('view.html');
 
 	fillInLeftBar($template,$params,$userinf);
 	##$template->addText($xmlstring);

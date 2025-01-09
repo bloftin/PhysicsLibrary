@@ -168,8 +168,8 @@ sub fillInSideBars {
 	my $params = shift;
 	my $userinf = shift;
 	dwarn "fillInSideBars started";	
-	my $sidebar = new Template("sidebar.html");
-	my $rightbar = new Template("rightbar.html");
+	my $sidebar = new TemplateNS("sidebar.html");
+	my $rightbar = new TemplateNS("rightbar.html");
 	my $login = getLoginBox($params, $userinf);
 	$sidebar->setKey('login', $login);
 	my $search = getSearchBox($params);
@@ -192,7 +192,7 @@ sub fillInLeftBar {
 	my $params = shift;
 	my $userinf = shift;
 	dwarn "fillInLeftBar started";	
-	my $sidebar = new Template("sidebar.html");
+	my $sidebar = new TemplateNS("sidebar.html");
 	my $login = getLoginBox($params, $userinf);
 	my $features = getMainMenu();
 	my $admin = getAdminMenu($userinf->{data}->{access});
@@ -209,8 +209,8 @@ sub headerAndCSS {
 	my $params = shift;
 
 	my $search = getSearchBox($params);
-	my $header = new Template('header.html');
-	my $style = new Template('style.css');
+	my $header = new TemplateNS('header.html');
+	my $style = new TemplateNS('style.css');
 
 	$header->setKey('search', $search);
 
@@ -498,14 +498,14 @@ sub handler {
 		$NoosphereTitle = '';
 		$content = getViewTemplateContent($params,\%user_info,$upload);
 		if ($content ne '' ) { 
-			$template = new Template('view.html');
+			$template = new TemplateNS('view.html');
 			fillInLeftBar($template,$params,\%user_info);
 			$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
 		} else {
 			dwarn "Handler: before getMainTemplateContent";
 			$content = getMainTemplateContent(\%user_info);
 			dwarn "Handler: after getMainTemplateContent";
-			$template = new Template('main.html');
+			$template = new TemplateNS('main.html');
 			dwarn "Handler: new Template main.html";
 			fillInSideBars($template,$params,\%user_info);
 			dwarn "Handler: after fillInSideBars";

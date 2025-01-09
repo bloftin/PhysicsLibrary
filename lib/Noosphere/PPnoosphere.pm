@@ -167,8 +167,8 @@ sub fillInSideBars {
 	my $params = shift;
 	my $userinf = shift;
 	
-	my $sidebar = new Template("sidebar.html");
-	my $rightbar = new Template("rightbar.html");
+	my $sidebar = new TemplateNS("sidebar.html");
+	my $rightbar = new TemplateNS("rightbar.html");
 	my $login = getLoginBox($params, $userinf);
 	$sidebar->setKey('login', $login);
 	my $search = getSearchBox($params);
@@ -190,7 +190,7 @@ sub fillInLeftBar {
 	my $params = shift;
 	my $userinf = shift;
 	
-	my $sidebar = new Template("sidebar.html");
+	my $sidebar = new TemplateNS("sidebar.html");
 	my $login = getLoginBox($params, $userinf);
 	my $features = getMainMenu();
 	my $admin = getAdminMenu($userinf->{data}->{access});
@@ -206,8 +206,8 @@ sub headerAndCSS {
 	my $params = shift;
 
 	my $search = getSearchBox($params);
-	my $header = new Template('header.html');
-	my $style = new Template('style.css');
+	my $header = new TemplateNS('header.html');
+	my $style = new TemplateNS('style.css');
 
 	$header->setKey('search', $search);
 
@@ -482,14 +482,14 @@ sub handler {
 		dwarn $tsting;
 		if ($content ne '' ) { 
 			dwarn "Content is not empty\n";
-			$template = new Template('view.html');
+			$template = new TemplateNS('view.html');
 			fillInLeftBar($template,$params,\%user_info);
 			$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
 		} else {
 			dwarn "Content is empty\n";
 			$content = getMainTemplateContent(\%user_info); 
-			dwarn "Get new Template\n";
-			$template = new Template('main.html');
+			dwarn "Get new TemplateNS\n";
+			$template = new TemplateNS('main.html');
 			dwarn "Fill in Side Bars\n";
 			fillInSideBars($template,$params,\%user_info);
 			dwarn "Set Key\n";

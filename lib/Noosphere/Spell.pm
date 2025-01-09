@@ -56,7 +56,7 @@ sub checkword {
 	dwarn "checkword started";
 	my $word = $params->{'word'};
 	my $cmd = getConfig('spellcmd');
-	my $template = new Template('checkword.html');
+	my $template = new TemplateNS('checkword.html');
 	my $result = "";
 
 	my $out = `echo "$word" | $cmd`;
