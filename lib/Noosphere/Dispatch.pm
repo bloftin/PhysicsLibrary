@@ -150,7 +150,7 @@ sub dispatch {
   # polls
   # 
   'vote' => \&vote,
-#  'viewpoll' => \&getObj,  
+  'viewpoll' => \&getObj,  
   'viewpolls' => \&viewPolls,
   'newpoll' => \&addPoll,
   'getpoll' => \&getPoll,

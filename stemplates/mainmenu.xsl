@@ -13,6 +13,16 @@
 </ul>
  
 <center>
+    <font size="-1"><i>talkback</i></font>
+</center>
+
+<ul> 
+<li><a href="/?op=viewpolls">Polls</a><br /></li>
+<li><a href="/?op=forums">Forums</a><br /></li>
+<li><a href="https://github.com/bloftin/PhysicsLibrary/issues">Bug Reports</a><br /></li>
+</ul>
+
+<center>
     <font size="-1"><i>Information</i></font>
 </center>
 

@@ -14,7 +14,7 @@ sub TemplateNS::new
 	#dwarn $tpath;
 	#dwarn "PP template file is ";
 	#dwarn $file;
-        my $tobj = {};
+    my $tobj = {};
 	my $fcache = new FileCache("$tpath/$file");
 
 	bless $tobj, $class;
@@ -31,7 +31,7 @@ sub templateFromText
 {
 	my $tobj = { "NAME" => "<text>", "TEXT" => shift };
 
-	bless $tobj, "Template";
+	bless $tobj, "TemplateNS";
 	$tobj->resetKeys();
 	return $tobj;
 }

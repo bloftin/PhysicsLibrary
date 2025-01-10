@@ -101,7 +101,7 @@ sub checkNewPoll {
 #
 sub getPoll {
 	my $params = shift;
-	
+	dwarn "getPoll started";
 	my $html = '';
 
 	(my $rv, my $sth) = dbSelect($dbh,{WHAT=>'title,options,uid',
@@ -133,7 +133,7 @@ sub getPoll {
 	$html .= "</tr></td></form>";
  
 	$html .= "</table>";
-
+	dwarn "getPoll ended";
 	return paddingTable(clearBox('Vote in Poll',$html));
 
 }
@@ -294,7 +294,7 @@ sub viewPolls {
 sub viewPoll {
 	my $params = shift;
 	my $userinf = shift;
-	
+	dwarn "viewPoll Started";
 	my $voted = (defined $params->{voted})?$params->{voted}:0;
 	my $id = $params->{id};
 	
@@ -377,6 +377,7 @@ sub viewPoll {
 	my $txt = paddingTable(clearBox("Viewing Poll",$html)); 
 	my $prefix = getConfig('template_cmd_prefix');
 	$txt =~ s/###NSTAG###/<$prefix:template /o;
+	dwarn "viewPoll Ended";
 	return templateFromText($txt);
 }
 
