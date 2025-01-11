@@ -22,6 +22,148 @@ sub renderEncyclopediaObj {
 	my $rec = shift;
 	my $params = shift;
 	my $userinf = shift;
+
+	my $method = $params->{'method'} || $userinf->{'prefs'}->{'method'};
+	my $html = '';
+	my $en = getConfig('en_tbl');
+	my $content = getRenderedContentHtml($en,$rec,$method);
+	my $contentbox = '';
+	my $title = $rec->{'title'};
+	my $file = 'encyclopediaobject.tt';
+
+	if ( nb($content) ) {
+
+		# draw world-writeable comment
+		#
+		dwarn "isWorldWriteable started";
+		if (isWorldWriteable($en, $rec->{'uid'})) {
+			
+			$content .= "<br /><i>Anyone <a href=\"".getConfig("main_url")."/?op=newuser\">with an account</a> can edit this entry.  Please help improve it!</i><br />";
+		}
+		dwarn "isWorldWriteable ended";
+
+		# draw owner comment. handles no owner.
+		#
+		dwarn "owner comment started";
+		if ($rec->{'userid'} > 0) {
+			$content .= "<br /><font size=\"-1\">\"".mathTitle($title)."\" is owned by <a href=\"".getConfig("main_url")."/?op=getuser&amp;id=".$rec->{'userid'}."\">".$rec->{'username'}."</a>.</font>";
+		} else {
+			my ($lastid, $lastname) = getLastData($en, $rec->{'uid'});
+			
+			$content .= "<br /><font size=\"-1\">\"".mathTitle($title)."\" has no owner. (Was owned by <a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$lastid\">$lastname</a>.  <a href=\"".getConfig("main_url")."/?op=adopt&amp;from=$params->{from}&amp;id=$rec->{uid}&amp;ask=yes\">Adopt</a>)</font>";
+		}
+		dwarn "owner comment ended ";
+		# draw author/owner list links
+		#
+		dwarn "getAuthorCount started";
+		my $acount = getAuthorCount($en, $rec->{'uid'});
+		dwarn "getAuthorCount ended";
+		my $ocount = getPastOwnerCount($en, $rec->{'uid'});
+		dwarn "getPastOwnerCount ended";
+		if ($acount > 1 || $ocount > 0) {
+			$content .= " <font size=\"-1\">[ ";
+
+			my @links;
+			push @links, "<a href=\"".getConfig("main_url")."/?op=authorlist&amp;from=$en&amp;id=$rec->{uid}\">full author list</a> ($acount)" if $acount > 1;
+			push @links, "<a href=\"".getConfig("main_url")."/?op=ownerhistory&amp;from=$en&amp;id=$rec->{uid}\">owner history</a> ($ocount)" if $ocount > 0; 
+
+			$content .= join(' | ', @links);
+
+			$content .= " ]</font>";
+		}
+		dwarn "acount ended";
+		# draw title bar, with "up" arrow for attachments, and type string.
+		#
+		my $up = '';
+		if (defined $rec->{'parentid'} && $rec->{'parentid'} >= 0) {
+			$up = getUpArrow("".getConfig("main_url")."/?op=getobj&amp;from=$en&amp;id=$rec->{parentid}",'parent');
+		}
+		
+		dwarn "getUpArrow ended";
+
+		my $btitle = "
+			<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
+				<tr>
+					<td align=\"left\">$up 
+						<font color=\"#ffffff\">".mathTitle($title, 'title')."</font>
+					</td>
+				
+					<td align=\"right\"> 
+						<font color=\"#ffffff\" size=\"-2\">(".getTypeString($rec->{type}).")
+						</font>
+					</td>
+				</tr>
+			</table>";
+
+		# ugly hack to handle failed rendering, since we don't really return
+		# an error code from rendering, just an error log.
+		#
+		my $failed = ($content =~ /rendering\s+failed/i);
+		my $isowner = ($userinf->{'uid'} == $rec->{'userid'});
+		if ($failed && !$isowner) {
+			my $ftemplate = new XSLTemplate('render_fail.xsl');	# TODO: Need to update to new Template Toolkit
+			$ftemplate->addText('<render_fail>');
+			$ftemplate->setKey('id',$rec->{'uid'});
+			$ftemplate->addText('</render_fail>');
+			$content = $ftemplate->expand();
+		}
+		dwarn "failed ended";
+		$contentbox = mathBox($btitle, $content);
+		dwarn "mathBox ended";
+	} else	{
+		dwarn "No Content";
+		my $contact = getAddr('feedback');
+		$contentbox = errorMessage("Missing cached output! Please <a href=\"mailto:$contact\">contact</a> an admin."); 
+		dwarn "getRenderContentHtml Failed!!!!"
+	}
+	dwarn "getEncyclopediaMetadata started";
+	my $metadata = getEncyclopediaMetadata($rec,$method);
+	dwarn "getEncyclopediaMetadata ended";
+	# get method select box
+	#
+	my $viewstyle = getViewStyleWidget($params,$method);
+	dwarn "getViewStyleWidget ended";
+	my $interact = makeBox('Interact',getEncyclopediaInteract($rec));
+	dwarn "getEncyclopediaInteract ended";
+	my $messages = ''; # where connect?
+	my $corrections = ''; # where connect?
+	my $admin = ''; # where connect?
+	my $author = ''; # where connect?
+	my $watch = ''; # where connect?
+
+	my $vars = {
+        mathobj        	=> $contentbox,
+		viewstyle       => $viewstyle,
+		watch     		=> $watch,
+		metadata    	=> $metadata,
+		admin           => $admin,
+		author          => $author,
+		corrections     => $corrections,
+		messages        => $messages,
+		interact        => $interact,
+    };
+	dwarn "vars ended";
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	dwarn "process ended";
+	##$html->setKey('id',$rec->{'uid'});
+	##$html->setKeys('mathobj' => $contentbox, 'metadata' => $metadata, 'interact' => $interact);
+	
+	return $html;
+
+	
+
+}
+
+
+sub renderEncyclopediaObjOld {
+	my $rec = shift;
+	my $params = shift;
+	my $userinf = shift;
  
 	my $method = $params->{'method'} || $userinf->{'prefs'}->{'method'};
 	my $html = new TemplateNS('encyclopediaobject.html');

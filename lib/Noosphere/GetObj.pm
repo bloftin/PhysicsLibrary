@@ -8,11 +8,18 @@ sub getObj {
 	my $userinf = shift;
 	
 	my $html = '';
+	my $html_obj = '';
+	my $admin = '';
+	my $watch = '';
+	my $author ='';
+	my $corrections = '';
+	my $messages = '';
+	my $interact = '';
 	my $id = $params->{'id'};
 	my $name = $params->{'name'};
 	my $desc = 0;
 	my $nomsg = 0;
-	
+	my $file = 'getobj.tt';
 	dwarn "name";
 	dwarn $name;
 	dwarn "id";
@@ -120,51 +127,72 @@ sub getObj {
 	# handle messages - this is unified accross object types. we know the object
 	# supports messages based on whether the template contains a $messages flag.
 	#
-	if ($html->requestsKey('messages')) {
-		dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
-		my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
-		my $messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
-	$html->setKey('messages', $messages);
-		my $curlast = get_lastmsg($params->{'from'},$id);
-		update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
-	}
+	##if ($html->requestsKey('messages')) {
+	##	dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
+	##	my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
+	##	my $messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
+	##$html->setKey('messages', $messages);
+	##	my $curlast = get_lastmsg($params->{'from'},$id);
+    ##	update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
+	##}
 
-	if ($html->requestsKey('watch')) {
-		$params->{'id'} = $id;
-		my $watchwidget = getWatchWidget($params, $userinf);
-		$html->setKey('watch', $watchwidget);
-	}
+	##if ($html->requestsKey('watch')) {
+	##	$params->{'id'} = $id;
+	##	my $watchwidget = getWatchWidget($params, $userinf);
+	##	$html->setKey('watch', $watchwidget);
+	##}
 
 	# likewise for corrections
 	#
-	if($html->requestsKey('corrections')) {
-		my $corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
-	$html->setKey('corrections', $corrections);
-	} 
+	##if($html->requestsKey('corrections')) {
+	##	my $corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+	##$html->setKey('corrections', $corrections);
+	##} 
 
 	# admin metadata editing
 	#
+	
 	if ($params->{'from'} eq getConfig('en_tbl')) {
-		getEncyclopediaAdminControls($html,$userinf,$params->{'from'},$id,$params->{'method'});
+		$admin = getEncyclopediaAdminControls($userinf,$params->{'from'},$id,$params->{'method'});
 	}
 
 	# get owner controls
-	# 
-	my $author = '';
 	if ($userinf->{'uid'} == $rec->{'userid'}) {
 		$author = getOwnerControls($params->{'from'},$rec->{'uid'});
 	}
-	
 	# or author controls
-	#
 	elsif ($userinf->{'uid'} > 0 && hasPermissionTo($params->{'from'},$id,$userinf,'write')) {
 		$author = getAuthorControls($params->{'from'},$rec->{'uid'},$userinf);
 	}
-	
-	$html->setKey('author', $author);
+
+	$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+	$params->{'id'} = $id;
+	$watch = getWatchWidget($params, $userinf);
+
+	my $vars = {
+        renderObj       => $html,
+		watch           => $watch,
+		admin           => $admin,
+		author          => $author,
+		corrections     => $corrections,
+		messages        => $messages,
+		interact        => $interact,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
 
 	
-	return $html->expand();
+    my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";
+
+	
+	
+	##$html->setKey('author', $author);
+
+	
+	##return $html->expand();
+	return $html_obj;
 }
 
 sub renderNews {

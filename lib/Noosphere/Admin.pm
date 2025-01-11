@@ -995,7 +995,6 @@ sub printResultRows {
 # encyclopedia-specific admin controls
 #
 sub getEncyclopediaAdminControls {
-	my $template = shift;
 	my $userinf = shift;
 	my $from = shift;
 	my $id = shift;
@@ -1022,7 +1021,8 @@ sub getEncyclopediaAdminControls {
 
 		$admin .= "</center>";
 
-		$template->setKey('admin', adminBox('Admin Controls', $admin));
+		#$template->setKey('admin', adminBox('Admin Controls', $admin));
+		return adminBox('Admin Controls', $admin);
 	}
 }
 

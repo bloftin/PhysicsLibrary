@@ -157,6 +157,23 @@ sub getFrontPage {
 # get main menu box
 # 
 sub getMainMenu {
+	my $file = 'mainmenu.tt';
+
+	my $html = '';
+
+
+	my $vars;
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return $html;
+}
+sub getMainMenuHybrid {
 	
 		#my $content_type = $req->content_type;
 		#dwarn "headerAndCSS started req content type: $content_type";
@@ -239,7 +256,7 @@ sub fillInSideBars {
 	#dwarn "headerAndCSS started req content type: $content_type";
 	my $sidebar = new TemplateNS("sidebar.html");
 	my $rightbar = new TemplateNS("rightbar.html");
-	my $login = getLoginBox($userinf);
+	my $login = getLoginBox($params,$userinf);
 	$sidebar->setKey('login', $login);
 	my $search = getSearchBox($params);
 	my $admin = getAdminMenu($userinf->{data}->{access});
@@ -263,9 +280,12 @@ sub fillInLeftBar {
 
 	my $file = 'sidebar.tt';
 
-	my $login = getLoginBox($userinf);
-	my $admin = getAdminMenu($userinf->{data}->{access});
-	my $features = getMainMenu();
+	my $login = '';
+	$login = getLoginBox($params, $userinf);
+	my $admin = '';
+	$admin = getAdminMenu($userinf->{data}->{access});
+	my $features = '';
+	$features = getMainMenu();
 
 	my $vars = {
         login        => $login,
@@ -292,7 +312,7 @@ sub fillInLeftBarOld {
 	#dwarn "headerAndCSS started req content type: $content_type";
 	my $sidebar = new TemplateNS("sidebar.html");
 	
-	my $login = getLoginBox($userinf);
+	my $login = getLoginBox($params,$userinf);
 	dwarn("Before getMainMenu Started");
 	my $features = getMainMenu();
 	dwarn("After getMainMenu Started");
@@ -751,7 +771,7 @@ sub handler {
 
 			$content_type = $req->content_type;
 			dwarn "frontpage started req content type: $content_type";
-			$content = buildMainPage(\%user_info);
+			$content = buildMainPage($params, \%user_info);
 			#warn "content = $content";
 			# Test html page 
 			
@@ -800,6 +820,7 @@ sub handler {
 }
 
 sub buildMainPage {
+	my $params  = shift;
 	my $userinf = shift;
 	
 	#get login from template
@@ -811,9 +832,9 @@ sub buildMainPage {
 	my $headert = new TemplateNS( 'header.html' );
 	my $header = $headert->expand();
 
-	
-	my $loginbox = getLoginBox($userinf);
-
+	dwarn "loginbox before";
+	my $loginbox = getLoginBox($params,$userinf);
+	dwarn "loginbox: \n$loginbox";
 	#my $xslt = getConfig("stemplate_path") . "/logos.xsl";
 	#my $logosbox = buildStringUsingXSLT( '<temp></temp>', $xslt );
 
