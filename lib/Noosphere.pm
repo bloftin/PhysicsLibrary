@@ -7,6 +7,7 @@ use Noosphere::XSLTemplate;
 use HTML::Tidy;
 use XML::Writer;
 use File::chdir;
+use Template;
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
 
@@ -259,6 +260,33 @@ sub fillInLeftBar {
 	my $html = shift;
 	my $params = shift;
 	my $userinf = shift;
+
+	my $file = 'sidebar.tt';
+
+	my $login = getLoginBox($userinf);
+	my $admin = getAdminMenu($userinf->{data}->{access});
+	my $features = getMainMenu();
+
+	my $vars = {
+        login        => $login,
+		admin		 => $admin,
+		features     => $features,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return $html;
+}
+
+sub fillInLeftBarOld {
+	my $html = shift;
+	my $params = shift;
+	my $userinf = shift;
 	dwarn("fillInLeftBar Started");
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
@@ -273,7 +301,7 @@ sub fillInLeftBar {
 	dwarn("After getAdminMenu Started");
 	$sidebar->setKeys('login' => $login, 'admin' => $admin, 'features' => $features);
 	#$sidebar->setKeys('login' => $login, 'features' => $features);
-	$html->setKey('sidebar', $sidebar->expand());
+	$html= $sidebar->expand();
 	dwarn("fillInLeftBar End");
 	return $html;
 }
@@ -668,20 +696,40 @@ sub handler {
 			dwarn "view.html template"; 
 			$content_type = $req->content_type;
 			dwarn "view.html started req content type: $content_type";
-			$template = new TemplateNS('view.html');
-			fillInLeftBar($template,$params,\%user_info);
-			$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
-			headerAndCSS($template, $params);
-			#
-			my $nocache = '
-			<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
-			<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-			<META HTTP-EQUIV="Expires" CONTENT="-1">';
+			##$template = new TemplateNS('view.html');
+			##fillInLeftBar($template,$params,\%user_info);
+			##$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
+			##headerAndCSS($template, $params);
+			###
+			##my $nocache = '
+			##<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+			##<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+			##<META HTTP-EQUIV="Expires" CONTENT="-1">';
 
-			$template->setKey('metacache', ($AllowCache ? '' : $nocache));
+			##$template->setKey('metacache', ($AllowCache ? '' : $nocache));
 
-			$html = $template->expand();
+			##$html = $template->expand();
 			#warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
+			my $file = 'view.tt';
+			my $html = '';
+			my $headert = new TemplateNS( 'header.html' );
+			my $header = $headert->expand();
+			my $sidebar_html = '';
+			$sidebar_html = fillInLeftBar($sidebar_html,$params,\%user_info);
+
+			my $vars = {
+				header        => $header,
+				sidebar       => $sidebar_html,
+				content       => $content,
+			};
+
+			my $tt = Template->new({
+				INCLUDE_PATH => '/var/www/pp/stemplates',
+			});
+
+	
+    		my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+			
 			open( OUT, ">/tmp/view.xml");
 			print OUT $html;
 			close(OUT);
@@ -705,6 +753,19 @@ sub handler {
 			dwarn "frontpage started req content type: $content_type";
 			$content = buildMainPage(\%user_info);
 			#warn "content = $content";
+			# Test html page 
+			
+			#my $html = "<html><body><h1>Hello World! <p> Testing some escape charachters for html category with a generator has an injective cogenerator” now escape ” with &quot; </p> </h1></body></html>";
+			#my $status = 200;
+			#my $len = bytes::length($html);
+
+			#$req->status($status);
+			#$req->content_type('text/html;charset=UTF-8');
+		#    $req->content_language('en');
+			#$req->headers_out->add('content-length' => $len);
+			
+			#$req->print($html);
+			#$req->rflush(); 
 			sendOutput($req, $content);
 			warn "got past opening main.html template content\n";
 			return;	

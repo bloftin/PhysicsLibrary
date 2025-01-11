@@ -1,0 +1,15 @@
+<table WIDTH="125" BORDER="0" CELLPADDING="0" CELLSPACING="2">
+	<tr>
+		<td WIDTH="100%">
+			[% login %] 
+		</td>
+	</tr>
+	
+	[% admin %] 
+	
+	<tr>
+		<td WIDTH="100%">
+			[% features %]
+		</td>
+	</tr>
+</table>

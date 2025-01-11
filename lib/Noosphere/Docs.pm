@@ -13,6 +13,25 @@ sub getLicense {
 # get the "about" (history, background) page.
 #
 sub getAbout {
+  my $params = shift;
+	dwarn "getAbout start";
+
+  my $file = 'about.tt';
+	my $htmlout = "";
+  my $vars;
+
+  my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+  my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
+	#dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
+	dwarn "templateTestPerl end";
+  return $htmlout;
+
+}
+sub getAboutOld {
 
   return paddingTable(clearBox('The '.getConfig('projname').' Story',(new TemplateNS('about.html'))->expand())); 
   

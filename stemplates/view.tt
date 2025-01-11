@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>View Template</title>
+    
+  </head>
+  <body>
+    [% header %]
+
+    <!-- content and sidebar -->
+    <table WIDTH="100%" CELLPADDING="0" CELLSPACING="0">
+        <tr>
+            <td WIDTH="10%" VALIGN="TOP" ALIGN="LEFT">
+                [% sidebar %]
+            </td>
+            <td VALIGN="TOP" ALIGN="LEFT" >
+                [% content %]
+            </td>
+        </tr>
+    </table>
+    <p>
+
+        Testing some escape charachters for html
+
+        category with a generator has an injective cogenerator” 
+
+        now escape ” with &quot;
+    
+    </p>
+  </body>
+</html>
