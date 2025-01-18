@@ -725,7 +725,6 @@ sub addEncyclopedia {
 	my $html = '';
 	my $template = new XSLTemplate('addencyclopedia.xsl');
 	my $table = getConfig('en_tbl');
-	my $self_checked ='';  # not sure how self checking got set in past, need to look into
 	my $preview_content = '';
 	my $preview = '';
 	my $preamble = '';
@@ -830,7 +829,6 @@ sub addEncyclopedia {
 	my $vars = {
         	type_hash       			=> \%type_hash,
 			type						=> $type,
-			self_checked   				=> $self_checked,
 			fillreq         			=> $fillreq,
 			classification_supported	=> getConfig('classification_supported'),
 			preamble                    => $preamble,

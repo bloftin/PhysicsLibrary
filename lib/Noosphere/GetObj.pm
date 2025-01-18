@@ -1,12 +1,13 @@
 package Noosphere;
 use strict;
+use Noosphere::TemplateNS;
 
 # getObj - main object retrieval point, calls more specialized functions
 #
 sub getObj {
 	my $params = shift;
 	my $userinf = shift;
-	
+	dwarn "getObj Started";
 	my $html = '';
 	my $html_obj = '';
 	my $admin = '';
@@ -24,6 +25,10 @@ sub getObj {
 	dwarn $name;
 	dwarn "id";
 	dwarn $id;
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
 
 	# resolve name query into id so we only have one method to write code for
 	#
@@ -127,26 +132,34 @@ sub getObj {
 	# handle messages - this is unified accross object types. we know the object
 	# supports messages based on whether the template contains a $messages flag.
 	#
-	##if ($html->requestsKey('messages')) {
-	##	dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
-	##	my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
-	##	my $messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
-	##$html->setKey('messages', $messages);
-	##	my $curlast = get_lastmsg($params->{'from'},$id);
-    ##	update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
-	##}
+	dwarn "start requestsKeyTT";
+	dwarn "html:\n $html";
+	if (1) {
+		dwarn "OBJECT REQUESTS messages";
+		dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
+		my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
+		dwarn "lastmsg:\n $lastmsg";
 
-	##if ($html->requestsKey('watch')) {
+		$messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
+		##$html->setKey('messages', $messages);
+		dwarn "messages\n: $messages";
+		my $curlast = get_lastmsg($params->{'from'},$id);
+    	update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
+	}
+
+
+	##if (1) {
 	##	$params->{'id'} = $id;
 	##	my $watchwidget = getWatchWidget($params, $userinf);
-	##	$html->setKey('watch', $watchwidget);
+	##	$watch = $watchwidget;
+		##$html->setKey('watch', $watchwidget);
 	##}
 
 	# likewise for corrections
 	#
-	##if($html->requestsKey('corrections')) {
-	##	my $corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
-	##$html->setKey('corrections', $corrections);
+	##if(1) {
+	#	$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+		##$html->setKey('corrections', $corrections);
 	##} 
 
 	# admin metadata editing
@@ -169,6 +182,11 @@ sub getObj {
 	$params->{'id'} = $id;
 	$watch = getWatchWidget($params, $userinf);
 
+	##$html->setKey('author', $author);
+
+	
+	##$html = $html->expand();
+
 	my $vars = {
         renderObj       => $html,
 		watch           => $watch,
@@ -179,19 +197,14 @@ sub getObj {
 		interact        => $interact,
     };
 
-    my $tt = Template->new({
-		INCLUDE_PATH => '/var/www/pp/stemplates',
-	});
+    
 
 	
     my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";
 
 	
 	
-	##$html->setKey('author', $author);
-
 	
-	##return $html->expand();
 	return $html_obj;
 }
 

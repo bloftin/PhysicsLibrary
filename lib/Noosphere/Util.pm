@@ -1655,5 +1655,19 @@ sub read_data {
 	return defined $data ? $data : '';
 }
 
+sub requestsKeyTT {
+	my $txt = shift;
+	my $key = shift;
+
+	my $prefix = getConfig('template_cmd_prefix');
+	dwarn "prefix: $prefix";
+	dwarn "key: $key";
+	##my $txt = $tobj->{"TEXT"};
+	##dwarn "tobj->{TEXT}: $txt";
+	
+	return $txt =~ /<$prefix:template\s+$key/s;
+
+}
+
 1;
 

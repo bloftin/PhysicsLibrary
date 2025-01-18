@@ -211,7 +211,12 @@ sub TemplateNS::requestsKey
 	my ($tobj, $key) = @_;
 
 	my $prefix = getConfig('template_cmd_prefix');
-	return $tobj->{"TEXT"} =~ /<$prefix:template\s+$key/s;
+	dwarn "prefix: $prefix";
+	dwarn "key: $key";
+	my $txt = $tobj->{"TEXT"};
+	dwarn "tobj->{TEXT}: $txt";
+	
+	return ($tobj->{"TEXT"} =~ /<$prefix:template\s+$key/s);
 }
 
 sub templateTest

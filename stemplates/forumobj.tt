@@ -1,0 +1,7 @@
+ <tr>
+  <td>[% forumobj %]</td>
+ </tr>
+ <tr>
+   <td>[% commands %]</td>
+ </tr>
+
