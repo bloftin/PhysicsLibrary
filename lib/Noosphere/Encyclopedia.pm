@@ -11,6 +11,7 @@ use Noosphere::ACL;
 use Noosphere::IR;
 use Noosphere::Crossref;
 use Noosphere::Authors;
+use URI::Escape;
 use File::chdir;
 use File::Path qw(make_path); 
 use File::Copy qw( copy );
@@ -720,8 +721,18 @@ sub addEncyclopedia {
 	my ($params,$user_info,$upload) = @_;
 	dwarn "addEncyclopedia Started";
 	dwarn "addEncyclopedia start cwd: $CWD";
+	my $tt_file = 'addencyclopedia.tt'; 
+	my $html = '';
 	my $template = new XSLTemplate('addencyclopedia.xsl');
 	my $table = getConfig('en_tbl');
+	my $self_checked ='';  # not sure how self checking got set in past, need to look into
+	my $preview_content = '';
+	my $preview = '';
+	my $preamble = '';
+	my $id = '';
+	my $op = '';
+	my $tempdir = '';
+	my $data = '';
 
 	$template->addText('<entry>');
  
@@ -742,13 +753,21 @@ sub addEncyclopedia {
 	elsif (defined $params->{'preview'}) {
 		$AllowCache = 0;	# kill caching
 		dwarn "addEncyclopedia previewEncyclopedia before";
-		previewEncyclopedia($template,$params,$user_info);
+		$preview_content = previewEncyclopedia($template,$params,$user_info);
+		dwarn "preview_content:\n $preview_content";
 		dwarn "addEncyclopedia previewEncyclopedia after";
 		dwarn "previewEncyclopedia after cwd: $CWD";
 		dwarn "Preview handleFileManager before";
 		handleFileManager($template,$params,$upload);
 		dwarn "Preview handleFileManager after";
 		dwarn "handleFileManager after cwd: $CWD";
+		$preview = 'on';
+		$id = $params->{'id'};
+		$op = $params->{'op'};
+		$tempdir = $params->{'tempdir'};
+		$preamble = $user_info->{data}->{preamble};
+		$data = $params->{'data'};
+		
 	} 
 
 	elsif (defined($params->{filebox})) {
@@ -771,30 +790,81 @@ sub addEncyclopedia {
 				'title' => $params->{title},
 				'class' => classstring($table, getidbyname($params->{parent}))
 			);
+
 		}
 		# initialize request data
 		#
 		if ($params->{request}) {
 			dwarn "initialize request data:  $params->{request}";
 			$template->setKey('title', $params->{title});
+
 		}
 		$template->setKey('preamble', $user_info->{data}->{preamble});
+		$preamble = $user_info->{data}->{preamble};
 		dwarn " handleFileManager before";
 		handleFileManager($template, $params);
 		dwarn "handleFileManager after";
 		dwarn "handleFileManager after cwd: $CWD";
+
+		$id = $params->{'id'};
+		$op = $params->{'op'};
+		$tempdir = $params->{'tempdir'};
+		
 	}
-	 
-	dwarn "refreshAddEncyclopedia before";
+
+	
 	refreshAddEncyclopedia($template, $params);
-	dwarn "refreshAddEncyclopedia after";
-	dwarn "refreshAddEncyclopedia after cwd: $CWD";
+	
+	my $type = $params->{type} || 'Definition';
+
+	my $fillreq = getUnfilledReqsEscaped();
+	my @key_test = values %$fillreq;
+	dwarn "fillreq before escape:\n" . join(",", @key_test);
+
+
+
+	#my $fillreq = getRequestFiller($params);
+	#my $ttext = gettypebox({reverse %{getConfig("typestrings")}}, $type);
+	my %type_hash = %{getConfig("typestrings")};
+
+	my $vars = {
+        	type_hash       			=> \%type_hash,
+			type						=> $type,
+			self_checked   				=> $self_checked,
+			fillreq         			=> $fillreq,
+			classification_supported	=> getConfig('classification_supported'),
+			preamble                    => $preamble,
+			preview						=> $preview,
+			showpreview					=> $preview_content,
+			id							=> $id,
+			op							=> $op,
+			tempdir						=> $tempdir,
+			data						=> $data,
+			params						=> $params,
+
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	##$template->setKeys('fillreq' => $fillreq, 'tbox' => $ttext, 'typeis' => $type);
+	##$template->setKeysIfUnset(%$params);
+
+	##dwarn "refreshAddEncyclopedia before";
+	
+	##dwarn "refreshAddEncyclopedia after";
+	##dwarn "refreshAddEncyclopedia after cwd: $CWD";
 
 	$template->addText('</entry>');
 
 	dwarn "addEncyclopedia end";
 	dwarn "addEncyclopedia end cwd: $CWD";
-	return paddingTable(clearBox('Add to the Encyclopedia',$template->expand()));
+	#return paddingTable(clearBox('Add to the Encyclopedia',$template->expand()));
+	return paddingTable(clearBox('Add to the Encyclopedia',$html));
 }
 
 sub addEncyclopediaHybrid {
@@ -1283,7 +1353,7 @@ sub previewEncyclopedia {
 	my $warn = '';
 	dwarn "previewEncyclopedia start cwd: $CWD";
 	my $method = $userinf->{'prefs'}->{'method'} || 'l2h';
-	
+	my $preview = '';
 	# check for errors in entered data
 	#
 	($error,$warn) = checkEncyclopediaEntry($params,1);
@@ -1292,7 +1362,7 @@ sub previewEncyclopedia {
 	#
 	if ($error eq '') {
 		dwarn "renderEnPreview Before";
-		my $preview = renderEnPreview(1, $params, $method);
+		$preview = renderEnPreview(1, $params, $method);
 		dwarn "renderEnPreview End";
 		#my $preview = "<p>This is renderEnPreview,a simple HTML page with one paragraph.</p>";
 		$template->setKey('showpreview', $preview);
@@ -1317,6 +1387,7 @@ sub previewEncyclopedia {
 	dwarn "previewEncyclopedia ended";
 	dwarn "previewEncyclopedia end cwd: $CWD";
 	$template->setKey('error', $error);
+	return $preview;
 }
 
 # make sure encyclopedia metadata is kosher

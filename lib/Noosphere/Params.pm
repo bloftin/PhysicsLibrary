@@ -103,6 +103,7 @@ sub readMime {
   my $formdata;
   my $upload;
 
+  dwarn "readMime Started";
   #my $content=$req->content;
   #my $debug=$req->as_string;
   #dwarn "request is [$debug]";
@@ -119,6 +120,7 @@ sub readMime {
   # maybe we should just read in the entire multipart data to a temp file, 
   # then pass the file name
   #
+  dwarn "readMime Ended";
   ($formdata,$upload)=parseMime($boundary,$buff);
   foreach my $key (keys %$formdata) { $params->{$key}=$formdata->{$key} }
   return $upload;

@@ -1,7 +1,7 @@
 package Noosphere;
 
 use strict;
-
+use Encode;
 # get requests "interact" box
 #
 sub getReqInteract {
@@ -438,6 +438,26 @@ sub getRequestFiller {
 	$html = getSelectBox('request', $options, $params->{request}||-1);
 
 	return $html;
+}
+
+sub getUnfilledReqsEscaped {
+	my %hash;
+
+	my $table=getConfig('req_tbl');
+	
+	my ($rv,$sth)=dbSelect($dbh,{WHAT=>'uid,title',FROM=>$table,WHERE=>'fulfilled is null'});  #,'ORDER BY'=>'lower(title)'});
+	# BEN ADDING rows returned
+	#my $returned=$sth->rows();
+	my @rows=dbGetRows($sth);
+	#$sth->finish();
+
+	$hash{"-1"}="[none]";	 # default entry
+
+	foreach my $row (@rows) {
+		$hash{$row->{uid}}=encode("UTF-8",$row->{title});
+	}
+
+	return {%hash};
 }
 
 # get a list of currently unfulfilled requests (as an id->title hash)

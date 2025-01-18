@@ -1,3 +1,6 @@
+<!-- meta charset is needed to convert treat table encoding of request select items -->
+<meta charset="UTF-8">
+
 Notes and caveats for adding encyclopedia entries:
 
 <p />
@@ -6,9 +9,187 @@ Notes and caveats for adding encyclopedia entries:
     <li><b>Please search for your topic before you attempt to add!</b>.  You <b>can</b> write alternate entries, however, <a href="http://aux.planetphysics.org/doc/newuser.html#alternate">if justified</a>. </li>
     <li>Check the requests list (or the pulldown below). Your entry may fulfill a request.</li>
     <li>You can use TeX-style international trigraphs (i.e., <b>\&quot;o</b> to make <b>&#x00F6;</b>) in your entry <b>and</b> its <a href="http://aux.planetphysics.org/doc/newuser.html#metadata">metadata</a>.</li>
-    <li>Please see an <a href="http://aux.planetphysics.org/doc/newuser.html#mathworld">important notice</a> about using MathWorld</li>.
 </ul>
 
 <hr />
 
 <p />
+
+
+<form method="post" action="http://physicslibrary.org/" enctype="multipart/form-data" accept-charset="UTF-8">
+
+    <font color="#ff0000" size="+1">[% error %]</font>
+    Type:
+
+    <select name="type">
+        [% FOREACH item IN type_hash.keys.nsort %]
+            <option value="[% type_hash.$item %]" [% 'selected' IF type_hash.$item == type %]>[% type_hash.$item %]</option>
+        [% END %]
+    </select>
+
+    Title: 
+    
+    <input class="small" TYPE="text" NAME="title" SIZE="50" MAXLENGTH="32" value="[%- params.title -%]">
+
+    <div style="height: 20px; display: block;">
+        <font size="-2">(Try to write titles as they would occur naturally in text.  Commas are for index terms, to pass them verbatim write ",,")</font>
+    </div>
+		
+	<p></p>
+
+     Attached to (if applicable): 
+
+    <input class="small" TYPE="text" NAME="parent" SIZE="30" value="[% parent %]">
+		
+	<div style="height: 20px; display: block;">
+        <font size="-2">(Proofs, examples, corollaries, derivations, and results <b>must</b> be attached to a parent.)</font>
+    </div>
+
+    Contains own proof (for theorems):
+
+        <input class="small" TYPE="checkbox" NAME="self" [% 'checked' IF params.self == 'on' %]>
+
+    <p></p>
+
+    Fill a request with this entry:
+
+    <select name="request">
+         [% FOREACH item IN fillreq.keys.sort %]
+             <option
+                 value="[% item %]" >[%- fillreq.$item -%]
+             </option>
+         [% END %]
+    </select>
+
+    <p></p>
+
+    [%- IF classification_supported -%]
+        Classification (See <a target="planetphysics.popup" href="/?op=pacsbrowse">PACS</a>):
+        <input TYPE="text" NAME="class" SIZE="75" value="[% params.class %]">
+        <div style="height: 20px; display: block;">
+            <font size="-2">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be ommitted, assumed by default.)</font>
+        </div>
+
+    [%- END -%]
+
+    <!--====================-->
+    <!-- ASSOCIATIONS TABLE -->
+    <!--====================-->
+
+    <table> 
+        <font face="sans-serif">
+
+            <tr><td colspan="2" align="center">
+                Associations (<a href="/?op=assocguidelines">Guidelines</a>)
+            </td></tr>	
+
+            <tr>
+			<td>Synonyms:</td>
+			
+                <td> 
+                    <input TYPE="text" NAME="synonyms" SIZE="40" value="[% params.synonyms %]">
+                </td>
+		    </tr>	
+
+            <tr>
+			    <td>Defines:</td>
+			
+			    <td> 
+                    <input TYPE="text" NAME="defines" SIZE="40" value="[% params.defines %]">
+			    </td>
+
+
+		    </tr>
+
+            <tr>
+                <td>Related*:</td>
+                
+                <td> 
+                    <input TYPE="text" NAME="related" SIZE="40" value="[% params.related %]">
+                </td>
+		    </tr>
+
+            <tr>
+                <td>Keywords:</td>
+                
+                <td> 
+                    <input TYPE="text" NAME="keywords" SIZE="40" value="[% params.keywords %]">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="right">
+                    * <font size="-2">Canonical names only! (I.e. "PascalsRule" instead of "Pascal's Rule")</font>.
+                </td>
+		    </tr>
+
+        </font>
+    </table>
+
+    <p></p>
+
+    Pronunciation (<a href="/?op=sitedoc">Guidelines</a>):
+
+    <input TYPE="text" NAME="pronounce" SIZE="40" value="[% params.pronounce %]"> 
+	
+	<p></p>
+
+    <!--==========================-->
+    <!-- preview (if we have one) -->
+    <!--==========================-->
+
+    [% IF preview %]
+
+        Preview: 
+
+        [% showpreview %]
+
+        <p></p>
+
+    [% END %]
+
+    Preamble (new commands, nonstandard packages):
+
+    <div style="height: 1px; display: block;"></div>
+
+    <table width="0" cellpadding="0" cellspacing="4">
+        <tr> 
+            <td>
+                <textarea name="preamble" cols="60" rows="8"> [% preamble %]</textarea>
+            </td>
+
+            <td valign="top">
+                <input type="submit" name="getpre" value="get preamble" />
+            </td>
+        </tr>
+    </table>
+
+    <p></p>
+
+    Content (edit your LaTeX here. See <a href="/?op=sitedoc">planetphysics Content and Style Guide</a>
+    ):
+
+    <div style="height: 1px; display: block;"></div>
+
+    <textarea name="data" cols="80" rows="20">[% data %]</textarea>
+
+    <input type="hidden" name="id" value=[% id %]>
+    <input type="hidden" name="op" value=[% op %]>
+    <input type="hidden" name="version" value="0">
+    <input type="hidden" name="table" value="objects">
+    <input type="hidden" name="from" value="objects">
+
+
+    <div style="height: 1px; display: block;"></div>
+
+    <input TYPE="submit" name="preview" VALUE="preview" /> 
+
+    [% IF preview %]
+        <input TYPE="submit" name="post" VALUE="save changes" />
+    [% END %]
+    
+    <p></p>
+
+</form>
+
+    

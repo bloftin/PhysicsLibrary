@@ -67,7 +67,7 @@ sub getNoTemplateContent {
 	if ($params->{'op'} eq 'robotstxt') {
 		return getConfig('robotstxt');
 	}
-	dwarn "getNoTemplateContent params->op: $params->{'op'}";
+	dwarn "getNoTemplateContent params: $params";
 	my $content = dispatch(\%NONTEMPLATE, $params, $user_info, $upload); 
 	
 	return $content;
