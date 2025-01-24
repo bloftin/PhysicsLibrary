@@ -153,7 +153,7 @@ sub pacsBrowse {
 
 	
     my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
-	dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
+	#dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
 	dwarn "pacsBrowse end";
     return $htmlout;
 }

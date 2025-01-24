@@ -170,9 +170,8 @@ sub userEditObjectList {
 
 		foreach my $row (@rows) {
 			my $date = ymd($row->{'created'});
-
 			$template->addText("<object date=\"$date\"");
-			
+
 			$template->addText(" ord=\"$ord\"");
 			$template->addText(" id=\"$row->{objectid}\"");
 			$template->addText(" table=\"$row->{tbl}\"");
@@ -183,20 +182,22 @@ sub userEditObjectList {
 			if ($row->{'tbl'} eq $en) {
 				$template->addText(" historyhref=\"".getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}\""); 
 				$template->addText(" linkhref=\"".getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}\""); 
-			}
+		 	}
 
 			$template->addText(" href=\"".getConfig("main_url")."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}\""); 
+
 			$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
-			
-			# find flags
-			#
+
+			# 	# find flags
+		 	#
 			my $flags = '';
 			my $unclassified = (isclassified($row->{'tbl'},$row->{'objectid'}) ? '' : 'u');
 			my $messages = (count_unseen($row->{'tbl'}, $row->{'objectid'}, $userinf->{'uid'}) > 0 ? 'm' : '');
 			my $corrections = 0;
-			if ($row->{'tbl'} eq $en) {
-				$corrections = (hascorrections($row->{'tbl'},$row->{'objectid'}) ? 'c' : '');
-			}
+
+		 	if ($row->{'tbl'} eq $en) {
+		 		$corrections = (hascorrections($row->{'tbl'},$row->{'objectid'}) ? 'c' : '');
+		 	}
 
 			$template->addText(" unclassified=\"1\"") if ($unclassified);
 			$template->addText(" hasmessages=\"1\"") if ($messages);
@@ -204,8 +205,9 @@ sub userEditObjectList {
 			$template->addText(" isowner=\"1\"") if ($row->{'userid'} == $uid);
 
 			$template->addText("/>\n");
-
+			
 			$ord++;
+
 		}
 		
 		$params->{'offset'} = $offset;

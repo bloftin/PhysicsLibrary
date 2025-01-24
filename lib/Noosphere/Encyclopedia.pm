@@ -732,6 +732,9 @@ sub addEncyclopedia {
 	my $op = '';
 	my $tempdir = '';
 	my $data = '';
+	my $fmanager;
+	my $fmanager_flag = 1;
+	my $temp_template;
 
 	$template->addText('<entry>');
  
@@ -757,23 +760,20 @@ sub addEncyclopedia {
 		dwarn "addEncyclopedia previewEncyclopedia after";
 		dwarn "previewEncyclopedia after cwd: $CWD";
 		dwarn "Preview handleFileManager before";
-		handleFileManager($template,$params,$upload);
+		($temp_template, $fmanager) = handleFileManager($template,$params,$upload);
 		dwarn "Preview handleFileManager after";
 		dwarn "handleFileManager after cwd: $CWD";
 		$preview = 'on';
-		$id = $params->{'id'};
-		$op = $params->{'op'};
-		$tempdir = $params->{'tempdir'};
-		$preamble = $user_info->{data}->{preamble};
-		$data = $params->{'data'};
+		$preamble = $params->{'preamble'};
 		
 	} 
 
 	elsif (defined($params->{filebox})) {
 		dwarn " handleFileManager before";
-		handleFileManager($template, $params, $upload);
+		($temp_template, $fmanager) = handleFileManager($template, $params, $upload);
 		dwarn " handleFileManager after";
 		dwarn "handleFileManager after cwd: $CWD";
+		$preamble = $params->{'preamble'};
 	}
  
 	# initial request, return blank form
@@ -801,7 +801,7 @@ sub addEncyclopedia {
 		$template->setKey('preamble', $user_info->{data}->{preamble});
 		$preamble = $user_info->{data}->{preamble};
 		dwarn " handleFileManager before";
-		handleFileManager($template, $params);
+		($temp_template, $fmanager) = handleFileManager($template, $params);
 		dwarn "handleFileManager after";
 		dwarn "handleFileManager after cwd: $CWD";
 
@@ -810,6 +810,11 @@ sub addEncyclopedia {
 		$tempdir = $params->{'tempdir'};
 		
 	}
+	$id = $params->{'id'};
+	$op = $params->{'op'};
+	$tempdir = $params->{'tempdir'};
+	
+	$data = $params->{'data'};
 
 	
 	refreshAddEncyclopedia($template, $params);
@@ -825,7 +830,6 @@ sub addEncyclopedia {
 	#my $fillreq = getRequestFiller($params);
 	#my $ttext = gettypebox({reverse %{getConfig("typestrings")}}, $type);
 	my %type_hash = %{getConfig("typestrings")};
-
 	my $vars = {
         	type_hash       			=> \%type_hash,
 			type						=> $type,
@@ -839,6 +843,8 @@ sub addEncyclopedia {
 			tempdir						=> $tempdir,
 			data						=> $data,
 			params						=> $params,
+			fmanager_flag				=> 1,
+			fmanager					=> $fmanager,
 
     };
 

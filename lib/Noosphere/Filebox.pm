@@ -116,7 +116,7 @@ sub copyBoxFilesToTemp {
 	my $dest = "$cacheroot/$params->{tempdir}";
 
 	#system("cp -r $source/* $dest");
-	rcopy_glob("$source/*", $dest) or dwarn "Problem copying Box Files to Temp: $!";
+	File::Copy::Recursive::rcopy_glob("$source/*", $dest) or dwarn "Problem copying Box Files to Temp: $!";
 	dwarn "copyBoxFilesToTemp  end cwd: $CWD";
 }
 
@@ -247,7 +247,7 @@ sub handleFileManager {
 	if (defined $upload and $upload->{'filename'}) {
 		dwarn "moving uploaded file $upload->{tempfile} to $dest/$upload->{filename}";
 		$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
-		rmove($upload->{tempfile},$dest/$upload->{filename}) or dwarn "Failed to move uploaded file: $!";
+		rmove($upload->{tempfile},"$dest/$upload->{filename}") or dwarn "Failed to move uploaded file: $!";
 		$changes = 1;
 	}
 
@@ -281,8 +281,27 @@ sub handleFileManager {
 		
 	 		foreach my $file (@files) {
 	 			dwarn "file: $file";	
+				
+				if (not inset($file,@methoddirs)) {
+					my $ftext;
+					if (defined $params->{'id'}) {
+						$ftext = "<a href=\"".getConfig('file_url')."/$table/$params->{id}/$file\">$file</a>";
+					} else { 
+						$ftext = "<a href=\"".getConfig('cache_url')."/$params->{tempdir}/$file\">$file</a>";
+					}
+			
+					$rmlist .= "<input type=\"checkbox\" name=\"remove\" value=\"$file\" />$ftext<br />";
+					push @filelist, $file; 
+					$count++;
+				}
+			}
+			if ($count == 0) {
+				$rmlist = "[no files]";
+			} else {
+				$filelist = join(';', @filelist);
 			}
 		}
+		
 		#my $cwd = getcwd();
 		#dwarn "getcwd() cwd: $cwd";
 		#$returnValue = chomp $cwd;
@@ -295,6 +314,10 @@ sub handleFileManager {
 		#dwarn "returnValue chdir cwd: $returnValue";
 		#$cwddes = getcwd();
 		#dwarn "chdir return cwd: $cwddes";
+	}
+	else {
+	 	dwarn "rmlist is [no files]";
+	 	$rmlist = "[no files]";
 	}
 	# if ( -e $dest ) {
 	# 	dwarn "file removal chooser and file list";
@@ -359,10 +382,10 @@ sub handleFileManager {
 	
 	# combine file manager template and parent template
 	#
-
-	$template->setKey('fmanager', $ftemplate->expand());
+	my $html_fmanager = $ftemplate->expand();
+	$template->setKey('fmanager', $html_fmanager);
 	dwarn "handleFileManager ended";
-	return $template;
+	return ($template, $html_fmanager);
 }
 
 # wget - low level interface to wget method. return 1 success, 0 fail.

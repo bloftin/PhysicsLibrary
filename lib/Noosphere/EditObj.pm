@@ -161,8 +161,11 @@ sub editEncyclopedia {
 	# no command - give initial form
 	#
 	else {
+		dwarn "editEnRefresh before";
 		editEnRefresh($template,$rec,$params);
+		dwarn "copyBoxFilesToTemp before";
 		copyBoxFilesToTemp(getConfig('en_tbl'),$params);	# copy filebox to temporary dir
+		dwarn "copyBoxFilesToTemp after";
 	}
 	handleFileManager($template,$params,$upload);
 	

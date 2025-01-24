@@ -29,7 +29,7 @@ Notes and caveats for adding encyclopedia entries:
 
     Title: 
     
-    <input class="small" TYPE="text" NAME="title" SIZE="50" MAXLENGTH="32" value="[%- params.title -%]">
+    <input class="small" TYPE="text" NAME="title" SIZE="50" MAXLENGTH="254" value="[%- params.title -%]">
 
     <div style="height: 20px; display: block;">
         <font size="-2">(Try to write titles as they would occur naturally in text.  Commas are for index terms, to pass them verbatim write ",,")</font>
@@ -187,6 +187,15 @@ Notes and caveats for adding encyclopedia entries:
     [% IF preview %]
         <input TYPE="submit" name="post" VALUE="save changes" />
     [% END %]
+
+    [% IF corrections_flag %]
+        [% corrections %]
+    [% END %]
+
+    [% IF fmanager_flag %]
+        [% fmanager %]
+    [% END %]
+
     
     <p></p>
 

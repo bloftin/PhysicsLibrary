@@ -287,7 +287,7 @@ sub getPager {
 #
 sub getPageWidgetXSLT {
 	my ($template, $params, $userinf, $scale) = @_;
-
+	dwarn "getPageWidgetXSLT start";
 	my $slicesize = $userinf->{'prefs'}->{'pagelength'} || '020';
 
 	$scale = 1 unless $scale;
@@ -362,6 +362,9 @@ sub getPageWidgetXSLT {
 			$template->addText("href=\"".getConfig("main_url")."/?$ps\"/>");
 		}
 	}
+	#dwarn "getPageWidgetXSLT end";
+	#my $template_txt = $template->{'TEXT'};
+	#dwarn "template with page text:\n $template_txt";
 	$template->addText("</pager>");
 }
 

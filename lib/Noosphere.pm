@@ -517,10 +517,10 @@ sub handler {
 	my $content_type = $req->content_type;
 	dwarn "Before parseParams started req content type: $content_type";
 	my ($params,$upload) = parseParams($req);
-        #dwarn "Params";
-        #dwarn $params;
-        #dwarn "Upload";
-        #dwarn $upload;
+	dwarn "Params";
+    dwarn $params;
+    dwarn "Upload";
+    dwarn $upload;
 	dwarn "After parseParams";
 	$content_type = $req->content_type;
 	dwarn "After parseParams started req content type: $content_type";
