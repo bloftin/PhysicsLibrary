@@ -12,7 +12,7 @@
                     <div id="content">
                          <table width="0" cellpadding="0" cellspacing="4">
                             <tr> 
-                                <td>
+                                <td WIDTH="9%" VALIGN="TOP" ALIGN="LEFT">
                                     <div id="left">
                                         <xsl:copy-of select="login/node()" />
                                         <xsl:copy-of select="logos/node()" />

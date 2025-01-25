@@ -1,40 +1,106 @@
+<!-- standard box -->
+<table width="100%">
+	<tr>
+		<td bgcolor="#000000">
+			<table WIDTH="100%" BORDER="0" CELLPADDING="4" CELLSPACING="0">
 
+				<!-- title -->
+				<tr>
+					<td WIDTH="100%" BGCOLOR="#003399">
+						<font color="white" class="box_title">
+							[% username %]
+						</font>
+					</td>
+				</tr>
+			
+				<!-- content -->
+				<tr>
+					<td WIDTH="10%" BGCOLOR="dddddd">
+                        <table width="100%" border="0" cellpadding="4" cellspacing="0">
+		                    <tr>
+			                    <td>
+                                    
+                                    <div class="logout"> <a href="/?op=logout">Logout</a> </div>
 
-    <div id="logged_in"> <h1> [% username %]</h1>
-        <div class="logout"> <a href="/?op=logout">Logout</a> </div>
+                                    <p></p> 
+                                    <center>
+                                        <font size="-1"><i>Your stuff</i></font>
+                                    </center>
 
-        <h2>Do Stuff</h2>
-        <ul> 
-            <li><a href="/?op=adden">Create Article</a></li>
-            <li><a href="/?op=addobj;to=papers">Add a Paper</a></li>
-            <li><a href="/?op=addobj;to=books">Add a Book</a></li>
-            <li><a href="/?op=addobj;to=lec">Add a Lecture</a></li>
-        </ul>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=settings">My Settings</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                         <a href="/?op=edituserobjs">My Articles</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=editcors">Corrections ([% corrections %])</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=mailbox">Mailbox ([% mail %])</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=notices">Notices ([% notices %])</a>
+                                    </div>
+
+                                    <p></p>
+
+                                    <center>
+                                        <font size="-1"><i>Members Only</i></font>
+                                    </center>
+
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=useractivity">User activity</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=userlist">User list</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=sysstats">Sys stats</a>
+                                    </div>
+
+                                    <p></p>
+
+                                    <center>
+                                        <font size="-1"><i>Add To</i></font>
+                                    </center>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=adden">Create Article</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=addobj;to=papers">Add a Paper</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=addobj;to=books">Add a Book</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=addobj;to=lec">Add a Lecture</a>
+                                    </div>
+
+                                    [% IF editor %]
+                                        <div id="editor"> <h1>Editor Tools </h1>
+                                            <div style="height: 20px; display: block; font-size: 16px">
+                                                <a href="/?op=unpublished">Unpublished</a>
+                                            </div>
+                                            <div style="height: 20px; display: block; font-size: 16px">
+                                                <a href="/?op=deleted">Deleted</a>
+                                            </div>                                            
+                                        </div>
+                                    [% END %]
+
+                                </td>
+		                    </tr>
+	                    </table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end standard box -->
+
         
-        <h2>My Stuff</h2>
-        <ul> 
-            <li><a href="/?op=edituserobjs">My Articles</a></li>
-            <li><a href="/?op=editcors">Corrections ([% corrections %])</a></li>
-            <li><a href="/?op=mailbox">Mailbox ([% mail %])</a></li>
-            <li><a href="/?op=notices">Notices ([% notices %])</a></li>
-            <li><a href="/?op=settings">My Account</a></li>
-        </ul>
-
-        <h2>Members Only</h2>   
-        <ul>
-            <li> <a href="/?op=useractivity">User activity</a></li>
-            <li><a href="/?op=userlist">User list</a></li>
-            <li><a href="/?op=sysstats">Sys stats</a></li>
-        </ul>
-    </div>
             
-    [% IF editor %]
-        <div id="editor"> <h1>Editor Tools </h1>
-            <ul>
-                <li> <a href="/?op=unpublished">Unpublished</a></li>
-                <li><a href="/?op=deleted">Deleted</a></li>
-            </ul>
-        </div>
-    [% END %]
+    
 
 
