@@ -845,12 +845,15 @@ sub buildMainPageTT {
 
 	my $la = getLatestAdditions();
 
+	my $search_results = $params->{sa};
+	dwarn "Searching: $search_results";
 	my $vars = {
         head      		=> $head,
 		header          => $header,
 		login           => $loginbox,
 		mainmenu        => $mainMenubox,
 		latestadditions => $la,
+		search_results	=> $search_results,
     };
 
     my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";

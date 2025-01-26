@@ -19,58 +19,96 @@
                             <div id="right">
                                     
                                     <div id="maincontent_box">
-                                        <!-- standard box -->
-                                        <table width="100%">
-                                            <tr>
-                                                <td>
-                                                    <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
 
-                                                        <!-- title -->
-                                                        <tr>
-                                                            <td WIDTH="100%" BGCOLOR="#003399">
-                                                                <font color="white" class="box_title">
-                                                                    Welcome!
-                                                                </font>
-                                                            </td>
-                                                        </tr>
-                                                    
-                                                        <!-- content -->
-                                                        <tr>
-                                                            <td WIDTH="100%">
-                                                                <!-- about pl -->
+                                        [% IF search_results %]
+                                            <!-- standard box -->
+                                            <table width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
 
-                                                                <p> Physics Library is a virtual community which aims to help make physics knowledge more accessible.  Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members.   The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>  
-                                                
-                                                                <p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community.  All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>
-
-                                                                <font color="red">
-                                                                    Please be patient as we get Physics Library working again.  There are lots of issues being work.  The Biggest issue currently being worked is new user accounts cannot be created until an emailing system is up and running.
-                                                                </font>
-
-                                                                <div class="gcse-searchresults-only"></div>
-
-                                                            </td>
-
-                                                                
-
-                                                        </tr>
+                                                            <!-- title -->
+                                                            <tr>
+                                                                <td WIDTH="100%" BGCOLOR="#003399">
+                                                                    <font color="white" class="box_title">
+                                                                        Search Results
+                                                                    </font>
+                                                                </td>
+                                                            </tr>
                                                         
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            
-                                        </table>
-                                        <!-- end standard box -->
+                                                            <!-- content -->
+                                                            <tr>
+                                                                <td WIDTH="100%">
+                                                                    <!-- search resultes -->
+                                                                    <div class="gcse-searchresults-only"></div>
+
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </table>
+                                            <!-- end standard box -->
+
+
+                                        [% ELSE %]
+
+                                            <!-- standard box -->
+                                            <table width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+
+                                                            <!-- title -->
+                                                            <tr>
+                                                                <td WIDTH="100%" BGCOLOR="#003399">
+                                                                    <font color="white" class="box_title">
+                                                                        Welcome!
+                                                                    </font>
+                                                                </td>
+                                                            </tr>
+                                                        
+                                                            <!-- content -->
+                                                            <tr>
+                                                                <td WIDTH="100%">
+                                                                    <!-- about pl -->
+
+                                                                    <p> Physics Library is a virtual community which aims to help make physics knowledge more accessible.  Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members.   The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>  
+                                                    
+                                                                    <p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community.  All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>
+
+                                                                    <font color="red">
+                                                                        Please be patient as we get Physics Library working again.  There are lots of issues being work.  The Biggest issue currently being worked is new user accounts cannot be created until an emailing system is up and running.
+                                                                    </font>
+
+                                                                    
+
+                                                                </td>
+
+                                                                    
+
+                                                            </tr>
+                                                            
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </table>
+                                            <!-- end standard box -->
 
 
                                         
+                                            
+                                                <!--</div>-->
+                                                <div id="go_to_padding">
+                                                    <div id="go_to">
+                                                        Browse Encyclopedia By: <a href="/encyclopedia/">Encyclopedia</a>
+                                                    </div>
+                                                </div>
+                                        [% END %]
                                     </div>
-                                <!--</div>-->
-                                <div id="go_to_padding">
-                                    <div id="go_to">
-                                        Browse Encyclopedia By: <a href="/encyclopedia/">Encyclopedia</a>
-                                    </div>
-                                </div>
                             </div>
                         </td>
 
