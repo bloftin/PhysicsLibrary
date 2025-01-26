@@ -771,7 +771,7 @@ sub handler {
 
 			$content_type = $req->content_type;
 			dwarn "frontpage started req content type: $content_type";
-			$content = buildMainPage($params, \%user_info);
+			$content = buildMainPageTT($params, \%user_info);
 			#warn "content = $content";
 			# Test html page 
 			
@@ -817,6 +817,45 @@ sub handler {
 	#sendOutput($req, $html);
 	#dwarn "After sending output";
 #	$dbh->disconnect();
+}
+
+sub buildMainPageTT {
+	my $params  = shift;
+	my $userinf = shift;
+	my $file = 'mainpage.tt';
+	my $html_obj = '';
+	my $html = '';
+	
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	#get login from template
+	# if the login succeeds we need to display the menu otherwise a login
+	# TODO - prompt with a possible error message.
+	my $headt = new TemplateNS( 'head.html' );
+	my $head = $headt->expand();
+
+	my $headert = new TemplateNS( 'header.html' );
+	my $header = $headert->expand();
+
+	my $loginbox = getLoginBox($params,$userinf);
+
+	my $mainMenubox = getMainMenu();
+
+	my $la = getLatestAdditions();
+
+	my $vars = {
+        head      		=> $head,
+		header          => $header,
+		login           => $loginbox,
+		mainmenu        => $mainMenubox,
+		latestadditions => $la,
+    };
+
+    my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";
+
+	return $html_obj;
 }
 
 sub buildMainPage {

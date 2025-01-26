@@ -37,7 +37,7 @@
                                                 </small>
                                             </td>
                                             <td>
-                                                <input class="small" TYPE="text" NAME="user" SIZE="8" MAXLENGTH="48"/>
+                                                <input class="small" TYPE="text" NAME="user" SIZE="5" MAXLENGTH="48"/>
                                             </td>
                                         </tr>
 
@@ -48,7 +48,7 @@
                                                 </small>
                                             </td>
                                             <td>
-                                                <input class="small" TYPE="password" NAME="passwd" SIZE="8" MAXLENGTH="32"/>
+                                                <input class="small" TYPE="password" NAME="passwd" SIZE="5" MAXLENGTH="32"/>
                                             </td>
                                         </tr>
                                         <tr>
