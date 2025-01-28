@@ -1,0 +1,96 @@
+
+<!-- this template handles the user object editor listing page -->
+
+[% IF objects.size %]
+
+    [% pager %]
+
+    <table cellspacing="0" cellpadding="2" width="100%">
+        [% FOREACH object IN objects %]
+            [% IF (object.ord mod 2) == 1 %]
+                <tr bgcolor=#eeeeee>
+            [% ELSE %]
+                <tr>
+            [% END  %]
+                <td align="left" colspan="2">
+                    <a href= [% object.obj_url %]> [% object.title %]</a>
+                </td>
+
+                <!-- date -->
+                <td valign="top" align="right">
+                    [% object.date %]
+                </td>
+
+                <!-- the editing controls -->
+
+                <tr>
+                    [% IF (object.ord mod 2) == 1 %]
+                        <tr bgcolor=#eeeeee>
+                    [% ELSE %]
+                        <tr>
+                    [% END  %]
+                
+                    <td valign="top" align="left">
+                        <font size="-1">
+                        &#160;
+                        [% IF object.table == "lec" %]
+                                <!-- (in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=lec">Expositions</a>)-->
+                                (in&#160;Expositions)
+                        [% ELSIF object.table == "papers" %]        
+                                <!--(in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=papers">Papers</a>)-->
+                                (in&#160;Papers)
+                        [% ELSIF object.table == "books" %]   
+                                <!--(in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=books">Books</a>)-->
+                                (in&#160;Books)
+                        [% ELSIF object.table == "objects" %]   
+                                <!--(in&#160;<a href="/encyclopedia">Encyclopedia</a>)-->
+                                (in&#160;Encyclopedia)
+                        [% END %]
+                        </font>
+                    </td>
+
+                    <!-- editing controls -->
+
+                    <td align="right" colspan="3">
+
+                        <font size="-1">
+
+
+                        <a href= [% object.edithref %]> edit</a>
+                        | <a href= [% object.aclhref %]> change access</a>
+                        
+                        <!-- encyclopedia objects stuff -->
+                        
+                        [% IF object.table == "objects" %]
+                            | <a href= [% object.linkhref %]> linking policy</a>
+                            | <a href= [% object.historyhref %]> history</a>
+                        [% END %]
+
+                        | <a href="/?op=transfer&amp;from=[% object.table %]&amp;id=[% object.id %]">transfer</a>
+                        | <a href="/?op=abandon&amp;from=[% object.table %]&amp;id=[% object.id %]&amp;ask=yes">abandon</a>
+                        | <a href="/?op=delobj&amp;from=[% object.table %]&amp;id=[% object.id %]&amp;ask=yes">delete</a>
+
+                        </font>
+                    </td>
+
+                </tr>
+
+            </tr>
+        [%END%]
+    </table>
+
+    [% pager %]
+
+[% ELSE %]
+    <p>Nothing to show.</p>
+[% END %]
+
+<!-- row to force 3 cells across -->
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+	
+
+

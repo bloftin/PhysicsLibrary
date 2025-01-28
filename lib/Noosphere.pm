@@ -845,6 +845,8 @@ sub buildMainPageTT {
 
 	my $la = getLatestAdditions();
 
+	my $top_users = getTopUsers();
+
 	my $search_results = $params->{sa};
 	dwarn "Searching: $search_results";
 	my $vars = {
@@ -854,6 +856,7 @@ sub buildMainPageTT {
 		mainmenu        => $mainMenubox,
 		latestadditions => $la,
 		search_results	=> $search_results,
+		top_users       => $top_users,
     };
 
     my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";

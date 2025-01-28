@@ -58,7 +58,7 @@
                                             <!-- standard box -->
                                             <table width="100%">
                                                 <tr>
-                                                    <td>
+                                                    <td style="white-space:nowrap;">
                                                         <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
 
                                                             <!-- title -->
@@ -112,24 +112,23 @@
                             </div>
                         </td>
 
-                        
-                    </tr>
-                    <tr> 
-                        <td>
+                        <td WIDTH="9%" VALIGN="TOP" ALIGN="LEFT">
+                            <div id="left">
+                                [% top_users %]
+                            </div>
+
                             <div id="latest_padding">
                                 <div id="latest">
                                     [% latestadditions %]
                                 </div>
                             </div>
+
                         </td>
+
+
+                        
                     </tr>
-                    <tr> 
-                        <div id="author_padding">
-                            <div id="authors">
-                                [% topusers %]
-                            </div>
-                        </div>
-                    </tr>
+
                 </table>
             </div>
         </div>

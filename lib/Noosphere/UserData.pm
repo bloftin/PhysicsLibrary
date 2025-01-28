@@ -3,6 +3,7 @@ package Noosphere;
 use strict;
 use Socket;
 use Template;
+use Encode;
 
 # a settings "main menu" screen.  enables us to unload things from the userbox.
 #
@@ -64,10 +65,218 @@ sub changeUserScore {
 # user object edit list
 # 
 sub userEditObjectList {
+	
+	my $params = shift;
+	my $userinf = shift;
+
 	dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
+	my $tt_file = 'usereditobjlist.tt'; 
+	my $template = new XSLTemplate("usereditobjlist.xsl");
+	
+	my $html = '';
+	my $html_pager = '';
+	my $offset = $params->{'offset'} || 0;
+	my $total = $params->{'total'} || -1;
+	my $scale = 1;
+	my $limit = $userinf->{'prefs'}->{'pagelength'};
+	my $uid = $userinf->{'uid'};
+	my $table = getConfig('index_tbl');
+	my $en = getConfig('en_tbl');
+	my @objects_array = ();
+
+	# basic object selection filter: object owner
+	#
+	my $filter = "userid = $uid";
+
+	# build object selection filters for "exotic" ACL criterion
+	#
+	if ($params->{'qtype'} eq 'coauthor' || $params->{'qtype'} eq 'world') {
+		my $sth;
+		if ($params->{'qtype'} eq 'coauthor') {
+
+			my $glist = join(', ', getMemberGroupIDs($uid));
+			
+			my $gq = $glist ? "or (subjectid in ($glist) and user_or_group = 'g')" : "";
+
+			# build object id retrieval query
+			#
+			$sth = $dbh->prepare("select tbl, objectid from acl where _write = 1 and default_or_normal = 'n' and ((subjectid = $uid and user_or_group = 'u') $gq)");
+		} 
+		elsif ($params->{'qtype'} eq 'world') {
+
+			# build world-editable object id retrieval query
+			$sth = $dbh->prepare("select tbl, objectid from acl where (_write = 1 and default_or_normal = 'd')");
+		}
+		
+		$sth->execute();
+
+		my %lists;
+
+		while (my $row = $sth->fetchrow_hashref()) {
+			if (exists $lists{$row->{'tbl'}}) {
+				push @{$lists{$row->{'tbl'}}}, $row->{'objectid'};
+			} else {
+				$lists{$row->{'tbl'}} = [$row->{'objectid'}];
+			}
+		}
+
+		$sth->finish();
+
+		# build filter clause of the form 
+		# (
+		#  (tbl = 'foo' and objectid in (1, 2, ...)) or 
+		#  (tbl = 'bar' and objectid in (3, 4, ...)) or
+		#   ...
+		# )
+		#
+		$filter = "(".join(' or ', (map "(tbl = '$_' and objectid in (".join(', ', @{$lists{$_}})."))", keys %lists)).")";
+	}
+
+	# this is kind of a hack for when there are no matching objects
+	$filter = 0 if ($filter eq '()');
+
+	# get total
+	# 
+	my ($rv,$sth) = dbLowLevelSelect($dbh,"select userid from $table where $filter and tbl != 'users' and type = 1");
+	$total = $sth->rows();
+	$sth->finish();
+	
+	# query up the data
+	#
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit")
+		if (getConfig('dbms') eq 'pg');
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+		if (getConfig('dbms') eq 'mysql');
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+        if (getConfig('dbms') eq 'MariaDB');
+
+	if (not defined $rv) {
+		dwarn "error getting objects for user $uid";
+		return errorMessage("Error with object query. contact an admin.");
+	}
+
+	# get the rows
+	# 
+	my @rows = dbGetRows($sth);
+
+	# gather in additional data from the individual tables
+	#
+	dbGather(\@rows, 'tbl', 'objectid', 
+		{
+		 getConfig('exp_tbl') => {'select'=>'created', 'idfield'=>'uid'}, 
+		 getConfig('books_tbl') => {'select'=>'created', 'idfield'=>'uid'},
+		 getConfig('papers_tbl') => {'select'=>'created', 'idfield'=>'uid'}, 
+		 getConfig('en_tbl') => {'select'=>'created, type as etype', 'idfield'=>'uid'}, 
+	});
+	 
+	$template->addText("<usereditobjs qtype=\"$params->{qtype}\">");
+
+	if (scalar @rows > 0) {
+		
+		my $ord = 1;
+
+		foreach my $row (@rows) {
+			my $date = ymd($row->{'created'});
+			
+			$template->addText("<object date=\"$date\"");
+
+			$template->addText(" ord=\"$ord\"");
+			$template->addText(" id=\"$row->{objectid}\"");
+			$template->addText(" table=\"$row->{tbl}\"");
+
+			$template->addText(" edithref=\"".getConfig("main_url")."/?op=edit;from=$row->{tbl};id=$row->{objectid}\""); 
+			$template->addText(" aclhref=\"".getConfig("main_url")."/?op=acledit;from=$row->{tbl};id=$row->{objectid}\""); 
+
+			if ($row->{'tbl'} eq $en) {
+				$template->addText(" historyhref=\"".getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}\""); 
+				$template->addText(" linkhref=\"".getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}\""); 
+		 	}
+
+			$template->addText(" href=\"".getConfig("main_url")."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}\""); 
+
+			# There must be some bigger UTF8 issue going on, so temp fix
+			my $title = encode("UTF-8",$row->{'title'});
+			dwarn "tile: $title";
+			$template->addText(" title=\"$title\""); 
+			#$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
+
+			# 	# find flags
+		 	#
+			my $flags = '';
+			my $unclassified = (isclassified($row->{'tbl'},$row->{'objectid'}) ? '' : 'u');
+			my $messages = (count_unseen($row->{'tbl'}, $row->{'objectid'}, $userinf->{'uid'}) > 0 ? 'm' : '');
+			my $corrections = 0;
+
+		 	if ($row->{'tbl'} eq $en) {
+		 		$corrections = (hascorrections($row->{'tbl'},$row->{'objectid'}) ? 'c' : '');
+		 	}
+
+			$template->addText(" unclassified=\"1\"") if ($unclassified);
+			$template->addText(" hasmessages=\"1\"") if ($messages);
+			$template->addText(" hascorrections=\"1\"") if ($corrections);
+			$template->addText(" isowner=\"1\"") if ($row->{'userid'} == $uid);
+
+			$template->addText("/>\n");
+			my $obj_url = getConfig("main_url")."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}";
+			my $edithref = getConfig("main_url")."/?op=edit;from=$row->{tbl};id=$row->{objectid}";
+			my $aclhref = getConfig("main_url")."/?op=acledit;from=$row->{tbl};id=$row->{objectid}";
+			my $linkhref = getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}";
+			my $historyhref = getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}";
+
+			push(@objects_array,{ 
+				title 		=> $title, 
+				obj_url 	=> $obj_url, 
+				date 		=> $date, 
+				ord 		=> $ord, 
+				id 			=> $row->{objectid}, 
+				table 		=> $row->{tbl},
+				edithref 	=> $edithref,
+				aclhref  	=> $aclhref,
+				linkhref    => $linkhref,
+				historyhref	=> $historyhref,	
+				 });
+
+			$ord++;
+
+
+		}
+		
+		$params->{'offset'} = $offset;
+		$params->{'total'} = $total;
+
+		#getPageWidgetXSLT($template, $params, $userinf);
+		$html_pager = getPager($params, $userinf, $scale);
+	}
+
+	$template->addText("</usereditobjs>");
+
+	dwarn "userEditObjectList end";
+	my $template_txt = $template->{'TEXT'};
+	dwarn "userEditObjectList template:\n $template_txt";
+
+	my $vars = {
+        	total       				=> $params->{'total'},
+			objects						=> \@objects_array,
+			pager						=> $html_pager,
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return paddingTable(clearBox('Your Objects',$html));
+}
+
+sub userEditObjectListOld {
+	
 	my $params = shift;
 	my $userinf = shift;
 	
+	dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
+
 	my $template = new XSLTemplate("usereditobjlist.xsl");
 	
 	my $offset = $params->{'offset'} || 0;
@@ -186,7 +395,11 @@ sub userEditObjectList {
 
 			$template->addText(" href=\"".getConfig("main_url")."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}\""); 
 
-			$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
+			# There must be some bigger UTF8 issue going on, so temp fix
+			my $title = encode("UTF-8",$row->{'title'});
+			dwarn "tile: $title";
+			$template->addText(" title=\"$title\""); 
+			#$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
 
 			# 	# find flags
 		 	#
@@ -217,6 +430,10 @@ sub userEditObjectList {
 	}
 
 	$template->addText("</usereditobjs>");
+
+	dwarn "userEditObjectList end";
+	my $template_txt = $template->{'TEXT'};
+	dwarn "userEditObjectList template:\n $template_txt";
 
 	return paddingTable(clearBox('Your Objects',$template->expand()));
 }

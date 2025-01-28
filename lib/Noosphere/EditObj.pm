@@ -9,6 +9,7 @@ sub genericEditor {
 	my $userinf = shift;
 	my $upload = shift;
 	
+	dwarn "genericEditor started";
 	my $template = new TemplateNS('genericedit.html');
 	my $schemas = getConfig('generic_schema');
 	my $schema = $schemas->{$params->{from}};
@@ -19,6 +20,7 @@ sub genericEditor {
 	#
 	my $rec;
 	if (!$params->{'new'}) {
+		dwarn "genericEditor pull up the object's record";
 		return errorMessage("You can't edit that object!") unless ((hasPermissionTo($params->{'from'},$params->{'id'},$userinf,'write')) || ($userinf->{'data'}->{'access'} >= getConfig('access_admin')));
 
 		my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>$params->{'from'},WHERE=>"uid=$params->{id}"});
@@ -29,29 +31,34 @@ sub genericEditor {
 	# encyclopedia has a different editor
 	#
 	if ($params->{'from'} eq getConfig('en_tbl')) {
+		dwarn "genericEditor encyclopedia has a different editor";
 		return editEncyclopedia($params, $userinf, $upload, $rec);
 	}
 
 	# collaborations has a different editor
 	#
 	if ($params->{'from'} eq getConfig('collab_tbl')) {
+		dwarn "genericEditor collaborations has a different editor";
 		return editCollab($params, $userinf, $upload, $rec);
 	}
 
 	# handle post
 	#
 	if (defined $params->{post}) {
+		dwarn "genericEditor handle post";
 		return updateObjectMetadata($schema,$params,$userinf,$rec);
 	}
 
 	# file box command	
 	elsif (defined $params->{filebox}) {
 		 # just refresh
+		 dwarn "genericEditor just refresh";
 	} 
 
 	# set some initial stuff
 	#
 	else {
+		dwarn "genericEditor initial stuff";
 		$template->setKey('class', classstring($params->{from},$params->{id}));
 	}
 	
@@ -72,6 +79,7 @@ sub editObject {
 
 	my $html = '';
 
+	dwarn "editObject started"; 
 	return loginExpired() if ($userinf->{uid} <= 0);
 
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',
@@ -87,13 +95,16 @@ sub editObject {
 	#
 	if ($params->{preview}) {
 		$AllowCache = 0;
+		dwarn "editObject preview"; 
 	}
 
 	# dispatch to handlers
 	#
 	if ($params->{from} eq getConfig('en_tbl') ) {
+		dwarn "editObject editEncyclopedia"; 
 		$html = editEncyclopedia($params,$userinf,$upload,$rec);
 	} else {
+		dwarn "editObject something broken"; 
 		$html = errorMessage('Something is broken!  Please report this.');
 	}
 
@@ -108,6 +119,8 @@ sub editEncyclopedia {
 	my $upload = shift;
 	my $rec = shift;
 	
+	dwarn "editEncyclopedia started"; 
+
 	my $template = new XSLTemplate('editencyclopedia.xsl');
 	my $error = '';
 	my $warn = '';
@@ -118,6 +131,7 @@ sub editEncyclopedia {
 	# handle post
 	#
 	if (defined $params->{post}) {
+		dwarn "editEncyclopedia handle post"; 
 		($error,$warn) = checkEncyclopediaEntry($params, 0);
 		if ($error eq '') {
 			reviseEncyclopedia($rec, $params, $userinf);
@@ -142,6 +156,7 @@ sub editEncyclopedia {
 	# handle preview
 	#
 	elsif (defined $params->{preview}) {
+		dwarn "editEncyclopedia handle preview"; 
 		$AllowCache = 0;
 		($error,$warn) = checkEncyclopediaEntry($params,0);
 		#$template->setKeyIfUnset('error', $error);
@@ -152,6 +167,7 @@ sub editEncyclopedia {
 	# file box command or getting of preamble
 	#	
 	elsif (defined $params->{filebox} || $params->{getpre}) {
+		dwarn "editEncyclopedia handle post"; 
 		if (defined $params->{getpre}) {
 			$params->{preamble} = $userinf->{data}->{preamble};
 		}
@@ -177,6 +193,7 @@ sub editEncyclopedia {
 	$template->setKey('error', $error) if ($error);
 
 	$template->addText("</entry>");
+	dwarn "editEncyclopedia ended"; 
 	
 	return paddingTable(clearBox('Editing Object',$template->expand()));
 }
@@ -268,23 +285,28 @@ sub reviseEncyclopedia {
 	my $thash = {reverse %{getConfig("typestrings")}};
 	my $ntype = $thash->{$params->{type}}; 
 	my $table = getConfig('en_tbl');
+	dwarn "reviseEncyclopedia started";
 
 	# add parent id to update if this is an attachment type
 	#
 	if (nb($params->{parent})) {
+		dwarn "reviseEncyclopedia parent id to update";
 		$parentid = getidbyname($params->{parent});
 		return 0 if ($parentid == -1);
 		$pq = ", parentid=$parentid";
 	} else {
+		dwarn "reviseEncyclopedia no parent id to update";
 		$pq = ', parentid=null';
 	}
 	
 	if (not defined($rec->{parentid})) {
+		dwarn "reviseEncyclopedia not defined parentid";
 		$rec->{parentid} = 'null';
 	}
 
 	# save a snapshot of the current version!
 	#
+	dwarn "reviseEncyclopedia Before snapshot";
 	snapshot($table, $rec->{uid}, "$rec->{name}_$rec->{version}", $userinf->{uid}, $params->{revcomment});
  
 	my ($rv,$sth);
@@ -314,25 +336,32 @@ sub reviseEncyclopedia {
 	
 	$sth->finish();
 	
+	dwarn "reviseEncyclopedia Before handleEncyclopediaChange";
 	# handle encyclopedia change stuff.
 	handleEncyclopediaChange($params,$rec);
 
+	dwarn "reviseEncyclopedia Before moveTempFilesToBox";
 	# move back temp files
 	moveTempFilesToBox($params,$params->{id},$table);
 	
+	dwarn "reviseEncyclopedia Before closeCorrection";
 	# close any corrections
 	closeCorrection($params,$userinf,'accept');
 
+	dwarn "reviseEncyclopedia Before changeUserScore";
 	# give some points for the edit
 	changeUserScore($userinf->{uid},getScore('edit_en_major'));
 
+	dwarn "reviseEncyclopedia Before updateAuthorEntry";
 	# update author list
 	updateAuthorEntry($table,$params->{id},$userinf->{uid});
 
+	dwarn "reviseEncyclopedia Before updateEventWatches";
 	# send out notice that the object was modified
 	updateEventWatches($params->{id}, $params->{from}, $userinf->{uid}, 
 	$params->{revcomment}, "object edited");
 
+	dwarn "reviseEncyclopedia end";
 	return 1;
 }
 
