@@ -32,9 +32,9 @@ use vars qw(%base_config);
 	
 	# E-mail config
 	
-	FEEDBACK_EMAIL => 'ben.loftin@gmail.com',
-	SYSTEM_EMAIL => 'ben.loftin@gmail.com',
-	REPLY_EMAIL => 'ben.loftin@gmail.com',
+	FEEDBACK_EMAIL => 'admin@physicslibrary.org',
+	SYSTEM_EMAIL => 'admin@physicslibrary.org',
+	REPLY_EMAIL => 'admin@physicslibrary.org',
 
 	# Database configuration
 
