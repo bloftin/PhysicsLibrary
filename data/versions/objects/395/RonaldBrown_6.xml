@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="395">
+ <title>Ronald Brown</title>
+ <name>RonaldBrown</name>
+ <created>2009-01-14 20:35:31</created>
+ <modified>2009-01-14 20:45:37</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <related>
+	<object name="BiographiesOnPlanetPhysicsOrg"/>
+ </related>
+ <keywords>
+	<term>non-Abelian Aagebraic topology</term>
+	<term>quantum algebraic topology</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\section{Ronald Brown, MA, D.Phil Oxon, FIMA}
+ 
+  Emeritus Professor (born January 4, 1935) is an English mathematician. He is best known for his many, substantial contributions to Higher Dimensional Algebra and non-Abelian Algebraic Topology, involving groupoids, algebroids, category theory, categorical generalizations of Galois theory, and generalization of the van Kampen theorem to higher homotopy groupoids. These include four fundamental books and textbooks: Elements of Modern Topology, Topology: a geometric account of general topology, homotopy types, and the fundamental groupoid, Topology and Groupoids, and Nonabelian algebraic topology (in two volumes) that contain original and important results in algebraic topology that are hard to obtain from other sources. His editorial contributions over many years have provided generous, expert help and international support to several generations of mathematicians in rapidly developing areas of higher dimensional algebra, non-Abelian algebraic topology, including Category Theory, non-Abelian and Abelian, Homology and Cohomology, and Higher Dimensional Homotopy with applications. Brown's interest in the general topology of function spaces began in the early 1960s, when he introduced the notion of an adequate and convenient category of topological spaces for homotopy theory, thus stimulating a wide range of work on convenient categories. Moreover, the term 'Higher Dimensional Algebra' was introduced in a 1987 survey paper by Brown [1], following from the earlier 'higher dimensional group theory' introduced in 1982; this area has been remarkably successful not only in applications in other areas of mathematics, but also in quantum physics and computer science. Such potential applications that were recently suggested are novel algebraic topology and category theory approaches to extended quantum symmetry through quantum groupoid representations to locally-covariant, quantum gravity theories and symmetry breaking. Several of Dr. Brown's papers combine methods of double groupoids with differential ideas on holonomy, leading to the development of higher order notions of 'flows', analogous to evolving systems in concurrency theory. He collaborated with Higgins since the 1970s, and also with several other coworkers afterwards, on crossed complexes and the related higher homotopy groupoids. He then completed the studies on pure higher order category theory in a publication with F.A. Al-Agl and R. Steiner, on "Multiple categories: the equivalence between a globular and cubical approach]]", published in Advances in Mathematics, 170 (2002) 71-118.
+
+His key scientific results in mathematics to date have included: double groupoids, double algebroids, cubical omega-groupoids with connections [2] , and last-but-not least, proofs of higher-homotopy generalized van Kampen theorems in homotopy theory[3].
+
+Dr. Ronald Brown has 115 items listed on MathSciNet, has given numerous presentations at scientific meetings, and published over 30 articles and items on popularization and teaching of mathematics. Two books are now in print, and a third one is close to being completed with two coworkers. He published over 200 research papers and presentations at scientific meetings, including several monographs and four books.
+
+
+
+
+Contents [hide]
+1 Biography 
+2 University education 
+3 Academic positions 
+4 Leading assignments 
+4.1 Editorships 
+5 Honors and awards 
+6 Selected publications 
+7 Notes 
+8 References 
+9 External links 
+10 Inline and on line citations 
+10.1 Recent citations on line: 
+ 
+
+
+[edit] Biography
+Ronald Brown was born on January 4th, 1935 in London, England. He developed an early interest in mathematics and was always interested in science; thus, he obtained a mathematics scholarship to New College, Oxford, in 1953 and was awarded one of the Junior Mathematical Prizes in 1956. He then studied algebraic topology at Oxford, supervised first by J.H.C. Whitehead, (died 1960), and then, when at Liverpool, he was supervised by M.G. Barratt. Brown's thesis was submitted in 1961, under the supervision of Professor M.G. Barratt, and was on the homotopy type of function spaces, and this led to a long term interest in the applications of what are now called monoidal closed categories. The particular interest in the general topology of function spaces led to the notion of a "category adequate and convenient for all purposes of topology", and in ref. [4] he suggested for this end the categories of Hausdorff k-spaces and continuous functions, or Hausdorff spaces and k-continuous functions, thus stimulating a wide range of work on convenient categories. In collaboration with Peter Booth in the 1970s he helped develop Booth's notion of fiber-wise mapping spaces, i.e. a function space in the category of topological spaces over a given space B, [5]. The writing of a textbook on basic general and algebraic topology from a geometric viewpoint [6] led to his development of a generalisation to the non-connected case of the van Kampen theorem for the fundamental group, and then the use of groupoids for an exposition of most of 1-dimensional homotopy theory.
+
+After two university teaching appointments at Liverpool and at Hull University, he settled in 1970 at Bangor University in Wales where he became an Emeritus Professor in 2001. During the 80's he exchanged a series of engaging letters with the German-born, French mathematician Alexander Grothendieck concerning fundamental groupoids, and their correspondence in English triggered-- for a few short years-- a renewed commmunication of Alexander Grothendieck with the mathematical world. Brown visited Université Louis Pasteur in Strasbourg as an Associate Visiting Professor during 1983 and 1984, and had fruitful excahnges with several other French mathematicians, as for example, on groupoids with Jean Pradines, a research associate of former Professor Charles Ehresmann, (one of the founding mathematicians of category theory--along with Alexander Grothendieck-- in France).
+
+This suggested in 1965 the possibility of the existence and use of "higher homotopy groupoids", finally realised in a sequence of 12 papers by R. Brown and P.J. Higgins from 1978 to 2003, for which a recent survey is presented in [7], and in a different form by R. Brown and J.-L. Loday in two papers in 1987, [8]
+
+The idea from 1965 that these generalisations to higher dimensions of the non-Abelian fundamental groupoid should be developed in the spirit of group theory led to the term "higher dimensional group theory" [9] in 1982 and then to "higher dimensional algebra" in 1987 in the survey paper [10]. The applications to higher homotopy van Kampen theorems, which are in the area of 'local-to-global theorems', lead to some specific non-Abelian calculations in homotopy theory, for example of integral homotopy types, unavailable by other means, and to an understanding of certain homotopical ideas. The use of cubical methods in this work has also had applications in the use of algebraic and topological methods in the theory of concurrency in computer science. The investigation of "higher order symmetry" has also had applications to homotopy theory, in [11] . He has also worked on topological and differential groupoids, particularly with students, and the notion of holonomy and monodromy, pursuing ideas of Charles Ehresmann and J. Pradines. Working with T. Porter and A. Bak, Dr. Brown has developed the work of A. Bak on "global actions" to the notion of groupoid atlas, a kind of "algebraic patching" concept, and this has found applications in multiagent systems. Dr. Brown also has several papers in the area of symbolic computation and mathematical rewriting.
+
+A long term interest in the popularization of mathematics led to a number of articles in this area, and to a collaboration in presenting the work of the sculptor John Robinson [12].
+
+Presently, in retirement, Professor Ronald Brown actively pursues his research in the beautiful surroundings of the village of Deganwy on the Conwy Estuary.
+
+
+ {\em University education:}
+ In 1956 B.A. at Oxford University . In 1961 Ph.D. at Liverpool University · In 1962 D.Phil. at Oxford University
+
+
+ {\em Academic positions:}
+ In 1959 he was appointed an Assistant Lecturer, and then Lecturer at Liverpool University. 
+ During 1964–70 he worked as a Senior Lecturer, and then Reader at Hull University. 
+ From 1970 to 1999 he taught and carried out research as a full Professor of Pure Mathematics at the University of Wales, Bangor, UK. · During 1970–1993 he functioned as the Head of Pure Mathematics, and also of the School of Mathematics in several variants · In 1990 he was elected as Chairman of the University of Wales Validation Board for a four year term · During 1983–84 he visited as a `Professeur associé pour un mois', at the Université Louis Pasteur in Strasbourg. · From 1999 to 2001 he was appointed a Half-time Research Professorship, and in September 2001 he became Professor Emeritus of the University of Wales.
+
+Between 1959 and 2001 he advised 23 successful Ph.D. students in Mathematics.
+
+
+[edit] Leading assignments
+· 1989–2001: Director, Centre for the Popularisation of Mathematics, University of Wales, Bangor.
+
+· 1995–2000: Coordinator, 'INTAS Project on Algebraic K-theory, groups and categories', for Bangor, the University of Bielefeld, Georgian Mathematical Institute, State Universities of Moscow and of St. Petersburg, and the Steklov Institute, St. Petersburg.
+
+· 2002–2004 Leverhulme Emeritus Research Fellowship for a project on Crossed complexes and homotopy groupoids.
+
+
+ {\em Editorships:}
+· Between 1968 and 86 he contributed also as Editor to the Chapman and Hall, Mathematics Series. 
+ During 1975–1994 he was on the Editorial Advisory Board of the London Mathematical Society. 
+ 
+ In 1995 he became a Founding member on the Management Committee of the Editorial Board of several electronic journals: Theory and Applications of Categories. 
+  1996–2007 Editorial Board: Applied Categorical Structures (Kluwer). 
+  
+  Since 1999 he is a Founding member of the electronic journal: Homology, Homotopy and Applications. 2006 — Journal of Homotopy and Related Structures.
+
+
+[edit] Honors and awards
+The Leverhulme Emeritus Fellowship 
+August, 2003: Opening lecture, `Global actions and groupoid atlases', to the conference `Directions in K-theory', Poznan, in honour of the 60th birthday of A. Bak. 
+2000: Grant to produce a CD-ROM as part of an EC Project , `Raising Public Awareness of Mathematics in WMY2000'. 
+2003-2005: EPSRC Grant: Higher Dimensional algebra and Differential Geometry (Visiting Fellowship for J.F. Glazebrook, Eastern Illinois University, USA). 
+
+ {\em Selected publications:}
+ 
+ The following list of publications is selected to represent the impressively wide range of research carried out by Dr. Ronald Brown. For example his 1964 paper on ``The twisted Eilenberg-Zilber theorem'' became influential because it contained the first version of what is now known as the Homological Perturbation Lemma; the resulting Homological Perturbation Theory has afterwards proved to be an important theoretical and computational tool in algebraic topology and in the computation of resolutions.
+
+ R. Brown. [Books 1, 2 and 3] Elements of Modern Topology, McGraw Hill, Maidenhead, (1968); second edition: Topology: a geometric account of general topology, homotopy types, and the fundamental groupoid, Ellis Horwood, Chichester (1988) 460 pp. Third edition: Topology and Groupoids, Booksurge LLC, (2006) xxv+525p.] 
+
+ R. Brown (with P.J. HIGGINS, R.SIVERA). [Book 4] Nonabelian algebraic topology, 2007 (vol.1), and vol.2 in 2008 (in preparation). 
+R. Brown. Function spaces and product topologies, Quart. J. Math. (2) 15 (1964), 238-250. [2] 
+ 
+ R. Brown. The twisted Eilenberg-Zilber theorem., Celebrazioni Archimedi de secolo XX, Syracusa, 1964: Simposi di topologia (1967) 33–37. 
+
+ R. Brown (with P.I. BOOTH), On the application of fibred mapping spaces to exponential laws for bundles, ex-spaces and other categories of maps., Gen. Top. Appl. 8 (1978) 165–179. 
+ 
+ R.Brown (with J. HUEBSCHMANN), Identities among relations, in Low dimensional topology, London Math. Soc. Lecture Note Series, 48 (ed. R. Brown and T.L. Thickstun, Cambridge University Press) (1982), pp. 153–202. This paper on identities among relations has been useful to many as a basic source. 
+
+ R.Brown (with S.P. HUMPHRIES), Orbits under symplectic transvections II: the case K = F2, Proc. London Math. Soc. (3) 52 (1986) 532–556. 
+
+ R.Brown (with P.J. HIGGINS), Tensor products and homotopies for omega-groupoids and crossed complexes, J. Pure Appl. Alg. 47 (1987) 1-33. 
+
+ R.Brown (with J.-L. LODAY), Homotopical excision, and Hurewicz theorems, for 
+$n$-cubes of spaces, Proc. London Math. Soc. (3) 54 (1987), 176–192. 
+R. Brown. From groups to groupoids: a brief survey, Bull. London Math. Soc., 
+19 (1987) 113-134. 
+
+ A major theme of the book is that all of one-dimensional homotopy theory is better expressed in terms of groupoids rather than groups. This raised the question of applications of groupoids in higher homotopy theory, and so to a long march to higher order Van Kampen Theorems, which give new higher dimensional, non-Abelian, local-to-global methods, with relations to Homology and K-theory. 
+
+ R. Brown (with J.-L. LODAY)., Van Kampen theorems for diagrams of spaces, Topology, 26 (1987) 311–334. 
+
+R . Brown (with N.D. GILBERT)., Algebraic models of 3-types and automorphism structures for crossed modules, Proc. London Math. Soc. (3) 59 (1989) 51–73. 
+
+R. Brown (with A. RAZAK SALLEH)., Free crossed resolutions of groups and presentations of modules of identities among relations, LMS J. Comp. and Math. 2 (1999) 28–61. Interest in algorithmic procedures and specific computations was shown in [107] and [124]. Such computations also occur in [51], which introduced a non-Abelian tensor product of groups which act on each other, and for which the bibliography now extends to over 100 papers.
+ 
+ R. Brown (with A. HEYWORTH)., Using rewriting systems to compute left Kan extensions and induced actions of categories, J. Symbolic Computation 29 (2000) 5–31. 
+ R. Brown (with I. IÇEN), Locally Lie subgroupoids and their Lie holonomy and monodromy groupoids, Topology and its Applications. 115 (2001) 125–138. 
+ R. Brown (with M. GOLASINSKI, T.PORTER and A.P.TONKS)., On function spaces of equivariant maps and the equivariant homotopy theory of crossed complexes II: the general topological group case., K-Theory 23 (2001) 129–155. 
+ R. Brown (with A. AL-AGL and R. STEINER)., Multiple categories: the equivalence between a globular and cubical approach, Advances in Mathematics, 170 (2002) 71–118. 
+
+ R. Brown(with I. IÇEN)., Towards a 2-dimensional notion of holonomy, Advances in Mathematics, 178 (2003) 141–175. 
+
+ R. Brown (with C.D.WENSLEY)., Computation and homotopical applications of induced crossed modules, Journal of Symbolic Computation, 35 (2003) 59–72. 
+ R. Brown. Crossed complexes and homotopy groupoids as non-commutative tools for higher dimensional local-to-global problems, Proceedings of the Fields Institute Workshop on Categorical Structures for Descent and Galois Theory, Hopf Algebras and Semiabelian Categories, September 23–28, Fields Institute Communications 43 (2004) 101–130. math.AT/0212274 .
+ 
+ R. Brown (with Bak, A., Minian, G., and Porter, T.), Global actions, groupoid atlases and applications, J. Homotopy and Related Structures, 1 (2006) 101-167. 
+
+
+ \subsection{Notes:}
+ Ronald Brown, J.-L. Loday, (1987). ``Homotopical excision, and Hurewicz theorems, for n-cubes of spaces''. Proceedings London Mathematical Society (London Mathematical Society) 3 (54): 176–192. $doi:10.1006/aima$.1998.1724.  
+ R. Brown, Groupoids and crossed objects in algebraic topology., Homology, Homotopy and Applications 1 (1999), 1–78. Available at HHA (hha- ftp) website at Rutgers University, USA. 
+ Higher Dimensional Algebra citations list 
+ R. Brown. Function spaces and product topologies, Quart. J. Math. (2) 15 (1964), 238-250. 
+ R. Brown (with P.I. Booth), ``On the application of fibred mapping spaces to exponential laws for bundles, ex-spaces and other categories of maps.'', Gen. Topology Appl. 8 (1978) 165–179. 
+ R. Brown. [Books 1, 2 and 3] Elements of Modern Topology, McGraw Hill, Maidenhead, (1968); second edition: Topology: a geometric account of general topology, homotopy types, and the fundamental groupoid, Ellis Horwood, Chichester (1988) 460 pp. Third edition: Topology and Groupoids, Booksurge LLC, (2006) xxv+525p.] 
+
+ R. Brown. Crossed complexes and homotopy groupoids as non-commutative tools for higher dimensional local-to-global problems, Proceedings of the Fields Institute Workshop on Categorical Structures for Descent and Galois Theory, Hopf Algebras and Semiabelian Categories, September 23-28, Fields Institute Communications 43 (2004) 101-130. $math.AT/0212274$ [132] .
+
+ R. Brown and J.-L. LODAY, Homotopical excision, and Hurewicz theorems, for n-cubes of spaces, Proc. London Math. Soc. (3) 54 (1987) 176-192. , and Van Kampen theorems for diagrams of spaces, Topology 26 (1987) 311-334. [49,51]. 
+
+ R.Brown (with J. Huebschmann), Identities among relations, in Low dimensional topology, London Math. Soc. Lecture Note Series, 48 (ed. R. Brown and T.L. Thickstun, Cambridge University Press) (1982), pp. 153–202. 
+ 
+ R. Brown. From groups to groupoids: a brief survey, Bull. London Math. Soc. 19 (1987) 113-134 [50]. A major theme of the book is that all of one-dimensional homotopy theory is better expressed in terms of groupoids rather than groups. This raised the question of applications of groupoids in higher homotopy theory, and so to a long march to higher order Van Kampen Theorems, which give new higher dimensional, non-Abelian, local-to-global methods, with relations to Homology and K-theory. 
+ 
+ R. Brown and N.D. Gilbert, Algebraic models of 3-types and automorphism structures for crossed modules, Proc. London Math. Soc. (3) 59 (1989) 51-73. [59] 
+
+ Collaboration with sculptor John Robinson on using mathematics in abstract art 
+
+
+
+
+ \subsection{References:}
+R. Brown (with Bak, A., Minian, G., and Porter, T.)., Global actions, groupoid atlases and applications., J. Homotopy and Related Structures: 1 (2006) 101–167. 
+
+{\em Higher Dimensional Algebra citations list:}
+
+ Georgescu, George and Popescu, Andrei. A common generalization for MV-algebras and \L{}ukasiewicz-Moisil algebras, Archive for Mathematical Logic, Vol. 45, No. 8. (November 2006), pp. 947-981. (in reference to Heyting-algebra higher-dimensional-algebra hyperalgebras \L{}ukasiewicz-Moisil-algebras meta-logics 
+MV-algebras on 2007-07-11).
+
+ John C. Baez, James Dolan., Higher-Dimensional Algebra III: n-Categories and the Algebra of Opetopes.,Quantum Algebra and Topology, Adv. Math. 135 (1998), 145-206. 
+ 
+ John C. Baez, Laurel Langford., Higher-Dimensional Algebra IV: 2-Tangles.,(Quantum Algebra (math.QA); Algebraic Topology (math.AT); Category Theory (math.CT)), Adv. Math. 180 (2003), 705-764. 
+John C Baez, Aaron D Lauda. 2-groups category-theory higher-dimensional-algebra, and Higher-Dimensional Algebra III: n-Categories and the Algebra of Opetopes (10 Feb 1997) 
+I.C. Baianu.2004. Complex Systems Analysis of Cell Cycling Models in Carcinogenesis., $arXiv:q-bio/0406045v2 q-bio.OT $
+John C Baez, Aaron D Lauda. 2004. Higher-Dimensional Algebra V: 2-Groups. Theory and Applications of Categories 12 (2004), 423-491. $arXiv:math/0307200v3 -math.QA $
+G. L. Litvinov. The Maslov dequantization, idempotent and topical mathematics: A brief introduction., $arXiv:math/0507014v1 math.GM $
+
+{\em External links:}
+
+ Ronald Brown's Home Page 
+ Full list of Professor Ronald Brown's publications 
+ Who's Who in Mathematics at Bangor University, UK 
+ Mathematics Research - List of Mathematicians at Bangor 
+
+ {\em Citations:}
+
+ The origins of Alexander Grothendieck's `Pursuing Stacks' ``This is an account of how `Pursuing Stacks' was written in response to a correspondence in English with Ronnie Brown and Tim Porter at Bangor, which continued until 1991.'' 
+ 
+ 1. Ronald Brown, J.-L. Loday, (1987). ``Homotopical excision, and Hurewicz theorems, for n-cubes of spaces''. Proceedings London Mathematical Society 3 (54): 176–192. Proceedings London Mathematical Society 3 (54): 176–192. London Mathematical Society. 
+
+ 2 Higher Dimensional Algebra citations list: 
+
+ Recent citations on line:
+John C. Baez and Alissa S. Crans.2004, Higher-Dimensional Algebra VI: Lie 2-Algebras., Theory and Applications of Categories 12 (2004), 492-528., as follows:
+
+ [11] R. Brown, Groupoids and crossed objects in algebraic topology., Homology, Homotopy and Applications 1 (1999), 1–78. Available at HHA (hha- ftp) website at Rutgers University, USA.
+
+[12] R. Brown and P. Higgins, Cubical abelian groups with connections are equivalent to chain complexes, Homology, Homotopy and Applications, 5 
+(2003), 49–52.
+
+[13] R. Brown and C. B. Spencer, G-groupoids, crossed modules, and the classifying space of a topological group, Proc. Kon. Akad. v. Wet. 79 (1976),296–302.
+
+ M. A. Batanin Monoidal Globular Categories As a Natural Environment for the Theory of Weak n- Categories., Advances in Mathematics, Volume 136, Issue 1, 1 June 1998, Pages 39-103., $doi:10.1006/aima$.1998.1724</content>
+</record>

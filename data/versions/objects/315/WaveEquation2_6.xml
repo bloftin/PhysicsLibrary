@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="315">
+ <title>wave equations</title>
+ <name>WaveEquation2</name>
+ <created>2008-10-19 22:50:20</created>
+ <modified>2009-02-18 23:40:34</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03.75.-b"/>
+	<category scheme="msc" code="41.20.Jb"/>
+	<category scheme="msc" code="03.65.Ge"/>
+	<category scheme="msc" code="03.65.Pm"/>
+ </classification>
+ <defines>
+	<concept>wave-particle duality</concept>
+	<concept>wave amplitude</concept>
+	<concept>wave phase</concept>
+	<concept>longitudinal wave</concept>
+	<concept>transversal wave</concept>
+ </defines>
+ <related>
+	<object name="WaveEquation"/>
+	<object name="TelegraphEquation"/>
+	<object name="VelocityOfWave"/>
+ </related>
+ <keywords>
+	<term>wave-particle duality</term>
+	<term>wave amplitude</term>
+	<term>wave phase</term>
+	<term>longitudinal wave</term>
+	<term>transversal wave</term>
+	<term>field</term>
+	<term>propagation</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Wave Equations} 
+ Describe the propagation of a wide variety of periodic signals, 'perturbations', or waves through either a medium or vacuum in terms of certain types of differential equations. There are a large number of such wave equations ranging from classical to quantum, and then to relativistic QFT  and gravitational ones. Examples of waves are extremely numerous, and include: elastic waves (for example, vibrations, sound, ultrasound, sea waves, ground waves -- as in an earthquake, etc.), electromagnetic waves (including: radio waves, light, X-rays, $\gamma$-rays, and so on), plasma waves, spin waves, gravitational waves, and so on.
+
+Furthermore, every quantum `particle' has an associated, 'de Broglie wave', which is called the \emph{wave-particle duality} in quantum theory; for example, electrons, protons, neutrons, quarks, neutrinos, and all other sub-atomic or elementary `particles' have their 'own' associated waves whose wavelength is inversely proportional to their energy (\emph{viz.} de Broglie). The waves are represented as solutions of such differential equations, often with specified boundary conditons; thus a wave has both an \emph{amplitude} and a \emph{phase}. 
+
+Thus, any oscillation has a resulting, or corresponding wave that propagates; alternatively, a wave can also be represented as a continuous sequence of local oscillations of a propagating field. The intensity of the propagated signal or field is proportional to the square of the amplitude of the wave, whereas the phase can be thought of as the time interval that has elapsed from the beginning of the wave propagation to the point in space where its phase is determined or measured. There are two basic types of waves: longitudinal (for example, in an elastic medium such as sounds and sea waves)--that are propagating via longitudinal oscillations of particles in the elastic medium which occur along the direction of propagation of the wave front, or transversal waves (for example, electromagnetic) that can also propagate in vacuum. 
+
+Because of the periodic nature of the waves and of their propagation, wave superposition is readily analyzed in terms of either Fourier series or integrals. General solutions of the wave equations are thus usually expressed in terms of Fourier series whose components are `monochromatic' (single-
+frequency) waves.
+
+\subsection{Examples of (differential) wave equations}
+\begin{enumerate}
+\item Transverse electrical wave, with varying vector field $\mathbf{E}$, travelling  at a constant speed $c$:
+
+$$\nabla^2 \mathbf{E} = c^{-2} \frac{ \partial^2 \mathbf{E}}{\partial t^2}$$
+
+\item The wave equation in one dimension is
+$$
+\frac{\partial^2 u}{\partial t^2}=c^2\frac{\partial^2 u}{\partial
+x^2}.
+$$
+
+\item ``The wave equation in $n$ \PMlinkescapetext{dimensions} is
+$$
+\frac{\partial^2 u}{\partial t^2}=c^2\nabla^2 u.
+$$
+where $u$ is a function of the location variables
+$x_1,x_2,\ldots,x_n$, and time $t$. Here, $\nabla^2$ is the Laplacian
+with respect to the location variables, which in Cartesian coordinates is given by $
+\nabla^2=\frac{\partial^2}{\partial x_1^2}+\frac{\partial^2}{\partial x_2^2}+\cdots+\frac{\partial^2}{\partial x_n^2}$'', 
+\PMlinkexternal{on line}{http://planetmath.org/?method=src&amp;from=objects&amp;name=WaveEquation&amp;op=getobj}
+
+\item The Schr\"odinger equation for a quantum system has the general form:
+
+$$\textbf{H} \psi= (-i) \partial \psi / \partial t$$
+
+\end{enumerate}</content>
+</record>

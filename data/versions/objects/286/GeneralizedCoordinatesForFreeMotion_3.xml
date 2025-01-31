@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="286">
+ <title>generalized coordinates  for free motion</title>
+ <name>GeneralizedCoordinatesForFreeMotion</name>
+ <created>2008-07-17 16:36:23</created>
+ <modified>2008-07-17 20:02:31</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.-d"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The differential equations for the motion of a particle under any forces when we use rectangular coordinates are known from Newston's laws of motion
+
+$$ m \ddot{x} = F_x $$
+$$ m \ddot{y} = F_y $$
+$$ m \ddot{z} = F_z $$
+
+where $F_x, F_y, F_z$ are the components of the actual forces on the particle resolved parallel to each of the fixed rectangular axes, or rather their equivalents $m \ddot{x}, m \ddot{y}, m \ddot{z}$, are called the \emph{effective forces} on the particle.  They are of course a set of forces mechanically equivalent to the actual forces acting on the particle.
+
+The equations of motion of the particle in terms of any other system of coordinates are easily obtained.
+
+Let $q_1, q_2, q_3$, be the coordinates in question.  The appropriate formulas for  transformation of coordinates express $x,y,z$ in terms of $q_1,q_2,q_3$.
+
+$$ x = f_1(q_1,q_2,q_3), \,\,\,\, y = f_2(q_1,q_2,q_3), \,\,\,\, z = f_3(q_1,q_2,q_3) $$
+
+For the component velocity $\dot{x}$ we have
+
+$$ \dot{x} = \frac{\partial x}{\partial q_1} \dot{q_1} + \frac{\partial x}{\partial q_2} \dot{q_2} + \frac{\partial x}{\partial q_3} \dot{q_3} $$
+
+and $\dot{x},\dot{y},\dot{z}$ are explicit functions of $q_1,q_2,q_3,\dot{q_1},\dot{q_2},\dot{q_3}$ linear and homogeneous in terms of $\dot{q_1},\dot{q_2},\dot{q_3}$.
+
+We may note in passing that it follows from this fact that $\dot{x}^2,\dot{y}^2,\dot{z}^2$ are homogeneous quadratic functions of $\dot{q_1},\dot{q_2},\dot{q_3}$.
+
+Obviously
+
+$$ \frac{\partial \dot{x}}{\partial \dot{q_1}} =  \frac{\partial x}{\partial q_1} $$
+
+and since
+
+$$ \frac{d}{dt} \frac{\partial x}{\partial q_1} =  \frac{\partial^2 x}{\partial q_1^2} \dot{q_1} + \frac{\partial^2 x}{\partial q_2 \partial q_1} \dot{q_2} + \frac{\partial^2 x}{\partial q_3 \partial q_1} \dot{q_3} $$
+
+and
+
+
+$$ \frac{\partial \dot{x}}{\partial q_1} =  \frac{\partial^2 x}{\partial q_1^2} \dot{q_1} + \frac{\partial^2 x}{\partial q_1 \partial q_2} \dot{q_2} + \frac{\partial^2 x}{\partial q_1 \partial q_3} \dot{q_3} $$
+
+$$ \frac{d}{dt} \frac{\partial x}{\partial q_1} = \frac{\partial \dot{x}}{\partial q_1} $$
+
+Let us now find an expression for the work $\delta_{q_1}W$ done by the effective forces when the coordinate $q_1$ is changed by an infinitesimal amount  $\delta q_1$ without changing $q_2$ or $q_3$.  If $\delta x, \delta y, \delta z$ are changes thus produced in $x,y,z$, obviously from the definition of work
+
+$$ \delta_{q_1}W = m\left [ \ddot{x} \delta x + \ddot{y} \delta y + \ddot{z} \delta z \right ]$$
+
+if expressed in rectangular coordinates.  We need, however, to express $\delta_{q_1}W$ in terms of our coordinates $q_1, q_2, q_3$.
+
+$$ \delta_{q_1}W = m\left [ \ddot{x} \frac{\partial x}{\partial q_1} + \ddot{y} \frac{\partial y}{\partial q_1} + \ddot{z} \frac{\partial z}{\partial q_1} \right ]\delta q_1$$ 
+
+Now
+
+$$\ddot{x} \frac{\partial x}{\partial q_1} = \frac{d}{dt} \left ( \dot{x} \frac{\partial x}{\partial q_1} \right ) - \dot{x} \frac{d}{dt} \frac{\partial x}{\partial q_1} $$
+
+but from earlier definitions
+
+$$ \frac{\partial x}{\partial q_1} = \frac{\partial \dot{x}}{\partial \dot{q_1}} \,\,\,\,\, and \,\,\,\,\, \frac{d}{dt} \frac{\partial x}{\partial q_1} = \frac{\partial \dot{x}}{\partial q_1} $$
+
+Hence
+
+$$ \ddot{x} \frac{\partial x}{\partial q_1} = \frac{d}{dt} \left ( \dot{x} \frac{\partial \dot{x}}{\partial \dot{q_1}} \right ) - \dot{x} \frac{\partial \dot{x}}{\partial q_1} = \frac{d}{dt} \frac{\partial}{\partial \dot{q_1}} \left ( \frac{\dot{x}^2}{2} \right) - \frac{\partial}{\partial q_1} \left ( \frac{\dot{x}^2}{2} \right ) $$
+
+and therefore
+
+$$\delta_{q_1} W = \left [ \frac{d}{dt} \frac{\partial T}{\partial \dot{q_1}} - \frac{\partial T}{\partial q_1} \right ] \delta q_1 $$</content>
+</record>

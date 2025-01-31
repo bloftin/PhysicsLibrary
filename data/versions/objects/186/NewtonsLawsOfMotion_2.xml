@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="186">
+ <title>Newton's laws of motion</title>
+ <name>NewtonsLawsOfMotion</name>
+ <created>2006-06-17 20:05:56</created>
+ <modified>2006-06-17 22:35:57</modified>
+ <type>Law</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Dd"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Newton's laws of motion" alias="Newton's laws"/>
+ </synonyms>
+ <keywords>
+	<term>Newton mechanics</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Sir Isaac Newton's laws of motion were first published in his work Philosophiae Naturalis Principia Mathematica (1687). The laws form the basis for classical mechanics. Newton used them to explain many results concerning the motion of physical objects. In the third volume of the text, he showed that the laws of motion, combined with his law of universal gravitation, explained Kepler's laws of planetary motion.
+
+The following are brief modern formulations of Newton's three laws of motion:
+
+{\bf First law}: Objects in motion tend to stay in motion, and objects at rest tend to stay at rest unless an outside force acts upon them.
+
+{\bf Second law}: The net force on an object is equal to the product of its mass and its acceleration.
+
+$$ \sum \vec{F} = m \vec{a} $$
+
+{\bf Third law}: To every action (force applied) there is an equal and opposite reaction (equal force applied in the opposite direction).
+
+$$ \vec{F}_{12} = - \vec{F}_{21} $$
+
+This entry is a derivative of the Newton's laws of motion article \PMlinkexternal{from Wikipedia, the Free Encyclopedia}{http://en.wikipedia.org/wiki/Newtons_Laws_of_Motion}. Authors of the orginial article include:  DJ Clayworth, Obli, Stevertigo, Patrick and Michael Hardy . History page of the original is \PMlinkexternal{here}{http://en.wikipedia.org/w/index.php?title=Newton\%27s_laws_of_motion\&amp;action=history}</content>
+</record>

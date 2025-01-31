@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="722">
+ <title>index of algebraic geometry</title>
+ <name>IndexOfAlgebraicGeometry</name>
+ <created>2009-05-02 16:09:46</created>
+ <modified>2009-05-02 16:09:46</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>index of algebraic geometry</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed entry in progress
+
+\section{Index of Algebraic Geometry}</content>
+</record>

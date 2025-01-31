@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="171">
+ <title>Vectors and Their Composition</title>
+ <name>VectorsAndTheirComposition</name>
+ <created>2006-05-08 22:05:37</created>
+ <modified>2006-05-16 21:11:37</modified>
+ <type>Topic</type>
+<parent id="169">An Elementary Treatise on Quaternions</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="01.30.-y"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Chapter 1: Vectors and Their Composition}
+
+From \PMlinkname{An Elementary Treatise On Quaternions}{AnElementaryTreatiseOnQuaternions} by Peter Guthrie Tait.
+
+1. FOR at least two centuries the geometrical representation
+of the negative and imaginary algebraic quantities, $-1$ and $\sqrt{-1}$
+has been a favourite subject of speculation with mathematicians.
+The essence of almost all of the proposed processes consists in
+employing such expressions to indicate the DIRECTION, not the
+\emph{length}, of lines.
+
+2. Thus it was long ago seen that if positive quantities were
+measured off in one direction along a fixed line, a useful and lawful
+convention enabled us to express negative quantities of the same
+kind by simply laying them off on the same line in the opposite
+direction. This convention is an essential part of the Cartesian
+method, and is constantly employed in Analytical Geometry and
+Applied Mathematics.
+
+3. Wallis, towards the end of the seventeenth century, proposed
+to represent the impossible roots of a quadratic equation by going
+\emph{out of} the line on which, if real, they would have been laid off.
+This construction is equivalent to the consideration of $\sqrt{-1}$ as a
+directed unit-line perpendicular to that on which real quantities
+are measured.
+
+4. In the usual notation of Analytical Geometry of two
+dimensions, when rectangular axes are employed, this amounts
+to reckoning each unit of length along $Oy$ as $+\sqrt{-1}$, and on
+$Oy'$ as $-\sqrt{-1}$; while on $Ox$ each unit is $+1$, and on $Ox'$ it is $-1$.
+T. Q. I.
+
+If we look at these four lines in circular order, i.e. in the order of
+positive rotation (that of the northern hemisphere of the earth
+about its axis, or opposite to that of the hands of a watch), they
+give
+
+$$1, \sqrt{-1}, -1, -\sqrt{-1}.$$
+
+In this series each expression is derived from that which precedes
+it by multiplication by the factor $\sqrt{-1}$. Hence we may consider
+$\sqrt{-1}$ as an operator, analogous to a handle perpendicular to the
+plane of $xy$, whose effect on any line in that plane is to make it
+rotate (positively) about the origin through an angle of $90^o$.
+
+5. In such a system, (which seems to have been first developed,
+in 1805, by Buee) a point in the plane of reference is defined by a
+single imaginary expression. Thus $a + b\sqrt{-1}$ may be considered
+as a single quantity, denoting the point, $P$, whose coordinates are
+$a$ and $b$. Or, it may be used as an expression for the line $OP$
+joining that point with the origin. In the latter sense, the expression $a + b\sqrt{-1}$ implicitly contains the \emph{direction}, as well as the
+\emph{length}, of this line; since, as we see at once, the direction is
+inclined at an angle $\tan^-1b/a$ to the axis of $x$, and the length is
+$\sqrt{a^2 + b^2}$.  Thus, say we have
+
+$$ OP = a + b\sqrt{-1};$$
+
+the line $OP$ considered as that by which we pass from one extremity, $O$, to the other, $P$. In this sense it is called a VECTOR.
+Considering, in the plane, any other vector,
+
+$$OQ = a' + b'\sqrt{-1};$$
+
+the addition of these two lines obviously gives
+
+$$OR = a + a' + (b + b')\sqrt{-1};$$
+
+and we see that the sum is the diagonal of the parallelogram on
+$OP$, $OQ$. This is the law of the composition of simultaneous
+velocities; and it contains, of course, the law of subtraction of one
+directed line from another.
+
+6. Operating on the first of these symbols by the factor $\sqrt{-1}$,
+it becomes $-b + a \sqrt{-1}$; and now, of course, denotes the point
+whose $x$ and $y$ coordinates are $-b$ and $a$; or the line joining this
+point with the origin. The length is still $\sqrt{a^2 + b^2}$, but the angle
+the line makes with the axis of x is $\tan(-a/b)$; which is
+evidently greater by $\pi/2$ than before the operation.
+
+7. De Moivre's Theorem tends to lead us still further in the
+same direction. In fact, it is easy to see that if we use, instead
+of $\sqrt{-1}$, the more general factor $\cos \alpha + \sqrt{-1} \sin \alpha$, its effect on
+any line is to turn it through the (positive) angle $\alpha$ in the plane
+of $x, y$. [Of course the former factor, $\sqrt{-1}$, is merely the particular case of this, when $\alpha = \pi / 2$.]
+
+Thus $\left( \cos \alpha + \sqrt{-1} \sin \alpha \right) \left(a + b \sqrt{-1}\right) = a \cos \alpha - b \sin \alpha + \sqrt{-1}\left(a \sin \alpha + b \cos \alpha\right),$
+
+by direct multiplication. The reader will at once see that the new
+form indicates that a rotation through an angle $\alpha$ has taken place,
+if he compares it with the common formulae for turning the coordinate axes through a given angle. Or, in a less simple manner,
+thus
+
+Length = $\sqrt{ \left(a \cos \alpha - b \sin \alpha \right)^2 + \left ( a \sin \alpha + b \cos \alpha \right )^2} $
+
+$= \sqrt{a^2 + b^2}$ as before.
+
+Inclination to axis of x
+
+$$ = \tan^{-1} \frac{a \sin \alpha + b \cos \alpha}{a \cos \alpha - b \sin \alpha} = \tan^{-1} \frac{\tan \alpha + \frac{b}{a}}{1 - \frac{b}{a} \tan \alpha} $$
+
+$$ = \alpha + \tan^{-1} b/a $$
+
+8. We see now, as it were, \emph{why} it happens that
+
+$$ \left ( \cos \alpha + \sqrt{-1} \sin \alpha \right )^m = \cos m\alpha + \sqrt{-1} \sin m \alpha $$ 
+
+In fact, the first operator produces $m$ successive rotations in the
+same direction, each through the angle $\alpha$; the second, a single
+rotation through the angle $ma$.
+
+9. It may be interesting, at this stage, to anticipate so far as to
+remark that in the theory of Quaternions the analogue of
+
+$$ \cos \theta + \sqrt{-1} \sin \theta $$
+
+is $$ \cos \theta + \omega \sin \theta $$
+
+where $$ \omega^2 = -1 $$
+
+Here, however, $\omega$ is not the algebraic $\sqrt{-1}$, but is \emph{any directed unit-line} whatever in space.
+
+10. In the present century Argand, Warren, Mourey, and
+others, extended the results of Wallis and Buee. They attempted to express as a line the product of two lines each represented by a
+symbol such $a+b \sqrt{-1}$. To a certain extent they succeeded,
+but all their results remained confined to two dimensions.
+The product, II, of two such lines was defined as the fourth
+proportional to unity and the two lines, thus
+
+$$1 :a + b\sqrt{-1}::a' + b'\sqrt{-1}:II, $$
+or $$II = (aa' - bb') + (a'b + b'a) \sqrt{-1}. $$
+
+The length of II is obviously the product of the lengths of the
+factor lines; and its direction makes an angle with the axis of x
+which is the sum of those made by the factor lines. From this
+result the quotient of two such lines follows immediately.
+
+11. A very curious speculation, due to Servois and published
+in 1813 in Gergonne's \emph{Annales}, is one of the very few, so far as has
+been discovered, in which a well-founded guess at a possible mode
+of extension to three dimensions is contained. Endeavouring to
+extend to space the form $a + b \sqrt{-1}$ for the plane, he is guided by
+analogy to write for a directed unit-line in space the form
+
+$$ p cos \alpha + q \cos \beta + r \cos \gamma$$
+
+where $\alpha, \beta, \gamma$ are its inclinations to the three axes. He perceives easily that $p, q, r$ must be \emph{non-reals}: but, he asks,
+"seraient-elles \emph{imaginaires} reductibles a la forme generale $A+B\sqrt{-1}$?" The $i,j, k$ of the Quaternion Calculus furnish an answer to this question. (See Chap. II.) But it may be remarked that, in applying the
+idea to lines in a plane, a vector OP will no longer be represented
+(as in 5) by
+
+$$ OP = a + b \sqrt{-1}$$
+but by $$ OP = pa + qb$$
+And if, similarly. $$OQ =pa' + qb'$$
+
+the addition of these two lines gives for $OR$ (which retains its
+previous signification)
+
+$$ OR = p(a + a') + q(b + b')$$
+
+12. Beyond this, few attempts were made, or at least recorded,
+in earlier times, to extend the principle to space of three dimensions; and, though many such had been made before 1843, none,
+with the single exception of Hamilton's, have resulted in simple,
+practical methods; all, however ingenious, seeming to lead almost
+at once to processes and results of fearful complexity.
+
+For a lucid, complete, and most impartial statement of the
+claims of his predecessors in this field we refer to the Preface to
+Hamilton's \emph{Lectures on Quaternions}. He there shews how his long
+protracted investigations of Sets culminated in this unique system
+of tridimensional-space geometry.
+
+13. It was reserved for Hamilton to discover the use and
+properties of a class of symbols which, though all in a certain sense
+square roots of $-1$, may be considered as real unit lines, tied down
+to no particular direction in space; the expression for a vector is,
+or may be taken to be,
+
+$$ \rho = ix + jy + kz;$$
+
+but such vector is considered in connection with an extraspatial
+magnitude $w$, and we have thus the notion of a QUATERNION
+
+$$ w + \rho. $$
+
+This is the fundamental notion in the singularly elegant, and
+enormously powerful, Calculus of Quaternions.
+
+While the schemes for using the algebraic $\sqrt{-1}$ to indicate
+direction make one direction in space expressible by real numbers,
+the remainder being imaginaries of some kind, and thus lead to
+expressions which are heterogeneous; Hamilton's system makes all
+directions in space equally imaginary, or rather equally real, there
+by ensuring to his Calculus the power of dealing with space
+indifferently in all directions.
+
+In fact, as we shall see, the Quaternion method is independent
+of axes or any supposed directions in space, and takes its reference
+lines solely from the problem it is applied to.
+
+14. But, for the purpose of elementary exposition, it is best
+to begin by assimilating it as closely as we can to the ordinary
+Cartesian methods of Geometry of Three Dimensions, with which
+the student is supposed to be, to some extent at least, acquainted.
+Such assistance, it will be found, can (as a rule) soon be dispensed
+with; and Hamilton regarded any apparent necessity for an oc
+casional recurrence to it, in higher applications, as an indication
+of imperfect development in the proper methods of the new
+Calculus.
+
+We commence, therefore, with some very elementary geometrical
+ideas, relating to the theory of vectors in space. It will subsequently
+appear how we are thus led to the notion of a Quaternion.
+
+15. Suppose we have two points $A$ and $B$ in space, and suppose A given, on how many numbers does $B's$ relative position depend?
+
+If we refer to Cartesian coordinates (rectangular or not) we find
+that the data required are the excesses of $B's$ three coordinates
+over those of A. Hence three numbers are required.
+
+Or we may take polar coordinates. To define the moon's
+position with respect to the earth we must have its Geocentric
+Latitude and Longitude, or its Right Ascension and Declination,
+and, in addition, its distance or radius-vector. \emph{Three} again.
+
+16. Here it is to be carefully noticed that nothing has been
+said of the \emph{actual} coordinates of either $A$ or $B$, or of the earth
+and moon, in space; it is only the \emph{relative} coordinates that are
+contemplated.
+
+Hence any expression, as $\overline{AB}$, denoting a line considered with
+reference to direction and currency as well as length, (whatever
+may be its actual position in space) contains implicitly \emph{three}
+numbers, and all lines parallel and equal to $AB$, and concurrent
+with it, depend in the same way upon the same three. Hence, \emph{all
+lines which are equal, parallel, and concurrent, may be represented
+by a common symbol, and that symbol contains three distinct numbers.}
+In this sense a line is called a VECTOR, since by it we pass from
+the one extremity, $A$, to the other, $B$; and it may thus be
+considered as an instrument which \emph{carries} A to B: so that a
+vector may be employed to indicate a definite \emph{translation} in space.
+
+[The term "currency" has been suggested by Cayley for use
+instead of the somewhat vague suggestion sometimes taken to
+be involved in the word "direction." Thus parallel lines have
+the same direction, though they may have similar or opposite
+currencies. The definition of a vector essentially includes its
+currency.]
+
+17. We may here remark, once for all, that in establishing a
+new Calculus, we are at liberty to give any definitions whatever
+of our symbols, provided that no two of these interfere with, or
+contradict, each other, and in doing so in Quaternions \emph{simplicity}
+and (so to speak) \emph{naturalness} were the inventor's aim.
+
+18. Let $\overline{AB}$ be represented by $\alpha$, we know that $\alpha$ involves \emph{three} separate numbers, and that these depend solely upon the
+position of $B$ relatively to $A$. Now if $CD$ be equal in length to $AB$ and if these lines be parallel, and have the same currency, we may
+evidently write
+
+$$ \overline{CD} = \overline{AB} = \alpha $$
+
+where it will be seen that the sign of \emph{equality} between vectors
+contains implicitly \emph{equality in length, parallelism in direction,}
+and \emph{concurrency}. So far we have \emph{extended} the meaning of an
+algebraical symbol. And it is to be noticed that an equation
+between vectors, as
+
+$$\alpha = \beta$$,
+
+contains \emph{three} distinct equations between mere numbers.
+
+19. We must now define $+$ (and the meaning of - will follow)
+in the new Calculus. Let $A, B, C$ be any three points, and (with
+the above meaning of = ) let
+
+$$\overline{AB} = \alpha, \,\,\,\,\, \overline{BC}=\beta, \,\,\,\,\, \overline{AC} = \gamma . $$ 
+
+If we define $+$ (in accordance with the idea (16) that a vector
+represents a \emph{translation}) by the equation
+
+$$ \alpha + \beta = \gamma, $$
+
+or $$ \overline{AB} + \overline{BC} = \overline{AC}, $$
+
+we contradict nothing that precedes, but we at once introduce the
+idea that \emph{vectors are to be compounded, in direction and magnitude,
+like simultaneous velocities}. A reason for this may be seen in
+another way if we remember that by adding the (algebraic) differ
+ences of the Cartesian coordinates of $B$ and $A$, to those of the
+coordinates of $C$ and $B$, we get those of the coordinates of $C$ and
+$A$.  Hence these coordinates enter \emph{linearly} into the expression for
+a vector. (See, again, 5.)
+
+20. But we also see that if $C$ and $A$ coincide (and $C$ may be
+\emph{any} point)
+
+$$\overline{AC}=0,$$
+
+for no vector is then required to carry $A$ to $C$. Hence the above
+relation may be written, in this case,
+
+$$ \overline{AB} + \overline{BA} = 0,$$
+
+or, introducing, and by the same act defining, the symbol $-$,
+
+$$ \overline{BA} = -\overline{AB}. $$
+
+Hence, the symbol $-$, \emph{applied to a vector, simply shews that its
+currency is to be reversed.}
+
+And this is consistent with all that precedes; for instance,
+
+$$ \overline{AB} + \overline{BC} = \overline{AC},$$
+and $$ \overline{AB} = \overline{AC} - \overline{BC},$$
+or $$ =\overline{AC} + \overline{CB}, $$
+
+are evidently but different expressions of the same truth.
+
+21. In any triangle, $ABC$, we have, of course,
+$$ \overline{AB} + \overline{BC} + \overline{CA} = 0;$$
+
+and, in any closed polygon, whether plane or gauche,
+
+$$ \overline{AB} + \overline{BC} + ...... + \overline{YZ} + \overline{ZA} = 0.$$
+
+In the case of the polygon we have also
+
+$$ \overline{AB} + \overline{BC} + ...... + \overline{YZ} = \overline{AZ}.$$
+
+These are the well-known propositions regarding composition
+of velocities, which, by Newton's second law of motion, give us
+the geometrical laws of composition of forces acting at one point.
+
+22. If we compound any number of \emph{parallel} vectors, the result
+is obviously a numerical multiple of any one of them.
+
+Thus, if $A, B, C$ are in one straight line,
+
+$$ \overline{BC} = x \overline{AB};$$
+
+where $x$ is a number, positive when $B$ lies between $A$ and $C$, otherwise negative: but such that its numerical value, independent
+of sign, is the ratio of the length of $BC$ to that of $AB$. This is
+at once evident if $AB$ and $BC$ be commensurable; and is easily
+extended to incommensurables by the usual \emph{reductio ad absurdum}.
+
+23. An important, but almost obvious, proposition is that \emph{any
+vector may be resolved, and in one way only, into three components
+parallel respectively to any three given vectors, no two of which are
+parallel, and which are not parallel to one plane.}
+
+\begin{figure}
+\includegraphics[scale=.8]{figure1.eps}
+\end{figure}
+
+
+
+Let $OA$, $OB$, $OC$ be the three fixed c
+vectors, $OP$ any other vector. From $P$ draw
+$PQ$ parallel to $CO$, meeting the plane $BOA$
+in $Q$. [There must be a definite point $Q$,
+else $PQ$, and therefore $CO$, would be parallel
+to $BOA$, a case specially excepted.] From $Q$
+draw $QR$ parallel to $BO$, meeting $OA$ in $R$.
+Then we have $\overline{OP} = \overline{OR} + \overline{RQ} + \overline{QP}$ ( 21), and these components are respectively parallel to the three given
+and these components are respectively parallel to the three given vectors. By 22 we may express $\overline{OR}$ as a numerical multiple
+of $\overline{OA}$, $\overline{RQ}$ of $\overline{OB}$, and $\overline{QP}$ of $\overline{OC}$. Hence we have, generally, for
+any vector in terms of three fixed non-coplanar vectors, $\alpha, \beta, \gamma$,
+
+$$ \overline{OP} = \rho = x \alpha + y \beta + z \gamma, $$
+
+which exhibits, in one form, the \emph{three} numbers on which a vector
+depends (16). Here $x, y, z$ are perfectly definite, and can have
+but single values.
+
+24. Similarly any vector, as $\overline{OQ}$, in the same plane with $OA$
+and $OB$, can be resolved (in one way only) into components $\overline{OR}$,
+$\overline{RQ}$, parallel respectively to $\overline{OA}$ and $\overline{OB}$; so long, at least, as these two vectors are not parallel to each other.
+
+25. There is particular advantage, in certain cases, in em
+ploying a series of three \emph{mutually perpendicular unit-vectors} as
+lines of reference. This system Hamilton denotes by $i,j, k$.
+
+Any other vector is then expressible as
+
+$$ \rho = xi + yj + zk. $$
+
+Since $i, j, k$ are unit-vectors, $x, y, z$ are here the lengths of
+conterminous edges of a rectangular parallelepiped of which $\rho$
+is the vector-diagonal; so that the length of $\rho$ is, in this case,
+
+$$ \sqrt{x^2 + y^2 +z^2} $$
+
+Let  $$ w = \xi i + \eta j + \zeta k $$
+
+be any other vector, then (by the proposition of 23) the vector
+equation 
+
+$$ \rho = \omega $$
+
+obyiously involves the following three equations among numbers,
+
+$$ x = \xi, \,\,\,\,\, y = \eta, \,\,\,\,\, z = \zeta $$
+
+Suppose $i$ to be drawn eastwards, $j$ northwards, and $k$ upwards,
+this is equivalent merely to saying that \emph{if two points coincide, they
+are equally to the east (or west) of any third point, equally to the
+north (or south) of it, and equally elevated above (or depressed below)
+its level.}
+
+26. It is to be carefully noticed that it is only when $\alpha, \beta, \gamma$
+are not coplanar that a vector equation such as
+
+$$ \rho = \omega,$$
+
+or  $$x \alpha + y \beta + z \gamma = \xi \alpha + \eta \beta + \zeta \gamma,$$
+necessitates the three numerical equations
+
+$$ x = \xi, \,\,\,\,\, y = \eta, \,\,\,\,\, z = \zeta, $$</content>
+</record>

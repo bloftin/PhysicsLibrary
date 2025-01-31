@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="61">
+ <title>direction cosine matrix to Euler 123 sequence</title>
+ <name>DirectionCosineMatrixToEuler123Sequence</name>
+ <created>2005-08-16 00:08:53</created>
+ <modified>2005-08-16 00:08:53</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Starting with a direction cosine matrix (DCM), we need to determine the three Euler angles.  The connection is made by comparing the DCM elements with the combined Euler 123 sequence.  The DCM matrix 
+
+\begin{equation}
+DCM =
+\left[ \begin{array}{ccc}
+A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right]
+\end{equation}
+
+The Euler 123 sequence is
+
+
+\begin{equation}
+R_3(\psi)R_2(\theta)R_1(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} &amp; c_{\psi} s_{\theta} s_{\phi} + s_{\psi} c_{\phi} &amp; -c_{\psi} s_{\theta} c_{\phi} + s_{\psi} s_{\phi} \\
+-s_{\psi} c_{\theta} &amp; -s_{\psi} s_{\theta} s_{\phi} + c_{\psi} c_{\phi} &amp; s_{\psi} s_{\theta} c_{\phi} + c_{\psi} s_{\phi} \\
+s_{\theta} &amp; -c_{\theta} s_{\phi} &amp; c_{\theta} c_{\phi} \end{array} \right] 
+\end{equation}
+
+If we examine the coloum 1 row 3 element, then by inspection
+
+$A_{31} = sin(\theta)$
+
+Solving for $\theta$ yields
+
+\begin{equation}
+\theta = sin^{-1}(A_{31})
+\end{equation}
+
+Care must now be taken when evaluating the inverse sine.  It is a multivalued function, which will will have values of $\theta$ and $\pi - \theta$. Analytically, the convention is to choose the principle value such that 
+
+$-\pi/2 \le \theta \le \pi/2$
+
+If a numerical program is used, a function asin() usually does this for us.  The next step is to analyze the ratio $A_{32} \over A_{33}$.  Using these values from the Euler sequence we get
+
+$\dfrac{A_{32}}{A_{33}}= \dfrac{-sin(\phi) cos(\theta)}{cos(\phi) cos(\theta)}$
+
+Rearranging the minus sign and using the tangent yields
+
+$tan(\phi) = \dfrac{-A_{32}}{A_{33}}$
+
+Solving the quadrant ambiquity caused by the inverse tangent is done by examining the signs of the numerator and denominator.  Denoting y as the numerator and x as the denominator, the the quadrant is chosen by
+
+\begin{equation}
+\left[ \begin{array}{cc}
+\left[ \begin{array}{cc}
+y &amp; x \\
++ &amp; - \\
+\end{array} \right] &amp; \left[ \begin{array}{cc}
+y &amp; x \\
++ &amp; + \\
+\end{array} \right]
+\end{array} \right]
+\end{equation}</content>
+</record>

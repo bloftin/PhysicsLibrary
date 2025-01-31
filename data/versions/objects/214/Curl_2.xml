@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="214">
+ <title>curl</title>
+ <name>Curl</name>
+ <created>2006-07-27 22:26:41</created>
+ <modified>2006-07-27 23:18:12</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>vector</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>To the operator $\nabla \times$ Maxwell gave the name {\bf curl}.
+
+$$\nabla \times {\bf V} = curl \,\, {\bf V}$$
+
+The curl of a vector function ${\bf V}$ is itself a vector function of position in space.  As the name indicates, it is closely connected with the angular velocity or spin of the flux at each point.  But the interpretation of the curl is neither so easily obtained nor so simple as that of the divergence.
+
+Consider as before that ${\bf V}$ represents the flux of a fluid.  Take at a definite instant an infinitesimal sphere about any point $(x, y, z)$.  At the next instant what has become of the sphere?  In the first place it may have moved off as a whole in a certain direction by an amount $d{\bf r}$.  In other words it may have a translational elocity of $d{\bf r}/dt$.  In other words it may have undergone such a deformation that it is no longer a sphere.  It may have been subjected to a \emph{strain} by virtue of which it becomes slightly ellipsoidal in shape.  Finally it may have been rotated as a whole about some axis through an angle $dw$.  That is to say, it may have an angular velocity the magnitude of which is $dw/dt$.  An infinitesimal sphere therefore may have any one of these distinct types of motion or all of them combined.  First, a translation with definite velocity.  Second, a strain with three definite rates of elongation along the axes of an ellipsoid.  Third, an angular velocity about a difinite axis.  It is this third type of motion which is given by the curl.  In fact, the \emph{curl} of the flux $V$ is a vector which has at each point of space the direction of the instantaneous axis of rotation at that point and a magnitude equal to twice the instantaneous angular velocity about that axis.
+
+The analytic discussion of the motion of a fluid presents more difficulties than it is necessary to introduce in treating the curl.  The motion of a rigid body is sufficiently complex to give an adequate idea of the operation.  It was seen that the velocity of the particles of a rigid body at any instant is given by the formula
+
+$${\bf v} = {\bf v}_0 + {\bf a} \times {\bf r}$$
+
+$$ curl \,\, {\bf v} = \nabla \times {\bf v} = \nabla \times {\bf v}_0 + \nabla \times \left ( {\bf a} \times {\bf r} \right) $$
+
+Let
+
+$$ {\bf a} = a_1 {\bf \hat{i}} + a_2 {\bf \hat{j}} + a_3 {\bf \hat{k}} $$
+
+$$ {\bf r} = r_1 {\bf \hat{i}} + r_2 {\bf \hat{j}} + r_3 {\bf \hat{k}} = x {\bf \hat{i}} + y {\bf \hat{j}} + z {\bf \hat{k}} $$ 
+
+expand $\nabla \times \left ( {\bf a} \times {\bf r} \right)$ formally as if it were the vector triple product of $\nabla$, ${\bf a}$, and ${\bf r}$.  Then
+
+$$ \nabla \times {\bf v} = \nabla \times {\bf v}_0 + \left ( \nabla \cdot {\bf r}  \right ) {\bf a} - \left ( \nabla \cdot {\bf a} \right ) {\bf r} $$
+
+${\bf v}_0$ is a constant vector.  Hence the term $\nabla \times {\bf v_0}$  vanishes.
+
+$$ \nabla \cdot {\bf r} =  \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial z}{\partial z} = 3  $$
+
+Since ${\bf a}$ is a constant vector, it may be placed upon the other side of the differential operator, $\nabla \cdot {\bf a} = {\bf a} \cdot \nabla$
+
+$$ {\bf a} \cdot \nabla {\bf r} = \left ( a_1 \frac{\partial}{\partial x} + a_2 \frac{\partial}{\partial y} + a_3 \frac{\partial}{\partial z} \right )  {\bf     r} = a_1 {\bf \hat{i}} + a_2 {\bf \hat{j}} + a_3 {\bf \hat{k}} = {\bf a}  $$
+
+Hence
+
+$$ \nabla \times {\bf v} = 3 {\bf a } - {\bf a} = 2 {\bf a} $$
+
+Therefore in the case of the motion of a rigid body the curl of the linear velocity at any point is equal to twice the angular velocity in magnitude and in direction.
+
+$$ \nabla \times {\bf v} = curl \,\, {\bf v} = 2 {\bf a} $$
+$$ {\bf a} = \frac{1}{2} \nabla \times {\bf v} = \frac{1}{2} curl \,\, {\bf v}$$
+$$ {\bf v} = {\bf v_0} + \frac{1}{2} \left ( \nabla \times {\bf v} \right ) \times {\bf r} = {\bf v_0} + \frac{1}{2} \left ( curl \,\, {\bf v} \right ) \times {\bf r}  $$
+
+The expansion of $\nabla \times \left ( {\bf a} \times {\bf r} \right )$ formally may be avoided by multiplying ${\bf a} \times {\bf r}$ out and then applying the operator $\nabla \times$ to the result.
+
+\subsection{References}
+
+[1] Wilson, E. "Vector Analysis." Yale University Press, New Haven, 1913.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

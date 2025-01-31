@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="119" id="386">
+ <title>biographies on PlanetPhysics-org</title>
+ <name>BiographiesOnPlanetPhysicsOrg</name>
+ <created>2009-01-14 17:19:22</created>
+ <modified>2009-04-28 20:42:43</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="15" name="rspuzio"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <related>
+	<object name="SirMichaelAtiyah"/>
+	<object name="AlexanderGrothendieck"/>
+	<object name="ElieJCartan"/>
+	<object name="JanLukasiewicz"/>
+	<object name="NicolasRashevsky"/>
+	<object name="RobertRosen"/>
+	<object name="WilliamLawvere"/>
+	<object name="RonaldBrown"/>
+	<object name="JohnHVanVleck"/>
+	<object name="IonPavaloiu"/>
+ </related>
+ <keywords>
+	<term>eminent physicists' biographies</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>This entry lists the available biographies on PlanetPhysics.org.
+
+\begin{itemize}
+\item \PMlinkname{Albert Einstein; NP.1921-phe}{AlbertEinstein}
+\item \PMlinkname{Alexander Grothendieck; FM1966}{AlexanderGrothendieck}
+\item \PMlinkname{Anderson, P.W.; NP1977-es}{P.W. Anderson}
+\item \PMlinkname{Abragam, Anatole}{AnatoleAbragam}
+\item \PMlinkname{Abrikosov, Alexei, A.; NP2003-qsm}{AlexeiAbrikosov}
+\item \PMlinkname{Archimedes}{Archimedes}
+\item \PMlinkname{Aristotle}{Aristotle}
+\item \PMlinkname{Aspect, Alain}{AlainAspect}
+\item \PMlinkname{Sir Michael, Francis, Atiyah}{SirMichaelAtiyah}
+\item \PMlinkname{Bardeen, John; NP1972-smc; NP1972-spc}{JohnBardeen}
+\item \PMlinkname{Becquerel, Antoine, Henri; NP1903-nrad}{AntoineBecquerel}
+\item \PMlinkname{Bellman, Richard, Ernest}{RichardBellman}
+\item \PMlinkname{Birkhoff, George David}{GeorgeBirkhoff}
+\item \PMlinkname{Bloch, Felix; NP1952-nmr}{FelixBloch} 
+\item \PMlinkname{Bloembergen, Nicolaas}{NicolaasBloembergen} 
+\item \PMlinkname{Bohr, Niels, Henrik, David; NP1922-qm}{NielsBohr}
+\item \PMlinkname{`Bourbaki, Nicolas'}{NicolasBourbaki}
+\item \PMlinkname{Sir William, Henry Bragg; NP1915-xrd}{WilliamHBragg}
+\item \PMlinkname{Sir Lawrence, Bragg; NP1915-xrd}{SirLawrenceBragg}
+\item \PMlinkname{Brattain, Walter, Houser; NP1956-smc}{WalterBrattain}
+\item \PMlinkname{Brown,Ronald}{HigherDimensionalAlgebraHDA};
+\PMlinkexternal{Ronald Brown}{http://en.wikipedia.org/wiki/Ronald_Brown_(mathematician)}
+\item \PMlinkname{Carnot, Nicolas, L\'eonard, Sadi}{NicolasSadiCarnot}
+\item \PMlinkname{Cartan, Joseph, \'Elie}{ElieJCartan}
+\item \PMlinkname{Sir James, Chadwick ; NP1935-neutron}{JamesChadwick}
+\item \PMlinkname{Choquet-Bruhat, Yvonne}{YvonneChoquet}
+\item William Clifford
+\item \PMlinkname{Compton, Arthur, Holly; NP1927}{ArthurCompton}
+\item \PMlinkname{Connes, Alain; FM1982-ncg}{AlainConnes}
+\item \PMlinkname{Cooper, Leon; NP1972-spc}{LeonCooper}
+\item \PMlinkname{Copernicus, Nicolaus}{Nicolausopernicus}
+\item \PMlinkname{Crick, Francis}{FrancisCrick}
+\item \PMlinkname{Curie (n\'ee Sklodowska), Marie; NP1903-rad}{MarieCurie}
+\item \PMlinkname{Curie, Pi\'erre; NP1903-rad,mg}{PierreCurie}
+\item \PMlinkname{Joliot (Curie), Frederick;NP1930-ch-rad}{FrederickJoliot}
+\item \PMlinkname{Curie, Julie; NP1930-ch-rad}{JulieCurie}
+\item \PMlinkname{Dalton}{Dalton}
+\item \PMlinkname{Prince Louis-Victor, Pierre,Raymond, de Broglie; NP1929-qm}{LouisdeBroglie}
+\item \PMlinkname{de Gennes, Pierre-Gilles; NP1991-cmpx}{Pierre-GillesdeGennes}
+\item \PMlinkname{Deligne, Pierre Ren\'e; FM1978}{PierreDeligne}
+\item \PMlinkname{Descartes, Ren\'e}{Cartesius}
+\item \PMlinkname{Dirac, Paul Adrien Maurice; NP1933-qm}{PaulDirac}
+\item \PMlinkname{Drinfel'd, Vladimir, Gershonovich; FM1990-qt}{VladimirDrinfeld}
+\item \PMlinkname{Dyson, Freeman}{FreemanDyson} 
+\item \PMlinkname{Euler, Leonhard}{EulerLeonhard}
+\item \PMlinkname{Fermi, Enrico; NP1938-nph}{EnricoFermi}
+\item \PMlinkname{Feynman, Richard; NP1965-qed}{RichardFeynman}
+\item \PMlinkname{Fields, John Charles}{JohnCharlesFields}
+\item \PMlinkname{Fourier, Joseph }{JosephFourier}
+\item \PMlinkname{Franklin, Benjamin}{BenjaminFranklin}
+\item \PMlinkname{Franklin, Rosalind}{RosalindFranklin}
+\item \PMlinkname{A.J. Fresnel}{AFresnel}
+\item \PMlinkname{Frobenius, Georg}{GeorgFrobenius}
+\item \PMlinkname{Fr\"ohlich, Herbert, FRS}{HerbertFr\"ohlich}
+\item \PMlinkname{Galilei, Galileo}{GalileoGalilei}
+\item \PMlinkname{Galois, \'Evariste}{EvaristeGalois}
+\item \PMlinkname{Gauss, Carl Friedrich}{CarlFriedrichGauss}
+\item \PMlinkname{Gell-Mann, Murray}{MurrayGellMann}
+\item \PMlinkname{Gibbs,Josiah Willard}{WillardGibbs}
+\item \PMlinkname{Goeppert-Mayer, Maria; NP1963-nshs}{MariaGoeppert-Mayer}
+\item \PMlinkexternal{Grecu, Voicu, Vlad}{http://ro.wikipedia.org/wiki/Voicu_Vlad_Grecu}
+\item \PMlinkexternal{Gutowski, Herbert, Sander}{http://chemistry.illinois.edu/about/illini_chemists/Herbert_Gutowsky.html}(\PMlinkexternal{Gutowski, Herbert, S.}{http://books.nap.edu/html/biomems/hgutowsky.pdf})
+\item \PMlinkname{Hamilton, William Rowan}{WilliamHamilton}
+\item \PMlinkname{Hamilton, Richard}{RichardHamilton}
+\item \PMlinkname{Hahn, Erwin, NP1956-nmr}{ErwinHahn}
+\item \PMlinkname{Hahn, Otto}{OttoHahn}
+\item \PMlinkname{Hanke, W.}{W.Hanke} 
+\item \PMlinkname{Hawking, Stephen William}{StephenWilliamHAWKING}
+\item \PMlinkname{Heisenberg, Werner}{WernerHeisenberg} 
+\item \PMlinkname{Heron of Alexandria}{Heron}
+\item \PMlinkname{Herz, Gustav, Ludwig; NP1925-emf}{GustavHerz}
+\item \PMlinkname{Hilbert, David}{DavidHilbert}
+\item \PMlinkname{Hooft, G\'erardus$'t; NP1999-nab-qft$}{G\'erardus-t Hooft} 
+\item \PMlinkexternal{Ionescu, Theodor, V.}{http://ro.wikipedia.org/wiki/Theodor_V._Ionescu}
+\item \PMlinkname{Jeneer, Jean}{JeanJeneer}
+\item \PMlinkname{Josephson, Brian; NP1958-qth-tJe}{BrianJosephson}
+\item \PMlinkname{Kapitsa, Piotr}{PiotrKapitsa}
+\item \PMlinkname{Kaplan, Daniel}{DanielKaplan}
+\item \PMlinkname{Karreman, George}{GeorgeKarreman}
+\item \PMlinkname{Konsevitch, Maxim; FM1998}{MaximKonsevitch}
+\item \PMlinkname{Kuchar, Karel}{KarelKuchar}
+\item \PMlinkname{Lanczos, Cornelius}{CorneliusLanczos}
+\item \PMlinkname{Landau, Lev, Davidovich, NP1962-thm-qsm}{LevLandau}
+\item \PMlinkname{Langevin, Paul}{PaulLangevin}
+\item \PMlinkname{Lauterbur, Paul; NP2005-mri}{PaulLuterbur}
+\item \PMlinkname{Lawvere, William}{WilliamFrancisLawvere}
+\item \PMlinkexternal{Sir Anthony, J. Leggett; NP2003-qsm-qt}{http://physics.illinois.edu/people/profile.asp?aleggett}
+\item \PMlinkexternal{Levi-Civita,Tullio}{http://genealogy.math.ndsu.nodak.edu/id.php?id=59054}
+\item \PMlinkname{Lorenz, Edward, Norton}{EdwardLorenz}
+\item \PMlinkname{Lorentz, Hendrik, Antoon; NP1902-rth}{HendrikLorentz}
+\item \PMlinkname{\L{}ukasiewicz, Jan}{JanLukasiewicz}
+\item \PMlinkname{Sir Mansfield, Peter; NP2005-mri}{SirPeterMansfield}
+\item \PMlinkname{Michelson, Albert, Abraham; NP1907-op-rth}{AlbertMichelson}
+\item \PMlinkname{Millikan, Robert, Andrews; NP1923-ecge}{RobertAMillikan}
+\item \PMlinkname{Moisil, Grigore}{GrigoreMoisil}
+\item \PMlinkname{N\'eel, Louis, Eugene, Felix; NP1970-mag}{LouisN\'eel}
+\item \PMlinkname{Sir Nevill, Francis, Mott; NP1970-esq}{SirNevilleMott}
+\item \PMlinkname{Yoichiro Nambu; Makoto Kobayashi; Toshihide Maskawa; NP.2008}{YoichiroNambu} 
+\item \PMlinkname{Sir Isaac, Newton}{SirIsaacNewton}
+\item \PMlinkname{Nobel, Alfred}{Alfred Nobel}
+\item \PMlinkname{Noether, Amalie Emmy}{AmalieNoether}
+\item \PMlinkname{Onnes, Heike Kamerlingh; NP1913-spc}{KamerlinghHOnnes}
+\item \PMlinkname{$\, P\check{a}v\check{a}loiu, Ion$}{IonPavaloiu}, (\PMlinkname{Pavaloiu, Ion}{IonPavaloiu}) 
+\item \PMlinkname{Pauli, Wolfgang;NP1943-qt}{WolfgangPauli}
+\item \PMlinkname{Pauling, Linus}{LinusPauling}
+\item \PMlinkname{Sir Roger, Penrose}{RogerPenrose}
+\item \PMlinkname{Perelman, Grigori}{GrigoriPerelman}
+\item \PMlinkname{Planck, Karl, Ernst ,Ludwig, Planck; NP1918-thm}{MaxPlanck}
+\item \PMlinkname{Poincar\'{e}, Jules Henri}{JulesHenriPoincare}
+\item \PMlinkname{Popescu, Nicolae}{PopescuNicolae}
+\item \PMlinkname{P\'{o}lya, George (P\'{o}lya Gy\"orgy)}{GeorgePolya}
+\item \PMlinkname{Prigogine, Ilyia}{IlyiaPrigogine}
+\item \PMlinkname{Procopiu, Stefan}{StefanProcopiu}
+\item \PMlinkname{Purcell, Edward, Mills; NP1952-nmr}{EdwardPurcell}
+\item \PMlinkname{Sir Chandrasekhara Venkata Raman, FRS, NP1930}{RamanCV}
+\item \PMlinkname{Ramanujan, Srinivasa}{SrinivasaRamanujan}
+\item \PMlinkname{Sir John, Randahl}{SirJohnRandahl}
+\item \PMlinkname{Rashevsky, Nicolas}{NicolasRashevsky}
+\item \PMlinkname{(Lord) John William Strutt Rayleigh;NP 1904-osc}{JohnWRayleigh}
+\item \PMlinkname{Ricci-Curbastro,Gregorio}{GregorioRicci-Curbastro}
+\item \PMlinkname{Riemann, Bernhard }{RiemannBernhard}
+\item \PMlinkname{R\"ontgen, Conrad, Wilhelm; NP1901-xray}{R\"ontgen, Wilhelm} 
+\item \PMlinkname{Rosen, Robert}{RobertRosen}
+\item \PMlinkname{Rutherford, Ernst}{ErnstRutherford}
+\item \PMlinkname{Salaam, Abdul; NP1968-qew}{AbdulSalaam}
+\item \PMlinkname{Shockley, William; NP1956-smc}{WilliamShockley} 
+\item \PMlinkname{Schwinger, Julian, Seymour; NP1965-qed}{JulianSchwinger}
+\item \PMlinkname{Schrieffer, John ; NP1972-spc}{JohnSchrieffer}
+\item \PMlinkname{Schr\"odinger, Erwin, Rudolf, Josef, NP1933-qm}{ErwinSchr\"odinger}
+\item \PMlinkname{Serre, Jean-Pierre; FM1954}{Jean-PierreSerre}
+\item \PMlinkname{Shannon, Claude, Elwood}{ClaudeShannon}
+\item \PMlinkname{Slichter, Charles, P.}{CharlesSlichter}
+\item \PMlinkname{Solomon, Ionel; SP1978-nmr}{IonelSolomon}
+\item \PMlinkname{Sommerfeld, Arnold, Johannes, Wilhelm; -qm}{ArnoldSommerfeld}  
+\item \PMlinkname{Stern, Otto; NP1943-nf}{OttoStern} 
+\item \PMlinkname{Tesla, Nicola}{NicolaTesla}
+\item \PMlinkexternal{Thom, Ren\'e; FM1958-top}{http://www-history.mcs.st-and.ac.uk/Mathematicians/Thom.html}
+\item \PMlinkname{Sir Joseph John Thomson; NP1906-aph}{JosephJThomson}
+\item \PMlinkname{Thurston, William, Paul; FM1982}{WilliamThurston}
+\item \PMlinkname{Tomonaga,Sin-Itiro}{Sin-ItiroTomonaga} 
+\item \PMlinkname{Turing, Alan}{AlanTuring}
+\item \PMlinkname{Young, Thomas}{ThomasYoung}
+\item \PMlinkname{Yukawa,Hideki; NP1949-nph-mes}{Hideki Yukawa} 
+\item \PMlinkname{Van Vleck, John H.; NP1977-ssd}{JohnHVanVleck}
+\item \PMlinkname{Van der Waals, Johannes Diderik; NP1910-mph}{JohannesVanderWaals}
+\item \PMlinkname{Veltman, Martinus, J.G.; NP1999-nabqt}{MartinusJ.G.Veltman}
+\item \PMlinkname{von Laue, Max, Theodor, Felix; NP1914-xrd}{MaxvonLaue}
+\item \PMlinkname{von Neumann, John}{JohnVonNeumann}
+\item \PMlinkname{Weinberg, Steven; NP1968-qt-ewk}{StevenWeinberg}
+\item \PMlinkname{Weinstein, Alan}{AlanWeinstein}
+\item \PMlinkname{Weyl, Hermann}{HermannWeyl}
+\item \PMlinkname{Wheeler, John Archibald}{JohnWheeler}
+\item \PMlinkname{Wiener, Norbert}{NorbertWiener}
+\item \PMlinkname{Wigner, Eugene, Paul; NP1963-qt}{EugeneWigner}
+\item \PMlinkname{Wilkins, Maurice F.}{MauriceFWilkins}
+\item \PMlinkname{Witten, Edward; FM1990-qm}{Edward Witten}
+\item \PMlinkname{W\"utrich, Kurt; NP2003}{KurtW\"utrich}
+\item \PMlinkname{XX, YY}{XXYY}
+\end{itemize}
+
+See also
+\begin{itemize}
+\item \PMlinkexternal{Nobel Prizes in Physics: A List by year from the SLAC Library in USA}{http://www.slac.stanford.edu/library/nobel/}
+
+\item \PMlinkexternal{The MacTutor History of Mathematics archive}{http://www-gap.dcs.st-and.ac.uk/~history/}
+\end{itemize}
+
+* Notations: 
+  $$NPyr-fi = Nobel \, prize \, + \, year \, -field:\, NMR = -nmr;\, MRI= \, -mri;$$
+$$ \, Photoelectric \, Effect = \, phe ; Quantum \, Mechanics\ Theory= \,qm\ qt;$$
+$$ \, solid-state \, (magnetic)\, dipolar = -ssd; \, Superconductivity = \, -spc;$$
+
+$$ \, Semiconductors \,= \,-smc ; = \,Electrons \,in\, solids \, = \, es.$$
+
+  $$FMyr = Fields \, Medal \, + \, year$$</content>
+</record>

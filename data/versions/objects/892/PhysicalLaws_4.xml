@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="892">
+ <title>physical laws</title>
+ <name>PhysicalLaws</name>
+ <created>2010-11-07 14:53:01</created>
+ <modified>2010-11-07 15:06:34</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>physical law</concept>
+	<concept>Huygen's principle of diffraction</concept>
+	<concept>Bragg's law</concept>
+	<concept>Heisenberg Principle</concept>
+	<concept>energy-mass equivalence</concept>
+	<concept>principle of constancy of light speed</concept>
+	<concept>Maxwell's laws</concept>
+	<concept>Netwon's laws</concept>
+	<concept>Newton's law of gravitation</concept>
+	<concept>correspondence principle</concept>
+	<concept>Maupertuis's principle</concept>
+	<concept>Hamilton's principle</concept>
+	<concept>variational principles</concept>
+	<concept>wavge-particle duality principle</concept>
+	<concept>quantization laws</concept>
+ </defines>
+ <keywords>
+	<term>law</term>
+	<term>physical law</term>
+	<term>physical principle</term>
+	<term>Huygen's principle of diffraction</term>
+	<term>Bragg's law</term>
+	<term>Heisenberg Principle</term>
+	<term>energy-mass equivalence</term>
+	<term>principle of constancy of light speed</term>
+	<term>Maxwell's laws</term>
+	<term>Netwon's laws</term>
+	<term>Newton's law of gravitation</term>
+	<term>correspondence principle</term>
+	<term>Maupertuis's principle</term>
+	<term>Hamilton's principle</term>
+	<term>variational principles</term>
+	<term>wavge-particle duality principle</term>
+	<term>quantization laws</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{The Laws of Physics}
+
+This is a new contributed topic summarizing the laws of Physics.
+
+\textbf{more to come...}
+
+\subsection{Conservation Laws and Symmetry}
+
+\subsection{Laws of Classical, Newtonian Mechanics}
+
+
+\begin{itemize}
+
+\item Newton's first, second and third laws
+\item Conservation of Momentum
+\item Coinservation of mass and energy
+\item Newton's Law of Gravitation
+
+\end{itemize}
+
+\subsection{Principles and Laws of Relativistic Mechanics}
+
+\begin{itemize}
+\item Equivalence of reference systems or coordination frames
+
+\item Constancy of the speed of light, $c$
+
+\item Einstein's Equivalence of gravitational and inertial mass
+
+\item Einstein's Law of Mass-Energy Equivalence
+\end{itemize}
+
+\subsection{Principle and Laws of Optics}
+
+
+\begin{itemize}
+\item Maupertuis' Principle 
+
+\item Snell's Laws
+
+\item Hamilton's Principle
+
+\item Huygens's Principle of Diffraction 
+\end{itemize}
+
+
+\subsection{Laws of Electromagnetism and Electrodynamics}
+
+\begin{itemize}
+
+\item Charge Conservation
+\item Maxwell's Equations 
+\item Bragg's Law
+\item xxx
+\item xxxx
+\end{itemize}
+
+
+\subsection{Laws of Quantum Mechanics}
+
+\begin{itemize}
+\item Quantization Laws
+\item First and Second Quantization Principles
+\item Correspondence Principle 
+\item Wave-Particle Duality (de Broglie)
+\item Uncertainty Principle (Heisenberg)
+\item Schr"/odinger's Equations
+\item Hamilton's Principle
+\item Conservation Laws in Spontaneous and Quantum Measurement Processes
+
+\end{itemize}
+
+
+\subsection{Laws of Thermodynamics and Molecular Physics}
+
+\begin{itemize}
+
+\item First, second and third Principles of Thermodynamics
+\item Onsager's Principle
+\item xxx
+\item xxxx
+\end{itemize}
+
+
+First, second and third Principles of Thermodynamics
+
+\subsection{Statistical Mechanics}
+
+\subsection{Laws of Atomic and Nuclear Physics}
+
+
+\textbf{more to come...}</content>
+</record>

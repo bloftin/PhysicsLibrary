@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="176">
+ <title>Muon</title>
+ <name>Muon</name>
+ <created>2006-05-19 16:49:51</created>
+ <modified>2006-05-19 16:49:51</modified>
+ <type>Definition</type>
+ <creator id="132" name="metalac"/>
+ <modifier id="132" name="metalac"/>
+ <author id="132" name="metalac"/>
+ <synonyms>
+	<synonym concept="Muon" alias="Muon lepton"/>
+ </synonyms>
+ <related>
+	<object name="electron"/>
+	<object name="tau"/>
+	<object name="lepton"/>
+	<object name="Lepton"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Muon is a 1/2 spin fermion and it's one of the fundamental physics particles known as leptons.  Muons have similar characterstics to electron except that their mass is about 200 times greater.  Muons that are found on Earth are mostly product of a reaction between cosmic rays and matter in Earth's athmosphere.  Even though muons have a very short lifetime (2.2 microseconds) we still see a relatively large flux of muons on Earth's surface, since muons travel at high velocities and thust time dialation effect allows them to travel far.
+
+Muons are one of the biggest sources of background radiation on Earth's surface.  This is precisely why many experiments are moved deep into Earth in order to eliminate the background noise of muons.</content>
+</record>

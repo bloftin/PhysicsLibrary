@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="814">
+ <title>quantum `paradoxes'</title>
+ <name>QuantumParadoxes2</name>
+ <created>2009-06-22 04:06:41</created>
+ <modified>2009-06-22 19:35:21</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>quantum mechanics</concept>
+	<concept>quantum `paradox'</concept>
+ </defines>
+ <related>
+	<object name="Temperature"/>
+ </related>
+ <keywords>
+	<term>E.P.R.</term>
+	<term>quantum mechanics</term>
+	<term>quantum `paradoxes'</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Quantum `Paradoxes'}
+
+A \emph{paradox} is a statement which has either an apparent or a real self-inconsistency (such as ``A and non-A''), thus contradicting the logical principle of excluded third (`tertium non datur')
+
+In the early stages of quantum theory development there were at least two suggested paradoxes, one reported by  Schr\"odinger and the other reported by Einstein-Podolsky-Rosen. These quantum `paradoxes' are as follows:
+
+ 1. The `Schr\"odinger cat paradox' in a thought (or `gedanken') experiment
+that supposedly shows that a ``cat is neither alive nor dead'' but in a
+superposition of the the `live' and `dead' states. A related version of this `paradox' is the two-slit experiment in which, for example, `an electron passes through two slits at the same time, thus interferring with itself and resulting in a diffraction pattern at the detector behind the two slits'; however, if the
+electron position is determined before reaching the two slits the diffraction pattern, of course, disappears, as only one electron possible state exists--that
+which was already measured or observed. 
+
+ The wave-particle duality proposed by Louis deBroglie, and readily accepted by Albert Einstein, is thought to remove this type of quantum `paradox', although it simply shifts the argument to the quantum logic realm where quantum micro-entitites such as an electron or any other quantum `particle' can simultaneously
+possess an associated wave (or `character'); the existence of the associated wave of a quantum particle was later elaborated in quantum field theories (QFT)
+in the form of `virtual photons' that mediate the electromagnetic interactions
+between charged quantum particles such as electrons, protons, ions, etc. 
+
+
+ 2. The Einstein-Podolsky-Rosen (or EPR) `paradox' is a thought experiment that reveals the non-local character of quantum theory, and was presented initially
+as `proof that Quantum  Mechanics' is incomplete, because quantum non-locality was proposed to contradict both Special and General Relativity theories.
+
+
+\textbf{Note}
+ On the other hand, more recently proposed `quantum quasi-paradoxes' and `Sorite paradoxes' are claimed to be based on a wide-range of other apparent antinomies that are not found in any standard Quantum Mechanics textbooks.</content>
+</record>

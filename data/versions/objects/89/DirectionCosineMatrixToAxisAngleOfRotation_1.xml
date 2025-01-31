@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="89">
+ <title>direction cosine matrix to axis angle of rotation</title>
+ <name>DirectionCosineMatrixToAxisAngleOfRotation</name>
+ <created>2005-08-28 23:31:22</created>
+ <modified>2005-08-28 23:31:22</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The angle of rotation can be found from the trace of the direction cosine matrix to axis angle of rotation matrix
+
+$$ A_{11} + A_{22} + A_{33}  = 3cos(\alpha) + (1 - cos(\alpha))(e_1^2 + e_2^2 + e_3^2)  $$
+
+Noting that the axis of rotation is a unit vector and has a length of 1 means
+
+$$ e_1^2 + e_2^2 + e_3^2 = 1 $$
+
+therefore
+
+$$ A_{11} + A_{22} + A_{33}  = 1 + 2cos(\alpha) $$
+
+rearranging gives
+
+\begin{equation}
+\alpha = cos^-1( \dfrac{1}{2} (A_{11} + A_{22} + A_{33}  - 1))
+\end{equation}
+
+Inverse cosine is a multivalued function and there are 2 possible solutions for $\alpha$.  Normally, the convention is to choose the principle value such that  $ 0 &lt; \alpha &lt; \pi $
+
+As long as $\alpha$ is not zero, the unit vector is given by
+
+\begin{equation}
+\left[ \begin{array}{c}
+e_1 \\
+e_2 \\
+e_3 \end{array} \right] =
+\left[ \begin{array}{c}
+\dfrac{(A_{23} - A_{32})}{2 sin(\alpha)} \\
+\dfrac{(A_{31} - A_{13})}{2 sin(\alpha)}  \\
+\dfrac{(A_{12} - A_{21})}{2 sin(\alpha)}  \end{array} \right]
+\end{equation}
+
+Above equation should be proved at some time...</content>
+</record>

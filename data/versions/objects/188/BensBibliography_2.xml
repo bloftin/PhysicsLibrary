@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="188">
+ <title>Ben's bibliography</title>
+ <name>BensBibliography</name>
+ <created>2006-06-18 16:07:06</created>
+ <modified>2006-06-18 16:33:18</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>This is just to have a central bibliography to make it easy for me to copy into articles.
+
+Benbrook, J. "Intermediate Electromagnetic Theory", lecture notes, University of Houston, Fall 2002.
+
+Ellis, R., Gulick, D. "Calculus" Harcourt Brace Jovanovich, Inc., Orlando, FL, 1991.
+
+Etgen, G. "Calculus" John Wiley \&amp; Sons, New York, 1999.
+
+Friedman, B. "Principles and Techniques of Applied Mathematics" John Wiley \&amp; Sons, Inc., New York, 1956.
+
+Greven, A., Keller, G., Warncke, G. "Entropy" Princeton University Press, New Jersey, 2003.
+
+Griffiths, D. "Introduction to Electrodynamics", Prentice-Hall, Inc., 1999.
+
+Griffiths, D. "Introduction to Quantum Mechanics" Prentice Hall, New Jersey, 1995.
+
+Guterman, M., Nitecki, Z. "Differential Equations" 3rd Edition. Saunders College Publishing, Fort Worth, 1992.
+
+Halliday, D., Resnick, R., Walker, J.: "Fundamentals of Physics". 5th Edition, John Wiley \&amp; Sons, New York, 1997.
+
+Jackson, D. "Classical Electrodynamics", John Wiley and Sons, Inc., 1975.
+
+Kittel, C., Kroemer, H. "Thermal Physics" Second Edition. W.H. Freeman and Company, New York, 1980.
+
+Kondepudi, D., Prigogine, I. "Modern Thermodynamics From Heat Engines to Dissipative Structures" John Wiley \&amp; Sons, Chichester, 1998.
+
+Krane, K., "Modern Physics." Second Edition. New York, John Wiley \&amp; Sons, 1996.
+
+Marion, J., Thornton, S.  "Classical Dynamics of Particles and Systems"  Fourth Edition, Harcourt College Publishers, For Worth, 1995.
+
+Marsden, J., Tromba, A. "Vector Calculus" Fourth Edition. W.H. Freeman Company, 1996.
+
+Thornton, S., Rex, A., "Modern Physics For Scientists and Engineers." Second Edition. Fort Worth, Saunders College Publishing, 2000.</content>
+</record>

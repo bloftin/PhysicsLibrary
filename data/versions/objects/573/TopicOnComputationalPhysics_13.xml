@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="13" id="573">
+ <title>topic on computational physics</title>
+ <name>TopicOnComputationalPhysics</name>
+ <created>2009-03-04 09:33:56</created>
+ <modified>2009-04-14 09:39:27</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>computation</concept>
+	<concept>UTM</concept>
+	<concept>computer program</concept>
+	<concept>topological computation</concept>
+	<concept>lattice-based computation</concept>
+	<concept>Monte-Carlo computation</concept>
+	<concept>programming language</concept>
+	<concept>computational physics</concept>
+	<concept>QC</concept>
+	<concept>QCD</concept>
+	<concept>QMD</concept>
+	<concept>QFT</concept>
+	<concept>AQFT</concept>
+	<concept>QED</concept>
+	<concept>LQED</concept>
+	<concept>LQFT</concept>
+	<concept>LQG</concept>
+	<concept>C++</concept>
+	<concept>UNIX</concept>
+	<concept>Linux</concept>
+	<concept>Pascal</concept>
+	<concept>Java</concept>
+	<concept>Fortran</concept>
+	<concept>Algol</concept>
+	<concept>quantum automaton</concept>
+	<concept>quantum logics</concept>
+	<concept>automata theory</concept>
+	<concept>quantum molecular dynamics</concept>
+	<concept>fluid dynamics</concept>
+	<concept>superfluid</concept>
+	<concept>QMD</concept>
+	<concept>MC</concept>
+	<concept>quantum gravity</concept>
+	<concept>QG</concept>
+	<concept>LQG</concept>
+ </defines>
+ <related>
+	<object name="AppliedPhysics"/>
+	<object name="Supercomputers"/>
+	<object name="TopicOnComputerProgramming"/>
+ </related>
+ <keywords>
+	<term>computational physics</term>
+	<term>computation</term>
+	<term>UTM</term>
+	<term>computer program</term>
+	<term>topological computation</term>
+	<term>lattice-based computation</term>
+	<term>Monte-Carlo computation</term>
+	<term>programming language</term>
+	<term>computational physics</term>
+	<term>QC</term>
+	<term>QCD</term>
+	<term>QMD</term>
+	<term>QFT</term>
+	<term>AQFT</term>
+	<term>QED</term>
+	<term>LQED</term>
+	<term>LQFT</term>
+	<term>LQG</term>
+	<term>C++</term>
+	<term>UNIX</term>
+	<term>Linux</term>
+	<term>Pascal</term>
+	<term>Java</term>
+	<term>Fortran</term>
+	<term>Algol</term>
+	<term>quantum automaton</term>
+	<term>quantum logics</term>
+	<term>automata theory</term>
+	<term>quantum molecular dynamics</term>
+	<term>fluid dynamics</term>
+	<term>superfluid</term>
+	<term>QMD</term>
+	<term>MC</term>
+	<term>quantum gravity</term>
+	<term>QG</term>
+	<term>LQG</term>
+	<term>supercomputers</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>This is a contributed topic on \emph{computational physics}.
+
+\begin{definition}
+\emph{Computational Physics} is broadly defined as the application 
+of \PMlinkname{computer programming}{TopicOnComputerProgramming}, as well as of other computational means, such as: algebraic, topological, categorical, logical (including quantum logics, many-valued logics, automata theory), and so on, to obtain physically relevant results --that are often numerical.
+\end{definition}
+
+One notes that computational physics can also be considered as a major area of
+applied (computational) mathematics and/or applied physics.
+
+ This term is often employed in the more restricted, practical sense of applying computers to obtain numerical solutions to physics problems, or as an illustration to physical processes, phenomena or theories. At the top end of computing resources, supercomputers are beginning to be very widely employed
+in physics for a variety of reasons, including relatively inexpensive simulations of very important physics problems that cannot be solved at present by any other means. Other, several contributed examples will be considered next in this topic, and are also more precisely defined in the following bibliography (available in part for download from the book and expositions/paper sections of PlanetPhysics.org). 
+
+\subsection{Examples and Tools in Computational Physics}
+\begin{itemize}
+\item Computational fluid dynamics-in rheology; $(PAC:02.70.-c)$
+\item Computational methods in classical mechanics ($45.10.-bxx$; see also $02.70.-c$)
+\item Computational techniques in mathematical methods in physics
+\item Programming languages (Fortran, Basic/TurboBasic/AppleBasic, Algol, Pascal, $C / C^{++}$), programs (Mathematica, Maple, Systat) and OS systems ($UNIX$, $Linux$, Windows, $OS X$) employed in Computational Physics  
+\item Concepts: UTM, quantum automata concepts 
+\item Quantum Computations in: QCD, QFT, AQFT, QED, LQED, LQFT, Quantum Gravity (QG, LQG), quantum molecular dynamics (QMD) and quantum chemistry (QC)
+\item F
+\item G
+\item H
+\item K
+\end{itemize}
+
+\begin{thebibliography}{99}
+\bibitem{CP1}
+A \PMlinkexternal{Computational Physics --an introductory book}{http://farside.ph.utexas.edu/teaching/329/lectures/lectures.html}
+
+\bibitem{FreeCPBooks}
+A website for \PMlinkexternal{Free downloading of Computational Physics books}{http://www.freebookcentre.net/Physics/Computational-Physics-Books.html}
+
+\bibitem{CP1b}
+A \PMlinkexternal{Computational Physics --An introductory course}{http://planetphysics.org/?op=getobj&amp;from=books&amp;id=42}
+
+\end{thebibliography}</content>
+</record>

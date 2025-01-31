@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="287">
+ <title>polar coordinate motion example of generalized coordinates</title>
+ <name>PolarCoordinateMotionExampleOfGeneralizedCoordinates</name>
+ <created>2008-07-18 20:11:07</created>
+ <modified>2008-07-18 20:11:07</modified>
+ <type>Example</type>
+<parent id="286">generalized coordinates  for free motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.-d"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>As an example let us get the equations in polar coordinates for motion in a plane
+
+Here
+$$ x=r\cos\phi,\,\,\,\,\,\,\,\,\,  y=r\sin\phi$$
+
+$$ \dot{x}^{2}+\dot{y}^{2}=v^{2}=\dot{r}^{2}+r^{2}\dot{\phi}^{2} $$
+
+and 
+
+$$ T = \frac{m}{2}\left [ \dot{r}^{2}+r^{2}\dot{\phi}^{2} \right ] $$
+
+$$
+\frac{\partial T}{\partial \dot{r} } = m \dot{r}
+$$
+
+$$
+\frac{\partial T}{\partial r}=m r \dot{\phi}^{2}.
+$$
+$$
+\delta_{r}W=m[\ddot{r}-r\dot{\phi}^{2}]\delta r=R\delta r
+$$
+if $R$ is the impressed force resolved along the radius vector.
+$$
+\frac{\partial T}{\partial\dot{\phi}}=m r^{2}\dot{\phi},
+$$
+
+$$
+\frac{\partial T}{\partial \phi}=0.
+$$
+
+$$ \delta_{\phi}W=m\frac{d}{dt}(r^{2}\dot{\phi})\delta\phi=\Phi r\delta\phi$$
+
+if $\Phi$ is the impressed force resolved perpendicular to the radius vector.
+
+In a more familiar form
+
+$$
+m \left [\frac{d^{2}r}{dt^{2}}-r \left ( \frac{d\phi}{dt} \right)^2 \right ]=R,
+$$
+$$
+\frac{m}{r}\frac{d}{dt} \left ( r^{2}\frac{d\phi}{dt} \right )=\Phi.
+$$</content>
+</record>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="574">
+ <title>topic on computer programming</title>
+ <name>TopicOnComputerProgramming</name>
+ <created>2009-03-04 10:02:21</created>
+ <modified>2009-03-04 10:05:48</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>computer program</concept>
+ </defines>
+ <related>
+	<object name="ComputationalPhysics"/>
+ </related>
+ <keywords>
+	<term>computer programming</term>
+	<term>computer program</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\begin{definition}
+\emph{Computer programming} is the process of creating, generating,
+and implementing programs and algorithms that control the operation of a
+computer, usually in digital form. 
+\end{definition}</content>
+</record>

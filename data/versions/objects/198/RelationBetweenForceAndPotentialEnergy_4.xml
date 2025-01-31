@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="198">
+ <title>relation between force and potential energy</title>
+ <name>RelationBetweenForceAndPotentialEnergy</name>
+ <created>2006-07-14 10:32:00</created>
+ <modified>2009-03-06 18:08:20</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>derivation is true if and only if you impose (from the starting!) that the field's force $\mathbf{F}$ is irrotational, i.e. $\nabla\times\mathbf{F}=\marhbf{0}$, that is, $\nabla\times\mathbf{F}=\marhbf{0} \Leftrightarrow \marhbf{F}=-\nabla U$.
+In another words, the field's force is conservative if and only if it is irrotational. So the conseravation of mechanical energy $dE/dt=d(T+U)/dt=0$ is a consequence of that theorem. Once you impose $\nabla\times\mathbf{F}=\marhbf{0}$, then you are proving the necessary condition for $\marhbf{F}=-\nabla U$. No problem about that. Another consequence about that theorem is that the ``work'' of the field's force is independent of the path described by the particle in its motion. That is, if $\Gamma_1$ and $\Gamma_2$ are two different paths, described by the particle, and joininig its initial and end position on the time interval $[t_1,t_2]$, then the line integrals 
+$\int_{\Gamma_1}\mathbf{F}\cdot d\mathbf{r}=
+\int_{\Gamma_2}\mathbf{F}\cdot d\mathbf{r}$
+must be equal and hence the work of the field's force, as the particle describes a closed path, must be zero, i.e. 
+$\oint\mathbf{F}\cdot d\mathbf{r}=0$.</comment>
+ <author id="441" name="bci1"/>
+ <author id="139" name="mdo"/>
+ <classification>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textit{This is a contributed entry}
+
+\section{Potential Energy and Force acting on a Particle}
+The relation between the force, $\mathbf{F}$, acting on a particle, and the potential energy, $U$ of that particle is
+\begin{equation}
+\mathbf{F} = -\nabla U,
+\end{equation}
+where $\nabla$ is the gradient operator.
+
+\subsection{Derivation}
+The above relationship can be derived from the conservation of energy.  Let $T$ denote the kinetic energy of a particle, and $U$ its potential energy, with $E$ the total energy, given by $E=T+U$.  
+
+Take the total time derivative of $E$, giving
+\begin{equation}
+\frac{dE}{dt} = \frac{dT}{dt} + \frac{dU}{dT}
+\end{equation}
+
+The kinetic energy of a particle is expressed as $T=\frac{1}{2}mv^{2}$, where $m$ is the mass of the particle, and $v$ is the magnitude of the particle's velocity.  Recall that by Newton's second law, $\mathbf{F} = md\mathbf{v}/dt$, where $\mathbf{v}$ is the velocity vector.  Consider, next, the quantity $\mathbf{F}\cdot d\mathbf{r}$, where $\mathbf{r}$ is the position vector of the particle.  Expanding $\mathbf{F}$ in terms of Newton's second law, it is seen that
+\begin{eqnarray*}
+\mathbf{F}\cdot d\mathbf{r} &amp; = &amp; m\frac{d\mathbf{v}}{dt}\cdot\frac{d\mathbf{r}}{dt}dt\\
+&amp; = &amp; m\frac{d\mathbf{v}}{dt}\cdot\mathbf{v}dt\\
+&amp; = &amp; \frac{1}{2}m\frac{d}{dt}(\mathbf{v}\cdot\mathbf{v})dt\\
+&amp; = &amp; d(\frac{1}{2}mv^{2}) = dT.
+\end{eqnarray*}
+Therefore, $dT/dt = \mathbf{F}\cdot d\mathbf{r}/dt$.
+
+It is assumed that the potential energy is a function of time and space \emph{i.e.} $U=U(x_{1},x_{2},x_{3},t)$.  The time derivative of the potential energy can be expanded through the chain rule as
+\begin{equation}
+\frac{dU}{dt} = \frac{\partial U}{\partial t} + \frac{\partial U}{\partial x_{1}}\frac{\partial x_{1}}{\partial t} + \frac{\partial U}{\partial x_{2}}\frac{\partial x_{2}}{\partial t} + \frac{\partial U}{\partial x_{3}}\frac{\partial x_{3}}{\partial t}.
+\end{equation}
+Notice that
+\begin{equation}
+\frac{\partial U}{\partial x_{1}}\frac{\partial x_{1}}{\partial t} + \frac{\partial U}{\partial x_{2}}\frac{\partial x_{2}}{\partial t} + \frac{\partial U}{\partial x_{3}}\frac{\partial x_{3}}{\partial t} = \nabla U\cdot\mathbf{v},
+\end{equation}
+and substitute this result, as well as the expression for the time derivative of kinetic energy back into the original equation for the time derivative of the total energy,
+\begin{eqnarray}
+\frac{dE}{dt} &amp; = &amp; \frac{dT}{dt} + \frac{dU}{dt}\\
+&amp; = &amp; \mathbf{F}\cdot\frac{d\mathbf{r}}{dt} + \frac{\partial U}{\partial t} + \nabla U\cdot\mathbf{v}\\
+&amp; = &amp; (\mathbf{F} + \nabla U)\cdot\mathbf{v} + \frac{\partial U}{\partial t}
+\end{eqnarray}
+If the potential has no explicity time dependence \emph{i.e.} it is dependent upon position, which is dependent on time, then $dU/dt=0$, and the above becomes
+\begin{equation}
+\frac{dE}{dt} = (\mathbf{F} + \nabla U)\cdot\mathbf{v} = 0,
+\end{equation}
+where $dE/dt=0$ arises because of the conservation of energy within a closed system \emph{i.e.} energy does not enter or leave the system.  Therefore, it follows that under the conservation of energy, and the time independence of potential energy,  $\mathbf{F} + \nabla U = 0$, which can be rewritten as
+\begin{equation}
+\mathbf{F} = -\nabla U,
+\end{equation}
+which is the desired relation between the force acting on a particle, and its potential energy.</content>
+</record>

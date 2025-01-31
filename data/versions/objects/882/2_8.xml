@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="882">
+ <title>controlling linking summary</title>
+ <name>2</name>
+ <created>2010-10-07 01:57:41</created>
+ <modified>2010-10-07 03:53:52</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <keywords>
+	<term>linking controls</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Controlling Linking Summary}
+This is a PM article that was written by mathwizard, and also applies to PlanetPhysics linking of entries. You can see the complete entry at:
+\PMLinkexternal{Controlling Linking}{http://planetphysics.org/op=getobj&amp;from=collab&amp;id=18}
+
+\subsection{Introduction}
+
+Noosphere's automatic linking system handles most inter-entry linking instances properly. However, a small fraction of the time, it does not have enough information based on concept label metadata (titles, synonyms, defines) and classification metadata to resolve ambiguous links. In these cases, something extra must be done to correct linking.
+
+There are two families of methods to accomplish this. The first involves improving the metadata, beyond concept labels and classification. We introduce \emph{linking policy} metadata to accomplish this.
+
+The second family of methods involves pseudo-\LaTeX{} commands to steer the linking. We call this the \emph{in-situ} method.
+
+In-situ controls should be considered a last resort, as it is much more elegant and labor-effective to separate link controls from the text. For example, consider a situation where someone points out a problem with a link in your entry, entry $A$. The errant link is due to a term defined in entry $B$. This problem could be fixed if the author of $B$ improved its linking policy, or if you used an in-situ link steering command in $A$. However, assume that the same linking problem is also present in 100 other entries, all of which link to $B$. Rather than fixing the 100 entries with in-situ commands, it makes much more sense for the author of $B$ to modify its linking policy once, solving all 100 errant link instances.
+
+The two families of methods are described below.
+
+\section{Linking Policy}
+
+The linking policy of an entry is a text field containing a set of directives, one per line. The currently-supported directives are described below.
+
+\subsection{Link Priority}
+
+This directive has the following syntax:
+
+\begin{verbatim}
+ priority &lt;N&gt; [LABEL]
+\end{verbatim}
+
+ where \verb=&lt;N&gt;= is a number and \verb=[LABEL]= is an optional concept label defined by the entry. The default priority is 100, and integer values from 0 to 32767 are accepted. Smaller numbers mean higher priority. Examples are:
+
+\begin{verbatim}
+ priority 10 normal
+ priority 200 "mapping function"
+\end{verbatim}
+
+ This directive is used as a tie-breaker when classification directives and category-based link steering fail to find a unique destination. Setting the priority higher than normal (closer to zero) results in an entry (or concept) being linked to ``by default''. Setting it lower (above 100) would result in the entry or concept being linked to automatically only when the categorization of the other entry overlaps.
+
+\section{In-Situ Link Controls}
+
+The in-situ methods involve pseudo-\LaTeX{} commands you can put in your entry to steer linking. As mentioned before, they should be considered a last resort, with proper concept labels, classification, and linking policy as the first lines of defense.
+
+\subsection{Link Suppression}
+
+Sometimes it makes sense to block linking entirely for a portion of an entry, rather than simply steering a link to a different target.</content>
+</record>

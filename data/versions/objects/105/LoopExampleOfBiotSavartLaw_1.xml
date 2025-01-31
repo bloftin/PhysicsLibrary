@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="105">
+ <title>loop example of Biot-Savart law</title>
+ <name>LoopExampleOfBiotSavartLaw</name>
+ <created>2006-01-14 21:45:06</created>
+ <modified>2006-01-14 21:45:06</modified>
+ <type>Example</type>
+<parent id="104">quarter loop example of Biot-Savart law</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Gz"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Here we will examine two examples of the Biot-Savart law, one simple and the other more challenging.  To begin we will find the magnetic field at the center of a current carrying loop as shown in figure 1
+
+\begin{figure}
+\includegraphics[scale=.8]{CurrentLoop.eps}
+\vspace{10 pt}
+\caption{Figure 1: Current Loop}
+\end{figure}
+
+this setup is the same as the quater loop example of Biot-Savart law where  we have
+
+$$ d{\bf l} \times \hat{{\bf r}} = dl \, sin(\pi/2) $$
+$$dl = r d\theta$$
+
+giving us a similar integral, except from 0 to 2 $\pi$ and the lack of a minus sign since the current is going in the opposite direction so the magnetic field will be out of the web browser
+
+$$ {\bf B} = \hat{{\bf k}} \frac{\mu_0 I}{4 \pi r} \int_0^{2\pi} \, d \theta $$
+
+taking the integral gives the magnetic field at the center of the loop
+
+$$ {\bf B} = \frac{\mu_0 I \hat{{\bf k}}}{2 \pi r} $$</content>
+</record>

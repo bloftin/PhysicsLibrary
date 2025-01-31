@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="275">
+ <title>fermion</title>
+ <name>Fermion2</name>
+ <created>2008-03-25 18:32:45</created>
+ <modified>2008-03-25 18:32:45</modified>
+ <type>Definition</type>
+ <creator id="390" name="invisiblerhino"/>
+ <modifier id="390" name="invisiblerhino"/>
+ <author id="390" name="invisiblerhino"/>
+ <classification>
+	<category scheme="msc" code="10."/>
+ </classification>
+ <related>
+	<object name="Boson"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Fermions are particles with half integer ($1/2$, $3/2$, $5/2$ etc) spin. They are governed by the Pauli exclusion principle, meaning that no two fermions can occupy the same quantum state. From this principle, it is possible to derive the Fermi-Dirac distribution to derive non-interacting fermions. In the standard model of particle physics, there are 24 fermions: the 12 quarks and antiquarks, and the  12 leptons and anti-leptons.</content>
+</record>

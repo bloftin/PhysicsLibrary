@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="693">
+ <title>representations of 4-D  spaces</title>
+ <name>RepresentationsOf4DSpaces</name>
+ <created>2009-04-28 19:02:54</created>
+ <modified>2009-04-28 19:06:34</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>windowed radial stereographic projection.
+The projection is the first good method for representing four dimensional solids as it shows the
+2d walls of the 3d rooms, not only their 1d scaffolding. The edge and corner angles between walls
+and are all equal, preserving the 4d symmetry of the model.</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>octacube</concept>
+	<concept>4-D</concept>
+	<concept>4D</concept>
+	<concept>higher-dimensional space structures</concept>
+	<concept>4-D space</concept>
+	<concept>4D-space</concept>
+ </defines>
+ <keywords>
+	<term>Representations of 4-D and Higher Dimensional Space Structures</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic entry on representing four dimensional and higher
+space structures.
+ 
+\subsection{2D and 3D Representations of 4-D and Higher Dimensional Space Structures}
+
+ The ``representation'' of 4-D and higher dimensional space structures
+is a subject of significant interest to both mathematical physicists/mathematicians and abstract art professionals or amateurs. 
+
+ A somewhat artistic rendering and animation of such a `representation' of a four dimensional ``{\em octacube}'' by a mathematical physicist, and also a static representation by a famous mathematician are presented in a \PMlinkexternal{related Exposition}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=187} that can be accessed through this link.</content>
+</record>

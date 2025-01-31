@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="166">
+ <title>Stefan-Boltzamann law</title>
+ <name>StefanBoltzamannLaw</name>
+ <created>2006-05-07 17:40:34</created>
+ <modified>2006-05-07 17:53:58</modified>
+ <type>Law</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="44.40.+a"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Stefan-Boltzamann law" alias="Stefan's law"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Stefan-Boltzmann law}
+
+The Stefan-Boltzmann law, also known as Stefan's law, states that the total energy radiated per unit surface area of a black body in unit time, P is directly proportional to the fourth power of the black body's thermodynamic temperature T (also called absolute temperature):
+
+$$ P(T) = \epsilon \sigma T^{4} $$
+
+The irradiance P has dimensions of power density (energy per time per square distance), and the SI units of measure are joules per second per square meter, or equivalently, watts per square meter. The SI unit for absolute temperature T is the kelvin. e is the emissivity of the blackbody; if it is a perfect blackbody e = 1.
+
+The constant of proportionality $\sigma$, called the Stefan-Boltzmann constant or Stefan's constant, is non-fundamental in the sense that it derives from other known constants of nature. The value of the constant is
+
+$$    \sigma=\frac{2\pi^5 k^4}{15c^2h^3}= 5.670 400 \times 10^{-8} \,\, [\textrm{W\,s}^{-1}\textrm{m}^{-2}\textrm{K}^{-4}].$$
+
+Thus at 100 K the energy flux density is 5.67 W/m2, at 1000 K 56.7 kW/m2, etc.
+
+The law was discovered experimentally by Jožef Stefan (1835-1893) in 1879 and derived theoretically, using thermodynamics, by Ludwig Boltzmann (1844-1906) in 1884. Boltzmann treated a certain ideal heat engine with the light as a working matter instead of the gas. This law is the only physical law of nature named after a Slovene physicist. The law is valid only for ideal black objects, the perfect radiators, called black bodies. Stefan published this law on March 20 in the article Über die Beziehung zwischen der Wärmestrahlung und der Temperatur (On the relationship between thermal radiation and temperature) in the Bulletins from the sessions of the Vienna Academy of Sciences.
+
+\subsection{Derivation}
+The Stefan-Boltzmann law can be easily derived by integrating the emitted intensity from the surface of a black body given by Planck's radiation law of black body radiation over the half-sphere into which it is emitted, and over all frequencies.
+
+$$ P(T)=\int_0^\infty \!d\nu \int_{\Omega_0} d\Omega~I(\nu,T) \cos(\theta) $$
+
+where $\Omega_0$ is the half-sphere into which the radiation is emitted, and $I(\nu,T)$ is the amount of energy emitted by a black body at temperature T per unit surface per unit time per unit solid angle. The cosine factor is included because the black body is a perfect Lambertian radiator. Using $d\Omega=\sin(\theta) d\theta d\phi$ and integrating yields:
+
+$$ P(T)=\int_0^\infty \!d\nu \int_0^{2\pi} \!d\phi \int_0^{\pi/2}\!d\theta ~I(\nu,T) \cos(\theta)\sin(\theta)=\frac{2\pi^5 k^4}{15c^2h^3}\,T^4 $$
+
+\subsection{References}
+
+[1] \PMlinkexternal{National Institute of Standards and Technology}{http://physics.nist.gov/cuu/index.html}
+
+[2] Krane, K., "Modern Physics." Second Edition. New York, John Wiley \&amp; Sons, 1996.
+
+This entry is a derivative of the Stefan-Boltzmann law article from \PMlinkexternal{Wikipedia, the Free Encyclopedia}{http://en.wikipedia.org/wiki/Stefan-Boltzmann_law}. Authors of the orginial article include: Yurivict, Patrick, XJamRastafire , Metacomet and Icairns. History page of the original is \PMlinkexternal{here}{http://en.wikipedia.org/w/index.php?title=Stefan-Boltzmann_law&amp;action=history}</content>
+</record>

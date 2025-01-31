@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="551">
+ <title>nuclear magnetic resonance principle</title>
+ <name>NuclearMagneticResonancePrinciple</name>
+ <created>2009-02-23 04:02:45</created>
+ <modified>2009-02-23 04:33:43</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="83.85.Fg"/>
+	<category scheme="msc" code="82.56.Pp"/>
+	<category scheme="msc" code="82.56.Ub"/>
+	<category scheme="msc" code="02.30.Nw"/>
+	<category scheme="msc" code="20."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>NMR</concept>
+	<concept>MRI</concept>
+ </defines>
+ <keywords>
+	<term>NMR</term>
+	<term>magnetic resonance imaging</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Introduction}
+
+ Nuclear magnetic resonance (NMR) is the name given to a physical resonance phenomenon involving the observation of specific quantum mechanical magnetic properties of an atom's nucleus in the presence of an external magnetic field applied to a molecular system and crystalline or non--crystalline materials. NMR also commonly refers to a family of scientific methods and techniques that exploit the nuclear magnetic resonance resonance phenomenon to study molecules, crystals and non-crystalline materials (NMR spectroscopy is perhaps the most important, as well as routine, group of techniques in this family). All nuclei that contain odd numbers of protons and/or neutrons have an intrinsic magnetic moment and angular momentum, in other words a spin $&gt; 0$. The most commonly measured nuclei are $1^H$ (the most NMR-sensitive isotope after the radioactive 3H isotope, and also after the stable $^13C$ nucleus, although nuclei from isotopes of many other elements (e.g. $^2H, 10^B, 11^B, 14^N, 15^N, 17^O, 19^F, 23^Na, 29^Si, 31^P, 35^Cl, 113^Cd, 195^Pt$) are readily measured by high-field NMR spectroscopy as well. NMR resonant frequencies for a particular substance are directly proportional to the strength of the applied magnetic field, in accordance with the equation for the Larmor precession frequency. The scientific literature as of February 2009 includes NMR spectra at magnetic fields in a wide range: from about 5 nT up to 24 T. Very high magnetic fields are often preferred since 1D--NMR detection sensitivity increases proportionally with the magnetic field strength (the ``Golden Rule of NMR''). Other methods to increase either the NMR signal strentgth or the detection sensitivity include hyperpolarization and two-dimensional (2D) FT NMR techniques. The principle of NMR usually involves two sequential steps: (1) the alignment or polarization of the magnetic nuclear spins being studied in an applied, constant magnetic field ${\bf H}_0$, and (2) the perturbation of this alignment of the nuclear spins (in the constant external magnetic field) by employing a second, alternating magnetic field (rf) ${\bf H_{1rf}}$, with the two fields being usually orthogonal for maximum detected NMR signal intensity. The resulting response by the total magnetization, $M = \vec{M}$, of the nuclear spins to the perturbing magnetic field is the phenomenon that is exploited in NMR spectroscopy and magnetic resonance imaging, which both use intense applied magnetic fields ${\bf H}_0$, in order to achieve high spectral resolution, the details of which are described by the chemical shift, the Zeeman effect, and Knight shifts (in metals). Nuclear magnetic resonance was first described and measured in molecular beams by Isidor Rabi in 1938.
+
+Theory of nuclear magnetic resonance
+
+[edit] Nuclear spin and magnets
+The elementary particles, neutrons and protons, composing an atomic nucleus, have the intrinsic quantum mechanical property of spin. The overall spin of the nucleus is determined by the spin quantum number, $I$. If the number of both the protons and neutrons in a given isotope are even then $I = 0$, i.e. there is no overall spin; just as electrons pair up in atomic orbitals, so do even numbers of protons and neutrons (which are also spin ½ particles and hence fermions) pair up giving zero overall spin. In other cases, however, the overall spin is non-zero. For example ${27}^Al$ has an overall spin $I = 5/2$.
+
+A non-zero spin, I, is associated with a non-zero magnetic moment, 
+{\bf $ \mu$}, via $${\bf \mu} = \gamma {I},$$ 
+
+where the proportionality constant, $\gamma$, is the gyromagnetic ratio.
+
+It is this magnetic moment that allows the observation of NMR absorption spectra caused by transitions between nuclear spin levels. Most radioactive nuclei (with some rare exceptions, such as tritium) that have both even numbers of protons and even numbers of neutrons, also have zero nuclear magnetic moments-and also have zero magnetic dipole and quadrupole moments; therefore, such radioactive isotopes do not exhibit any NMR absorption spectra. Thus, 
+${12}^C$, ${32}^P$ and ${36^}Cl$ are examples of radioactive nuclear isotopes that have no NMR absorption, whereas ${13}^C, {31}^P, {35}^Cl$ and ${37}^Cl$ are stable nuclear isotopes that do exhibit NMR absorption spectra.
+
+
+Electron spin resonance is a related technique which detects transitions between electron spin levels instead of nuclear ones. The basic principles are similar; however, the instrumentation, data analysis and detailed theory are significantly different. Moreover, there is a much smaller number of molecules and materials with unpaired electron spins that exhibit ESR (or EPR) absorption than those that have NMR absorption spectra. Significantly also, is the much greater sensitivity of ESR in comparison with NMR. Furthermore, ferromagnetic materials and thin films may exhibit highly resolved ferromagnetic resonance (FMR) spectra, or spin wave excitations (SWR) beyond the single-quantum transitions common to most routine NMR and EPR studies. 
+
+[edit] Values of spin angular momentum
+The angular momentum associated with nuclear spin is quantized. This means both that the magnitude of angular momentum is quantized (that is, $I$ can only take on a restricted range of values), and also that the 'orientation' of the associated angular momentum is quantized. The associated quantum number is known as the magnetic quantum number, $m$, and can take values from $+I$ to $–I$ in integral steps. Hence for any given nucleus, there is a total of $2I+1$ angular momentum states.
+
+The $z$- component of the angular momentum vector, ${\bf I}$ is therefore: 
+$I_z = mh(2\pi)$, where $h$ is Planck's constant.
+
+
+The $z$--component of the magnetic moment is simply:
+
+
+$${\mu}_z = \gamma \dot I_z = m \gamma h/(2pi)$$
+
+
+\subsubsection{Nuclear spin interaction with a magnetic field}
+Consider nuclei which have a spin of one-half, like $1^H, 13^C$ or $19^F$. The nucleus has two possible spin states: $m = 1/2 \, or \, m = -1/2$ (also referred to as up and down or $\alpa$ and $\beta$, respectively). The energies of these states are degenerate (that is, they are the same). Hence the populations of the two states (that is, the numbers of atoms in the two states) will be approximately equal at thermal equilibrium.
+
+If a nucleus is placed in a magnetic field, however, the interaction between the nuclear magnetic moment and the external magnetic field mean the two states no longer have the same energy. The energy of a magnetic moment $\mu$ when in a magnetic field {\bf B}_0 (the zero subscript is used to distinguish this magnetic field from any other applied field) is given by the negative scalar product of the vectors:
+
+
+$$E= - \vec{\mu} \dot \vec{B}_0 = - vec{\mu} \dot z \dot \vec{B}_0,$$
+
+
+where the magnetic field has the orientation along the $z$ axis.
+
+
+Hence: $$E = - m h(2 \pi)\gamma B_0$$.
+
+
+As a result the different nuclear spin states have different energies in a non-zero magnetic field. In hand-waving terms, we can talk about the two spin states of a spin ½ as being aligned either with or against the magnetic field. If $\gamma$ is positive (true for most isotopes) then $m = ½$ is the lower energy state.
+
+The energy difference between the two states is:
+
+
+$$\DeltaE = h(2\pi) \gamma B_0,$$
+
+
+and this difference results in a small population bias toward the lower energy state.
+
+
+\subsubsection{Resonance}
+Resonant absorption will occur when electromagnetic radiation of the correct frequency to match this energy difference is applied. The energy of a photon is E = hν, where ν is its frequency. Hence absorption will occur when ΔE = hν = γ B0/(2π). These frequencies typically correspond to the radio frequency range of the electromagnetic spectrum for magnetic fields up to ~ 20T.
+
+It is this (magnetic) resonant absorption that is detected in NMR.
+
+
+\subsubsection{Nuclear shielding by electron orbitals}
+It might appear from the above that all nuclei of the same nuclide (and hence the same γ) would resonate at the same frequency. This is not the case. The most important perturbation of the NMR frequency for applications of NMR is the 'shielding' effect of the surrounding electrons. In general, this electronic shielding reduces the magnetic field at the nucleus (which is what determines the NMR frequency). As a result the energy gap is reduced, and the frequency required to achieve resonance is also reduced. This shift in the NMR frequency due to the electron (molecular) orbital coupling to the external magnetic field is called chemical shift, and it explains why NMR is able to probe the chemical structure of molecules which depends on the electron density distribution in the corresponding molecular orbitals. If a nucleus in a specific chemical group is shielded to a higher degree by a higher electron density of its surrounding moelcular orbital, then its NMR frequency will be shifted upfield (that is, a lower chemical shift), whereas if it is less shielded by such surrounding electron density, then its NMR frequency will be shifted downfield (that is, a higher chemical shift will be measured).
+
+Unless the local symmetry of such molecular orbitals is very high (that is, in the `isotropic shift' case), the shielding effect will depend on the orientation of the molecule with respect to the external field, H0. In solid-state NMR spectroscopy, magic angle spinning is required to average out this orientation dependence in order to obtain values close to the average chemical shifts. This is obviously unnecessary in conventional NMR of molecules in solution since rapid molecular tumbling averages out the chemical shift anisotropy (CSA) to the `average chemical shift' (ACS).</content>
+</record>

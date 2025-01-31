@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="873">
+ <title>Physics news</title>
+ <name>PhysicsNews</name>
+ <created>2010-06-17 02:44:05</created>
+ <modified>2010-06-17 03:10:05</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>novel physics research</concept>
+ </defines>
+ <keywords>
+	<term>novel physics research</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed new topic on Physics news and sources of Physics news.
+Please make/add your own contribution and specify or link the appropriate source.
+
+ 
+\section{Latest Physics News}
+
+\subsection{Study finds there may be multiple 'God particles'}
+ 
+(PhysOrg.com) -- Recent research in the USA suggests there may be 
+\PMlinkexternal{five versions of the theorized Higgs boson}{http://www.physorg.com/news195885620.html}.
+
+This leads to a new \PMlinkexternal{Extended Standard Model of Physics}{http://cdn.physorg.com/newman/gfx/news/tmb/standard_model2_416.gif}
+
+Sanyo announces world's most efficient solar module
+
+Technology / Energy
+
+(PhysOrg.com) -- Sanyo has announced its development of the world's most energy efficient solar module, the HIT-N230. The module was unveiled at a press conference run by Sanyo Electric's Solar Division.
+
+
+Hybrid Cars -- Pros and Cons
+
+Technology / Energy
+
+If you listen to the makers, hybrid cars are the best invention since sliced bread. While there are many reasons to buy a hybrid car, including a new tax incentive for US owners, it helps to have a good understanding ...
+
+NEC Develops Novel Silicon Nanophotonics Technology for Optical Interconnections
+
+Physics / Optics &amp; Photonics
+
+
+
+NEC Corporation today announced the successful development of fundamental silicon nanophotonics technology that facilitates optical data transmission in large-scale integration (LSI) chips.
+Semiconductors slow light
+
+Physics / General Physics
+
+
+DNA Taxi: Photosensitive gold nanoparticles bind and release DNA
+
+Nanotechnology / BioMedicine
+
+
+Despite few successes to date, gene therapy is a highly promising approach for medical therapy in the future. One of the biggest difficulties with this process is finding a suitable transport agent that can carry the nucleic acid or genes.
+
+Unexpected Plasmonic Discovery: Terahertz Waves Travel Slower When Sent Down Smaller Wires
+
+Physics / General Physics
+
+Frequently, the unexpected results in science are the most exciting. That's the case with the latest findings from the lab of Rice University's electrical engineer Daniel Mittleman.
+
+Wireless World: Bundled services market 'makeover'
+
+Technology / Telecom
+
+A swift makeover in the communications world is under way, as traditional boundaries that once separated wired and wireless services are fast fading away, leading to a creative new era of so-called bundled services.
+
+Nano World: Roadmap for nano-imprinting
+
+Nanotechnology / Nanophysics
+
+Scientists could soon easily fabricate electronics and other structures only nanometers or billionths of a meter in size by stamping them out, following a new strategy that could help guarantee results.
+
+
+Dual Properties of Carbon Nanotubes Revealed
+
+Nanotechnology / Nanophysics
+
+For the first time, researchers have directly measured the electronic structure of individual carbon nanotubes whose physical properties had already been determined.
+
+
+NIST Gears Up to Verify Short Range 3-D Imaging
+
+Physics / General Physics
+
+Three-dimensional imaging devices are becoming important measuring tools in the manufacturing, construction and transportation sectors. Numerous models of the imaging devices, capable of digitally capturing ...
+
+
+Existing Technologies Combine to Make Automated Home
+
+Electronics / Robotics
+
+The National Institute of Advanced Industrial Science and Technology (Japan), Ymatic Ltd., and Biometrica Systems Asia Co. Ltd. have jointly developed a novel automated home – not with new technology, but with existing means.
+
+Iron oxide nanoparticles may help detect, treat tumors
+
+Nanotechnology / Bio &amp; Medicine
+
+A new technique devised by MIT engineers may one day help physicians detect cancerous tumors during early stages of growth. The technique allows nanoparticles to group together inside cancerous tumors.
+
+Shared theories on thought could lead to smart machines
+
+Technology / Software
+
+Machines can respond to simple electronic commands such as "stop," "start" and "grind," but they are not very good at figuring out complex orders or unstated common sense.
+
+Spallation Neutron Source Milestone: First pulsed neutron beams were produced by DOE's Spallation Neutron Source
+
+Physics / General Physics
+
+
+One of the largest and most anticipated U.S. science construction projects of the past several decades has passed its most significant performance test. The Department of Energy's Spallation Neutron Source, ...
+
+Are Solitons the Next wave in electronics?
+
+Physics / General Physics
+
+Harvard scientists have solved the puzzle of how to generate a special waveform in tiny electronic devices, allowing the electrical equivalent of the pulses of light that carry signals through optical fibers.
+
+Polymer Nanotubes as Molecular Probes and DNA Carriers
+
+Nanotechnology / Bio &amp; Medicine
+
+By growing polymers on a porous aluminum oxide template, researchers at the Seoul National University in Korea have fabricated polymer nanotubes to which they can attach two different types of molecules. 
+Nanotubes act as 'thermal Velcro' to reduce computer-chip heating.
+
+Nanotechnology / Nanophysics
+
+Engineers have created carpets made of tiny cylinders called carbon nanotubes to enhance the flow of heat at a critical point where computer chips connect to cooling devices called heat sinks, promising to help keep future chip design compact.</content>
+</record>

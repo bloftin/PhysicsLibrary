@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="14" id="405">
+ <title>algebraic quantum field theories (AQFT)</title>
+ <name>AlgebraicQuantumFieldTheoriesAQFT</name>
+ <created>2009-01-16 13:45:23</created>
+ <modified>2009-01-17 22:16:19</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>superselection sector</concept>
+	<concept>state of $C^*$-algebra</concept>
+	<concept>open double cone in Minkowski (4D) spacetime</concept>
+	<concept>inductive system</concept>
+	<concept>local net map</concept>
+	<concept>net of observable algebras over Minkowski (4D) spacetime</concept>
+	<concept>unital $C^*$-algebra</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="algebraic quantum field theories (AQFT)" alias="axiomatic QFT"/>
+	<synonym concept="algebraic quantum field theories (AQFT)" alias="AQFT"/>
+ </synonyms>
+ <keywords>
+	<term>algebraic quantum field theories (AQFT)</term>
+	<term>$\cU$</term>
+	<term>QFT</term>
+	<term>special relativity</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\K}{\mathcal K}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\newtheorem*{axiom*}{Axiom}
+
+
+\section{Topic on algebraic quantum field theories (AQFTs)}
+
+\textbf{[This is a contributed topic on AQFTs.]}
+
+\subsection{Introduction}
+
+The aims of this entry are to introduce the basic approaches of AQFTs, and also to specify
+several of the mathematical concepts, tools and mathematical areas that are fundamentally involved in the development
+of AQFTs since the 1950's when the first AQFT version was first reported.
+
+Whereas quantum field theory (QFT) is the general framework for describing the physics of relativistic quantum systems (notably of elementary particles),
+\PMlinkexternal{algebraic quantum field theories}{http://unith.desy.de/research/aqft/} are usually described as \PMlinkname{algebraic formulations}{AlgebraicSystem} (in terms of an algebraic system and/or physical-axiomatic frameworks) of \PMlinkname{quantum field theories (QFT)}{QFTOrQuantumFieldTheories}. Thus, whereas QFT represents a synthesis of quantum theory (QT) and
+\PMlinkexternal{special relativity (SR)}{http://planetphysics.org/encyclopedia/SpecialTheoryOfRelativity.html}, (which is supplemented by the \emph{principle of locality in space and time}, and by the spectral condition in energy and momentum), {\em \PMlinkexternal{algebraic QFTs}{http://unith.desy.de/research/aqft/} study the role of \PMlinkname{algebraic relations}{AlgebraicSystem} among observables that determine a physical system.}
+
+Let us recall that in classical logic, an axiom or postulate is a `simple', fundamental proposition that is neither proven nor demonstrated (within a theory) ``but considered to be self-evident''; furthermore, the choice of an axiom or system of axioms is justified by the large number of consistent consequences or mathematical propositions derived from such axioms. One needs, however, to distinguish between `physical axioms' (often called `postulates' that apply to various fields of physics), and mathematical axioms that have both a meaning and scope of applicability which is distinct from that of physical postulates (or physical axioms). On the other hand, physical axioms, or postulates, are ultimately also expressed in a mathematical form, albeit without becoming axioms of mathematics, or specific fields of mathematics. (In the remainder of this entry the attribute `axiomatic' will be employed only with the meaning of `physical-axiomatic', or `physically-postulated'.)
+
+One notes however rare instances of the opinion expressed that `physics is just another area of mathematics,
+belonging to applied mathematics'.
+
+Furthermore, physical postulates, unlike mathematical ones, emerged as a result of numerous experimental studies and crucial physical experiments that can be logically and consistently explained
+on the basis of such fundamental, physical postulates; often, mathematical formulations of such fundamental physical
+postulates are referred to as (physical) `axioms', as in the case of `axiomatic' QFTs.
+Thus, from a physical standpoint, AQFTs are just as important as from the mathematical viewpoint, because they may include novel approaches which define algebraic structures over relativistic spaces, either a Minkowski, or a
+\PMlinkname{Riemannian manifold or space}{RiemannianMetric}.
+
+\begin{example}
+An important example of AQFT is the \emph{Haag-Kastler axiomatic framework for quantum field theory} (thus named after Rudolf Haag and Daniel Kastler who introduced this axiomatic approach), which represents \emph{local} quantum physics in terms of unital $C^*$-algebras.
+As in the standard formalism of quantum physics, pure states are described in AQFTs as ``rays'' in a Hilbert space $\mathcal{H}$ --which are unit vectors up to a phase factor $\phi$ -- and (quantum) observables defined by
+self-adjoint (quantum) operators acting in $\mathcal{H}$. Let us recall that a
+\PMlinkname{state $\Psi$ of a $C^*$-algebra}{State} is defined as a positive linear functional over the algebra equipped with unit norm. With this definition, pure states correspond to irreducible representations of the unital $C^*$-algebras, and mixed states correspond to reducible representations; moreover, an irreducible representation (which is unique up to equivalence) is called a \emph{superselection sector}. Furthermore, for each $C^*$-algebra state, one can associate a Hilbert space representation of a $C^*$-algebra corresponding to a specific choice of relativistic space-time (such as the Minkowski 4D-space in SR).
+
+The symmetry group of a classical Minkowski space-time $\mathcal{M}$ is the Poincar\'e group, generated by translations and Lorentz transformations. The physical vacuum sector can be then shown to correspond to the pure state, and the Hilbert space associated with the vacuum sector can be regarded as a unitary representation of the Poincar\'e group; if one looks at the dual, Poincar\'e algebra then the energy-momentum spectrum corresponding to spacetime translations lies on--\emph{and also within}--the positive light cone. In a more general, supersymmetric context, anti-deSitter
+vacuum sectors are also possible in principle, but they are not stable (viz. Weinberg, 2000).
+\end{example}
+
+The recent review of specific AQFT formulations presented in ref. \cite{HH-MM2k6}
+provides several examples of AQFT approaches in sufficient mathematical detail to be able to evaluate
+their correctness from a mathematical viewpoint.
+
+According to a recent monograph by Halvorson and Mueger (ref. \cite{HH-MM2k6}),
+``\emph{an algebraic quantum field theory provides a general, mathematically precise
+description of the structure of quantum field theories, and then draws out consequences
+of this structure by means of various mathematical tools: the theory
+of operator algebras, category theory, etc. Given the rigor and generality of AQFT,
+it is a particularly apt tool for studying the foundations of QFT.''}
+
+\subsection{Mathematical concepts and areas relevant to AQFTs}
+Mathematical tools and concepts that are employed by AQFTs include - but are not limited to- the following:
+\begin{enumerate}
+\item Complex functional analysis concepts and theorems,
+\item Von Neumann algebra, C*-algebra, Hopf algebra and \PMlinkname{$C^*$- Clifford algebra}{CCliffordAlgebra} in quantum operator algebras,
+\item ODE's and \PMlinkname{PDE's}{IndexOfDifferentialEquations},
+\item \PMlinkname{Algebraic topology}{AlgebraicTopology} and
+\PMlinkname{Quantum algebraic topology (QAT)}{QuantumAlgebraicTopology} concepts, such as:
+\begin{enumerate}
+\item Homotopy groups,
+\item Homotopy groupoids,
+\item Groupoids, algebroids and double groupoids
+\item Quantum groups,
+\item Quantum groupoids,
+\end{enumerate}
+\item \PMlinkname{Category theory concepts}{IndexOfCategories}, such as:
+\begin{enumerate}
+\item 2-categories,
+\item Homotopy functor,
+\item 2-Lie group categories,
+\item Groupoid categories,
+\item Braided categories,
+\item Cohomology theories, and
+\item \PMlinkname{Extended Tannaka-Krein or Grothendieck duality}{DualityInMathematics}.
+\item Categorical Galois theory
+\end{enumerate}
+\item Your mathematical tools (...XYZ, please add)
+\end{enumerate}
+
+
+\section{Basic concepts, definitions and QFT axioms}
+
+The basic formalism of AQFT is a ``net of local observable algebras'', that is a selected set of linked, local quantum observables, defined over spacetime;
+\PMlinkname{spin networks}{CWComplexDefinitionRelatedToSpinNetworksAndSpinFoams} and their dynamic fluctuations, or spin foams, are examples of such a `network of local observables' that can be represented by one-dimensional CW-complexes. Thus, according to Roberts (\cite{JER2k4}), a standard AQFT construction defines a \emph{``local network, or net of observable algebras} $O_A$''; notable examples of such observable algebras in quantum theories, are respectively, in the von Neumann or the Dirac formulations, the (non-commutative) von Neumann/$C^*$-algebras and the Clifford algebra.
+
+An \emph{open double cone in Minkowski spacetime} is defined as the intersection of the causal
+future of a point $x$ with the causal past of a point $y$ to the future of $x$. Let us denote by $\K$ the set of open double cones in Minkowski (4D) spacetime, and also let $O \to \cU (O)$ be a mapping from the set $\K$ to $C^*$-algebras,
+called the \emph{local net map} $\cU$. Moreover, one can assume that all $C^*$-algebras
+relevant to this AQFT formulation are \emph{unital}, that is, they have a multiplicative identity.
+Furthermore, let us postulate that the set $\left\{\cU (O) : O \in \K \right\}$ of $C^*$-algebras--which is called a \emph{net of observable algebras over Minkowski spacetime}-- forms an \emph{inductive system} in the sense that:
+if $O_1 \subseteq O_2$, then there exists an embedding (that is, an isometric $*$-homomorphism)
+$\alpha_{12} : \cU (O_1) \to \cU (O_2)$. One can also prove that the states over such open sets define a \emph{presheaf},
+thus linking AQFT to TQFT, algebraic topology and category theory.
+
+\subsection{Axioms of a minimal AQFT}
+
+\begin{axiom*}[Axiom 1 (Isotony)]
+
+\emph{The mapping $O \to \cU (O)$ is an inductive system}.
+
+\end{axiom*}
+
+In the case of a Minkowski 4D-space, one assigns to each double lightcone $L_c$ an algebra of observables, such that algebras of subcones $O_S$ are naturally `embedded into those of the lightcones containing them' (ref. \cite{JER2k4}).
+Stephen Hawking would however argue that the set $\left\{\cU (O) : O \in \K \right\}$ be replaced by a \emph{class}
+(which is preferably not subject to the axiom of choice), so that the relativistic spacetime becomes infinite both in space and time. Most mathematical physicists would also require all AQFTs to be \emph{renormalizable} theories, in the sense that they do not generate spurious, infinite values for physical observables that are known to have only finite values, such as mass and charge of a quantum particle.
+
+
+Thus, one needs to add at least the following postulate to \textbf{Axiom 1}:
+\begin{axiom*}[Physical-Axiom 2 (Double cone commutativity)]
+
+\emph{``Algebras of space-like separated double cones always commute with each other.'' }
+
+\end{axiom*}
+
+(called also the commutativity postulate that is sometimes said to ``encode the physical concept of microcausality'').
+
+
+
+\textbf{Remarks}
+\begin{itemize}
+\item Evidently, such AQFT formulations are not compatible with the Bohm-de Broglie quantum theories.
+
+\item On the other hand, AQFT formulations on Riemannian spaces are much more difficult to formulate and investigate in detail.
+
+\item There are also interesting mathematical and physical connections between AQFTs and topological quantum field theories (TQFT), as the latter have already been studied in much more detail than AQFTs. On the other hand, AQFT already has obtained several important results such as the analysis of superselection rules by S. Doplicher, R. Haag, and J. E. Roberts (DHR), and the S. Doplicher and J.E. Roberts reconstruction of fields and gauge group from the
+symmetric tensor *-category of physical representations of the observable algebras.
+
+\item A recent and more extensive bibliography on AQFTs can also be
+\PMlinkexternal{downloaded online as an $html$}{http://www.math.ufl.edu/~sjs/aqft.html}
+or \PMlinkexternal{DVI file}{http://www.math.ufl.edu/~sjs/dvi/Aqftpublist.dvi}.
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{SW2000}
+Stephen Weinberg. 2000. Quantum Field Theory, vol. III. Cambridge University Press,
+Cambridge, UK.
+
+\bibitem{DB-H99}
+Detlev Buchholz and Rudolf Haag.1999.
+\PMlinkexternal{The Quest for Understanding in Relativistic Quantum Physics}{http://xxx.lanl.gov/PS_cache/hep-th/pdf/9910/9910243v2.pdf}, pp. 38,
+$arXiv:hep-th/9910243v2$, {\em J.Math.Phys.} {\bf 41} (2000) 3674--3697.
+
+\bibitem{HR92}
+Rudolf Haag. 1992. {\em ``Local Quantum Physics: Fields, Particles, Algebras''}. Springer: Berlin.
+
+\bibitem{HH-MM2k6}
+Hans Halvorson, Michael Mueger. 2006.
+\PMlinkexternal{Algebraic Quantum Field Theory}{http://arxiv.org/PS_cache/math-ph/pdf/0602/0602036v1.pdf}.
+arXiv:math-ph/0602036, 202 pages; to appear in \emph{Handbook of the Philosophy of Physics}, North Holland: Amsterdam.
+
+\bibitem{JER2k4}
+John E. Roberts. More lectures on algebraic quantum field theory. In
+Sergio Doplicher and Roberto Longo, editors, \emph{Noncommutative geometry}, pages 263-342.
+Springer, Berlin, 2004.
+
+\bibitem{JER90}
+John E. Roberts. Lectures on algebraic quantum field theory. In Daniel
+Kastler, editor, \emph{The algebraic theory of superselection sectors} (Palermo, 1989), pages
+1-112. World Scientific Publishing, River Edge, NJ, 1990.
+
+\end{thebibliography}</content>
+</record>

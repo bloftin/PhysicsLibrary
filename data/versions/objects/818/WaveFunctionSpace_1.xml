@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="818">
+ <title>wave function space</title>
+ <name>WaveFunctionSpace</name>
+ <created>2009-07-18 03:13:32</created>
+ <modified>2009-07-18 03:13:32</modified>
+ <type>Topic</type>
+<parent id="768">Hilbert space</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <related>
+	<object name="WaveEquation2"/>
+	<object name="QuantumOperatorConcept"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}</preamble>
+ <content>\setcounter{section}{1}
+
+The wave functions capable of representing a given quantum system belong to a function space which should be specified precisely.  In order that the probability distribution of position  $P\left( \mathbf{r} \right)$ and momentum $\Pi \left(\mathbf{p} \right )$ have meaning, it is necessary and sufficient that the normalization condition 
+
+\begin{equation}
+N \equiv \int \left | \Psi \left(\mathbf{r}\right) \right |^2 d\mathbf{r} = 1 
+\end{equation}
+
+could be applied to the wave function $\psi(r)$.  We are thus led to the following definition of wave function space:
+
+begin{definition}
+The \textbf{wave functions} of wave mechanics are the square integrable functions of configuartion space, that is to say the functions $\psi(q_1,\dots,q_R)$ such that the integral $\int \left| \psi( q_1,\dots,q_R)\right|^2 d\tau$ converges.
+end{definition}
+
+Where $d \tau$ denotes the volume element $dq_1 dq_2 \dots dq_R$.  Also, note that the Fourier transform $\phi (p_1,\dots,p_R)$ of such a function always exists: it is a square integrable function possessing the same normalization as $\psi(q_1,\dots,q_R)$.
+
+We could restrict the function space somewhat more by requiring the wave functions to be normalized to unity (eq. 1).  Hwever, it turns out to be more convenient to relax this normalization condition; this can be done, as we shall see below, at the price of a slight modification in the definition of the statistical distributions and probabilities.
+
+In the langage of mathematics, the function space defined above is a Hilbet space.  It possesses indeed the properties characteristic of such a space, as shown below.
+
+In the first place, it is a \textbf{linear space}. If $\psi_1$ and $\psi_2$ are two square integrable functions, their sum, the product of each by a complex number and, more enerally, any linear combinations
+
+$$ \lambda_1 \psi_1 + \lambda_2 \psi_2$$
+
+where $\lambda_1$ and $\lambda_2$ are arbitrarily chosen complex numbers, are also square-integrable functions.
+
+In the second place, one can define a scalar product in that space.  By definition, the scalar product of the function $\psi$ by the function $\phi$ is 
+
+\begin{equation}
+&lt;{\phi},{\psi}&gt; \equiv  \int \phi^*(q_1,\dots,q_R) \psi (q_1,\dots,q_R) d\tau
+\end{equation}
+
+If it is zero, the functions $\phi$ and $\psi$ are said t be \textbf{orthogonal}.  The \textbf{norm} $N_{\psi}$ of a funcion $\psi$ is the scalar product of this function by itself:
+
+$$
+N_{\psi} \equiv &lt;\psi,\psi&gt;
+$$
+
+The fundamental properties of the scalar product are as follows:
+
+a)  the scalar product of $\phi$ and $\psi$ is the complex conjugate of the scalar product of $\psi$ by $\phi$, namely
+
+\begin{equation}
+&lt;\psi,\phi&gt; = &lt;\phi,\psi&gt;^*
+\end{equation}
+
+b) the scalar product of $\psi$ by $\phi$ is linear with respect to $\psi$, in other words
+
+\begin{equation}
+&lt;\phi,\lambda_1\psi_1+\lambda_2\psi_2&gt;=\lambda_1&lt;\phi,\psi_1&gt; + \lambda_2&lt;\phi,\psi_2&gt;
+\end{equation}
+
+c) the norm of a function $\psi$ is a real, non-negative number:
+
+\begin{equation}
+&lt;\psi,\psi&gt; \,\, \ge 0
+\end{equation}
+
+and if $&lt;\psi,\psi&gt;=0$, we have necessarily $\psi=0$.
+
+All the above properties are easily deduced from the very definition of the scalar product itself.  From properties (a) and (b) one easily shows that the scalar product $&lt;\phi,\psi&gt;$ does not depend linearly, but antilinearly on $\phi$:
+
+\begin{equation}
+&lt;\lambda_1 \phi_1+\lambda_2\phi_2,\psi&gt;=\lambda_1^*&lt;\phi_1,\psi&gt; +\lambda_2^*&lt;\phi_2,\psi&gt;
+\end{equation} 
+
+From the properties (a),(b), and (c) follows a very important property of the scalar produt, the \textbf{Schwarz inequality}
+
+\begin{equation}
+\left|&lt;\phi,\psi&gt;\right| \, \le \sqrt{&lt;\phi,\phi&gt;&lt;\psi,\psi&gt;}
+\end{equation}
+
+Equality obtains when the functions $\phi$ and $\psi$ are multiples of each other, and only in that case.  The Schwarz inequality insures that the integral (2) defining the scalar product convertges when the functions $\phi$ and $\psi$ are square integrable functions.
+ 
+In addition to the fact that it is linear and that one can define a scalar product there, the space of square integrable functions possesses the property of being \textbf{complete};  this is what allows us to identify it as a Hilbert space.  To be complete means that any set of suare integrable functions satisfying the Cauchy criterion, converges (in the quadratic mean) toward a square integrable function. Conversely, any square integrable function can be considered as the limit (in the quadratic mean) of a converging series( in the sense of Cauchy) of square integrable functions (\textbf{separability}).</content>
+</record>

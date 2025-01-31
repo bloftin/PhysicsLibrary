@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="289">
+ <title>spherical coordinate motion example of generalized coordinates</title>
+ <name>SphericalCoordinateMotionExampleOfGeneralizedCoordinates</name>
+ <created>2008-07-18 20:53:42</created>
+ <modified>2008-07-18 20:53:42</modified>
+ <type>Example</type>
+<parent id="286">generalized coordinates  for free motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.-d"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>As an example let us get the equations in spherical coordinates for the motion.
+
+Where
+
+$$
+x=r\cos\theta, \,\,\,\,\,\, y=r\sin\theta\cos\phi, \,\,\,\,\,\, z=r\sin\theta \sin \phi,
+$$
+
+$$
+T=\frac{m}{2}\left[\dot{r}^{2}+ r^2 \dot{\theta}^2 r^2 \sin^{2}\theta\dot{\phi}^{2}\right].
+$$
+
+$$
+\frac{\partial T}{\partial\dot{r}}=m\dot{r},
+$$
+
+$$
+\frac{\partial T}{\partial r}=m r\left[\dot{\theta}^{2}+\sin^{2}\theta\dot{\phi}^{2}\right],
+$$
+
+$$
+\frac{\partial T}{\partial\dot{\theta}}=m r^{2}\dot{\theta},
+$$
+
+$$
+\frac{\partial T}{\partial\theta}=m r^{2}\sin\theta\cos\theta\dot{\phi}^{2},
+$$
+
+$$
+\frac{\partial T}{\partial\dot{\phi}}=m r^{2}\sin^{2}\theta\dot{\phi}.
+$$
+
+$$
+\delta_{r}W=m\left[\ddot{r}-r\left(\dot{\theta}^{2}+\sin^{2}\theta\dot{\phi}^{2}\right)\right] \delta r=R\delta r,
+$$
+
+$$
+\delta_{\theta}W=m\left[\frac{d}{dt}\left(r^{2}\dot{\theta}\right)-r^{2}\sin\theta\cos\theta\dot{\phi}^{2}\right]  \delta\theta=\Theta r \delta \theta,
+$$
+
+$$
+\delta_{\phi}W=m\frac{d}{dt}\left(r^{2}\sin^{2}\theta\dot{\phi}\right)\delta\phi=\Phi r\sin\theta\delta\phi;
+$$
+
+or 
+
+$$m \left \{\frac{d^{2}r}{dt^{2}}-r\left[\left(\frac{d\theta}{dt}\right)^{2}+\sin^{2}\theta\left(\frac{d\phi}{dt}\right)^{2}\right]\right\}=R,
+$$
+
+$$
+\frac{m}{r}\left[\frac{d}{dt}\left(r^{2}\frac{d\theta}{dt}\right)-r^{2}\sin\theta\cos\theta\left(\frac{d\phi}{dt}\right)^2\right]=\Theta,
+$$
+
+$$
+\frac{m}{r\sin\theta}\frac{d}{dt}\left(r^{2}\sin^{2}\theta\frac{d\phi}{dt}\right)=\Phi.
+$$</content>
+</record>

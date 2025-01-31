@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="614">
+ <title>Hamilton's principle</title>
+ <name>HamiltonsPrinciple</name>
+ <created>2009-03-29 20:20:55</created>
+ <modified>2009-03-29 20:20:55</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.Jj"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Besides the Lagrangian and Hamiltonian forms of the equations of motion of a system in arbitrary coordinates, there is a third form which is of the greatest importance.  This third statement gives the equations not as differential equations, but in the form of a stationary condition.  The idea of expressing a law of nature by secifying that a certain quantity is to have an extreme value in the actual process, is as old as scientific thought itself.  The advantage lies in the simplicity of thr formulation and its independence of any assumptions concerning the particular coordinate system selected.  The derivation of such an extremal law of mechanics, fromwhat has preceded, is not difficult.  Comparison of the Lagrangian equations of the second kind with the Euler differential equation of the simplest variation problem shows that they are identical.  In place of the independent variable $x$ we now have the time, and the function designated by $F$, and the Lagrangian function $L$.  Thus the Lagrangian equations of the second kind correspond to an extreme value of the integral
+
+$$W = \int_{t_o}^{t_1} L dt = \int_{t_o}^{t_1}(T - U) dt$$
+
+The time integral of twice the kinetic energy is called the \textbf{action}.  We are ths able to express the equations of motion in this manner:
+
+\textbf{The natural motion of a system (i.e. the actual motion which takes place according to the laws of mechanics) is characterized by the fact that the time integral of the Lagrangian function, taken between two configurations of the system has an extreme value}.  This is the celebrated \textbf{Hamiltonian Principle}.  The forgoing derivation offers no information as to whether the value spoken of is a maximum or a minimum, or merely stationary, but this question is of no consequence in what follows.  In most instances $W$ is a minimum.
+
+The mathematical expression of the principle is
+
+\begin{equation}
+\delta W = \delta \int_{t_o}^{t_1} L dt = \delta \int_{t_o}^{t_1} (2T - E) dt = 0
+\end{equation} 
+
+where $E$ represents the total energy.
+
+If forces which are not derivable from potentials also act, then the Lagrange equations become
+
+\begin{equation}
+\frac{d}{dt} \frac{\partial L}{\partial \dot{q_k}} - \frac{\partial L}{\partial q_k} - F_{qk}^{\prime} = 0
+\end{equation}
+
+In this case the Lagrange equations no longer represent the Euler differential equations of a variation problem  However, they may be brought into this form if it is possible to find a function $M$ of the coordinates and their derivatives such that
+
+\begin{equation}
+\frac{d}{dt} \frac{\partial M}{\partial \dot{q_k}} - \frac{\partial M}{\partial q_k} = F_{qk}^{\prime}
+\end{equation}
+
+In this case the function $L^{\prime}$ defined by
+
+\begin{equation}
+L^{\prime} = L - M = T - U - M
+\end{equation}
+
+satisfies the differential equation
+
+\begin{equation}
+\frac{d}{dt} \frac{\partial L^{\prime}}{\partial \dot{q_k}} - \frac{\partial L^{\prime}}{\partial q_k} = 0
+\end{equation}
+
+
+
+and this is the Euler differential equation corresponding to
+
+\begin{equation}
+\delta \int L^{\prime} dt = 0
+\end{equation}
+
+This case occurs, for example, in the mechanics of an electron in a magnetic field.  The magnetic force is given by $\mathbf{F}_{mag} = - (e/c)[\mathbf{v} \mathbf{H}]$.  Since this force is always normal to the path(the tangent to the orbit is given by $\mathbf{v}$) no work is done.  It is therefore not possible to derive this force from a scalar potential.  If, however, we put $\mathbf{H} = curl \mathbf{A}$, it may be shown that the function $M = e/c(\mathbf{A} \mathbf{v})$ satisfies (56).  Naturally, it is not always possible to find a function $M$, i.e. the system of equations (56) may not be integrable.
+
+
+\subsection{References}
+
+[1] Joos, Georg. "Theoretical Physics" 3rd Edition, Hafner Publishing Company; New York, 1954.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

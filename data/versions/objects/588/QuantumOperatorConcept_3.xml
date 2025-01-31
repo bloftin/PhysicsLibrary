@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="588">
+ <title>quantum operator concept</title>
+ <name>QuantumOperatorConcept</name>
+ <created>2009-03-11 00:51:18</created>
+ <modified>2009-03-14 00:34:42</modified>
+ <type>Topic</type>
+<parent id="553">Observables and States</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>within article it defines the terms commutator and commute</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ca"/>
+ </classification>
+ <related>
+	<object name="ObservablesAndStates"/>
+	<object name="LieAlgebras"/>
+	<object name="WaveFunctionSpace"/>
+	<object name="ConstantsOfTheMotionTimeDependenceOfTheStatisticalDistribution"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Consider the function $\frac{\partial \Psi}{\partial t}$, the derivative of $\Psi$ with respect to time; one can say that the operator $\frac{\partial}{\partial t}$ acting on the function $\Psi$ yields the function $\frac{\partial \Psi}{\partial t}$.  More generally, if a certain operation allows us to bring into correspondence with each function $\Psi$ of a certain function space, one and only one well-defined function $\Psi^{\prime}$ of that same space, one says the $\Psi^{\prime}$ is obtained through the action of a given \emph{operator} $A$ on the function $\Psi$, and one writes
+
+$$
+\Psi^{\prime} = A \Psi.
+$$
+
+By definition $A$ is a \emph{linear operator} if its action on the function $\lambda_1 \Psi_1 + \lambda_2 \Psi_2$, a linear combination with constant (complex) coefficients, of two functions of this function space, is given by
+
+$$
+A\left( \lambda_1 \Psi_1 + \lambda_2 \Psi_2 \right) = \lambda_1 \left( A \Psi_1 \right ) + \lambda_2 \left ( A \Psi \right ).
+$$
+
+Among the linear operators acting on the wave functions
+
+$$ \Psi := \Psi(\mathbf{r},t) := \Psi(x,y,z,t) $$
+
+associated with a particle, let us mention:
+
+
+\begin{enumerate}
+\item  the differential operators ${\partial} / {\partial} x$,${\partial} / {\partial} y$,${\partial} / {\partial} z$,${\partial} / {\partial} t$, such as the one which was considered above;
+
+\item the operators of the form $f(\mathbf{r},t)$ whose action consists in multiplying the function $\Psi$ by the function $f(\mathbf{r},t)$
+
+\end{enumerate}
+
+Starting from certain linear operators, one can form new linear operators by the following algebraic operations:
+
+
+\begin{enumerate}
+
+\item multiplication of an operator $A$ by a constant $c$:
+
+$$ (cA)\Psi := c(A\Psi) $$
+
+
+\item the sum $S = A + B$ of two operators $A$ and $B$:
+
+$$ S\Psi := A \Psi + B \Psi $$
+
+\item the product $P=AB$ of an operator $B$ by the operator $A$:
+
+\end{enumerate}
+
+Note that in contrast to the sum, \emph{the product of two operators is not commutative}.  Therein lies a very important difference between the algebra of linear operators and ordinary algebra.
+
+The product $AB$ is not necessarily identical to the product $BA$; in the first case, $B$ first acts on the function $\Psi$, then $A$ acts upon the function $(B\Psi)$ to give the final result; in the second case, the roles of $A$ and $B$ are inverted.  The difference $AB-BA$ of these two quantities is called the \emph{commutator} of $A$ and $B$; it is represented by the symbol $[A,B]$:
+
+\begin{equation}
+[A,B] := AB - BA
+\end{equation}
+
+If this difference vanishes, one says that the two operators commute:
+
+$$AB = BA$$
+
+As an example of operators which do not commute, we mention the operator $f(x)$, multiplication by function $f(x)$, and the differential operator ${\partial} / {\partial x}$.  Indeed we have, for any $\Psi$,
+
+$$ \frac{\partial}{\partial x} f(x) \Psi = \frac{\partial}{\partial x} (f \Psi) = \frac{ \partial f}{\partial x} \Psi + f \frac{\partial \Psi}{\partial x} = \left ( \frac{\partial f}{\partial x} + f \frac{\partial}{\partial x} \right ) \Psi $$
+
+In other words
+
+\begin{equation} 
+\left [ \frac{\partial}{\partial x},f(x) \right ] = \frac{\partial f}{\partial x} 
+\end{equation}
+
+and, in particular
+
+\begin{equation} 
+\left [ \frac{\partial}{\partial x},x \right ] = 1 
+\end{equation}
+
+However, any pair of derivative operators such as ${\partial} / {\partial} x$,${\partial} / {\partial} y$,${\partial} / {\partial} z$,${\partial} / {\partial} t$, commute.
+
+A typical example of a linear operator formed by sum and product of linear operators is the Laplacian operator
+
+$$ \nabla^2  := \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2} $$
+
+which one may consider as the scalar product of the vector operator gradient $\nabla := \left( \frac{\partial}{\partial x},\frac{\partial}{\partial y},\frac{\partial}{\partial z}\right )$, by itself.
+
+\subsection{References}
+
+[1] Messiah, Albert. "Quantum Mechanics: Volume I." Amsterdam, North-Holland Pub. Co.; New York, Interscience Publishers, 1961-62.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

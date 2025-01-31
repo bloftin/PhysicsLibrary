@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="17" id="776">
+ <title>Abel Laureates list</title>
+ <name>AbelLaureatesList</name>
+ <created>2009-05-24 14:08:29</created>
+ <modified>2009-05-24 15:06:28</modified>
+ <type>Topic</type>
+<parent id="386">biographies on PlanetPhysics-org</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>Abel award</concept>
+ </defines>
+ <keywords>
+	<term>notable mathematicians and mathematical physicists</term>
+	<term>Abel prize awards</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Abel Award Laureates}
+
+The Abel award is an International Award by \PMlinkexternal{The Norwegian Academy of Science and Letters}{http://www.dnva.no/c26889/index.html} which is awarded for outstanding, exceptional work by living mathematicians, mathematical physicists or theoretical physicists. The Niels Henrik Abel Memorial Fund was established in 2002 to award the Abel Prize for outstanding scientific work in the field of mathematics. The choice of an Abel Laureate is based upon the recommendation by the Abel Committee consisting of five internationally recognized mathematicians.
+
+ One can say that todate all of the awards are for advanced mathemtics relevant to both `pure' mathematics and physics. ``{\em The Abel Prize recognizes contributions of extraordinary depth and influence to the mathematical sciences and has been awarded annually since 2003. It carries a cash award of NOK 6,000,000 (close to Euros 700,000, or USD 950,000). Mikhail L. Gromov will receive the Abel Prize from His Majesty King Harald at an award ceremony in Oslo, Norway, May 19. $(27.03.2009)$}''.
+
+ The following is the current short list of Abel Laureates. 
+
+\begin{itemize}
+\item 2003: Jean-Pierre Serre, ``{\em for playing a key role in shaping the modern form of many parts of mathematics, including topology, algebraic geometry and number theory.}''
+
+\item 2004: Sir Michael Francis Atiyah and Isadore M. Singer, ``{\em for their discovery and proof of the index theorem, bringing together topology, geometry and analysis, and their outstanding role in building new bridges between mathematics and theoretical physics.}''
+
+\item 2005: Peter D. Lax, ``{\em for his groundbreaking contributions to the theory and application of partial differential equations and to the computation of their solutions.}''
+
+\item 2006: Lennart Carleson, ``{\em for his profound and seminal contributions to harmonic analysis and the theory of smooth dynamical systems.}''
+
+\item 2007: Srinivasa S. R. Varadhan, ``{\em for his fundamental contributions to probability theory and in particular for creating a unified theory of large deviations.}''
+
+\item 2008: \PMlinkexternal{John Griggs Thomson (at U. Florida, USA) and Jacques Tits (at Coll\`ege de France, in Paris, France)}{http://www.springer.com/math?SGWID=0-10042-12-556199-0}, ``{\em for their profound achievements in algebra and in particular for shaping modern group theory.}''  
+\item 2009: \PMlinkname{Mikhail Leonidovich Gromov}{http://planetphysics.org/encyclopedia/MikhailGromov.html}, received his award \PMlinkexternal{for his revolutionary contributions to geometry.}{http://www.dnva.no/c26889/nyheter/vis.html?tid=40096}.
+
+ Gromov-Witten invariants are of significant interest in modern quantum field theory,the theory of groups of polynomial growth, and also immersion theory.
+
+  He is a foreign member of the U.S. National Academy of Sciences and of the American Academy of Arts and Sciences, and a Member of \PMlinkexternal{l’Acad\'emie Francaise de Sciences (The French Academy of Sciences)}{http://www.academie-sciences.fr/actualites/nouvelles_gb.htm}.
+
+
+ His achievements have been considered by certain mathematicians as `the most outstanding in mathematics' for the beginning of this millenium.
+\end{itemize}</content>
+</record>

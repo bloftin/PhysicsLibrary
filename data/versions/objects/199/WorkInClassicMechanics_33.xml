@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="33" id="199">
+ <title>Work in classic mechanics</title>
+ <name>WorkInClassicMechanics</name>
+ <created>2006-07-18 10:14:41</created>
+ <modified>2006-07-22 06:30:08</modified>
+ <type>Definition</type>
+ <creator id="154" name="shmulik"/>
+ <modifier id="154" name="shmulik"/>
+ <author id="154" name="shmulik"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Work is defined as the change of kinetic energy of an object caused by a force along a distance.
+
+Work is commonly denoted by the latter $W$
+
+The SI unit for work is joule [J] which is the same as $N\cdot m$ or $\frac{kg\cdot m^2}{s^2}$ in SI base units.
+
+When focusing on an object moving along a straight line under the effect of constant forces $\Sigma F$.
+Let's define a $x$ axis along the line of motion.
+
+According to Newton:
+$\Sigma F_x$ = $ma_x$
+
+The acceleration $a$ is constant (the sum of forces is constant, and so the following kinematic formula is relevant:
+$
+v_f{}^2 = v_i{}^2 + 2a \Delta x 
+$ ($v_f$-The final velocity, $v_i$-The initial velocity)
+\[ a = \frac{v_f{}^2 - v_i{}^2}{2\Delta x}\]
+
+When inserting the previous equation into Newton's second law:
+\[ \Sigma F_x = \frac{{m(v_f{}^2 - v_i{}^2)}}{2\Delta x}\]
+And after a few algebric actions we get:
+\[ \Sigma F_x \Delta x = 0.5mv_f{}^2 - 0.5mv_i{}^2 = \Delta E_k \]
+From that we can conclude that $ W = F\Delta x $ ; $F_x\Delta x$ is the work done by the force $F_x$ along the route $\Delta x$
+
+Work like energy is a scalar but is defined as the product of two vectorial parameters: $\nabla F\cdot \nabla \Delta S$ and so in a two dimentional space work is defined as the scalar product of force $\nabla F$ and change in place $\nabla \Delta S$.
+\[ W = |\nabla F|\cdot |\nabla \Delta S|\cos\alpha \]</content>
+</record>

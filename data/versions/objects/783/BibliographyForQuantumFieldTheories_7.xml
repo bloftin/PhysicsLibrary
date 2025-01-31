@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="783">
+ <title>bibliography for quantum field theories</title>
+ <name>BibliographyForQuantumFieldTheories</name>
+ <created>2009-05-27 15:44:41</created>
+ <modified>2009-05-27 16:48:25</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble. as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here</preamble>
+ <content>\section{Bibliography}
+ Auyang, S. Y., 1995, How is Quantum Field Theory Possible?, Oxford,New York: Oxford University Press. 
+
+ Blum, W., D\"urr, H.P., and Rechenberg, H., eds., 1985, Werner Heisenberg: Collected Works, The Philosophical Background of Modern Physics, M\"unchen: Piper. 
+
+ Bogoliubov, N. N., Logunov, A. A., and Todorov, I. T., 1975, Introduction to Axiomatic Quantum Field Theory, Reading, MA: Benjamin. 
+
+ Born, M., Heisenberg, W., and Jordan, P., 1926, {\em Z\"ur Quantenmechanik} II, Zeitschr. fur Physik 35, 557. 
+
+ Brading, K. and Castellani, E., eds., 2003, Symmetries in Physics: Philosophical Reflections, Cambridge: Cambridge University Press. 
+ 
+ Bratteli, O. and Robinson, D. W., 1979, Operator Algebras and Quantum Statistical Mechanics 1: C* and W*-Algebras, Symmetry Groups, Decomposition of States, New York,Heidelberg,Berlin: Springer 
+ 
+ Brown, H. R. and Harr\'e, R., eds., 1988, Philosophical Foundations of Quantum Field Theory, Oxford: Clarendon Press.
+ 
+ Brown, L. M., ed., 1993, Renormalization: from Lorentz to Landau (and Beyond), Berlin-New York: Springer.
+ 
+ Buchholz, D., 1994, ``On the manifestations of particles,'' in R. N. Sen and A. Gersten, eds., Mathematical Physics Towards the 21st Century, Beer--Sheva: Ben--Gurion University Press. 
+
+ Buchholz, D., 1998, ``Current trends in axiomatic qantum field theory,'' in P. 
+
+ Breitenlohner and D. Maison, eds, Quantum Field Theory. Proceedings of the Ringberg Workshop Held at Tegernsee, Germany, 21--24 June 1998 On the Occasion of Wolfhart Zimmermann's 70th Birthday, Lecture Notes in Physics, Vol. 558, pp. 43--64, Berlin,Heidelberg: Springer. 
+
+ Busch, P., 1999, Unsharp localization and causality in relativistic quantum theory, Journal of Physics A: Mathematics General, 32: 6535. 
+
+ Butterfield, J. and Pagonis, C., eds., 1999, From Physics to Philosophy, Cambridge: Cambridge University Press. 
+
+ Callender, C. and Huggett, N., eds., 2001, Physics Meets Philosophy at the Planck Scale, Cambridge: Cambridge University Press.
+ 
+ Cao, T. Y., 1997a, Conceptual Developments of 20th Century Field Theories, Cambridge: Cambridge University Press. 
+
+ Cao, T. Y., 1997b, ``Introduction: Conceptual issues in QFT,'' in Cao 1997a, pp. 1--27. 
+
+ Cao, T. Y., ed., 1999, Conceptual Foundations of Quantum Field Theories, Cambridge: Cambridge University Press. 
+
+ Cao, T. Y., and Schweber, S. S., 1993, ``The conceptual foundations and the philosophical aspects of renormalization theory,'' Synthese, 97: 33--108. 
+
+ Castellani, E., 2002, Reductionism, emergence, and effective field theories, {\em Studies in History and Philosophy of Modern Physics}, 33: 251--267. 
+
+ Clifton, R., ed., 1996, Perspectives on Quantum Reality: Non--Relativistic, Relativistic, and Field--Theoretic, The University of Western Ontario Series in Philosophy of Science, Dordrecht-Boston-London: Kluwer Academic Publishers. 
+
+Clifton, R. and Halvorson, H., 2001, Entanglement and open systems in algebraic quantum field theory, {\em Studies in History and Philosophy of Modern Physics}, 32:1--31; reprinted in Butterfield and Halvorson 2004. 
+
+Clifton, R. and Halvorson, H., 2002, No place for particles in relativistic quantum theories? {\em Philosophy of Science}, 69: 1--28; reprinted in Butterfield and Halvorson 2004 and in Kuhlmann et al. 2002. 
+ 
+Darrigol, O., 1986, The origin of quantized matter waves, Historical Studies in the Physical and Biological Sciences, 16: 197--253. 
+
+Davies, P., ed., 1989, The New Physics, Cambridge: Cambridge University Press. 
+Dieks, D., 2002, Events and covariance in the interpretation of quantum field theory, in Kuhlmann et al. 2002, pp. 215--234. 
+
+Dirac, P. A. M., 1927, The quantum theory of emission and absorption of radiation, {\em Proceedings of the Royal Society of London, A}, 114: 243--256. 
+
+Faye, J., Scheffler, U., and Urchs, M., eds., 2000, Events, Facts, and Things, Volume 72 of the series Poznan Studies in the Philosophy of the Sciences and Humanities, Amsterdam: Rodopi.
+ 
+Fleming, G. N. and Butterfield, J., 1999, Strange positions, in Butterfield and Pagonis 1999, pp. 108--165. 
+
+Georgi, H., 1989, Effective quantum field theories, in Davies 1989, pp. 446--457. 
+
+Greene, B., 1999, The Elegant Universe. Superstrings, Hidden Dimensions and the Quest for the Ultimate Theory, New York: W. W. Norton and Company. 
+
+Haag, R., 1996, Local Quantum Physics: Fields, Particles, Algebras, 2nd edition, Berlin,Heidelberg,New York: Springer. 
+
+Haag, R. and Kastler, D., 1964, An algebraic approach to quantum field theory,{\em Journal of Mathematical Physics}, 5: 848--861. 
+
+Hartmann, S., 2001, Effective field theories, reductionism, and explanation, Studies in History and Philosophy of Modern Physics, 32: 267--304.
+ 
+Hättich, F., 2004, Quantum Processes -- A Whiteheadian Interpretation of Quantum Field Theory, M\"unster: agenda Verlag. 
+
+ Healey, R., 2001, On the reality of gauge potentials, Philosophy of Science, 68/4: 432--455. 
+ 
+ Heisenberg, W., 1958, Physics and Philosophy. The Revolution in Modern Science, Introduction by F. S. C. Northrop, Epilogue by Ruth Nanda Anshen, New York: Harper and Row. 
+
+ Heisenberg, W. and Pauli, W., 1929, Zur Quantendynamik der Wellenfelder, {\em Zeitschrift f\"ur Physik}, 56: 1--61. 
+
+ Hoddeson, L., Brown, L., Riordan, M., and Dresden, M., eds., 1997, The Rise of the Standard Model: A History of Particle Physics from 1964 to 1979, Cambridge: Cambridge University Press. 
+
+ Horuzhy, S. S., 1990, Introduction to Algebraic Quantum Field Theory, 1st edition, Dordrecht,Boston,London: Kluwer Academic Publishers. 
+
+ Kaku, M., 1999, Introduction to Superstrings and M--Theory, New York: Springer
+ 
+ Kastler, D., ed., 1990, The Algebraic Theory of Superselection Sectors: Introduction and Recent Results, Singapore,London,Hackensack, NJ: World Scientific Publishing Company. 
+
+ Kuhlmann, M., 2000, Processes as objects of quantum field theory, in Faye et al. 2000, pp. 365--388. 
+
+ Kuhlmann, M., 2002, Analytical ontologists in action: A comment on Seibt and Simons, in Kuhlmann et al. 2002, pp. 99--109.
+ 
+ Kuhlmann, M., Lyre, H., and Wayne, A., eds., 2002, Ontological Aspects of Quantum Field Theory,. Singapore,London,Hackensack, NJ: World Scientific Publishing Company. 
+
+ Ladyman, J., 1998, What is structural realism?, {\em Studies in History and Philosophy of Science}, 29: 409--424.  
+
+ Landsman, N. P., 1996, Local quantum physics,
+Studies in History and Philosophy of Modern Physics, 27: 511--525. 
+
+ Lyre, H., 2004a, Holism and structuralism in U(1) gauge theory, Studies in History and Philosophy of Modern Physics, 35/4: 643--670. 
+
+ Lyre, H., 2004b, Lokale Symmetrien und Wirklichkeit. Eine naturphilosophische Studie über Eichtheorien und Strukturenrealismus, Paderborn: mentis Verlag. 
+
+Malament, D., 1996, In defense of dogma: Why there cannot be a relativistic quantum mechanics of (localizable) particles, in Clifton 1996, pp. 1--10. 
+
+Martin, C. A., 2002, Gauge principles, gauge arguments and the logic of nature, Philosophy of Science, 69/3: 221--234. 
+
+Newton, T. D. and Wigner, E. P., 1949, Localized states for elementary particles, {\em Reviews of Modern Physics}, 21(3): 400--406.
+ 
+Peskin, M. E. and Schroeder, D. V., 1995, Introduction to Quantum Field Theory, Cambridge, MA: Perseus Books. 
+
+Polchinski, J., 2000, String Theory, 2 volumes, Cambridge: Cambridge University Press.
+ 
+Redei, M. and Summers, S. J., 2002, Local primitive causality and the common cause principle in quantum field theory, Foundations of Physics, 32: 335--355.
+ 
+Redhead, M. L. G., 1975, Symmetry in intertheory relations, Synthese, 32: 77--112. 
+
+Redhead, M. L. G., 1980, Some philosophical aspects of particle physics, Studies in History and Philosophy of Science, 11: 279--304. 
+
+Redhead, M. L. G., 1983, Quantum field theory for philosophers, in Asquith, P. D. and Nickles, T., eds., 1983, Proceedings of the Biennial Meeting of the Philosophy of Science Association: PSA 1982, East Lansing, MI: Philosophy of Science Association, vol. 2, pp. 57--99.
+ 
+Redhead, M. L. G., 1988, A philosopher looks at quantum field theory, in Brown and Harr\'e 1988, pp. 9--23. 
+
+Redhead, M. L. G., 1995a, More ado about nothing, Foundations of Physics, 25: 123--137. 
+Redhead, M. L. G., 1995b, The vacuum in relativistic quantum field theory, in Hull et al. 1994 (vol. 2), pp. 88--89. 
+
+Redhead, M. L. G., 2002a, The interpretation of gauge symmetry, in Kuhlmann et al. 2002, pp. 281--301. 
+
+ Redhead, M. L. G., 2002b, Quantum field theory and the philosopher, in Cao 1999, pp 34--40. 
+
+ Redhead, M. L. G. and Teller, P., 1991, Particles, particle labels, and quanta: the toll of unacknowledged metaphysics, Foundations of Physics, 21: 43---62. 
+
+ Redhead, M. L. G. and Wagner, F., 1998, Unified treatment of EPR and Bell arguments in Algebraic Quantum Field Theory, Foundations of Physics Letters, 11: 111--125. 
+
+ Reeh, H. and Schlieder, S., 1961, Bemerkungen zur Unitäräquivalenz von Lorentzinvarianten Feldern, Nuovo Cimento, 22: 1051--1068. 
+
+ Roberts, J. E., 1990, Lectures on algebraic quantum field theory, in Kastler 1990, pp. 1--112. 
+
+ Ruetsche, L., 2003, A matter of degree: Putting unitary equivalence to work, Philosophy of Science, 70/5: 1329--1342.
+ 
+ Ryder, L. H., 1996, Quantum Field Theory, 2nd edition, Cambridge: Cambridge University Press. 
+
+ Saunders, S., 1988, The algebraic approach to quantum field theory, in Brown and Harré 1988, pp. 149--183. 
+
+ Saunders, S., 1995, A dissolution of the problem of locality, in Hull, M. F. D., Forbes, M., and Burian, R. M., eds., 1995, Proceedings of the Biennial Meeting of the Philosophy of Science Association: PSA 1994, East Lansing, MI: Philosophy of Science Association, vol. 2, pp. 88-98. 
+
+ Saunders, S. and Brown, H. R., eds., 1991, The Philosophy of Vacuum, Oxford: Clarendon Press. 
+
+ Scharf, G., 1995, Finite Quantum Electrodynamics: the Causal Approach, 2nd edition, Berlin-Heidelberg-New York: Springer. 
+
+Schr\"odinger, E., 1954, Nature and the Greeks, Cambridge: Cambridge University Press, Cambridge. (Shearman Lectures, delivered at University College, London, May 1948.) 
+
+Schweber, S. S., 1994, QED and the Men Who Made It, Princeton: Princeton University Press. 
+
+Segal, I. E., 1947a, Irreducible representations of operator algebras, {\em Bulletin of the American Mathematical Society}, 53: 73--88. 
+
+Segal, I. E., 1947b, Postulates for general quantum mechanics, {\em Annals of Mathematics}, 48(4): 930-948. 
+
+Seibt, J., 2002, The matrix of ontological thinking: Heuristic preliminaries for an ontology of QFT, in Kuhlmann et al. 2002, pp. 53-97. 
+
+Streater, R. F. and Wightman, A. S., 1964, PCT, Spin and Statistics, and all that, New York: Benjamin. 
+
+ Teller, P., 1983, Quantum physics, the identity of indiscernibles and some unanswered questions, Philosophy of Science, 50: 309--319. 
+
+ Teller, P., 1990, What the quantum field is not, Philosophical Topics, 18: 175--186. 
+
+ Teller, P., 1995, An Interpretive Introduction to Quantum Field Theory, Princeton: Princeton University Press. 
+
+ Unruh, W. G., 1976, Notes on black hole evaporation, Physical Review D, 14: 870--92. 
+
+ Unruh, W. G. and Wald, R. M., 1984, What happens when an accelerating observer detects a Rindler particle? Physical Review D, 29: 1047--1056. 
+
+ Weinberg, S., 1995, The Quantum Theory of Fields -- Foundations, Volume 1. Cambridge: Cambridge University Press. 
+
+ Weyl, H., 1952, Symmetry, Princeton: Princeton University Press. 
+ 
+ Wigner, E. P., 1939, On unitary representations of the inhomoneneous Lorentz group, {\em Annals of Mathematics}, 40: 149--204.
+
+\begin{thebibliography}{199}
+
+\bibitem{Araki1961} 
+Huzihiro Araki. On the connection of spin and commutation relations between
+different fields. Journal of Mathematical Physics, 2:267--270, 1961.
+\bibitem{Araki1963}
+Huzihiro Araki. A lattice of von Neumann algebras associated with the quantum
+theory of a free Bose field. Journal of Mathematical Physics, 4, 1963.
+\bibitem{Araki1999}
+Huzihiro Araki. Mathematical theory of quantum fields. Oxford University Press, New York, 1999. 
+\bibitem{Arntzenius2003}
+Frank Arntzenius. Is quantum mechanics pointless? Philosophy of
+Science, 70(5):1447--1457, 2003.
+\bibitem{Bacciagaluppi, 1994} 
+G. Bacciagaluppi. Separation theorems and Bell inequalities in algebraic
+quantum mechanics. In Symposium on the Foundations of Modern Physics 1993:
+Quantum Measurement, Irreversibility and the Physics of Information, pages 
+29--37. World Scientific, Singapore, 1994.
+\bibitem{Baez et al., 1992} 
+John Baez, Irving Segal, and Zheng--Fang Zhou. Introduction to algebraic and constructive quantum field theory. Princeton University Press, Princeton, NJ, 1992.
+\bibitem{Baez1987} 
+John Baez. Bell's inequality for C*-algebras. Letters in Mathematical Physics,13(2):135--136, 1987.
+\end{thebibliography}</content>
+</record>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="769">
+ <title>Free Encyclopedia from PM books</title>
+ <name>FreeEncyclopediaFromPMBooks</name>
+ <created>2009-05-21 22:45:11</created>
+ <modified>2009-05-21 22:45:11</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>PM books</term>
+	<term>Planet Math books</term>
+	<term>Free Maths Encyclopedia</term>
+	<term>Wikipedia exchange project with PM</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Free Encyclopedia in PM books}
+A Free Encyclopedia of PlanetMath entries up to 2006 is now available as a PDF for \PMlinkexternal{free downloads}{http://planetphysics.org/?op=getobj&amp;from=books&amp;id=209} for private use in the books section of PlanetPhysics.org. The 2,000 page or 78 Mb PDF file contains useful mathematical and mathematical physics concepts generated at PM until the end of 2005; the one volume book has been edited by three PM editors and was enhanced with graphics, and also has available for downloads both the TEX and FEM files.
+many of the concepts and material presented in this Free Encyclopedia is also useful for physical and computational physics applications at PlanetPhysics.org, and elsewhere, in fields such as engineering and the industry. The two volume version, now also available in the book section of PlanetPhysics.org website, specifies the names of all PM contributors as well as those of the three Free Encyclopedia book editors who have generated and also copyrighted the two volumes under the GNUL terms. More than 300 entries have also been \PMlinkexternal{transferred to Wikipedia}{http://en.wikipedia.org/wiki/PlanetMath} under the GNUL terms and \PMlinkexternal{the Wikipedia exchange project with PM}{http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Mathematics/PlanetMath_Exchange}.
+
+A similar document, or Big Book could also be generated from the current contents of the PlanetPhysics.org Encyclopedia section of about 40 Mb, and additional books of documents totaling over 2 Gb could be ``automatically'' 
+computer-generated from the Books, Papers and Exposition sections of PlanetPhysics.org. The Free Physics Encyclopedia alone is expected to run at over 1,000 pages based on the current contents of May 20, 2009.</content>
+</record>

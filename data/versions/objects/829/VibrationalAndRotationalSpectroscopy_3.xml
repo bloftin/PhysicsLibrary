@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="829">
+ <title>Vibrational and Rotational Spectroscopy</title>
+ <name>VibrationalAndRotationalSpectroscopy</name>
+ <created>2009-10-31 14:45:07</created>
+ <modified>2009-10-31 15:01:52</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="63."/>
+	<category scheme="msc" code="63.22.+m"/>
+	<category scheme="msc" code="63.50.+x"/>
+ </classification>
+ <defines>
+	<concept>vibrational spectroscopy</concept>
+	<concept>rotational spectroscopy</concept>
+	<concept>VC</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Vibrational and Rotational Spectroscopy" alias="VRS"/>
+ </synonyms>
+ <keywords>
+	<term>VRS</term>
+	<term>VCD</term>
+	<term>vibrational spectroscopy</term>
+	<term>rotational spectroscopy</term>
+	<term>NIRS</term>
+	<term>Raman spectroscopy</term>
+	<term>neutron spectroscopy</term>
+	<term>microwave spectroscopy</term>
+	<term>neutron spectroscopy</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Vibrational and Rotational Spectroscopy (VRS)}
+This is a new contributed topic on Spectroscopy, focused primarily on Vibrational Spectroscopy and Vibro-rotational spectroscopy, including but not limited to:
+
+\begin{itemize}
+\item Infrared Spectroscopy (IR)
+\item Near Infrared Spectroscopy (NIR)
+\item Raman scattering
+\item Microwave Spectroscopy (MS)
+\item Fourier transform spectroscopy
+\item Chemical-Hyperspectral Imaging
+\item Fluorescence Correlation Spectroscopy (FCS) and FCCS
+\item Vibrational Circular Dichroism (VCD)
+\item Neutron Spectroscopy
+\item Extended X-ray Absorpion Fine Structure (EXAFS)
+\item new3
+\item new4
+\item new5
+\item new6
+\item new7
+
+\end{itemize}
+
+\subsection{See also:}
+\PMlinkexternal{NIR wiki website}{http://nir.wikispot.org/Front_Page}
+\PMlinkexternal{Vibrational Circular Dichroism paper at PPhysics}{http://planetphysics.org/?op=getobj&amp;from=papers&amp;id=89}
+\PMlinkexternal{A textbook at PPhysics: ``Vibrational-Rotational Spectroscopy, Fluorescence and Chemical-Hyperspectral Imaging''}{http://planetphysics.org/?op=getobj&amp;from=books&amp;id=314}
+\PMlinkexternal{NIR wiki website}{http://nir.wikispot.org/Front_Page}</content>
+</record>

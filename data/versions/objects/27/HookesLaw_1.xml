@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="27">
+ <title>Hooke's law</title>
+ <name>HookesLaw</name>
+ <created>2005-01-26 22:54:42</created>
+ <modified>2005-01-26 22:54:42</modified>
+ <type>Theorem</type>
+ <creator id="6" name="akrowne"/>
+ <modifier id="6" name="akrowne"/>
+ <comment>Changes for correction #16 ('Small addition').</comment>
+ <author id="6" name="akrowne"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Hooke's law describes the opposing force exerted by a spring:
+
+$$ F = -kd $$
+
+where $k$ is the spring constant, and $d$ is the distance the end of the spring is  disturbed from its position at relaxation (assuming the other end is fixed).
+
+This law is actually almost never used to describe stereotypical metal springs.  Instead it is used to describe or approximate a number of other ``spring-like'' interactions in nature, including interactions between microscopic or subatomic particles.  The simple linear nature of the law makes it very convenient to work with mathematically.</content>
+</record>

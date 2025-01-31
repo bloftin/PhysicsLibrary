@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="13" id="550">
+ <title>Ionel Solomon</title>
+ <name>IonelSolomon</name>
+ <created>2009-02-22 13:07:41</created>
+ <modified>2010-01-29 21:37:51</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>Résonance magnétique (1955-1965) : Découverte de la relaxation dans un système de spins couplés. Magnétomètre terrestre. Détection bolométrique de la résonance.
+
+Physique des Semiconducteurs (1966-1976) : L'effet Hall “extraordinaire”. Pompage optique dans les solides. Découverte du transport dépendant des Spins.
+
+Silicium amorphe et photovoltaïque (1977-1987) : transport et optique dans le silicium amorphe. Photopiles solaires. Nouveaux matériaux amorphes.
+
+Recherche matériaux (depuis 1989) : fibres carbone, fibres SiC et SiCN. Photoluminescence et électroluminescence dans les semiconducteurs et dispositifs.</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>condensed matter</concept>
+ </defines>
+ <keywords>
+	<term>biography</term>
+	<term>solid-state NMR</term>
+	<term>pulsed NMR</term>
+	<term>dipolar echoes in solids</term>
+	<term>I-I and I-S interactions</term>
+	<term>nuclear Overhauser enhancement</term>
+	<term>(NOE)</term>
+	<term>dipole-dipole interactions in solids</term>
+ </keywords>
+ <preamble>Résonance magnétique (1955-1965) : Découverte de la relaxation dans un système de spins couplés. Magnétomètre terrestre. Détection bolométrique de la résonance.
+
+Physique des Semiconducteurs (1966-1976) : L'effet Hall “extraordinaire”. Pompage optique dans les solides. Découverte du transport dépendant des Spins.
+
+Silicium amorphe et photovoltaïque (1977-1987) : transport et optique dans le silicium amorphe. Photopiles solaires. Nouveaux matériaux amorphes.
+
+Recherche matériaux (depuis 1989) : fibres carbone, fibres SiC et SiCN. Photoluminescence et électroluminescence dans les semiconducteurs et dispositifs.</preamble>
+ <content>\section{Biography of Ionel Solomon}
+{\bf Ionel Solomon} (b. 1929-  in free, Greater Roumania) is a French-Roumanian physicist \PMlinkexternal{Member of the French Academy of Sciences}{http://www.academie-sciences.fr/membres/S/Solomon_Ionel.htm}, CNRS Research Director, Professor at the Polytechnic School in Paris. 
+
+\subsection{Scientific Career}
+
+\begin{itemize}
+\item 1949--1951 PhD, Polytechnic School (\'Ecole Polytechnique) in Paris
+\item 1951--1952 Research Fellow at the University of Liverpool, UK
+\item 1955--1956 Research Fellow at Harvard University, USA
+\item 1953-1962 Researcher in the Resonance Group of the Atomic Energy Commission (Commissariat Energie Atomique in Saclay)
+\item 1962 Director of the Laboratory for Condensed Matter (Solid-State) Physics (Laboratoire de Physique de la Mati\'ere Condens\'ee), at the Polytechnic School in Paris
+\item 1962 Head of Research at C.N.R.S.
+\item 1962 Head of Conferences 
+\item 1968 CNRS Research Director
+\item 1973-1976 Physics Departement Head at the Polytechnic School in Paris
+1973-1974  President of the Societ\'e Française de Physique (the French Physics Society).
+\item 1975-1979 Professor, at the Polytechnic School in Paris 
+\item 1976 Invited Visiting Professor at the Xerox Research Center, Palo Alto,USA
+\item 1980 Invited Visiting Professor at Tokyo University
+\item 1981-1985 Founder and Scientific Director of SOLEMS Company
+\item 1987 President of the Scientific Council of PHOTOTRONICS (a French-german Company for dphotovoltaic products)
+\item 1988, June 22,  Elected Member of the Physics Institute of the  French Academy of Sciences
+\item Laboratory of Condensed Matter Physics 
+\end{itemize}
+
+
+\subsection{Major Scientific Contributions}
+ Ionel Solomon made major contributions to the fields of: Nuclear Magnetic Resonance (NMR), Solid-state physics, Semiconductors and Photovoltaics. In Nuclear Magnetic Resonance he derived fundamental equations that bear his name, and specify the nuclear spin-echo response and dipole-dipole interactions in solids (the Solomon equations).   
+
+ 
+
+\subsection{Awards and Prizes}
+
+\begin{itemize}
+\item 1958 Grand Prix for Research (with Anatole Abragam and J. Combrisson)
+\item 1963 The CNRS Silver Medal  
+\item 1969 Robin Prize of the French Physics Society (Societe Francaise de Physique)
+\item 1972 Holweck Prize of the Institute of Physics and S.F.P (French Physics Society)
+\item 1981 The Y. Peyches Prize of the Academy of Sciences
+\item XYZ
+ 
+\end{itemize}
+
+\subsection{Publications}
+
+
+I. Solomon. "Amorphous Semiconductors", In ``Topics in Applied Physics'', Ed. Springer Verlag, Berlin (1979).
+
+I. Solomon. Relaxation Processes in a System of Two Spins. Phys. Rev. 99, 559 (1955)
+
+I. Solomon, M.P. Schmidt, H. Tran Quoc. Selective low-power plasma decomposition of silane-methane mixtures for the preparation of methylated amorphous silicon. Phys. Rev. B ,38: 9895 (1988)
+
+I. Solomon, B. Drevillon, H. Shirai, N. Layadi. Plasma deposition of microcrystalline silicon: the selective etching model., J. Non-crystalline Solids, 164--166, p. 989 (1993).
+
+K. Rerbal, F. Jomard, J.N. Chazalviel, F. Ozanam, I. Solomon. Visible luminescence of porous amorphous Si(1--x) Cx:H due to selective dissolution of silicon. Appl. Phys. Lett. 83, p. 45 (2003)
+
+K. Kerbral, J.N. Chazalviel, F. Ozanam, I. Solomon. Temperature dependence of photoluminescence in amorphous Si1-xCx:H films. Eur. Phys. J., B51, p. 61 (2006).</content>
+</record>

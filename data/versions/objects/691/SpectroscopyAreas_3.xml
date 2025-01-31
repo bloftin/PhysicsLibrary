@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="691">
+ <title>Spectroscopy areas</title>
+ <name>SpectroscopyAreas</name>
+ <created>2009-04-25 14:39:27</created>
+ <modified>2009-04-25 14:45:14</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>FLIM</concept>
+	<concept>FRAP</concept>
+	<concept>FRET</concept>
+	<concept>NMR</concept>
+	<concept>ESR</concept>
+	<concept>NMRI</concept>
+	<concept>IR</concept>
+	<concept>NIR</concept>
+	<concept>FCS</concept>
+	<concept>FCCS</concept>
+	<concept>Hyperspectral Imaging</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Spectroscopy areas" alias="Spectroscopy fields"/>
+ </synonyms>
+ <related>
+	<object name="SpectroscopyTopics"/>
+ </related>
+ <keywords>
+	<term>Absorption spectroscopy</term>
+	<term>Atomic spectroscopy</term>
+	<term>Emission spectroscopy</term>
+	<term>Electron spin resonance</term>
+	<term>Fluorescence spectroscopy</term>
+	<term>gamma spectroscopy</term>
+	<term>Infrared spectroscopy</term>
+	<term>Near Infrared spectroscopy</term>
+	<term>Laser induced breakdown spectroscopy</term>
+	<term>Mossbauer spectroscopy</term>
+	<term>Nuclear magnetic resonance spectroscopy</term>
+	<term>Raman spectroscopy</term>
+	<term>Resonance enhanced multiphoton ionization</term>
+	<term>Rotational spectroscopy</term>
+	<term>Terahertz spectroscopy</term>
+	<term>Ultraviolet-visible spectroscopy</term>
+	<term>Vibrational spectroscopy</term>
+	<term>X-ray spectroscopy</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Spoectroscopy Areas}
+
+\begin{itemize}
+\item \PMlinkexternal{Atomic spectroscopy}{} 
+\item \PMlinkexternal{Emission spectroscopy}{http://en.wikipedia.org/wiki/Emission-spectroscopy} 
+\item \PMlinkexternal{Electron spectroscopy}{}, including Auger spectroscopy 
+\item \PMlinkexternal{Electron spin resonance}{} 
+\item \PMlinkexternal{Fourier transform spectroscopy and imaging}{}  
+\item \PMlinkexternal{Fluorescence spectroscopy}{}, including Fluorescence Correlation Spectroscopy ({\em FCS}) and Fluorescence Cross-Correlation Spectroscopy ({\em FCCS})
+\item Gamma spectroscopy 
+\item \PMlinkexternal{Infrared spectroscopy (IR)}{}
+\item Laser induced breakdown spectroscopy
+\item Mass spectrometry (MS)
+\item \PMlinkexternal{Microspectroscopy}{}: including fluorescence/FLIM, IR and \PMlinkexternal{NIR microspectroscopy}{}
+\item $M\ddot{o}ssbauer$ spectroscopy 
+\item \PMlinkexternal{Near Infrared spectroscopy (NIR)}{}
+\item Hyperspectral, or Chemical NIR (IR), Imaging
+\item Nuclear magnetic resonance spectroscopy, including FT-NMR, 2D-FT NMR
+and NMR Imaging
+\item Positron annihilation spectroscopy and imaging (PET scanning)
+\item Raman spectroscopy 
+\item Resonance enhanced multiphoton ionization 
+\item Rotational Microwave spectroscopy 
+\item Terahertz spectroscopy 
+\item Ultraviolet-visible spectroscopy 
+\item Vibrational spectroscopy 
+\item X-ray spectroscopy
+\end{itemize}</content>
+</record>

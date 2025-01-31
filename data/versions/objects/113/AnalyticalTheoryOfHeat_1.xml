@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="113">
+ <title>The Analytical Theory of Heat</title>
+ <name>AnalyticalTheoryOfHeat</name>
+ <created>2006-02-03 22:11:36</created>
+ <modified>2006-02-03 22:11:36</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Analytical Theory of Heat by Joseph Fourier is an attempt to make this translated work by Alexander Freeman availabe on PlanetPhysics. The chapters are derivatives from the public domain work in [1].
+
+{\bf Analytical Theory of Heat chapter 1}
+
+{\bf Chapter 1: Introduction}
+
+I.    Statement of the Object of the Work \\
+II.   Preliminary definitions and general notions \\
+III.  Principle of the communication of heat \\
+IV.   On the uniform and linear movement of heat \\
+V.    Law of the permanent temperatures in a prism of small thickness \\
+VI.   On the heating of closed spaces \\
+VII.  On the uniform movement of heat in three dimensions \\
+VIII. Measure of the movement of heat at a given point of a solid mass \\
+
+
+{\bf Analytical Theory of Heat chapter 2}
+
+{\bf Chapter 2: Equation of the Movement of Heat}
+
+I.    Equation of the Varied Movement of Heat in a Ring \\
+II.   Equation of the Varied Movement of Heat in a Solid Sphere \\
+III.  Equation of the Varied Movement of Heat in a Solid Cylinder \\
+IV.   Equations of the Varied Movement of Heat in a Solid Prism of Infinite     Length \\
+V.    Equation of the Varied Movement of Heat in a Solid Cube \\
+VI.   General Equation of the Propagation of Heat in the Interior of Solids \\
+VII.  General Equation Relative to the Surface \\
+VIII. Application of the General Equation \\
+IX.   General Remarks \\
+
+{\bf Chapter 3: Propagation of Heat in an Infinite Rectangular Solid}
+
+
+{\bf Analytical Theory of Heat chapter 3}
+
+I.    Statement of the Problem \\
+II.   First Example of the use of Trigonometric Series in the Theory of Heat \\
+III.  Remarks on these Series \\
+IV.   General Solution \\
+V.    Finite Expression of the Result of the Solution \\
+VI.   Development of an Arbitrary Function in Trigonometric Series \\
+VII.  Application to the Actual Problem \\
+
+
+
+
+
+
+
+
+[1] Fourier, Joseph. "The Analytcal Theory of Heat" Translation by Alexander Freeman, Cambridge: At the University Press, London, 1878.</content>
+</record>

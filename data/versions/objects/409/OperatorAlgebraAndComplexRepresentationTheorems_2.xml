@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="409">
+ <title>operator algebra and complex representation theorems</title>
+ <name>OperatorAlgebraAndComplexRepresentationTheorems</name>
+ <created>2009-01-17 19:22:09</created>
+ <modified>2009-01-17 19:25:17</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>quantum state space</concept>
+	<concept>QSS</concept>
+	<concept>local quantum state space</concept>
+	<concept>quantum spin network functor</concept>
+ </defines>
+ <keywords>
+	<term>operator algebra and CW-complex representation theorems</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{CW-complex representation theorems in quantum operator algebra and quantum algebraic topology}
+\emph{QAT theorems for quantum state spaces of spin networks and quantum
+spin foams based on $CW$-, $n$-connected models and fundamental theorems.}
+
+
+Let us consider first a lemma in order to facilitate the proof of the following theorem concerning
+spin networks and quantum spin foams.
+
+\textbf{Lemma}
+\emph{Let $Z$ be a \PMlinkname{$CW$ complex}{CWComplexDefinitionRelatedToSpinNetworksAndSpinFoams} that has the (three--dimensional) Quantum Spin `Foam' (QSF) as a subspace. Furthermore, let $f: Z \rightarrow QSS$ be a map so that $f \mid QSF = 1_{QSF}$, with QSS being an arbitrary, local quantum state space (which is not necessarily finite). There exists an $n$-connected $CW$ model (Z,QSF) for the pair (QSS,QSF) such that}:
+
+$f_*: \pi_i (Z) \rightarrow \pi_i (QST)$,
+
+is an isomorphism for $i&gt;n$ and it is a monomorphism for $i=n$.
+The $n$-connected $CW$ model is unique up to homotopy equivalence. (The $CW$ complex, $Z$, considered here is a homotopic `hybrid' between QSF and QSS).
+
+
+\textbf{Theorem 2.} (\emph{Baianu, Brown and Glazebrook, 2007:}, in Section 9 of ref. \cite{NAQAT}.
+For every pair $(QSS,QSF)$ of topological spaces defined as in \textbf{Lemma 1},
+with QSF nonempty, there exist $n$-connected $CW$ models $f: (Z, QSF) \rightarrow (QSS, QSF)$
+for all $n \geq 0$. Such models can be then selected to have the property that the $CW$ complex
+$Z$ is obtained from QSF by attaching cells of dimension $n&gt;2$, and therefore $(Z,QSF)$ is $n$-connected.
+Following \textbf{Lemma 01} one also has that the map:
+$f_* : \pi_i (Z) \rightarrow \pi_i (QSS)$ which is an isomorphism for $i&gt;n$, and it is a
+monomorphism for $i=n$.
+
+\emph{Note} See also the definitions of (quantum) \emph{spin networks and spin foams.}
+
+\begin{thebibliography}{9}
+\bibitem{NAQAT}
+I. C. Baianu, J. F. Glazebrook and R. Brown.2008.\PMlinkexternal{Non-Abelian Quantum Algebraic Topology, pp.123 Preprint}{http://planetmath.org/?op=getobj&amp;from=papers&amp;id=410}.
+\end{thebibliography}</content>
+</record>

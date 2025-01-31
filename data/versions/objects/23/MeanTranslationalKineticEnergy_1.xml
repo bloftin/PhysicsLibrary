@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="23">
+ <title>mean translational kinetic energy</title>
+ <name>MeanTranslationalKineticEnergy</name>
+ <created>2004-11-24 22:01:53</created>
+ <modified>2004-11-24 22:01:53</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <synonyms>
+	<synonym concept="mean translational kinetic energy" alias="average translational kinetic energy"/>
+ </synonyms>
+ <preamble></preamble>
+ <content>The mean translational kinetic energy is a result from the Maxwell-Boltzmann distribution.  
+
+\begin{equation}
+K_avg = \frac{1}{2} m {v^2}_rms
+\end{equation}</content>
+</record>

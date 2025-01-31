@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="14">
+ <title>si unit prefixes</title>
+ <name>SiUnitPrefixes</name>
+ <created>2004-11-18 23:39:59</created>
+ <modified>2004-11-18 23:39:59</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>\begin{table}[t]
+\caption{SI Unit Prefixes} 
+\centering
+\begin{tabular}{c c c}
+\\ [.3ex] \hline \\ [.3ex]
+
+Prefix &amp; Symbol &amp; Factor \\ [0.5ex]
+%heading
+\hline \\ [.3ex]
+yocto &amp; y &amp; $10^{-24}$ \\
+zepto &amp; z &amp; $10^{-21}$ \\
+atto  &amp; a &amp; $10^{-18}$ \\
+femto &amp; f &amp; $10^{-15}$ \\
+pico  &amp; p &amp; $10^{-12}$ \\
+nano  &amp; n &amp; $10^{-9}$ \\
+micro &amp; $\mu$ &amp; $10^{-6}$ \\
+milli &amp; m &amp; $10^{-3}$ \\
+centi &amp; c &amp; $10^{-2}$ \\
+deci  &amp; d &amp; $10^{-1}$ \\
+deka  &amp; da &amp; $10^{1}$ \\
+hecto &amp; h &amp; $10^{2}$ \\
+kilo  &amp; k &amp; $10^{3}$ \\
+mega  &amp; M &amp; $10^{6}$ \\
+giga  &amp; G &amp; $10^{9}$ \\
+tera  &amp; T &amp; $10^{12}$ \\
+peta  &amp; P &amp; $10^{15}$ \\
+exa   &amp; E &amp; $10^{18}$ \\
+zetta &amp; Z &amp; $10^{21}$ \\
+yotta &amp; Y &amp; $10^{24}$ \\ [1ex]
+
+\hline
+\end{tabular}
+
+\end{table}
+
+Here are some examples of using the SI unit prefixes. A centimeter is 1 meter * $10^{-2}$ or in scientific notation, $1\times10^{-2}$ meters. 
+\vspace{4ex}
+
+\noindent Reference: National Institute of Standards and Technology, 
+http://physics.nist.gov/cuu/Units/</content>
+</record>

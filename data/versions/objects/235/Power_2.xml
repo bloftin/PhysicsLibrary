@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="235">
+ <title>Power</title>
+ <name>Power</name>
+ <created>2006-11-16 19:41:01</created>
+ <modified>2006-11-16 19:42:35</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="21" name="pahio"/>
+ <comment>rotation added
+joule specified</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+	<category scheme="msc" code="45."/>
+	<category scheme="msc" code="45.20.Dd"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Power}
+
+Power is the rate of energy transfer.  Since there are several forms of energy, there are several ways of describing power.  In general terms of energy, power is defined as 
+
+$$P = \frac{dE}{dt}.$$
+
+\subsection{Mechanical Power}
+
+The energy transfer in mechanical systems where work is done by an applied force 
+
+$$ P = \frac{dE}{dt} = \frac{dW}{dt}.$$
+
+Using the relation between work and force
+
+$$ dW = {\bf F} \cdot d{\bf r}$$ 
+
+and then differentiating to get power,
+
+$$P = \frac{dW}{dt} = {\bf F} \cdot \frac{d{\bf r}}{dt} = {\bf F} \cdot {\bf v}.$$
+
+\subsection{Electrical Power}
+
+Since energy is transfering from a device storing electrical energy to another device in the circuit that converts to another form of energy, power is the rate of change of electrical potential energy.  For a DC circuit
+
+$$P = \frac{dU}{dt} = i V.$$
+
+\subsection{Units}
+
+The SI units of power are energy per time
+
+$$\left [ \frac{J}{s} \right] = 1 \left [ Watt \right ] = 1 \left [ W \right ]$$
+
+The english units of power are 
+
+$$ 1 \left [horsepower \right] = 1 \left [hp \right] = 550 \left [\frac{ft \, lb}{s} \right]$$</content>
+</record>

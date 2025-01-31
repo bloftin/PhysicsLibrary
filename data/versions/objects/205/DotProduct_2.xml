@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="205">
+ <title>dot product</title>
+ <name>DotProduct</name>
+ <created>2006-07-22 11:25:19</created>
+ <modified>2006-07-22 15:55:18</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="dot product" alias="scalar  product"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The dot product or scalar product is defined as
+
+$$ \mathbf{A} \cdot \mathbf{B} = A_x B_x + A_y B_y + A_z B_z $$
+
+{\bf Geometric interpretation}
+
+Using a geometric interpretation allows us to find the angle between two vectors because
+
+$$ \mathbf{A} \cdot \mathbf{B} = \left | \mathbf{A} \right | \left | \mathbf{B} \right | \cos \theta$$
+
+It is also useful to note that if the two vectors are perpindicular, their dot product is zero since
+
+
+$$ \cos \left (90^o \right) = 0$$
+
+{\bf Examples}
+
+(1) Calculate $ \mathbf{A} \cdot \mathbf{B} $ with
+
+$ \mathbf{A} = 5 \mathbf{\hat{i}} + 2 \mathbf{\hat{j}} - \mathbf{\hat{k}}$ \\
+$ \mathbf{B} = 3 \mathbf{\hat{i}} - 3 \mathbf{\hat{j}} + 3\mathbf{\hat{k}}$ \\
+
+answer:
+
+$ \mathbf{A} \cdot \mathbf{B} = (5)(3) + (2)(-3) + (-1)(+3) $ \\
+$ \mathbf{A} \cdot \mathbf{B} = 15 - 6 - 3  = 6$ \\
+
+(2) Find the angle between the above vectors.
+
+answer:
+
+We know their dot product, so we just need to calculate their magnitudes
+
+$ \left | \mathbf{A} \right | = \sqrt{A_x^2 + A_y^2 + A_z^2} = \sqrt{5^2 + 2^2 +(-1)^2} $ \\
+$ \left | \mathbf{A} \right | = \sqrt{25 + 4 + 1} = \sqrt{30} = 5.48 $ \\
+\\
+
+$ \left | \mathbf{B} \right | = \sqrt{3^2 + (-3)^2 +(3)^2} $ \\
+$ \left | \mathbf{B} \right | = \sqrt{9 + 9 + 9} = \sqrt{27} = 5.2 $ \\
+\\
+
+Finally
+
+
+$ \mathbf{A} \cdot \mathbf{B} = \left | \mathbf{A} \right | \left | \mathbf{B} \right | \cos \theta$
+
+$ \theta = cos^{-1} \left ( \frac{ \mathbf{A} \cdot \mathbf{B} }{ \left | \mathbf{A} \right | \left | \mathbf{B} \right |} \right )$ \\
+
+$ \theta = cos^{-1} \left ( \frac{ 6 }{ (5.48)(5.2)} \right) $ \\
+$ \theta = cos^{-1} (0.21) = 77.9^o $</content>
+</record>

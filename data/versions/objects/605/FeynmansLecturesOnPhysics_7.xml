@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="605">
+ <title>Feynman's Lectures on Physics</title>
+ <name>FeynmansLecturesOnPhysics</name>
+ <created>2009-03-21 18:17:26</created>
+ <modified>2009-03-21 18:28:22</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="01.55.+b"/>
+	<category scheme="msc" code="05-XX"/>
+	<category scheme="msc" code="46-XX"/>
+	<category scheme="msc" code="05.70.-axx"/>
+	<category scheme="msc" code="30."/>
+	<category scheme="msc" code="32.10.-f"/>
+	<category scheme="msc" code="41."/>
+	<category scheme="msc" code="42."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="78."/>
+	<category scheme="msc" code="85.25.-j"/>
+ </classification>
+ <defines>
+	<concept>superconductivity</concept>
+	<concept>classical conservation laws</concept>
+	<concept>resonance</concept>
+	<concept>crystal symmetries</concept>
+	<concept>wave phenomena</concept>
+	<concept>hyperfine splitting</concept>
+ </defines>
+ <preamble></preamble>
+ <content>\textbf{Entry in Progress}
+
+
+ This is a contributed topic entry on general physics following Richard Feynman's three-volume book on Lectures in Physics for 101 Physics undergraduate course at first year introductory Physics lectures at California Institute of Technology during the academic year 1961-1962; a veritable marathon through the wide domains of modern Physics up to 1964. Vol. I : 52 chapters covering most areas of Physics at the fundamental level from atoms in motion to basic physics, classical Conservation Laws, Netwon's Laws of Dynamics, Special Relativity theory, Algebra, Vectors, Resonance, Optics, Electromagnetic radiation, Waves and wave phenomena, Quantum behavior, Vision mechanisms, Wave-particle concept, Kinetic theory of gases, Statistical mechanics, Laws of Thermodynamics, with illustrations, concluding with Symmetry and Broken symmetries in physical laws. Vol. II (in 1964): Electromagnetism, Electricity and Magnetism, Maxwell equations, Electrodynamics in Relativistic Notation, Lorentz transformations of the fields, Electromagnetic Mass, Internal Geometry of Crystals, Tensors, Refraction and reflection of light/em waves, Magnetism of matter, paramagnetism and Magnetic resonance. Magnetic materials, Elasticity, Flow of water, general rheology, and Curved space in Einstein's General Relativity (last Ch. 42). Vol. III: Quantum theory, first principles of quantum mechanics, wave-particle duality, spin, the Hamiltonian matrix, the Ammonia Maser, Nuclear forces, Two-state systems, Hydrogen and hyperfine splitting, Propagation in a Crystal Lattice, Semiconductors, Angular Momentum, Hydrogen atom and the periodic table, Quantum operators, Superconductivity and the Schr\"odinger equation; Feynman's Epilogue: won't "teach this class again".  See also (and compare) for just a brief summary the following section.  
+
+\subsection{Sites and Pages dedicated to Richard P. Feynman:}
+
+ \emph{Feynman Online:}
+
+  A list of pages about Richard P. Feynman at the Nanotechnology website 
+
+ The Feynman Page at Science Hobbyist Website Richard Feynman Wikipedia entry
+
+  The Richard Feynman Page at Answers.com Physics / Feynman Videos Feynman's 
+
+ Douglas Robb Memorial Lectures (on Quantum Electrodynamics) 
+
+ The Pleasure of Finding Things Out (40 minute documentary interview with Feynman) 
+
+ The Net Advance of Physics Pages dedicated to physics and math education M.I.T. 
+
+ Open Courseware The Open Learning Initiative at Carnegie Mellon 
+
+ The Net Advance of Physics Wolfram Mathworld Stephen Wolfram, creator of Mathematica, was a student, friend and colleague of Richard Feynman. 
+
+ The Feynman Lectures website is proud to be the recipient of a complimentary copy of Mathematica 6.0. 
+
+ Pages dedicated to solving physics problems Review Questions, Examples, Grasps and Problems for Electromagnetic Field Theory (pdf, 844KB) This is an excellent collection of exercises specifically designed for The Feynman Lectures on Physics Volume II, written by Miko Elwenspoek, Leon Abelmann, Wouter Olthuis, and Remco Wiegerink of The University of Twente, NL, where it is used in the introductory EM field theory course. 
+
+ Brain Teasers From Richard Feynman The University of Oregon Physics Student Page Physics Questions/Problems at Tel Aviv University School of Physics and Astronomy.
+
+\subsection{Physics Problems :} 
+
+\PMlinkexternal{Resources for Students and Teachers at}{http://en.wikipedia.org/wiki/The_Feynman_Lectures_on_Physics}
+
+ The Physics Problem Page at The University of Rhode Island Physics Department 
+
+ Solving Problems in Physics at Oberlin College Department of Physics and 
+
+ Astronomy Worked Physics Problems and Examples at physics.about.com 
+
+ Physics Problems for the Next Millennium from The High Energy Particle Physics Theory Group at the University of Michigan in Ann Arbor Physics 
+
+ Challenges at Duke University Department of Physics Physics Question of the Week at The University of Maryland Department of Physics 
+
+ How Bent Spaghetti Break (a problem proposed by Feynman) at Laboratoire de Modalisation en Mecanique.</content>
+</record>

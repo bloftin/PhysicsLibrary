@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="98">
+ <title>Electromagnetism</title>
+ <name>Electromagnetism</name>
+ <created>2005-10-13 17:27:38</created>
+ <modified>2005-10-15 00:24:21</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41."/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>{\bf Electromagnetism} is the physics of the electromagnetic field. This is a field, encompassing all of space, composed of mutually dependent time varying electric and magnetic fields. The term "electromagnetism" comes from the fact that the electric and magnetic fields are closely intertwined, and, under most circumstances, it is impossible to consider the two separately.
+
+{\bf Overview}
+
+The electric field can be produced by stationary electric charges, and gives rise to the electric force described by Coulomb's law, which causes static electricity and drives the flow of electric charge in electrical conductors. The magnetic field can be produced by the motion of electric charges, such as an electric current flowing along a wire, and gives rise to the magnetic force one associates with magnets. A changing magnetic field gives rise to an electric field; this is the phenomenon of electromagnetic induction, which underlies the operation of electrical generators, induction motors, and transformers. The term electrodynamics is sometimes used to refer to the combination of electromagnetism with mechanics and deals with the effects of the electromagnetic field on the dynamic behavior of electrically charged particles.
+
+{\bf Electromagnetic force}
+
+The force that the electromagnetic field exerts on electrically charged particles, called the electromagnetic force, is one of the four fundamental forces. The other fundamental forces are the strong nuclear force (which holds atomic nuclei together), the weak nuclear force (which causes certain forms of radioactive decay), and the gravitational force. All other forces are ultimately derived from these fundamental forces. However, it turns out that the electromagnetic force is the one responsible for practically all the phenomena one encounters in daily life, with the exception of gravity. Roughly speaking, all the forces involved in interactions between atoms can be traced to the electromagnetic force acting on the electrically charged protons and electrons inside the atoms. This includes the forces we experience in "pushing" or "pulling" ordinary material objects, which come from the intermolecular forces between the individual molecules in our bodies and those in the objects. It also includes all forms of chemical phenomena, which arise from interactions between electron orbitals.
+
+
+{\bf History}
+
+The scientist William Gilbert proposed, in his De Magnete (1600), that electricity and magnetism, while both capable of causing attraction and repulsion of objects, were distinct effects. Mariners had noticed that lightning strikes had the ability to disturb a compass needle, but the link between lightning and electricity was not confirmed until Franklin's proposed experiments (performed initially by others) in 1752. One of the first to discover and publish a link between man-made electric current and magnetism was Romagnosi, who in 1802 noticed that connecting a wire across a Voltaic pile deflected a nearby compass needle. However, the effect did not become widely known until 1820, when Ørsted performed a similar experiment. Ørsted's work influenced Ampère to produce a theory of electromagnetism that set the subject on a mathematical foundation.
+
+An accurate theory of electromagnetism, known as classical electromagnetism, was developed by various physicists over the course of the 19th century, culminating in the work of James Clerk Maxwell, who unified the preceding developments into a single theory and discovered the electromagnetic nature of light. In classical electromagnetism, the electromagnetic field obeys a set of equations known as Maxwell's equations, and the electromagnetic force is given by the Lorentz force law.
+
+One of the peculiarities of classical electromagnetism is that it is difficult to reconcile with classical mechanics, but it is compatible with special relativity. According to Maxwell's equations, the speed of light is a universal constant, dependent only on the electrical permittivity and magnetic permeability of the vacuum. This violates Galilean invariance, a long-standing cornerstone of classical mechanics. One way to reconcile the two theories is to assume the existence of a luminiferous aether through which the light propagates. However, subsequent experiments efforts failed to detect the presence of the aether. In 1905, Albert Einstein solved the problem with the introduction of special relativity, which replaces classical kinematics with a new theory of kinematics that is compatible with classical electromagnetism.
+
+In another paper published in that same year, Einstein undermined the very foundations of classical electromagnetism. His theory of the photoelectric effect (for which he won the Nobel prize for physics) posited that light could exist in discrete particle-like quantities, which later came to be known as photons. Einstein's theory of the photoelectric effect extended the insights that appeared in the solution of the ultraviolet catastrophe presented by Max Planck in 1900. In his work, Planck showed that hot objects emit electromagnetic radiation in discrete packets, which leads to a finite total energy emitted as black body radiation. Both of these results were in direct contradiction with the classical view of light as a continuous wave. Planck's and Einstein's theories were progenitors of quantum mechanics, which, when formulated in 1925, necessitated the invention of a quantum theory of electromagnetism. This theory, completed in the 1940s, is known as quantum electrodynamics (or "QED"), and is one of the most accurate theories known to physics.
+
+{\bf References}
+
+[1] Tipler, Paul (1998) Physics for Scientists and Engineers: Vol. 2: Light, Electricity and Magnetism (4th ed.), W. H. Freeman. ISBN 1572594926
+
+[2] Griffiths, David J. (1998) Introduction to Electrodynamics (3rd ed.), Prentice Hall. ISBN 013805326X
+
+[3] Jackson, John D. (1998) Classical Electrodynamics (3rd ed.), Wiley. ISBN 047130932X
+
+[4] Rothwell, Edward J., Cloud, Michael J. (2001) Electromagnetics, CRC Press. ISBN 084931397X
+
+This entry is a derivative of the Electromagnetism article \\PMlinkexternal{from Wikipedia, the Free Encyclopedia}{ http://en.wikipedia.org/wiki/Electromagnetism}.  Authors of the orginial article include: Light current, Salsb, Ranveig, Robbot and Scottfisher.  History page of the original is \\PMlinkexternal{here}{http://en.wikipedia.org/w/index.php?title=Electromagnetism\&amp;action=history}</content>
+</record>

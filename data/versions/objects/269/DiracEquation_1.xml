@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="269">
+ <title>Dirac equation</title>
+ <name>DiracEquation</name>
+ <created>2008-03-16 15:18:17</created>
+ <modified>2008-03-16 15:18:17</modified>
+ <type>Definition</type>
+ <creator id="390" name="invisiblerhino"/>
+ <modifier id="390" name="invisiblerhino"/>
+ <author id="390" name="invisiblerhino"/>
+ <classification>
+	<category scheme="msc" code="03.65.Pm"/>
+ </classification>
+ <related>
+	<object name="KleinGordonEquation"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{cancel}
+% define commands here</preamble>
+ <content>The Dirac equation is an equation derived by Paul Dirac in 1927 that describes relativistic spin $1/2$ particles (fermions). It is given by:
+\[
+(\gamma^\mu \partial_\mu - im)\psi = 0
+\]
+The Einstein summation convention is used.
+\subsection{Derivation}
+Mathematically, it is interesting as one of the first uses of the spinor calculus in mathematical physics. Dirac began with the relativistic equation of total energy:
+\[
+E = \sqrt{p^2c^2 + m^2c^4}
+\]
+As Schr\"odinger had done before him, Dirac then replaced $p$ with its quantum mechanical operator, $\hat{p} \Rightarrow i\hbar \nabla$. Since he was looking for a Lorentz-invariant equation, he replaced $\nabla$ with the D'Alembertian or wave operator
+\[
+\Box = \nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}
+\]
+Note that some authors use $\Box^2$ for the D'alembertian. Dirac was now faced with the problem of how to take the square root of an expression containing a differential operator. He proceeded to factorise the d'Alembertian as follows:
+\[
+\nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2} = (A \frac{\partial}{\partial x} + B \frac{\partial}{\partial y} + c \frac{\partial}{\partial z} + D\frac{i}{c} \frac{\partial}{\partial t})^2
+\]
+Multiplying this out, we find that:
+\[
+A^2 = B^2 = C^2 = D^2 = 1
+\]
+And
+\[
+AB + BA = BC + CB = CD + DC = 0
+\]
+Clearly these relations cannot be satisfied by scalars, so Dirac sought a set of four matrices which satisfy these relations. These are now known as the Dirac matrices, and are given as follows:
+\[
+A = 
+\begin{pmatrix} 
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\ 
+0 &amp; 0 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; -1 \end{pmatrix},
+B = \begin{pmatrix}
+0 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; -1 &amp; 0 &amp; 0 \\
+-1 &amp; 0 &amp; 0 &amp; 0 \end{pmatrix}
+\]
+\[
+C = \begin{pmatrix}
+0 &amp; 0 &amp; 0 &amp; -i \\
+0 &amp; 0 &amp; i &amp; 0 \\
+0 &amp; i &amp; 0 &amp; 0 \\
+-i &amp; 0 &amp; 0 &amp; 0 \end{pmatrix},
+D = \begin{pmatrix}
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; -1 \\
+-1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \end{pmatrix}
+\]
+These matrices are usually given the symbols $\gamma^0$, $\gamma^1$, etc. They are also known as the generators of the special unitary group of order 4, i.e. the group of $n \times n$ matrices with unit determinant.
+Using these matrices, and switching to natural units ($\hbar = c = 1$) we can now obtain the Dirac equation:
+\[
+(\gamma^\mu \partial_\mu - im)\psi = 0
+\]
+\subsection{Feynman slash notation}
+Richard Feynman developed the following convenient notation for terms involving Dirac matrices:
+\[
+\gamma^\mu q_\mu = \cancel{q}
+\]
+Using this notation, the Dirac equation is simply
+\[
+(\cancel{\partial} - im)\psi = 0
+\]</content>
+</record>

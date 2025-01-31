@@ -1,0 +1,1 @@
+executing [/usr/bin/gs    -q -dNOPAUSE -dNO_PAUSE -sDEVICE=ppmraw -g84x37 -r115 -dTextAlphaBits=4 -sOutputFile=/tmp/l2h5063/p5096.pnm]

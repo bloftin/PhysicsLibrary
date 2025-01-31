@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="88">
+ <title>axis angle of rotation to direction cosine matrix</title>
+ <name>AxisAngleOfRotationToDirectionCosineMatrix</name>
+ <created>2005-08-28 22:59:32</created>
+ <modified>2005-08-28 22:59:32</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>For now, without proof you can get the direction cosine matrix (DCM) from the axis angle of rotation by
+
+\begin{equation}
+\left[ \begin{array}{ccc}
+A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right] = \left[ \begin{array}{ccc}
+cos(\alpha) + e_1^2(1 - cos(\alpha) &amp; e_1 e_2 (1 - cos(\alpha)) + e_3 sin(\alpha) &amp; e_1 e_3(1 - cos(\alpha)) - e_2 sin(\alpha) \\
+e_1 e_2(1 - cos(\alpha)) - e_3 sin(\alpha) &amp; cos(\alpha) + e_2^2(1 - cos(\alpha)) &amp; e_2 e_3(1-cos(\alpha)) + e_1 sin(\alpha) \\
+e_1 e_3(1 - cos(\alpha)) + e_2 sin(\alpha) &amp; e_2 e_3(1-cos(\alpha)) - e_1 sin(\alpha) &amp; cos(\alpha) + e_3^2(1 - cos(\alpha)) \end{array} \right]
+\end{equation}</content>
+</record>

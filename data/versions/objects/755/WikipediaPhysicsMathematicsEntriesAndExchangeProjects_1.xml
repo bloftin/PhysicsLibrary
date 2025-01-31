@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="755">
+ <title>Wikipedia physics & mathematics entries and exchange projects</title>
+ <name>WikipediaPhysicsMathematicsEntriesAndExchangeProjects</name>
+ <created>2009-05-14 02:40:03</created>
+ <modified>2009-05-14 02:40:03</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>PlanetPhysics.org exchange with Wikipedia</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Wikipedia physics &amp; mathematics entries and exchange projects" alias="Wikipedia projects and exchanges"/>
+ </synonyms>
+ <keywords>
+	<term>Wikipedia Physics Project</term>
+	<term>[[WP-PHYS]]</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic on physics, as well as mathematics, entries and exchange projects on Wikipedia.
+
+\section{Wikipedia physics and mathematics entries or exchange projects}
+There are over 600 PM and PlanetPhysics entries that are partially incorporated in existing Wikipedia websites materials. Furthermore there is also an \PMlinkexternal{exchange 
+project between Wikipedia and PlanetMath.org}{http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Mathematics/PlanetMath_Exchange#Converting_text_from_PlanetMath_to_Wikipedia_formats}.
+
+PlanetPhysics.org members who have entries on Wikipedia may transfer
+or incorporate their entries on PlanetPhysics, with the appropriate acknowledgement of the free use of their GNU license documents on Wikipedia.
+Conversely, Wikipedia members are also to transfer or partially incorporate their entries content freely from PlanetPhysics also to Wikipedia under the free GNU license terms. Often this involves at present a change in the TeX version utilized, with a different look and feel in the graphics-rich environment on Wikipedia.</content>
+</record>

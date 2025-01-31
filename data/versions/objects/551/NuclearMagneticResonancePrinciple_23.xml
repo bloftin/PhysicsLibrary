@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="23" id="551">
+ <title>nuclear magnetic resonance principle</title>
+ <name>NuclearMagneticResonancePrinciple</name>
+ <created>2009-02-23 04:02:45</created>
+ <modified>2009-02-23 05:33:21</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="83.85.Fg"/>
+	<category scheme="msc" code="82.56.Pp"/>
+	<category scheme="msc" code="82.56.Ub"/>
+	<category scheme="msc" code="02.30.Nw"/>
+	<category scheme="msc" code="20."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>NMR</concept>
+	<concept>MRI</concept>
+ </defines>
+ <keywords>
+	<term>NMR</term>
+	<term>magnetic resonance imaging</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. as your 
+% almost certainly you want these
+
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+
+\newcommand{\&lt;}{{\langle}}
+
+%\newcommand{\&gt;}{{\rangle}}
+
+%\usepackage{geometry, amsmath,amssymb,latexsym,enumerate}
+%\usepackage{xypic}
+
+\def\baselinestretch{1.1}
+
+
+\hyphenation{prod-ucts}
+
+%\grpeometry{textwidth= 16 cm, textheight=21 cm}
+
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+
+\def\C{C^{\ast}}
+
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+
+%\newenvironment{proof}{\noindent {\bf Proof} }{ \hfill $\Box$
+%{\mbox{}}
+
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\subsection{Introduction}
+
+ Nuclear magnetic resonance (NMR) is the name given to the physical phenomenon involving the observation of specific quantum mechanical magnetic properties of an atomic nuclei interacting with an external magnetic field applied to a molecular system and crystalline or non--crystalline materials. NMR also commonly refers to a family of scientific methods and techniques that exploit the nuclear magnetic resonance resonance phenomenon to study molecules, crystals and non-crystalline materials (NMR spectroscopy is perhaps the most important, as well as routine, group of techniques in this family). All nuclei that contain odd numbers of protons and/or neutrons have a non-zero intrinsic magnetic moment and angular momentum, in other words a spin $&gt; 0$ which takes on either $(k+1)$ or $(k + 1/2)$ values, with $k= 0, 1, 2, ...,n$. The most commonly measured nuclei are $^1H$ (the most NMR-sensitive isotope after the radioactive $^3H$ isotope, and also after the stable ${}^{13}C$ nucleus, although nuclei from isotopes of many other elements (for example: 
+$^2H, ^{10}B, ^{11}B, ^{14}N, ^{15}N, ^{17}O, ^{19}F, ^{23}Na, ^{29}Si, ^{31}P, ^{35}Cl, ^{113}Cd, ^{195}Pt$) are readily measured by high-field NMR spectroscopy as well. NMR resonant frequencies for a particular substance are directly proportional to the strength of the applied magnetic field, in accordance with the equation for the Larmor precession frequency. The scientific literature as of February 2009 includes NMR spectra at magnetic fields in a wide range: from about 5 nT up to 24 T. Very high magnetic fields are often preferred since 1D--NMR detection sensitivity increases proportionally with the magnetic field strength (the ``Golden Rule of NMR''). Other methods to increase either the NMR signal strentgth or the detection sensitivity include hyperpolarization and two-dimensional (2D) FT NMR techniques. The principle of NMR usually involves two sequential steps: (1) the alignment or polarization of the magnetic nuclear spins being studied in an applied, constant magnetic field ${\bf H}_0$, and (2) the perturbation of this alignment of the nuclear spins (in the constant external magnetic field) by employing a second, alternating magnetic field (rf) ${\bf H_{1rf}}$, with the two fields being usually orthogonal for maximum detected NMR signal intensity. The resulting response by the total magnetization, $M = \vec{M}$, of the nuclear spins to the perturbing magnetic field is the phenomenon that is exploited in NMR spectroscopy and magnetic resonance imaging, which both use intense applied magnetic fields ${\bf H}_0$, in order to achieve high spectral resolution, the details of which are described by the chemical shift, the Zeeman effect, and Knight shifts (in metals). Nuclear magnetic resonance was first described and measured in molecular beams by Isidor Rabi in 1938.
+
+
+\subsection{Theory of nuclear magnetic resonance}
+
+\subsubsection{Nuclear spins and magnets}
+The elementary particles, neutrons and protons, composing an atomic nucleus, have the intrinsic quantum mechanical property of spin. The overall spin of the nucleus is determined by the spin quantum number, $I$. If the number of both the protons and neutrons in a given isotope are even then $I = 0$, i.e. there is no overall spin; just as electrons pair up in atomic orbitals, so do even numbers of protons and neutrons (which are also spin 1/2 particles and hence fermions) pair up giving zero overall spin. In other cases, however, the overall spin is non-zero. For example $^{27}Al$ has a spin $I = 5/2$.
+
+A non-zero spin, I, is associated with a non-zero magnetic moment, 
+{\bf $ \mu$}, via $${\bf \mu} = \gamma {I},$$ 
+
+where the proportionality constant, $\gamma$, is the gyromagnetic ratio.
+
+It is this magnetic moment that allows the observation of NMR absorption spectra caused by transitions between nuclear spin levels. Most radioactive nuclei (with some rare exceptions, such as tritium) that have both even numbers of protons and even numbers of neutrons, also have zero nuclear magnetic moments-and also have zero magnetic dipole and quadrupole moments; therefore, such radioactive isotopes do not exhibit any NMR absorption spectra. Thus, 
+$^{12}C$, $^{32}P$ and $^{36}Cl$ are examples of radioactive nuclear isotopes that have no NMR absorption, whereas $^{13}C, ^{31}P, ^{35}Cl$ and $^{37}Cl$ are stable nuclear isotopes that do exhibit NMR absorption spectra.
+
+
+Electron spin resonance is a related technique which detects transitions between electron spin levels instead of nuclear ones. The basic principles are similar; however, the instrumentation, data analysis and detailed theory are significantly different. Moreover, there is a much smaller number of molecules and materials with unpaired electron spins that exhibit ESR (or EPR) absorption than those that have NMR absorption spectra. Significantly also, is the much greater sensitivity of ESR in comparison with NMR. Furthermore, ferromagnetic materials and thin films may exhibit highly resolved ferromagnetic resonance (FMR) spectra, or spin wave excitations (SWR) beyond the single-quantum transitions common to most routine NMR and EPR studies. 
+
+\subsubsection{Permitted values of the spin angular momentum}
+The angular momentum associated with nuclear spin is quantized. This means both that the magnitude of angular momentum is quantized (that is, $I$ can only take on a restricted range of values), and also that the `orientation' of the associated angular momentum is quantized. The associated quantum number is known as the magnetic quantum number, $m$, and can take values from $+I$ to $–I$ in integral steps. Hence for any given nucleus, there is a total of $2I+1$ angular momentum states.
+
+The $z$- component of the angular momentum vector, ${\bf I}$ is therefore: 
+$I_z = mh(2\pi)$, where $h$ is Planck's constant.
+
+
+The $z$--component of the magnetic moment is simply:
+
+
+$${\mu}_z = \gamma \dot I_z = m \gamma h/(2pi)$$
+
+
+\subsubsection{Nuclear spin interaction with a magnetic field}
+Consider nuclei which have a spin of one-half, like $1^H, 13^C$ or $19^F$. The nucleus has two possible spin states: $m = 1/2 \, or \, m = -1/2$ (also referred to as up and down or $\alpha$ and $\beta$, respectively). The energies of these states are degenerate (that is, they are the same). Hence the populations of the two states (that is, the numbers of atoms in the two states) will be approximately equal at thermal equilibrium.
+
+If a nucleus is placed in a magnetic field, however, the interaction between the nuclear magnetic moment and the external magnetic field mean the two states no longer have the same energy. The energy of a magnetic moment $\mu$ when in a magnetic field ${\bf B}_0$ (the zero subscript is used to distinguish this magnetic field from any other applied field) is given by the negative scalar product of the vectors:
+
+
+$$E = (-1)\vec{\mu} \vec{B}_0,$$ or
+
+$$E= (-1) \vec{\mu}_z \dot B_0,$$
+
+
+where the magnetic field has the orientation along the $z$ axis.
+
+
+Hence: $$E = - m h(2 \pi)\gamma \vec{B}_0$$.
+
+
+As a result the different nuclear spin states have different energies in a non-zero magnetic field. One can simply describe the two spin states of a spin 1/2 as `being aligned either with or against the applied magnetic field'. If $\gamma$ is positive (true for most isotopes) then $m = 1/2 $ is the lower energy state.
+
+The energy difference between the two states is:
+
+
+$$\Delta E = h(2 \pi) \gamma {\bf B}_0,$$
+
+
+and this difference results in a small population bias toward the lower energy state.
+
+
+\subsubsection{Resonance}
+Resonant absorption will occur when electromagnetic radiation of the correct frequency to match this energy difference is applied. The energy of a photon is $E = h \nu$, where ν is its frequency. Hence absorption will occur when 
+
+$\Delta E = h \nu = \gamma {\bf B}_0/(2 \pi)$. These frequencies typically correspond to the radio frequency range of the electromagnetic spectrum for magnetic fields up to about 20T.
+
+It is this (magnetic) resonant absorption that is detected in NMR.
+
+
+\subsubsection{Nuclear shielding by electron orbitals}
+It might appear from the above that all nuclei of the same nuclide (and hence the same γ) would resonate at the same frequency. This is not the case. The most important perturbation of the NMR frequency for applications of NMR is the `shielding' effect of the surrounding electrons. In general, this electronic shielding reduces the magnetic field at the nucleus (which is what determines the NMR frequency). As a result the energy gap is reduced, and the frequency required to achieve resonance is also reduced. This shift in the NMR frequency due to the electron (molecular) orbital coupling to the external magnetic field is called chemical shift, and it explains why NMR is able to probe the chemical structure of molecules which depends on the electron density distribution in the corresponding molecular orbitals. If a nucleus in a specific chemical group is shielded to a higher degree by a higher electron density of its surrounding moelcular orbital, then its NMR frequency will be shifted upfield (that is, a lower chemical shift), whereas if it is less shielded by such surrounding electron density, then its NMR frequency will be shifted downfield (that is, a higher chemical shift will be measured).
+
+Unless the local symmetry of such molecular orbitals is very high (that is, in the `isotropic shift' case), the shielding effect will depend on the orientation of the molecule with respect to the external field, ${\bf H}_0$. In solid-state NMR spectroscopy, magic angle spinning is required to average out this orientation dependence in order to obtain values close to the average chemical shifts. This is obviously unnecessary in conventional NMR of molecules in solution since rapid molecular tumbling averages out the chemical shift anisotropy (CSA) to the `average chemical shift' (ACS).
+
+
+\subsection{NMR spectroscopy methods}
+
+ NMR spectroscopy is one of the principal techniques used to obtain physical, chemical, electronic and structural information about molecules due to the chemical shift Zeeman effect, and/or Knight shift effect on the resonant frequencies of the nuclei present in the sample. It is a powerful set of techniques and methods that can provide detailed information on the topology, dynamics,three-dimensional structure of molecules in solution and the solid state, as well as on chemical kinetics. Thus, structural and dynamic information is obtainable (with or without magic-angle spinning (MASS)) from NMR studies of quadrupolar nuclei (that is, those nuclei with spin I &gt; 1/2, such as 1, 3/2, 5/2, and so on) even in the presence of dipolar broadening which is always much smaller than the quadrupolar interaction strength.
+
+Additional structural and chemical information may be obtained by performing double-quantum NMR experiments for quadrupolar nuclei such as $^2H$.
+
+
+Also, nuclear magnetic resonance is one of the techniques that has been used to build elementary quantum computers [reference].</content>
+</record>

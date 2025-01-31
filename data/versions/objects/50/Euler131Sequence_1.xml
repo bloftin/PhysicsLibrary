@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="50">
+ <title>Euler 131 sequence</title>
+ <name>Euler131Sequence</name>
+ <created>2005-08-06 23:50:08</created>
+ <modified>2005-08-06 23:50:08</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>For more info on Euler Sequences, notation and convention see the generic entry on Euler Angle Sequences. \\
+
+$ R_{131}(\phi, \theta, \psi) = R_1(\psi) R_3(\theta) R_1(\phi) $ \\
+
+
+The rotation matrices are
+
+\begin{equation}
+R_1(\psi) =
+\left[ \begin{array}{ccc}
+1 &amp; 0 &amp; 0 \\
+0 &amp; c_{\psi}  &amp; s_{\psi} \\
+0 &amp; -s_{\psi} &amp; c_{\psi} \end{array} \right]
+\end{equation}
+
+\begin{equation}
+R_3(\theta) =
+\left[ \begin{array}{ccc}
+c_{\theta} &amp; s_{\theta} &amp; 0  \\
+-s_{\theta} &amp; c_{\theta} &amp; 0 \\
+0 &amp; 0 &amp; 1 \end{array} \right]
+\end{equation}
+
+\begin{equation}
+R_1(\phi) =
+\left[ \begin{array}{ccc}
+1 &amp; 0 &amp; 0 \\
+0 &amp; c_{\phi}  &amp; s_{\phi} \\
+0 &amp; -s_{\phi} &amp; c_{\phi} \end{array} \right]
+\end{equation}
+
+Carrying out the matrix multiplication from right to left \\
+
+
+$
+R_3(\theta)R_1(\phi) =
+\left[ \begin{array}{ccc}
+c_{\theta} &amp; s_{\theta} &amp; 0  \\
+-s_{\theta} &amp; c_{\theta} &amp; 0 \\
+0 &amp; 0 &amp; 1 \end{array} \right] \left[ \begin{array}{ccc}
+1 &amp; 0 &amp; 0 \\
+0 &amp; c_{\phi}  &amp; s_{\phi} \\
+0 &amp; -s_{\phi} &amp; c_{\phi} \end{array} \right] = \left[ \begin{array}{ccc}
+c_{\theta} &amp; s_{\theta}  c_{\phi}  &amp; s_{\theta} s_{\phi} \\
+-s_{\theta} &amp;  c_{\theta}  c_{\phi}  &amp; c_{\theta} s_{\phi}  \\
+ 0 &amp; -s_{\phi} &amp; c_{\phi} \end{array} \right] $ \\ $
+
+Finaly leaving us with the Euler 131 sequence \\
+
+$
+R_1(\psi)R_3(\theta)R_1(\phi) = \left[ \begin{array}{ccc}
+c_{\theta}  &amp; s_{\theta} c_{\phi}   &amp; s_{\theta} s_{\phi}   \\
+-c_{\psi} s_{\theta}  &amp; c_{\psi} c_{\theta} c_{\phi} - s_{\psi} s_{\phi} &amp; c_{\psi} c_{\theta} s_{\phi} + s_{\psi} c_{\phi} \\
+s_{\psi} s_{\theta}  &amp; -s_{\psi} c_{\theta} c_{\phi} - c_{\psi} s_{\phi} &amp;  - s_{\psi} c_{\theta} s_{\phi} +  c_{\psi} c_{\phi}  \end{array} \right] $</content>
+</record>

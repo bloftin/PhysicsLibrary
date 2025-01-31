@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="360">
+ <title>quantum tunneling</title>
+ <name>QuantumTunneling</name>
+ <created>2009-01-10 15:27:33</created>
+ <modified>2009-01-10 15:27:33</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>Josephson effect</concept>
+	<concept>Josephson junctions</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="quantum tunneling" alias="Josephson quantum effect"/>
+ </synonyms>
+ <keywords>
+	<term>quantum tunneling</term>
+	<term>Josephson effects</term>
+	<term>Brian Josephson</term>
+	<term>P.W. Anderson</term>
+	<term>Neville Mott</term>
+	<term>quantum enzymatic catalysis via quantum tunneling</term>
+	<term>superconducting junctions and Josephson effect</term>
+	<term>squid magnetometers</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Quantum Tunneling}
+This is a fundamental quantum effect, or phenomenon, that was first reported as a theoretical possibility and quantum calculation in ``Nature'' by Brian Josephson (subsequently awarded a Nobel Laureate in Physics for this important theoretical prediction/calculation) from The Cavendish Laboratory of the University of Cambridge, UK. (The paper also served  as the contents of Brian Josephson's doctoral (MA) thesis at the University of Cambridge, UK). Subsequently, the first experimental proof for quantum tunneling was obtained at Bell Labs., in the USA, inspired by P. W. Anderson (Nobel Laureate in Physics shared in 1978 with Sir Neville Mott of The Cavendish Laboratory, and Van Vleck); many subsequent experiments verified its existence, and also numerous devices, such as the transistor, were invented that utilized it. 
+P.W. Anderson, was also the first theoretical physicist to verify the quantum calculations made by Brian Josephson and support the publication of the latter's results. The Nobel prize for the transistor went however to Dr. John Bardeen, (a former Professor of Physics at the University of Illinois at Urbana in the Loomis Laboratory), who had initially rejected as `impossible' Josephson's manuscript submitted to ``Nature'' describing the quantum tunneling effect. 
+
+Josephson junctions were also designed and are currently utilized with superconducting materials/layers. In nature, most--if not all-- enzymes function as biocatalysts based on quantum tunneling effects to reduce the free energy requirements for a bewildering number of biocatalytic reactions.  
+
+Quantum tunneling consists in the ability of quantum particles, such as electrons, protons, nuclei, etc. to tunnel through finite potential barriers with definite (non-zero) probabilities. (Classically, this could be seen as `ghosts' passing through solid walls!). At first, it was rejected by certain eminent peer-reviewers as being `impossible', much the same as the flying of objects with density greater than air was rejected at first by the French academicians that specialized in fluid mechanics who did not wish to acknowledge the existence in nature of flying birds.</content>
+</record>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="871">
+ <title>Axioms of Physics</title>
+ <name>AxiomsOfPhysics</name>
+ <created>2010-06-05 10:32:57</created>
+ <modified>2010-06-05 10:48:20</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>1. Seven ideas introduced in the 1963 thesis
+(1) The category of categories is an accurate and useful framework for algebra, geometry,
+analysis, and logic, therefore its key features need to be made explicit.
+(2) The construction of the category whose objects are maps from a value of one given
+functor to a value of another given functor makes possible an elementary treatment of
+adjointness free of smallness concerns and also helps to make explicit both the existence
+theorem for adjoints and the calculation of the specific class of adjoints known as Kan
+extensions.
+(3) Algebras (and other structures, models, etc.) are actually functors to a background
+category from a category which abstractly concentrates the essence of a certain general
+concept of algebra, and indeed homomorphisms are nothing but natural transformations
+between such functors. Categories of algebras are very special, and explicit axiomatic
+characterizations of them can be found, thus providing a general guide to the special features
+of construction in algebra.
+(4) The Kan extensions themselves are the key ingredient in the unification of a large
+class of universal constructions in algebra (as in [Chevalley, 1956]).</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.70.-cxx"/>
+	<category scheme="msc" code="02.90.+p"/>
+ </classification>
+ <defines>
+	<concept>physics axioms</concept>
+ </defines>
+ <keywords>
+	<term>axioms</term>
+	<term>foundations of physics</term>
+	<term>theoretical physics</term>
+	<term>QFT</term>
+	<term>AQFT</term>
+	<term>TQFT</term>
+	<term>General Relativity theory</term>
+ </keywords>
+ <preamble></preamble>
+ <content>A contributed topic on the Axioms of Physics in the following areas:
+
+\begin{enumerate}
+\item 1. General Relativity Theory
+\item 2. Axiomatic and Algebraic Quantum Field Theory
+\item 3. Quantum Algebraic Topology
+\item 4. Topological Quantum Field Theory
+\item 5. Quantum Logics
+\item 6. Symmetry and Physical Principles and Laws
+\item 7. Categorical Physics: category theory and groupoid/algebraic topology applications in Physics
+\end{enumerate}</content>
+</record>

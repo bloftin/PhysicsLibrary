@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="790">
+ <title>Capacitor networks</title>
+ <name>CapacitorNetworks</name>
+ <created>2009-06-06 09:44:43</created>
+ <modified>2009-06-06 09:44:43</modified>
+ <type>Topic</type>
+ <creator id="431" name="curious"/>
+ <modifier id="431" name="curious"/>
+ <author id="431" name="curious"/>
+ <classification>
+	<category scheme="msc" code="07.50.Ek"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Capacitors in networks cannot always be grouped into simple series or parallel combinations. As an example, the figure shows three capacitors $C_x$, $C_y$, and $C_z$ in a {\em delta network}, so called because of its triangular shape. This network has three terminals $a$, $b$, and $c$ and hence cannot be transformed into a sinle equivalent capacitor.
+\begin{figure}
+\begin{center}
+\includegraphics{circuit1.eps}
+\caption{The delta network}
+\end{center}
+\end{figure}
+It can be shown that as far as any effect on the external circuit is concerned, a delta network is equivalent to what is called a {\em Y network}. The name "Y network" also refers to the shape of the network. 
+\begin{figure}
+\begin{center}
+\includegraphics{circuit2.eps}
+\caption{The Y network}
+\end{center}
+\end{figure}
+I am going to show that the transformation equations that give $C_1$, $C_2$, and $C_3$ in terms of $C_x$, $C_y$, and $C_z$ are
+$$C_1 = (C_xC_y + C_yC_z + C_zC_x)/C_x$$
+$$C_2 = (C_xC_y + C_yC_z + C_zC_x)/C_y$$
+$$C_3 = (C_xC_y + C_yC_z + C_zC_x)/C_z$$
+
+The potential difference $V_ac$ must be the same in both circuits, as $V_bc$ must be. Also, the charge $q_1$ that flows from point $a$ along the wire as indicated must be the same in both circuits, as must $q_2$.
+Now, let us first work with the delta circuit. Suppose the charge flowing through $C_z$ is $q_z$ and to the right. According to Kirchoff's first rule:
+$$q_1 = q_y + q_z$$
+Lets play with the equation a little bit..
+$$q_1 = C_yV_{ac} + C_zV_{ab}$$
+From Kirchoff's second law: $V_{ab} = V_{ac} + V_{cb} = V_{ac} - V_{bc}$
+$$q_1 = C_yV_{ac} + C_z(V_{ac} - V_{bc})$$
+Therefore we get the equation:
+\begin{equation}
+q_1 = (C_y + C_z)V_{ac} - C_zV_{bc}
+\end{equation}
+Similarly, we apply the rule to the right part of the circuit:
+$$q_2 = q_x - q_z$$
+$$q_2 = C_xV_{bc} - C_z(V_{ac} - V_{bc})$$
+We then get the second equation
+\begin{equation}
+q_2 = -C_zV_{ac} + (C_x + C_z)V_{bc}
+\end{equation}
+Solving (1) and (2) simultaneously for $V_{ac}$ and $V_{bc}$, we get:
+$$V_{ac} = \left( \frac{C_x + C_z}{C_xC_y + C_yC_z + C_zC_x}\right)q_1 + \left( \frac{C_z}{C_xC_y + C_yC_z + C_zC_x}\right)q_2$$
+$$V_{bc} = \left( \frac{C_z}{C_xC_y + C_yC_z + C_zC_x}\right)q_1 + \left( \frac{C_y + C_z}{C_xC_y + C_yC_z + C_zC_x}\right)q_2$$
+Keeping these in mind, we proceed to the Y network. Let us apply Kirchoff's second law to the left part:
+$$V_1 + V_3 = V_{ac}$$
+$$\frac{q_1}{C_1} + \frac{q_3}{C_3} = V_{ac}$$
+From conservation of charge, $q_3 = q_1 + q_2$ Simplifying the above equation yields:
+$$V_{ac} = \left( \frac{1}{C_1} + \frac{1}{C_3}\right)q_1 + \left(\frac{1}{C_3}\right)q_2$$
+Similarly for the right part:
+$$V_2 + V_3 = V_{bc}$$
+$$\frac{q_2}{C_2} + \frac{q_3}{C_3} = V_{bc}$$
+$$V_{bc} = \left( \frac{1}{C_3}\right)q_1 + \left(\frac{1}{C_2} + \frac{1}{C_3}\right)q_2$$
+The coefficients of corresponding charges in corresponding equations must be the same for both networks. i.e. we compare the equations for $V_{ac}$ and $V_{bc} for both networks.
+Immediately by comparing the coefficient of $q_1$ in $V_{bc}$ we get:
+$$\frac{1}{C_3} = \frac{C_z}{C_xC_y + C_yC_z + C_zC_x}$$
+$$C_3 = (C_xC_y + C_yC_z + C_zC_x)/C_z$$
+Now compare the coefficient of $q_2$:
+$$\frac{1}{C_2} + \frac{1}{C_3} = \frac{C_y + C_z}{C_xC_y + C_yC_z + C_zC_x}$$
+Substitute the expression we got for $C_3$, and solve for $C_2$ to get:
+$$C_2 = (C_xC_y + C_yC_z + C_zC_x)/C_y$$
+Now we look at the coeffcient of $q_1$ in the equation for $V_{ac}$:
+$$\frac{1}{C_1} + \frac{1}{C_3} = \frac{C_x + C_z}{C_xC_y + C_yC_z + C_zC_x}$$
+Again substituting the expression for $C_3$ and solving for $C_1$ we get:
+$$C_1 = (C_xC_y + C_yC_z + C_zC_x)/C_x$$
+We have derived the required transformation equations mentioned at the top.</content>
+</record>

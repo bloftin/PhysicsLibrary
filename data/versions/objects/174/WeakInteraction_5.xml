@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="174">
+ <title>Weak Interaction</title>
+ <name>WeakInteraction</name>
+ <created>2006-05-19 12:53:06</created>
+ <modified>2006-05-21 02:29:26</modified>
+ <type>Definition</type>
+ <creator id="132" name="metalac"/>
+ <modifier id="132" name="metalac"/>
+ <comment>Changes for correction #15 ('spelling').</comment>
+ <author id="132" name="metalac"/>
+ <synonyms>
+	<synonym concept="Weak Interaction" alias="Weak Force"/>
+	<synonym concept="Weak Interaction" alias="Weak Nuclear Force"/>
+ </synonyms>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Weak interaction (Weak Force) is one of the 4 known interaction in physics.  It's only stronger than gravitational force, but the range over which weak interaction occurs is very small thus making it's effect even harder to detect.  Weak interaction involves all of the left-handed leptons and quarks. Main carriers of weak interaction are W and Z bosons.  Weak interaction is the only interaction that viloates parity and changes flavours.  This interaction is responsible for beta decay process and thus is part of a lot of naturally occuring radiation processes.</content>
+</record>

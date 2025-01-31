@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="770">
+ <title>relation theory</title>
+ <name>RelationTheory</name>
+ <created>2009-05-22 12:09:56</created>
+ <modified>2009-05-22 18:20:47</modified>
+ <type>Topic</type>
+ <creator id="513" name="Jon Awbrey"/>
+ <modifier id="513" name="Jon Awbrey"/>
+ <author id="513" name="Jon Awbrey"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.10.Ab"/>
+	<category scheme="msc" code="02.10.Ox"/>
+	<category scheme="msc" code="02.50.Tt"/>
+	<category scheme="msc" code="02.70.-c"/>
+	<category scheme="msc" code="02.70.Wz"/>
+ </classification>
+ <defines>
+	<concept>relation</concept>
+	<concept>adicity</concept>
+	<concept>arity</concept>
+	<concept>domain</concept>
+	<concept>codomain</concept>
+	<concept>graph</concept>
+	<concept>type</concept>
+	<concept>relational flag</concept>
+	<concept>function</concept>
+	<concept>prefunction</concept>
+	<concept>partial function</concept>
+	<concept>bijective</concept>
+	<concept>injective</concept>
+	<concept>surjective</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="relation theory" alias="theory of relations"/>
+ </synonyms>
+ <related>
+	<object name="AbstractRelationalBiologyARB"/>
+	<object name="AnalyticsAndFormalLogics"/>
+	<object name="GeneralDynamicSystems"/>
+	<object name="GeneralTheoriesAndAxiomsMetatheories"/>
+ </related>
+ <preamble>% This is the default PlanetPhysics preamble.
+% as your knowledge of TeX increases, you
+% will probably want to edit this, but it
+% should be fine as is for beginners.
+
+% Almost certainly you want these:
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% Used for TeXing text within EPS files:
+
+\usepackage{psfrag}
+
+% Need this for including graphics (\includegraphics):
+
+\usepackage{graphicx}
+
+% For neatly defining theorems and propositions:
+
+%\usepackage{amsthm}
+
+% Making logically defined graphics:
+
+%\usepackage{xypic}
+
+% There are many more packages, add them here as you need them.
+
+% define commands here</preamble>
+ <content>\PMlinkescapephrase{divergence}
+\PMlinkescapephrase{Divergence}
+\PMlinkescapephrase{divergences}
+\PMlinkescapephrase{Divergences}
+
+This article treats \textbf{relations} from the perspective of combinatorics, in other words, as a subject matter in discrete mathematics, with special attention to finite structures and concrete set-theoretic constructions, many of which arise quite naturally in applications.  This approach to \textbf{relation theory}, or the \textbf{theory of relations}, is distinguished from, though closely related to, its study from the perspectives of abstract algebra on the one hand and formal logic on the other.
+
+\tableofcontents
+
+\section{Preliminaries}
+
+Two definitions of the relation concept are common in the literature.  Although it is usually clear in context which definition is being used at a given time, it tends to become less clear as contexts collide, or as discussion moves from one context to another.
+
+The same sort of ambiguity arose in the development of the function concept and it may save some effort to follow the pattern of resolution that worked itself out there.
+
+When we speak of a function $f : X \to Y$ we are thinking of a mathematical object whose articulation requires three pieces of data, specifying the set $X$, the set $Y$, and a particular subset of their cartesian product $X \times Y$.  So far so good.
+
+Let us write $f = (\operatorname{obj_1}f, \operatorname{obj_2}f, \operatorname{obj_{12}}f)$ to express what has been said so far.
+
+When it comes to parsing the notation $``f : X \to Y"$, everyone takes the part $``X \to Y"$ to specify the \textit{type} of the function, that is, the pair $(\operatorname{obj_1}f, \operatorname{obj_2}f)$, but $``f"$ is used equivocally to denote both the triple and the subset $\operatorname{obj_{12}}f$ that forms one part of it.  One way to resolve the ambiguity is to formalize a distinction between a function and its \textit{graph}, letting $\operatorname{graph}(f) := \operatorname{obj_{12}}f$.
+
+Another tactic treats the whole notation $``f : X \to Y"$ as sufficient denotation for the triple, letting $``f"$ denote $\operatorname{graph}(f)$.
+
+In categorical and computational contexts, at least initially, the type is regarded as an essential attribute or an integral part of the function itself.  In other contexts it may be desirable to use a more abstract concept of function, treating a function as a mathematical object that appears in connection with many different types.
+
+Following the pattern of the functional case, let the notation $``L : X \times Y"$ bring to mind a mathematical object that is specified by three pieces of data, the set $X$, the set $Y$, and a particular subset of their cartesian product $X \times Y$.  As before we have two choices, either let $L = (X, Y, \operatorname{graph}(L))$ or let $``L"$ denote $\operatorname{graph}(L)$ and choose another name for the triple.
+
+\section{Definition}
+
+It is convenient to begin with the definition of a $k$\textbf{-place relation}, where $k$ is a positive integer.
+
+\textbf{Definition.}  A $k$\textbf{-place relation} $L : X_1 \times \ldots \times X_k$ over the nonempty sets $X_1, \ldots, X_k$ is a $(k+1)$-tuple $(X_1, \ldots, X_k, L)$ where $L$ is a subset of the cartesian product $X_1 \times \ldots \times X_k$.
+
+\section{Remarks}
+
+Though usage varies as usage will, there are several bits of optional language that are frequently useful in discussing relations.  The sets $X_1, \ldots, X_k$ are called the \textit{domains} of the relation $L : X_1 \times \ldots \times X_k$, with $X_j$ being the $j^{\text{\small{th}}}$ domain.  If all of the $X_j$ are the same set $X$, then $L : X_1 \times \ldots \times X_k$ is more simply described as a $k$-place relation over $X$.  The set $L$ is called the \textit{graph} of the relation $L : X_1 \times \ldots \times X_k$, on analogy with the graph of a function.  If the sequence of sets $X_1, \ldots, X_k$ is constant throughout a given discussion or is otherwise determinate in context, then the relation $L : X_1 \times \ldots \times X_k$ is determined by its graph $L$, making it acceptable to denote the relation by referring to its graph.  Other synonyms for the adjective $k$-\textit{place} are $k$-\textit{adic} and $k$-\textit{ary}, all of which leads to the integer $k$ being called the \textit{dimension}, the \textit{adicity}, or the \textit{arity} of the relation $L$.
+
+\section{Local incidence properties}
+
+A \textit{local incidence property} (LIP) of a relation $L$ is a property that depends in turn on the properties of special subsets of $L$ that are known as its \textit{local flags}.  The local flags of a relation are defined in the following way:
+
+Let $L$ be a $k$-place relation $L : X_1 \times \ldots \times X_k$.
+
+Select a relational domain $X_j$ and one of its elements $x$.  Then $L_{x@j}$ is a subset of $L$ that is referred to as the \textit{flag} of $L$ with $x$ at $j$, or the $x@j$-flag of $L$, an object that has the following definition:
+
+\[ L_{x@j} = \{ (x_1, \ldots, x_j, \ldots, x_k) \in L : x_j = x \}. \]
+
+Any property $C$ of the local flag $L_{x@j} \subseteq L$ is said to be a \textit{local incidence property} of $L$ with respect to the \textit{locus} $x @ j$.
+
+A $k$-adic relation $L : X_1 \times \ldots \times X_k$ is said to be $C$-\textit{regular} at $j$ if and only if every flag of $L$ with $x$ at $j$ has the property $C$, where $x$ is taken to vary over the \textit{theme} of the fixed domain $X_j$.  
+
+Expressed in symbols, $L$ is $C$-regular at $j$ if and only if $C(L_{x@j})$ is true for all $x$ in $X_j$.
+
+\section{Regional incidence properties}
+
+The definition of a local flag can be broadened from a point $x$ in $X_j$ to a subset $M$ of $X_j$, arriving at the definition of a \textit{regional flag} in the following way:
+
+Suppose that $L \subseteq X_1 \times \ldots \times X_k$, and choose a subset $M \subseteq X_j$.  Then $L_{M@j}$ is a subset of $L$ that is said to be the \textit{flag} of $L$ with $M$ at $j$, or the $M@j$-flag of $L$, an object which has the following  definition:
+
+\[ L_{M@j} = \{ (x_1, \ldots, x_j, \ldots, x_k) \in L : x_j \in M \}. \]
+
+\section{Numerical incidence properties}
+
+A \textit{numerical incidence property} (NIP) of a relation is a local incidence property that depends on the cardinalities of its local flags.
+
+For example, $L$ is said to be $c$-regular at $j$ if and only if the cardinality of the local flag $L_{x@j}$ is $c$ for all $x$ in $X_j$, or, to write it in symbols, if and only if $|L_{x@j}| = c$ for all $x \in X_j$.
+
+In a similar fashion, one can define the NIPs, $(&lt; c)$-regular at $j$, $(&gt; c)$-regular at $j$, and so on.  For ease of reference, a few of these definitions are recorded here:
+
+\[ \begin{array}{ccccccccc}
+L &amp; \text{is} &amp; c\text{-regular} &amp; \text{at}\ j &amp; \text{if and only if} &amp; |L_{x@j}| &amp; = &amp; c &amp; \text{for all}\ x \in X_j. \\
+L &amp; \text{is} &amp; (&lt; c)\text{-regular} &amp; \text{at}\ j &amp; \text{if and only if} &amp; |L_{x@j}| &amp; &lt; &amp; c &amp; \text{for all}\ x \in X_j. \\
+L &amp; \text{is} &amp; (&gt; c)\text{-regular} &amp; \text{at}\ j &amp; \text{if and only if} &amp; |L_{x@j}| &amp; &gt; &amp; c &amp; \text{for all}\ x \in X_j. \\
+\end{array} \]
+
+\section{Species of 2-adic relations}
+
+Returning to 2-adic relations, it is useful to describe some familiar classes of objects in terms of their local and numerical incidence properties.  Let $L \subseteq S \times T$ be an arbitrary 2-adic relation.  The following properties of $L$ can be defined:
+
+\[ \begin{array}{ccccccccc}
+L &amp; \text{is} &amp; \text{total} &amp; \text{at}\ S &amp; \text{if and only if} &amp; L &amp; \text{is} &amp; (\ge 1)\text{-regular} &amp; \text{at}\ S . \\
+L &amp; \text{is} &amp; \text{total} &amp; \text{at}\ T &amp; \text{if and only if} &amp; L &amp; \text{is} &amp; (\ge 1)\text{-regular} &amp; \text{at}\ T . \\
+L &amp; \text{is} &amp; \text{tubular} &amp; \text{at}\ S &amp; \text{if and only if} &amp; L &amp; \text{is} &amp; (\le 1)\text{-regular} &amp; \text{at}\ S . \\
+L &amp; \text{is} &amp; \text{tubular} &amp; \text{at}\ T &amp; \text{if and only if} &amp; L &amp; \text{is} &amp; (\le 1)\text{-regular} &amp; \text{at}\ T . \\
+\end{array} \]
+
+If $L \subseteq S \times T$ is tubular at $S$, then $L$ is called a \textit{partial function} or a \textit{prefunction} from $S$ to $T$.  This is sometimes indicated by giving $L$ an alternate name, say, ``$p$", and writing $L = p : S \rightharpoonup T$.
+
+Just by way of formalizing the definition:
+
+\[ \begin{array}{cccccccc}
+L &amp; = &amp; p : S \rightharpoonup T &amp; \text{if and only if} &amp; L &amp; \text{is} &amp; \text{tubular} &amp; \text{at}\ S.
+\end{array} \]
+
+If $L$ is a prefunction $p : S \rightharpoonup T$ that happens to be total at $S$, then $L$ is called a \textit{function} from $S$ to $T$, indicated by writing $L = f : S \to T$.  To say that a relation $L \subseteq S \times T$ is \textit{totally tubular} at $S$ is to say that it is $1$-regular at $S$.  Thus, we may formalize the following definition:
+
+\[ \begin{array}{cccccccc}
+L &amp; = &amp; f : S \to T &amp; \text{if and only if} &amp; L &amp; \text{is} &amp; 1\text{-regular} &amp; \text{at}\ S.
+\end{array} \]
+
+In the case of a function $f : S \to T$, one has the following additional definitions:
+
+\[ \begin{array}{cccccccc}
+f &amp; \text{is} &amp; \text{surjective} &amp; \text{if and only if} &amp; f &amp; \text{is} &amp; \text{total}  &amp; \text{at}\ T. \\
+f &amp; \text{is} &amp; \text{injective} &amp; \text{if and only if} &amp; f &amp; \text{is} &amp; \text{tubular} &amp; \text{at}\ T. \\
+f &amp; \text{is} &amp; \text{bijective} &amp; \text{if and only if} &amp; f &amp; \text{is} &amp; 1\text{-regular} &amp; \text{at}\ T. \\
+\end{array} \]
+
+\section{Variations}
+
+Because the concept of a relation has been developed quite literally from the beginnings of logic and mathematics, and because it has incorporated contributions from a diversity of thinkers from many different times and intellectual climes, there is a wide variety of terminology that the reader may run across in connection with the subject.
+
+One dimension of variation is reflected in the names that are given to $k$-place relations, for $k = 1, 2, 3, \ldots$, with some writers using the Greek forms, \emph{medadic}, \emph{monadic}, \emph{dyadic}, \emph{triadic}, $k$-\emph{adic}, and other writers using the Latin forms, \emph{nullary}, \emph{unary}, \emph{binary}, \emph{ternary}, $k$-\emph{ary}.
+
+The cardinality of the relational ground, the set of relational domains, may be referred to as the \emph{adicity}, the \emph{arity}, or the \emph{dimension} of the relation.  Accordingly, one finds a relation on a finite number of domains described as a \emph{polyadic} relation or a \emph{finitary} relation, but others count infinitary relations among the polyadic.  If the number of domains is finite, say equal to $k$, then the relation may be described as a $k$-\emph{adic} relation, a $k$-\emph{ary} relation, or a $k$-\emph{dimensional} relation, respectively.
+
+A more conceptual than nominal variation depends on whether one uses terms like \emph{predicate}, \emph{relation}, and even \emph{term} to refer to the formal object proper or else to the allied syntactic items that are used to denote them.  Compounded with this variation is still another, frequently associated with philosophical differences over the status in reality accorded formal objects.  Among those who speak of numbers, functions, properties, relations, and sets as being real, that is to say, as having objective properties, there are divergences as to whether some things are more real than others, especially whether particulars or properties are equally real or else which one is derivative in relationship to the other.  Historically speaking, just about every combination of modalities has been used by one school of thought or another, but it suffices here merely to indicate how the options are generated.</content>
+</record>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="21" id="697">
+ <title>bibliography for theoretical physics</title>
+ <name>BibliographyForTheoreticalPhysics</name>
+ <created>2009-04-29 13:22:21</created>
+ <modified>2009-04-29 14:12:52</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>color superconductors</concept>
+	<concept>ultracold atomic quantum gases</concept>
+	<concept>optical lattices</concept>
+	<concept>ionic lattices</concept>
+	<concept>Feschbach resonances</concept>
+	<concept>low-dimensional atomic gases</concept>
+	<concept>long-range anisotropic dipole-dipole interactions</concept>
+	<concept>supersolid</concept>
+	<concept>solid He-4</concept>
+	<concept>ultracold heteronuclear molecules</concept>
+	<concept>BEC-BCS crossover</concept>
+ </defines>
+ <keywords>
+	<term> color superconductors</term>
+	<term>ultracold atomic quantum gases</term>
+	<term>optical lattices</term>
+	<term>ionic lattices</term>
+	<term>Feschbach resonances</term>
+	<term>low-dimensional atomic gases</term>
+	<term>supersolid</term>
+	<term>solid He-4</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic containing a current, annotated content bibliography for theoretical physics of recently published papers, books and archived preprints in Theoretical Physics. 
+
+\section{Theoretical/Mathematical Physics: Recent Literature}
+
+\textbf{Entry in progress}
+
+\begin{thebibliography}{999}
+\bibitem{Weinberg2k8}
+Weinberg, S. 2004, ``Quantum Field Theory''.,
+vols. I to III, Cambridge University Press, Cambridge, UK, 1,800 pages.
+
+\bibitem{SDG2k9}
+{\em Ultracold Quantum Fields (Theoretical and Mathematical Physics)} 
+by Henk T.C. Stoof, Dennis B.M. Dickerscheid and Koos Gubbels.,
+Sprnger: Berlin, 2009, 481 pages; very recent book on ultracold atomic quantum gases (missing however topological order theories in condensed matter).  
+``Presently there are many exciting directions that are being explored with 
+ultracold atomic gases...'', including ``color superconductors'', {\em optical lattices} (light standing waves) mimicking ionic lattices, long-range anisotropic dipole-dipole interactions,supersolid, solid He-4, ultracold heteronuclear molecules,\PMlinkexternal{BEC-BCS crossover and Feschbach resonances}{http://www.amazon.co.uk/Ultracold-Quantum-Theoretical-Mathematical-Physics/dp/1402087624}.
+
+\bibitem{Aitchinson2k8}
+``Gauge Theories in Particle Physics'', (Graduate Student Series in Physics) by Aitchison. (A reviewer says:   "The structure of gauge field theories is well described in an introductory way." )
+ 
+\bibitem{Cheng2k8}
+``Gauge Theory of elementary particle physics by Ta-Pei Cheng 
+(A reader says:    "Most complete graduate level particle physics and field theory text. (has solutions manual)")  
+
+\bibitem{Quigg2k8} 
+``Gauge Theories Of Strong, Weak, And Electromagnetic Interactions (Advanced Book Classics)'' by Chris Quigg. 
+
+\bibitem{French2k8}
+{\em Special Relativity (M.I.T. Introductory Physics Series)} by A. P. French
+
+\bibitem{Rovelli2k7}
+{\em Quantum Gravity.}, Carlo Rovelli,  Published November 2007 (Paperback) ISBN-13:9780521715966:  presents the loop gravity and spinfoam approach to quantum gravity, for both graduate students and researchers. ``The book of Carlo Rovelli provides the basis, both at the technical and the conceptual level, for research in this fundamental problem of physics. The basic issues are clearly and deeply analyzed without any dogmatic stand and with great freedom of thoughts resulting in an invaluable opportunity to learn and think for both mathematicians and physicists.'' a quote from Alain Connes, Professor at the Coll\`ege de France, I.H.E.S. and Vanderbilt University.
+
+
+\bibitem{Thiemann2k7}
+``Modern Canonical Quantum General Relativity'' by Thomas Thiemann
+(Canonical quantisation and loop quantum gravity theory for graduate students of quantum field theory.), Published September 2007, ISBN-13:9780521842631. 
+``...the most complete account to date of the Hamiltonian approach to the quantization of General Relativity...If the exciting possibility of links... between words of the very small and the very large are realized, then theorists will have to delve much deeper into the structure of quantum gravity than hitherto. This book is a magnificent and comprehensive introduction to one possible avenue. It has no rival.'' in  The Observatory.
+
+
+ 
+
+
+\bibitem{Doran2k7}
+{\em Geometric Algebra for Physicists.} by Chris Doran and Anthony Lasenby.,
+(``First fully self-contained introduction to geometric algebra by two leading experts in the field.''), Published November 2007 ( Paperback ) ISBN-13:9780521715959.
+
+
+\bibitem{Aitchison2k7}
+``{\em Supersymmetry in Particle Physics.An Elementary Introduction}'' by Ian Aitchison., (The first textbook to provide a simple, practical introduction to supersymmetry for graduates and researchers)., Published September 2007, ISBN-13:9780521880237. 
+ 
+
+\end{thebibliography}</content>
+</record>

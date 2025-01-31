@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="310">
+ <title>applied physics</title>
+ <name>AppliedPhysics</name>
+ <created>2008-10-16 16:43:44</created>
+ <modified>2009-02-18 23:21:59</modified>
+ <type>Topic</type>
+<parent id="414">overview of the Content of PlanetPhysics</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>applications</concept>
+ </defines>
+ <related>
+	<object name="OverviewOfTheContentOfPlanetPhysics"/>
+ </related>
+ <keywords>
+	<term>physics applications</term>
+	<term>nuclear reactor design and safety</term>
+	<term>biomedical and biotechnology applications</term>
+	<term>biophysics</term>
+	<term>physical chemistry</term>
+	<term>nuclear engineering</term>
+	<term>radioisotopes</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Applied Physics}
+
+The application of various branches of physics in other fields of science, technology, and industry. The following is an incomplete list of applied physics areas:
+
+\begin{enumerate}
+\item Electrical Engineering
+\item computer Engineering
+\item Nuclear Engineering
+\item Nuclear Reactors design, operation and safety
+\item Nuclear Medicine
+\item Aeronautics and ship design
+\item Nucleonics
+\item Accelerator design and operational theory
+\item Electrochemistry
+\item Energy Generation for practical utilization, Electrotechnics
+\item Hydrogen Generation and fuel cell designs
+\item Geophysical Technologies
+\item Physical Chemistry
+\item Biophysics
+\item Quantum Biochemistry
+\item Quantum Chemistry
+\item Soil Physics
+\item Agricultural Biotechnology
+\item Environmental and `Green physics'
+\item Nanoelectronics
+\item Nanomaterials
+\item Nanocomputer Design and testing
+\item Scientific Instrumentation design and testing
+\item Medical imaging and diagnosis
+\item Medical, pharmaceutical and agricultural applications of radioisotopes
+\item Radiochemistry
+\end{enumerate}</content>
+</record>

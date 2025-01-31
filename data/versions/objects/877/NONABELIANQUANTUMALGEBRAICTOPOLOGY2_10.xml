@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="877">
+ <title>non-Abelian Quantum Algebraic Topology</title>
+ <name>NONABELIANQUANTUMALGEBRAICTOPOLOGY2</name>
+ <created>2010-09-28 01:45:05</created>
+ <modified>2010-09-28 04:31:51</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="03-XX"/>
+ </classification>
+ <defines>
+	<concept>quantum algebraic topology</concept>
+	<concept>quantum spacetimes</concept>
+	<concept>quantum state space</concept>
+	<concept>non-Abelian</concept>
+	<concept>TQFT</concept>
+	<concept>AQFT</concept>
+	<concept>non-Abelian theory</concept>
+	<concept>quantum algebra</concept>
+	<concept>quantum geometry</concept>
+	<concept>quantum fundamental groupoid</concept>
+ </defines>
+ <related>
+	<object name="QuantumAlgebra"/>
+	<object name="AlgebraicTopology"/>
+	<object name="AlexanderGrothendieck"/>
+	<object name="RonaldBrown"/>
+	<object name="NoncommutativeGeometry"/>
+ </related>
+ <keywords>
+	<term>quantum algebra</term>
+	<term>algebraic topology</term>
+	<term>quantum gravity</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Non-Abelian Quantum Algebraic Topology}
+
+This is a new contributed topic (under construction).
+
+\emph{Quantum Algebraic Topology} is the area of theoretical physics and physical mathematics concerned with the applications of Algebraic Topology methods, results and constructions (including its extensions to Category Theory, Topos Theory and Higher Dimensional Algebra) to fundamental quantum physics problems, such as the representations of Quantum spacetimes and Quantum State Spaces in Quantum Gravity, in arbitrary reference frames.
+Non--Abelian gauge field theories can also be formalized or presented in the QAT framework. 
+
+Perhaps the neighbor areas with which QAT overlaps significantly
+are: Algebraic Quantum Field Theories (AQFT)/Local Quantum Physics (LQP), Axiomatic QFT, Lattice QFT (LQFT) and Supersymmetry/Supergravity. One can also claim overlap with various Topological Field Theories (TFT), or Topological ‘Quantum’ Field Theories (TQFT), Homotopy QFT (HQFT), Dilaton, and Lattice Quantum Gravity (respectively, DQG and LQG) theories.</content>
+</record>

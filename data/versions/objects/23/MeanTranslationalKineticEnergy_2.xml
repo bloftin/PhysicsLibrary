@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="23">
+ <title>mean translational kinetic energy</title>
+ <name>MeanTranslationalKineticEnergy</name>
+ <created>2004-11-24 22:01:53</created>
+ <modified>2004-11-24 23:26:30</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.20.Dd"/>
+ </classification>
+ <synonyms>
+	<synonym concept="mean translational kinetic energy" alias="average translational kinetic energy"/>
+ </synonyms>
+ <preamble></preamble>
+ <content>The mean translational kinetic energy is a result from the Maxwell-Boltzmann distribution and is given by
+
+\begin{equation}
+K_{avg} = \frac{1}{2} m {v^2}_{rms}
+\end{equation}
+
+A more useful form of this equation is in terms of temperature.  Temperature is brought in through the root mean square speed derived in the kinetic thoery of gases
+
+\begin{equation}
+v_{rms} = \sqrt{\frac{3RT}{M}}
+\end{equation}
+
+where R is the gas constand
+
+
+\begin{equation}
+R = 8.31 \,  [ \frac{J}{mol * K} ]
+\end{equation}
+
+and</content>
+</record>

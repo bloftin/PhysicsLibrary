@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="258">
+ <title>wave equation</title>
+ <name>WaveEquation</name>
+ <created>2007-08-10 13:53:15</created>
+ <modified>2008-10-14 14:47:01</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="441" name="bci1"/>
+ <comment>physical perturbation' or `signal'</comment>
+ <author id="441" name="bci1"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.30.Jr"/>
+ </classification>
+ <related>
+	<object name="WaveEquations"/>
+	<object name="QuantumHamiltonianOperator"/>
+ </related>
+ <keywords>
+	<term>types of wave equations</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Any \emph{wave equation} describes the propagation in space-time of a wave (or periodic motion, oscillation, `physical pereturbation' or 'signal') in terms of certain types of differential equations (such as partial differential ones); the solutions of such wave equations--usually with additonal boundary conditions-- are either propagating or stationary waves; there are numerous types of waves, and thus, there are many different types of wave equations.
+The following is a short list of such wave equations, that is however not intended to be comprehensive.
+
+\subsection{Types of Wave Equations}
+
+\begin{enumerate}
+
+\item Elastic wave equation and Hook's Law
+
+\item Equation for sound wave propagation
+
+\item Wave equation for heat transfer;
+
+\item Laplace wave equation;
+
+\item Maxwell's equations for electromagnetic wave propagation;
+
+\item Schr\"odinger 'wave' equation for electrons (see also \PMlinkname{Hamiltonian operator}{QuantumHamiltonianOperator});
+
+\item Heisenberg's quantum dynamic equations (see also \PMlinkname{Hamiltonian operator}{QuantumHamiltonianOperator} and \PMlinkname{quantum harmonic oscillator and Lie algebra}{QuantumHarmonicOscillatorAndLieAlgebra});
+
+\item Dirac relativistic wave equation;
+
+\item Soliton wave equations;
+
+\item Spin wave equations;
+
+\item Einstein's gravitational wave equations;
+
+\end{enumerate}
+
+\subsection{Examples:}
+
+In its simplest form, the wave equation refers to a scalar function $w$ that satisfies:
+
+$ \partial^2 (w) \over {\partial t^2}$  = $c^2 \nabla^2 u,$
+
+where $ \nabla^2$ is the Laplace operator, and where $c$ is a fixed constant equal to the propagation speed of the wave.</content>
+</record>

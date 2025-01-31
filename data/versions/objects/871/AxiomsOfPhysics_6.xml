@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="871">
+ <title>Axioms of Physics</title>
+ <name>AxiomsOfPhysics</name>
+ <created>2010-06-05 10:32:57</created>
+ <modified>2010-06-05 11:44:37</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.70.-cxx"/>
+	<category scheme="msc" code="02.90.+p"/>
+ </classification>
+ <defines>
+	<concept>physics axioms</concept>
+	<concept>HQFT</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Axioms of Physics" alias="fundamentals of physics"/>
+ </synonyms>
+ <keywords>
+	<term>axioms</term>
+	<term>foundations of physics</term>
+	<term>theoretical physics</term>
+	<term>QFT</term>
+	<term>AQFT</term>
+	<term>TQFT</term>
+	<term>General Relativity theory</term>
+ </keywords>
+ <preamble></preamble>
+ <content>A contributed topic on the Axioms of Physics in the following areas:
+
+\begin{enumerate}
+\item General Relativity Theory
+\item Axiomatic and Algebraic Quantum Field Theory
+\item Quantum Algebraic Topology
+\item Topological Quantum Field Theory (TQFT) and HQFT*
+\item Quantum Logics and Quantum Computing
+\item Symmetry and Physical Principles and Laws
+\item Categorical Physics: category theory and groupoid/algebraic topology applications in Physics
+\item Physical Networks and General Dynamics
+\end{enumerate}
+
+* Homotopy and Quantum Field Theory
+
+\subsection{Bibliography}
+Eilenberg, S., and Kelly, G.M., Closed Categories, Proceedings of the Conference on Categorical Algebra (La Jolla 1965), Springer Verlag 1966.
+
+
+Eilenberg, S., and Mac Lane, S., General Theory of Natural Equivalences, Trans. Amer. Math. Soc. 58, 231–294 (1945).
+
+
+Kan, D. M., Adjoint Functors, Trans. Amer. Math. Soc. 87, 294–329 (1958).
+Lawvere, F. W., Functorial Semantics of Algebraic Theories, Proc. Nat. Acad. Sc. U.S.A. 50, 869--872 (1963).
+
+Lawvere, F. W., The Category of Categories as a Foundation for Mathematics, Proceedings of the Conference on Categorical Algebra (La Jolla 1965), Springer Verlag 1966 
+
+[See also Review 7332 by J. Isbell, Dec. 1967, Math. Reviews].
+
+Mac Lane, S., Categorical Algebra, Bull. Amer. Math. Soc. 71, 40–106 (1965).</content>
+</record>

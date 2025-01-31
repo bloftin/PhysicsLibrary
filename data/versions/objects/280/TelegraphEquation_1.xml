@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="280">
+ <title>telegraph equation</title>
+ <name>TelegraphEquation</name>
+ <created>2008-05-13 11:59:14</created>
+ <modified>2008-05-13 11:59:14</modified>
+ <type>Topic</type>
+<parent id="258">wave equation</parent>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="02.30.Jr"/>
+	<category scheme="msc" code="41.20.-q"/>
+ </classification>
+ <defines>
+	<concept>telegraph equation</concept>
+ </defines>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Both the electric voltage and the \PMlinkescapetext{current in a double conductor} satisfy the {\em telegraph equation}
+\begin{align}
+f_{xx}''-af_{tt}''-bf_t'-cf = 0,
+\end{align}
+where $x$ is distance, $t$ is time and\, $a,\,b,\,c$\, are non-negative constants.\, The equation is a generalised form of the wave equation.
+
+If the initial conditions are\, $f(x,\,0) = f_t'(x,\,0) = 0$\, and the boundary conditions \,$f(0,\,t) = g(t)$,\, $f(\infty,\,t) = 0$,\, then the Laplace transform of the solution function \,$f(x,\,t)$\, is
+\begin{align}
+F(x,\,s) = G(s)e^{-x\sqrt{as^2+bs+c}}.
+\end{align}
+In the special case\, $b^2-4ac = 0$,\, the solution is
+\begin{align}
+f(x,\,t) = e^{-\frac{bx}{2\sqrt{a}}}g(t-x\sqrt{a})H(t-x\sqrt{a}).
+\end{align}
+
+{\em Justification of} (2).\; Transforming the differential equation (1) gives
+$$F_{xx}''(x,\,s)-a[s^2F(x,\,s)-sf(x,\,0)-f_t'(x,\,0)]-b[sF(x,\,s)-f(x,\,0)]-cF(x,\,s) = 0,$$
+which due to the initial conditions simplifies to
+$$F_{xx}''(x,\,s) = (\underbrace{as^2+bs+c}_{K^2})F(x,\,s).$$
+The solution of this ordinary differential equation is
+$$F(x,\,s) = C_1e^{Kx}+C_2e^{-Kx}.$$
+Using the latter boundary condition, we see that
+$$F(\infty,\,s) = \int_0^\infty e^{-st}f(\infty,\,t)\,dt \equiv 0,$$
+whence\, $C_1 = 0$.\, Thus the former boundary condition implies
+$$C_2 = F(0,\,s) = \mathcal{L}\{g(t)\} = G(s).$$
+So we obtain the equation (2).</content>
+</record>

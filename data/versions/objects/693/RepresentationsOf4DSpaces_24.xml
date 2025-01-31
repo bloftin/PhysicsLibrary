@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="24" id="693">
+ <title>representations of 4-D  spaces</title>
+ <name>RepresentationsOf4DSpaces</name>
+ <created>2009-04-28 19:02:54</created>
+ <modified>2009-04-28 20:32:28</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>octacube</concept>
+	<concept>stereographic projection</concept>
+	<concept>Wulff net</concept>
+	<concept>Riemannian metric tensor</concept>
+	<concept>steronet</concept>
+	<concept>4-D</concept>
+	<concept>4D</concept>
+	<concept>higher-dimensional space structures</concept>
+	<concept>4-D space</concept>
+	<concept>4D-space</concept>
+	<concept>metric tensor</concept>
+	<concept>curved 4-dimensional space</concept>
+ </defines>
+ <keywords>
+	<term>Representations of 4-D and Higher Dimensional Space Structures</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic entry on representing four dimensional and higher
+space structures.
+ 
+\subsection{2D and 3D Representations of 4-D and Higher Dimensional Space Structures}
+
+ The ``representation'' of 4-D and higher dimensional space structures
+is a subject of significant interest to both mathematical physicists/mathematicians and abstract \PMlinkexternal{art professionals or amateurs}{http://www.worldarchitecture.org/files/doc_datas/7164_.pdf}. 
+
+ A somewhat artistic rendering and animation of such a `representation' of a four dimensional ``{\em octacube}'' by a mathematical physicist, and also a static representation by a famous mathematician are presented in a \PMlinkexternal{related Exposition}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=187} that can be accessed through this link.
+
+\subsection{Stereographic Projection}
+Intuitively, a stereographic projection is a mathematical mapping/projection method that allows one to obtain a `picture' of a 3D sphere in the 2D plane, with some inevitable compromises, or limitations. Such a projection method has however many uses in fields as diverse as complex analysis, cartography, geology, and photography. Practically, the projection is carried out using a computer program for a precise graphical presentation or by hand using a special kind of graph paper called a Wulff net, or known commonly as a stereonet. A famous artistic illustration is that by \PMlinkexternal{Rubens for "Opticorum libri sex philosophis juxta ac mathematicis utiles", by François d'Aiguillon.}{http://en.wikipedia.org/wiki/File:RubensAguilonStereographic.jpg}
+
+The animation link to the Exposition specified in the previous subsection uses Ocneanu's metod of windowed, radial \PMlinkexternal{stereographic projection}{http://en.wikipedia.org/wiki/Stereographic_projection}. This projection method is claimed to be ``the first good method for representing four dimensional solids as it shows the 2d walls of the 3d rooms, not only their 1d scaffolding. The edge and corner angles between walls and are all equal, preserving the 4d symmetry of the model.''  However, there are other projection methods currently employed for Riemannian spaces that are likely to work equanlly well for Euclidean 4D space structures, including the 4D-cube in question. Such questions may be important for representing \PMlinkexternal{Dirac particles in Riemannian, 4D space-times}{http://www.springerlink.com/content/u2m03x0716k37051/} (Tagirov. 1994. General-covariant quantum mechanics in Riemannian space-time: III. The Dirac particle.,Springer: New York, ISSN 0040-5779, pp. 1573-9333 (Online) 
+Volume 106, Number 1. January, 1996., DOI 10.1007/BF02070767, re-printed in 2005). In four-dimensional space, Riemann's metric tensor consists of sixteen unique numbers (of which six are redundant) that without fail describe a {\em curved 4-dimensional space}. The metric tensor can be written as:
+$[g_ij]_{i,j= 1,4} =(g_{11-14}, g_{21-24}, g_{31-34}, g_{41-44})$.  The greater the value of the ten uniques numbers in the metric tensor, the greater the curvature of the surface it describes. The metric tensor can then be extended to describe a curved space of $N$ dimensions. In higher dimensions see also a recent \PMlinkexternal{web presentation by M. Krasojevic (2009): Dimensions of a conceptual space.}{http://www.worldarchitecture.org/files/doc_datas/7164_.pdf}
+The Riemannian exponential map, and its inverse the Riemannian logarithm map, can be utilized to \PMlinkexternal{visualize metric tensor fields.}{http://www.springerlink.com/content/w104g358p6t286k6/}  The well-known metric sphere glyph from the geodesic equation, where the tensor field to be visualized is regarded as the metric of a manifold. These glyphs capture the appearance of the tensors relative to the coordinate system of the human observer.
+
+
+ William Clifford was a British mathematician who translated Riemann's work in 1873 and then furthered Riemann's insight by theorizing that electricity and magnetism as well as gravity are also the result of `bending' of higher dimensions. Thus, Clifford's theoretical speculation preceded those of Einstein and Kaluza by 50 years.
+
+For infinite dimensional Riemannian spaces, however, it would seem that there are presently no known representations.</content>
+</record>

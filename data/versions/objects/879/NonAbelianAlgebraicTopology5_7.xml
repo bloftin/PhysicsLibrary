@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="879">
+ <title>non-Abelian algebraic topology</title>
+ <name>NonAbelianAlgebraicTopology5</name>
+ <created>2010-09-28 04:01:50</created>
+ <modified>2010-10-06 10:21:40</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>http://planetphysics.org/?op=getobj&amp;from=books&amp;id=167</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>non--Abelian algebraic topology</concept>
+	<concept>fundamental group</concept>
+	<concept>Hurewicz theorem</concept>
+	<concept>topological invariant</concept>
+	<concept>higher homotopy</concept>
+	<concept>extended Galois theory</concept>
+	<concept>filtered Space</concept>
+	<concept>union</concept>
+	<concept>crossed complex</concept>
+	<concept>cubical homotopy groupoid</concept>
+	<concept>homotopy</concept>
+	<concept>homotopical excision theorem</concept>
+	<concept>higher homotopy van Kampen Theorem</concept>
+	<concept>Brouwer degree theorem</concept>
+	<concept>relative Hurewicz theorem</concept>
+	<concept>mapping cone of unions</concept>
+	<concept>algebraic module</concept>
+	<concept>module (algebraic)</concept>
+	<concept>homotopy group</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="non-Abelian algebraic topology" alias="algebraic topology"/>
+ </synonyms>
+ <keywords>
+	<term>non--Abelian algebraic topology</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Non--Abelian algebraic topology} 
+A relatively recent development in Algebraic Topology that began in 1960s which considers algebraic structures in dimensions greater than 1 which develop the non-Abelian character of the fundamental group of a topological space, or a novel approach to higher dimensional, non-Abelian algebraic treatments of topological invariants in Algebraic Topology. 
+
+
+\subsection{Recent reference:} 
+Ronald Brown, Bangor University, UK, Philip J. Higgins, Durham University, UK
+Rafael Sivera, University of Valencia, Spain.2010. \emph{Nonabelian Algebraic Topology: Filtered Spaces, Crossed Complexes, Cubical Homotopy Groupoids.}
+EMS Tracts in Mathematics, Vol.15, an EMS publication: September 2010, approx. 670 pages. ISBN 978-3-13719-083-8.
+
+\subsection{Notes}
+1.A central topic of the book is a Higher Homotopy van Kampen Theorem;
+
+2.The book presents ``the use of filtered spaces rather than just topological spaces allows the development of basic algebraic topology in terms of higher homotopy groupoids; these algebraic structures better reflect the geometry of subdivision and composition than those commonly in use. Exploration of these uses of higher dimensional versions of groupoids has been largely the work of
+the first two authors since the mid 1960s...(it provides) a full account of a theory which, without using singular homology theory or simplicial approximation, but employing filtered spaces and methods analogous to those used originally for the fundamental group or groupoid, obtains for example: 
+
+--the Brouwer degree theorem; 
+
+--the Relative Hurewicz theorem, seen as a special case of a homotopical excision theorem giving information on relative homotopy groups as a module over the fundamental group; 
+
+--non-Abelian information on second relative homotopy groups of mapping cones, and of unions; 
+
+--homotopy information on the space of pointed maps X → Y when X is a CW-complex of dimension n and Y is connected and has no homotopy between 1 and n; this result again involves the fundamental groups."</content>
+</record>

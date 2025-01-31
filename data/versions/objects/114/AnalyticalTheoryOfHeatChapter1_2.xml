@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="114">
+ <title>Analytical Theory of heat chapter 1</title>
+ <name>AnalyticalTheoryOfHeatChapter1</name>
+ <created>2006-02-03 22:38:31</created>
+ <modified>2006-02-03 23:00:35</modified>
+ <type>Definition</type>
+<parent id="113">The Analytical Theory of Heat</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="AnalyticalTheoryOfHeat"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Statement of the Object of the Work.}
+
+1.  The effects of heat are subject to constant laws which cannot be discovered without the aid of mathematical analysis.  The object of the theory which we are about to explain is to demonstrate these laws; it reduces all physical researches on the propagation of heat, to problems of the integral calculus whose elements are given by experiment.  No subject has more extensive relations with the progress of industry and the natural sciences;  for the action of heat is always present, it penetrates all bodies and spaces, it influences the processes of the arts, and occurs in all the phenomena of the universe.
+
+When heat is unequally distributed among the different parts of a solid mass, it tends to attain equilibrium, and passes slowly from the parts which are more heated to those which are less; and at the same time it is dissipated at the surface, and lost in the medium or in the void.  The tendency to uniform distribution and the spontaneous emission which acts at the surface of bodies, change continually the temperature at their different points.  The problem of the propagation of heat consists in determining what is the temperature at each point of a body at a given instant, supposing that the inital temperatures are known.  The following examples will more clearly make known the nature of these problems.
+
+2.  If we expose to the continued and uniform action of a source of heat, the same part of a metallic ring, whose diameter is large, the molecules nearest to the source will be first heated, and, after a certain time, every point of the solid will have acquired very nearly the highest temperature which it can attain.  This limit or greatest temperature is not the same at different points; it becomes less and less according as they become more distant from that point at which the source of heat is directly applied.
+
+When the temperatures have become permanent, the source of heat supplies, at each instant, a quantity of heat which exactly compensates for that which is dissipated at all the points of the external surface of the ring.
+
+If now the source be suppressed, heat will continue to be propagated in the interior of the solid, but that which is lost in the medium or the void, will no longer be compensated as formerly by the supply from the source, so that all the temperatures will vary and diminish incessantly until they have become equal to the temperatures of the surrounding medium.
+
+3.  Whilst the temperatures are permanent and the source remains, if at every point of the mean circumference of the ring an ordinate be raised perpendicular to the plane of the ring, whose length is proportional to the fixed temperature at that point, the curved line which passes through the ends of these ordinates will represent the permanent state of the temperatures, and it is very easy to determine by analysis the nature of this line.  It is to be sufficiently small for the temperature to be sensibly equal at all points of the same section perpendicular to the mean circumference.  When the source is removed, the line which bounds the ordinates proportional to the temperatures at the different points will change its form continually.  The problem consists in expressing, by one equation, the variable form of this curve, and in thus including in a single formula all the successive states of the sold.</content>
+</record>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="382">
+ <title>complex systems biophysics</title>
+ <name>ComplexSystemsBiophysics</name>
+ <created>2009-01-14 02:50:04</created>
+ <modified>2009-01-14 03:14:40</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="82.39.Rt"/>
+	<category scheme="msc" code="83.10.Rs"/>
+	<category scheme="msc" code="87.19.Hh"/>
+	<category scheme="msc" code="87.18.-h"/>
+	<category scheme="msc" code="87.18.Sn"/>
+	<category scheme="msc" code="83.85.Fg"/>
+	<category scheme="msc" code="84.35.+i"/>
+	<category scheme="msc" code="82.39.-k"/>
+	<category scheme="msc" code="82.45.Tv"/>
+	<category scheme="msc" code="82.56.Pp"/>
+	<category scheme="msc" code="82.56.Ub"/>
+	<category scheme="msc" code="82.60.-s"/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>complex system modeling and ontology</concept>
+ </defines>
+ <keywords>
+	<term>complex system biophysics</term>
+	<term>complex system biodynamics</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\section{Complex Systems Biology} ($CSB$) is generally described as a non-reductionist theory of emergent living organisms in terms of the integrated interactions between their structural
+and functional components or subsystems. This is often abbreviated to {\em `Systems Biology'} in entries that should be described as `{\em complex systems biology}'.
+
+\begin{definition}
+The {\em categorical ontology theory of levels} is often defined as the classification of ontology, or theory of existence of items (objects--in the mathematical sense) by means of the mathematical theory of categories into three levels of dynamic systems pertaining to: the physical/chemical level, the biological level, and the psychological level (or human mind). Connections between the three levels of reality and their transformations are represented, respectively, by morphisms/functors and natural transformations defined for categories of molecular sets,
+\PMlinkname{categories of $(M,R)$-systems}{CategoryOfMRSystems3} and organismic supercategories.
+\end{definition}
+From a categorical ontology theory of levels viewpoint, however, the term complex is misplaced because {\em systems with chaos}, or chaotic dynamics, are currently defined by physicists as {\em `complex systems'}, which may have placed a role in the emergence of living systems that are, in fact, {\em super-complex}. Therefore, the more appropriate classification of this relatively new area in Mathematical or Theoretical Biology and Biophysics is ``super-complex systems biology", $s$-complex systems biology, or simply `systems biology'--as a more general approach where the focus may be not on the super-complexity aspects of living systems but on computer modeling of physiological, or functional genomics, integration of physiological flows, signaling pathways or interactomics. However, unlike the case of purely functional $(M,R)$-systems theory (in abstract relational biology), complex systems biology (or systems biology) proponents are primarily concerned with the integration of data from a multitude of bioinformatic and genomic/proteomic/`post-genomic' (primarily structural) data; $CSB$ scientists also aim to study {\em interactomics} or {\em `metabolomics'} primarily through computer-based data analysis, and often Bayesian-based attempts at integration. Branches of Mathematics that find
+applications in $CSB$ are, for example: computer modeling, colored graphs, graph-theoretical based approaches, bio-topology, genetic, metabolic and signaling network theories, Bayesian models, biostatistics, correlation techniques, and less frequently: abstract algebra, group theory, groupoid and category theory modeling of cell-cell interactions and biodynamics.</content>
+</record>

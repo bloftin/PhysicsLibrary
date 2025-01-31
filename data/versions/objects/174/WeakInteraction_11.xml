@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="11" id="174">
+ <title>weak interaction</title>
+ <name>WeakInteraction</name>
+ <created>2006-05-19 12:53:06</created>
+ <modified>2009-01-30 18:52:39</modified>
+ <type>Definition</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="475" name="vip6"/>
+ <author id="475" name="vip6"/>
+ <author id="132" name="metalac"/>
+ <classification>
+	<category scheme="msc" code="12.15.-y"/>
+	<category scheme="msc" code="23.40.Bw"/>
+ </classification>
+ <synonyms>
+	<synonym concept="weak interaction" alias="electroweak force"/>
+	<synonym concept="weak interaction" alias="weak nuclear force"/>
+ </synonyms>
+ <related>
+	<object name="Neutrino"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The {\em weak interaction} (or `weak force') is one of the four known fundamental types of interactions in physics.  It is only stronger than the gravitational force, but the range over which weak interaction occurs is very short (\(10^{-18}\)m), thus making its effects even harder to detect accurately. The weak interactions affect markedly all of the left--handed leptons and the very heavy quarks, such as the top and bottom quarks. Main (electroweak) field carriers of the weak interaction are the $W$ and $Z$ bosons.  The weak interaction is the only interaction that violates parity and changes flavours, thus allowing for the heavier (less stable) quarks decay.  The electroweak interaction is also responsible for the beta decay process, and thus is part of many naturally occuring radiation processes. An unified quantum treatment of the electroweak interaction and elctromagnetic field theory (QED), with the former involving the symmetry of the `special unitary' Lie group SU(2), was first reported by Physics Nobel Laureate Stephen Weinberg (for a recent textbook ref. \cite{SW2000}. The $SU(2)$ symmetry is currently part of the Standard Model (SUSY) of physics.
+
+
+\begin{thebibliography}{9}
+
+\bibitem{SW2000}
+S. Weinberg. 2000. ``{Quantum Field Theory}'', vols. 1 to 3, Cambridge University Press, Cambridge, UK.
+
+\end{thebibliography}</content>
+</record>

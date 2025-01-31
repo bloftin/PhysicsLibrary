@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="595">
+ <title>wave equation of a free particle</title>
+ <name>WaveEquationOfAFreeParticle</name>
+ <created>2009-03-15 02:00:15</created>
+ <modified>2009-03-15 02:00:15</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>typo, changed u to i</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.-w"/>
+ </classification>
+ <synonyms>
+	<synonym concept="wave equation of a free particle" alias="free particle wave equation"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The theory of matter waves leads unambiguously to the wave equation of a free particle (in non-relativistic approximation).  Indeed, the wave $\Psi(\mathbf{r},t)$ is a superposition:
+
+\begin{equation}
+\Psi(\mathbf{r},t) = \int F(\mathbf{p}) e^{i(\mathbf{p} \cdot \mathbf{r}-Et)/\hbar} d \mathbf{p}
+\end{equation}
+
+of monochromatic plane waves $e^{ \left[ u ( \mathbf{p} \cdot \mathbf{r}-Et)/\hbar \right]}$ whose frequency $E/\hbar$ is connected with the wave vector $\mathbf{p}/ \hbar$ by the relation connecting momentum and energy for a particle of mass $m$
+
+\begin{equation}
+E = \frac{p^2}{2m}
+\end{equation}
+
+Taking the partial derivatives of the two sides of equation (1), we omit questions of convergence since mathematical rigor is of no concern to us in this argument, one obtains successively:
+
+
+\begin{equation}
+i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r},t) = \int E F(\mathbf{p}) e^{i(\mathbf{p} \cdot \mathbf{r}-Et)/\hbar} d \mathbf{p}
+\end{equation}
+
+
+\begin{equation}
+\frac{\hbar}{i} \nabla \Psi(\mathbf{r},t) = \int \mathbf{p} F(\mathbf{p}) e^{i(\mathbf{p} \cdot \mathbf{r}-Et)/\hbar} d \mathbf{p}
+\end{equation}
+
+
+\begin{equation}
+-\hbar^2 \nabla^2 \Psi(\mathbf{r},t) = \int p^2 F(\mathbf{p}) e^{i(\mathbf{p} \cdot \mathbf{r}-Et)/\hbar} d \mathbf{p}
+\end{equation}
+
+According to relation (2), the expressions under the integral signs of equations (2) and (5) are proportional; therefore the integrals themselves differ by the same proportionality factor.  Consequently
+
+\begin{equation}
+i \hbar \frac{\partial}{\partial t}  \Psi(\mathbf{r},t) = - \frac{\hbar^2}{2m} \nabla^2 \Psi(\mathbf{r},t)
+\end{equation}
+
+This is the Schr\"odinger equation for a free particle; it satisfies conditions (A) and (B); from the very manner in which it was obtained it also satisfies the requirements of the correspondence principle.  Indeed the formal analogy with Clasical Mechanics is actually realized: equation (6) is in a sense the quantum-mechanical translation of the classical equation (2), the energy and momentum being represented in this quantum language by differential operators acting on the wave function according to the correspondence rule
+
+\begin{equation}
+E \rightarrow i \hbar \frac{\partial}{\partial t}, \,\,\,\,\,\, \mathbf{p} \rightarrow \frac{\hbar}{i}\nabla
+\end{equation}
+
+Thus the quantity $\mathbf{p}^2 = p_x^2 + p_y^2 + p_z^2$ is represented by the operator
+
+$$ - \hbar^2 \nabla^2 = \left (\frac{\hbar}{i} \right )^2 \left ( \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2} \right ) $$
+
+Just like relation (2) from which it originated, equation (6) obviously does not satisfy the principle of relativity.  On the other hand, the de Broglie theory does not suffer from this limitation.  To obtain a relativistic equation of the free particle, one may try to repeat the preceding argument, replacing relation (2) by a relation between energy and momentum in conformity with the theory of relativity.  The correct relation $E = \sqrt{p^2c^2 + m^2c^4}$ is most suitable because of the presence of the square root.  To avoid that difficulty, one can use the relation
+
+\begin{equation}
+E^2 = p^2 c^2 + m^2 c^4
+\end{equation}
+
+from which one deduces the equation
+
+$$ -\hbar^2 \frac{\partial^2}{\partial t^2} \Psi = -\hbar^2c^2 \nabla^2 \Psi + m^2 c^4 \Psi$$
+
+which may also be written
+
+\begin{equation}
+\left[ \Box + \left ( \frac{mc}{\hbar} \right )^2 \right ] \Psi(\mathbf{r},t) = 0
+\end{equation}
+
+making use of the \PMlinkname{D'Alembertian}{DAlembertian} operator
+
+$$ \Box := \frac{1}{c^2} \frac{\partial^2}{\partial t^2} - \nabla^2 $$
+
+One again finds the same formal correspondence between equations (8) and (9), as the one which exists between equations (2) and (6).
+
+Equation (9), the so-called Klein-Gordon equation, plays an important role in Relativistic Quantum Theory.  As it does not satisfy criterion (B), it cannot be adopted as wave equation without a physical reinterpretation of the wave $\Psi$.  Actually, the fact that a wave can represent the dynamical state of one and only one particle is fully justified only in the non-relativistic limit, i.e. when the law of conservation of the number of particles is satisfied.
+
+\subsection{References}
+
+[1] Messiah, Albert. "Quantum Mechanics: Volume I." Amsterdam, North-Holland Pub. Co.; New York, Interscience Publishers, 1961-62.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

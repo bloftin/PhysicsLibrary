@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="637">
+ <title>gauge bosons</title>
+ <name>GaugeBosons2</name>
+ <created>2009-04-10 12:51:22</created>
+ <modified>2009-04-10 12:51:22</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>boson</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="gauge bosons" alias="field carriers"/>
+ </synonyms>
+ <keywords>
+	<term>gauge theory</term>
+	<term>gauge fields</term>
+	<term>gauge bosons</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\em Gauge bosons} are (quantum) particles of integer spin (i.e., bosons) that act as the carriers of the fundamental forces of nature.</content>
+</record>

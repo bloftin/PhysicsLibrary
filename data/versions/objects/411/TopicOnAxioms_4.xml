@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="411">
+ <title>topic on axioms</title>
+ <name>TopicOnAxioms</name>
+ <created>2009-01-18 01:09:00</created>
+ <modified>2009-01-18 01:34:27</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <related>
+	<object name="AxiomsOfMetacategoriesAndSupercategories"/>
+ </related>
+ <keywords>
+	<term>axioms in mathematics</term>
+	<term>logic algebra</term>
+	<term>mathematical physics</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Topic on axioms in mathematics, logic algebra, mathematical physics
+and mathematical biophysics}
+
+\subsection{Introduction}
+ In classical logic, an axiom or postulate is a `simple', fundamental proposition that is neither proven nor demonstrated (within a theory) ``but considered to be self-evident''; furthermore, the choice of an axiom or system of axioms is justified by the large number of consistent consequences or mathematical propositions derived from such axioms. One needs, however, to distinguish between `physical axioms' (often called `postulates' that apply to various fields of physics), and mathematical axioms that have both a meaning and scope of applicability which is distinct from that of physical postulates (or physical axioms). On the other hand, physical axioms, or postulates, are ultimately also expressed in a mathematical form, albeit without becoming axioms of mathematics, or specific fields of mathematics. (In the remainder of this entry the attribute `axiomatic' will be employed only with the meaning of `physical-axiomatic', or `physically-postulated'.)
+ 
+ Furthermore, physical postulates, unlike mathematical ones, emerged as a result of numerous experimental studies and crucial physical experiments that can be logically and consistently explained
+on the basis of such fundamental, physical postulates; often, mathematical formulations of such fundamental physical
+postulates are referred to as (physical) `axioms', as in the case of `axiomatic' QFTs.
+
+\subsection{Axioms in Mathematics}
+
+\begin{itemize}
+\item Axioms of Set theory
+\item Axioms of Number theory
+\item Axioms of Geometry
+\item Axioms of Topology
+\item Axioms of Homology and Cohomology theories
+\item Axioms of Topos theory
+\item Axioms for categories; axioms of Category theory
+\item Axioms of Algebraic K-Theory
+\item Axioms of Higher Dimensional Algebra (HDA)
+\item Axioms of Meta- and super- categories
+\end{itemize}
+
+\subsection{Axioms of Logic and Logic Algebras}
+\begin{itemize}
+\item Axioms of Boolean logic algebra
+\item Axioms of $LM_n$ logic algebras
+\item Axioms of Quantum Logics
+\item Axioms of XYZ
+\end{itemize}
+
+\subsection{Axioms and Postulates in Mathematical Physics}
+\begin{itemize}
+\item Postulates of Relativity theories: Special and General Relativity
+\item Axioms of Quantum Geometry
+\item Axioms of Local Quantum Physics (Algebraic Quantum Field Theories (AQFT))
+\item Axioms of XYZ
+\end{itemize}
+
+\subsection{Axioms and Postulates of Mathematical biology/Mathematical Biophysics}
+\begin{itemize}
+\item Axiom of Organismic Selection
+\item Axioms of Genetics
+\item Postulate of Optimal Design
+\item Postulate of Relational `Forces'
+\item Axioms of organismic complete self-reproduction
+\item Axioms of organismic supercategories
+\item Axiom of Fuzziness
+\item Epimorphism axioms and homology
+\item Adjointness axioms
+\item Axioms of XYZ
+\end{itemize}
+
+\subsection{Examples of Axioms}
+
+\begin{thebibliography}{9}
+\bibitem{SML2k}
+S. Mac Lane. 2000. Ch.1: Axioms for Categories, in \emph{Categories for the Working Mathematician}. Springer: Berlin, 2nd Edition.
+
+\bibitem{BHS2}
+R. Brown R, P.J. Higgins, and R. Sivera.: \emph{``Non-Abelian Algebraic Topology''},{\em (vol. 2. in preparation)}.
+(2008).
+
+\bibitem{LW1}
+W.F. Lawvere: 1963. Functorial Semantics of Algebraic Theories. \emph{Proc. Natl. Acad. Sci. USA}, 50: 869--872
+
+\bibitem{LW2}
+W. F. Lawvere: 1966. The Category of Categories as a Foundation for Mathematics. , In {\em Proc. Conf. Categorical Algebra--La Jolla}, 1965, Eilenberg, S et al., eds. Springer --Verlag: Berlin, Heidelberg and New York, pp. 1--20.
+
+\bibitem{LO68}
+L. L\"ofgren: 1968. On Axiomatic Explanation of Complete Self--Reproduction. \emph{Bull. Math. Biophysics},
+\textbf{30}: 317--348.
+
+\bibitem{SW2000}
+Stephen Weinberg. 2000. Quantum Field Theory, vol. III. Cambridge University Press,
+Cambridge, UK.
+
+\bibitem{DB-H99}
+Detlev Buchholz and Rudolf Haag.1999.
+\PMlinkexternal{The Quest for Understanding in Relativistic Quantum Physics}{http://xxx.lanl.gov/PS_cache/hep-th/pdf/9910/9910243v2.pdf}, pp. 38,
+$arXiv:hep-th/9910243v2$, {\em J.Math.Phys.} {\bf 41} (2000) 3674--3697.
+
+\bibitem{HR92}
+Rudolf Haag. 1992. {\em ``Local Quantum Physics: Fields, Particles, Algebras''}. Springer: Berlin.
+
+\bibitem{HH-MM2k6}
+Hans Halvorson, Michael Mueger. 2006.
+\PMlinkexternal{Algebraic Quantum Field Theory}{http://arxiv.org/PS_cache/math-ph/pdf/0602/0602036v1.pdf}.
+arXiv:math-ph/0602036, 202 pages; to appear in \emph{Handbook of the Philosophy of Physics}, North Holland: Amsterdam.
+
+\bibitem{JER2k4}
+John E. Roberts. More lectures on algebraic quantum field theory. In
+Sergio Doplicher and Roberto Longo, editors, \emph{Noncommutative geometry}, pages 263-342.
+Springer, Berlin, 2004.
+
+\bibitem{JER90}
+John E. Roberts. Lectures on algebraic quantum field theory. In Daniel
+Kastler, editor, \emph{The algebraic theory of superselection sectors} (Palermo, 1989), pages
+1-112. World Scientific Publishing, River Edge, NJ, 1990.
+
+\bibitem{ICB3}
+I.C. Baianu: 1970, Organismic Supercategories: II. On Multistable Systems. \emph{Bulletin of Mathematical Biophysics}, \textbf{32}: 539-561.
+
+\bibitem{ICB1}
+I.C. Baianu : 1971a, Organismic Supercategories and Qualitative Dynamics of Systems. \emph{Bulletin of Mathematical Biophysics}, \textbf{33} (3), 339--354.
+
+\bibitem{ICB6}
+I.C. Baianu: 1977, A Logical Model of Genetic Activities in \L ukasiewicz Algebras: The Non-linear Theory. \emph{Bulletin of Mathematical Biophysics}, \textbf{39}: 249-258.
+
+\bibitem{ICB7}
+I.C. Baianu: 1980, Natural Transformations of Organismic Structures. \emph{Bulletin of Mathematical Biophysics}
+\textbf{42}: 431-446.
+
+\bibitem{BBGG1}
+I.C. Baianu, Brown R., J. F. Glazebrook, and Georgescu G.: 2006, Complex Nonlinear Biodynamics in Categories, Higher Dimensional Algebra and \L ukasiewicz--Moisil Topos: Transformations of Neuronal, Genetic and Neoplastic networks, \emph{Axiomathes} \textbf{16} Nos. 1--2, 65--122.
+
+\bibitem{BGB2}
+R. Brown, J. F. Glazebrook and I. C. Baianu: A categorical and higher dimensional algebra framework for complex systems and spacetime structures, \emph{Axiomathes} \textbf{17}:409--493.
+(2007).
+
+\bibitem{BS}
+R. Brown and C.B. Spencer: Double groupoids and crossed modules,
+\emph{Cahiers Top. G\'eom.Diff.} \textbf{17} (1976), 343--362.
+
+
+\end{thebibliography}</content>
+</record>

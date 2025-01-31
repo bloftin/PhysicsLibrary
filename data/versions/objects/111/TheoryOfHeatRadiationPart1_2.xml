@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="111">
+ <title>the theory of heat radiation part 1</title>
+ <name>TheoryOfHeatRadiationPart1</name>
+ <created>2006-02-01 03:26:14</created>
+ <modified>2006-02-01 03:27:06</modified>
+ <type>Definition</type>
+<parent id="110">the theory of heat radiation</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="heat"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Chapter I: General Introduction}
+
+{\bf 1.}  Heat may be propagated in a stationary medium in two entirely different ways, namely, by conduction and by radiation.  Conduction of heat depends on the temperature of the medium in which it takes place, or more strictly speaking, on the non-uniform distriution of the temperature in space, as measured by the temperature gradient.  In a region where the temperature of the medium is the same at all points there is no trace of heat conduction.
+
+
+\subsection{References}
+
+This entry is a derivative of [1], a public domain work.
+
+[1] Planck, M. "The Theory of Heat Radiation" Translation by Morton Masius, P. Blakiston's Son \&amp; CO., Philadephia, 1914.</content>
+</record>

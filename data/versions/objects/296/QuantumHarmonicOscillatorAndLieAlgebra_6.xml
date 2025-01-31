@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="296">
+ <title>quantum harmonic oscillator and Lie algebra</title>
+ <name>QuantumHarmonicOscillatorAndLieAlgebra</name>
+ <created>2008-09-28 16:01:04</created>
+ <modified>2009-05-01 03:47:57</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>quantum harmonic oscillator</concept>
+	<concept>quantum anharmonic oscillator</concept>
+	<concept>Lie algebra in quantum theory</concept>
+ </defines>
+ <related>
+	<object name="SimpleHarmonicOscillator"/>
+	<object name="LieAlgebra"/>
+ </related>
+ <keywords>
+	<term>Lie algebra of a quantum harmonic oscillator</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Lie Algebra of a Quantum Harmonic Oscillator}
+
+ One wishes to solve the time-independent Schr\"odinger equation of motion in order to determine the stationary states of the quantum harmonic oscillator which has a quantum
+Hamiltonian of the form:
+\begin{equation}
+\mathbf{H} = (\frac {1}{2m})\cdot P^2 + \frac{k}{2}\cdot X^2~,
+\end{equation}
+where X and P are, respectively, the coordinate and conjugate momentum operators. X and P
+satisfy the Heisenberg commutation/'uncertainty' relations $[X,P]
+= i\hbar I$~, where the identity operator $I$
+is employed to simplify notation. A simpler, equivalent form of the above Hamiltonian
+is obtained by defining physically dimensionless coordinate and momentum:
+\begin{equation}
+\mathbf{x} = (\frac{X}{\alpha})~, ~ \mathbf{p}= (\frac{\alpha
+P}{\hbar}) ~\text{and}~ \alpha = \sqrt {\frac{\hbar}{mk}}~.
+\end{equation}
+With these new dimensionless operators, $\mathbf{x}$ and
+$\mathbf{p}$, the quantum Hamiltonian takes the form:
+\begin{equation}
+\mathbf{H}= (\frac{\hbar \omega}{2})\cdot (\mathbf{p}^2 +
+\mathbf{x}^2)~,
+\end{equation}
+which in units of $\hbar \cdot \omega$ is simply:
+\begin{equation}
+\mathbf{H}' = (\frac {1}{2})\cdot (\mathbf{p}^2 +
+\mathbf{x}^2)~.
+\end{equation}
+The commutator of $\mathbf{x}$ with its conjugate operator
+$\mathbf{p}$ is simply $[\mathbf{x}, \mathbf{p}] = i$~.\\
+
+Next one defines the superoperators $S_{Hx} = [H, x] = -i \cdot
+p$, and $S_{Hp} = [H, p] = i \cdot \mathbf{x}$ that will lead to
+new operators that act as generators of a Lie algebra for this
+quantum harmonic oscillator. The eigenvectors $Z$ of these
+superoperators are obtained by solving the equation $S_H \cdot Z =
+\zeta Z$, where $\zeta$ are the eigenvalues, and $Z$ can be
+written as $(c_1 \cdot x + c_2 \cdot p)$~. The solutions are
+\begin{equation}
+\zeta = \pm 1 ~, \text{and} ~~ c_2 = \mp i \cdot c_1~.
+\end{equation}
+Therefore, the two eigenvectors of $S_H$ can be written as:
+\begin{equation}
+a^\dagger = c_1* (x-ip)~, \text{and}~ a = c_1 (x+ip)~,
+\end{equation}
+respectively for $\zeta = \pm 1$~. For $c_1 =\surd {2}$ one
+obtains normalized operators $H, a$ and $a \dagger$ that generate
+a $4$--dimensional Lie algebra with commutators:
+\begin{equation}
+[H,a] = -a~,~[H, a^\dagger ]= a^\dagger~, ~ \text{and}~ [a,
+a^\dagger]= I ~.
+\end{equation}
+The term $\mathbf{a}$ is called the \emph{annihilation} operator
+and the term $a\dagger$ is called the \emph{creation} operator.
+This Lie algebra is solvable and generates after repeated
+application of $a\dagger$ all the eigenvectors of the quantum
+harmonic oscillator:
+\begin{equation}
+\Phi_n = (\frac{(a\dagger)^n}{\surd(n!)})\cdot \Phi_0 ~.
+\end{equation}
+The corresponding, possible eigenvalues for the energy, derived
+then as solutions of the Schr\"odinger equations for the quantum
+harmonic oscillator are:
+\begin{equation}
+E_n = \hbar \cdot \omega (n+ \frac{1}{2}) ~, ~\text{where}~ n =
+0,1, \ldots, N~.
+\end{equation}
+The position and momentum eigenvector coordinates can be then also computed by iteration from %%@
+\emph{(finite)} matrix representations of the \emph{(finite)} Lie
+algebra, using, for example, a simple computer programme to
+calculate linear expressions of the annihilation and creation
+operators. For example, one can show analytically that:
+\begin{equation}
+[a, x^k] = (\frac{k}{\surd 2})\cdot (x_{k-1})~.
+\end{equation}
+
+One can also show by introducing a \emph{coordinate}
+representation that the eigenvectors of
+the harmonic oscillator can be expressed as \emph{Hermite polynomials} in terms of the coordinates. In the coordinate representation the quantum
+\emph{Hamiltonian} and \emph{bosonic} operators have,
+respectively, the simple expressions:
+
+\begin{equation}
+\begin{aligned}
+H &amp;= (\frac{1}{2})\cdot[-\frac{d^2}{dx^2}) + (x^2)]~, \\ a &amp;=
+(\frac{1}{\surd 2})\cdot (x + \frac{d}{dx})~, \\ a\dagger &amp;=
+(\frac{1}{\surd 2})\cdot (x - \frac{d}{dx})~.
+\end{aligned}
+\end{equation}
+The ground state eigenfunction normalized to unity is obtained from solving the simple %%@
+first-order differential equation $a\Phi_0 (x) = 0$  and which
+leads to the expression:
+\begin{equation}
+\Phi_0 (x)= (\pi^{-\frac{1}{4}})\cdot \exp(-\frac{x^2}{2})~.
+\end{equation}
+By repeated application of the creation operator written as
+\begin{equation}
+a\dagger = (-\frac{1}{\surd 2})\cdot
+(\exp(\frac{x^2}{2}))\cdot(\frac{d}{dx^2})\cdot
+\exp(-\frac{x^2}{2}) ~,
+\end{equation}
+one obtains the $n$-th level eigenfunction:
+\begin{equation}
+\Phi_n(x) = (\frac{1}{(\surd\pi) 2^n n!)})\cdot
+(\mathbf{He}_n (x))~,
+\end{equation}
+where $\mathbf{He}_n(x)$ is \emph{the Hermite polynomial} of order
+$n$~. With the special generating function of the Hermite
+polynomials
+\begin{equation}
+F(t,x) = (\pi^{-\frac{1}{4}})\cdot (\exp((-\frac{x^2}{2}) + tx
+-(\frac{t^2}{4}))~,
+\end{equation}
+one obtains explicit analytical relations between the
+ eigenfunctions of the quantum harmonic
+oscillator and the above special generating
+function:
+\begin{equation}
+F(t,x) = \sum_{n=0} (\frac{t^n}{\surd (2^n \cdot n!)})\cdot
+\Phi_n(x) ~.
+\end{equation}
+Such applications of the \PMlinkname{Lie algebra}{LieAlgebra}, and the related algebra of the \emph{bosonic} operators as defined above are quite numerous
+in theoretical physics, and especially for various quantum field
+carriers in QFT that are all \emph{bosons}. (Please note also
+additional examples of special `Lie' superalgebras for
+gravitational and other fields in Section 6, such as gravitons and
+Goldstone quanta that are all \emph{bosons} of different spin
+values and \emph{`Penrose homogeneity'}).\\
+
+ In the interesting case of a \emph{two-mode} bosonic quantum
+system formed by the tensor (direct) product of \emph{one-mode}
+bosonic states: $\mid m,n&gt; := \mid m&gt; \otimes \mid n&gt;$, one can
+generate a $3$--dimensional Lie algebra in terms of \emph{Casimir}
+operators. \emph{Finite}-- dimensional Lie algebras are far more
+tractable, or easier to compute, than those with an infinite basis
+set. For example, such a Lie algebra as the $3$--dimensional one
+considered above for the two-mode, bosonic states is quite useful
+for numerical computations of vibrational (IR, Raman, etc.)
+spectra of two--mode, \emph{diatomic} molecules, as well as the
+computation of scattering states. Other perturbative calculations
+for more complex quantum systems, as well as calculations of exact
+solutions by means of Lie algebras have also been developed (see
+for example Fernandez and Castro,1996).</content>
+</record>

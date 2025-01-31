@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="199">
+ <title>Work in classic mechanics</title>
+ <name>WorkInClassicMechanics</name>
+ <created>2006-07-18 10:14:41</created>
+ <modified>2006-07-21 14:41:52</modified>
+ <type>Definition</type>
+ <creator id="154" name="shmulik"/>
+ <modifier id="154" name="shmulik"/>
+ <author id="154" name="shmulik"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Work is defined as the change of mechanic energy of an object caused by a force along a distance.
+
+Work is commonly denoted by the latter $W$
+
+The SI unit for work is Joule [$J$] which is the same as $N*m$ in SI base units.
+
+When focusing on an object moving along a straight line under the effect of constant forces $\Sigma F$.
+Let's define a $x$ axis along the line of motion.
+
+According to newton:
+\begin(equation)
+$ \Sigma F_x = ma_x $
+\end(equation)</content>
+</record>

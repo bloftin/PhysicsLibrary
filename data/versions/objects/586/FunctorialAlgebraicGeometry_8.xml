@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="586">
+ <title>Functorial Algebraic Geometry and Physics</title>
+ <name>FunctorialAlgebraicGeometry</name>
+ <created>2009-03-09 12:45:30</created>
+ <modified>2009-03-09 14:50:36</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>functorial geometry</concept>
+	<concept>commutative ring with unit</concept>
+	<concept>presheaf</concept>
+	<concept>restriction map</concept>
+	<concept>local coordinate system</concept>
+ </defines>
+ <keywords>
+	<term>functorial algebraic geometry</term>
+	<term>holonomic dynamical system</term>
+ </keywords>
+ <preamble></preamble>
+ <content>The following is a contributed topic on functorial algebraic geometry and physics:
+
+ \PMlinkexternal{``Functorial Algebraic Geometry: An Introduction'' -by Alexander Grothendieck}{http://www.math.jussieu.fr/~leila/grothendieckcircle/FuncAlg.pdf}
+
+\subsubsection{Vol.1: Affine Algebraic Geometry}
+
+ (Following the Notes in English typewritten and edited by P. Gaeta,
+without implying the approval by A. Grothendieck of these notes.)
+
+ A century ago Algebraic Geometry could be contained in Klein's book (1880; Dover publs. 1963) : ``On RIEMANN's theory of Algebraic Functions and Their Integrals''. Furthermore, ``the distinction between pure and applied mathematics was then to a large extent artificial and unimportant'' (viz. P. Gaeta). For example in Klein's book cited above ``the study of Riemann surfaces was introduced by considering the practical physical problem of laminar flow in a plane or arbitrary surface. He even quotes Maxwell's treatise on page one.
+The natural continuation of such a `transcedental approach' in our times is the study of {\em complex algebraic manifolds}...''
+In contrast with Algebraic Geometry, the popular beliefs regarding Differential 
+Geometry are totally different: the latter never lost its flavor of applicability; such practical examples of differentiable manifolds are natural examples of {\em locally ringed spaces}. ``Thus, if a reader is familiar with differentiable manifolds, Grothendieck's {\em schemes} cannot look so terribly abstract...; we do not assume knowledge of differentiable manifolds as a
+logical pre-requisite for this course, but a student interested in applications 
+should be interested in differentiable manifolds. The purpose of this informal Introduction is to develop an analogy between these new mathematical objects
+introduced by Grothendieck (that is, in Algebraic Geometry) and certain objects within the structure of Mathematical Physics...'' Consider the `configuration space' $V_n$ or the `phase space' $W_{2n}$ of a holonomic dynamical system `with
+n-degrees of freedom'; for any problems concerning $V_n$ one should only consider local functions $ f: U \to R$ defined within an open set 
+$U \subset V_n$. As an example, a Lagrangian coordinate function $ q_i$
+(with $i= 1,2,..., n$) is only defined locally for a certain coordinate chart.
+The Lagrange equations of motion:
+
+$$ d/dt (\delta L / \delta q_i) - \delta L/\delta q_i = 0$$ are valid only
+in certain local coordinate system $(q_1, ..., q_n)$. In order to examine the behavior of the dynamic system globally one must piece together local functions corresponding to different sets $U$, and this is achieved by verifying first
+that the set of functions $[f: U \to R| U \subset V_n]$ form a 
+{\em commutative ring with unit} $\Gamma (U)$ under pointwise addition and multiplication for such $U$. If $ V \subset U$, then there is a natural {\em restriction map} $r^U_V : \Gamma(U) \to \Gamma(V)$ which assigns to every 
+$\phi: U \to R$ its restriction map with respect to $V$, that is, 
+$r^U_V = \phi|V : V \to R$. This also means--in other words--that the local 
+$C^{\infty}$- differentiable functions on $U$ form , or define a 
+`{\em presheaf}' (viz. Ch.III). 
+
+
+ Following Dieudonn\'e 's and Grothendieck's  famous ``\'Elements de G\'eometrie Alg\'ebrique'', and Dieudonn\'e 's ``Algebraic Geometry'' and ``Fondements de la G\'eometrie Alg\'ebrique.'' Adv. in Math. (1969), Alexander Grothendieck presented in 1973 a Buffalo Summer Course entitled:
+``Survey on the functorial approach to affine algebraic groups''. 
+This was preceded by a lecture introducing the functorial `language' approach 
+(\PMlinkexternal{Introduction au Langage Fonctoriel}{http://www.math.jussieu.fr/~karoubi/Grothendieck.Alger.pdf})
+
+ 
+ Grothendieck also organized and presented most of the four famous SGA seminars (SGA-1 to SGA-4), ``S\'eminaires de G\'eometrie Alg\'ebrique'' (Seminars of Algebraic Geometry.) . Other relevant references were:
+K\"ahler's ``Geometria arithmetica'' (1958), S. MacLane's ``Homology'' (1963),
+Manin's ``Lectures on Algebraic Geometry'', Mumford's ``Introduction to Algebraic Geometry'', and J.P. Serre's ``Faisceaux alg\'ebrique coh\'erents."
+(Coherent Algebraic Sheaves). In 1968 was also published by North-Holland the
+book ``Dix expos\'es sur la cohomologie des sch\'emes'' (Ten expositions on the cohomology of schemes) by J. Giraud and Alexander Grothendieck.</content>
+</record>

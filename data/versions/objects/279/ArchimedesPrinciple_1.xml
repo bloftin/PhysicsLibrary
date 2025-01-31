@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="279">
+ <title>Archimedes' Principle</title>
+ <name>ArchimedesPrinciple</name>
+ <created>2008-04-27 21:15:11</created>
+ <modified>2008-04-27 21:15:11</modified>
+ <type>Law</type>
+ <creator id="416" name="joshsamani"/>
+ <modifier id="416" name="joshsamani"/>
+ <author id="416" name="joshsamani"/>
+ <classification>
+	<category scheme="msc" code="47.85.Dh"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Archimedes' Principle states that
+
+\emph{When a floating body of mass $M$ is in equilibrium with a
+fluid of constant density, then it displaces a mass of fluid $M_d$
+equal to it's own mass; $M_d = M$.}
+
+Archimedes' principle can be justified via arguments using some
+elementary classical mechanics. We use a Cartesian coordinate system
+oriented such that the $z$-axis is normal to the surface of the
+fluid.
+
+Let $\mathbf{g}$ be the gravitational field (taken to be a constant)
+and let $\Omega$ denote the submerged region of the body. To obtain
+the net force of buoyancy $\mathbf{F}_B$ acting on the object, we
+integrate the pressure $p$ over the boundary of this region
+\[
+    \mathbf{F}_B = \int_{\partial\Omega}{-p\mathbf{n}\,dS}
+\]
+Where $\mathbf{n}$ is the outward pointing normal to the boundary of
+$\Omega$.  The negative sign is there because pressure points in the
+direction of the \emph{inward} normal.  It is a consequence of
+Stokes' Theorem that for a differentiable scalar field $f$ and for
+any $\Omega\subset\mathbb{R}^3$ a compact three-manifold with
+boundary, we have
+\[
+    \int_{\partial\Omega}{f\mathbf{n}\,dS} = \int_\Omega{\nabla f\,dV}
+\]
+therefore we can write
+\[
+    \mathbf{F}_B = -\int_\Omega{\nabla p\, dV}
+\]
+Now, it turns out that $\nabla p = \rho_f\mathbf{g}$ where $\rho_f$
+is the volume density of the fluid.  Here is why.  Imagine a cubical
+element of fluid whose height is $\Delta z$, whose top and bottom
+surface area is $\Delta A$ (in the $x-y$ plane), and whose mass is
+$\Delta m$. Let us consider the forces acting on the bottom surface
+of this fluid element.  Let the z-coordinate of its bottom surface
+be $z$. Then, there is an upward force equal to $p(z)\Delta
+A\mathbf{e}_z$ on its bottom surface and a downward force of $-p(z +
+\Delta z)\Delta A\mathbf{e}_z + \Delta m\mathbf{g}$.  These forces
+must balance so that we have
+\[
+    p(z)\Delta A = p(z + \Delta z)\Delta A
+    - \Delta m|\mathbf{g}|
+\]
+a simple manipulation of this equation along with dividing by
+$\Delta z$ gives
+\[
+    \frac{p(z + \Delta z) - p(z)}{\Delta z} = \frac{\Delta m}{\Delta
+    A\Delta z}|\mathbf{g}| = \frac{\rho_f \Delta A\Delta z}{\Delta
+    A\Delta z}|\mathbf{g}| = \rho_f |\mathbf{g}|
+\]
+taking the limit $\Delta z \to 0$ gives
+\[
+    \frac{\partial p}{\partial z} = \rho_f|\mathbf{g}|
+\]
+Similar arguments for the $x$ and $y$ directions yield
+\[
+    \frac{\partial p}{\partial x} = \frac{\partial p}{\partial y} =
+    0
+\]
+putting this all together we obtain $\nabla p = \rho_f\mathbf{g}$ as
+desired.  Substituting this into the integral expression for the
+buoyant force obtained above using Stokes' theorem, we have
+\[
+    \mathbf{F}_B = -\int_\Omega{\rho_f\mathbf{g}\, dV} = -\rho_f\mathbf{g}\int_\Omega{dV}-
+    \rho_f\mathbf{g}\text{Vol}(\Omega)
+\]
+where we can pull $\rho_f$ and $\mathbf{g}$ outside of the integral
+since they are assumed to be constant.  But notice that
+$\rho_f\text{Vol}(\Omega)$ is equal to $M_d$, the mass of the
+displaced fluid so that
+\[
+    \mathbf{F}_B = -M_d\mathbf{g}
+\]
+But by Newton's second law, the buoyant force must balance the
+weight of the object which is given by $M \mathbf{g}$.  It follows
+from the above expression for the buoyant force that
+\[
+    M_d = M
+\]
+which is precisely the statement of Archimedes' Principle.</content>
+</record>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="355">
+ <title>tetrahedron representation of TQFT state</title>
+ <name>TetrahedronRepresentationOfTQFTState</name>
+ <created>2009-01-08 13:53:47</created>
+ <modified>2009-01-10 16:06:13</modified>
+ <type>Definition</type>
+<parent id="354">quantum 6j-symbols and TQFT state</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>TQFT state on an Euclidean tetrahedron</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="tetrahedron representation of TQFT state" alias="3d TQFT"/>
+ </synonyms>
+ <related>
+	<object name="Quantum6jSymbolsAndTQFTStateOnTheTetrahedron"/>
+ </related>
+ <keywords>
+	<term>Euclidean tetrahedron and quantum 6j-symbols representation</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{pstricks}
+% there are many more packages, add them here as you need them
+% define commands here</preamble>
+ <content>\section{TQFT state on an Euclidean tetrahedron:}
+{\em Note: the $pstricks$ code for the graphics is as provided by pahio.}
+
+\subsection{A graphical representation of the Topological Quantum Field (TQFT) State on the Tetrahedron}
+\begin{center}
+\begin{pspicture}(-4,-1)(4,4)
+\psline[linecolor=blue,linewidth=0.04]{-&gt;}(-1.5,0)(0,-1.5)
+\psline[linecolor=blue,linewidth=0.04]{-&gt;}(0,-1.5)(3,0)
+\psline[linecolor=blue,linewidth=0.04]{-&gt;}(3,0)(0.5,3)
+\psline[linecolor=blue,linewidth=0.04]{-&gt;}(0.5,3)(-1.5,0)
+\rput(-1.7,0){2}
+\rput(0,-1.75){3}
+\rput(3.2,0){4}
+\rput(0.5,3.25){1}
+\psline[linecolor=blue,linewidth=0.04](0,-1.5)(0.5,3)
+\psline[linestyle=dashed](-1.5,0)(3,0)
+\end{pspicture}
+\end{center}
+
+
+
+
+\end{document}</content>
+</record>

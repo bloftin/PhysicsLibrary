@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="440">
+ <title>category of Riemannian manifolds</title>
+ <name>CategoryOfRiemannianManifolds2</name>
+ <created>2009-01-27 10:51:27</created>
+ <modified>2009-01-27 11:17:35</modified>
+ <type>Definition</type>
+<parent id="121">Relativity: The Special and General Theory</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03.30.+p"/>
+	<category scheme="msc" code="04.20.-q"/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>GR</concept>
+	<concept>SR</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="category of Riemannian manifolds" alias="general relativity"/>
+	<synonym concept="category of Riemannian manifolds" alias="special relativity"/>
+	<synonym concept="category of Riemannian manifolds" alias="space-time"/>
+	<synonym concept="category of Riemannian manifolds" alias="spacetimes"/>
+ </synonyms>
+ <related>
+	<object name="SpecialTheoryOfRelativity"/>
+ </related>
+ <keywords>
+	<term>general and special theories of relativity</term>
+	<term>Einstein</term>
+	<term>GR</term>
+	<term>SR</term>
+ </keywords>
+ <preamble>% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+% there are many more packages, add them here as you need 
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\subsection{Introduction}
+ 
+ The very important roles played by Riemannian metric and Riemannian manifolds
+in Albert Einstein's General Relativity (GR) is well known. The following definition provides the proper mathematical framework for studying different
+Riemannian manifolds and all possible relationships between different Riemannian metrics defined on different Riemannian manifolds; it also provides one with the more general framework for comparing abstract spacetimes defined `without any Riemann metric, or metric, in general'. The mappings of such Riemannian spacetimes provide the mathematical concept representing transformations of such spacetimes that are either expanding or `transforming'
+in higher dimensions (as perhaps suggested by some of the superstring `theories').
+
+\subsection{Riemannian manifolds in Einstein's General Relativity (GR)}
+
+\begin{definition}
+A category $\mathcal{R}_M$ whose objects are all Riemannian manifolds and whose morphisms are mappings between Riemannian manifolds is defined as the category of Riemannian manifolds.
+\end{definition}
+
+\subsection{Applications of Riemannian manifolds in mathematical physics}
+
+\begin{enumerate}
+\item The {\em conformal Riemannian subcategory} $\mathcal{R}_C$ of $\mathcal{R}_M$, whose objects are Riemannian manifolds, and whose morphisms are conformal mappings of Riemannian manifolds, is an important category for mathematical physics, in conformal theories.
+
+\item It can be shown that, if $(R_1,g)$ and $(R_2,h)$ are Riemannian manifolds, then
+a map $f \colon R_1 \to R_2$ is \PMlinkname{conformal}{ConformalMapping} iff $f^* h = s.g$ for some scalar field $s$
+(on $R_1$), where $f^*$ is the complex conjugate of $f$.
+
+\end{enumerate}
+
+
+\subsubsection{Category of pseudo-Riemannian manifolds}
+
+The category of \PMlinkname{pseudo-Riemannian manifolds}{PseudoRiemannianManifold} that generalize Minkowski spaces is similarly defined by replacing ``Riemanian manifolds'' in the above definition with ``pseudo-Riemannian manifolds''; the latter has been claimed to have applications in Einstein's theory of general relativity ($GR$).</content>
+</record>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="11" id="725">
+ <title>Bessel functions: applications to diffraction by helical structures</title>
+ <name>BesselFunctionsApplicationsToDiffractionByHelicalStructures</name>
+ <created>2009-05-03 03:29:10</created>
+ <modified>2009-05-04 14:55:52</modified>
+ <type>Application</type>
+<parent id="716">Bessel functions and diffraction by helical structures</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+	<category scheme="msc" code="02.30.Hq"/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>molecular crystal diffraction</concept>
+	<concept>A-DNA crystal diffraction pattern</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Bessel functions: applications to diffraction by helical structures" alias="gene structure"/>
+ </synonyms>
+ <related>
+	<object name="BesselFunctionsAndTheirApplicationsToDiffractionByHelicalStructures"/>
+ </related>
+ <keywords>
+	<term>Bessel functions applications to diffraction by helical structures</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. as your 
+
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}</preamble>
+ <content>\section{Applications of Bessel functions in Physics and Engineering}
+
+One notes also that Bessel's equation arises in the derivation of separable solutions to Laplace's equation, and also for the Helmholtz equation in either cylindrical or spherical coordinates. The Bessel functions are therefore very important in many physical problems involving wave propagation, wave diffraction phenomena--including X-ray diffraction by certain molecular crystals, and also static potentials. The solutions to most problems in cylindrical coordinate systems are found in terms of Bessel functions of integer order ($\alpha = n$), whereas in spherical coordinates, such solutions involve Bessel functions of half-integer orders ($\alpha = n + 1/2$). 
+Several examples of Bessel function solutions are:
+
+\begin{enumerate}
+\item the diffraction pattern of a helical molecule wrapped around a cylinder computed from the Fourier transform of the helix in cylindrical coordinates;
+\item electromagnetic waves in a cylindrical waveguide 
+\item diffusion problems on a lattice. 
+\item vibration modes of a thin circular, tubular or annular membrane (such as a drum, other membranophone, the vocal cords, etc.)
+\item heat conduction in a cylindrical object   
+\end{enumerate}
+
+In engineering Bessel functions also have useful properties for signal processing and filtering noise as for example by using Bessel filters, or in FM synthesis and windowing signals.
+
+
+\subsection{Applications of Bessel functions in Physical Crystallography}
+The first example listed above was shown to be especially important in molecular
+biology for the structures of helical secondary structures in certain proteins (e.g. $\alpha-helix$) or in molecular genetics for finding the double-helix
+structure of Deoxyribonucleic Acid (DNA) molecular crystals with extremely important consequences for genetics, biology, mutagenesis, molecular evolution,
+contemporary life sciences and medicine. This finding is further detailed in the next subsection.
+
+\subsubsection{X-Ray Diffraction Patterns of Double-Helical Deoxyribonucleic Acid (DNA) Crystals}
+
+Francis C. Crick (\PMlinkexternal{Nobel laureate in Physiology and Medicine in 1962}{http://nobelprize.org/nobel_prizes/medicine/laureates/1962/}) published in {\em Acta Crystallographica} (1952;1953a,b) concise papers on X-ray diffraction patterns of a helix and coiled coils, respectively \cite{Cochran-Crick-Vand52, Crick53a,Crick53b} in which he showed that such patterns can be completely described by the Bessel functions defined above. Thus, the equatorial, or 0-layer, line contained diffraction intensities whose values were computed with the $J_0$ \PMlinkexternal{Bessel function}{http://en.wikipedia.org/wiki/Bessel_function} of the first kind with $n=0$. In fact, the entire X-ray diffraction, multiple diamond-like pattern of such helices, including those of the double helical 
+\PMlinkexternal{DNA molecule}{http://www.britishbiophysics.org.uk/what-is/crystal/xbdna_br.gif}, could be completely computed by means of Bessel functions of different order for each layer line; note however that there have also been occasional \PMlinkexternal{contenders to this analysis}{http://www.springerlink.com/content/h267578291367716/fulltext.pdf}. In fact, these involve {\em Fourier--Bessel series} based on Bessel functions. Note also that a pairing of double helices of DNA \PMlinkexternal{DNA G-quadruplex}{http://www.phy.cam.ac.uk/research/bss/molbiophysics.php} has also been recently discovered that might be associated with the initiation of certain cancers; the square of the Fourier transform of such \PMlinkexternal{DNA G-quadruplex structures}{http://www.phy.cam.ac.uk/research/bss/bsspictures/nucleicacid.jpg} would still result in diffraction patterns constructed from Bessel functions but the new quadruplex symmetry of the `mutated' DNA G-quadruplex would naturally alter the overall diffraction pattern intensities. 
+
+\begin{thebibliography}{99}
+\bibitem{FBessel1824}
+F. Bessel, ``Untersuchung des Theils der planetarischen St\"orungen'', {\em Berlin Abhandlungen} (1824), article 14.
+
+\bibitem{FRGG53}
+Franklin, R.E. and Gosling, R.G. recd.6 March 1953. Acta Cryst. (1953). 6, 673 The Structure of Sodium Thymonucleate Fibres I. The Influence of Water Content Acta Cryst. (1953). and 6, 678 The Structure of Sodium Thymonucleate Fibres II. The Cylindrically Symmetrical Patterson Function.
+
+\bibitem{Arfken-Weber2k5}
+Arfken, George B. and Hans J. Weber, {\em Mathematical Methods for Physicists}, 6th edition, Harcourt: San Diego, 2005. ISBN 0-12-059876-0.
+
+\bibitem{Bowman58}
+Bowman, Frank. {\em Introduction to Bessel Functions.}. Dover: New York, 1958). ISBN 0-486-60462-4.
+
+\bibitem{Cochran-Crick-Vand52}
+Cochran, W., Crick, F.H.C. and Vand V. 1952. The Structure of Synthetic Polypeptides. 1. The Transform of atoms on a helic. {\em Acta Cryst.} {\bf 5}(5):581-586.
+
+\bibitem{Crick53a}
+Crick, F.H.C. 1953a. The Fourier Transform of a Coiled-Coil., {\em Acta Crystallographica} {\bf 6}(8-9):685-689.
+
+\bibitem{Crick53b}
+Crick, F.H.C. 1953. The packing of $\alpha$-helices- Simple coiled-coils.
+{\em Acta Crystallographica}, {\bf 6}(8-9):689-697.
+
+\bibitem{WJ-CFC53a}
+Watson, J.D; Crick F.H.C. 1953a. Molecular Structure of Nucleic Acids - A Structure for Deoxyribose Nucleic Acid., {\em Nature} 171(4356):737-738.
+
+\bibitem{NP}{\sc N. Piskunov:} {\em Diferentsiaal- ja integraalarvutus k\~{o}rgematele tehnilistele \~{o}ppeasutustele}.\, Kirjastus Valgus, Tallinn (1966).
+\bibitem{KK}{\sc K. Kurki-Suonio:} {\em Matemaattiset apuneuvot}.\, Limes r.y., Helsinki (1966).
+
+\bibitem{WJ-CFC53c}
+Watson, J.D; Crick F.H.C. 1953c. The Structure of DNA., {\em Cold Spring Harbor Symposia on Qunatitative Biology} {\bf 18}:123-131.
+
+\bibitem{GRJZ2k7}
+I.S. Gradshteyn, I.M. Ryzhik, Alan Jeffrey, Daniel Zwillinger, editors. {\em Table of Integrals, Series, and Products.}, Academic Press, 2007.
+ISBN 978-0-12-373637-6.
+
+\bibitem{Spain-Smith70}
+Spain,B., and M. G. Smith, {\em Functions of mathematical physics.}, Van Nostrand Reinhold Company, London, 1970. Chapter 9: Bessel functions.
+
+\bibitem{Watson95}
+Watson, G. N. {\em A Treatise on the Theory of Bessel Functions.}, (1995) Cambridge University Press. ISBN 0-521-48391-3.
+\end{thebibliography}</content>
+</record>

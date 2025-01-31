@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="502">
+ <title>test ocr</title>
+ <name>TestOcr</name>
+ <created>2009-02-07 00:04:11</created>
+ <modified>2009-02-07 00:04:11</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The operation $v/c$ is bilinear, and it is easy to verify that
+$$
+(7.2)\text{ }\quad \delta v/c=v/\partial c+(-1)^{\mathfrak{i}}\delta(v/c).
+$$
+\quad Assume now that $v$ is an equivariant cochain; for ow $\epsilon\pi$ we have $\alpha c=\alpha\Sigma n_{J}e_{f}=\Sigma(\alpha n_{j})(\alpha e_{j})$, then
+$$
+(v/\alpha c)\cdot\sigma=\Sigma(\alpha n_{j})v\cdot(\alpha e_{f})\otimes\sigma=\Sigma(\alpha n_{j})\alpha v\cdot(e_{j}\otimes\sigma)
+$$
+$$
+=\alpha^{2}\Sigma n_{j}v\cdot(e_{f}\otimes\sigma)=(v/c)\cdot\sigma.
+$$
+Thus, in this case,
+
+\noindent
+(7.3) $v/\alpha c=v/c$ and $v/(\alpha c-c)=0$.
+
+\noindent
+Consequently, the definition of $v/c$ extends to the case of $v$, an equi- variant cochain, and $c$ an element of $[C_{i}(W;Z_{m}^{\langle q)})]_{\pi}\approx C_{i}(Z_{m}^{(q)}\otimes_{\pi}W)$;the relation (7.2) holds for this extended operation.
+
+\quad Now take $v=\emptyset^{\#}u^{n}$ and $c\epsilon C_{i}(Z_{m}^{1q)}\otimes_{\pi}W)$, then
+$$
+\phi\# u^{n}fc\epsilon C^{nq-i}(K;Z_{m})
+$$
+is defined as the reduction by $c$ of the $n^{\mathrm{t}\mathrm{h}}$ power of $u$. Suppose that $u$ is a cocycle, then $\phi\# u^{n}$ is an equivariant cocycle, and if $c$ is a cycle, it follows from (7.2) that $\phi\# u^{n}/c$ is a cocycle. Moreover, if the cycle $c$ is varied by a boundary, then (7.2) implies that $\phi\# u^{n}/c$ varies by a co- boundary. If $u$ is varied by a coboundary $\phi\# u^{n}/c$ also varies by a coboundary. We only remark here that the proof of this last fact requires a special argument and is not, as in the preceding case, an immediate consequence of (7.2). Thus the class $\{\phi\# u^{n}/c\}$ is a function of the classes $\{u\}, \{c\}$, and it is independent of the particular $\phi_{\#}$, since by (3.1) any two choices of $\phi_{\#}$ are equivariantly homotopic. Then Steenrod defines $\{u\}^{n}/\{c\}$, the reduction by $\{c\}$ of the $n^{\mathrm{t}\mathrm{h}}$ power of $\{u\}$, by
+$$
+\{u\}^{n}/\{c\}=\{\phi\# u^{n}/c\}.
+$$
+This gives the Steenrod reduced power operations; they are operations defined for $u\epsilon H^{q}(K;Z_{m})$ and $c\epsilon H_{i}(\pi;Z_{m}^{\langle q)})$, and the value is
+$$
+u^{n}/c\epsilon H^{nq-i}(K;Z_{m}).
+$$
+\quad In general, the reduced powers $u^{n}/c$ are linear operations in $c$, but may not be linear in $u$. We will list some of their $\mathrm{p}\mathrm{r}\mathrm{o}\varphi$ rties. Unless otherwise stated, we assume $u$ and $c$ as above.
+
+\quad First, we have
+
+(7.4) $u^{n}/c=0$ if $i&gt;nq-q$.
+
+\quad Let $f:K\rightarrow L$ be a map and $f^{*}: H^{q}(L;Z_{m})\rightarrow H^{q}(K;Z_{m})$, the induced homomorphism; then
+$$
+(7.5)\text{ }\quad f^{*}(u^{n}/c)=(f^{*}u)^{n}/c.
+$$
+This result implies topological invariance for reduced powers</content>
+</record>

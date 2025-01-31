@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="217">
+ <title>projectile motion</title>
+ <name>ProjectileMotion</name>
+ <created>2006-08-06 20:19:24</created>
+ <modified>2006-08-06 20:19:24</modified>
+ <type>Definition</type>
+<parent id="211">Ballistics (2D)</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+	<category scheme="msc" code="45."/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <synonyms>
+	<synonym concept="projectile motion" alias="balistic motion"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Consider the motion of a particle which is projected in a direction making
+an angle $\alpha$ with the horizon.  When we neglect drag, the only force
+which acts upon the particle is its weight, $m{\bf g}$ (Fig. 66).
+
+\begin{figure}
+\includegraphics[scale=.8]{Fig66.eps}
+\end{figure}
+
+Taking the plane of motion to be the xy-plane, and applying Newton's laws
+of motion gives us the equations
+
+{\bf x-axis} \\
+
+$$ m \frac{d \ddot{x}}{dt} = 0$$
+\begin{equation}
+\frac{d \ddot{x}}{dt} = 0
+\end{equation}
+
+{\bf x-axis} \\
+
+$$ m \frac{d \ddot{y}}{dt} = -mg$$
+$$ \frac{d \ddot{y}}{dt} = -g $$
+
+where $\frac{d \ddot{x}}{dt}$ and $\frac{d \ddot{y}}{dt}$ are the components of the
+acceleration along the x and y axes.  Integrating equations (1) and (2) we get
+
+$$ \dot{x} = c_1 $$
+$$ \dot{y} = -gt + c_2 $$
+
+Therefore the component of the velocity along the x-axis remains constant, while the
+component along the y-axis changes uniformly.  Let $v_0$ be the initial velocity of
+the projection, then when $t = 0$, $\dot{x}_0 = v_0 \cos \alpha$ and $\dot{y}_0 = v_0 \sin \alpha$.
+Making these substitutions in the last two equations we obtain
+
+$$ c_1 = v_0 \cos \alpha $$
+$$ c_2 = v_0 \sin \alpha $$
+
+Therefore
+
+\begin{equation}
+\dot{x} = v_0 \cos \alpha
+\end{equation}
+
+\begin{equation}
+\dot{y} = v_0 \sin \alpha - gt
+\end{equation}
+
+Then the total velocity at any instant is
+
+$$ v = \sqrt{\dot{x}^2 + \dot{y}^2} $$
+$$ v = \sqrt{v_0^2 - 2v_0 g t \sin \alpha + g^2 t^2} $$
+
+and makes an angle $\theta$ with the horizon defined by
+
+$$ \tan \theta = \frac{ \dot{y} }{ \dot{x} } = \frac{ v_0 \cos \alpha}{ v_0 \sin \alpha - gt} $$
+
+Integrating equations (3) and (4) we obtain
+
+$$ x = v_0 t \cos \alpha + c_3 $$
+$$ y = v_0 t \sin \alpha - \frac{1}{2} g t^2 + c_4 $$
+
+But when $t = 0$, $x = y = 0 $, therefore $c_3 = c_4 = 0$, and consequently
+
+\begin{equation}
+x = v_0 t \cos \alpha
+\end{equation}
+
+\begin{equation}
+y = v_0 t \sin \alpha - \frac{1}{2} g t^2
+\end{equation}
+
+It is interesting to note that the motions in the two directions are independent.  The
+gravitational acceleration does not affect the constant velocity along the x-axis, while
+the motion along the y-axis is the same as if the body were dropped vertcally with
+an initial velocity $v_0 \sin \alpha $.
+
+{bf The Path} -  The equation of the path may be obtained by eliminating $t$ between equations
+(7) and (8).  This gives
+
+\begin{equation}
+y = x \tan \alpha - \frac{g}{2 v_0^2 \cos^2 \alpha} x^2
+\end{equation}
+
+which is the equation of a parabola.
+
+{bf The Time of Flight} -  When the projectile strikes the ground its y-coordinate is zero.
+Therefore substituting zero for $y$ in equation (8) we get for the time of flight
+
+\begin{equation}
+T = \frac{2 v_0 \sin \alpha}{g}
+\end{equation}
+
+{\bf The Range} - The range, or the total horizontal distance covered by the projectile,
+is found by replacing $t$ in equation (7) by the value of $T$ in equation (10), or
+by letting $y = 0$ in equation (9).  By either method we obtain
+
+\begin{equation}
+R = \frac{2 v_0^2 \sin \alpha \cos \alpha}{g} = \frac{v_0^2 \sin 2 \alpha}{g}
+\end{equation}
+
+Note that a basic trigonometric identity was used to simpilfy the above equation.
+
+Since $v_0$ and $g$ are constants the value of $R$ depends upon $\alpha$.  It is evident from
+equation (11) that $R$ is maximum when $\sin 2 \alpha = 1$, or when $\alpha = \frac{\pi}{2}$.  The
+maximum range is, therefore,
+
+\begin{equation}
+R_{max} = \frac{v_0^2}{g}
+\end{equation}
+
+In actual practice the angle of elevation which gives the maximum range is smaller
+on  account of the resistance of the air.
+
+{\bf The Highest Point} - At the highest point $\dot{y}=0$.  Therefore substituting
+this value of $\dot{y}$ in equation (4) we obtain $\frac{v_0 \sin \alpha}{g}$ or $\frac{1}{2}T$
+for the time taken to reach the highest point.  Subsituting this value of the time
+in equation (8) we get for the maximum elevation
+
+\begin{equation}
+H = \frac{v_0^2 \sin^2 \alpha}{2 g}
+\end{equation}
+
+{\bf The Range for a Sloping Ground} - Let $\beta$ be the angle which the ground
+makes with the horizon.  Then the range is the distance $OP$, Fig. 67, where $P$
+is the point where the projectile strikes the sloping ground.  The equation of the
+line $OP$ is
+
+\begin {equation}
+y = x \tan \beta
+\end{equation}
+
+\begin{figure}
+\includegraphics[scale=.8]{Fig67.eps}
+\end{figure}
+
+Eliminating $y$ between equations (14) and (9) we obtain the x-coordinate of the
+point,
+
+$$ x_p = \frac{ 2 v_0^2 \cos^2 \alpha \left ( \tan \alpha - \tan \beta \right ) }{g} $$
+
+But  $x_p = R' \cos \beta$, where $R' = OP$.
+
+Therefore
+
+$$ R' = \frac{2 v_0^2 \cos \alpha}{g \cos^2 \beta} \sin \left ( \alpha - \beta \right ) $$
+
+\begin{equation}
+R' = \frac{ v_0^2}{g} \frac{ \sin \left ( 2 \alpha - \beta \right ) - \sin \beta }{ \cos^2 \beta }
+\end{equation}
+
+Thus for a given value of $\beta$, $R'$ is maximum when $\sin \left ( 2 \alpha - \beta \right ) = 1$,
+that is, when $\alpha = \frac{\pi}{4} + \frac{\beta}{2}$.
+
+\begin{equation}
+R_{max}' = \frac{ v_0^2 1 - \sin \beta}{ g \cos^2 \beta} = \frac{v_0^2}{g \left ( 1 + \sin \beta \right ) }
+\end{equation}
+
+When $\beta = 0$ equations (15) and (16) reduce to equations (12) and (13), as they should.</content>
+</record>

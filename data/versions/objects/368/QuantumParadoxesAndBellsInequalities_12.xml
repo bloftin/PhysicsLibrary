@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="12" id="368">
+ <title>Quantum Paradoxes and Bell's inequalities</title>
+ <name>QuantumParadoxesAndBellsInequalities</name>
+ <created>2009-01-10 18:35:36</created>
+ <modified>2009-02-19 09:27:54</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>unified local field theory</concept>
+	<concept>ULFT</concept>
+	<concept>quantum paradoxes</concept>
+	<concept>E.P.R</concept>
+	<concept>Einstein-Podolsky-Rosen paradox</concept>
+ </defines>
+ <keywords>
+	<term>ULFT</term>
+	<term>quantum paradoxes</term>
+	<term>E.P.R</term>
+	<term>Einstein-Podolsky-Rosen paradox</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The following is a contributed topic on known quantum paradoxes
+
+\subsection{Quantum Paradoxes and Bell's Inequalities}
+
+There are two major known quantum `paradoxes':
+
+\begin{enumerate}
+ \item The Scr\"odinger's cat paradox, often expressed as the ``Scr\"odinger's cat is neither dead nor alive'', but in fact meaning something quite different;
+
+ \item The \PMlinkexternal{EPR `Paradox'}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=119}; several solutions of the E.P.R `paradox' have
+been produced: 
+
+ a. Interpretations of experiments with polarized laser beams  
+favor nonlocality in quantum systems and in the known, physical Universe thus suggesting that the assumptions of the E.P.R paper are the problem and that there is no paradox; 
+ 
+ b.  An \PMlinkexternal{Unified Local Field Theory (ULFT)}{http://arxiv.org/abs/quant-ph/0102101} also claims to solve 
+the EPR `paradox' by assuming locality--which obviously conflicts the polarized
+laser beam experiments' interpretations. 
+
+
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{[1]} 
+Einstein, A., Podolsky, B., and Rosen, N. (1935) Can quantum-mechanical
+description of physical reality be considered complete ?, 
+Phys. Rev. 47, 777--780.
+
+\bibitem{[2]BJS64} 
+Bell, J. S. (1964) On the Einstein Podolsky Rosen paradox, Physics 1,
+195--200.
+
+\bibitem{AL2k2}
+A. Laudlau. 2002. Apeiron, Vol. 9, No. 1, January 2002 37. Roy Keys Inc.
+
+\bibitem{[4]}
+Bohm, D. and Aharonov, Y. (1957) Discussion of experimental proof for
+the paradox of Einstein, Rosen, and Podolsky, Phys. Rev. 108, 1070--1076.
+
+\bibitem{[5]} 
+Aspect, A., Dalibard, J., and Roger G. (1982) Experimental test of Bell’s
+inequalities using time-varying analyzers, Phys. Rev. Lett. 49, 1804--1807.
+
+\bibitem{[6]}
+Chernitskii, A.A. (1999) Dyons and interactions in nonlinear (Born--Infeld)
+electrodynamics, J. High Energy Phys. 1999, no. 12, Paper 10, 1--34.
+
+\bibitem{[7]}.
+Einstein, A. and Tagore, R. (1931) The nature of reality, Modern Review
+(Calcutta) XLIX, 42--43.
+
+\bibitem{[8]} Chernitskii, A.A. (1998) Nonlinear electrodynamics with singularities (modernized Born--Infeld electrodynamics), Helv. Phys. Acta 71, 274--287.
+
+\bibitem{[9]}
+ Chernitskii, A.A. (1998) Light beams distortion in nonlinear electrodynamics,
+J. High Energy Phys. 1998, no. 11, Paper 15, 1--5.
+
+\bibitem{[10]}
+Chernitskii, A.A. (2000) Bidyon or an electromagnetic model for charged
+particle with spin, $hep-th/0002083$.
+
+\bibitem{[11]}
+Chernitskii, A.A. (2002) Born-Infeld electrodynamics: Clifford number and
+spinor representations, Int. J. Math. and Math. Sci. 31, 77--84.
+
+\bibitem{[12]}
+Devoret, M.H. and Schoelkopf, R.J. (2000) Amplifying quantum signals
+with the single-electron transistor, Nature 406, 1039--1046.
+
+\bibitem{[13]}
+Clauser J. and Horne M. Detector Inefficiencies in the EPR experiment.
+Phys. Rev. D 35 (12) 3831--3835 (1987).
+
+\bibitem{[14]}
+Vaidman L. Tests of Bell Inequalities $quant-ph/0107057$ (2001).
+
+\bibitem{[15]} 
+Aspect A., Grangier P. and Roger B. Phys. Rev. Lett. 49, 1804--1807
+(1982)
+
+\bibitem{[16]} 
+Scarani V., Tittel W., Zbinden H., Gisin N. $quant-ph/0007008$ Phys. Lett.
+A 276 2000 1-7 (2000)
+
+\bibitem{[17]}
+Ou, Z.Y., Pereira S.F., Kimble H.J. and Peng K.C. Phys Rev. Lett. 68,
+3663 (1992)
+
+\bibitem{[18]} 
+Percival, I.C. Physical Letters., A 244 (6) pp. 495-501 (1998).
+
+\bibitem{[19]} Smoot G. Detection of Anisotropy in the Cosmic Blackbody Radiation. Physical Review Letters 39 14 p898 (1977).
+
+\bibitem{[20]}
+Peebles, P.J.E. and Wilkinson D.T. Phys. Rev. 174 2168 (1968).
+
+\bibitem{[21]}
+Longair, M.S. The Physics of Background Radiation. The Deep Universe.
+Springer Verlag (1995)
+
+\bibitem{[22]}
+Weinberg, S. The First Three Minutes. Basic Books. pp.71-72. (1977).
+
+\bibitem{[23]}
+Dirac P.A.M. The Theory of the electron (parts 1 and 2). Proceedings of
+the Royal Society in London. A117, p610 and A118, p.351 (1928)
+
+\bibitem{[24]}
+Breit G. An interpretation of Dirac's Theory of the electron. Proceedings
+of the National Academy of Sciences USA, 14 p.553 (1928)
+
+\bibitem{[25]}
+Schr\"odinger, E. Sitzungsberichte Berlin Akadamie, p.418 (1930).
+
+\bibitem{[26]} Dirac P.A.M. Principles of Quantum Mechanics. Oxford. p263. (1958)
+
+\bibitem{[27]}
+Messiah, A. Quantum Mechanics. Vols. 1 and 2., vol.2: Ch XX, pp.922--925.
+
+\bibitem{[28]}
+Bohm D. The Special Theory of Relativity. pp23--25. (1996)
+
+\bibitem{[29]}
+Hafele J. and Keating R. Science, 177 p.166 (1972).
+
+\bibitem{[30]}
+Kundig W. Phys Rev. 129, 2371 (1963)
+
+\bibitem{[31]}
+Ives H. and Stillwell. Journal of the Optical Society of America.m 28 pp.
+215-226 (1938) and 31 p369 (1941)
+
+\bibitem{[32]}
+Konopinski E.J. Electromagnetic fields and Relativistic particles
+McGraw Hill p315-319 (1981)
+
+\bibitem{[33]}
+Poynting J.H. Phil. Trans. 175 p343-361 (1884)
+
+\bibitem{[34]}
+Bohm D. and Hiley B. The Undivided Universe: an ontological
+interpretation of quantum mechanics. Routledge. pp288-292 (1993).
+
+\bibitem{[35]}
+Teller, P. An Interpretive Introduction to Quantum Field Theory. Ch 7
+(1995).
+
+\bibitem{[36]}
+Cui, H.Y. Direction Adaptation Nature of Coulomb’s Force and
+Gravitational Force in 4-Dimensional Space-time physics/0102073
+(2001).
+
+\bibitem{[37]}
+Cui, H.Y. Method for Deriving the Dirac Equation from the Relativistic
+Newton’s Second Law quant-ph/0102114 (2001).
+
+\bibitem{[38]}
+Redhead, M. Incompleteness, Nonlocality and Realism. Oxford University
+Press (1987).
+
+\bibitem{[39]}
+Rembielinski, J. Superluminal Phenomena and the Quantum Preferred
+Frame., $quant-ph/0010026$ (2000).
+
+\bibitem{[40]}
+Konopinskim E. J. Electromagnetic Fields and Relativistic Particles.
+Mcgraw Hill pp 441-454 (1981).
+
+\bibitem{[41]}
+d’Espagnat, B. A note on measurement. quant-ph/0101141 (2001).
+
+\bibitem{[42]}
+Wang, L.J., Kuzmich A., Dogariu A. Nature 406 pp 277-279 (2000).
+
+\bibitem{[43]} 
+Olkhovsky, V. S., Recami E. and Salesi G. Superluminal effects for
+quantum tunneling through TWO successive barriers $quant-ph 0002022$
+v4 (2001).
+
+\bibitem{[44]} 
+Chernitskii. A.A. Concept of Unified Local Field Theory and Nonlocality
+of Matter $quant-ph/0102101$ (2001).
+
+\bibitem{[45]}
+Van Flandern. T. The Speed of Gravity--What the Experiments Say.
+Physics Letters A, 250 1--11 (1998).
+
+\bibitem{[46]}
+Lloyd, S. (2000) Ultimate physical limits to computation, Nature, 406,
+1047--1054.
+\end{thebibliography}</content>
+</record>

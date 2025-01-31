@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="55">
+ <title>variational principle</title>
+ <name>Action</name>
+ <created>2005-08-14 02:01:32</created>
+ <modified>2005-10-20 02:29:45</modified>
+ <type>Definition</type>
+ <creator id="15" name="rspuzio"/>
+ <modifier id="15" name="rspuzio"/>
+ <comment>Changes for correction #12 ('A few typos').</comment>
+ <author id="15" name="rspuzio"/>
+ <classification>
+	<category scheme="msc" code="45.20.Jj"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In classical mechanics, the term ``\emph{variational principle}'' is used to describe a texhnique wheteby the dynamics of a system may be deduced by extremization of a suitable function.
+
+More specifically, suppose that the instantaneous configuration of a system may be described by a point in a geometric space $M$.  Let us use the term \emph{possible history of the system} to denote a mapping from an interval $[a,b]$ (representing time) into this space $M$.  For many systems of interest to physicists, it is possible to find a real-valued function $S$ on the set of possible histories such that a possible history represents the actual time evolution of the system if and only if it a critical point of the functional $S$.  For historical reasons, such a functional is often known as the action for the system, but it should be noted that, at the level of generality we are considering, this functional need not resemble the action of a particle or system of particles.
+
+It is important to note that it is important to note that is only required that a possible history be a critical point (maximum, minimum, or saddle point) of the action functional.  In popular usage, one still hears phrases sush a ``minimizing the action'' or `` the principle of least action''.  These date back to the eighteenth century when the notion of action was first introduced.  At that time it was thought that only minima were to used, but later on it was realized that other types of extremal points (i.e. saddle points and maxima) need to be admitted as well.  Nevertheless, the old terminology still lingers, so one needs to be careful.
+
+Another possibility is that one has a constrained system.  In this case, one does not consider all paths as possible histories, but only those which satisfy the constraints.  Examples of possible constraints include: demanding that the motion of the particle lie on a certain subspace, demanding that a ball or a wheel be in rolling contact with the ground, demanding that energy be conserved.  In the case of a constrained system, one looks for critical points of the action as restricted to paths which satisfy the constraint.  It should be noted that these extrema will not necessarily be extrema of the unconstrained action.  It is often possible to implement constraints by means of Lagrange multipliers.
+
+\section{Example}
+
+To illustrate this notion of variational principle, we may consider the example of a particle on a line moving under the influence of a force derived from a potential $V$.  In this case $M$ may be taken to be the line and the action may be taken as follows:
+ \[ S[q(\cdot)] = \int_a^b \left( {m \over 2} \left( {d q \over d t} \right)^2 - V(q(t)) \right) \, dt \]
+
+To find the extrema of this functional, we may compute the Euler-Lagrange equations to obtain the following:
+ \[ m {d^2 q \over dt^2} + {\partial V \over \partial q} = 0 \]
+Note that this is the usual equation of motion of a point particle.
+
+It is easy enough to generalize this to the case of a particle moving in three dimensions as follows:
+ \[ S[{\vec q}(\cdot)] = \int_a^b \left( {m \over 2} \left( {d {\vec q} \over d t} \right)^2 - V({\vec q}t) \right) \, dt \]
+
+It should be mentioned that the form of the action is typically similar to that of these two examples.  That is to say, the action is typically the integral of a function of the path and a certain number of its derivatives:
+ \[ S[f] = \int_a^b L \left( f, {df \over dt}, \ldots, {d^n f \over dt^n} \right) \]
+The function $L$ appearing here is known as the \emph{Lagrangian} of the system.</content>
+</record>

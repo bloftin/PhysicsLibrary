@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="317">
+ <title>quantum Riemannian geometry</title>
+ <name>QuantumRiemannianGeometry</name>
+ <created>2008-10-19 23:36:26</created>
+ <modified>2008-10-19 23:45:05</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03.65.Pm"/>
+ </classification>
+ <defines>
+	<concept>a mathematical approach to quantum gravity based on noncommutative geometry/noncommutative operator algebra</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="quantum Riemannian geometry" alias="non-commutative geometry"/>
+	<synonym concept="quantum Riemannian geometry" alias="non-Abelian geometry"/>
+	<synonym concept="quantum Riemannian geometry" alias="non-Abelian Topology"/>
+	<synonym concept="quantum Riemannian geometry" alias="noncommutative topology"/>
+ </synonyms>
+ <related>
+	<object name="EinsteinsGRFieldEquations"/>
+ </related>
+ <keywords>
+	<term>quantum gravity theories</term>
+	<term>non-commutative geometry</term>
+	<term>non-Abelian geometry</term>
+	<term>non-Abelian topology</term>
+	<term>noncommutative topology</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textbf{Description:} 
+\emph{Quantum geometry (or quantum geometries)} is an approach (resp. are approaches) to Quantum Gravity based on either noncommutative geometry and SUSY (the `Standard' Model of current Physics) \cite{AC94,CA85} or
+modified or `deformed' Riemannian, `quantum' geometry, with additional assumptions regarding a generalized `Dirac' operator, the `spectral triplet' with non-Abelian structures of quantized space-times. 
+
+
+\textbf{Remarks.}
+Other approaches to Quantum Gravity include: Loop Quantum Gravity (LQG), AQFT approaches,
+Topological Quantum Field Theory (TQFT)/ Homotopy Quantum Field Theories (HQFT; Tureaev and Porter, 2005),
+Quantum Theories on a Lattice (QTL), string theories and spin network models. \\
+
+An interesting, but perhaps limiting approach, involves \emph{`quantum' Riemannian geometry} \cite{AL2k5} in place of the classical Riemannian manifold that is employed in the well-known, Einstein's classical approach to General Relativity (GR). 
+
+\begin{thebibliography}{9}
+\bibitem{AC94}
+A. Connes. 1994. \emph{Noncommutative Geometry}. Academic Press: New York and London.
+
+\bibitem{CA85}
+Connes, A. 1985 .Non-commutative differential geometry I--II. 
+\emph{Publication Math\'ematiques IHES}, {\bf 62}, 41--144.
+ 
+\bibitem{AL2k5}
+Abhay Ashtekar and Jerzy Lewandowski. 2005. Quantum Geometry and Its Applications.
+\PMlinkexternal{Available PDF download}{http://cgpg.gravity.psu.edu/people/Ashtekar/articles/qgfinal.pdf}.
+\end{thebibliography}</content>
+</record>

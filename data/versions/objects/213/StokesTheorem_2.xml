@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="213">
+ <title>Stokes' theorem</title>
+ <name>StokesTheorem</name>
+ <created>2006-07-25 23:44:24</created>
+ <modified>2006-07-27 18:22:13</modified>
+ <type>Theorem</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="313" name="Wkbj79"/>
+ <comment>missing comma
+some clarification</comment>
+ <author id="21" name="pahio"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>{\bf Stokes' theorem}:\, The surface integral of the curl of a vector function is equal to the line integral of that vector function taken around the closed curve bounding that surface.
+
+\begin{equation}
+\int \int_S \nabla \times {\bf W} \cdot d {\bf a} = \oint_O {\bf W} \cdot d {\bf r} 
+\end{equation}
+
+On account of its great importance in all branches of mathematical physics a number of different proofs will be given.
+
+\subsection{Proof I.}
+
+soon to come...</content>
+</record>

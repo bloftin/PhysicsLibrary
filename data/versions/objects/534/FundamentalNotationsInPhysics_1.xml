@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="534">
+ <title>fundamental notations in physics</title>
+ <name>FundamentalNotationsInPhysics</name>
+ <created>2009-02-16 12:54:18</created>
+ <modified>2009-02-16 12:54:18</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <preamble></preamble>
+ <content>{\bf [Contributed Entry in Progress: Please add but do not erase notations]}
+
+This is a contributed topic entry listing the notations of fundamental quantities and observables in physics, as well as a listing of related notations of mathematical concepts employed in mathematical physics and physical mathematics.
+\subsection{Notations of Fundamental Physical Quantities, Observables and Related Mathematical Concepts}
+
+\subsubsection{List of Notations for Fundamental Quantities and Observables
+in Physics} 
+
+\begin{itemize}
+\item $m= \, Mass$
+\item {\bf $v$} or $ \vec{v} = velocity$ in Newtonian mechanics
+\item ${\bf q} =\, velocity$ observable or operator in theoretical and quantum physics
+\item $Q = \, electrical \, charge$
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+\item
+
+\end{itemize}</content>
+</record>

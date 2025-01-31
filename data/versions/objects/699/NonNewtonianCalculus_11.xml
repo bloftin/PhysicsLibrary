@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="11" id="699">
+ <title>non-Newtonian calculus</title>
+ <name>NonNewtonianCalculus</name>
+ <created>2009-04-29 20:48:19</created>
+ <modified>2009-06-20 22:02:43</modified>
+ <type>Topic</type>
+ <creator id="504" name="smithpith"/>
+ <modifier id="504" name="smithpith"/>
+ <author id="504" name="smithpith"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <keywords>
+	<term>calculus</term>
+	<term>non-Newtonian</term>
+	<term>nonlinear</term>
+	<term>multiplicative</term>
+	<term>derivative</term>
+	<term>integral</term>
+	<term>average</term>
+	<term>means</term>
+	<term>exponential function</term>
+	<term>power function</term>
+	<term>geometric</term>
+	<term>anageometric</term>
+	<term>bigeometric</term>
+	<term>root mean square</term>
+	<term>quadratic</term>
+	<term>anaquadratic</term>
+	<term>biquadratic</term>
+	<term>harmonic</term>
+	<term>anaharmonic</term>
+	<term>biharmonic</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>INTRODUCTION.
+
+Non-Newtonian calculus is a mathematical theory that provides scientists, engineers, and mathematicians with alternatives to the classical calculus of Isaac Newton and Gottfried Leibniz. [2,6,12,15,16] The non-Newtonian calculi were created in the period from 1967 to 1970 by Michael Grossman and Robert Katz.
+
+There are infinitely many non-Newtonian calculi. Like the classical calculus, each of them possesses (among other things): a derivative, an integral, a 'natural' average, a special class of functions having a constant derivative, and two Fundamental Theorems which reveal that the derivative and integral are inversely related. Nevertheless, the non-Newtonian calculi differ from the classical calculus in various important ways.
+
+For example, in the classical calculus, the derivative and integral are linear operators, i.e., they are additive and homogeneous. This contrasts sharply with the many non-Newtonian calculi that have nonlinear derivatives and integrals. For example, the derivative and integral in each of the following non-Newtonian calculi are nonlinear operators: the "geometric calculus", the "bigeometric calculus", the "harmonic calculus", the "biharmonic calculus", the "quadratic calculus", and the "biquadratic calculus". In fact, in each of the former two calculi, the derivative and integral are multiplicative and involutional.
+
+Of course in the classical calculus, the linear functions are the functions having a constant derivative. However, in the geometric calculus, the exponential functions are the functions having a constant derivative. And in the bigeometric calculus, the power functions are the functions having a constant derivative. (The geometric derivative and the bigeometric derivative are closely related to the well-known logarithmic derivative and elasticity, respectively.)
+
+The well-known arithmetic average (of functions) is the 'natural' average in the classical calculus, but the well-known geometric average is the 'natural' average in the geometric calculus. And the well-known harmonic average and quadratic average (or root mean square) are closely related to the 'natural' averages in the harmonic and quadratic calculi, respectively.
+
+Furthermore, unlike the classical derivative, the bigeometric derivative is scale invariant (or scale free), i.e., it is invariant under all changes of scale (or unit) in function arguments and values.
+
+APPLICATIONS.
+
+James R. Meginniss (Claremont Graduate School and Harvey Mudd College) used non-Newtonian calculus to create a theory of probability that is adapted to human behavior and decision making. [16]
+
+Agamirza E. Bashirov and Mustafa Riza (Eastern Mediterranean University in Cyprus), together with Emine Misirli Kurpinar and Ali Ozyapici (Ege University in Turkey), discovered several applications of non-Newtonian calculus. Their work includes applications to differential equations, calculus of variations, and finite-difference methods. [2,24]
+
+Fernando Cordova-Lepe (Universidad Catolica del Maule in Chile) applied the bigeometric derivative to the theory of elasticity in economics. (He refers to the bigeometric derivative as "the multiplicative derivative.") [3,4] Elasticity and its relationship to the bigeometric derivative is also discussed in "Non-Newtonian Calculus" [15] and "Bigeometric Calculus: A System with a Scale-Free Derivative" [10].
+
+An application of non-Newtonian calculus to information technology was made in 2008 by Professor S. L. Blyumin of the Lipetsk State Technical University in Russia. [23]
+
+Furthermore, the geometric calculus and/or the bigeometric calculus have application to dynamical systems, chaos theory, and fractal theory. [1,18,21]
+
+The family of all the 'natural' non-Newtonian averages can be used to construct a family of means of two positive numbers. Included among those means are some well-known ones such as the arithmetic mean, the geometric mean, the harmonic mean, the power means, the logarithmic mean, the identric mean, and the Stolarsky mean. [8,14] That family of means can be used to yield simple proofs of some familiar inequalities. [14]
+
+Note. "Non-Newtonian Calculus" is cited by the eminent mathematics-historian Ivor Grattan-Guinness in his book "The Rainbow of Mathematics: A History of the Mathematical Sciences". [6]
+
+CONSTRUCTION OF A NON-NEWTONIAN CALCULUS: AN OUTLINE.
+
+The construction of an arbitrary non-Newtonian calculus involves the real number system and an ordered pair * of arbitrary complete ordered fields. [12,15]
+
+Let R denote the set of all real numbers, and let A and B denote the respective realms of the two arbitrary complete ordered fields.
+
+Assume that both A and B are subsets of R. (However, we are not assuming that the two arbitrary complete ordered fields are subfields of the real number system.) Consider an arbitrary function f with arguments in A and values in B.
+
+By using the natural operations, natural orderings, and natural topologies for A and B, one can define the following (and other) concepts of the *-calculus: the *-limit of f at an argument a, *-continuity of f at a, *-continuity of f on a closed interval, the *-derivative of f at a, the *-integral of a *-continuous function f on a closed interval, and the *-average of a *-continuous function f on a closed interval. (The *-average is the 'natural' average of the *-calculus.)
+
+It turns out that the structure of the *-calculus is similar to that of the classical calculus. For example, there are two Fundamental Theorems of *-calculus, which show that the *-derivative and the *-integral are inversely related. And there is a special class of functions having a constant *-derivative.
+
+There are infinitely many *-calculi, and the classical calculus is one of them. Each of the others is called a "non-Newtonian calculus".
+
+RELATIONSHIPS TO CLASSICAL CALCULUS.
+
+The *-derivative, *-average, and *-integral can be expressed in terms of their classical counterparts (and vice-versa). [15]
+
+Again, consider an arbitrary function f with arguments in A and values in B Let G and H be the ordered-field isomorphisms from R onto A and B, respectively. Let g and h be their respective inverses.
+
+Let D denote the classical derivative, and let D* denote the *-derivative. Finally, for each number t such that G(t) is in the domain of f, let F(t) = h(f(G(t))).
+
+Theorem 1. For each number a in A, [D*f](a) exists if and only if [DF](g(a)) exists, and if they do exist, then [D*f](a) = H([DF](g(a))).
+
+Theorem 2. Assume f is *-continuous on a closed interval (contained in A) from r to s, where r and s are in A. Then F is classically continuous on the closed interval (contained in R) from g(r) to g(s), and M* = H(M), where M* is the *-average of f from r to s, and M is the classical (i.e., arithmetic) average of F from g(r) to g(s).
+
+Theorem 3. Assume f is *-continuous on a closed interval (contained in A) from r to s, where r and s are in A. Then S* = H(S), where S* is the *-integral of f from r to s, and S is the classical integral of F from g(r) to g(s).
+
+EXAMPLES.
+
+Let I be the identity function on R. Let j be the function on R such that j(x) equals the square root of x for each nonnegative number x, and j(x) equals the negative of the square root of -x for each negative number x. And let k be the function on R such that k(0) = 0 and k(x) = 1/x for each nonzero number x.
+
+Example 1. In the case where G = I = H, the *-calculus is the classical calculus.
+
+Example 2. In the case where G = I and H = exp, the *-calculus is the geometric calculus.
+
+Example 3. In the case where G = exp = H, the *-calculus is the bigeometric calculus.
+
+Example 4. In the case where G =exp and H = I, the *-calculus is the so-called anageometric calculus.
+
+Example 5. In the case where G = I and H = j, the *-calculus is the quadratic calculus.
+
+Example 6. In the case where G = j = H, the *-calculus is the biquadratic calculus.
+
+Example 7. In the case where G = j and H = I, the *-calculus is the so-called anaquadratic calculus.
+
+Example 8. In the case where G = I and H = k, the *-calculus is the harmonic calculus.
+
+Example 9. In the case where G = k = H, the *-calculus is the biharmonic calculus.
+
+Example 10. In the case where G = k and H = I, the *-calculus is the so-called anaharmonic calculus.
+
+HISTORY.
+
+In August 1970, Michael Grossman and Robert Katz constructed a comprehensive family of calculi, which includes the classical calculus, the geometric calculus, the bigeometric calculus, and infinitely-many other calculi that they constructed in July 1967. All of these calculi can be described simultaneously within the framework of a general theory. They decided to use the adjective "non-Newtonian" to indicate any of the calculi other than the classical calculus.
+
+In 1972, they completed their book Non-Newtonian Calculus[10]. It includes discussions of nine specific non-Newtonian calculi, the general theory of non-Newtonian calculus, and heuristic guides for application. Subsequently, with Jane Grossman, they wrote several other books/articles on non-Newtonian calculus, and on related matters such as "weighted calculus", "meta-calculus", averages, and means. [7 - 15]
+
+Note 1. Grossman and Katz knew nothing about non-Newtonian calculus prior to 14 July 1967, when they began their investigation into the matter. Indeed, in their book "Non-Newtonian Calculus" (1972), they included the following paragraph (page 82): "However, since we have nowhere seen a discussion of even one specific non-Newtonian calculus, and since we have not found a notion that encompasses the *-average, we are inclined to the view that the non-Newtonian calculi have not been known and recognized heretofore. But only the mathematical community can decide that." Nevertheless, many years later, evidence appeared indicating that some aspects of the geometric calculus and/or the bigeometric calculus might have been known to other people prior to 14 July 1967. [1,5,17,18,21,22]
+
+Note 2. The six books by Grossman, Grossman, and Katz on non-Newtonian calculus and related matters are available at some academic libraries, public libraries, and book stores such as Amazon.com. On the Internet, each of the books can be read (free of charge) at Google Book Search.
+
+REFERENCES.
+
+[1] Dorota Aniszewska. "Multiplicative Runge-Kutta methods", Nonlinear Dynamics, Volume 50, Numbers 1-2, 2007.
+
+[2] Agamirza E. Bashirov, Emine Misirli Kurpinar, and Ali Ozyapici. "Multiplicative calculus and its applications", Journal of Mathematical Analysis and Applications, 2008.
+
+[3] Fernando Cordova-Lepe. "From quotient operation toward a proportional calculus", Journal of Mathematics, Game Theory and Algebra, 2004.
+
+[4] Fernando Cordova-Lepe. "The multiplicative derivative as a measure of elasticity in economics".
+
+[5] Felix R. Gantmacher. "The Theory of Matrices", Volumes 1 and 2, Chelsea Publishing Company, 1959.
+
+[6] Ivor Grattan-Guinnness. "The Rainbow of Mathematics: A History of the Mathematical Sciences", pages 332 and 774, ISBN 0393320308, 2000.
+
+[7] Jane Grossman. "Meta-Calculus: Differential and Integral", ISBN 0977117022, 1981.
+
+[8] Jane Grossman, Michael Grossman, and Robert Katz. "Averages: A New Approach", ISBN 0977117049, 1983.
+
+[9] Jane Grossman, Michael Grossman, Robert Katz. "The First Systems of Weighted Differential and Integral Calculus", ISBN 0977117014, 1980.
+
+[10] Michael Grossman. "Bigeometric Calculus: A System with a Scale-Free Derivative", ISBN 0977117030, 1983.
+
+[11] Michael Grossman. The First Nonlinear System of Differential and Integral Calculus, ISBN 0977117006, 1979.
+
+[12] Michael Grossman. "An introduction to non-Newtonian calculus", International Journal of Mathematical Education in Science and Technology, Volume 10, Number 4 ,October 1979, pages 525-528.
+
+[13] Michael Grossman and Robert Katz, "Isomorphic calculi", International Journal of Mathematical Education in Science and Technology, Volume 15, Number 2, March 1984 , pages 253 - 263.
+
+[14] Michael Grossman and Robert Katz. "A new approach to means of two positive numbers", International Journal of Mathematical Education in Science and Technology, Volume 17, Number 2, 1986.
+
+[15] Michael Grossman and Robert Katz. "Non-Newtonian Calculus", ISBN 0912938013, Lee Press, 1972.
+
+[16] James R. Meginniss. "Non-Newtonian calculus applied to probability, utility, and Bayesian analysis", Proceedings of the American Statistical Association: Business and Economics Statistics, 1980.
+
+[17] Robert Edouard Moritz. "Quotientiation, an extension of the differentiation process", Proceedings of the Nebraska Academy of Sciences, 1901.
+
+[18] M. Rybaczuk and P. Stoppel. "The fractal growth of fatigue defects in materials", International Journal of Fracture, Volume 103, Number 1, 2000.
+
+[19] Dick Stanley. "A multiplicative calculus", Primus, vol 9, issue 4, 1999.
+
+[20] Jane Tang. "On the construction and interpretation of means", International Journal of Mathematical Education in Science and Technology, Volume 14, Number 1, pages 55 - 57.
+
+[21] Wikipedia article (Internet). "Multiplicative calculus".
+
+[22] Wikipedia article (Internet). "Product integral".
+
+[23] S. L. Blyumin. "Discrete vs. continuous, in information technology: quantum calculus and its alternatives" (See Reference 21 at http://sites.google.com/site/nonnewtoniancalculus/Home),2008.
+
+[24] Mustafa Riza, Ali Özyapici, and Emine Misirli Kurpinar. "Multiplicative finite difference methods", Quarterly of Applied Mathematics, May 2009.
+
+ADDITIONAL READING
+
+* Robert Katz. "Axiomatic Analysis", D. C. Heath and Company, 1964.
+
+LINK
+
+* Non-Newtonian Calculus website: http://sites.google.com/site/nonnewtoniancalculus/.</content>
+</record>

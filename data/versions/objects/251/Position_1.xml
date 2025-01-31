@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="251">
+ <title>position</title>
+ <name>Position</name>
+ <created>2007-06-29 03:08:15</created>
+ <modified>2007-06-29 03:08:15</modified>
+ <type>Definition</type>
+ <creator id="313" name="Wkbj79"/>
+ <modifier id="313" name="Wkbj79"/>
+ <author id="313" name="Wkbj79"/>
+ <classification>
+	<category scheme="msc" code="45.05.+x"/>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <related>
+	<object name="Velocity"/>
+	<object name="Acceleration"/>
+	<object name="Ballistics"/>
+ </related>
+ <keywords>
+	<term>kinematics</term>
+ </keywords>
+ <preamble>\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}</preamble>
+ <content>The \emph{position} of an object is its location.  It is usually denoted as $x$.  When working in more than one dimension, position may be considered as a vector quantity; it can then be denoted as $\mathbf{x}$.
+
+Position is frequently considered as a function of time.  In the one-dimensional case, the notations $x(t)$ and (more rarely) $s(t)$ are used.  On the other hand, when working in more than one dimension, the notation $\mathbf{x}(t)$ is used.
+
+The SI unit of position is $\mathrm{m}$ (metres).</content>
+</record>

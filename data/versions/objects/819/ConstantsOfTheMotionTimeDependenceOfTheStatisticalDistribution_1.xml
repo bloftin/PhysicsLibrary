@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="819">
+ <title>time dependence of the statistical distribution, constants of the motion</title>
+ <name>ConstantsOfTheMotionTimeDependenceOfTheStatisticalDistribution</name>
+ <created>2009-07-18 11:50:33</created>
+ <modified>2009-07-18 11:50:33</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ca"/>
+	<category scheme="msc" code="03.65.Ta"/>
+ </classification>
+ <related>
+	<object name="QuantumOperatorConcept"/>
+	<object name="ObservablesAndStates"/>
+	<object name="WaveFunctionSpace"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\setcounter{section}{1}
+
+Consider the Schr\"odinger equation and the complex conjugate equation:
+
+$$ i \hbar \frac{\partial \Psi}{\partial t} = H \Psi, \,\,\,\,\,\, i\hbar  \frac{\partial \Psi^*}{\partial t} = - \left(H\Psi\right)^* $$
+
+If $\Psi$ is normalized to unity at the initial instant, it remains normalized at any later time.  The mean value of a given observable $A$ is equal at every instant to the scalar product
+
+$$ &lt;A&gt; = &lt;\Psi,A\Psi&gt;=\int \Psi^*A\Psi d \tau $$
+
+and one has 
+
+$$ \frac{d}{dt} &lt;A&gt; = \left &lt; \frac{\partial \Psi}{\partial t},A\Psi \right &gt; + \left &lt; \Psi,A\frac{\partial \Psi}{\partial t} \right &gt; +  \left &lt; \Psi, \frac{\partial A}{\partial t} \Psi \right &gt; $$
+
+The last term of the right-hand side, $&lt;\partial A / \partial t&gt;$, is zero if $A$ does not depend upon the time explicitly.
+
+Taking into account the Schr\"odinger equation and the hermiticity of the Hamiltonian, one has
+
+$$
+\frac{d}{dt}&lt;A&gt; = - \frac{1}{i\hbar}&lt;H\Psi,A\Psi&gt; + \frac{1}{i\hbar}&lt;\Psi,AH\Psi&gt; + \left&lt; \frac{\partial A}{\partial t} \right &gt;
+$$
+
+$$
+\frac{d}{dt}&lt;A&gt; = \frac{1}{i\hbar} &lt;\Psi,[A,H]\Psi&gt; + \left &lt; \frac{\partial A}{\partial t} \right &gt;
+$$
+
+Hence we obtain the general equation giving the time-dependence of the mean value of $A$:
+
+\begin{equation}
+i\hbar\frac{d}{dt}&lt;A&gt;=&lt;[A,H]&gt; + i\hbar\left&lt;\frac{\partial A}{\partial t} \right&gt;
+\end{equation}
+
+When we replace $A$by the operator $e^{i\xi A}$, we obtain an analogous equation for the time-dependence of the characterisic function of the statistical distribution of $A$.
+
+\emph{In particular, for any variable $C$ which commutes with the Hamiltonian}
+
+$$ [C,H] = 0$$
+
+\emph{and which does not depend explicitly upon the time}, one has the result
+
+$$ \frac{d}{dt} &lt;C&gt; = 0 $$
+
+The mean value of $C$ remains constant in time.  More generally, if $C$ commutes with $H$, the function $e^{i \xi C}$ also commues with $H$, and, consequently 
+
+$$
+\frac{d}{dt} &lt; e^{i \xi C} &gt; = 0
+$$
+
+The characteristic function, and hence the statistical distribution of the observable $C$, remain constant in time.
+
+By analogy with Classical Analytical Mechanics, $C$ is called a \emph{constant of the motion}. In particular, if at the initial instant the wave function is an eigenfunction of $C$ corresponding to a give eigenvalue $c$, this property continues to hold in the course of time.  One says that $c$ is a "good quantum number". If, in particular, $H$ does not explicitly depend upon the time, and if the dynamical state of the system is represented at time $t_0$ by an eigenfunction common to $H$ and $C$, the wave function remains unchanged in the course of time, to within a phase factor.  The energy and the variable $C$ remain well defined and constant in time.
+
+\subsection{References}
+
+[1] Messiah, Albert. "Quantum Mechanics: Volume I." Amsterdam, North-Holland Pub. Co.; New York, Interscience Publishers, 1961-62.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

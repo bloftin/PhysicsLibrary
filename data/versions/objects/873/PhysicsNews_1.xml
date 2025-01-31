@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="873">
+ <title>Physics news</title>
+ <name>PhysicsNews</name>
+ <created>2010-06-17 02:44:05</created>
+ <modified>2010-06-17 02:44:05</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>novel physics research</concept>
+ </defines>
+ <keywords>
+	<term>novel physics research</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed new topic on Physics news and sources of Physics news.
+Please make/add your own contribution and specify or link the appropriate source.
+
+ 
+\section{Latest Physics News}
+
+\subsection{Study finds there may be multiple 'God particles'}
+ 
+(PhysOrg.com) -- Recent research in the USA suggests there may be 
+\PMlinkexternal{five versions of the theorized Higgs boson}{http://www.physorg.com/news195885620.html}.
+
+This leads to a new \PMlinkexternal{Extended Standard Model of Physics}{http://cdn.physorg.com/newman/gfx/news/tmb/standard_model2_416.gif}</content>
+</record>

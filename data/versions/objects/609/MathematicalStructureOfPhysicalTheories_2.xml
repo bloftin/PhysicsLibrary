@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="609">
+ <title>Mathematical structure of physical theories</title>
+ <name>MathematicalStructureOfPhysicalTheories</name>
+ <created>2009-03-25 13:42:52</created>
+ <modified>2009-03-25 13:51:18</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+
+\newcommand{\sR}[0]{\mathbb{R}}
+\newcommand{\sC}[0]{\mathbb{C}}
+\newcommand{\sN}[0]{\mathbb{N}}
+\newcommand{\sZ}[0]{\mathbb{Z}}
+\usepackage{bbm}
+\newcommand{\Z}{\mathbbmss{Z}}
+\newcommand{\C}{\mathbbmss{C}}
+\newcommand{\R}{\mathbbmss{R}}
+\newcommand{\Q}{\mathbbmss{Q}}
+\newcommand*{\norm}[1]{\lVert #1 \rVert}
+\newcommand*{\abs}[1]{| #1 |}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}</preamble>
+ <content>This is a contributed topic on the mathematical structures associated with physical theories. Hopefully, this topic will be of interest to both physicists and mathematicians (as well as logicians and philosopy of science researchers). 
+
+\section{Mathematical and Logical Foundations of Physics}
+\subsection{Physical Theories}
+\begin{itemize}
+\item Classical, or Newtonian Mechanics
+\item Classical Molecular Dynamics
+\item Classical Thermodynamics and Statistics
+\item Classical Electromagnetism: Maxwell's theory and Maxwell's Equations
+\item Optics and Spectroscopic Theories
+\item General and Special Relativity
+\item Quantum Mechanics
+\item Quantum Field Theories
+\item Mathematical Foundations of Quantum Mechanics
+\item Axiomatic Quantum Field Theories
+\item Local Quantum Physics theories
+\item Standard Model (SUSY)
+\item Electroweak Theory
+\item Quantum Chromodynamics
+\item Quantum Gravity theories
+\item Springs and Branes theories
+\item Astrophysics theories 
+\item Chaotic Dynamics and Complex Systems theories
+\item XYZ
+\end{itemize}
+
+\subsection{Mathematical structures and fields underlying physical theories}
+\begin{itemize}
+\item Calculus and Analytical Geometry 
+\item Vector Calculus
+\item Functional Analysis
+\item Differential Geometry
+\item Algebra, Matrices and Tensors
+\item Category Theory 
+\item Algebraic Topology and Non-Abelian Algebraic Theory
+\item Noncommutative Geometry
+\item Algebraic Geometry
+\item Harmonic and Anharmonic Analysis
+\item Numerical Analysis
+\item Statistics and Probability Theories
+\item Model Theory
+\item Superstructures: supergroups, superalgebras, algebraic supervarieties, 
+super-categories
+\item XYZ
+\end{itemize}
+
+\subsection{Logical structure of physical theories}
+
+\begin{itemize}
+\item Axiomatics and Physical Postulates
+\item Quantum Logics
+\item Automata theory and Boolean logic designs
+\item Quantum Automata and Quantum Computers
+\item Many-valued Logic Algebra
+\end{itemize}</content>
+</record>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="36">
+ <title>Euler's moment equations</title>
+ <name>EulersMomentEquations</name>
+ <created>2005-03-10 09:43:27</created>
+ <modified>2005-03-21 19:45:15</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Euler's Moment Equations in terms of the principle axis is given by
+
+$$ M_x = I_x \dot{\omega_x} + (I_z - I_y) \omega_y \omega_z $$
+$$ M_y = I_y \dot{\omega_y} + (I_x - I_z) \omega_x \omega_z $$
+$$ M_z = I_z \dot{\omega_z} + (I_y - I_x) \omega_x \omega_y $$
+
+
+In order to derive these equations, we start with the angular momentum of a rigid body
+
+
+$$ \vec{H_B} = I \omega = 
+\left [ \begin{array}{c c c}  
+I_{xx} &amp; -I_{xy} &amp; -I_{xz} \\
+-I_{yx} &amp; I_{yy} &amp; -I_{yz} \\
+-I_{zx} &amp; -I_{zy} &amp; I_{zz} 
+\end{array} \right ]
+\left [\begin{array}{c}
+\omega_x \\
+\omega_y \\
+\omega_z
+\end{array} \right ]
+$$
+
+Since the vector is in the body frame and we want the Moment in an inertial frame we need to use the transport theorem since our body is in a non-inertial reference frame to express the derivative of the angular momentum vector in this frame.  So the Moment is given by
+
+$$ \vec{M} = \dot{\vec{H_I}} = \dot{\vec{H_B}} + \vec{\omega} \times \vec{H_B} $$
+
+
+Since we are assuming the Inertia Tensor is expressed using the principal axis of the body the Products of Inertia are zero
+
+$$ I_{yx} = I_{xy} = I_{xz} = I_{zx} = I_{zy} = I_{yz} = 0 $$
+
+and using the shorter notation 
+
+$$ I_{xx} = I_x $$
+$$ I_{yy} = I_y $$
+$$ I_{zz} = I_z $$
+
+Also since the Moments of Inertia are constant, when we take the derivative of the Inertia Tenser it is zero, so
+
+
+$$ \dot{\vec{H_B}} = 
+\left [ \begin{array}{c c c}  
+I_x &amp; 0 &amp; 0 \\
+0 &amp; I_y &amp; 0 \\
+0 &amp; 0 &amp; I_z 
+\end{array} \right ]
+\left [\begin{array}{c}
+\dot{\omega_x} \\
+\dot{\omega_y} \\
+\dot{\omega_z}
+\end{array} \right ]
++
+\left [\begin{array}{c}
+\omega_x \\
+\omega_y \\
+\omega_z
+\end{array} \right ]
+\times
+\left [ \begin{array}{c c c}  
+I_x &amp; 0 &amp; 0 \\
+0 &amp; I_y &amp; 0 \\
+0 &amp; 0 &amp; I_z 
+\end{array} \right ]
+\left [\begin{array}{c}
+\omega_x \\
+\omega_y \\
+\omega_z
+\end{array} \right ]
+$$
+
+Carrying out the matrix multiplication
+$$
+\dot{\vec{H_B}} = 
+\left [ \begin{array}{c}  
+I_x \dot{\omega_x} \\
+I_y \dot{\omega_y} \\
+I_z \dot{\omega_z}
+\end{array} \right ]
++
+\left [\begin{array}{c}
+\omega_x \\
+\omega_y \\
+\omega_z
+\end{array} \right ]
+\times
+\left [ \begin{array}{c}  
+I_x \omega_x \\
+I_y \omega_y \\
+I_z \omega_z
+\end{array} \right ]
+$$
+
+after evaluating the cross product, we are left with adding the vectors
+$$
+\dot{\vec{H_B}} = 
+\left [ \begin{array}{c}  
+I_x \dot{\omega_x} \\
+I_y \dot{\omega_y} \\
+I_z \dot{\omega_z}
+\end{array} \right ]
++
+\left [\begin{array}{c}
+\omega_y \omega_z (I_z - I_y) \\
+\omega_x \omega_z (I_x - I_z) \\
+\omega_x \omega_y (I_y - I_x)
+\end{array} \right ]
+$$
+
+Once we add these vectors we are left with Euler's Moment Equations
+
+$$ M_x = I_x \dot{\omega_x} + (I_z - I_y) \omega_y \omega_z $$
+$$ M_y = I_y \dot{\omega_y} + (I_x - I_z) \omega_x \omega_z $$
+$$ M_z = I_z \dot{\omega_z} + (I_y - I_x) \omega_x \omega_y $$</content>
+</record>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="169">
+ <title>An Elementary Treatise on Quaternions</title>
+ <name>AnElementaryTreatiseOnQuaternions</name>
+ <created>2006-05-08 21:28:59</created>
+ <modified>2006-05-08 21:53:03</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="01.30.-y"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\title{An Elementary Treatise on Quaternions}
+\date{1890}
+
+\author{Peter Guthrie Tait}
+
+\maketitle
+
+\subsection{Table of Contents}
+
+\PMlinkname{Preface: An Elementary Treatise On Quaternions
+}{PrefaceAnElementaryTreatiseOnQuaternions}
+
+Chapter  1: Vectors and Their Composition \\
+Chapter  2: Products and Quotients of Vectors \\
+Chapter  3: Interpretations and Transformations of Quaternion Expressions \\
+Chapter  4: Differentiation of Quaternions \\
+Chapter  5: The Solution of Equations of the First Degree \\
+Chapter  6: Sketch of the Analytical Theory of Quaternions \\
+Chapter  7: Geometry of the Straight Line and Plane \\
+Chapter  8: The Sphere and Cyclic Cone \\
+Chapter  9: Surfaces of the Second Degree \\
+Chapter 10: Geometry of Curves and Surfaces \\
+Chapter 11: Kinematics \\
+Chapter 12: Physical Applications \\ \\ \\ \\ \\
+
+
+
+Copying this book will take some time, please let me know if you want to help.
+
+
+This article and subsequent child entries are Public Domain material</content>
+</record>

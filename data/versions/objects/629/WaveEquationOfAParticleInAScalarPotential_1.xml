@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="629">
+ <title>wave equation of a particle in a scalar potential</title>
+ <name>WaveEquationOfAParticleInAScalarPotential</name>
+ <created>2009-04-05 16:05:49</created>
+ <modified>2009-04-05 16:05:49</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.-w"/>
+ </classification>
+ <related>
+	<object name="WaveEquationOfAFreeParticle"/>
+	<object name="WaveEquationOfAChargedAParticleInAnElectromagneticField"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In order to form the wave equation of a particle in a potential $V(\mathbf{r})$, we operate at first under the conditions of the `geometrical optics approximation' and seek to form an equation of propagation for a wave packet $\Psi(\mathbf{r},t)$ moving in accordance with the de Broglie theory.
+
+The center of the packet travels like a classical particle whose position, momentum, and energy we shall designate by $\mathbf{r}_{cl.}$, $\mathbf{p}_{cl.}$, and $E_{cl.}$, respectively.  These quantities are connected by the relation
+
+\begin{equation}
+E_{cl.} = H(\mathbf{r}_{cl.},\mathbf{p}_{cl.}) = \frac{p^2_{cl.}}{2m} +V(\mathbf{r}_{cl.})
+\end{equation}
+
+$ H(\mathbf{r}_{cl.}$ is the classical Hamiltonian. We suppose that $V(\mathbf{r})$ does not depend upon the time explicitly (conservative system), although this condition is not absolutely necessary for the present argument to hold.  Consequently $E_{cl.}$ remains constant in time, while $\mathbf{r}_{cl.}$ and $\mathbf{p}_{cl.}$ are well-defined functions of $t$.  Under the approximate conditions considered here, $V(\mathbf{r})$ remains practically constant over a region of the order of the size of the wave packet; therefore
+
+\begin{equation}
+V(\mathbf{r}) \Psi(\mathbf{r},t) \approx V(\mathbf{r}_{cl.}) \Psi(\mathbf{r},t)
+\end{equation}
+
+On the other hand, if we restrict ourselves to time intervals sufficiently short so that the relative variation of $\mathbf{p}_{cl.}$ remains negligible, $\Psi(\mathbf{r},t)$ may be considered as a superposition of plane waves of the type
+
+\begin{equation}
+\Psi(\mathbf{r},t) = \int F(\mathbf{p}) \exp^{i(\mathbf{p} \cdot \mathbf{r} - Et)/\hbar} d\mathbf{p}
+\end{equation}
+
+whose frequencies are in the neighborhood of $E_{cl.}/\hbar$ and whose wave vectors lie close to $\mathbf{p}_{cl.}/\hbar$.  Therefore
+
+$$i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r},t) \approx E_{cl.} \Psi(\mathbf{r},t)$$
+\begin{equation}
+\frac{\hbar}{i} \nabla \Psi(\mathbf{r},t) \approx \mathbf{p}_{cl.}(t) \Psi(\mathbf{r},t)
+\end{equation}
+
+and taking the divergence of this last express ion, one obtains
+
+\begin{equation}
+- \hbar^2 \nabla^2 \Psi(\mathbf{r},t) \approx p^2_{cl.} \Psi(\mathbf{r},t)
+\end{equation}
+
+combining the relations (2),(3), and (4) and making use of equation (1), we obtain
+
+$$
+\i \hbar \frac{\partial}{\partial t} \Psi + \frac{\hbar^2}{2m} \nabla^2 \Psi - V \Psi \approx \left ( E_{cl.} - \frac{p^2_{cl.}}{2m} - V(\mathbf{r}_{cl.}) \right) \Psi \approx 0
+$$
+
+The wave packet $\Psi(\mathbf{r},t)$ satisfies - at least approximately - a wave equation of the type we are looking for.  We are very naturally led to adopt this equation as the wave equation of a particle in a potential, and we postulate that in all generality, even when the conditions for the `geometrical optics' approximation are not fulfilled, the wave $\Psi$ satisfies the equation
+
+\begin{equation}
+i \hbar \frac{\partial }{\partial t} \Psi(\mathbf{r},t) = \left( -\frac{\hbar^2}{2m} \nabla^2 + V(\mathbf{r}) \right) \Psi(\mathbf{r},t)
+\end{equation}
+
+It is the Schr\"odinger equation for a particle in a potential $V(\mathbf{r})$.
+
+[1] Messiah, Albert. "Quantum Mechanics: Volume I." Amsterdam, North-Holland Pub. Co.; New York, Interscience Publishers, 1961-62.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

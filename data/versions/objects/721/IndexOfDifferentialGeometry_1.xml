@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="721">
+ <title>index of differential geometry</title>
+ <name>IndexOfDifferentialGeometry</name>
+ <created>2009-05-02 16:07:21</created>
+ <modified>2009-05-02 16:07:21</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <preamble></preamble>
+ <content>This is a contributed entry in progress
+
+\section{Index of Differential Geometry}</content>
+</record>

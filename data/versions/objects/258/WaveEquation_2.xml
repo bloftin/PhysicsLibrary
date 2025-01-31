@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="258">
+ <title>wave equation</title>
+ <name>WaveEquation</name>
+ <created>2007-08-10 13:53:15</created>
+ <modified>2008-10-14 14:30:45</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="441" name="bci1"/>
+ <comment>(see also \PMlinkname{Hamiltonian operator}{QuantumHamiltonianOperator})</comment>
+ <author id="441" name="bci1"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.30.Jr"/>
+ </classification>
+ <related>
+	<object name="WaveEquations"/>
+ </related>
+ <keywords>
+	<term>types of wave equations</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Any \emph{wave equation} describes the propagation in space-time of a wave (or periodic motion, oscillation, `physical pereturbation' or 'signal') in terms of certain types of differential equations (such as partial differential ones); the solutions of such wave equations--usually with additonal boundary conditions-- are either propagating or stationary waves; there are numerous types of waves, and thus, there are many different types of wave equations.
+The following is a short list of such wave equations, that is however not intended to be comprehensive.
+
+\subsection{Types of Wave Equations}
+
+\begin{enumerate}
+
+\item Elastic wave equation and Hook's Law
+
+\item Equation for sound wave propagation
+
+\item Wave equation for heat transfer
+
+\item Maxwell's equations for electromagnetic wave propagation
+
+\item Schr\"odinger 'wave' equantion for electrons 
+
+\item Heisenberg's quantum dynamic equations
+
+\item Dirac relativistic wave equation
+
+\item Soliton wave equations
+
+\item Spin wave equations
+
+\item Einstein's gravitational wave equations
+
+\end{enumerate}</content>
+</record>

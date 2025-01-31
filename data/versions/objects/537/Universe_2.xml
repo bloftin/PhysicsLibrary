@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="537">
+ <title>Universe</title>
+ <name>Universe</name>
+ <created>2009-02-18 05:07:13</created>
+ <modified>2009-02-18 05:09:50</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>physical Universe</concept>
+	<concept>multi-verses</concept>
+ </defines>
+ <keywords>
+	<term>physical Universe</term>
+	<term>multi-verses</term>
+ </keywords>
+ <preamble></preamble>
+ <content>The physical \emph{Universe} is understood as the global spacetime
+with all its physical contents such as: matter, energy, dark matter, dark energy, gravitational fields, electromagnetic, electroweak and nuclear fields, and so on (Higgs bosons ?). Some quantum theories assume the existence of mutliple physical universes or ``\emph{multi-verses}''.</content>
+</record>

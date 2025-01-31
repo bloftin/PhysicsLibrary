@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="446">
+ <title>quantum logic</title>
+ <name>QuantumLogic</name>
+ <created>2009-01-29 16:41:52</created>
+ <modified>2009-01-29 16:41:52</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <preamble></preamble>
+ <content>This is a contributed topic on 
+\PMlinkexternal{quantum logic using tools available on the internet.}{http://us.metamath.org/qlegif/mmql.html}</content>
+</record>

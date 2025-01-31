@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="104">
+ <title>quarter loop example of Biot-Savart law</title>
+ <name>QuarterLoopExampleOfBiotSavartLaw</name>
+ <created>2006-01-14 19:47:45</created>
+ <modified>2006-01-14 21:44:04</modified>
+ <type>Example</type>
+<parent id="103">Biot-Savart law</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>removed the 'hanging' pi in the denominator</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Gz"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A simple example of the Biot-Savart law is given with a current carrying loop for a quater of a circle as shown in Figure 1.
+
+
+\begin{figure}
+\includegraphics[scale=.8]{QuarterCurrentLoop.eps}
+\vspace{10 pt} 
+\caption{Figure 1: Quarter Current Loop}
+\end{figure}
+
+The differential line element d{\bf l} is perpendicular to $\hat{{\bf r}}$, so the Biot-Savart law simplifies from the definition of the cross product
+
+$$ d{\bf B} = -\frac{\mu_0}{4 \pi}\frac{I dl \, sin (\pi/2)}{r^2} \hat{{\bf k}} $$
+
+Note that the direction is into the web browser, so we have a $-\hat{{\bf k}}$.  For the differential dl of a circular arc 
+
+$$dl = r d\theta$$
+
+plugging this in and setting up the integral gives
+
+$$ {\bf B} = - \hat{{\bf k}} \frac{\mu_0 I}{4 \pi r} \int_0^{\frac{\pi}{2}} \, d \theta $$
+
+which simply yields
+
+$$ {\bf B} = -\frac{\mu_0 I \hat{{\bf k}}}{8 \pi r} $$</content>
+</record>

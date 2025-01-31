@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="771">
+ <title>DNA molecular models</title>
+ <name>DNAMolecularModels</name>
+ <created>2009-05-22 17:02:31</created>
+ <modified>2009-05-22 17:08:56</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>DNA</concept>
+	<concept>molecular model</concept>
+	<concept>molecular structure</concept>
+ </defines>
+ <keywords>
+	<term>DNA structures</term>
+	<term>molecular models</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{DNA molecular models}
+
+\emph{Molecular models of DNA structures} are representations of the molecular geometry and topology of Deoxyribonucleic acid (DNA) molecules using one of several means, such as: closely packed spheres (CPK models) made of plastic, metal wires for 'skeletal models', graphic computations and animations by computers, artistic rendering, and so on, with the aim of simplifying and presenting the essential, physical and chemical, properties of DNA molecular structures either in vivo or in vitro. Computer molecular models also allow animations and molecular dynamics simulations that are very important for understanding how DNA functions in vivo. Thus, an old standing dynamic problem is how DNA "self-replication" takes place in living cells that should involve transient uncoiling of supercoiled DNA fibers. Altough DNA consists of relatively rigid, very large elongated biopolymer molecules called "fibers" or chains (that are made of repeating nucleotide units of four basic types, attached to deoxyribose and phospate groups), its molecular stucture in vivo undergoes dynamic configuration changes that involve dynamically attached water molecules and ions. Supercoiling, packing with histones in chromosome structures, and other such supramolecular aspects also involve in vivo DNA topology which is even more complex than DNA molecular geometry, thus turning molecular modeling of DNA into an especially challenging problem for both molecular biologists and biotechnologists. Like other large molecules and biopolymers, DNA often exists in multiple stable geometries (that is, it exhibits conformational isomerism) and configurational, quantum states which are close to each other in energy on the potential energy surface of the DNA molecule. Such geometries can also be computed, at least in principle, by employing ab initio quantum chemistry methods that have high accuracy for small molecules. Such quantum geometries define an important class of ab initio molecular models of DNA whose exploration has barely started.
+
+In an interesting twist of roles, the DNA molecule itself was proposed to be utilized for quantum computing. Both DNA nanostructures as well as DNA 'computing' biochips have been built. The more advanced, computer-based molecular models of DNA involve molecular dynamics simulations as well as quantum mechanical computations of vibro-rotations, delocalized molecular orbitals (MOs), electric dipole moments, hydrogen-bonding, and so on.
+
+
+\subsection{Contents}
+1 Importance 
+2 Examples of DNA molecular models 
+3 Images for DNA Structure Determination from X-Ray Patterns 
+4 Paracrystalline lattice models of B-DNA structures 
+5 Genomic and Biotechnology Applications of DNA molecular modeling 
+5.1 Gallery: DNA Molecular modeling applications 
+6 Databases for DNA molecular models and sequences 
+6.1 X-ray diffraction 
+6.2 Neutron scattering 
+6.3 X-ray microscopy 
+6.4 Electron microscopy 
+6.5 Atomic Force Microscopy (AFM) 
+6.5.1 Gallery of AFM Images 
+6.6 Mass spectrometry--Maldi informatics 
+6.7 Spectroscopy 
+6.8 Gallery: CARS (Raman spectroscopy), Fluorescence confocal microscopy, and Hyperspectral imaging 
+6.9 Genomic and structural databases 
+7 Notes 
+8 References 
+9 See also 
+10 External links 
+
+
+{\bf Note:}
+This topic is based upon \PMlinkexternal{a GNUL entry and exchange protocols with an external website}{http://en.wikipedia.org/wiki/Molecular_models_of_DNA} that has advanced graphics and gallery imaging capabilities.</content>
+</record>

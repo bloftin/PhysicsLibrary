@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="216">
+ <title>covariance and contravariance</title>
+ <name>CovarianceAndContravariance</name>
+ <created>2006-08-01 23:35:10</created>
+ <modified>2006-08-01 23:35:10</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="04.20.Cv"/>
+ </classification>
+ <synonyms>
+	<synonym concept="covariance and contravariance" alias="covariance contravariance"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Introduction}
+
+In mathematics and theoretical physics, covariance and contravariance are concepts used in many areas, generalizing in a sense invariance, i.e., the property of being unchanged under some transformation. In mathematical terms, they occur in a foundational way in linear algebra and multilinear algebra, differential geometry and other branches of geometry, category theory and algebraic topology. In physics they are important to the treatment of vectors and other quantities, such as tensors, that have physical meaning but are not scalars. Both special relativity (Lorentz covariance) and general relativity (general covariance) use covariant basis vectors.
+
+In very general terms, duality interchanges covariance and contravariance, which is why these concepts occur together. For purposes of practical computation using matrices, the transpose relates two aspects (for example two sets of simultaneous equations). The case of a square matrix for which the transpose is also the inverse matrix, that is, an orthogonal matrix, is one in which covariance and contravariance can typically be treated on the same footing. This is of basic importance in the practical application of tensors.
+
+A major potential cause of confusion is that this duality of covariance/contravariance intervenes every time discussion of a vector or tensor quantity is represented by its components. This causes discussion in the mathematics and physics literature often apparently to be using opposite conventions. It is not the convention that differs, but whether an intrinsic or component-wise description is the primary way of thinking of quantities. As the names suggest, covariant quantities are thought of as moving or transforming forwards, while contravariant quantities transform backwards. This depends on whether one is using a fixed background—a fact that switches the point of view.
+
+
+\subsection{Contravariant}
+
+\emph{Contravariant} is a mathematical term with a precise definition in tensor analysis. It specifies precisely the method (direction of projection) used to derive the components by projecting the magnitude of the tensor quantity onto the coordinate system being used as the basis of the tensor.
+
+Another method is used to derive covariant tensor components. When performing tensor transformations it is critical that the method used to map to the coordinate systems in use be tracked so that operations may be applied correctly for accurate, meaningful results.
+
+In two dimensions, for an oblique rectilinear coordinate system, contravariant coordinates of a directed line segment (in two dimensions this is termed a vector) can be established by placing the origin of the coordinate axis at the tail of the vector. Parallel lines are placed through the head of the vector. The intersection of the line parallel to the x1 axis with the x2 axis provides the x2 coordinate. Similarly, the intersection of the line parallel to the x2 axis with the x1 axis provides the x1 coordinate.
+
+\begin{figure}
+\includegraphics[scale=.8]{Contravariant_Coordinates.eps}
+\end{figure}
+
+By definition, the oblique, rectilinear, contravariant coordinates of the point P above are summarized as: $x^i = (x^1, x^2)$
+
+Notice the superscript; this is a standard nomenclature convention for contravariant tensor components and should not be confused with the subscript, which is used to designate covariant tensor components.
+
+Is there a fundamental difference in the way contravariant and covariant components can be used, or could one simply interchange them everywhere? The answer is that in curved spaces, or in curved coordinate systems in flat space (e.g. cylindrical coordinates in Euclidean space), the quantity $dx^i$ is a perfect differential that can be immediately integrated to yield $x^i$, whilst the covariant components of the same differential, $dx_i$ are not in general perfect differentials; the integrated change depends on the path. In the example of cylindrical coordinates, the radial and z components are the same in covariant and contravariant form, but the covariant component of the differential of angle round the z axis is r2dθ and its integral depends on the path.
+
+Using the definition above, the contravariant components of a position vector $v^i$, where $i = {1, 2}$, can be defined as the differences between coordinates (or position vectors) of the head and tail, on the same coordinate axis. Stated in another way, the vector components are the projection onto an axis from the direction parallel to the other axis.
+
+So, since we have placed our origin at the tail of the vector,
+
+$$v^i = ( (x^1 − 0), (x^2 − 0 ) )$$ 
+$$v^i = (x^1, x^2)$$ 
+
+This result is generalized into n-dimensions. Contravariance is a fundamental concept or property within tensor theory and applies to tensors of all ranks over all manifolds. Since whether tensor components are contravariant or covariant, how they are mixed, and the order of operations all impact the results it is imperative to track for correct application of methods.
+
+In more modern terms, the transformation properties of the covariant indices of a tensor are given by a pullback; by contrast, the transformation of the contravariant indices is given by a pushforward.
+
+\subsection{Use in tensor analysis}
+
+In tensor analysis, a covariant vector varies more or less reciprocally to a corresponding contravariant vector. Expressions for lengths, areas and volumes of objects in the vector space can then be given in terms of tensors with covariant and contravariant indices. Under simple expansions and contractions of the coordinates, the reciprocity is exact; under affine transformations the components of a vector intermingle on going between covariant and contravariant expression.
+
+On a manifold, a tensor field will typically have multiple indices, of two sorts. By a widely followed convention (including Wikipedia), covariant indices are written as lower indices, whereas contravariant indices are upper indices. When the manifold is equipped with a metric, covariant and contravariant indices become very closely related to one-another. Contravariant indices can be turned into covariant indices by contracting with the metric tensor. Contravariant indices can be gotten by contracting with the (matrix) inverse of the metric tensor. Note that in general, no such relation exists in spaces not endowed with a metric tensor. Furthermore, from a more abstract standpoint, a tensor is simply "there" and its components of either kind are only calculational artifacts whose values depend on the chosen coordinates.
+
+The explanation in geometric terms is that a general tensor will have contravariant indices as well as covariant indices, because it has parts that live in the tangent bundle as well as the cotangent bundle.
+
+\subsection{Algebra and geometry}
+
+In category theory, there are covariant functors and contravariant functors. The dual space of a vector space is a standard example of a contravariant functor. Some constructions of multilinear algebra are of 'mixed' variance, which prevents them from being functors. The distinction between homology theory and cohomology theory in topology is that homology is a covariant functor, while cohomology is a contravariant functor (it was suggested in a book, Hilton \&amp; Wylie, that contrahomology was therefore a better term for cohomology, but this did not catch on). Homology theory is covariant because (as is very clear in singular homology) its basic construction is to take a topological space X and map things into it (in that case, simplices). For a continuous mapping from X to another space Y, simply map on by composing functions. Cohomology goes the 'other way'; this is adapted to studying mappings out of X, for example the sections of a vector bundle.
+
+In geometry, the same map in/map out distinction is helpful in assessing the variance of constructions. A tangent vector to a smooth manifold M is, to begin with, a curve mapping smoothly into M and passing through a given point P. It is therefore covariant, with respect to smooth mappings of M. A contravariant vector, or 1-form, is in the same way constructed from a smooth mapping from M to the real line, near P. It is in the cotangent bundle, built up from the dual spaces of the tangent spaces. Its components with respect to a local basis of one-forms dxi will be covariant; but one-forms and differential forms in general are contravariant, in the sense that they pull back under smooth mappings. This is crucial to how they are applied; for example a differential form can be restricted to any submanifold, while this does not make the same sense for a field of tangent vectors.
+
+Covariant and contravariant components transform in different ways under coordinate transformations. By considering a coordinate transformation on a manifold as a map from the manifold to itself, the transformation of covariant indices of a tensor are given by a pullback, and the transformation properties of the contravariant indices is given by a pushforward.
+
+
+\subsection{References}
+
+This entry is a derivative of the covariance and contravariance article \PMlinkexternal{from Wikipedia, the Free Encyclopedia}{http://en.wikipedia.org/wiki/Covariance_and_contravariance}. Authors of the orginial article include:  Kevin Baas, AugPi, Charles Matthews, Maximus Rex and  Michael Hardy. History page of the original is \PMlinkexternal{here}{http://en.wikipedia.org/w/index.php\?title=Covariance_and_contravariance\&amp;action=history}</content>
+</record>

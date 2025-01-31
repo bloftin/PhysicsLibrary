@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="16" id="100">
+ <title>Laplacian in Spherical Coordinates</title>
+ <name>LaplacianInSphericalCoordinates</name>
+ <created>2005-12-30 20:39:07</created>
+ <modified>2006-01-02 20:53:02</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.40.Dr"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Laplacian operator in spherical coordinates is 
+\begin{equation}
+\nabla _{sph}^{2} = \frac{1}{r^2} \frac{\partial}{\partial r}(r^2 \frac{\partial}{\partial r}) + \frac{1}{r^2 sin\theta} \frac{\partial}{\partial \theta} ( sin \theta \frac{\partial}{\partial \theta}) + \frac{1}{r^2 sin^2 \theta} \frac{\partial^2}{\partial \phi^2}
+\end{equation}
+
+The derivation is fairly straight forward and begins with locating a vector {\bf r} in spherical coordinates as shown in the figure.
+
+\begin{figure}
+\includegraphics[scale=.698]{SphericalCoordinates.eps}
+\caption{Spherical Coordinates}
+\end{figure}
+
+The z component of the unit vector in direction of {\bf r} is given from the simple right triangle
+
+$$ cos \theta = \frac{z}{| \hat{r} |} $$
+
+Since a unit vector has a length of 1, the z component is
+
+$$ z = cos \theta $$
+
+To get the x component, we need to get the $\hat{r}$ projected onto the xy-plane
+
+$$ cos( 90 - \theta) = \frac{ |\hat{r}_{xy}|}{ |\hat{r}| } $$
+
+using the trig identity
+
+$$ cos( 90 - \theta ) = sin \theta $$
+
+the projected unit vector is
+
+$$ |\hat{r}_{xy}| = sin \theta $$
+
+Finally, the x component is reached through the right triangle 
+
+$$ cos \phi = \frac{x}{|\hat{r}_{xy}| }$$
+
+giving 
+
+$$ x = cos \phi \, sin \theta $$
+
+the y component follows the x component through
+
+$$ sin \phi = \frac{y}{|\hat{r}_{xy}|} $$
+
+which yields
+
+$$ y = sin \phi \, sin \theta $$
+
+The vector in spherical coordinates is then
+\begin{equation}
+{\bf r} = r \hat{r} = r[ sin \theta \, cos \phi \, \hat{i} + sin \theta \, sin \phi \, \hat{j} + cos \theta \, \hat{k}]
+\end{equation}
+
+Now describing the unit vectors of a moving particle $ \hat{r}, \hat{\theta}, \hat{\phi}$ shown in the spherical coordinates figure is a little more tricky.  If a particle moves in the $\hat{r}$ direction, it only moves in or out along r so
+
+$$ \frac{\partial {\bf r}}{ \partial r} = k \hat{r} $$
+
+For $\hat{\theta}$ and $\hat{\phi}$, think of uniform circular motion like a record, so they can be calculated from
+
+$$ \hat{\theta} = \frac{\frac{ \partial {\bf r}}{\partial \theta}}{| \frac{ \partial {\bf r}}{\partial \theta}|} $$
+
+
+$$ \hat{\theta} = \frac{\frac{ \partial {\bf r}}{\partial \phi}}{| \frac{ \partial {\bf r}}{\partial \phi}|} $$
+
+Next, take the partial derivatives of (2) and then calculate their magnitudes to get the above unit vectors.
+
+$$ \frac{ \partial {\bf r}}{\partial \theta} = r [cos \theta \, cos \phi \hat{i} + cos \theta \, sin \phi \hat{j} - sin \theta \hat{k}] $$
+
+$$ \frac{ \partial {\bf r}}{\partial \phi} = r [-sin \theta \, sin \phi \hat{i} + sin \theta \, cos \phi \hat{j}] $$
+
+$$ | \frac{ \partial {\bf r}}{\partial \theta}| = \sqrt{ {\bf x} \cdot {\bf x}} = \sqrt{r^2 [cos^2 \theta \, cos^2 \phi + cos^2 \theta \, sin^2 \phi + sin^2 \theta]} $$
+
+$$ | \frac{ \partial {\bf r}}{\partial \theta}| = r \sqrt{cos^2 \theta (cos^2 \phi + sin^2 \phi) + sin^2 \theta]} $$
+
+Using the basic trig identity
+
+$$ | \frac{ \partial {\bf r}}{\partial \theta}| = r $$
+
+$$ | \frac{ \partial {\bf r}}{\partial \phi}| = r \sqrt{sin^2 \theta (sin^2 \phi + cos^2 \phi)]} $$
+
+$$ | \frac{ \partial {\bf r}}{\partial \phi}| = r sin \theta $$
+
+Then plug in these values to get
+
+$$ \hat{\phi} = -sin \phi \hat{i} + cos \phi \hat{j}$$
+$$ \hat{\theta} = cos \theta \, cos \phi \hat{i} + cos \theta \, sin \phi \hat{j} - sin \theta \hat{k} $$
+
+and from before we had
+
+$$ \hat{r} = sin \theta \, cos \phi \hat{i} + sin \theta \, sin \phi \hat{j} + cos \theta \hat {k} $$
+
+The generalized differential for curvilinear coordinates is
+
+$$ d {\bf r} = \frac{ \partial {\bf r}}{\partial u_1} du_1 + \frac{ \partial {\bf r}}{\partial u_2} du_2 + \frac{ \partial {\bf r}}{\partial u_3} du_3 $$
+
+For spherical coordinates we have
+
+$$ u_1 = r $$
+$$ u_2 = \theta $$
+$$ u_3 = \phi $$
+
+and from earlier we learned
+
+$$ | \frac{ \partial {\bf r}}{\partial r}| \hat{r} = \frac{ \partial {\bf r}}{\partial r} $$
+
+$$ | \frac{ \partial {\bf r}}{\partial \theta}| \hat{\theta} = \frac{ \partial {\bf r}}{\partial \theta} $$
+
+
+$$ | \frac{ \partial {\bf r}}{\partial \phi}| \hat{\theta} = \frac{ \partial {\bf r}}{\partial \phi} $$
+
+Plugging these values into the generalized differential yields
+
+$$ d {\bf r} = dr \hat{r} + r d \theta \hat{\theta} + r sin \theta d \phi \hat{\phi} $$
+
+The next major step is to see how the gradient fits into the definition of the differential for a function f
+
+$$ df = \frac{ \partial f}{\partial r} dr + \frac{ \partial f}{\partial \theta} d \theta + \frac{ \partial f}{\partial \phi} d \phi $$
+$$ df = \nabla f \cdot d {\bf r} $$
+
+So we see that the following must be equal and we need to solve for the gradient's components.
+
+$$ \frac{ \partial f}{\partial r} dr = \nabla_r f dr $$
+$$ \frac{ \partial f}{\partial \theta} d \theta = \nabla_{\theta} f d \theta $$
+$$ \frac{ \partial f}{\partial \phi} d \phi = \nabla_{\phi} f d \phi $$
+
+Therfore our scale factors are
+
+$$ \nabla_r = 1 $$
+$$ \nabla_{\theta} = \frac{1}{r} $$
+$$ \nabla_{\phi} = \frac{1}{r sin \theta} $$
+
+which finally gives us the gradient in spherical coordinates
+
+$$ \nabla_{sph} = \frac{\partial}{\partial r} \hat{r} + \frac{\partial}{\partial \theta} \frac{\hat{\theta}}{r} + \frac{\partial}{\partial \phi} \frac{\hat{\phi}}{rsin \theta} $$
+
+The last tedious calculation is then the Laplacian, which is our goal
+
+$$ \nabla^2 = \nabla \cdot \nabla = ( \frac{\partial}{\partial r} \hat{r} + \frac{\partial}{\partial \theta} \frac{\hat{\theta}}{r} + \frac{\partial}{\partial \phi} \frac{\hat{\phi}}{rsin \theta}) \cdot (\frac{\partial}{\partial r} \hat{r} + \frac{\partial}{\partial \theta} \frac{\hat{\theta}}{r} + \frac{\partial}{\partial \phi} \frac{\hat{\phi}}{rsin \theta}) $$
+
+Let us break it up by components to make it easy to view, so carrying out only part of the dot product our 1st term is
+
+$$ \hat{r} \cdot ( \frac{\partial \hat{r}}{\partial r} \frac{\partial}{\partial r} + \hat{r} \frac{\partial^2}{\partial r^2} + \frac{\partial \hat{\theta}}{\partial r} \frac{1}{r} \frac{\partial}{\partial \theta} +\hat{\theta} \frac{\partial}{\partial r} \frac{1}{r} \frac{\partial}{\partial \theta} + \frac{\hat{\theta}}{r} \frac{\partial^2}{\partial r \partial \theta} + \frac{\partial \hat{\phi}}{\partial r} \frac{1}{r sin \theta} \frac{\partial}{\partial \phi} + \hat{\phi}\frac{\partial}{\partial r}(\frac{1}{r sin \theta}) \frac{\partial}{\partial \phi} + \frac{\hat{\phi}}{r sin \theta} \frac{\partial^2}{\partial r \partial \phi}) $$
+
+While this looks a little scary, all but the 2nd term is zero.  The first term is zero because there is no r in $\hat{r}$
+
+
+$$ \hat{r} = sin \theta \, cos \phi \hat{i} + sin \theta \, sin \phi \hat{j} + cos \theta \hat {k} $$
+
+so taking the derivative with respect to r yeilds zero.  Similarly, the 3rd and 6th term are zero when taking the partial derivatives.  The 4th,5th,7th and 8th terms are zero because the dot product of two orthogonal vectors ($90^o$) is zero so
+
+$$ \hat{r} \cdot \hat{\theta} = 0 $$
+$$ \hat{r} \cdot \hat{\phi} = 0 $$
+
+This leaves only the second term
+
+\begin{equation}
+\hat{r} \cdot \hat{r} \frac{\partial^2}{\partial r^2} = \frac{\partial^2}{\partial r^2}
+\end{equation}
+
+Now onto the $\hat{\theta}$ term
+
+$$ \frac{\hat{\theta}}{r} \cdot ( \frac{\partial \hat{r}}{\partial \theta} \frac{\partial}{\partial r} + \hat{r} \frac{\partial^2}{\partial \theta \partial r} + \frac{\partial \hat{\theta}}{\partial \theta} \frac{1}{r} \frac{\partial}{\partial \theta} + \hat{\theta} \frac{\partial}{\partial \theta} \frac{1}{r} \frac{\partial}{\partial \theta} + \frac{\hat{\theta}}{r} \frac{\partial^2}{\partial \theta^2} + \frac{\partial \hat{\phi}}{\partial \theta} \frac{1}{r sin \theta} \frac{\partial}{\partial \phi} + \hat{\phi}\frac{\partial}{\partial \theta}(\frac{1}{r sin \theta}) \frac{\partial}{\partial \phi} + \frac{\hat{\phi}}{r sin \theta} \frac{\partial^2}{\partial \theta \partial \phi}) $$
+
+The dot product gets rid of the 2nd, 3rd, 7th and 8th terms, while the 4th and 6th terms are zero when taking the derivatives
+
+$$  \frac{\partial}{\partial \theta} \frac{1}{r} = 0 $$
+$$  \frac{\partial \hat{\phi}}{\partial \theta} = 0 $$
+
+Two terms remain, for the first term we need to calculate
+
+$$ \frac{\partial \hat{r}}{\partial \theta} = cos \theta \, cos \phi \hat{i} + cos \theta \, sin \phi \hat{j} - sin \theta \hat{k} = \hat{\theta} $$
+
+This yields
+
+\begin{equation}
+\frac{\hat{\theta}}{r} \cdot \hat{\theta} \frac{\partial}{\partial r} =  \frac{1}{r} \frac{\partial}{\partial r}
+\end{equation}
+
+The 5th term is just the dot product
+
+\begin{equation}
+\frac{\hat{\theta}}{r} \cdot \frac{\hat{\theta}}{r} \frac{\partial^2}{\partial \theta^2} = \frac{1}{r^2} \frac{\partial^2}{\partial \theta^2}
+\end{equation}
+
+Finally, the $\hat{\phi}$ part of the dot product is
+
+$$ \frac{\hat{\phi}}{r sin \theta} \cdot ( \frac{\partial \hat{r}}{\partial \phi} \frac{\partial}{\partial r} + \hat{r} \frac{\partial^2}{\partial \phi \partial r} + \frac{\partial \hat{\theta}}{\partial \phi} \frac{1}{r} \frac{\partial}{\partial \theta} + \hat{\theta} \frac{\partial}{\partial \phi} \frac{1}{r} \frac{\partial}{\partial \theta} + \frac{\hat{\theta}}{r} \frac{\partial^2}{\partial \phi \partial \theta} + \frac{\partial \hat{\phi}}{\partial \phi} \frac{1}{r sin \theta} \frac{\partial}{\partial \phi} + \hat{\phi}\frac{\partial}{\partial \phi}(\frac{1}{r sin \theta}) \frac{\partial}{\partial \phi} + \frac{\hat{\phi}}{r sin \theta} \frac{\partial^2}{\partial \phi^2}) $$
+
+Once again the dot product makes the 2nd, 3rd and 4th terms zero.  The first term derivative
+
+$$ \frac{\partial \hat{r}}{\partial \phi} = -sin \theta \, sin \phi \hat{i} + sin \theta \, cos \phi \hat{j} =  sin \theta \hat{\phi} \frac{\partial}{\partial r} $$
+
+this leads to 
+
+\begin{equation}
+\frac{\hat{\phi}}{r sin \theta} \cdot sin \theta \hat{\phi} \frac{\partial}{\partial r} = \frac{1}{r} \frac{\partial}{\partial r}
+\end{equation}
+
+The second term derivative is 
+
+$$ \frac{\partial \hat{\theta}}{\partial \phi} = -cos \theta \, sin \phi \hat{i} + cos \theta \, cos \phi \hat{j} =  cos \theta \hat{\phi} $$
+
+this leads to 
+
+\begin{equation}
+\frac{\hat{\phi}}{r sin \theta} \cdot cos \theta \hat{\phi} \frac{1}{r} \frac{\partial}{\partial \theta} = \frac{cos \theta}{r^2 sin \theta} \frac{\partial}{\partial \theta}
+\end{equation}</content>
+</record>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="138">
+ <title>Geiger's Method</title>
+ <name>GeigersMethod</name>
+ <created>2006-03-24 16:02:42</created>
+ <modified>2006-03-24 16:02:42</modified>
+ <type>Definition</type>
+ <creator id="118" name="aerringt"/>
+ <modifier id="118" name="aerringt"/>
+ <comment>fixed spelling error</comment>
+ <author id="118" name="aerringt"/>
+ <classification>
+	<category scheme="msc" code="91.30.Px"/>
+ </classification>
+ <keywords>
+	<term>earthquake location</term>
+	<term>least squares</term>
+	<term>Gauss-Newton</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Geiger's method \cite{Geiger} is an iterative procedure using Gauss-Newton
+optimization to determine the location of an earthquake, or seismic event.
+Originally his method was developed to obtain the origin time and epicentre
+but it is easily extended to include the focal depth for hypocentre
+determination.
+
+Given a set of $M$ arrival times $t_i$ find the origin time $t_0$ and
+the hypocentre in cartesian coordinatios $(x_0,y_0,z_0)$ which minimize
+the objective function
+\begin{equation}
+F(\mathbf{X})=\sum_{i=1}^{M}r_i^2.
+\end{equation}
+Here, $r_i$ is the difference between observed and calculated arrival times
+\begin{equation}
+r_i=t_i-t_0-T_i,
+\end{equation}
+and the unknown parameter vector is
+\begin{equation}
+\mathbf{X}=(t_0,x_0,y_0,z_0)^{\mathrm{T}}
+\end{equation}
+In matrix form (1) becomes
+\begin{equation}
+F(\mathbf{X})=\mathbf{r}^{\mathrm{T}}\mathbf{r}
+\end{equation}
+The Gauss--Newton procedure requires an initial guess of the
+sought parameters, denoted here as
+\begin{equation}
+\mathbf{X}^*=(t_0^*,x_0^*,y_0^*,z_0^*)^{\mathbf{T}},
+\end{equation}
+which are then used to calculate the adjustment vector
+\begin{equation}
+\delta\mathbf{X}=(\delta t_0,\delta x_0,\delta y_0,\delta z_0)^{\mathrm{T}}
+\end{equation}
+in
+\begin{equation}
+\label{big_matrix}
+\mathbf{A}^{\mathrm{T}}\mathbf{A}\delta\mathbf{X}=-\mathbf{A}^{\mathrm{T}}\mathbf{r}.
+\end{equation}
+The Jacobian matrix $\mathbf{A}$ is defined as
+\begin{equation}
+\mathbf{A}=\left( \begin{array}{cccc}
+\partial r_1/\partial t_0 &amp; \partial r_1/ \partial x_0 &amp; \partial r_1/\partial
+y_0 &amp; \partial r_1/\partial z_0 \\
+
+\partial r_2/\partial t_0 &amp; \partial r_2/ \partial x_0 &amp; \partial r_2/\partial
+y_0 &amp; \partial r_2/\partial z_0 \\
+
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+
+\partial r_M/\partial t_0 &amp; \partial r_M/ \partial x_0 &amp; \partial r_M/\partial
+y_0 &amp; \partial r_M/\partial z_0 \\
+\end{array}\right).
+\end{equation}
+The partial derivatives are evaluated at the initial guess, or trial vector,
+$\mathbf{X}^*$. Equation (\ref{big_matrix}) can be rewritten as
+\begin{equation}
+\label{final_matrix}
+\mathbf{G}\delta\mathbf{X}=\mathbf{g}.
+\end{equation}
+Using (\ref{final_matrix}) and an initial guess $\mathbf{X}^*$ an adjustment
+vector can be calculated. The initial guess can then be updated
+$\mathbf{X}^*+\delta \mathbf{X}$ and used as the inital guess in the next
+run of the algorithm. In this manner the sought parametres $\mathbf{X}$ can
+be determined to some tolerance.
+
+\begin{thebibliography}{99}
+
+\bibitem{Geiger}Geiger, L., ``Probability method for the determination of
+  earthquake epicenters from the arrival time only.'' {\it Bull. St. Louis
+  Univ.} vol. 8, pp. 60-71.
+\bibitem{Lee}Lee, W. H. K. and Stewart, S. W. {\it Principles and Applications
+    of Microearthquake Networks,} Academic Press, New York. 1981
+
+\bibitem{Gib}Gibowicz, S. J. and Kijko, A. {\it An Introduction to Mining
+Seismology,} Academic Press, New York. 1994.
+
+\end{thebibliography}</content>
+</record>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="282">
+ <title>test</title>
+ <name>Test</name>
+ <created>2008-07-11 03:58:41</created>
+ <modified>2008-07-11 04:03:33</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="00-XX"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{fancybox}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>
+This is a test image for OCR to tex using InftyReader
+
+\noindent
+MASAKAZU SUZUKI
+
+\qquad {\it Proof}. -- We have $q_{1}\delta_{1}=p\delta_{0}$ by the corollary to Proposition 5. Therefore, it is sufficient to prove (2) for $k\geq 2$. Set $\sigma=i_{k}$, and let us consider the surface $M_{\sigma}$ obtained by the $(\sigma-1)$-th blowing up in the process to get $M$ from $M_{1}$. We may say that $M_{\sigma}$ is the surface obtained by the blowing down of $L_{h+1}, L_{h}$, ..., $L_{k+1}$ successively from $M$. Let $\pi_{\sigma}$ : $M\rightarrow M_{\sigma}$ be the contraction mapping. As in the previous sections, let us denote the proper images of $\overline{C}, \overline{C}_{k}, E_{i}$ in $M_{\sigma}$ by $\overline{C}^{(\sigma)}, \overline{c}_{k}^{(\sigma)}, E_{i}^{(\sigma)}$ respectively. By Theorem 3, $\overline{C}_{k+1}^{(\sigma)}$ intersects transversely $E_{\sigma}^{(\sigma)}$ at the same point $Q=\pi_{\sigma}(L_{k+1}\cup\cdots\cup L_{h+1})$ as $\overline{C}^{(\sigma)}$. Hence, the functions $f$ and $g_{k+1}$ on $M_{\sigma}$ have the same indetermination point $Q\in E_{\sigma}^{(\sigma)}$. Let
+$$
+P_{f}^{(\sigma)}=\sum_{i=0}^{\sigma}\nu_{i}E_{i}^{(\sigma)},\text{ }P_{gk+1}^{(\sigma)}=\sum_{i=0}^{\sigma}\overline{\nu}_{i}E_{i}^{(\sigma)}
+$$
+be the pole divisor of $f$ and $g_{k+1}$ on $M_{\sigma}$ respectively. Let $\overline{\delta}_{0},\overline{\delta}_{1}, \cdots,\overline{\delta}_{k}$ be the order of the pole of $g_{k+1}$ on $E_{j\mathrm{o}}(=E_{0}), E_{j_{1}}(=E_{1}), \cdots, E_{j_{k}}$. We have $\overline{\delta}_{0}=\overline{\nu}_{j_{0}},\overline{\delta}_{1}=\overline{\iota/}_{j_{1}}, \cdots,\overline{\delta}_{k}=\overline{\nu}_{j_{k}}$. The coefficients $\nu_{i},\overline{\nu}_{i}(i=0,1,\ \cdots,\ \sigma)$ are the solutions of the following equations:
+$$
+\sum_{j=0}^{\sigma}(E_{i}^{(\sigma)}\cdot E_{j}^{(\sigma)})\nu_{j}=\{
+$$
+$$
+0\text{ }(i\neq\sigma)
+$$
+$$
+d_{k+1}\text{ }(i=\sigma),
+$$
+$$
+\sum_{j=0}^{\sigma}(E_{i}^{(\sigma)}\cdot E_{j}^{(\sigma)})\overline{\nu}_{j}=\{
+$$
+$$
+0\text{ }(i\neq\sigma)
+$$
+\qquad 1 $(i=\sigma)$.
+
+Hence, by Lemma 4, we have $\nu_{i}=d_{k+1^{\overline{\mathcal{U}}}i}$ for all $i=0,1, \cdots, \sigma$. In particular,
+$$
+\delta_{i}=\overline{\delta}_{i}\cdot d_{k+1},\text{ }(i=0,1,\ \cdots,\ k).
+$$
+Therefore, in order to prove (2), it is sufficient to prove
+$$
+(3)\text{ }\quad q_{k}\overline{\delta}_{k}\in \mathbb{N}\overline{\delta}_{0}+\mathbb{N}\overline{\delta}_{1}+\cdots+\mathbb{N}\overline{\delta}_{k-1}.
+$$
+\qquad By Theorem 3, $\overline{C}_{k}^{(\sigma)}$ intersects $E_{j_{k}}^{(\sigma)}$ transversely and does not inter- sects other components $E_{i}^{(\sigma)}(i\neq j_{k})$. We have
+$$
+\overline{\delta}_{k}=(P_{\mathit{9}k+1}^{(\sigma)}\cdot\overline{c}_{k}^{(\sigma)})
+$$
+$$
+=(\overline{C}_{k+1}^{(\sigma)}\cdot\overline{C}_{k}^{(\sigma)})
+$$
+$$
+=(\overline{C}_{k+1}^{(\sigma)}\cdot P_{\mathit{9}k}^{(\sigma)}).
+$$</content>
+</record>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="782">
+ <title>fundamentals of nuclear physics</title>
+ <name>FundamentalsOfNuclearPhysics</name>
+ <created>2009-05-26 03:02:49</created>
+ <modified>2009-05-27 02:46:05</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>QCD</concept>
+	<concept>QED</concept>
+	<concept>QFT</concept>
+	<concept>ITER</concept>
+	<concept>hot fusion</concept>
+	<concept>fusion power</concept>
+	<concept>nuclear interactions</concept>
+	<concept>anisotropic hot plasmas</concept>
+	<concept>nuclear fusion fuels</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="fundamentals of nuclear physics" alias="Nuclear Physics 101"/>
+ </synonyms>
+ <keywords>
+	<term>physics 101</term>
+	<term>nuclear physics</term>
+	<term>fusion</term>
+	<term>QCD</term>
+	<term>quantum statistical mechanics</term>
+	<term>quarks</term>
+	<term>gluons</term>
+	<term>ITER</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Foundations of Physics with emphasis on Nuclear Physics}
+
+The following subsections are main topics relevant to the foundations of Physics, Nuclear Physics, and their current applications under development.
+
+\begin{itemize}
+\item Outline of physics
+\item Particle physics 
+\item Nuclear fusion
+\item Fusion power
+\item Quarks 
+\item Gluons 
+\item Partons
+\item \PMlinkexternal{ITER}{http://www.iter.org/default.aspx}
+\item Quantum chromodynamics (QCD)
+\item Quantum mechanics (QED)
+\item Quantum field theory (QFT)
+\item Statistical mechanics 
+\item Molecular dynamics 
+\item Thermodynamics 
+\item Experimental Physics 
+\item Related Research fields:
+\item Atomic, molecular, and optical physics 
+\item Unsolved problems in physics
+\item X-ray microscope 
+\item 2D-FT NMRI and Spectroscopy 
+\item Biophysics and Biophysical Chemistry 
+\item Biophysics 
+\item Current research
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{BCI2etal2k9}
+Contributed book. \PMlinkexternal{``Fundamentals of Physics with Emphasis on Nuclear Physics.'', free 8 Mb PDF download}{http://planetphysics.org/?op=getobj&amp;from=books&amp;id=223}, 192pp, May 26th, 2009. 
+\end{thebibliography}</content>
+</record>

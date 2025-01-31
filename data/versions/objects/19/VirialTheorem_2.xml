@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="19">
+ <title>virial theorem</title>
+ <name>VirialTheorem</name>
+ <created>2004-11-19 01:01:34</created>
+ <modified>2004-11-19 01:02:18</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>We start with the moment of inertia about the origin for the system of particles, which is defined as
+
+\begin{equation}\label{first}
+I = \sum_i m_i {r_i}^2
+\end{equation}</content>
+</record>

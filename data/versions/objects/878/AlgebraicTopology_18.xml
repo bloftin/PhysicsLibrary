@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="18" id="878">
+ <title>algebraic topology</title>
+ <name>AlgebraicTopology</name>
+ <created>2010-09-28 02:15:06</created>
+ <modified>2010-10-24 18:11:17</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02.90.+p"/>
+	<category scheme="msc" code="02.20.-axx"/>
+	<category scheme="msc" code="02.40.Re"/>
+	<category scheme="msc" code="02.20.Sv"/>
+	<category scheme="msc" code="02.40.Pc"/>
+	<category scheme="msc" code="02.40.-kxx"/>
+	<category scheme="msc" code="02.20.Bb"/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>non-Abelian</concept>
+	<concept>fundamental group</concept>
+	<concept>fundamental groupoid</concept>
+	<concept>homotopy theory</concept>
+	<concept>homology theory</concept>
+	<concept>cohomology group</concept>
+	<concept>simplicial complex</concept>
+	<concept>fundamental groupoid functor</concept>
+	<concept>covering</concept>
+	<concept>homotopical excision</concept>
+	<concept>diagram of spaces</concept>
+	<concept>crossed module</concept>
+	<concept>crossed complex</concept>
+	<concept>Lie algebroid</concept>
+	<concept>Lie groupoid</concept>
+	<concept>cubical higher homotopy groupoid</concept>
+ </defines>
+ <related>
+	<object name="Category"/>
+	<object name="Functor"/>
+	<object name="NoncommutativeGeometry"/>
+	<object name="IndexOfCategories"/>
+	<object name="OverviewOfTheContentOfPlanetPhysics"/>
+	<object name="NONABELIANQUANTUMALGEBRAICTOPOLOGY2"/>
+ </related>
+ <keywords>
+	<term>homology and cohomology theory</term>
+	<term>fundamental functor</term>
+	<term>fundamental groupoid functor</term>
+	<term>groupoid category</term>
+	<term>algebroid category</term>
+	<term>crossed complexes</term>
+	<term>complex modules</term>
+	<term>homology groups and groupoids. homotopy theory</term>
+	<term>groupoids</term>
+	<term>categorical algebra</term>
+	<term>topological categories</term>
+	<term>topological groupoids</term>
+	<term>Lie groupoids</term>
+	<term>Lie algebroids</term>
+	<term>higher-dimensional algebra</term>
+	<term>higher-dimensional groupoids</term>
+	<term>Van Kampen theorems</term>
+	<term>approximation theorem</term>
+	<term>Hurewicz theorem</term>
+	<term>algebraic theories</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Algebraic topology}
+
+
+\subsection{Introduction}
+\emph{Algebraic topology} (AT) utilizes algebraic approaches to solve topological problems, such as the classification of surfaces, proving duality theorems for manifolds and approximation theorems for topological spaces. A central problem in algebraic topology is to find algebraic invariants of topological spaces, which is usually carried out by means
+of homotopy, homology and cohomology groups. There are close connections between algebraic topology, \PMlinkname{Algebraic Geometry (AG)}{AlgebraicGeometry}, Non-commutative Geometry and, of course, its most recent development-- 
+\PMlinkname{non-Abelian Algebraic Topology (NAAT)}{http://planetphysics.org/encyclopedia/NonAbelianAlgebraicTopology6.html}. On the other hand, there are also close ties between algebraic geometry and number theory.
+
+
+\subsection{Outline}
+\begin{enumerate}
+
+\item Homotopy theory and fundamental groups
+\item Topology and groupoids; \PMlinkname{van Kampen theorem}{VanKampensTheorem}
+\item Homology and cohomology theories
+\item Duality
+\item Category theory applications in algebraic topology
+\item Index of categories, functors and natural transformations
+\item \PMlinkexternal{Grothendieck's Descent theory}{http://www.uclouvain.be/17501.html}
+\item `Anabelian geometry'
+\item Categorical Galois theory
+\item Higher dimensional algebra (HDA)
+\item Non-Abelian Quantum Algebraic Topology (NAQAT)
+\item Quantum Geometry
+\item \PMlinkexternal{Non-Abelian algebraic topology (NAAT)}{http://planetphysics.org/encyclopedia/NonAbelianAlgebraicTopology6.html}
+\end{enumerate}
+
+\subsection{Homotopy theory and fundamental groups}
+\begin{enumerate}
+\item Homotopy
+\item Fundamental group of a space
+\item Fundamental theorems
+\item van Kampen theorem
+\item Whitehead groups, torsion and towers
+\item Postnikov towers
+\end{enumerate}
+
+
+\subsection{Topology and Groupoids}
+\begin{enumerate}
+\item Topology definition, axioms and basic concepts
+\item Fundamental groupoid
+\item Topological groupoid
+\item van Kampen theorem for groupoids
+\item Groupoid pushout theorem
+\item Double groupoids and crossed modules
+\item new4
+
+\end{enumerate}
+
+
+\subsection{Homology theory}
+\begin{enumerate}
+
+\item Homology group
+\item Homology sequence
+\item Homology complex
+\item new4
+
+\end{enumerate}
+
+
+\subsection{Cohomology theory}
+\begin{enumerate}
+
+\item Cohomology group
+\item Cohomology sequence
+\item DeRham cohomology
+\item new4
+
+\end{enumerate}
+
+
+
+\subsection{Duality in algebraic topology and category theory}
+\begin{enumerate}
+
+\item Tanaka-Krein duality
+\item Grothendieck duality
+\item Categorical duality
+\item Tangled duality
+\item DA5
+\item DA6
+\item DA7
+
+\end{enumerate}
+
+\subsection{Category theory applications}
+\begin{enumerate}
+\item Abelian categories
+\item Topological category
+\item Fundamental groupoid functor
+\item Categorical Galois theory
+\item Non-Abelian algebraic topology
+\item Group category
+\item Groupoid category
+\item $\mathcal{T}op$ category
+\item Topos and topoi axioms
+\item Generalized toposes
+\item Categorical logic and algebraic topology
+\item Meta-theorems
+\item Duality between spaces and algebras
+
+\end{enumerate}
+
+
+\subsection{Index of categories}
+The following is a listing of categories relevant to algebraic topology:
+
+\begin{enumerate}
+\item \PMlinkexternal{Algebraic categories}{http://www.uclouvain.be/17501.html}
+\item Topological category
+\item Category of sets, Set
+\item Category of topological spaces
+\item Category of Riemannian manifolds
+\item Category of CW-complexes
+\item Category of Hausdorff spaces
+\item Category of Borel spaces
+\item Category of CR-complexes
+\item Category of graphs
+\item Category of spin networks
+\item Category of groups
+\item Galois category
+\item Category of fundamental groups
+\item Category of Polish groups
+\item Groupoid category
+\item Category of groupoids (or groupoid category)
+\item Category of Borel groupoids
+\item Category of fundamental groupoids
+\item Category of functors (or functor category)
+\item Double groupoid category
+\item Double category
+\item Category of Hilbert spaces
+\item Category of quantum automata
+\item R-category
+\item Category of algebroids
+\item Category of double algebroids
+\item Category of dynamical systems
+\end{enumerate}
+
+\subsection{Index of functors}
+\emph{The following is a contributed listing of functors:}
+
+\begin{enumerate}
+\item Covariant functors
+\item Contravariant functors
+\item Adjoint functors
+\item Preadditive functors
+\item Additive functor
+\item Representable functors
+\item Fundamental groupoid functor
+\item Forgetful functors
+\item Grothendieck group functor
+\item Exact functor
+\item Multi-functor
+\item Section functors
+\item NT2
+\item NT3
+\end{enumerate}
+
+
+\subsection{Index of natural transformations}
+\emph{The following is a contributed listing of natural transformations:}
+
+\begin{enumerate}
+\item Natural equivalence
+\item Natural transformations in a 2-category
+\item NT3
+\item NT1
+\item NT2
+\item NT3
+\end{enumerate}
+
+
+
+\subsection{Grothendieck proposals}
+\begin{enumerate}
+\item \PMlinkname{Esquisse d'un Programme}{AlexSMathematicalHeritageEsquisseDunProgramme}
+\item
+\PMlinkexternal{Pursuing Stacks}{http://www.math.jussieu.fr/~leila/grothendieckcircle/stacks.ps}
+\item S2
+\item S3
+\item S4
+
+\end{enumerate}
+
+\subsection{Descent theory}
+\begin{enumerate}
+\item D1
+\item D2
+\item D3
+\item D4
+
+\end{enumerate}
+
+\subsection{Higher dimensional algebra (HDA)}
+
+\begin{enumerate}
+\item Categorical groups
+\item Double groupoids
+\item Double algebroids
+\item Bi-algebroids
+\item $R$-algebroid
+\item $2$-category
+\item $n$-category
+\item Super-category
+\item weak n-categories
+\item Bi-dimensional Geometry
+\item \PMlinkname{Noncommutative geometry}{NoncommutativeGeometry}
+\item Higher-Homotopy theories
+\item \PMlinkname{Higher-Homotopy Generalized van Kampen Theorem (HGvKT)}{GeneralizedVanKampenTheoremsHigherDimensional}
+\item H1
+\item H2
+\item H3
+\item H4
+
+\end{enumerate}
+
+
+
+\subsubsection{Axioms of cohomology theory}
+\begin{enumerate}
+
+\item A1
+\item A2
+\item A3
+\item A4
+\item A5
+\item A6
+\item A7
+
+\end{enumerate}
+
+\subsubsection{Axioms of homology theory}
+\begin{enumerate}
+
+\item A1
+
+\item A2
+\item A3
+\item A4
+\item A5
+\item A6
+
+\end{enumerate}
+
+
+\subsection{Non-Abelian Algebraic Topology (NAAT)}
+
+\begin{enumerate}
+\item \PMlinkexternal{An overview of Nonabelian Algebraic Topology}{http://arxiv.org/PS_cache/math/pdf/0407/0407275v2.pdf}
+\item Non-Abelian categories
+\item Non-commutative groupoids (including non-Abelian groups)
+\item \PMlinkname{Generalized van Kampen theorems}{GeneralizedVanKampenTheoremsHigherDimensional}
+\item \PMlinkname{Noncommutative Geometry (NCG)}{NoncommutativeGeometry}
+\item Non-commutative `spaces' of functions
+\item \PMlinkname{Non-Abelian Algebraic Topology textbook}{NonAbelianAlgebraicTopology5}
+
+\end{enumerate}
+
+
+\subsubsection{References for NAAT}
+
+[1] M. Alp and C. D. Wensley, XMod, Crossed modules and Cat1--groups: a GAP4 package,(2004) (http://www.maths.bangor.ac.uk/chda/)
+
+[2] R. Brown, Elements of Modern Topology, McGraw Hill, Maidenhead, 1968. second edition
+as Topology: a geometric account of general topology, homotopy types, and the fundamentalgroupoid, Ellis Horwood, Chichester (1988) 460 pp.
+[3] R. Brown, \PMlinkexternal{`Higher dimensional group theory’}{http://www.bangor.ac.uk/∼mas010/hdaweb2.htm}
+[4] R. Brown.`Crossed complexes and homotopy groupoids as non commutative tools for higher dimensional local--to--global problems', Proceedings of the Fields Institute Workshop on Categorical Structures for Descent and Galois Theory, Hopf Algebras and Semiabelian Categories,
+September 23--28, 2002, Contemp. Math. (2004). (to appear), UWB Math Preprint
+02.26.pdf (30 pp.)
+[5] R. Brown and P. J. Higgins, On the connection between the second relative homotopy groups of some related spaces, Proc.London Math. Soc., (3) 36 (1978) 193--212.
+[6] R. Brown and R. Sivera, `Nonabelian algebraic topology', (in preparation) Part I is downloadable
+from
+(http://www.bangor.ac.uk/~mas010/nonab-a-t.html)
+[7] R. Brown and C. B. Spencer, Double groupoids and crossed modules, Cahiers Top. G'/eom.Diff., 17 (1976) 343--362.
+[8] R. Brown and C. D.Wensley, `1Computation and homotopical applications of induced crossed modules', J. Symbolic Computation, 35 (2003) 59-72.
+[9] The GAP Group, 2004, GAP --Groups, Algorithms, and Programming, version 4.4 , Technical report, (http://www.grp-system.org)
+[10] A. Grothendieck, ‘Pursuing Stacks’, 600p, 1983, distributed from Bangor. Now being edited by G. Maltsiniotis for the SMF.
+[11] P. J. Higgins, 1971, Categories and Groupoids, Van Nostrand, New York. Reprint Series, Theory and Appl. Categories (to appear).
+[12] V. Sharko, 1993, Functions on manifolds: algebraic and topological aspects, number 131 in Translations of Mathematical Monographs, American Mathematical Society.
+
+
+\begin{enumerate}
+
+\item new1
+
+\item new2
+\item new3
+\item new4
+
+\end{enumerate}
+
+
+\subsection{13}
+\begin{enumerate}
+
+\item new1
+\item new2
+\item new3
+\item new4
+
+\end{enumerate}
+
+\subsection{14}
+
+
+\subsection{References}
+
+\PMlinkexternal{Bibliography on Category theory, AT and QAT}{http://planetmath.org/?op=getobj&amp;from=objects&amp;id=10746}
+
+
+\subsubsection{Textbooks and Expositions:}
+
+\begin{enumerate}
+\item A \PMlinkexternal{Textbook1}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=172}
+\item A \PMlinkexternal{Textbook2}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=156}
+\item A \PMlinkexternal{Textbook3}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=159}
+\item A \PMlinkexternal{Textbook4}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=160}
+\item A \PMlinkexternal{Textbook5}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=153}
+\item A \PMlinkexternal{Textbook6}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=68}
+\item A \PMlinkexternal{Textbook7}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=158}
+\item A \PMlinkexternal{Textbook8}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=75}
+\item A \PMlinkexternal{Textbook9}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=73}
+\item A \PMlinkexternal{Textbook10}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=174}
+\item A \PMlinkexternal{Textbook11}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=169}
+\item A \PMlinkexternal{Textbook12}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=178}
+\item A \PMlinkexternal{Textbook13}{http://www.math.cornell.edu/~hatcher/VBKT/VB.pdf}
+\item new1
+\item new2
+\item new3
+\item new4
+
+\end{enumerate}
+
+\subsection{Algebraic Topology and Groupoids}
+\begin{enumerate}
+\item Ronald Brown: Topology and Groupoids, BookSurge LLC (2006).
+\item Ronald Brown R, P.J. Higgins, and R. Sivera.: \emph{``Non-Abelian algebraic topology"}.
+ http://www. bangor.ac.uk/mas010/nonab-a-t.html; http://www.bangor.ac.uk/mas010/nonab-t/partI010604.pdf ,
+Springer: in press (2010).
+\item R. Brown and J.-L. Loday: Homotopical excision, and Hurewicz theorems, for n-cubes of spaces, Proc. London Math. Soc., 54:(3), 176--192, (1987).
+\item R. Brown and J.-L. Loday: Van Kampen Theorems for diagrams of spaces, Topology, 26: 311-337 (1987).
+\item R. Brown and G. H. Mosa: Double algebroids and crossed modules of algebroids, University of Wales-Bangor, Maths Preprint, 1986.
+\item R. Brown and C.B. Spencer: Double groupoids and crossed modules, Cahiers Top. G\'eom. Diff. 17 (1976), 343--362.
+\item Madalina (Ruxi) Buneci.: \emph{Groupoid Representations}., Ed. Mirton: Timisoara (2003).
+\item Allain Connes: \emph{Noncommutative Geometry}, Academic Press 1994.
+\end{enumerate}
+
+\subsection{Non--Abelian Algebraic Topology and Higher Dimensional Algebra}
+\begin{enumerate}
+\item Ronald Brown: Non--Abelian Algebraic Topology, vols. I and II. 2010. (in press: Springer): \PMlinkexternal{Nonabelian Algebraic Topology:filtered spaces, crossed complexes, cubical higher homotopy groupoids}{http://www.bangor.ac.uk/~mas010/rbrsbookb-e040310.pdf}
+
+\item \PMlinkexternal{Higher Dimensional Algebra: An Introduction}{http://en.wikipedia.org/wiki/Higher_dimensional_algebra}
+
+\item \PMlinkexternal{Higher Dimensional Algebra and Algebraic Topology., 282 pages, Feb. 10, 2010}{http://en.wikipedia.org/wiki/User:Bci2/Books/Higher_Dimensional_Algebra}
+
+\end{enumerate}</content>
+</record>

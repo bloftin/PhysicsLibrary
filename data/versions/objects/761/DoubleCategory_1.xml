@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="761">
+ <title>double category</title>
+ <name>DoubleCategory</name>
+ <created>2009-05-16 15:57:26</created>
+ <modified>2009-05-16 15:57:26</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>internal category in $Cat$</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="double category" alias="internal category in $Cat$"/>
+ </synonyms>
+ <keywords>
+	<term>double category</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Background}
+Charles Ehresmann defined in 1963 a {\em double category}$\mathcal{D}$ as an internal category in the category of small categories $\bf{Cat}$.
+
+\begib{definition}
+A double category $mathcal{D}$ consists of:
+\begin{itemize}
+\item a set of objects,
+\item a set of horizontal morphisms,
+\item a set of vertical morphisms, and a class of squares with source and target as shown in the following diagrams:
+$$f: A \to B$$
+
+
+A
+j
+²
+A
+f
+/
+j
+²
+®
+B
+k
+²
+C C g /D
+and compositions and units that satisfy axioms.
+\end{definition}</content>
+</record>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="121">
+ <title>Relativity: The Special and General Theory</title>
+ <name>SpecialTheoryOfRelativity</name>
+ <created>2006-03-11 17:51:06</created>
+ <modified>2006-04-01 20:01:33</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="04.20.-q"/>
+	<category scheme="msc" code="03.30.+p"/>
+ </classification>
+ <related>
+	<object name="PhysicalMeaningOfGeometricalPropositions"/>
+	<object name="SystemOfCoOrdinate"/>
+	<object name="SpaceAndTimeInClassicalMechanics"/>
+	<object name="GalileanSystemOfCoOrdinates"/>
+	<object name="PrincipleOfRelativityInTheRestrictedSense"/>
+	<object name="TheoremOfTheAdditionOfVelocitiesEmployedIn"/>
+	<object name="ApparentIncompatabilityOfTheLawOfPropagationOfLight"/>
+	<object name="OnTheIdeaOfTimeInPhysics"/>
+	<object name="RelativityOfSimulatneity"/>
+	<object name="OnTheRelativityOfTheConceptionOfDistance"/>
+	<object name="TheoremOfTheAdditionOfVelocitiesTheExperimentOfFizeau"/>
+	<object name="HeuristicValueOfTheTheoryOfRelativity"/>
+	<object name="GeneralResultsOfTheTheory"/>
+	<object name="ExperienceAndTheSpecialTheoryOfRelativity"/>
+	<object name="MinkowskisFourDimensionalSpace"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+%\input gutenberg-simple.tex
+%\documentclass[11pt]{report}
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\title{Relativity: The Special and General Theory}
+\date{1916}
+
+\author{Albert Einstein}
+
+\maketitle
+
+
+\subsection{Preface}
+
+
+The present book is intended, as far as possible, to give an exact
+insight into the theory of Relativity to those readers who, from a
+general scientific and philosophical point of view, are interested in
+the theory, but who are not conversant with the mathematical apparatus
+of theoretical physics. The work presumes a standard of education
+corresponding to that of a university matriculation examination, and,
+despite the shortness of the book, a fair amount of patience and force
+of will on the part of the reader. The author has spared himself no
+pains in his endeavour to present the main ideas in the simplest and
+most intelligible form, and on the whole, in the sequence and
+connection in which they actually originated. In the interest of
+clearness, it appeared to me inevitable that I should repeat myself
+frequently, without paying the slightest attention to the elegance of
+the presentation. I adhered scrupulously to the precept of that
+brilliant theoretical physicist L. Boltzmann, according to whom
+matters of elegance ought to be left to the tailor and to the cobbler.
+I make no pretence of having withheld from the reader difficulties
+which are inherent to the subject. On the other hand, I have purposely
+treated the empirical physical foundations of the theory in a
+"step-motherly" fashion, so that readers unfamiliar with physics may
+not feel like the wanderer who was unable to see the forest for the
+trees. May the book bring some one a few happy hours of suggestive
+thought!
+
+
+%\mainmatter
+
+\subsection{Part I: The Special Theory of Relativity}
+
+01. Physical Meaning of Geometrical Propositions \\
+02. \PMlinkname{The System of Co-ordinates}{SystemOfCoOrdinate} \\
+03. Space and Time in Classical Mechanics\\
+04. \PMlinkname{The Galileian System of Co-ordinates}{GalileanSystemOfCoOrdinates}\\
+05. \PMlinkname{The Principle of Relativity (in the Restricted Sense)}{PrincipleOfRelativityInTheRestrictedSense}\\
+06. The Theorem of the Addition of Velocities employed in Classical Mechanics\\
+07. \PMlinkname{The Apparent Incompatability of the Law of Propagation of Light with the Principle of Relativity}{ApparentIncompatabilityOfTheLawOfPropagationOfLight}\\
+08. On the Idea of Time in Physics\\
+09. \PMlinkname{The Relativity of Simultaneity}{RelativityOfSimulatneity}\\
+10. On the Relativity of the Conception of Distance\\
+11. \PMlinkname{The Lorentz Transformation}{LorentzTransformation}\\
+12. The Behaviour of Measuring-Rods and Clocks in Motion\\
+13. \PMlinkname{Theorem of the Addition of Velocities. The Experiment of Fizeau}{TheoremOfTheAdditionOfVelocitiesTheExperimentOfFizeau}\\
+14. \PMlinkname{The Hueristic Value of the Theory of Relativity}{HeuristicValueOfTheTheoryOfRelativity}\\
+15. General Results of the Theory\\
+16. \PMlinkname{Expereince and the Special Theory of Relativity}{ExperienceAndTheSpecialTheoryOfRelativity}\\
+17. \PMlinkname{Minkowski's Four-dimensial Space}{MinkowskisFourDimensionalSpace}\\
+
+\subsection{Part II: The General Theory of Relativity}
+18. \PMlinkname{Special and General Principle of Relativity}{SpecialAndGeneralPrincipleOfRelativity}
+
+
+\subsection{References}
+This article and subsequent child entries are derived from the Einstein Reference Archive (marxists.org) 1999, 2002.  \PMlinkexternal{Einstein Reference Archive}{http://www.marxists.org/reference/archive/einstein/index.htm} which is under the FDL copyright.</content>
+</record>

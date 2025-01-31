@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="55">
+ <title>action</title>
+ <name>Action</name>
+ <created>2005-08-14 02:01:32</created>
+ <modified>2005-08-14 16:02:51</modified>
+ <type>Definition</type>
+ <creator id="15" name="rspuzio"/>
+ <modifier id="15" name="rspuzio"/>
+ <author id="15" name="rspuzio"/>
+ <classification>
+	<category scheme="msc" code="45.20.Jj"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In classical mechanics, the term ``\emph{action}'' is used to describe a functional from which the motion of the system may be deduced by extremization.
+
+More specifically, suppose that the instantaneous configuration of a system may be described by a point in a geometric space $M$.  Let us use the term \emph{possible history of the system} to denote a mapping from an interval $[a,b]$ (representing time) into this space $M$.  Then the action $S$ is a real-valued functional on the set of possible histories with the following property: a possible history represents the actual time evolution of the system if and only if it a critical point of the functional $S$.
+
+It is important to note that it is important to note that is only required that a possible history be a critical point (maximum, minimum, or saddle point) of the action functional.  In popular usage, one still hears phrases sush a ``minimizing the action'' or `` the principle of least action''.  These date back to the eighteenth century when the notion of action was first introduced.  At that time it was thought that only minima were to used, but later on it was realized that other types of extremal points (i.e. saddle points and maxima) need to be admitted as well.  Nevertheless, the old terminology still lingers, so one needs to be careful.
+
+Another possibility is that one has a constrained system.  In this case, one does not consider all paths as possible histories, but only those which satisfy the constraints.  Examples of possible constraints include: demanding that the motion of the particle lie on a certain subspace, demanding that a ball or a wheel be in rolling contact with the ground, demanding that energy be conserved.  In the case of a constrained system, one looks for critical points of the action as restricted to paths which satisfy the constraint.  It should be noted that these extrema will not necessarily be extrema of the unconstrained action.  It is often possible to implement constraints by means of Lagrange multipliers.
+
+\section{Example}
+
+To illustrate this notion of action, we may consider the example of a particle on a line moving under the influence of a force derived from a potential $V$.  In this case $M$ may be taken to be the line and the action may be taken as follows:
+ \[ S[q(\cdot)] = \int_a^b \left( {m \over 2} \left( {d q \over d t} \right)^2 - V(q(t)) \right) \, dt \]
+
+To find the extrema of this functional, we may compute the Euler-Lagrange equations to obtain the following:
+ \[ m {d^2 q \over dt^2} + {\partial V \over \partial q} = 0 \]
+Note that this is the usual equation of motion of a point particle.
+
+It is easy enough to generalize this to the case of a particle moving in three dimensions as follows:
+ \[ S[{\vec q}(\cdot)] = \int_a^b \left( {m \over 2} \left( {d {\vec q} \over d t} \right)^2 - V({\vec q}t) \right) \, dt \]
+
+It should be mentioned that the form of the action is typically similar to that of these two examples.  That is to say, the action is typically the integral of a function of the path and a certain number of its derivatives:
+ \[ S[f] = \int_a^b L \left( f, {df \over dt}, \ldots, {d^n f \over dt^n} \right) \]
+The function $L$ appearing here is known as the \emph{Lagrangian} of the system.
+
+\section{Units}
+
+If one examines the action for the point particle, one sees that it has the following units:
+ \[ \hbox{~mass} \hbox{~distance}^2 \hbox{~time} \]
+These units are therefore known as ``units of action''.  Since most of the systems one considers in elementary mechanics are composed of point particles acte on by various forces, the action will typically have these units in elementary mechanics.
+
+However, it is worth pointing out that the assignment of units to the action in classical mechanics is largely a matter of convention.  The physically significant feature of the action functional is its critical points.  Since the critical points of a functional do not change if one multiplies the functional by a constant, it follows that one is free to multiply the action by a constant.  In particular, this constant may have units.  For instance, one could also choose to multiply the action for a particle by $m^{-1}$ to obtain the new action
+ \[ S'[q(\cdot)] = \int_a^b \left( {1 \over 2} \left( {d q \over d t} \right)^2 - {1 \over m} V(q(t)) \right) \, dt \]
+This new action yields the same equation of motion, hence is physically equivalent to the old action.  However, it has units of $\hbox{distance}^2 \hbox{~time}$.
+
+It is only when one considers classical mechanics as a limit of quantum mechanics that it becomes possible to lift this ambiguity of multiplying the action by an overall constant.  What one finds is that a dimensionless action, which is obtained by the use of Planck's constant appears.  For example, in the case of the point particle, one finds that the following action appears:
+ \[ S_{\hbox{quantum}} [{\vec q}(\cdot)] = {1 \over \hbar} \int_a^b \left( {m \over 2} \left( {d {\vec q} \over d t} \right)^2 - V({\vec q}t) \right) \, dt \]
+The overall scale of this functional is significant because one can measure it by means of a double slit interference experiment.  This does not contradict what was said earlier about the freedom to rescale the action in classsical mechanics since interference is a purely quantum phenomenon.</content>
+</record>

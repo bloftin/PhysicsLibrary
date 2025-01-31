@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="745">
+ <title>Jacques Tits</title>
+ <name>JacquesTits</name>
+ <created>2009-05-09 17:37:50</created>
+ <modified>2009-05-09 17:38:56</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>Jacques Tits  biography</term>
+	<term>Abel prize 2008</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Jacques Tits}
+
+Jacques Tits (France) received in 2008 the prestigious Abel Prize in mathematics together with John Griggs Thompson (USA) for ``for their outstanding achievements in algebra and especially for their shaping of modern group theory''.
+
+
+\textbf{[more to come]...}</content>
+</record>

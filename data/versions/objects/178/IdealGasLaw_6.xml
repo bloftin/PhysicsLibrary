@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="178">
+ <title>ideal gas law</title>
+ <name>IdealGasLaw</name>
+ <created>2006-05-27 14:17:43</created>
+ <modified>2008-03-25 18:47:14</modified>
+ <type>Topic</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <comment>decimal point</comment>
+ <author id="390" name="invisiblerhino"/>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="51.30.+i"/>
+	<category scheme="msc" code="51.35.+a"/>
+ </classification>
+ <synonyms>
+	<synonym concept="ideal gas law" alias="ideal gas equation"/>
+ </synonyms>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The equation that characterizes any amount of a gas is
+\[
+pV = nRT
+\]
+where $p$ is the pressure, $V$ the volume, $n$ the number of the gas moles and $T$ the absolute temperature of the gas; $R$ the universal gas constant (approximately  8,314472 $\frac{\mbox{Pa}\cdot\mbox{m}^3}{\mbox{mol}\cdot\mbox{K}}$).
+
+The gas law is accurately valid for an ideal gas, but a good approximation for real gases.
+
+The law contains the following gas laws:
+\begin{itemize}
+\item Boyle--Mariotte law ($pV =$\, constant when $n$ and $T$ are constants)
+\item Gay--Lussac law ($\frac{V}{T} =$\, constant when $n$ and $p$ are constants)
+\item Avogadro's law (in equal conditions, equal volumes of different gases contain the same number of molecules)
+\end{itemize}
+
+\subsection{Alternative definition}
+The ideal gas law can also be defined using Boltzmann's constant:
+\[
+pV = NkT
+\]
+The symbols are those defined above, with the difference that $N$ is the number of gas molecules, and $k$ is the Boltzmann constant, $k \approx 1.38 \times 10^{-23} \mbox{JK}^{-1}$. This form is often preferred by physicists who consider the number of molecules to be more fundamental than the number of moles.</content>
+</record>

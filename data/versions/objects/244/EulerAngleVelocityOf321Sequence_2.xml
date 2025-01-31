@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="244">
+ <title>Euler angle velocity of 321 Sequence</title>
+ <name>EulerAngleVelocityOf321Sequence</name>
+ <created>2007-02-14 21:19:03</created>
+ <modified>2007-02-14 21:36:47</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The method of deriving the Euler angle velocity for a given sequence is to transform each of the derivatives into the reference frame.  Remember that an Euler angle sequence is made up of three successive rotations.  In other words, the angular velocity $\dot{\psi}$ needs one rotation, $\dot{\theta}$ needs two and $\dot{\phi}$ needs three. 
+
+$$ \vec{\omega} = R_1(\psi)  R_2(\theta) R_3(\phi) \left[  \begin{array}{c}
+0 \\
+0 \\
+\dot{\phi} \end{array} \right] +  R_1(\psi)  R_2(\theta)  \left[  \begin{array}{c}
+0 \\
+\dot{\theta} \\
+0 \end{array} \right] + R_1(\psi) \left[  \begin{array}{c}
+\dot{\psi} \\
+0 \\
+0 \end{array} \right] $$
+
+Carrying out the matrix multiplication with $ R_1(\psi)  R_2(\theta) R_3(\phi)$ being the Euler 321 sequence
+
+$$ R_1(\psi)R_2(\theta) = \left[ \begin{array}{ccc}
+c_{\theta}  &amp; 0 &amp; -s_{\theta} \\
+s_{\psi} s_{\theta} &amp; c_{\psi}  &amp; s_{\psi} c_{\theta} \\
+c_{\psi} s_{\theta} &amp; -s_{\psi} &amp; c_{\psi} c_{\theta} \end{array} \right] $$
+
+and
+
+$$ R_1(\psi) = \left[ \begin{array}{ccc}
+1 &amp; 0 &amp; 0 \\
+0 &amp; c_{\psi} &amp; s_{\psi} \\
+0 &amp; -s_{\psi} &amp; c_{\psi}\end{array} \right] $$
+
+gives us  
+
+$$ \left[ \begin{array}{c}
+\omega_x \\
+\omega_y \\
+\omega_z \end{array} \right] =  \left[ \begin{array}{c}
+-s_{\theta} \dot{\phi} \\
+s_{\psi} c_{\theta}  \dot{\phi} \\
+c_{\psi} c_{\theta} \dot{\phi} \end{array} \right] + \left[ \begin{array}{c}
+0  \\
+c_{\psi} \dot{\theta} \\
+-s_{\psi} \dot{\theta} \end{array}  \right] + \left[ \begin{array}{c}
+\dot{\psi} \\
+0 \\
+0 \end{array} \right] $$
+
+Adding the vectors together yields
+
+$$ \left[ \begin{array}{c}
+\omega_x \\
+\omega_y \\
+\omega_z \end{array} \right] =  \left[ \begin{array}{c}
+-s_{\theta} \dot{\phi} +  \dot{\psi} \\
+s_{\psi} c_{\theta}  \dot{\phi} +  c_{\psi} \dot{\theta} \\
+c_{\psi} c_{\theta} \dot{\phi} - s_{\psi} \dot{\theta} \end{array} \right]  $$
+
+Of course, we also wish to have the Euler angle velocities in terms of the angular velocities which requires us to solve the linear equations for them.  Using a program like Matlab makes it easy for us to get
+
+$$ \left[ \begin{array}{c}
+\dot{\psi} \\
+\dot{\theta} \\
+\dot{\phi} \end{array} \right] =  \left[ \begin{array}{c}
+\omega_x + \omega_y s_{\psi} t_{\theta} + \omega_z c_{\psi} t_{\theta} \\
+\omega_y c_{\psi} - \omega_z s_{\psi} \\
+\left( \omega_y s_{\psi} + \omega_z c_{\psi} \right ) sec({\theta}) \end{array} \right]  $$
+
+In matlab solving for the Euler angle velocites can be done with the following commands.  Using the notation $Ax = b$, we want to solve for $x$, such that $x = A^{-1}b$.  For our problem then
+
+{\emph syms wx wy wz phd thd psd sps cth cps b x A;
+
+b = [wx wy wz]';
+
+x = [phd thd psd]';
+
+A = [ -sth 0 1; sps*cth cps 0; cps*cth -sps 0]; }
+
+and solve for the angle velocites with the command
+
+\emph{ x = inv(A)*b }
+
+Note that matlab spits out extra sine and cosine terms that just equal 1 through
+
+$$ s_{\psi}^2 + c_{\psi}^2 = 1$$
+
+The shorthand notation used in this article is
+
+$$ s_{\psi} = sin(\psi) $$ 
+$$ c_{\psi} = cos(\psi) $$ 
+$$ t_{\psi} = tan(\psi) $$</content>
+</record>

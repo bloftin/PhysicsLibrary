@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="293">
+ <title>Roentgen's Ray</title>
+ <name>RoentgensRay</name>
+ <created>2008-08-30 15:04:00</created>
+ <modified>2008-08-30 15:04:00</modified>
+ <type>Biography</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="01.60.+q"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>ROENTGEN'S RAY 
+
+\emph{A story of the discovery of a light that was never on land or sea}
+
+by Elizabeth Cole 
+
+The transparent man at the Century of Progress Fair in Chicago startlingly revealed the various organs, bones and joints of the human body to all who were fortunate enough to view this skilfully contrived invention. Three years later at the Hall of Science in Rockefeller Center, New York, the woman of glass with its electrically lighted organs, circulatory and nervous systems, contributed still further to our knowledge of the magic way in which nature has 
+put together her human beings. 
+
+What a boon these inventions are for doctors in explaining to patients how they have been guided in making their diagnosis! Each year the public becomes more and more intelligent in the hows and whys of sickness and the doctors' diagnosis and treatment are no longer veiled in mystery. 
+
+The man who was greatly responsible for this forward step in science was Wilhelm Konrad Roentgen. He discovered the X-ray in 1895. 
+
+If we today are fascinated over the marvel of "seeing through ourselves" it is easily imagined how Roentgen's discovery must have startled the world in the nineties. 
+
+At the time, Roentgen was fifty years of age. He was a professor of physics and mathematics, who had been graduated with a degree of Doctor of Philosophy. Keenly interested in radiation he had been working on this fascinating study for years. He was not seeking to find a cure for disease, however; nor was he a physician like Robert Koch. He was seeking to find "invisible light" in his laboratory and through his discovery of the X-ray he gave to the world of medicine and surgery a new method of examination that has made early and exact diagnosis possible in many insidious diseases such as tuberculosis. He has saved thousands of human lives. 
+
+Although born in Lennep, a little town in Eastern Prussia on March 27, 1845, Wilhelm and his parents soon moved to Holland, his mother's country. His boyhood and early school days were not unusual in any special way; in fact, he was not a very good nor interested student. Then he entered the Polytechnic School at Zurich in Switzerland where he had a most inspiring teacher of physics, Rudolph Clausius. His interest in science was awakened and he became an exact and enthusiastic pupil. So outstanding was his ability that following his graduation at the University of Zurich he was appointed assistant to August Kundt, a great teacher there in experimental physics, whom he had studied under and greatly admired. With him he went in 1870 to Wurzburg and later to Strassburg. Here he was married in 1872 to Bertha Ludwig, a Swiss who had remarkable sympathy and understanding for his work. 
+
+In 1888, at the age of 43, Roentgen was appointed Professor of Mathematics and Physics at Wurzburg, the second most important university in Bavaria, and it was there that he made his world-startling discovery. 
+
+During these years he was a popular and stimulating teacher to those pupils who were interested in his subjects but boring to those who did not care for mathematics or physics. His reticence and modesty kept him from caring for promotions and his name was little known outside the university. The bomb of his discovery therefore came with even greater force and at first people thought he had chanced upon a miracle.
+
+For many years he had been interested in invisible energy and had carried on concentrated research in radiation in his laboratory. On 8, 1895, the final result of his work was revealed to him. 
+
+In his laboratory he had connected an induction coil to a Crookes tube. This was a vacuum tube that had been invented by Sir William Crookes of London in the seventies. It threw out light and glowed with a phosphorescence when electricity was passed between two electrodes inside the tube. To eliminate any visible rays Roentgen entirely covered the tube with black paper and excluded every bit of light from the room. Then he placed on the table opposite the tube a screen covered with a chemical preparation which gave a fluorescent glow.  No visible light of any kind could get out of the tube nor penetrate it. 
+Because of the darkness in the room he knew that there could be no radiation outside of the tube. Yet something did come from that tube and fell on the screen as a greenish glow. It was his invisible ray! 
+
+He found that these rays would penetrate cardboard, wood, cloth, even a thick book, but they would not go through copper, iron and other metals so well. Then he found they would penetrate flesh but that the bones were opaque. He photographed what he saw and could scarcely believe his eyes. 
+
+For weeks he had been laboring over these experiments, but the day he saw this "light that was never on land or sea" his wife Bertha, as she wrote to a cousin in America, was very angry with him for not praising a good dinner she had prepared. She had finally enticed him to come to eat but he had hurried through the meal and then, to appease her impatience with him, he took her to the darkened room where he showed her the wonders. He photographed her hand with the "new 
+ray." Her bones and a ring showed but no skin appeared it was a skeleton hand. She was as excited as he and admitted that he had made a discovery well worth the sacrifice of her good dinner! 
+
+He submitted his discovery to one test after another, watching in his laboratory night and day to see any new developments, but every experiment he made proved that his apparatus was fool-proof. 
+
+Several weeks passed before he told others, even his laboratory assistants, anything about his invisible rays. A preliminary communication was given December 28 to the Physical Medical Society of Wiirzburg and it was published under the title, "On a New Kind of Ray," in the annals of the Society for 1895. 
+
+Then after the Christmas holidays he spoke publicly before the Society in Wurzburg on January 23, 1896. The news of his discovery had got about and can you imagine the sensation it made among all groups of people? The announcement that Roentgen had seen the bones of a hand through the skin sounded absurd. Every seat in the vast auditorium was taken by the many persons who waited expectantly to hear his address "On a New Form of Radiation."  Professors, high 
+officials, army men, students, doctors, all were present and greeted Roentgen with enthusiastic applause. He told of his experiment and it sounded like magic. To prove his rays he took a photograph of the hand of a famous anatomist in the audience, His Excellency von Kolliker, and it was he who proposed that the ray should be named for Roentgen. Again great applause greeted the suggestion. The aged von Kolliker said that never in his forty-eight years of membership in the 
+Society had he witnessed such an event. 
+
+Roentgen hated publicity but he had to make the best of it. Every newspaper began to write about his "all penetrating rays." To a friend of his, Professor F. Exner of Vienna, he had loaned his first X-ray pictures and that is how the story got into the public press. Suppose you had lived then and had picked up your morning paper and read, "The noise of war's alarm (the Boer War was the biggest front page news in 1895) should not distract attention from the marvelous triumph of science which is reported from Vienna. It is announced that Professor Roentgen of Wiirzburg University has discovered a light which for 
+purposes of photography will penetrate wood, cloth and other organic substances." 
+
+An interview he later gave to a reporter illustrates Roentgen's own wonder at his discovery. "Is it light?" he was asked. "No," he replied, "for it can neither be reflected nor broken." "Is it electricity?" "Not in any known form." "What is it then?" "I know not," concluded its modest discoverer. 
+
+Hundreds of articles appeared in scientific journals during 1896. Physicians saw the possibilities offered by the X-ray but the general public was not so eager to "see through themselves." Cartoons were prolific and amusing. "On the revolting indecency of seeing people's bones we need not dwell," said one article. "Throw the thing into the sea where the fish may contemplate each other's bones but not for us!" 
+
+In Punch, January 25, 1896, a verse appeared, two stanzas of which show the general feeling that here was something to make fun of as well as to marvel at. 
+
+\emph{O Roentgen, then the news is true And not a trick or idle rumor That bids us each beware of you And of your grim and graveyard humor. We do not want, like Dr. Swift To take our flesh off and to pose in Our bones, or show each little rift And joint for you to poke your nose in.}
+
+Early in January, 1896, Roentgen was summoned to Berlin to demonstrate his discover to the Kaiser at the palace. Here he was awarded the Crown Order of the Second Class and given the title of Excellence.  Other honors came to him, among which was the Nobel, prize in Physics in 1901, and an M.D. honorary degree from the University of Wiirzburg. He moved to Munich in 1900 to take charge of the Institute of Physics, where his work was largely administrative and did not permit him to devote much time to scientific research. 
+
+Roentgen never spoke again before the public about his discovery but medical journals, electrical and engineering journals, and many others, published articles on the wonderful possibilities offered to diagnosis through the discovery of the X-ray. 
+
+There were many stories given out about the way his discovery came to be made but Dr. Otto Glasser[1] in an article in the American journal of Roentgenology and Radio Therapy says that the most widely circulated account in our country was a myth. This has been accepted and described by many but makes the discovery seem purely accidental.  The episode relates how Roentgen, suddenly called from his laboratory, left a glass bulb glowing with colored light on a book in which he had placed a large flat key as a bookmark. It happened that under the book was a photographic plate holder. When he returned he took up this plate holder with others and went to the country for a holiday outing. He took several pictures and when all were developed he found one which he couldn't understand. It showed the book and within its 
+pages appeared the key as a shadow. He puzzled over how this came to be and made all kinds of experiments. Finally he placed the bulb, tube, book, key and plate as they had been before and found that by chance he had found his invisible light. This story has never been accepted save in the United States and while its romantic angle appeals to the imagination it seems wholly inconsistent with the character of Roentgen and his habits of work and study. His was a search for truth with  no desire for material reward and as a zealous, painstaking scientist he has had few equals. 
+
+The first tube to reach America went to Johns Hopkins University and the second was secured by Amherst College. The following story of the second tube is not a myth. Dr. Kendall Emerson, a student at Amherst in 1896, and now Managing Director of the National Tuberculosis Association, tells of having had his foot X-rayed. He thought it was the most mysterious thing that had ever happened. "The professor put my foot on a little rest in front of the light," he has said in describing the exciting event. "He gave me a box to look through with a fluorescent screen fastened on the front and a sight for my eyes on the opposite side. I looked and was tempted to leave the spot in a panic. Before my eyes was the outline of my shoe as a shadow on a brighter background and I could see right through the shoe and distinguish the nails in the shoe which showed black against the screen. But far worse than that awaited, for as my eyes grew accustomed to the dim and ghostly light the outlines of the bones of my forefoot and toes came sharply into view. I knew they belonged to me for I wiggled them to 
+find out and sure enough the ghostly bones began to wiggle too." 
+
+Since Roentgen's first tubes, other students of physics and electricity have added certain refinements and worked out better methods and techniques for using them. The replacing of the photographic plate by a fluorescent screen which later became the Edison fluoroscope, was a most important step. 
+
+At first the X-ray was devoted chiefly to diagnosing fractures and diseases of the bone. Then, physicians began to realize the marvelous possibilites offered in studying diseases of the organs. As the X-ray machine became perfected, it was used more and more in all branches of medicine. Especially has it been a help in diagnosing tuberculosis where it is so difficult to locate the damage in the lungs by means of sound and touch. Healthy lungs, which are air-filled structures, easily permit the rays to pass through, but when the lungs are diseased with tuberculosis a dark shadow on the X-ray plate reveals where the disease is. There are various tones of gray seen on the film and the expert can discern just how much tuberculosis is present through his ability to distinguish between these grayish tones.
+
+Today the X-ray is used in schools and clinics among children, and tens of thousands of pictures of the chests of school children are taken annually in this country. When tuberculosis is found early in life, the child has all the chance in the world for recovery. In the olden days the disease was seldom discovered until it was too late for the patient to get well. Not only that, but the family and friends were daily being exposed to infection. With early discovery public health is benefited.
+
+Boys and girls today do not become panicky when the X-ray machine is wheeled out, nor is it a long nor troublesome ordeal for the X-rayer or the X-rayed. There are now machines that take 150 X-ray pictures per hour and greatly simplify the cost of checking health among school children, as well as industrial workers in large business concerns. Paper films are used for this rapid method and are more economical than the celluloid films. They indicate the shadows as distinctly as is necessary. Although the equipment is still in experimental stages the future of the X-ray holds much promise. Each year sees some new step, such as portable machines and these paper films, so that X-raying has become a standardized method for diagnosis used by every tuberculosis specialist. 
+
+Another and most important contribution of the X-ray to tuberculosis control is its use in following the progress of the disease, or the effects of treatment. Artificial pneumothorax, or collapse of the diseased lung, is given to many tuberculosis patients to rest the lung. The work of breathing may then be carried on by the good lung and the sick lung is allowed to rest. Follow-up X-rays are taken to see what has been accomplished through inserting the air. Many patients are now alive, 
+who, without this procedure, might have died. In countless other fields the Roentgen ray is serving mankind too. Flaws in iron and steel castings may be discovered; thus industry is benefited. In forestry the condition of trees may be determined through 
+the X-ray. In art it is used to detect fakes in paintings by the old masters. In all foot troubles the bones of the feet may be studied to find out what type of shoe best suits the individual's needs. For diagnosis of the conditions of the teeth the X-ray is a most necessary aid to dentists. It is also used in the treatment of certain diseases.
+
+Roentgen's great discovery is famous throughout the civilized world but the personality of the man himself was known to few. Retiring and simple in his manner and always modest over his contribution to science he never allowed himself to become a public figure. His Dutch mother had taught him orderliness and this was characteristic of every step in his research work. It is interesting to note that in an address he made at the University of Wiirzburg a year before his discovery he quoted the following sentence from a professor, P. A. Kirchner, who had said it in 1602: "Nature often reveals the most astonishing phenomena by the simplest means, but these phenomena can only be recognized by those who have sharp judgment and the investigating spirit, and who have learned to obtain information from experience, the teacher of all things." Certainly Roentgen was one of those who captured the phenomena of nature with his investigating spirit. Thorough, exact, and 
+keen, his work was always reliable and his information was gleaned step by step from the task-master, experience. 
+
+Roentgen had few friends but those who knew him held him in high esteem. During the World War he suffered greatly over the distress of his country and permitted himself no luxuries, save his well-loved Dutch tobacco which he used as sparingly as possible. The Roentgen's never had any children and when in 1919 his wife, Bertha, who had always been very dear to him, died he felt there was little in life to live for. On February 10, 1923, he died of cancer at the age of 78. 
+
+[1]  Otto Glasser, Ph.D., of the Cleveland Clinic Foundation, author of "W. C. Roentgen 
+and the Early History of the Roentgen Rays," published by C. C. Thomas.</content>
+</record>

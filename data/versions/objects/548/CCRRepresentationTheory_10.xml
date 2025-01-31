@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="548">
+ <title>CCR representation theory</title>
+ <name>CCRRepresentationTheory</name>
+ <created>2009-02-21 17:28:25</created>
+ <modified>2009-02-21 17:55:12</modified>
+ <type>Topic</type>
+<parent id="547">canonical commutation and anti-commutation relations: their representations</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>Schroedinger d-system</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="CCR representation theory" alias="representation theory of canonical commutation relations"/>
+ </synonyms>
+ <keywords>
+	<term>representation theory of canonical commutation relations</term>
+	<term>CCR</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. 
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>{\bf [Entry in progress]}
+
+
+\begin{definition}
+In connection with the Schr\"odinger representation, one defines  
+\emph{a Schr\"odinger d-system} as a set $\left\{Q_j,P_j\right\} ^d_{j =1}$ of self-adjoint operators on a Hilbert space $\mathcal{H}$ (such as the position and momentum operators, for example) when there exist mutually orthogonal closed subspaces $\mathcal{H}_{\alpha}$ of $\mathcal{H}$ such
+that $\mathcal{H} = \oplus_{\alpha} \mathcal{H}_{\alpha}$ with the following two properties: 
+\begin{itemize}
+\item (i) each $\mathcal{H}_{\alpha}$ reduces all $Q_j$ and all $P_j$ ; 
+\item (ii) the set $\left\{Q_j,P_j\right\} ^d_{j =1}$ is, in each 
+$\mathcal{H}_{\alpha}$, unitarily equivalent to the Schr\"odinger representation
+$\left\{Q^S_j,P^S_j\right\} ^d_{j =1},$  \cite{PCR67}.
+
+\end{itemize}
+
+\end{definition}
+
+\begin{definition}
+A set $\left\{Q_j,P_j\right\} ^d_{j =1}$ of self-adjoint operators on a Hilbert space $\mathcal{H}$ is called a \emph{Weyl representation with $d$ degrees of freedom} if $Q_j$ and $P_j$ satisfy the Weyl relations:
+\begin{enumerate}
+\item $$e^{itQ_j} \dot e^{isP_k} = e^{−ist} \hbar_{jk} e^{isP_k} \dot 
+e^{itQ_j},$$ 
+\item $$e^{itQ_j} \dot e^{isQ_k} = e^{isQ_k} \dot e^{itQ_j},$$ 
+\item $$ e^{itP_j} \dot e{isP_k} = e^{isP_k} \dot e^{itP_j} ,$$
+\end{enumerate}
+
+with $j, k = 1,..., d, s, t \in \mathbb{R}$.
+
+\end{definition}
+
+ The Schr\"odinger representation $\left\{Q_j,P_j\right\} ^d_{j =1}$ is a Weyl representation of CCR. 
+
+ Von Neumann established a {\em uniqueness theorem: if the Hilbert space $\mathcal{H}$ is separable, then every Weyl representation of CCR with $d$ 
+degrees of freedom is a Schr\"odinger $d$-system} (\cite{JVN31}). Since the pioneering work of von Neumann \cite{JVN31} there have been numerous reports published concerning representation theory of CCR (viz. ref. \cite{PCR67} and references cited therein). 
+
+\begin{thebibliography}{99}
+
+\bibitem{AA93a}
+Arai A., Characterization of anticommutativity of self-adjoint operators in connection with Clifford algebra and applications, 
+{\em Integr. Equat. Oper. Th.}, 1993, v.17, 451--463.
+
+\bibitem{AA93b}
+Arai A., Commutation properties of anticommuting self-adjoint operators, spin representation and Dirac operators, {\em Integr. Equat. Oper. Th.}, 1993, v.16, 38--63.
+
+\bibitem{AA94}
+Arai A., Analysis on anticommuting self--adjoint operators, {\em Adv. Stud. Pure Math.}, 1994, v.23, 1--15.
+
+\bibitem{AA95}
+Arai A., Scaling limit of anticommuting self-adjoint operators and applications to Dirac operators, Integr. Equat. Oper. Th., 1995, v.21, 139--173.
+
+\bibitem{AA87}
+Arai A., Some remarks on scattering theory in supersymmetric quantum mechanics, {\em J. Math. Phys.}, 1987, V.28, 472--476.
+
+\bibitem{JVN31}
+von Neumann J., Die Eindeutigkeit der Schr\"odingerschen Operatoren, 
+{\em Math. Ann.}, 1931, v.104, 570--578.
+
+\bibitem{PS90}
+Pedersen S., Anticommuting self--adjoint operators, J. Funct. Anal., 1990, V.89, 428--443.
+
+\bibitem{PCR67}
+Putnam C. R., Commutation Properties of Hilbert Space Operators, Springer, Berlin, 1967.
+
+\bibitem{RM-SB72}
+Reed M. and Simon B., {\em Methods of Modern Mathematical Physics}., vol.I, Academic Press, New York, 1972.
+
+\end{thebibliography}</content>
+</record>

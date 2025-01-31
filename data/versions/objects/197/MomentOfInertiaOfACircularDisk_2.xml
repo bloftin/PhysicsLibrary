@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="197">
+ <title>moment of inertia of a circular disk</title>
+ <name>MomentOfInertiaOfACircularDisk</name>
+ <created>2006-07-11 00:08:58</created>
+ <modified>2006-07-11 00:10:57</modified>
+ <type>Example</type>
+<parent id="196">moment of inertia</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <synonyms>
+	<synonym concept="moment of inertia of a circular disk" alias="rotational inertia of a circular disk"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Here we look at two cases for the moment of inertia of a homogeneous circular disk
+
+(a) about its geometrical axis,
+(b) about one of the elements of its lateral surface.
+
+Let \emph{m} be the mass, \emph{a} the radius, \emph{l} the thickness, and $\tau$ the
+density of the disk.  Then choosing a circular ring for the element of mass we have
+
+$$dm = \tau \cdot l \cdot 2\pi r \cdot dr$$
+
+where $r$ is the radius of the ring and $dr$ its thickness.
+
+\begin{figure}
+\includegraphics[scale=.6]{Fig87.eps}
+\vspace{20 pt}
+\end{figure}
+
+Therfore the moment of inertia about the axis of the disk is
+
+$$I = 2\pi l \tau \int_0^a r^3 dr$$
+$$I = \frac{\tau l \pi a^4}{2}$$
+$$I = \frac{ma^2}{2}$$
+
+The moment of inertia about the element is obtained easily by the help of theorem II.  Thus
+
+$$I' = I + ma^2$$
+$$I' = \frac{3}{2}ma^2$$
+
+It will be noticed that the thickness of the disk does not enter into the expressions for
+$I$ and $I'$ except through the mass of the disk.  Therefore these expressions hold good
+whether the disk is thick enough to be called a cylinder or thin enough to be called a
+circular lamina.
+
+\subsection{References}
+
+This article is a derivative of the public domain book, "Analytical Mechanics" by Haroutune M. Dadourian, 1913. Made available by the \PMlinkexternal{internet archive}{http://www.archive.org/index.php}</content>
+</record>

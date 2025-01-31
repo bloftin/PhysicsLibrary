@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="195">
+ <title>difference between mass and weight</title>
+ <name>DifferenceBetweenMassAndWeight</name>
+ <created>2006-07-10 15:21:56</created>
+ <modified>2006-07-10 15:21:56</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="06.30.Dr"/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The beginner often finds it difficult to distinguish between the mass of a body and its weight.
+He is apt to ask such a question as this, "When I buy a pound of fruit what do I get, one
+pount-mass or one pound-weight?"\footnotemark\  The difficulty is due to the fact that the
+common methods for comparing the masses of bodies make use of their weights.
+
+There are two general methods by which masses may be compared, both of which are based upon Newton's laws of motion.  Let $F_1$ and $F_2$ be the resultant forces acting upon two bodies having masses $m_1$
+and $m_2$, and $f_1$ and $f_2$ be the accelerations produced.  Then the force equation gives
+
+$$ F_1 = m_1 f_1 $$
+$$ F_2 = m_2 f_2 $$
+
+and
+
+$$ \frac{m_1}{m_2} = \frac{F_1}{F_2} \cdot \frac{f_2}{f_1} $$
+
+(1) If the forces are of such magnitudes that the accelerations are equal then the masses are
+proportional to the forces; for when $f_1 = f_2$, the last equation becomes
+
+$$ \frac{m_1}{m_2} = \frac{F_1}{F_2} $$
+
+This gives us a method of comparing masses, of which the common method of weighing is the most
+important example.  If $W_1$ and $W_2$ denote the weights of two bodies of masses $m_1$ and $m_2$, then by
+the equation that gives the magnitude of the force
+
+$$ f = \sqrt{\ddot{x}^2 + \ddot{y}^2} $$
+
+then we obtain
+
+$$ W_1 = m_1 g$$
+$$ W_2 = m_2 g$$
+
+and
+
+$$ \frac{m_1}{m_2} = \frac{W_1}{W_2}$$
+
+where $g$ is the common acceleration due to gravitational attraction.
+
+(2)  If the forces acting upon the bodies are equal the masses are inversely proportional
+to the accelerations:
+
+$$ \frac{m_1}{m_2} = \frac{f_2}{f_1} $$
+
+This gives us the second method by which masses may be compared.  The following are more
+or less practicable applications of this method:
+
+(a)  Let $A$ and $B$ (Fig. 61) be two bodies connected with a long elastic string of negligible
+mass, placed on a perfectly smooth and horizontal table.
+
+\begin{figure}
+\includegraphics[scale=.8]{Fig61.eps}
+\vspace{20 pt}
+\end{figure}
+
+Suppose the string to be stretched by pulling $A$ and $B$ away from each other.  It is evident that
+when the bodies are released they will be accelerated with respect to the table and that the
+accelerating force, that is, the pull of the string, will be the same for both bodies.  Therfore
+if $f_1$ and $f_2$ denote their accelerations at any instant of their motion, the ratio of their masses
+is given by the relation
+
+$$ \frac{n_1}{m_2} = \frac{f_2}{f_1} $$
+
+(b)  Suppose the bodies whose masses are to be compared to be fitted on a smooth horizontal rod (Fig. 62)
+so that they are free to slide along it.
+
+\begin{figure}
+\includegraphics[scale=.8]{Fig62.eps}
+\vspace{20 pt}
+\end{figure}
+
+If the rod is rotated about a vertical axis the bodies
+fly away from the axis of rotation.  If, however, the bodies are connected by a string of negligible
+mass they occupy positions on the two sides of the axis, which depend upon the ratio of the masses.
+So far as the motion along the rod is concerned, each body is equivalent to a particle of the same
+mass placed at the center of mass of the body.
+
+Suppose, as it is assumed in Fig. 62, the horizontal rod to be hollow and tohave smooth inner wall;
+further suppose the centers of mass of the given bodies to lie on the axis of the rod.  Then if
+at the center of mass of each body a particle of equla mass is placed and the two particles
+connected by means of a massles string of proper lengths, the positions of the particles will
+remain at the centers of mass of the given bodies even when the rod is set rotating about the
+vertical axis.
+
+Now let $m_1$ and $m_2$ be the masses of the particles and $f_1$ and $f_2$ their accelerations due
+to the rotation of the tube about the vertical axis.  Then since the tensile force in the string
+is the same at its two ends, the forces acting upon the particles are equal.  Therefore we have
+
+$$ F = m_1 f_1 = m_2 f_2 $$
+
+or
+
+$$ \frac{m_1}{m_2} = \frac{f_2}{f_1} $$
+
+But if $r_1$ and $r_2$ denote the distances of the particles from the axis of rotation, and $P$
+the period of revolution, then
+
+$$ f_1 = -\frac{v_1^2}{r_1} = - \frac{4 \pi^2 r_1}{P^2} $$
+
+and
+
+$$ f_2 = -\frac{v_2^2}{r_2} = - \frac{4 \pi^2 r_2}{P^2} $$
+
+Therefore
+
+$$ \frac{m_1}{m_2} = \frac{r_2}{r_1} $$
+
+gives the ratio of the masses of the particles as well as those of the given bodies.
+
+% Notes
+
+\footnotetext{This question may be answered in the following manner.  "The fruit which you get has
+a mass of 1 pd. (about 453.6 gm.) and which weighs 1 lb. (about $4.45 \times 10^6$ dynes).  If the
+fruit could be shipped to the moon during the passage the weight would diminish down to nothing and
+then increase to about one-sixth of a pound.  The zero weight would be reached at a point about
+nine-tenths of the way over.  Up to that position the wight would be with respect to the earth,
+that is, the fruit would be attracted towards the earth; but from there on the weight would be with
+respect to the moon.  The mass of the fruit, however, would be the same on the earth, during the passage,
+and on the moon.  It would be the same with respect to the moon as it is with respect to the earth.  Mass
+is an intrinsic property of matter, therefore it does not change ( Except for relativistic effects... Ben).
+Weight is the result of gravitational attraction; consequently it depends upon, (a) the body which
+is attracted, (b) the bodies which attract it, and (c) the position of the former relative to the
+latter.  It is evident therefore that when a body is moved relative to the earth its weight changes."
+(Don't forget about the Equivalence principle... Ben)}</content>
+</record>

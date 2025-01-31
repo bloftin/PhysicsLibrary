@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="336">
+ <title>fundamental formulas of physics</title>
+ <name>FundamentalFormulasOfPhysics</name>
+ <created>2008-12-17 13:22:04</created>
+ <modified>2008-12-17 13:26:03</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <keywords>
+	<term>fundamental formulas in physics</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Fundamental formulas of physics}
+
+A contributed topic in progress.
+
+Suggested outline:
+
+\begin{enumerate}
+
+\item Basic mathematical formulas used in physics;
+\item Physical constants;
+\item Statistics and Probability theories;
+\item Nomograms;
+\item Classical mechanics;
+\item Sound and Acoustics
+\item Geometric Optics;
+\item Electromagnetism;
+\item Electronics and applications
+\item Electrical engineering and telecommunications
+\item Nanoelectronics and Nanomaterials
+\item Netwon's theory of Gravitation
+\item Photoelectric effect and Einstein's explanation/ formulae
+\item Solar photovoltaics 
+\item Einstein's Special Relativity theory
+\item Einstein's General Relativity theory
+\item Quantum Mechanics;
+\item Quantum Field Theories (QFT), TQFT and HQFT
+\item Algebraic Quantum Field theory
+\item Quantum Automata and Quantum Computing
+\item Standard Model (SUSY)
+\item Supersymmetry and Supergravity theories
+\item Radioactivity, Atomic and Nuclear physics
+\item Harmonic oscillator and Coupled oscillators;
+\item Fluid Dynamics and Rheology;
+\item Kinetic theory of gases and Classical Statistical Mechanics
+\item Molecular Physics, Heat and Thermodynamics
+\item Quantum Statistical Mechanics (QS)
+\item High Energy Physics and Elementary Particles
+\item Ergodic Systems Information theory and Irreversible Thermodynamics
+\item Mathematical Physics
+\item Quantum Electrodynamics (QED)
+\item Quantum Chromodynamics (QCD)
+\item Quantum Gravity (QG)
+\item Complex System Dynamics (CSD)
+\item Chaotic Systems and Chaos
+\item Mathematical and Theoretical Biophysics
+\item Semiconductors, Hall effect and Josephson effect
+\item Superconductivity and superconductors
+\item Crystal Lattices and Symmetry
+\item Paracrystals and paracrystal theory
+\item Noncrystalline materials and Glasses
+\item Ax
+\item Ay
+\item Az
+
+\end{enumerate}
+
+\section{References/ Bibliography}
+
+\begin{thebibliography}{99}
+
+\end{thebibliography}</content>
+</record>

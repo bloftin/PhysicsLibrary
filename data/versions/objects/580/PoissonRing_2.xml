@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="580">
+ <title>Poisson ring</title>
+ <name>PoissonRing</name>
+ <created>2009-03-09 00:29:57</created>
+ <modified>2009-06-22 02:28:25</modified>
+ <type>Definition</type>
+ <creator id="15" name="rspuzio"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="15" name="rspuzio"/>
+ <classification>
+	<category scheme="msc" code="45.20.-d"/>
+ </classification>
+ <related>
+	<object name="HilbertSpace3"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A \emph{Poisson ring} $A$ is a commutative ring on which a binary operation $[,]$, known as the Poisson bracket is defined.  This operation must satisfy the following identities:
+\begin{enumerate}
+\item $[f,g] = -[g,f]$
+\item $[f + g, h] = [f,h] + [g,h]$
+\item $[fg,h] = f[g,h] + g[f,h]$
+\item $[f,[g,h]] + [g,[h,f]] + [h,[f,g]] = 0$
+\end{enumerate}
+If, in addition, $A$ is an algebra over a field, then we call $A$ a \emph{Poisson algebra}.  In this case, we may wish to add the extra requirement
+ $$[sf,g] = s[f,g]$$
+for all scalars $s$.
+
+Because of properties 2 and 3, for each $g \in A$, the operation $ad_g$ defined as $ad_g(f) = [f,g]$ is a derivation.  If the set $\{ ad_g | g \in A \}$ generates the set of derivations of $A$, we say that  $A$ is \emph{non-degenerate}.
+
+It can be shown that, if $A$ is non-degenerate and is isomorphic as a commutative ring to the algebra of smooth functions on a manifold $M$, then $M$ must be a symplectic manifold and $[,]$ is the Poisson bracket defined by the symplectic form.
+
+Many important operations and results of symplectic geometry and Hamiltonian mechanics may be formulated in terms of the Poisson bracket and, hence, apply to Poisson algebras as well.  This observation is important in studying the classical limit of quantum mechanics --- the non-commutative algebra of operators on a Hilbert space has the Poisson algebra of functions on a symplectic manifold as a singular limit and properties of the non-commutative algebra pass over to corresponding properties of the Poisson algebra.
+
+In addition to their use in mechanics, Poisson algebras are also used in the study of Lie groups.</content>
+</record>

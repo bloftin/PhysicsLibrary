@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="233">
+ <title>Airship Stream Function</title>
+ <name>AirshipStreamFunction</name>
+ <created>2006-10-26 21:28:20</created>
+ <modified>2006-10-26 21:47:15</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="47.85.Gj"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>This is a work in progress... \\
+
+Here we will calculate the stream function for an arbitrary body of revolution.    This will then let us calculate the lift on an airship for varying hull geometries.  Following the setup in [1], combine the uniform stream function with a line of sources and sinks along the axis of symmetry.
+
+The steps of the calcuation are:
+
+1)  Get an expression for the stream function.  Since, we have lots of sources/sinks along the axis and we don't know the strength of each one, we must must setup algebraic equations to solve for the strengths
+
+2)  N equations are created by using the property that the stream function is zero on the surface
+
+$$ \psi = 0$$
+
+So for N sources/sinks we have N points $P_n$ on the surface giving us N equations and N unknowns.
+
+3)  Numerically solve the equations for the N source/sinks strengths.
+
+{\bf Stream Function}
+
+
+$$\psi_p = -\sum_{n=1}^N \frac{Q_n}{4\pi} \left ( r^p_{n-1} - r^p_n \right ) + \frac{1}{2} V_{\infty} y^2_p$$
+
+In the below figure we need expressions for the vectors from the source to the point on the surface
+
+$$\sin(\alpha_{n-1}) = \frac{y_p}{r^p_{n-1}} $$
+
+but 
+
+$$  \alpha_{n-1} = \tan^{-1}\left( \frac{y_p}{x_p - x_{n-1}} \right ) $$
+
+
+Therefore
+
+$$ r^p_{n-1} = \frac{y_p}{\sin(\tan^{-1}\left( \frac{y_p}{x_p - x_{n-1}} \right ))} $$
+
+Similarily,
+
+$$ r^p_{n} = \frac{y_p}{\sin(\tan^{-1}\left( \frac{y_p}{x_p - x_{n}} \right ))} $$
+
+\begin{figure}
+\includegraphics[scale=.85]{AirshipStreamFunction.eps}
+\caption{Airship Stream Function Setup}
+\end{figure}</content>
+</record>

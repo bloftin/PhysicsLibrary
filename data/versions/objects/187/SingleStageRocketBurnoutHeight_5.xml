@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="187">
+ <title>single stage rocket burnout height</title>
+ <name>SingleStageRocketBurnoutHeight</name>
+ <created>2006-06-18 00:17:47</created>
+ <modified>2006-06-18 01:43:06</modified>
+ <type>Example</type>
+<parent id="186">Newton's laws of motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Dd"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Applying Newton's laws to rocket motion is not only exciting, but also quite instructional.  Problems involving rocket motion illustrate how to use Newton's 2nd law when mass is not constant.  Here we will look at how high a single stage rocket will go under the influence of gravity.  To make the problem manageable, a few simplifying assumptions are made:
+
+\begin{itemize} 
+\item Motion in the y direction only
+\item Drag is neglected
+\item Constant burn rate for rocket
+\item Force due to gravity is constant
+\item Rocket does not escape Earth's gravity
+\item Ideal rocket
+\item Lots of other miscellaneous terms
+\end{itemize}
+
+To familiarize the reader with what is involved in this calculation, we will start with the answer and then derive the equation.  So the max altitude the rocket will achieve is given by
+
+\begin{equation}
+y_{max} = -\frac{g t^2_b}{2} + \frac{v_e m_f t_b}{m_i -  m_f} ln \left (\frac{m_f}{m_i} \right ) + v_e t_b + \frac{v^2_b}{2 g}
+\end{equation}
+
+Description of variables:
+
+$t_b$: Time that the rocket is burning fuel (given) \\
+$g$: Acceleration of Gravity (given) \\
+$m_f$: Final mass of rocket after burn (given) \\
+$m_i$: Initial mass of rocket (given) \\
+$v_b$: velocity of rocket at burnout (calculated) \\
+$v_e$: Exhaust velocity, velocity of the fuel as it is ejected out of the Rocket (given)\\
+
+
+The problem is best approached by breaking it into two parts.  First, we calculate the altitude that the rocket reaches when all its fuel is burned.  After burnout, the rocket still climbs to a higher altitude until gravity finally brings its velocity to zero.  Think of it like shooting a bullet into the sky, after the initial thrust of the gun, the bullet still goes higher (duh!).  So the second calculation is to add the distance traveled after burnout.
+
+The goal is to apply Newton's 2nd law, so let us start there.  For our one dimensional case
+
+\begin{equation}
+F = ma = -mg
+\end{equation}
+
+Since we do not have constant mass throughout the rocket burn, we also have
+
+\begin{equation}
+F = \frac{d}{dt}\left (m v \right)
+\end{equation}
+
+Using the chain rule and setting (2) equal to (3) 
+
+$$-mg = \frac{dm}{dt} v_e + m \frac{dv}{dt} $$
+
+multiply by dt
+\begin{equation}
+-mg dt = v_e dm + m dv
+\end{equation}
+
+We still have three differentials, so we cannot directly integrate this equation.  Since we are assuming a constant burn rate k and it is positive
+
+$$ \frac{dm}{dt} = -k $$
+
+so 
+
+$$ dt = -\frac{dm}{k} $$
+
+plug this into (4) to get
+
+$$ -\frac{mg}{k} dm = v_e dm + m dv $$
+
+Separate variables to setup the integration
+
+$$ \left ( \frac{mg}{k} - v_e \right ) dm = m dv $$
+
+divide by m
+
+$$ dv = \left ( \frac{g}{k} - \frac{v_e}{m} \right ) dm $$
+
+integrate
+
+$$ \int_{v_i}^{v_f} dv = \int_{m_i}^{m_f} \frac{g}{k} dm - \int_{m_i}^{m_f} \frac{v_e}{m} dm $$</content>
+</record>

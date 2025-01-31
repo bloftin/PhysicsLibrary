@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="92">
+ <title>Euler angle velocity</title>
+ <name>EulerAngleVelocity</name>
+ <created>2005-08-29 01:34:50</created>
+ <modified>2005-08-29 01:34:50</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The velocity of the Euler angles of a rotating coordinate frame can be derived from the angular velocity vector of this frame with respect to a reference frame.  The derivation is lengthy for each Euler angle sequence and is given in their respective entries.  One useful result is acheived by combining the angular velocity vector, in terms of Euler angles, with Euler's moment equations yielding the differential equations of motion that characterizes rigid body motion for a given sequence.
+
+Notation: $cos(\theta) = c_{\theta}, sin(\theta) = s_{\theta} $
+
+Euler angle velocity of 123 Sequence:
+
+$ \dot{\phi} = (\omega_x c_{\psi} - \omega_y s_{\psi}) / c_{\theta} $ \\
+$ \dot{\theta} = \omega_x s_{\psi} + \omega_y c_{\psi} $ \\
+$ \dot{\psi} = (-\omega_x c_{\psi} + \omega_y c_{\psi}) s_{\theta} / c_{\theta} + \omega_z $</content>
+</record>

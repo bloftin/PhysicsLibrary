@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="109">
+ <title>heat</title>
+ <name>Heat</name>
+ <created>2006-01-24 20:17:06</created>
+ <modified>2006-01-30 21:23:34</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Heat is one of the many forms of energy in the universe around us.  It is the measure of how much energy is transferred between objects due to either temperature differences or emitted radiation. Since heat is energy, the SI unit is the joule.
+
+In order to visualize heat, one must understand a little about the underlying mechanisms of heat transfer.  This means that the definition of heat encompasses three ways of energy transfer: conduction, convection and radiation.
+
+In brief, conduction occurs by atoms and molecules 'bumping' into one another and transferring energy.  Therefore, atoms of higher temperature are transferring energy to atoms of lower energy at a higer rate until equilibrium is reached.
+
+Convection is then the actual moving of the atoms and molecules to a different location.  A good example of this is the steam from boiling water.  If you put your hand above boiling water the steam will heat your hand and if you are not careful, burn you.  The steam you see rising before you is the transfer of energy by the moving gas.
+
+The final method of transfer is radiation.  The Sun transfers energy to Earth through the vacuum of space by means of radiation.  Atoms in the sun are excited and release photons.  These photons then travel millions of kilometers through space to interact with the grateful planet Earth.
+
+A common misconception is that objects have heat.  The correct terminology is that objects contain internal energy and not heat.  Heat is the amount of energy transferred.  Therefore, an object does not contain one joule of heat, but one joule of heat was transferred to the object.  This confusion is understandable not only because past scientists misunderstood the nature of heat, but also due to similar definitions with the word heat in them:  heat capacity, specific heat, molar specific heat and the heat of transformation.
+
+
+{\bf References}
+
+[1]  Halliday, D., Resnick, R., Walker, J.  "Fundamentals of Physics". 5th Edition, John Wiley \&amp; Sons, New York, 1997.
+
+[2]  Kondepudi, D., Prigogine, I.  "Modern Thermodynamics From Heat Engines to Dissipative Structures" John Wiley \&amp; Sons, Chichester, 1998.</content>
+</record>

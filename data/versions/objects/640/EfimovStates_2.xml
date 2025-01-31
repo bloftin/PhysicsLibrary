@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="640">
+ <title>Efimov states</title>
+ <name>EfimovStates</name>
+ <created>2009-04-15 10:42:33</created>
+ <modified>2009-04-15 10:53:29</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>stable bound quantum states</concept>
+	<concept>3-body state</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Efimov states" alias="Efimov trimer"/>
+ </synonyms>
+ <preamble></preamble>
+ <content>\section{Efimov states}
+The {\em Efimov states} were initially proposed in 1970 as hypothetical, stable quantum states of coupled three-body systems \cite{Efimov70} such as three coupled bosons in ultracold `experiments'. A most interesting feature of such ultracold 3-boson systems was the presence of an infinite number of Efimov states when the boson coupling was weak but finite when the coupling became strong. 
+
+Subsequently, in 2006, there have been published claims of experiments indicating the presence of such ``Efimov trimers''. (See also the following references) \cite{Kraemer-etal2k6}.
+
+\begin(thebibliography)(9)
+\bibitem{Efimov70}
+Vitali Efimov. 1970. Energy levels arising from resonant two-body forces in a three-body system, Physics Letters B, Volume 33, Issue 8 , 21 December 1970, Pages 563-564.
+
+\bibitem{Kraemer-etal2k6}
+T. Kraemer et al., 2006. Evidence for Efimov quantum states in an ultracold gas of caesium atoms, {\em Nature}, {\bf 440}, 315-318 (16 March 2006).
+
+\bibitem{EHYG72}
+E. Hadjimichael, S. N. Yang, G. E. Brown.,1972.  A model for short range correlation in the three-body system., Physics Letters B, Volume 39, Issue 5, 29 May 1972, Pages 594-598.
+
+\bibitem{ZDKC92}
+M. V. Zhukov, B. V. Danilin, A. A. Korsheninnikov, L. V. Chulkov. 1992.
+Structure of $^6He$ nucleus as a three-body system: $\alpha$--particle and neutron momentum distributions. {\em Nuclear Physics A}, Volume 538, 2 March-9 March 1992, Pages 375-381.
+
+\bibitem{SFHM2k7}
+Y. Suzuki, Y. Fujiwara, W. Horiuchi, H. Matsumura.,2007. M.  Dynamics of macroscopic and microscopic three-body systems., {\em Nuclear Physics A}, Volume 790, Issues 1-4, 15 June 2007, Pages 223c-228c.
+
+
+
+
+
+
+\end(thebibliography)</content>
+</record>

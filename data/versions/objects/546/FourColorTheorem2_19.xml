@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="19" id="546">
+ <title>four-color theorem</title>
+ <name>FourColorTheorem2</name>
+ <created>2009-02-21 11:10:55</created>
+ <modified>2009-02-21 13:44:52</modified>
+ <type>Theorem</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>chromatic number of a graph</concept>
+	<concept>graph coloring</concept>
+	<concept>floor function</concept>
+	<concept>minimal coloring</concept>
+ </defines>
+ <keywords>
+	<term>the four-color theorem</term>
+	<term>computer-assisted proofs of mathematical conjectures and theorems</term>
+	<term>chromatic number of a graph</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. as your 
+
+% almost certainly you want these
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+\newcommand{\&lt;}{{\langle}}
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+\def\C{C^{\ast}}
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\section{The Four-Color Theorem and Chromatic Number of Colored Graphs}
+\begin{theorem}
+ Any map in a plane can be colored using four-colors in such a way that regions sharing a common boundary --that is not a single point-- do not share the same color. 
+\end{theorem}
+
+
+\subsection{History}
+ F. Guthrie, first conjectured the four color theorem in 1853. The first 
+published paper on Guthrie's conjecture was not however published until 1878 by Cayley.
+
+ Appel and Haken published 1977 from the University of Illinois at Urbana- Champaign a computer-assisted proof that four colors are sufficient. However,  some mathematicians do not accept it because it utilized examination of cases assisted by a computer, with the possibility of software errors always remaining. On the other hand, no flaws have yet been found, in spite of repeated attempts. The first independent proof of the four color theorem was constructed by Robertson et al. in 1996 and by Thomas in 1998. Then, in December 2004, G. Gonthier in Cambridge, England --colaborating with B. Werner of INRIA in France -- announced that they were able to validate the Robertson et al. (1996) proof of the color theorem by formulating it in the equational logic program called ``Coq'' (gaelic ?),  and then were able to confirm the validity of each of its steps as reported by Devlin in 2005 and  Knight in 2005. 
+
+
+\subsection{Extensions}
+
+ The Heawood conjecture is a more general proposition for map coloring, stating that in a genus $0$ space, including both the sphere or plane, four colors would suffice.
+
+ On the other hand, for any genus $&gt; 0$, Ringel and Youngs were able to prove in a report published in 1968 the following theorem:
+
+\begin{theorem}
+The Heawood conjecture specifies the correct necessary number of colors for any genus $0$, except for the Klein bottle. However, the correct number of colors for any Klein bottle is six --not seven colors as stated by Heawood. Thus, in general for any genus $0$ the coloring number is no greater than six. Furthermore, The chromatic number of a surface of genus $\tilde{g}$ is given by the formula 
+
+ $$\gamma(\tilde{g}) = [1/2 (7 + \sqrt{48g +1})],$$
+
+where the right-hand-side is called the \emph{floor function}.  
+
+\end{theorem}
+
+
+A closely related theme is that of graph coloring using computer algorithms.
+
+\subsection{Graph Coloring utilizing Computer Algorithms}
+
+ The \emph{chromatic number of a graph} $\chi$ or $\gamma(\tilde{g})$ is the smallest, or minimum number of colors needed to color the vertices of a graph $\tilde{G}$ so that no two adjacent vertices share the same color (p. 210 in ref. \cite{SkS90}); this is the smallest value of possible to obtain a $k$--coloring.  
+
+ Let $\tilde{G}$ be the graph whose vertices are the points of the plane and two points are being joined by a graph edge if they are at a distance $x$ one from each other. Then the coloring question is: ``What is the chromatic number of this graph?''  This was one of Paul Erd\"os's favorite problems. His results are:
+\begin{enumerate}
+\item The graph $\tilde{G}$ can be 7--colored  (see for example the case of a hexagonal tessellation).
+\item There is a configuration of $\tilde{G}$ that requires only 4 colours (see for example the configuration involved in the Putnam problem).
+
+\end{enumerate}
+
+ Then, the chromatic numbers of $\tilde{G}$ are  $4 &lt; \chi &lt; 7$.
+
+ More generally, the chromatic number of a graph $\tilde{G}$ can be computed as the smallest positive integer $z$ such that the chromatic polynomial 
+$\pi_{\tilde{G}}(z)$ takes only positive values; thus, calculating the chromatic number of a graph is an NP-complete problem (as shown by Skiena in ref. {SkS90},on pp. 211-212), but no general algorithm has been found yet for any arbitrary graph as suggested by Harary in 1994 (on p. 127 in ref.\cite{HF94}). Erd\"os proved in 1959 (ref. \cite{EP59}) that there are graphs with arbitrarily large girth and chromatic numbers (cited in ref. \cite{BW2k}).  
+
+ Chromatic numbers and minimal colorings for many colored graphs are readily illustrated by employing Mathematica$^{TM}$
+as shown at the \PMlinkexternal{mathworld website.}{http://mathworld.wolfram.com/ChromaticNumber.html}
+
+ As an example, the chromatic number can be digitally computed using ChromaticNumber$[g]$ in the Mathematica$^{TM}$ package ``Combinatorica''; minimal coloring can also be computed by using MinimalColoring$[g]$ in the same package. Pre-computed chromatic numbers are readily available for most remarkable or special-property graphs can be obtained using $GraphData$, 
+(with $[graph,\, ``ChromaticNumber'']$).
+
+
+\begin{thebibliography}{99}
+\bibitem{BW2k}
+Bollob\'as, B. and West, D. B. ``A Note on Generalized Chromatic Number and Generalized Girth.'' {\em Discr. Math.}, 213, 29-34, 2000.
+
+\bibitem{ED2k}
+Eppstein, D.  \PMlinkexternal{The Chromatic Number of the Plane.}{http://www.ics.uci.edu/~eppstein/junkyard/plane-color.html}. 
+
+\bibitem{EP59} 
+Erd\"os, ``P. Graph Theory and Probability.'' Canad. J. Math. 11, 34-38, 1959. 
+
+\bibitem{EP61}
+Erd\"os, P. ``Graph Theory and Probability II.'' Canad. J. Math. 13, 346-352, 1961. 
+
+\bibitem{HF94}
+Harary, F. {\em Graph Theory}. Reading, MA: Addison--Wesley, 1994. 
+
+\bibitem{LL68}
+Lov\'asz, L. ``On (the) Chromatic Number of Finite Set-Systems.'', Acta Math. Acad. Sci. Hungar. 19, 59-67, 1968. 
+
+\bibitem{SkS90}
+Skiena, S. {\em Implementing Discrete Mathematics: Combinatorics and Graph Theory with Mathematica}. Reading, MA: Addison--Wesley, 1990. 
+
+Sloane, N. J. A. Sequences $A000012/M0003, A000934/M3292, A068917, A068918, and A068919$ in {\em The On-Line Encyclopedia of Integer Sequences.} 
+
+Weisstein, Eric W. ``Chromatic Number.'', In \PMlinkexternal{\emph{MathWorld--A Wolfram Web Resource}.}{http://mathworld.wolfram.com/ChromaticNumber.html} 
+
+
+\end{thebibliography}</content>
+</record>

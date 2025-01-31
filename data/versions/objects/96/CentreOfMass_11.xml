@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="11" id="96">
+ <title>center of mass</title>
+ <name>CentreOfMass</name>
+ <created>2005-08-31 17:51:22</created>
+ <modified>2009-04-18 15:38:01</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="17" name="pbruin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.50.Dd"/>
+	<category scheme="msc" code="02.40.Yy"/>
+ </classification>
+ <defines>
+	<concept>rigid body</concept>
+	<concept>solid object</concept>
+	<concept>point particle</concept>
+	<concept>center of mass integrals</concept>
+	<concept>center of mass velocity</concept>
+	<concept>center of mass acceleration</concept>
+	<concept>center of gravity</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="center of mass" alias="centre of mass"/>
+ </synonyms>
+ <related>
+	<object name="MotionOfTheCenterOfMass"/>
+	<object name="CentreOfMassOfPolygon"/>
+	<object name="Momentum"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The \emph{center of mass} (en: {\em centre of mass}) of an object is a point in space where, for many purposes, the mass of the object may be assumed to be concentrated.  This concept is most often used for rigid bodies, but applies to any arrangement of matter.  The centre of mass can be used in many ways to simplify a complicated system by treating it as a point particle.  For example, a rigid body hung from a string in a uniform gravitational field will have its centre of mass straight below the string if it is at rest.  More generally, as long as the only forces acting are gravity and the string, to describe the motion of the object in space (disregarding possible rotation) we may replace the solid object by a point particle located at the centre of mass.
+
+The momentum of an object with total mass $M$ is
+$$
+\mathbf{p}=M\mathbf{v}_{\mathrm{cm}},
+$$
+and if a total force $\mathbf{F}$ acts on the object, Newton's second law may be formulated as
+$$
+\mathbf{F}=M\mathbf{a}_{\mathrm{cm}}.
+$$
+In these equations $\mathbf{v}_{\mathrm{cm}}$ and $\mathbf{a}_{\mathrm{cm}}$ are the velocity and the acceleration of its centre of mass, respectively; these are defined below.
+
+The centre of mass of a solid object, rigid body, etc., occupying a region $V$ in space, is defined as the average position of all the points of $V$, each point $\mathbf{x}$ being weighted with the density of the object at that point, $\rho(\mathbf{x})$.  This average is a volume integral over the region $V$:
+$$
+\mathbf{x}_{\mathrm{cm}}\equiv\frac{1}{M}\int_V
+\rho(\mathbf{x})\mathbf{x}\,\mathrm{d}V.
+$$
+Here $M$ is the total mass of the object:
+$$
+M\equiv\int_V \rho(\mathbf{x})\,\mathrm{d}V.
+$$
+
+If the object consists of a number of point particles, these integrals become sums over the particles.  The centre of mass of a collection of $N$ particles with masses $m_1,m_2,\ldots,m_N$ located at the positions $\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_N$ is
+$$
+\mathbf{x}_{\mathrm{cm}}\equiv\frac{1}{M}\sum_{i=1}^N m_i\mathbf{x}_i,
+$$
+where $M$ is now the sum of the masses of the particles:
+$$
+M\equiv\sum_{i=1}^N m_i.
+$$
+
+The velocity and acceleration of the centre of mass are now simply defined as the first and second time derivatives of $\mathbf{x}_{\mathrm{cm}}$:
+$$
+\mathbf{v}_{\mathrm{cm}}\equiv\mathbf{\dot x}_{\mathrm{cm}},\qquad
+\mathbf{a}_{\mathrm{cm}}\equiv\mathbf{\ddot x}_{\mathrm{cm}}.
+$$</content>
+</record>

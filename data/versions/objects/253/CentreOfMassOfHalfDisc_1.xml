@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="253">
+ <title>centre of mass of half-disc</title>
+ <name>CentreOfMassOfHalfDisc</name>
+ <created>2007-07-02 12:39:30</created>
+ <modified>2007-07-02 12:39:30</modified>
+ <type>Example</type>
+<parent id="96">centre of mass</parent>
+ <creator id="21" name="pahio"/>
+ <modifier id="441" name="bci1"/>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+\newcommand{\sijoitus}[2]%
+{\operatornamewithlimits{\Big/}_{\!\!\!#1}^{\,#2}}</preamble>
+ <content>Let $E$ be the upper half-disc of the disc\, $x^2+y^2 \leqq R$\, in $\mathbb{R}^2$ with a \PMlinkescapetext{constant} surface-density 1.  By the symmetry, its centre of mass locates on its medium radius, and therefore we only have to calculate the ordinate $Y$ of the centre of mass.  For doing that, one can use in this two-dimensional case instead a triple integral the double integral
+$$Y = \frac{1}{\nu(E)}\int\!\!\int_E y\,dx\,dy,$$
+where\, $\nu(E) = \frac{\pi R^2}{2}$\, is the area (and the mass) of the half-disc.  The region of integration is defined by
+$$E = \{(x,\,y)\in\mathbb{R}^2\,\vdots\;\; -R\leqq x \leqq R,\; 0 \leqq y \leqq \sqrt{R^2-x^2}\}.$$
+Accordingly, we may write
+$$Y = \frac{2}{\pi R^2}\!\int_{-R}^R\!dx\int_0^{\sqrt{R^2-x^2}}\!y\,dy = 
+\frac{2}{\pi R^2}\!\int_{-R}^R\frac{R^2\!-\!x^2}{2}\,dx = 
+\frac{2}{\pi R^2}\sijoitus{-R}{\quad R}\left(\frac{R^2x}{2}-\frac{x^3}{6}\right) = \frac{4R}{3\pi}.$$
+Thus the centre of mass is the point\, $(0,\,\frac{4R}{3\pi})$.</content>
+</record>

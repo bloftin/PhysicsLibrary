@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="898">
+ <title>natural transformations of organismic structures</title>
+ <name>NaturalTransformationsOfOrganismicStructures</name>
+ <created>2010-12-05 16:05:25</created>
+ <modified>2010-12-05 16:05:25</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>natural transformation, organismic structures, variable molecular sets, variable category, variable topology</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <preamble></preamble>
+ <content>\subsection{Natural Transformations of Organismic Structures} 
+
+Biological systems, or living organisms are characterized by relational structures and their dynamic transformations which can be represented  as natural transformations of \PMlinkname{heterofunctors in organismic supercategories}{Supercategories3}(OS). Such OS-structures can be specified mathematically either by using the \PMlinkname{Yoneda-Grothendieck Lemma and construction}{YonedaEmbedding}, or they can be directly derived by a mathematical interpretation of the first ten axioms of ETAS, plus two additional axioms defining both `self-repair' of metabolic components and complete reproduction in terms of \PMlinkexternal{genetic coding, translational genomics}{http://planetphysics.org/?op=getobj&amp;from=books&amp;id=213} and epigenetic meta-processes. Further details concerning mathematical, logical and complex modeling are provided in the following list of publications and related web (html) links.
+
+
+\begin{thebibliography}{9}
+
+\bibitem{ICB6}
+I.C. Baianu: 1977, A Logical Model of Genetic Activities in \L ukasiewicz Algebras: The Non-linear Theory. \emph{Bulletin of Mathematical Biophysics}, \textbf{39}: 249-258.
+
+\bibitem{ICB7}
+I.C. Baianu: 1980, Natural Transformations of Organismic Structures. \emph{Bulletin of Mathematical Biophysics}
+\textbf{42}: 431-446.
+
+\bibitem{ICB8}
+I.C. Baianu: 1983, Natural Transformation Models in Molecular Biology., in \emph{Proceedings of the SIAM Natl. Meet}., Denver, CO.; \PMlinkexternal{An Eprint is here available}{http://cogprints.org/3675/1/Naturaltransfmolbionu6.pdf} .
+
+\bibitem{ICB9}
+I.C. Baianu: 1984, A Molecular-Set-Variable Model of Structural and Regulatory Activities in Metabolic and Genetic Networks., \emph{FASEB Proceedings} \textbf{43}, 917.
+
+\bibitem{ICB2}
+I.C. Baianu: 1987a, Computer Models and Automata Theory in Biology and Medicine.,  in M. Witten (ed.), 
+\emph{Mathematical Models in Medicine}, vol. 7., Pergamon Press, New York, 1513-1577; \PMlinkexternal{CERN Preprint No. EXT-2004-072:}{http://documents.cern.ch/cgi-bin/setlink?base=preprint&amp;categ=ext&amp;id=ext-2004-067}.
+
+\bibitem{ICB9b}
+I.C. Baianu: 1987b, Molecular Models of Genetic and Organismic Structures, in \emph{Proceed. Relational Biology Symp.} Argentina; \PMlinkexternal{CERN Preprint No.EXT-2004-067:MolecularModelsICB3.doc}{http://documents.cern.ch/cgi-bin/setlink?base=preprint&amp;categ=ext&amp;id=ext-2004-067}.
+
+\bibitem{Bgg2}
+I.C. Baianu, Glazebrook, J. F. and G. Georgescu: 2004, Categories of Quantum Automata and 
+N-Valued \L ukasiewicz Algebras in Relation to Dynamic Bionetworks, \textbf{(M,R)}--Systems and
+Their Higher Dimensional Algebra, 
+\PMlinkexternal{Abstract of Report is here available as a PDF}{http://www.ag.uiuc.edu/fs401/QAuto.pdf} and 
+\PMlinkexternal{html document}{http://doc.cern.ch/archive/electronic/other/ext/ext-2004-058/QuantumAutnu3_ICB.pdf}
+
+
+\bibitem{BHS2}
+R. Brown R, P.J. Higgins, and R. Sivera.: \emph{``Non--Abelian Algebraic Topology''},({\em in preparation}).
+\PMlinkexternal{available here as PDF}{http://arxiv.org/PS_cache/math/pdf/0407/0407275v2.pdf}.  
+
+\bibitem{BGB2}
+R. Brown, J. F. Glazebrook and I. C. Baianu: A categorical and higher dimensional algebra framework for complex systems and spacetime structures, \emph{Axiomathes} \textbf{17}:409-493.
+(2007).
+
+
+\bibitem{LO68}
+L. L$\ddot{o}$fgren: 1968. On Axiomatic Explanation of Complete Self--Reproduction. \emph{Bull. Math. Biophysics}, 
+\textbf{30}: 317-348.
+
+\bibitem{ICBetal2k9}
+Contributed Review. 2009. GNUL download.
+\PMlinkexternal{``DNA Molecular Models and Dynamics.''}{http://planetphysics.org/?op=getobj&amp;from=books&amp;id=213} 
+
+
+\end{thebibliography}</content>
+</record>

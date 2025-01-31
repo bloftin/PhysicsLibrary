@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="810">
+ <title>Nicolae Popescu</title>
+ <name>NicolaePopescu</name>
+ <created>2009-06-20 13:56:52</created>
+ <modified>2009-06-20 14:59:27</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>abstract algebra</concept>
+	<concept>sheaf theory</concept>
+	<concept>valuation theory</concept>
+	<concept>commutative ring</concept>
+	<concept>algebraic function theory</concept>
+	<concept>K-theory</concept>
+	<concept>algebraic K-theory</concept>
+	<concept>topological K-theory</concept>
+	<concept>class-field theory</concept>
+	<concept>$C_p$</concept>
+	<concept>$R[X_1</concept>
+	<concept>...</concept>
+	<concept>X_r]$</concept>
+	<concept>$p-adic$ measure</concept>
+	<concept>$n-local fields$</concept>
+ </defines>
+ <keywords>
+	<term>Pierre Gabriel</term>
+	<term>Abelian category theory</term>
+	<term>category theory applications</term>
+ </keywords>
+ <preamble></preamble>
+ <content>Ok
+\section{Nicolae Popescu, PhD., D.Sc., Acad. Prof.} (born 22 September 1937, at Strehaia, in Romania, EU) is a Roumanian mathematician. He was elected a Full Member of the Romanian Academy in 1992 after the liberation of Romania from dictatorship, and he is best known for his contributions to Abstract Algebra and the theory of Abelian categories, especially sheaf theory and category theory applications to commutative rings and modules. Since 1964 he collaborated on the characterization of Abelian categories with the well-known French mathematician Pierre Gabriel. His areas of expertise are: Category theory focused on Abelian categories with applications to rings and modules, \PMlinkexternal{Adjoint Functors}{http://planetmath.org/encyclopedia/AdjointFunctor.html}, limit functors and colimits, commutative ring theory, fields, polynomials, and Valuation Theory]; he also has strong interests and published in the following areas: Algebraic Topology, Algebraic Geometry, Commutative Algebra, K--theory, Class-Field theory and Functional Analysis (Algebraic Function theory). He published between 1962 and 2009 over 112 papers in peer--reviewed, mathematics journals, several monographs on the theory of sheaves, and also six books on category theory and Abstract Algebra. In a Grothendieck--like, energetic style, he initiated and provided scientific leadership to several seminars on \PMlinkexternal{Category theory and Algebraic Geometry}{http://planetphysics.org/encyclopedia/FunctorialAlgebraicGeometry.html} Seminars on Algebraic Geometry and Category theory, sheaves and abstract algebra which resulted in a continuous stream of high--quality mathematical publications in international, peer--reviewed mathematics journals by several members participating in his Seminar series. 
+
+
+\subsection{Education}
+He earned his Master of Science (M.S.) degree in Mathematics in 1964, and his Doctor  of Philosophy (Ph.D.) degree in mathematics in 1967, both at the University of Bucharest. He was awarded a D. Phil. degree (Doctor Docent) in 1972 by the University of Bucharest. 
+
+\subsection{Current}
+Presently, he continues his mathematics studies at the \PMlinkexternal{Institute of Mathematics of the Romanian Academy in the Algebra research group}{http://www.imar.ro/prez/prez_algebra.html}, and also has international collaborations on four continents. One finds from conversations with Academician Nicolae Popescu that he shares many moral, ethical and religious values with another famous mathematician French--German--Jewish Alexander Grothendieck who visited the School of Mathematics in Bucharest in 1968. Like Grothendieck he has a long-standing interest in category theory, number theory, practicing Yoga, and supporting promising young mathematicians in his fields of interest. He also supported the early developments of category theory applications in mathematical biology, relational biology and mathematical biophysics. 
+
+
+\subsection{Academic positions}
+Dr. Nicolae Popescu was appointed as a Lecturer (Assoc. Professor) at the University of Bucharest in 1968 where he taught mathematics graduate students until 1972.  Since 1964, he also held a 
+\PMlinkexternal{Research Professorship}{http://www.imar.ro/~nipopesc/}  at the Institute of Mathematics of the Romanian Academy, which institute was ruthlessly eliminated by former dictator of S.R. Romania in 1976 for reasons related to his daughter Zoe Cheaushescu who was `hired' by the Mathematics Institute in Bucharest two years before.
+
+
+\subsection{Selected Publications}
+\subsubsection{Peer--reviewed articles}
+
+ Nicolae Popescu. On the homology and homotopy of CW--complexes. (orig. title: ``Asupra omologiei si omotopiei C.W. -- complexelor'', {\em Studii si cercetari Matem.}., 1962. (with D. Burghelea) 
+
+ Nicolae Popescu. Generalized Differential Operators (orig. title: Diferentiale generalizate, {Comunicarile Acad. R.S.Roumania}., vol. 13, Nr. 6 (1963), 523-528. (with C. Banica)
+
+ Nicolae Popescu. Modules with generalized differentials (orig. title: Module cu diferentiala generalizata, {\em St. Cerc. Mat.}, vol. 16, Nr. 6. (1964), 673-804. ; Modules avec diff\'erentielle g\'en\'eralis\'ee. '' {\em Rev. Roum. Math. Pures et Appl.} Nr. 6 (1964)
+
+ Nicolae Popescu. Quelques consid\'erations sur l'exactitude des foncteurs, {\em Bull. Math. Soc. Sci. Math. Phys. de la R. P. Roumanie}. 7 (1963), 144-147. (with C. Banica).
+
+ Nicolae Popescu. Quotient categories (orig. title: Categorii cât), {\em St. Cerc. Matem.} 17, (1965), 951-985. (with C. Banica)
+
+ (in fr.) Sur les cat\'egories preab\'eliens., 
+{\em Rev. Roum. Math. Pures Appl.}, {\bf 10}, (1965), 621-633. (with C. Banica)
+
+ Nicolae Popescu. (lang.fr). Caract\'erisation des cat\'egories ab\'eliennes avec g\'en\'erateurs et limites inductives exactes., 
+{\em C. R. Acad. Sci. Paris}. 258 (1964), 4188--4191. (with Pierre Gabriel). 
+
+ Nicolae Popescu. (lang.fr.) La localisation pour des sites., {\em Rev. Roum. Math. Pures et Appl.} {\bf 10}, (1965), 1031--1044.
+
+ Nicolae Popescu. La structure des modules injectifs sur an anneau \'a id\'eal principal, {\em Bull. Math. de la Soc. Sci. Math. Phys. de la R . P.Roumanie} vol.8 (56), Nr. 1--2 (1964), 67--73. (with A. Radu)
+
+ Nicolae Popescu. Morphismes et co-morphismes des topos ab\'eliennes, 
+{\em Bull. Math. de la Soc. Sci. Math. de la R.S. Roumanie}. vol 10(58) W.2--4 (1996), 319--328. (with A. Radu).
+
+ Nicolae Popescu. (lang.fr.) Sur la structure des objets de certaines cat\'egories ab\'eliennes., {\em C.R. Acad. Sci. Paris}, {\bf 262} (1966), 1295--1297. (with C. Nastasescu)
+ 
+ Nicolae Popescu. (lang.fr.) Quelques observations sur les topes ab\'eliennes., {\em Rev. Roum. Math. Pures Appl.} 12 (1967), 553--563. (with C. Nastasescu)
+
+ Nicolae Popescu. (lang.fr.) Th\'eorie g\'en\'erale de la d\'ecomposition., {\em Rev. Roum Math. Pures et Appl.} 12 (1967), 1365--1371.
+
+ Nicolae Popescu. Les anneaux semi--artiniens, {\em Bull. Soc. Math. France}, 96 (1968) 357-368. (with C. Nastasescu). 
+
+ Nicolae Popescu. Sur les epimorphismes plants d'anneaux, {\em C.R. Acad. Sci. Paris}, 268 (1969) 376-379. (with T. Spircu). 
+
+ Nicolae Popescu. On the localization ring of ring., {\em J. of Algebra} , {\bf 15} (1970) 41-56. (with C. Nastasescu)
+
+ Nicolae Popescu.(lang.fr). Quelques observations sur les morphismes plats des anneaux., {\em J. Algebra} , {\bf 16}, (1970), 40--59. (with T. Spircu)
+
+ Nicolae Popescu.(lang.fr). Le spectre gauche d'un anneau, {\em J. Algebra} , {\bf 18}, (1971) 213--228.
+
+ 
+  Nicolae Popescu.(lang.fr). Les quasi-ordres (\'a gauche) des anneaux, {\em J. Algebra}, {\bf 17}, (1971), 474--481. (with D. Spulber)
+
+Les anneaux semi-noethériens, {\em C.R. Acad. Sci. Paris} 272 (1971), 1439-1441. 
+
+Sur les C. P. anneaux, C.R. Acad. Sci. Paris 272 (1971) 1493-1496. 
+
+ Th\'eorie de la d\'ecomposition primaire dans les anneaux semi-noeth\'eriens, {\em J. Algebre} 2399172, 482--492. 
+
+ Some remarks about semi-artinian rings, Rev. Roumaine Math. Pures et Appl. 17, nr. 9(1973), 1413--1422. (with C. Vraciu) 
+
+ lang. fr. Exemple de inele semi-artiniene, St. Cerc. Math. 26, nr.8 (1974), 1153-1157. (with T. Spircu) 
+
+ Quelques consid\'erations sur les anneaux semi--artini\'ens commutatifs, {\em C. R. Acad. Sci. Paris 276(1973), 1545--1548. 
+ 
+ Permanence Theorems for semi--artinian rings, Rev. Roum. Math. Pures et Appl. 21, nr.2 (1976), 227--231. (with T. Spircu)
+
+ lang.fr. Sur la Structure des Anneaux Absolument plats commutatifs, 
+ {\em J. Algebra} 40 (1976), 364-383. (with C. Vraciu)
+ 
+ Sur l'anneau des quotients d'un anneau noeth\'erien (\'a droite) par rapport au syst\`eme localisant associ\'ee \`a un id\'eal bilat\'eral premier, {\em C.R. Acad. Sci. Paris.}
+
+ Some remarks about the regular ring associated to a commutative ring, Rev. Roumaine Math. Pures et Appl. 23(1978), 269--277. (with C. Vraciu)
+ 
+ Sur la sous--cat\'egorie localisant associ\'ee a un id\'eal bilat\'eral premier dans un anneau noeth\'erien (\`a droite), Rev. Roum. Math. Pures et Appl. T. XXVi, nr. 7 (1981), 1033--1042.
+
+ Sur un problème d'Arens et Kaplansky concernant la structure de quelques anneaux absolument plats commutatifs, Rev. Roum. Math. Pures Appl., t. 27, nr.8 (1982), 867-874. (with C. Vraciu)
+ 
+  Sur une classe de polynomes irr\'eductibles, C.R. Acad. Sci. Paris, t. 297 (1983), 9--11.
+
+ Galois Theory of permitted extensions of commutative regular rings, Bull. Math. Soc. Sci. Math. R.S. Roumanie, t. 29 (77), nr.1 (1985), 121--135. (with C. Vraciu) 
+
+ On Dedekind domains in infinite algebraic extensions, Rend. Sem. Math. Univ. Padova, vol. 74 (1985), 39--44. (with C. Vraciu) 
+ 
+ On a problem of Nagata in valuation theory, Rev. Roum. Math. Pures et Appl. 31 (1986), 639--641. 
+
+ On subfields of k(X), Red. Sem. Mat. Univ. Padova, vol. 75 (1986), 257-273. (with V. Alexandru)
+
+ On a class of intermediate Subfields, Studii si Cercetari Matematice, tom 39, Nr. 2 (1987), p.156-162. (with E.L. Popescu) 
+
+ Sur une clase de prolongements a K(X) d'une valuation sur un corps K, Rev. Roum. Math. Pures Appl. 33 (1988), 393-400. (with V. Alexandru)
+ 
+ A theorem of characterization of residual transcendental extensions of a valuation, J. Math. Kyoto Univ. 28-4 (1988), 579-592. (with V. Alexandru and A. Zaharescu)
+
+ Sur la d\'efinition des prolongements r\'esiduels transcendent d'une valuation sur un corps K \`a K(X), Bull. Math. Soc. Sci. Math. Roumanie, t. 33 (1989), 257-264. (with E. L. Popescu)
+
+ Minimal pairs of a residual transcendental extension of a valuation, J. Math. Kyoto, Univ., Vol. 30, (1990), 207-225. (with V. Alexandru si A. Zaharescu)
+
+ All valuations on $K(X)$, {\em J. Math. Kyoto Univ.}, Vol. 30 (1990), 281--296. (with V. Alexandru si A. Zaharescu)
+
+ On the residual transcendental extensions of a valuation. Key polynomials and augmented valuation, {\em Math. Tsukuba Univ.} vol. 15, No.1 (1991), 57--78. (with E.L. Popescu)
+
+ On the extension of valuation on a field K to K(X), I Red. Sem. Mat. Univ. Padova, vol. 87 (1992), 151--168. (with C. Vraciu)
+
+ On the structure of the irreducible polynomials over local fields, J. Number Theory, Vol. 52 No.1 (1993), 98--118. (with A. Zaharescu)
+
+ The valuations on $k(x,y)$ which are trivial on $k$, Proc. Conf. Algebra, Constanta, 1994.
+
+ Some elementary remarks about n-local fields, Rend. Sem. Math. Univ. Padova, Vol. 91 (1994). (with V. Alexandru)
+
+ A characterization of Generalized Dedekind Domains, {\em Bull. Math. de la Soc. Sci. Math de la Roumanie}, vol. 35 (83), Nos.1--2 (1991), 139--141. (with E. L. Popescu)
+
+ On a characterization of Pr\"ufer domains, Rev. Roumaine Math. Pures et Appl. 29 (1984), 777--786.
+
+ Sur une classe d'anneaux qui g\'en\'ralisent les anneaux de Dedekind, J. of Algebra, Vol.173, (1995), 44--66. (with M. Fontana) 
+
+ On the extension of a valuation on a Field K to $K(X)$, II, Rend. Sem. Mat, Univ. Padova, Vol 96 (1996), 1--14. (with C. Vraciu)
+
+ On the roots of a class of lifting polynomials, Fachbereich Math. Univ. Hagen, Band 63 (1998), 586--600. (with A. Zaharescu)
+
+ Completion of a r. t. extension of a local field, I, Math. Z., Vol 221 (1996), 675-682. (with V. Alexandru and A. Popescu)
+
+ Completion of a r. t. extension of a local field., II, Rend. Sem. Mat. Univ. Padova, (1998). (with V. Alexandru and A. Popescu)
+
+ On the main invariant of an element over a local field, Portugalia Mathematica, Vol. 54, Fasc. 1 (1997) 73--83. (with A. Zaharescu)
+
+ On the closed subfields of Cp, J. Number Theory, Vol. 68 (1997), 131--150. (with V. Alexandru and A. Zaharescu) 
+
+ Sur une classe d'anneaux de Pr\"ufer avec groupe de classes de torsion, Comm. Alg., 23 (1975), 4521--4533. (with M. Fontana)
+ 
+ On a class of Domains Having Pr\"ufer Integral closure, The FOR-Domains, Commutative ring Theory, Vol. 185, Lecture Notes in Pure and Appl. Math. Dekker 1996. (with M. Fontana)
+
+ Invertible ideals and Picard group of generalized Dedekind domains, J. Pure and Appl. Alg., Vol 135, Nr. 3 (1999), 237--251. (with S. Gabelli)
+
+ The L\"uroth's Theorem for some complete fields, in {\em Abelian Groups, Module Theory and Topology}, Editors Dikranian--Salce, Marcel Dekker Inc., 1998, 55--58. (with V. Alexandru)
+
+ On minimal pairs and residually transcendental extensions of valuations. Mathematika, 49 (2002), 93--106, (with S. Khanduja and K.W. Roggenkamp)
+ 
+ Nagata Transform and Localizing Systems, Comm. in Algebra, 30(5), (2002), 2297-2308. (with Marco Fontana)
+
+ Spectral extensions of p-adic valuation, Rev. Roum. Math. Pures et Apll, Vol. 46, Nr.6 (2001), 805-817. (with E. L. Popescu and C. Vraciu) 
+
+ Trace on $C_p$, {\em J. Number Theory}, 88 (2001), No.1, 13--48. (with V. Alexandru and A. Zaharescu)
+ 
+ Spectral norms on valued fields, Math. Z., Vol 238 (2001), 101--114. (with V. Pasol and A. Popescu) 
+
+ The generating degree of $C_p$, {\em Canad. Math. Bull.}, vol. 44, (2001), 
+3--11. (with V. Alexandru and A. Zaharescu) 
+
+ Metric invariants in $BdR+$ associated to differential operators, Rev. Roum. Math. Pures Appl. 33 (1988), 393-400. (with V. Alexandru and A. Zaharescu)
+
+ Good elements and metric invariants in BdR+, J. Math. Kyoto Univ, vol 43, Nr. 1 (2003), 125-137. (with V. Alexandru and A. Zaharescu)
+ 
+ On afine subdomains (to appear) (with G. Groza) 
+
+ A representation theorem for a class of rigid analytic functions, (with V. Alexandru and A. Zaharescu) (J. Th. Nombres Bordeaux 15 (2003), 639--650. 
+ 
+ On the spectral norm of Algebraic Numbers (to appear Math. Nachtr.) (with A. Popescu and A. Zaharescu)
+
+ Universal Property of the Kaplansky Ideal Transform and Affiness of Open Subsets, J. Pure and Appl. Alg., 173, (2002), 121--134. (with Marco Fontana)
+
+
+ Metric invariants over Henselian valued Fields, {\em J. of Algebra}, 266 (1), (2003), 14--26. (with A. Popescu and A. Zaharescu) 
+
+ Chains of metric invariants over a local field, Acta Arithmetica, 103 (1), (2002), 27--40. (with A. Popescu, M. Vajaitu and A. Zaharescu)
+
+ Transcendental divisors and their critical functions, Manuscripta Math., 110 (4), (2003), 527--541. (with A. Popescu and A. Zaharescu) 
+
+ The Galois Action on plane Compacts, {\em J. of Algebra}, 270, (2003), 238--248. (with A. Popescu and A. Zaharescu)
+
+ Total valuation rings of $K(X, \sigma)$ containing K, Communications in Algebra, Volume 30, Number 11  (2002), 5535--5546 (with S. Kobayashi, H. Marubayashi and C. Vraciu)
+
+ Total valuation Rings of Ore extensions, Result Math., 43 (2003), 373--379. (with S. Kobayashi, H. Marubayashi and C. Vraciu and G. Xie)
+
+ Non-commutative valuation rings of the quotient artinian ring of a skew polynomial ring, Algebra and Representation Theory (2005), 8; 57-68 (with S. Kobayashi, H. Marubayashi and C. Vraciu and G. Xie)
+
+ The structure of localization systems of a class of Pr\"ufer Domain (to appear) (with H. Marubayashi and E. L Popescu)
+
+ On the existence of trace for elements of Cp Algebra and Representation Theory (2006), 9: 47--66 (with M. Vajaitu and A. Zaharescu)
+
+ Trace Series on $Q_k$, Result in Math., 43 (2003), Nos. 3--4, 331--341 (with A. Popescu and A. Zaharescu)
+ 
+ A Galois Theory for the Banach Algebra of continuous symmetric functions on absolute Galois Group Result. Math. 45, Nos. 3--4, 349--358 (2004) (with A. Popescu and A. Zaharescu)
+
+ On the continuity of the trace. in {\em Proceedings Romanian Academy}, Series A, Volume 5, Number 2 (2004),  117-122 (with V. Alexandru, E. L Popescu).
+
+ A new characterization of spectral extension of p-adic valuation, Proc. Conference in Math. Lahore, 18--20 March 2004 (with E. L Popescu) 
+
+ Norms on $R[X_1,..., X_r]$ which are multiplicative on $R$ (to appear in Resultate der Mathematik  (with G. Groza and A. Zaharescu)
+
+ All non–Archimedean norms on $R[X_1,..., X_r]$ (to appear) (with G. Groza and A. Zaharescu)
+
+ On the structure of compact subsets of $C_p$ (Acta Arithmetica, 123. 3, 253--266 (2006) (with Alla Ditta Raza Choudary, and A. Popescu)
+
+ A basis of K over n, {\em Rev. Roum. Math. Pures Appl.} vol. {\bf LI, 51}(2006), 87--88. (with E. L. Popescu)
+
+ The $p-adic$ measure on the orbit of an element of $C_p$ (to appear) (with V. Alexandru, M. Vajaitu and A. Zaharescu)
+ 
+ Analytic Normal Basis Theorem (with V. Alexandru and A. Zaharescu) (to appear)
+
+
+
+
+\subsubsection{Peer--reviewed Monographs}
+
+ Nicolae Popescu. Elements of the theory of sheaves (orig.title: Elemente de teoria fascicolelor I, St. Cerc. Mat. (1966) 267--296.
+
+ {\em Ibid.}  Elemente de teoria fascicolelor II, St. Cerc. Mat. (1966) 407--456.
+ 
+ {\em Ibid.} Elemente de teoria fascicolelor III, St. Cerc. Mat. (1966) 547--583. 
+
+ {\em Ibid.}   Elemente de teoria fascicolelor IV, St. Cerc. Mat. (1966) 647--669. 
+
+ N. Popescu.  Elemente de teoria fascicolelor V, {\em St. Cerc. Mat.} (1966) 945--991. (en: Elements of the Theory of Sheaves). in Studies and Research in Math. (in roum. only).  {\em Ibid.}, Elemente de teoria fascicolelor VI, St. Cerc. Mat. (1967) 205--240.
+
+\subsection{Other Books (in Roum. only)}
+
+ N. Popescu. Elemente de teoria analitica a numerelor, Univ. Bucuresti, 1968.
+(en. title: {\em Elements of the anlytical theory of numbers.})
+
+ N. Popescu.{\em Teoria categoriilor si teoria fascicolelor.}, Ed. Stiintifica, 1971. (en: {\em Category theory and the theory of sheaves.}).
+ 
+ N. Popescu. {\em Categorii Abeliene.}, Ed. Academiei, 1971.
+
+ Nicolae Popescu. {\em Abelian categories with Applications to Rings and Modules.}, Academic Press, L. M. S. Monograph No.3, London, 1973. (en, translation by I.C. Baianu).
+
+ Nicolae Popescu and Liliana N. Popescu. {\em Theory of categories}., Martinus Nijhoff Publishers, The Hague., Sijthoff and Noordhoff International Publishers, Alphen aan den Rijn, 1979. 337 pp. $ISBN: 90-286-0168-6.$
+
+ Selected topics in valuation theory (to appear).
+
+\subsection{External Internet/Web links}
+
+\PMlinkexternal{Nicolae Popescu, at the Institute of Mathematics of the Romanian Academy}{http://www.imar.ro/~nipopesc/}
+
+
+\subsection{Acknowledgements}
+This entry is based in part,has significant additions to and changes from, a related \PMlinkexternal{wiki entry}{http://en.wikipedia.org/wiki/Nicolae_Popescu} with the same name.</content>
+</record>

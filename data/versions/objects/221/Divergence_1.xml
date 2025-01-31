@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="221">
+ <title>divergence</title>
+ <name>Divergence</name>
+ <created>2006-08-28 23:46:39</created>
+ <modified>2006-08-28 23:46:39</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="divergence" alias="divergence of a vector field"/>
+ </synonyms>
+ <related>
+	<object name="curl"/>
+	<object name="gradient"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Divergence}
+
+The divergence of a vector field is defined as 
+
+
+$$\nabla \cdot {\bf V} = \frac{\partial V_x}{\partial x} + \frac{\partial V_y}{\partial y} + \frac{\partial V_z}{\partial z}$$
+
+This is easily seen from the definition of the dot product and that of the \emph{del} operator
+
+$$ \mathbf{A} \cdot \mathbf{B} = A_x B_x + A_y B_y + A_z B_z $$
+$$ \nabla = 
+\frac{\partial}{\partial x} {\bf \hat{i}} + \frac{\partial}{\partial y}{\bf \hat{j}} + \frac{\partial}{\partial z}{\bf \hat{z}}$$
+
+carrying out the dot product with ${\bf V}$ then gives (1).
+
+\subsection{Physical Meaning}
+
+Building physical intuition about the divergence of a vector field can be gained by considering the flow of a fluid.
+
+\subsection{Coordinate Systems}
+
+Cartesian Coordinates
+
+$$ \nabla \cdot {\bf V} = \frac{\partial V_x}{\partial x} + \frac{\partial V_y}{\partial y} + \frac{\partial V_z}{\partial z}$$
+
+Cylindrical Coordinates
+
+$$\nabla \cdot {\bf V} = \frac{1}{r}\frac{\partial}{\partial r} (r V_r) + \frac{1}{r} \frac{\partial V_{\theta}}{\partial \theta} + \frac{\partial V_z}{\partial z}$$ 
+
+Spherical Coordinates
+
+$$\nabla \cdot {\bf V} = \frac{1}{r^2}\frac{\partial}{\partial r} (r^2 V_r) + \frac{1}{r sin \theta} \frac{\partial}{\partial \theta}(V_{\theta} sin \theta) + \frac{1}{r sin \theta}\frac{\partial V_{\phi}}{\partial \phi}$$</content>
+</record>

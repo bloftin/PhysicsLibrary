@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="815">
+ <title>George Karreman</title>
+ <name>GeorgeKarreman</name>
+ <created>2009-06-24 14:54:43</created>
+ <modified>2009-06-24 14:54:43</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>SMB</concept>
+	<concept>quantum biology</concept>
+ </defines>
+ <keywords>
+	<term>biography</term>
+	<term>theoretical physics</term>
+	<term>quantum biophysics</term>
+	<term>biochemistry</term>
+	<term>membrane biochemistry</term>
+	<term>SMB</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Dr. George Karreman} was born on November 4, 1920 in Rotterdam, the Netherlands, the youngest of three sons. His father, from whom he may have inherited som of his mathematical skills, was Chief Engineer for the Dutch Merchant Marine. 
+
+George Karreman studied at Leiden University. He received his B.S. in Physics and Mathematics in 1939. He obtained his M.S. ({\em Doctorandus} (Drs.)) in Theoretical Physics in 1941 under professor Kramers one month before the University was closed. For the remainder of the second World War he kept food on the table of his family by tutoring students in mathematics and students. 
+
+After having read the first book on "Mathematical Biophysics" written by Nicholas Rashevsky, in August 1948 he decided to emigrate to USA, and came to Chicago with a ten day visitor's visa and $\$100$ in his pocket, and then and he contacted Rashevsky at the University of Chicago. He was awarded with Rashevsky's help a University of Chicago Fellowship and completed a Ph.D. in Mathematical Biology in 1951. In 1950 he was only the third cardiac patient to undergo successful coarctation surgery at the University of Chicago. In 1953 he married Anneke Halbertsma and they moved to Cape Cod, Massachusetts where their first child, Grace, was born in 1954. Dr. Karreman worked as a scientific research Advisor to Dr. Albert Szent-Gyorgi at the Institute for Muscle Research at the Marine Biological Laboratory in Woods Hole. To access more advanced computers in 1957 he moved to Philadelphia, where he was appointed to Senior Medical Research Scientist at the Eastern Pennsylvania Psychiatric Institute. In 1958 his first son, Frank, and in 1962 his second son, Hubert-Jan were born. One month after his second child was born he was appoints Associate Professor of Physiology at the University of Pennsylvania School of Medicine. He worked at the Bockus Research Institute at the Graduate Hospital. In 1970 he was appointed professor of Physiology, a position he held until his retirement in 1983, when he was named the first Professor of Emeritus of Mathematical Biology. He continued to be active in research. Among his interests were: physiological irritability; biological energy transfer; quantum biology; systems analysis of cardiovascular and other systems; cooperative and threshold phenomena; adsorption mechanisms. 
+Dr. Karreman was Co-Founder (together with H. Landahl and A. Bartholomay) and first president of the Society for Mathematical Biology. He was also a member of Sigma Xi, the Physiological Society of Philadelphia, the American Physiological Society, the New York Academy of Sciences, the Franklin Institute, the Society for Supramolecular Biology and the Society for Vascular System Dynamics.</content>
+</record>

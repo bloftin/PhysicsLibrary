@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="613">
+ <title>total energy of a system of particles</title>
+ <name>TotalEnergyOfASystemOfParticles</name>
+ <created>2009-03-29 17:02:12</created>
+ <modified>2009-03-29 17:02:12</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.Cc"/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Let us multiply the equation of motion of the \emph{k}th particle scalarly with $\frac{d \mathbf{r}}{dt}$, and sum over all the particles.  Then
+
+\begin{equation}
+\sum_k m_k \frac{d^2\mathbf{r}_k}{dt^2} \frac{d\mathbf{r}_k}{dt} = \frac{d}{dt} \frac{1}{2} \sum_k m_k \left( \frac{d\mathbf{r}_k}{dt} \right)^2 = \sum_k \mathbf{F}_k \frac{d\mathbf{r}_k}{dt} + \sum_k \sum_j \epsilon_{jk} \mathbf{F}_{jk} \frac{d\mathbf{r}_k}{dt}
+\end{equation}
+
+
+Integrating between the times $t_0$ and $t$:
+
+\begin{equation}
+\frac{1}{2} \sum_k m_k \left( \frac{d \mathbf{r}_k}{dt} \right)_t^2 - \frac{1}{2}  \sum_k m_k \left( \frac{d \mathbf{r}_k}{dt} \right)_{t_0}^2 = \int_{r_k(t_0)}^{r_k(t)} \sum_k \mathbf{F}_k d \mathbf{r}_k + \int_{r_k(t_0)}^{r_k(t)} \sum_k \sum_j \mathbf{F}_{jk} d \mathbf{r}_k
+\end{equation}
+
+The left member represents the total change in kinetic energy of the system, the right member gives the work done by the internal and external forces.  But it is by no means the case that the work done by the internal forces cancels out in calculating the energy, as one might expect it to do.  The kinetic energy may be divided into two parts, each of which has a physical meaning.  If we introduce a second coordinate system, whose origin $O^{\prime}$ is at the center of gravity of the system, and if we denote all radius vectors referred to this system by primes, we have
+
+$$ \mathbf{r}_k = \bar{\mathbf{r}} + \mathbf{r}_k^{\prime} $$
+
+Then, identically,
+
+\begin{equation}
+\sum_k \frac{1}{2} m_k \left( \frac{d \mathbf{r}_k}{dt} \right)^2 = \frac{1}{2} \left( \frac{d \bar{\mathbf{r}}}{dt} \right)^2 \sum_k m_k + \frac{d \bar{\mathbf{r}}}{dt} \sum_k m_k \frac{d \mathbf{r_k^{\prime}}}{dt} + \frac{1}{2} \sum_k m_k \left(\frac{d \mathbf{r_k^{\prime}}}{dt}\right)^2
+\end{equation}
+
+The second sum on the right vanishes, however, since $\sum m_k \mathbf{r}_k / M$ is, by equation (3), the radius vector of the center of gravity, and this, by hypothesis, is zero in the primed coordinates.  The first term on the right represents the kinetic energy of the system, considering the entire mass to be concentrated at the center of gravity.  The last term gives the kinetic energy of motion of the system referred to the center of gravity, when considered at rest.  Thus, we may say: 
+
+\textbf{The total kinetic energy is equal to the translational kinetic energy  of the entire mass, considered concentrated at the center of gravity, plus the energy of motion of the parts of the system relative to the center of gravity}.
+
+We further assume that the internal forces are such that they are derivable from a potential.  The potential of the force operating between the points $j$ and $k$ is a function of the distance between the two points, and therefore of their coordinates:
+
+\begin{equation}
+U_{jk} = U_{jk}(\mathbf{r}_{jk}) = U_{jk}\left( \sqrt{(x_j - x_k)^2 + (y_j-y_k)^2 + (z_j-z_k)^2} \right )
+\end{equation}
+
+The force acting on $k$ is obtained by taking $j$ to be fixed, and considering $k$ to move in the potential field given by the point function $U_{jk}$; i.e. we consider the coordinates of $j$ to be fixed, those of $k$ to be variable.  Then
+
+\begin{equation}
+\mathbf{F}_{jk} = -\hat{i} \frac{\partial U_{jk}}{\partial x_k} -\hat{j} \frac{\partial U_{jk}}{\partial y_k} -\hat{k} \frac{\partial U_{jk}}{\partial z_k} = -\nabla_k U_{jk}
+\end{equation}
+
+
+
+in like manner,
+
+\begin{equation}
+\mathbf{F}_{kj} = -\hat{i} \frac{\partial U_{jk}}{\partial x_j} -\hat{j} \frac{\partial U_{jk}}{\partial y_j} -\hat{k} \frac{\partial U_{jk}}{\partial z_j} = -\nabla_j U_{jk} = -\mathbf{F}_{jk}
+\end{equation}
+
+The work done in causing small displacements of $j$ and $k$ is
+
+\begin{equation}
+\mathbf{F}_{jk} d \mathbf{r}_k + \mathbf{F}_{kj} d \mathbf{r}_j = - \left( \frac{\partial U_{jk}}{\partial x_k} d x_k + \frac{\partial U_{jk}}{\partial y_k} d y_k + \frac{\partial U_{jk}}{\partial z_k} d z_k + \frac{\partial U_{jk}}{\partial x_j} d x_j + \frac{\partial U_{jk}}{\partial y_j} d y_j + \frac{\partial U_{jk}}{\partial z_j} d z_j \right) = -dU_{jk}
+\end{equation}
+
+The negative of the sum of $\mathbf{F}_{jk} d \mathbf{r}_k$ and $\mathbf{F}_{kj} d \mathbf{r}_j$ is therefore obtained by forming the total differential of $U_{jk}$, defined as a funtion of the six coordinates of the two points, in (11).  If, then, we wish to introduce the internal potential into the right member of equation (9), we must write
+
+\begin{equation}
+\sum_k \sum_j \epsilon_{jk} \mathbf{F}_{jk} d \mathbf{r}_k = - \frac{1}{2} \epsilon_{jk} \sum_k \sum_j dU_{jk}
+\end{equation}
+
+It is readily seen that the factor $1/2$ enters:  If we start with point $1$, and calculate the mutual energy $U_{jk}$ between this and all the other points, $k$ runs from $2$ to $N$; but when we take point 2, we must start counting with $3$, since the mutual effect of points $1$ and $2$ was already taken into account in dealing with point $1$, and so on.  Thus, in extending the summation over all combinations $j$ and $k$, we must divide by two.
+
+If the external forces have also a potential, the energy equation (9) becomes
+
+\begin{equation}
+T+\sum_k U_k + \frac{1}{2} \sum_k \sum_j \epsilon_{jk} U_{jk} = T^{(0)} + \sum_k U_k^{(0)} + \frac{1}{2} \sum_k \sum_j \epsilon_{jk} U_{jk}^{(0)} = const. 
+\end{equation}
+
+where $T$ denotes the kinetic energy.  \textbf{The sum of the kinetic energy and of the external and internal potential energy of a system is constant, if the external as well as the internal forces are conservative}.</content>
+</record>

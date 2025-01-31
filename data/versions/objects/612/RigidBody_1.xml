@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="612">
+ <title>rigid body</title>
+ <name>RigidBody</name>
+ <created>2009-03-29 13:43:53</created>
+ <modified>2009-03-29 13:43:53</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.Cc"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>It is often stated that a rigid body is any body in which the distances between all particles of the body (selected in pairs) remain constant.  This definition might seem completely satisfactory to a theoretician who does not concern himself much with the meaning of distance.  The practical person, however, has difficulty even imagining that he could determine the magnitude of a distance or its constancy without the employment of some device such as a yardstick which he was confident would be rigid at least while he was using it.  The difficulty can not be resolved by substituting for a simple yardstick, some more complicated precision instrument such as an interferometer.  One would have little confidence in the reading of an interferometer if he were not confident that its component parts such as screws and mirrors were behaving satisfactorily as rigid bodies.  Moreover, an expert on the use of an interferometer would emphasize that the component parts of his instrument were actually elastic rather than rigid, and that their approximation to rigidity would be satisfactory only provided great care were taken to avoid all unnecessary stresses.  All this ignores thermal agitation of molecules and atoms and motions of electrons, of course.
+
+From this point of view, it appears that the concept of a rigid body is an idealization not only in the sense that nobody seems likely to find or construct one, but also in the sense that he could not be sure that the body was rigid even if he did acquire one.  The difficulty in even defining satisfactorily the meaning of a rigid body appears to be associated intimately wit the difficulty in defining distance.  While it is worth giving some serious attention to our definitions or specifications of elementary concepts, the procedure should not be followed to the point of discouragement.  We do not give up scientific work as hopeless because our definitions of the fundamentals are somewhat hazy and we can not measure anything exactly.  We are always approximating, it is true, but often our approximations are so good as to astonish others if not ourselves.
+
+The concept of a rigid body is not merely fanciful, but extremely useful, and the extensive theoretical work which has been done on the statics and dynamics of rigid bodies has a multitude of practical applications.  Practically, any body which satisfies the condition of rigidity to the extent that we are unable to detect any change in the distance between ay pair of the particles constituting the body may be regarded as rigid.  For some purposes we may regard a body as rigid even when departures from rigidity can be detected, provided the displacements associated with such observable departures from rigidity are sufficiently small in comparison with certain other displacements or distances involved in a particular problem.</content>
+</record>

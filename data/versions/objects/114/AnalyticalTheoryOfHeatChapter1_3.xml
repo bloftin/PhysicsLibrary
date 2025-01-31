@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="114">
+ <title>Analytical Theory of heat chapter 1</title>
+ <name>AnalyticalTheoryOfHeatChapter1</name>
+ <created>2006-02-03 22:38:31</created>
+ <modified>2006-02-04 15:29:27</modified>
+ <type>Definition</type>
+<parent id="113">The Analytical Theory of Heat</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="AnalyticalTheoryOfHeat"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Statement of the Object of the Work.}
+
+1.  The effects of heat are subject to constant laws which cannot be discovered without the aid of mathematical analysis.  The object of the theory which we are about to explain is to demonstrate these laws; it reduces all physical researches on the propagation of heat, to problems of the integral calculus whose elements are given by experiment.  No subject has more extensive relations with the progress of industry and the natural sciences;  for the action of heat is always present, it penetrates all bodies and spaces, it influences the processes of the arts, and occurs in all the phenomena of the universe.
+
+When heat is unequally distributed among the different parts of a solid mass, it tends to attain equilibrium, and passes slowly from the parts which are more heated to those which are less; and at the same time it is dissipated at the surface, and lost in the medium or in the void.  The tendency to uniform distribution and the spontaneous emission which acts at the surface of bodies, change continually the temperature at their different points.  The problem of the propagation of heat consists in determining what is the temperature at each point of a body at a given instant, supposing that the inital temperatures are known.  The following examples will more clearly make known the nature of these problems.
+
+2.  If we expose to the continued and uniform action of a source of heat, the same part of a metallic ring, whose diameter is large, the molecules nearest to the source will be first heated, and, after a certain time, every point of the solid will have acquired very nearly the highest temperature which it can attain.  This limit or greatest temperature is not the same at different points; it becomes less and less according as they become more distant from that point at which the source of heat is directly applied.
+
+When the temperatures have become permanent, the source of heat supplies, at each instant, a quantity of heat which exactly compensates for that which is dissipated at all the points of the external surface of the ring.
+
+If now the source be suppressed, heat will continue to be propagated in the interior of the solid, but that which is lost in the medium or the void, will no longer be compensated as formerly by the supply from the source, so that all the temperatures will vary and diminish incessantly until they have become equal to the temperatures of the surrounding medium.
+
+3.  Whilst the temperatures are permanent and the source remains, if at every point of the mean circumference of the ring an ordinate be raised perpendicular to the plane of the ring, whose length is proportional to the fixed temperature at that point, the curved line which passes through the ends of these ordinates will represent the permanent state of the temperatures, and it is very easy to determine by analysis the nature of this line.  It is to be sufficiently small for the temperature to be sensibly equal at all points of the same section perpendicular to the mean circumference.  When the source is removed, the line which bounds the ordinates proportional to the temperatures at the different points will change its form continually.  The problem consists in expressing, by one equation, the variable form of this curve, and in thus including in a single formula all the successive states of the sold.
+
+4.  Let $z$ be the constant temperature3 at a point $m$ of th mean circumference, $x$ the distance of this point from the source, that is to say the length of the arc of the mean circumference, included between the point $m$ and the point $o$ which corresponds to the position of the source; $z$ is the highest temperature which the point $m$ can attain by virtue of the constant action of the source, and this permanent temperature $z$ is a function $f(x)$ of the distance $x$.  The first part of the problem consists in determining the function $f(x)$ which represents the permanent state of the solid.
+
+Consider next the variable state which succeeds to the former state as soon as the source has been removed; denote by $t$ the time which has passed since the suppression of the source, and by $v$ the value of the temperature at the point $m$ after the time $t$.  The quantity $v$ will be a certain function $F(x,t)$ of the distance $x$ and the time $t$; the object of the problem is to discover this function $F(x,t)$, of which we only know as yet that the initial value is $f(x)$, so that we ought to have the equation $f(x) = F(x,0)$.
+
+5.  If we place a solid homogeneous mass, having the form of a sphere or cube, in a medium maintained at a constant temperature, and if it remains immersed for a very long time, it will acquire at all its points a temperature differing very little from that of the fluid.  Suppose the mass to be withdrawn in order to transfer it to a cooler medium, heat will begin to be dissipated at its surface; the temperature at different points of the mass will not be sensibly the same, and if we suppose it divided into an infinity of layers by surfaces parallel to its external surface, each of those layers will transmit, at each instant, a certain quantity of heat to the layer which surrounds it.  If it be imagined that each molecule carries a separate thermometer, which indicates its temperature at every instant, the state of the solid will from time to time be represented by the variable system of all these thermometric heights.  It is required to express the successive states by analytical formulae, so that we may know at any given instant the temperatures indicated by each thermometer, and compare the quantities of heat which flow during the same instant, between two adjacent layers, or into the surrounding medium.
+
+6.  If the mass is spherical, and we denote by $x$ the distance of a point of this mass from the centre of the sphere, by $t$ the time which has elapsed since the commencement of the cooling, and by $v$ the variable temperature of the point $m$, it is easy to see that all points situated at the same distance $x$ from the centre of the sphere have the same temperature $v$.  This quantity $v$ is a certain function $F(x,t)$ of the radius $x$ and of the time $t$; it must be such that it becomes constant whatever be the value of $x$, when we suppose $t$ to be nothing;  for by hypothesis, the temperature at all points is the same at the moment of emersion.  The problem consists in determining that function of $x$ and $t$ which expresses the value of $v$.
+
+7.  In the next place it is to e remarked, that during the cooling, a certain quantity of heat escapes, at each instant, through the external surface, and passes into the medium.  The value of this quantity is not constant;  it is greatest at the beginning of the cooling.  If however we consider the variable state of the internal spherical surface whose radius is $x$, we easily see that there must be at each instant a certain quantity of heat which traverses that surface, and passes through that part of the mass which is more distant from the centre.  This continuous flow of heat is variable like that through the external surface, and both are quantities comparable with each other; their ratios are numbers whose varying values are functions of the distance $x$, and of the time $t$ which has elapsed.  It is required to determine these functions.
+
+8.  If the mass, which has been heated by a long immersion in a medium, and whose rate of cooling we wish to calculate, is a cubical form, and if we determine the position of each point $m$ by three rectangular co-ordinates $x,y,z$ taking for origin the centre of the cube, and for axes lines perpendicular to the faces, we see that the temperature $v$ of the point $m$ after the time $t$, is a function of the four variables $x,y,z,$ and $t$.  The quantities of heat which flow out at each instant through the whole external surface of the solid, are variable and comparable with each other;  their ratios are analytical functions depending on the time $t$, the expression of which must be assigned.
+
+9.  Let us examine also the case in which a rectangular prism of sufficiently great thickness and of infinite length, being submitted at its extremity to a constant temperature, whilst the air which surrounds it is maintained at a less temperature, has at last arrived at a fixed state which it is required to determine.  All the points of the extreme section at the base of the prism have, by hypothesis, a common and permanent temperature.  It is not the same with a section distant from the source of heat; each of the points of this rectangular surface parallel to the base has acquired a fixed temperature, but this is not the same at different points of the same section, and must be less at points nearer to the surface exposed to the air.  We see also that, at each instant, there flows across a given section a certain quantity of heat, which always remains the same, since the state of the solid has become constant.  The problem consists in determining the permanent temperature at any given point of the solid, and the whole quantity of heat which, in a definite time, flows across a section whose position is given.
+
+10.  Take as origin of co-ordinates $x,y,z$, the centre of the base of the prism, and as rectangular axes, the axis of the prism itself, and the two perpendiculars on the sides: the permanent temperature $v$ of the point $m$, whose co-ordinates are $x,y,z$, is a function of three variables $F(x,y,z)$: it has by hypothesis a constant value, when we suppose $x$ nothing, whatever be the values of $y$ and $z$.  Suppose we take for the unit of heat that quantity which in the unit of time would emerge from an area equal to a unit of surface, if the heated mass which that area equal to a unit of surface, if the heated mass which that area bounds, and which is formed of the same substance as the prism, were continually maintained at the temperature of boiling water, and immersed in atmospheric air maintained at the temperature of the melting ice.
+
+We see that the quantity of heat which, in the permanent state of the rectangular prism, flows, during a unit of time, across a certain section perpendicular to the axis, has a determinate ratio to the quantity of heat taken as unit.  The ratio is not the same for all sections: it is a function $\phi(x)$ of the distance $x$, at which the section is situated.  It is required to find an analytical expression of the function $\phi(x)$.
+
+11.  The foregoing examples suffice to give an exact idea of the different problems which we have discussed.
+
+The solution of these problems has made us understand that the effects of the propagation of heat depend in the case of every solid substance, on three elementary qualities, which are, its capacity for heat, its own conducibility, and the exterior conducibility.
+
+It has been observed that if two bodies of the same volume and of different nature have equal temperatures, and if the same quantity of heat be added to them, the increments of temperature are not the same; the ratio of these increments is the ratio of their capacities for heat.  In this manner, the first of the three specific elements which regulate the action of heat is exactly defined, and physicists have for a long time known several methods of determining its value.  It is not the same with the two others; their effects have often been observed, but there is but one exact theory which can fairly distinguish, define, and measure them with precision.
+
+The proper or interior conducibility of a body expresses the facility with which heat is propagated in passing from one internal molecule to another.  The external or relative conducibility of a solid body depends on the facility with which heat penetrates the surface, and passes from this body into a given medium, or passes from the medium into the solid.  The last property is modified by the more or less polished state of the surface;  it varies also according to the medium in which the body is immerse; but the interior conducibility can change only with the nature of the solid.
+
+These three elementary qualities are represented in our formulae by constant numbers, and the theory itself indicates experiments suitable for measuring their values.  As soon as they are determined, all the problems relating to the propagation of heat depend only on numerical analysis.  The knowledge of these specific properties may be directly useful in several applications of the physical sciences;  it is besides an element in the study and description of different substances.  It is a very imperfect knowledge of bodies which ignores the relations which they have with one of the chief agents of nature.  In general, there is no mathematical theory which has a closer relation than this with public economy, since it serves to give clearness and perfection to the practice of the numerous arts which are founded on the employment of heat.</content>
+</record>

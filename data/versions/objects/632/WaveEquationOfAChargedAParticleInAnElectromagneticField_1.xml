@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="632">
+ <title>wave equation of a charged a particle in an electromagnetic field</title>
+ <name>WaveEquationOfAChargedAParticleInAnElectromagneticField</name>
+ <created>2009-04-05 23:26:19</created>
+ <modified>2009-04-05 23:26:19</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.-w"/>
+ </classification>
+ <related>
+	<object name="WaveEquationOfAParticleInAScalarPotential"/>
+	<object name="WaveEquationOfAFreeParticle"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Here we repeat the arguments from the wave equation of a particle in a scalar potential and extend it to a more general case where the potential $V$ is an explicit function of time, specifically a particle with charge $e$ in an electromagnetic field derived from a vector potential $\mathbf{A}(\mathbf{r},t)$ and a scalar potential $\phi(\mathbf{r},t)$.  In the latter case, the classical relation 
+
+\begin{equation}
+E_{cl.} = H(\mathbf{r}_{cl.}, \mathbf{p}_{cl.}) = \frac{p^2_{cl.}}{2m} +V(\mathbf{r}_{cl.})
+\end{equation}
+
+must be replaced by the relation
+
+\begin{equation}
+E = \frac{1}{2m} \left( \mathbf{p} - \frac{e}{c} \mathbf{A}(\mathbf{r},t) \right)^2 + e \phi(\mathbf{r},t).
+\end{equation}
+
+Considerations of the behavior of wave packets on the "geometrical optics" approximation lead us to the wave equation
+
+\begin{equation}
+i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r},t) = \left [ \frac{1}{2m} \left ( \frac{\hbar}{i} \nabla - \frac{e}{c} \mathbf{A} \right)^2 + e\phi \right] \Psi(\mathbf{r},t)
+\end{equation}
+
+It is the Schr\"odinger equation of a charged particle in an electromagnetic field.  On the right hand side of equation (3), the operator
+
+$$\left( \frac{\hbar}{i} \nabla - \frac{e}{c} \mathbf{A} \right )^2$$
+
+designates the scalar product of the vector operator $\frac{\hbar}{i} \nabla - \frac{e}{c} \mathbf{A}$ by itself; in other words, the function which results from its action on $\Psi$ is the sum of the expression
+
+$$ \left( \frac{\hbar}{i} \frac{\partial}{\partial x} - \frac{e}{c} A_x \right ) \left ( \frac{\hbar}{i} \frac{\partial}{\partial x} - \frac{e}{c} A_x \right) \Psi = -\hbar^2 \frac{\partial^2 \Psi}{\partial x^2} - \frac{e\hbar}{ic} \left( A_x \frac{\partial \Psi}{\partial x}+ \frac{\partial}{\partial x} (A_x \Psi) \right ) + \frac{e^2}{c^2} A_x^2 \Psi$$
+
+and of two other expressions which are obtained from it by substituting $y$ and $z$ for $x$, namely
+
+$$
+-\hbar^2 \nabla^2 \Psi - 2 \frac{e\hbar}{ic}(\mathbf{A} \cdot \nabla \Psi) + \left ( -\frac{e\hbar}{ic} (\nabla \cdot \mathbf{A}) + \frac{e^2}{c^2}A^2 \right) \Psi
+$$
+
+In all of this one must realize that the components of the operator $\nabla$ and those of the operator $\mathbf{A}$ do not in general commute with each other.
+
+The Schr\"odinger equation for a partical in a potential $V(\mathbf{r})$,
+
+\begin{equation}
+i \hbar \frac{\partial }{\partial t} \Psi(\mathbf{r},t) = \left( -\frac{\hbar^2}{2m} \nabla^2 + V(\mathbf{r}) \right) \Psi(\mathbf{r},t)
+\end{equation}
+
+and equation (3) are the generalizations of the wave equation of a free partical and the same remarks apply to them.  They are indeed linear, homogeneous, partial differential equations of the first order in the time.  Furthermore, they can be deduced from the classical relations by the correspondence relation 
+
+$$ E \rightarrow i \hbar \frac{\partial}{\partial t}, \,\,\,\,\,\, \mathbf{p} \rightarrow \frac{\hbar}{i}\nabla$$
+
+\subsection{References}
+
+[1] Messiah, Albert. "Quantum Mechanics: Volume I." Amsterdam, North-Holland Pub. Co.; New York, Interscience Publishers, 1961-62.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

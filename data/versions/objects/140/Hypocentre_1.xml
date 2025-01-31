@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="140">
+ <title>Hypocentre</title>
+ <name>Hypocentre</name>
+ <created>2006-03-25 11:52:06</created>
+ <modified>2006-03-25 11:52:06</modified>
+ <type>Definition</type>
+ <creator id="118" name="aerringt"/>
+ <modifier id="118" name="aerringt"/>
+ <author id="118" name="aerringt"/>
+ <classification>
+	<category scheme="msc" code="91.30.Px"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Hypocentre" alias="hypocenter"/>
+ </synonyms>
+ <related>
+	<object name="epicentre"/>
+	<object name="FocalDepth"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The position inside the earth where an earthquake originated. The
+hypocentre is directly below an earthquake's epicentre.</content>
+</record>

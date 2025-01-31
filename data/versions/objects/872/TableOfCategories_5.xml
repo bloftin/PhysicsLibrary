@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="872">
+ <title>Table of categories</title>
+ <name>TableOfCategories</name>
+ <created>2010-06-05 12:38:52</created>
+ <modified>2010-06-05 12:48:27</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.70.-cxx"/>
+	<category scheme="msc" code="02.90.+p"/>
+ </classification>
+ <defines>
+	<concept>preservation properties</concept>
+	<concept>epis</concept>
+	<concept>isos</concept>
+	<concept></concept>
+	<concept>essentially algebraic</concept>
+	<concept>strong epis</concept>
+	<concept></concept>
+	<concept>reflected properties</concept>
+	<concept>categorical properties</concept>
+	<concept>lifting</concept>
+	<concept>detects</concept>
+	<concept>special epimorphisms</concept>
+	<concept>stability properties</concept>
+	<concept>composotion</concept>
+	<concept>co-intersections</concept>
+	<concept>regular</concept>
+	<concept>monadic</concept>
+	<concept>adjoint properties</concept>
+	<concept>solid</concept>
+	<concept>algebraic</concept>
+	<concept>topological</concept>
+	<concept>reflection properties</concept>
+ </defines>
+ <keywords>
+	<term>categories</term>
+	<term>functors</term>
+	<term>categorical properties</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{TABLE OF CATEGORIES}
+\begin{enumerate}
+\item (A / K), 3K (objects over K)
+\item Ab,(abelian groups) 
+\item AbTop,(abelian topological groups)
+\item AbTor,(abelian torsion groups) 
+\item Alg(1),(algebras with one unary operator) 
+\item Alg(S2),(binary algebras)
+\item Alg(T),(T-algebras) 
+\item Alg(S),(S-algebras) 
+\item Alg(M),(M-algebras) 
+\item Aut,(automata) 
+\item Autr,(reachable automata) 
+\end{enumerate}
+
+\subsection{TABLES OF FUNCTORS AND MORPHISMS: PRESERVATION PROPERTIES}
+
+\begin{enumerate}
+\item \textbf{monos extr.; monos reg.; monos epis; extr. epis; reg. epis}
+\item topological $+ + + + + +$
+\item monadic $+ ? + − − −$
+\item reg. monadic $+ + + − + +$
+\item reg. algebraic $+ + + − + +$
+\item algebraic $+ + + − + −$
+\item essentially algebraic $+ + + − − −$
+\item solid $+ + + − − −$
+\item full refl. embedding $+ + + − − −$
+\item adjoint $+ − + − − −$
+\item faithful $− − − − − −$
+\end{enumerate}
+
+\subsection{FUNCTORS AND MORPHISMS: REFLECTION PROPERTIES}
+\begin{enumerate}
+\item \textbf{monos extr. monos reg. monos epis extr. epis reg. epis isos}
+\item topological $+ − − + − − −$
+\item monadic $+ − − + + − +$
+\item reg. monadic $+ − − + + + +$
+\item reg. algebraic $+ − − + + + +$
+\item algebraic $+ − − + + + +$
+\item ess. algebraic $+ − − + + − +$
+\item solid $+ − − + − − −$
+\item full refl. emb. $+ − − + + + +$
+\item adjoint $− − − − − − $
+\item faithful $+ − − + − − −$
+\end{enumerate}
+
+\subsection{TABLES OF FUNCTORS AND LIMITS}
+
+\begin{enumerate}
+\item \textbf{creates,  lifts,  uniquely preserves,  reflects}
+\item topological $ − + + −$
+\item monadic $+ + + +$
+\item essentially algebraic $+ + + +$
+\item solid, uniquely transp. $− + + −$
+\item adjoint $− − + −$
+\end{enumerate}
+
+FUNCTORS AND COLIMITS
+\begin{enumerate}
+\item \textbf{lifts; uniquely preserves; detects:}
+\item topological $+ + +$
+\item monadic $− − −$
+\item solid $− − +$
+\end{enumerate}
+
+STABILITY PROPERTIES OF SPECIAL EPIMORPHISMS
+
+\begin{enumerate}
+\item \textbf{composition; pushouts; co--intersections}
+\item isomorphisms $+ + +$
+\item retractions $+ − −$
+\item reg. epis $− + −$
+\item strict epis $− + +$
+\item swell epis $+ + +$
+\item strong epis $+ + +$
+\item extr. epis $− − −$
+\item epis $+ + +$
+\end{enumerate}</content>
+</record>

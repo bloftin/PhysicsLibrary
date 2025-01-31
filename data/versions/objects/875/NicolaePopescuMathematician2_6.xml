@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="875">
+ <title>Mircea Sabau</title>
+ <name>NicolaePopescuMathematician2</name>
+ <created>2010-08-29 14:26:42</created>
+ <modified>2010-09-01 01:41:58</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <related>
+	<object name="BiographiesOnPlanetPhysicsOrg"/>
+ </related>
+ <keywords>
+	<term>radiology</term>
+	<term>medical physics</term>
+ </keywords>
+ <preamble></preamble>
+ <content>Prof. Dr. Mircea N. Sabau, (1938- 2010) was a Medical Physicist and Professor of Medical Physics and Health Physics, at the University of Chicago, IL, and until 1988 the Head of Radiology Dept. at Baylor Medical School of Dallas, TX.
+He became an Emeritus Professor in 1998 and of the American-Romanian Academy of Arts and Sciences.</content>
+</record>

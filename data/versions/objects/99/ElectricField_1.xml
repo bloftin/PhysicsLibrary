@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="99">
+ <title>Electric Field</title>
+ <name>ElectricField</name>
+ <created>2005-10-15 12:22:36</created>
+ <modified>2005-10-15 12:22:36</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>{\bf Electric field}
+
+In physics, an electric field or E-field is an effect produced by an electric charge that exerts a force on charged objects in its vicinity. The SI units of the electric field are newtons per coulomb or volts per meter (both are equivalent). Electric fields are composed of photons and contain electrical energy with energy density proportional to the square of the field intensity. In the static case, an electric field is composed of virtual photons being exchanged by the charged particle(s) creating the field. In the dynamic case the electric field is accompanied by a magnetic field, by a flow of energy, and by real photons.
+
+The electric field is a vector quantity, and the electric field strength is the magnitude of this vector.
+
+{\bf Definition and derivation}
+
+The mathematical definition of the electric field is developed as follows. Coulomb's law gives the force between two point charges (infinitesimally small charged objects) as
+
+\begin{equation}
+\mathbf{F} = \frac{1}{4 \pi \epsilon_0}\frac{q_1 q_2}{r^2}\mathbf{\hat r}
+\end{equation}
+
+where
+    * $\epsilon 0$ (pronounced epsilon-nought) is a physical constant, the permittivity of free space;
+    * q1 and q2 are the electric charges of the objects;
+    * r is the magnitude of the separation vector between the objects;
+    * $\hat r$ is the unit vector representing the direction from one charge to the other.
+
+In the SI system of units, force is given in newtons, charge in coulombs, and distance in metres. Thus, $\epsilon 0$ has units of $C^2/(Nm^2)$.
+
+This was known empirically. Suppose one of the charges is taken to be fixed, and the other one to be a moveable "test charge". Note that according to this equation, the force on the test object is proportional to its charge. The electric field is defined as the proportionality constant between charge and force:
+
+\begin{equation}
+\mathbf{F} = q\mathbf{E}
+\end{equation}
+\begin{equation}
+\mathbf{E} = \frac{1}{4 \pi \epsilon_0}\frac{Q}{r^2}\mathbf{\hat r}
+\end{equation}
+
+However, note that this equation is only true in the case of electrostatics, that is to say, when there is nothing moving. The more general case of moving charges causes this equation to become the Lorentz equation. When we speak of a "moveable test charge", this means that the charge can be moved to, and held at, any position.
+
+Furthermore, Coulomb's law is actually a special case of Gauss's Law, a more fundamental description of the relationship between the distribution electric charge in space and the resulting electric field. Gauss's law is one of Maxwell's equations, a set of four laws governing electromagnetics.
+
+{\bf Properties}
+
+According to Equation (1) above, electric field is dependent on position. The electric field due to any single charge falls off as the square of the distance from that charge.
+
+Electric fields follow the superposition principle. If more than one charge is present, the total electric field at any point is equal to the vector sum of the respective electric fields that each object would create in the absence of the others.
+
+\begin{equation}
+E_{tot} = E_1 + E_2 + E_3 \ldots \,\!
+\end{equation}
+
+If this principle is extended to an infinite number of infinitesimally small elements of charge, the following formula results:
+
+\begin{equation}
+\mathbf{E} = \frac{1}{4\pi\epsilon_0} \int\frac{\rho}{r^2} \mathbf{\hat r}\,d^{3}\mathbf{r}
+\end{equation}
+
+where $\rho$ is the charge density, or the amount of charge per unit volume.
+
+The electric field is equal to the negative gradient of the electric potential. In symbols,
+\begin{equation}
+\mathbf{E} = -\mathbf{\nabla}\phi
+\end{equation}
+
+Where $\phi(x,y,z)$ is the scalar field representing the electric potential at a given point. If several spatially distributed charges generate such an electric potential, e.g. in a solid, an electric field gradient may also be defined.
+
+This entry is a derivative of the Elecric Field article
+\PMlinkexternal{from Wikipedia, the Free Encyclopedia}{http://en.wikipedia.org/wiki/Electrical_field}. Authors of the orginial article include: 
+Tim Starling
+Arisotle2600
+Robbot
+Salsb
+Whitepaw
+Tim Starling, Salsb, Whitepaw, Robbot and Aristotle2600. History page of the original is
+\PMlinkexternal{here}{http://en.wikipedia.org/w/index.php?title=Electric_field\&amp;action=history}</content>
+</record>

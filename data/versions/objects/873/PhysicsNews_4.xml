@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="873">
+ <title>Physics news</title>
+ <name>PhysicsNews</name>
+ <created>2010-06-17 02:44:05</created>
+ <modified>2010-06-17 03:02:02</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>novel physics research</concept>
+ </defines>
+ <keywords>
+	<term>novel physics research</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed new topic on Physics news and sources of Physics news.
+Please make/add your own contribution and specify or link the appropriate source.
+
+ 
+\section{Latest Physics News}
+
+\subsection{Study finds there may be multiple 'God particles'}
+ 
+(PhysOrg.com) -- Recent research in the USA suggests there may be 
+\PMlinkexternal{five versions of the theorized Higgs boson}{http://www.physorg.com/news195885620.html}.
+
+This leads to a new \PMlinkexternal{Extended Standard Model of Physics}{http://cdn.physorg.com/newman/gfx/news/tmb/standard_model2_416.gif}
+
+Sanyo announces world's most efficient solar module
+
+Technology / Energy
+
+created 17 hours ago | popularity 4.1 / 5 (15) | comments 21 | with audio podcast report
+
+(PhysOrg.com) -- Sanyo has announced its development of the world's most energy efficient solar module, the HIT-N230. The module was unveiled at a press conference run by Sanyo Electric's Solar Division.
+
+
+Hybrid Cars -- Pros and Cons
+
+Technology / Energy
+
+created Jan 19, 2006 | popularity 3.6 / 5 (846) | comments 1 feature
+
+If you listen to the makers, hybrid cars are the best invention since sliced bread. While there are many reasons to buy a hybrid car, including a new tax incentive for US owners, it helps to have a good understanding ...
+
+NEC Develops Novel Silicon Nanophotonics Technology for Optical Interconnections
+
+Physics / Optics &amp; Photonics
+
+
+
+NEC Corporation today announced the successful development of fundamental silicon nanophotonics technology that facilitates optical data transmission in large-scale integration (LSI) chips.
+Semiconductors slow light
+
+Physics / General Physics
+
+
+DNA Taxi: Photosensitive gold nanoparticles bind and release DNA
+
+Nanotechnology / BioMedicine
+
+
+
+Despite few successes to date, gene therapy is a highly promising approach for medical therapy in the future. One of the biggest difficulties with this process is finding a suitable transport agent that can carry the nucleic acid or genes.</content>
+</record>

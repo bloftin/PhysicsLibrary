@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="717">
+ <title>category theory applications</title>
+ <name>CategoryTheoryApplications</name>
+ <created>2009-05-02 14:30:54</created>
+ <modified>2009-05-02 14:30:54</modified>
+ <type>Application</type>
+<parent id="634">category</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>category theory</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>categorification</concept>
+	<concept>categorical ontology</concept>
+ </defines>
+ <keywords>
+	<term>category theory applications</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Applications in Physics} 
+
+ A `categorification' of theoretical physics (including quantum field theories) 
+began as early as 1968 \cite{Baianu-Marinescu68,Baianu71a,Baianu71b}; this `categorification' process in physics continues today, especially after 1985 (\cite{Baianu87} and references cited therein). Other recent applications are in
+computer programming theory, automata theory, ontology/categorical ontology \cite{Bggb4} and linguistics.
+
+
+\subsection{Applications in Mathematical Biophysics}
+Categories of sets were first introduced in mathematical biophysics in 1958 
+\cite{Rosen58a,Rosen58b}, followed by the introduction of biotheoretical models in categories with structure in 1968-1971 \cite{Baianu-Marinescu68,Baianu70, Baianu71a, Baianu71b}. For a review of the earlier work see ref. \cite{Baianu87}.
+
+\begin{thebibliography}{99}
+
+\bibitem{BAJ-DJ98a}
+Baez, J. \&amp; Dolan, J., 1998a, Higher-Dimensional Algebra III. n-Categories and the Algebra of Opetopes,
+in: \emph{Advances in Mathematics}, 135, 145--206.
+
+\bibitem{BAJ-DJ98B}
+Baez, J. \&amp; Dolan, J., 1998b, ``Categorification", Higher Category Theory, Contemporary Mathematics, 230, Providence: AMS, 1--36.
+
+\bibitem{BAJ-DJ2k1}
+Baez, J. \&amp; Dolan, J., 2001, From Finite Sets to Feynman Diagrams,
+in \emph{Mathematics Unlimited -- 2001 and Beyond}, Berlin: Springer, 29--50.
+
+\bibitem{BAJ-DJ97}
+Baez, J., 1997, An Introduction to n-Categories,
+in \emph{Category Theory and Computer Science, Lecture Notes in Computer Science}, 1290, Berlin: Springer-Verlag, 1--33.
+
+\bibitem{Baianu-Marinescu68}
+Baianu, I. and M. Marinescu: 1968, Organismic Supercategories: Towards a Unitary Theory of Systems. \emph{Bulletin of Mathematical Biophysics} \textbf{30}, 148-159.
+
+\bibitem{Baianu70}
+Baianu, I.C.: 1970, Organismic Supercategories: II. On Multistable Systems. \emph{Bulletin of Mathematical Biophysics}, \textbf{32}: 539-561.
+
+\bibitem{Baianu71a}
+Baianu,I.C. : 1971a, Organismic Supercategories and Qualitative Dynamics of Systems. \emph{Ibid.}, \textbf{33} (3), 339--354.
+
+\bibitem{Baianu71b}
+I.C. Baianu: 1971b, Categories, Functors and Quantum Algebraic Computations, in P. Suppes (ed.), \emph{Proceed. Fourth Intl. Congress Logic-Mathematics-Philosophy of Science}, September 1--4, 1971, University of Bucharest.
+
+\bibitem{ICB04b}
+I.C. Baianu: \L ukasiewicz-Topos Models of Neural Networks, Cell Genome and Interactome Nonlinear Dynamics). CERN Preprint EXT-2004-059. \textit{Health Physics and Radiation Effects} (June 29, 2004).
+
+\bibitem{ICBs5}
+I.C. Baianu and D. Scripcariu: 1973, On Adjoint Dynamical Systems. \emph{The Bulletin of Mathematical Biophysics}, \textbf{35}(4), 475--486.
+
+\bibitem{ICB5}
+I.C. Baianu: 1973, Some Algebraic Properties of \emph{\textbf{(M,R)}} -- Systems. \emph{Bulletin of Mathematical Biophysics} \textbf{35}, 213-217.
+
+\bibitem{ICBm2}
+I.C. Baianu and M. Marinescu: 1974, A Functorial Construction of \emph{\textbf{(M,R)}}-- Systems. \emph{Revue Roumaine de Mathematiques Pures et Appliquees} \textbf{19}: 388-391.
+
+\bibitem{ICB6}
+I.C. Baianu: 1977, A Logical Model of Genetic Activities in \L ukasiewicz Algebras: The Non-linear Theory. \emph{Bulletin of Mathematical Biophysics}, \textbf{39}: 249-258.
+
+\bibitem{ICB7}
+I.C. Baianu: 1980, Natural Transformations of Organismic Structures. \emph{Bulletin of Mathematical Biophysics}
+\textbf{42}: 431-446.
+
+\bibitem{Baianu87}
+Baianu, I.C.: 1987. {\em Mathematical Models in Medicine}, vol. 7., Ch.11 Pergamon Press, New York, 1513 -1577;
+URLs: {\em CERN Preprint No. EXT-2004-072:},
+\PMlinkexternal{available here as PDF}{http://doc.cern.ch//archive/electronic/other/ext/ext-2004-072.pdf}, or
+\PMlinkexternal{as as an archived html document}{http://en.scientificcommons.org/1857371}.
+
+\bibitem{Bgg2}
+Baianu, I. C., Glazebrook, J. F. and G. Georgescu: 2004, Categories of Quantum Automata and N-Valued \L ukasiewicz Algebras in Relation to Dynamic Bionetworks, \textbf{(M,R)}--Systems and Their Higher Dimensional Algebra,
+\PMlinkexternal{PDF's of Abstract and Preprint of Report}{\\http://www.ag.uiuc.edu/fs401/QAuto.pdf}.
+
+\bibitem{BBGG1}
+Baianu, I.C. Brown R., J. F. Glazebrook, and Georgescu G.: 2006, Complex Nonlinear Biodynamics in Categories, Higher Dimensional Algebra and \L ukasiewicz--Moisil Topos: Transformations of Neuronal, Genetic and Neoplastic networks, \emph{Axiomathes} \textbf{16} Nos. 1--2, 65--122.
+
+\bibitem{Bggb4}
+Baianu, I.C., R. Brown and J. F. Glazebrook: 2007b, A Non-Abelian, Categorical Ontology of Spacetimes and Quantum Gravity, Axiomathes, 17: 169-225.
+
+\bibitem{EML1}
+Eilenberg, S. and S. Mac Lane.: 1942, Natural Isomorphisms in Group Theory., \emph{American Mathematical Society 43}: 757-831.
+
+\bibitem{EL}
+Eilenberg, S. and S. Mac Lane: 1945, The General Theory of Natural Equivalences, \emph{Transactions of the American Mathematical Society} \textbf{58}: 231-294.
+
+\bibitem{ES-CH56}
+Eilenberg, S. \&amp; Cartan, H., 1956, Homological Algebra, Princeton: Princeton University Press.
+
+\bibitem{ALEXsem}
+Grothendieck, A. et al., S\'eminaire de G\'eom\'etrie Alg\'ebrique, Vol. 1--7, Berlin: Springer-Verlag.
+
+\bibitem{ALEX57}
+Grothendieck, A., 1957, "Sur Quelques Points d'alg\`ebre homologique", Tohoku Mathematics Journal, 9, 119--221.
+
+\bibitem{LFW64}
+Lawvere, F. W., 1964, "An Elementary Theory of the Category of Sets", Proceedings of the National Academy of Sciences U.S.A., 52, 1506--1511.
+
+\bibitem{LFW65}
+Lawvere, F. W., 1965, "Algebraic Theories, Algebraic Categories, and Algebraic Functors", Theory of Models, Amsterdam: North Holland, 413--418.
+
+\bibitem{Lawvere66}
+Lawvere, F. W., 1966, "The Category of Categories as a Foundation for Mathematics", Proceedings of the Conference on Categorical Algebra, La Jolla, New York: Springer-Verlag, 1--21. 
+
+\bibitem{MacLane98}
+MacLane, S., 1997, Categories for the Working Mathematician, 2nd edition, New York: Springer-Verlag.
+
+\bibitem{EML1}
+Eilenberg, S. and S. Mac Lane.: 1942, Natural Isomorphisms in Group Theory., \emph{American Mathematical Society 43}: 757-831.
+
+\bibitem{Eilenberg-MacLane45}
+Eilenberg, S. and S. Mac Lane: 1945, The General Theory of Natural Equivalences, \emph{Transactions of the American Mathematical Society} \textbf{58}: 231-294.
+
+\bibitem{BBGG2k6}
+Baianu I. C., Brown R., Georgescu G. and J. F. Glazebrook: 2006b, Complex Nonlinear Biodynamics in Categories, Higher Dimensional Algebra and \L ukasiewicz--Moisil Topos: Transformations of Neuronal, Genetic and Neoplastic Networks., {\em Axiomathes}, \textbf{16} Nos. 1--2: 65--122.
+
+\bibitem{Rosen58a}
+Rosen, R.: 1958a, A Relational Theory of Biological Systems., {\em Bulletin of Mathematical Biophysics} \textbf{20}: 245-260.
+
+\bibitem{Rosen58b}
+Rosen, R.: 1958b, The Representation of Biological Systems from the Standpoint of the Theory of Categories., {\em Bulletin of Mathematical Biophysics} \textbf{20}: 317-341.
+
+
+\bibitem{Other}
+See also a more extensive \PMlinkname{category theory bibliography}{BibliographyForCategoryTheoryAndAlgebraicTopologyApplicationsInTheoreticalPhysics}
+
+
+\end{thebibliography}</content>
+</record>

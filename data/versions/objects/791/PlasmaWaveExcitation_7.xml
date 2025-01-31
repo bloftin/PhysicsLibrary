@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="791">
+ <title>plasma wave excitation</title>
+ <name>PlasmaWaveExcitation</name>
+ <created>2009-06-08 00:20:25</created>
+ <modified>2009-06-08 00:28:53</modified>
+ <type>Experiment</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>electron pulse</concept>
+	<concept>plasma electron</concept>
+	<concept>plasma ion temperature</concept>
+	<concept>plasma wave excitation</concept>
+	<concept>excited wake-field</concept>
+	<concept>average electron velocity in plasma</concept>
+	<concept>current density in plasma</concept>
+	<concept>relativistic phase velocities</concept>
+ </defines>
+ <keywords>
+	<term>\subsection{Electron acceleration by non-linear plasma wave excitation</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Electron Acceleration by Non-linear Plasma Wave Excitation}
+
+ Consider an electron pulse (or ``bunch'') of average density $\rho_B$ and average bunch velocity $\vec{v} _B$ in a surrounding plasma of average electron density $n_P$ . One is interested  in deriving the propagation equations for plasma waves with relativistic phase velocities. A simplifying assumption is the presence of relatively slowly moving ions at a very small fraction of the speed of light $c$ which is realistic for plasma ion temperatures of less than 10,000 K. One may also neglect in a first approximation the influence of the excited wake-field that affects the time-evolution of the electron pulse shape.  Furthermore, one can consider the configuration of a cylindrical plasma in the absence of external magnetic fields; along the plasma containing tube $z$- axis one has a one-dimensional system for which Maxwell's equations can be written in the following simplified form for the electrical field  $\vec{E}$, average electron velocity in plasma $v$, charge density  $\rho = \rho_b + \delta n_P$, current density 
+$$i = [(n_P +\delta n_P) v ~+ ~n_B v_B ]e$$ and perturbed electron density $+\delta n_P$:
+ $$\partial E / \partial z  = 4\pi \rho$$  and 
+$$ \partial E /\partial E  t  = - 4\pi i $$.
+
+The equation of motion of a plasma electron with momentum $p_e$ in the wake of a relativistic electron bunch of average velocity $\vec{v} _B$ can be then written as:
+
+ $$ \partial p_e / \partial t = e E. $$
+
+Because the driving electron pulse has a relativistic average velocity one can expect solutions 
+of the equations of motion to be of  the form  of travelling waves:
+
+$$E(z,t) = E (z~ - ~ v_B t)$$. 
+
+{\bf [More to come...]}</content>
+</record>

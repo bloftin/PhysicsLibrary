@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="85">
+ <title>direction cosine matrix</title>
+ <name>DirectionCosineMatrix</name>
+ <created>2005-08-25 19:56:33</created>
+ <modified>2005-08-25 19:59:09</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.05.+x"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A direction cosine matrix (DCM) is a transformation matrix that transforms one coordinate reference frame to another.  If we extend the concept of how the three dimensional direction cosines locate a vector, then the DCM is locating three unit vectors that describe a coordinate reference frame.  Using the notation in equation 1, we need to find the matrix elements that correspond to the correct transformation matrix.
+
+
+\begin{equation}
+DCM =
+\left[ \begin{array}{ccc}
+A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right]
+\end{equation}</content>
+</record>

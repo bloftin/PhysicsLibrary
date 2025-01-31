@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="579">
+ <title>Compton effect</title>
+ <name>ComptonEffect</name>
+ <created>2009-03-08 03:03:52</created>
+ <modified>2009-03-08 13:59:17</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="32.80.Cy"/>
+ </classification>
+ <defines>
+	<concept>Compton scattering equation</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Compton effect" alias="Compton scattering"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Compton effect represents another confirmation of the photon theory, and a refutation of the wave theory.  One observes it (Compton, 1924) in the scattering of X-rays by free (or weakly bound) electrons.  The wavelength of the scattered radiation exceeds that of the incident radiation.  The difference $\triangle \lambda$ varies as a function of the angle $\theta$ between the direction of propagation of the incident radiation and the direction along which one observes the scattered light, according to Compton's formula:
+
+\begin{equation}
+\triangle \lambda = 2 \frac{h}{mc} \sin^2 \frac{\theta}{2}
+\end{equation}
+
+where $m$ is the rest mass of the electron.  One notes that $\triangle \lambda$ is independent of the incident wavelength.  Compton and Debye have shown that the Compton effect is a simple elastic collision between a photon of the incident light and one of the electrons of the irradiated target.
+
+In order to discuss this corpuscular interpretation it is convenient to state a few properties of photons which derive directly from Einstein's hypothesis.  Since they possess the velocity $c$,photons are particles of zero mass.  The momentum $p$ and the energy $\epsilon$ of a photon are thus connected by the relation
+
+\begin{equation}
+\epsilon = p c
+\end{equation}
+
+Consider a plane, monochromatic light wave
+
+$$ exp \left [2 \pi i \left ( \frac{\mathbf{u} \cdot \mathbf{r}}{\lambda} - vt \right ) \right ]$$
+
+$\mathbf{u}$ is a unit vector in the direction of propagation, $\lambda$ is the wavelength, $v$ the frequency: $\lambda v = c$.  In accordance with Einstein's hypothesis, this wave represents a stream of photons of energy $hv$.  The momentum of these photons is evidently directed along $\mathbf{u}$ and its absolute value, according to (2), is equal to
+
+$$p = \frac{h v}{c} = \frac{h}{\lambda}$$
+
+This relation is a special case of the relation of L. de Broglie.  It is often convenient to introduce the angular frequency $\omega = 2 \pi v$ and the wave vector $\mathbf{k}=(2\pi/\lambda)\mathbf{u}$ of he plane wave.  The connecting relations are then written:
+
+\begin{equation}
+\epsilon = \hbar \omega, \,\,\,\,\,\,\,\, \mathbf{p}=\hbar \mathbf{k}
+\end{equation}
+
+The corpuscular theory of the Compton effect consists in writing down that the total energy and momentum are conserved in the elastic collision between the incident photon and the electron.  Let $\mathbf{p},\mathbf{p'}$ be the initial and final momenta of the photon, respectively, $\mathbf{P'}$ the recoil momentum of the electron after collision (Figure 1).
+
+\begin{center}
+\includegraphics[scale=1]{ComptonEffect.eps}
+\vspace{20 pt}
+\textbf{Figure 1}: Compton collision of a photon with an electron at rest
+\end{center}
+
+The conservation equations are written 
+
+\begin{eqnarray}
+\mathbf{p}=\mathbf{p'} + \mathbf{P}, \nonumber \\
+mc^2 + pc = \sqrt{P^{\prime 2} c^2 + m^2c^4} + p'c
+\end{eqnarray}
+
+(more to come...)
+derived from public domain work [1]</content>
+</record>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="645">
+ <title>growth of exponential function</title>
+ <name>GrowthOfExponentialFunction</name>
+ <created>2009-04-17 19:39:45</created>
+ <modified>2009-04-17 20:36:24</modified>
+ <type>Topic</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <defines>
+	<concept>ceiling function</concept>
+	<concept>real exponential function</concept>
+	<concept>series expansion</concept>
+	<concept>limit of a function series</concept>
+ </defines>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textbf{Lemma.} 
+   $$\lim_{x\to\infty}\frac{x^a}{e^x} = 0$$
+for all \PMlinkescapetext{constant} values of $a$.
+
+{\em Proof.}\, Let $\varepsilon$ be any positive number.\, Then we get:
+
+$$0 &lt; \frac{x^a}{e^x} \leqq \frac{x^{\lceil a \rceil}}{e^x} &lt; 
+\frac{x^{\lceil a \rceil}}{\frac{x^{\lceil a\rceil+1}}{(\lceil a\rceil+1)!}}
+ = \frac{(\lceil a\rceil+1)!}{x} &lt; \varepsilon$$
+as soon as\, $x &gt; \max\{1, \frac{(\lceil a\rceil+1)!}{\varepsilon}\}$.\, Here, $\lceil\cdot\rceil$ \PMlinkescapetext{means} the ceiling function;\, $e^x$ has been estimated downwards by taking only one of the all positive \PMlinkescapetext{terms of the series expansion} 
+$$e^x = 1+\frac{x}{1!}+\frac{x^2}{2!}+\cdots+\frac{x^n}{n!}+\cdots$$\\
+
+\textbf{Theorem.}
+The \PMlinkescapetext{growth} of the real exponential function\,\, $x\mapsto b^x$\,\, exceeds all power functions, i.e.
+     $$\lim_{x\to\infty}\frac{x^a}{b^x} = 0$$
+with $a$ and $b$ any \PMlinkescapetext{constants},\, $b &gt; 1$.
+
+
+{\em Proof.}\, Since\, $\ln b &gt; 0$,\, we obtain by using the lemma the result
+   $$\lim_{x\to\infty}\frac{x^a}{b^x} = 
+\lim_{x\to\infty}\left(\frac{x^{\frac{a}{\ln b}}}{e^x}\right)^{\ln b} = 0^{\ln b} = 0.$$\\
+
+\textbf{Corollary 1.}\,  $\displaystyle\lim_{x\to 0+}x\ln{x} = 0.$
+
+{\em Proof.}\, According to the lemma we get
+$$0 = \lim_{u\to\infty}\frac{-u}{e^u} = 
+\lim_{x\to 0+}\frac{-\ln{\frac{1}{x}}}{\frac{1}{x}} = \lim_{x\to 0+}x\ln{x}.$$\\
+
+\textbf{Corollary 2.}\,  $\displaystyle\lim_{x\to\infty}\frac{\ln{x}}{x} = 0.$
+
+{\em Proof.}\, Change in the lemma\, $x$\, to\, $\ln{x}$.\\
+
+\textbf{Corollary 3.}\,  $\displaystyle\lim_{x\to\infty}x^{\frac{1}{x}} = 1.$ \, (Cf. limit of nth root of n.)
+
+{\em Proof.}\, By corollary 2, we can write:\, $\displaystyle x^{\frac{1}{x}} = e^{\frac{\ln{x}}{x}}\longrightarrow e^0 = 1$\, as\, $x\to\infty$ (see also theorem 2 in limit rules of functions).</content>
+</record>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="418">
+ <title>Snell's law</title>
+ <name>SnellsLaw</name>
+ <created>2009-01-20 17:46:19</created>
+ <modified>2009-01-20 18:21:15</modified>
+ <type>Law</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>wrote down the wrong equation for eq 4</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="42.15.Dp"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Snell's law" alias="law of refraction"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Snell's law describes the relationship between an incident ray of light and that of the refracted ray of light at the boundary of two different but uniform materials.  When light goes from one medium to another, Snell's law says that the ratio of the sines of the angles between the normal to the interface and the rays in the two media equals the ratio of the speeds in the two media
+
+\begin{equation}
+\frac{\sin \phi_1}{\sin \phi_2} = \frac{s_1}{s_2}
+\end{equation}
+
+The ratio of the speeds of light in any 3 media is called the index of refraction of the second medium relative to the first
+
+\begin{equation}
+n_{2,1} = \frac{s_1}{s_2}
+\end{equation}
+
+The ratio of the speeds of light in a vacuum to the speed in a given medium is called the absolute index of refraction of the medium.  If $s$ is the speed of light in a vacuum and $s_1$ and $s_2$ are the speed of light in the two media, then the absolute indexes of refraction for the two media are
+
+\begin{equation}
+n_1 = \frac{s}{s_1} \,\,\,\,\,\,\,\, n_2 = \frac{s}{s_2}
+\end{equation}
+
+Combining equations (2) and (3), Snell's law can be written in terms of the absolute indexes of refraction
+
+\begin{equation}
+n_{2,1} = \frac{s_1}{s_2}
+\end{equation}
+
+Figure 1 shows the related geometry.
+
+\begin{center}
+\includegraphics[scale=1]{SnellsLaw2.eps}
+
+{\bf Figure 1:} Snell's law
+\end{center}
+
+\begin{thebibliography}{9}
+
+\bibitem{Ferry} Ferry, Ervin S., {\em A Handbook of Physics Measurements}.  Vol 1. Stanhope Press, Boston, 1918.
+
+\end{thebibliography}
+
+This entry is a derivative of the Public domain work [1]</content>
+</record>

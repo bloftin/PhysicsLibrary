@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="723">
+ <title>index of category theory</title>
+ <name>IndexOfCategoryTheory</name>
+ <created>2009-05-02 16:11:48</created>
+ <modified>2009-05-02 16:11:48</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <keywords>
+	<term>index of category theory</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\bf This is a contributed entry in progress...}
+
+\section{Index of Category Theory}</content>
+</record>

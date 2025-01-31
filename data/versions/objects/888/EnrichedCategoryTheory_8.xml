@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="888">
+ <title>Enriched Category Theory</title>
+ <name>EnrichedCategoryTheory</name>
+ <created>2010-11-01 00:27:13</created>
+ <modified>2010-11-01 00:55:30</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <keywords>
+	<term>Kan adjointness</term>
+	<term>enriched categories</term>
+	<term>weak Yoneda Lemma</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Enriched Category Theory}
+
+\subsection{Monoidal Categories} 
+
+$2 category$ VCAT for a monoidal V category
+$2-functor$, $F: VCAT \to CAT$
+
+Tensor products and duality  
+
+Closed and bi-closed bimonoidal categories 
+
+Representable V functors 
+
+Extraordinary V naturality and the V naturality of the canonical maps 
+
+\subsection{The Weak Yoneda Lemma for VCAT}
+
+
+\subsection{Adjunctions and equivalences in VCAT}
+
+\subsection{$2-Functor$ categories} 
+
+\subsection{The functor category $[A,B]$ for small A} 
+
+
+The isomorphism $[A \times [B, C]] isomorphic~ with [A, [B,C]]$
+
+
+
+\textbf{more to come}</content>
+</record>

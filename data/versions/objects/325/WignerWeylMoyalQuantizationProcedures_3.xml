@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="325">
+ <title>Wigner--Weyl--Moyal quantization procedures</title>
+ <name>WignerWeylMoyalQuantizationProcedures</name>
+ <created>2008-12-14 23:11:40</created>
+ <modified>2009-02-16 05:04:03</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>quantization</concept>
+	<concept>Moyal deformation</concept>
+	<concept>Heisenberg deformation</concept>
+	<concept>tangent groupoid</concept>
+	<concept>general quantization procedure</concept>
+	<concept>asymptotic morphisms</concept>
+	<concept>Wigner--Weyl--Moyal quantization procedure</concept>
+	<concept>Heisenberg quantization</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Wigner--Weyl--Moyal quantization procedures" alias="asymptotic morphisms"/>
+ </synonyms>
+ <keywords>
+	<term>generalized quantization procedures</term>
+	<term>asymptotic morphisms</term>
+	<term>Wigner--Weyl--Moyal quantization procedures</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\subsection{Quantization Procedures}
+
+\emph{ Wigner--Weyl--Moyal quantization procedures and asymptotic morphisms}
+are described as general quantization procedures, beyond first, second or
+canonical quantization methods employed in quantum theories.  
+
+
+
+The more general quantization techniques beyond canonical quantization revolve around using \emph{operator kernels} in representing \emph{asymptotic morphisms}. A fundamental example is an \emph{asymptotic
+morphism} $C_{0} (T^* \bR^n) \lra \mathcal K(L^2(\bR^n))$ as expressed by the \emph{Moyal 
+`deformation'}~: 
+
+
+$ [T_{\hslash} (a) f](x) := \frac{1}{(2 \pi \hslash)^n} \int_{\bR^n} a
+(\frac{x+y}{2}, \xi) \exp[\frac{\iota}{\hslash}] f(y)~dy~d \xi~, $ 
+where $a \in C_{0} (T^* \bR^n)$ and the operators $T_{\hslash}(a)$ are of trace 
+class. In Connes (1994), it is called the \emph{`Heisenberg deformation'}.
+
+ An elegant way of generalizing this construction entails the introduction of the 
+\emph{tangent groupoid}, $\mathcal T X$, of a suitable space $X$ and using asymptotic morphisms. Putting aside 
+a number of technical details which can be found in either Connes (1994) or Landsman (1998), the 
+\emph{tangent groupoid} $\mathcal T X$ is defined as \emph{the normal groupoid of a pair Lie groupoid} 
+$\xymatrix{X \times X \ar@&lt;1ex&gt;[r] \ar[r]&amp; X }$ which is obtained by `blowing up' the diagonal 
+$diag(X)$ in $X$.  More specifically, if $X$ is a (smooth) manifold, then let $G'= X \times X \times 
+(0,1]$ and $G''= TX$, from which it can be seen $diag(G') = X \times (0,1]$ and 
+$diag(G'') = X$~. Then in terms of disjoint unions one has:
+
+$\begin{aligned} \mathcal T X &amp; = G' \bigvee G''\\ diag(\mathcal TX)
+&amp; = diag(G') \bigvee diag(G'')~. 
+\end{aligned} $
+
+In this way $\mathcal T X$ shapes up both as a smooth groupoid $\mathsf{\G}$, 
+as well as a manifold $X_{Mb}$ with boundary.
+
+ Quantization relative to $\mathcal T X$ is outlined by V\'arilly (1997) to which the reader is referred 
+for further details. The procedure entails characterizing a function on $\mathcal TX$ in terms of a 
+pair of functions on $G'$ and $G''$ respectively, the first of which will be a kernel and the 
+second will be the inverse Fourier transform of a function defined on $T^*X$~. It will be 
+instructive to consider the case $X = \bR^n$ as a suitable example. Thus, one can take a function 
+$a(x,\xi)$ on $T^*\bR^n$ whose inverse Fourier transform 
+
+$ \F^{-1}(a(u,v)) = \frac{1}{(2 \pi)^n} \int_{\bR^n} \exp[\iota \xi v] a (u, \xi) ~d \xi~,$ 
+yields a function on $T \bR^n$~. Consider next the terms
+
+$ x := \exp_u[\frac{1}{2} \hslash v] = u + \frac{1}{2} \hslash v~,~ y := \exp_u[-\frac{1}{2} 
+\hslash v] = u - \frac{1}{2} \hslash v ~, $ 
+
+which on solving leads to $u = \frac{1}{2}(x + y)$ and $v = \frac{1}{\hslash}(x - y)$~. Then, 
+the following family of operator kernels 
+\bigbreak
+$ k_a(x,y, \hslash) := \hslash^{-n} \F^{-1}a(u,v) = \frac{1}{(2 \pi \hslash)^n} \int_{\bR^n} %%@
+a(\frac{x+y}{2}, \xi) \exp[\frac{\iota}{\hslash}(x -y) \xi]~ a (u, \xi) ~d \xi~,$
+
+
+This mechanism can be generalized to quantize any function on $T^*X$ when $X$ is a Riemannian 
+manifold, and produces an asymptotic morphism $C^{\infty}_c(T^*X) \lra \mathcal K(L^2(X))$~. 
+Furthermore, there is the corresponding K--theory map $K^0(T^*X) \lra \bZ$, which is the 
+analytic index map of Atiyah--Singer (see Berline et al., 1991, Connes, 1994). As an example, 
+suppose $X$ is an even dimensional spin manifold together with a `prequantum' line bundle 
+$L \lra X$~. Then one can define a \emph{`twisted Dirac operator'}, $D_L$, and a `virtual' Hilbert space given by 
+
+
+\subsection{Asymptotic Morphisms} 
+
+This subsection defines the important notion of an \emph {asymptotic morphism} following Connes 
+(1994). Suppose we have two C*--algebras (see below) $\mathfrak A$ and $\mathfrak B$, together 
+with a continuous field $(\mathfrak A(t), \Gamma)$ of C*--algebras over $[0,1]$ whose fiber at 
+$0$ is $\mathfrak A(0)= \mathfrak A$ ,and whose restriction to $(0,1]$ is the constant field 
+with fiber 
+$\mathfrak A(t) = \mathfrak B$, for $t &gt; 0$~. This may be called a \emph{strong 'deformation'} 
+from $\mathfrak A$ to $\mathfrak B$~.
+
+For any $a \in \mathfrak A = \mathfrak A(0)$, it can be shown that there exists a continuous 
+section $\a \in \Gamma$ of the above field satisfying $\a(0) = a$~. Choosing such an $\a = 
+\a_a$ for each $a \in \mathfrak A$, we set $\vp_t(a) = \a_a (\frac{1}{t}) \in \mathfrak B$, 
+for all $t \in [1, \infty)$~.
+
+
+Given the continuity of norm $\Vert \a(t) \Vert$ for any continuous section $\a \in \Gamma$, 
+consider the following conditions~:
+
+
+
+\begin{itemize}
+
+\item[(1)] For any $a \in \mathfrak A$, the map $t \ra \vp_t(a)$ is norm continuous.
+
+
+\item[(2)] For any $a, b \in \mathfrak A$ and $\lambda \in \bC$, we have  
+$ \begin{aligned} &amp;\lim_{t \to \infty} (\vp_t(a) + \lambda \vp_t(b) - \vp_t(a + \lambda b)) = 
+0 \\ &amp;\lim_{t \to \infty} (\vp_t(ab) - \vp_t(a) \vp_t(b)) = 0 \\ &amp;\lim_{t \to \infty} 
+(\vp_t(a^*) - \vp_t(a)^*) = 0~. \end{aligned} $
+\end{itemize}
+
+\bigbreak
+
+Then an \emph{asymptotic morphism from $\mathfrak A$ to $\mathfrak B$} is given by a family of 
+maps $\{ \vp_t \}, t \in [1, \infty)$, from $\mathfrak A$ to $\mathfrak B$ satisfying conditions (1) and (2) above.</content>
+</record>

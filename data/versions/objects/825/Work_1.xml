@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="825">
+ <title>work</title>
+ <name>Work</name>
+ <created>2009-09-27 02:33:46</created>
+ <modified>2009-09-27 02:33:46</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.Dd"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In Newtonian mechanics, work is intimately related to force, as is momentum.  The very definition of force involved time rate of change of momentum.  Work is the integral of a differential consisting of the product of force by a differential element of the displacement of its point of application or of the particle upon which it is acting.  Because both force and displacement are vectors, one must specify clearly what kind of product is involved in the differential of work, $dW$.  If $d \mathbf{l}$ is the differential displacement (along) its path) of the particle $P$, upon which force $\mathbf{F}$ is acting (or to which $\mathbf{F}$ is applied), we define the corresponding of work done by $\mathbf{F}$ to be their scalar product.  Thus by the definition of work, its differential is
+
+\begin{equation}
+dW = \mathbf{F} \cdot d\mathbf{l} = F \cos \theta dl
+\end{equation}
+
+The total work done by $\mathbf{F}$ while the particle upon which it acts moves along its path from any point $P_1$ to any other point $P_2$ on the the path is
+
+$$ W = \int_{P_1}^{P_2} dW = \int_{P_1}^{P_2} \mathbf{F} \cdot d \mathbf{l} = \int_{P_1}^{P_2} \left( F_x dx + F_y dy +F_z dz \right ) $$
+
+combing with Eq. 1
+
+\begin{equation}
+W = \int_{P_1}^{P_2} F \cos \theta dl = \int_{P_1}^{P_2} F_t dl
+\end{equation}
+
+where $F_t$ is the (scalar) component of $\mathbf{F}$ tangent to the path in the direction of motion.  This is called the line integral of the force along the path of the particle to which it is applied; it is a scalar.  Employing $P_1$ and $P_2$ to represent the limits of integration merely means that for the lower limit we substitute whatever values the variables involved may have at point $P_1$, while for the upper limit we substitute their values at $P_2$. It may be noted that (by the definition of work) no work can be done by any centripetal force (=$ma_n$) or by any force exerted by any smooth surface which remains at rest in our inertial system of coordinates, though these forces may be very large and important in producing accelerations and determining paths.
+
+The units of work commonly are specified in terms of the corresponding units of force and displacement.  Thus the foot-pound (ft-lb) is defined to be the work done by a force of one pound acting through a distance of one foot in its own direction.  The work done by a force of one dyne acting through a distance of one centimeter in its own direction is called an erg, usually, rather than a dyne-centimeter. Likewise, the newton-meter is called the joule ($=10^7$ ergs).
+
+If a force $\mathbf{F}$ acts upon a rigid body which rotates about a fixed axis, being applied at a point distant $r$ from the axis, the differential work done by it on the body during rotation through the differential angle $d \phi$ is $dW = F_{tr} ( r d\phi)$, since in this case $F_t = F_{tr}$ and $dl = r d\phi$.  But $rF_{tr} = N$ is the magnitude of the moment of $\mathbf{F}$ about the axis of rotation. Hence the work done by a torque $N$ (whether moment of a force or of a couple) during rotation of a body to which it is applied, is
+
+\begin{equation}
+W = \int dW = \int N d\phi
+\end{equation} 
+
+The differential work $N d\phi$ done by the torque is positive provided $d \phi$ s in the sense in which $N$ tends to produce rotation. It should be noted that $F_{tr}$ is normal both to $r$ and to the axis of rotation, and is thus tangent to the path of its point of application.</content>
+</record>

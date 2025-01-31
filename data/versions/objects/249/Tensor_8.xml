@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="249">
+ <title>tensor</title>
+ <name>Tensor</name>
+ <created>2007-06-13 07:59:15</created>
+ <modified>2007-07-03 22:46:12</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.40.Hw"/>
+	<category scheme="msc" code="04.20.Cv"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Tensors are another abstract mathematical tool at our disposal for solving problems from rotating rigid bodies to the structure of the universe.  Not only does the use of tensor notation clean up complex equations, but also allows us to embody the invariance of physical quantities within tensors.  This is worth repeating: we can use tensors to write physical equations independent of the choice of coordinate systems.
+
+In the most general way we define a tensor $T$ based on how it behaves under coordinate transformations
+
+\begin{equation}
+\bar{T}^{i_1, i_2,\cdots i_p}_{j_1, j_2,\cdots j_q} = T^{r_1, r_2,\cdots r_p}_{s_1, s_2,\cdots s_q}\frac{\partial \bar{x}^{i_1}}{\partial x^{r_1}} \frac{\partial \bar{x}^{i_2}}{\partial x^{r_2}} \cdots \frac{\partial \bar{x}^{i_p}}{\partial x^{r_p}} \frac{\partial x^{s_1}}{\partial \bar{x}^{j_1}} \frac{\partial x^{s_2}}{\partial \bar{x}^{j_2}} \cdots \frac{\partial x^{s_q}}{\partial \bar{x}^{j_q}}  
+\end{equation}
+
+where the tensor rank is $n = p + q$, the contravariant rank is $p$ and the covariant rank is $q$.  Note that rank is also referred to as the tensor order.
+
+Although Eq. (1) can be intimidating at first, one can familiarize themselves by working simple examples and pulling from experience with scalars, vectors and matrices.  A scalar quantity such as temperature or density is invariant under coordinate transformation and is labeled as a tensor of rank zero.  The next step is a tensor of rank 1.  If $p = 1$ and $q = 0$, then $n = 1$ and we have a contravariant vector
+
+\begin{equation}
+\bar{T}^{i_1} = T^{r_1}\frac{\partial \bar{x}^{i_1}}{\partial x^{r_1}}  
+\end{equation}
+
+If $p = 0$ and $q = 1$, then $n = 1$ and we have a covariant vector
+
+\begin{equation}
+\bar{T}_{j_1} = T_{s_1}\frac{\partial x^{s_1}}{\partial \bar{x}^{j_1}}
+\end{equation}
+
+It is important to realize the differences between Eq. (2) and Eq. (3), i.e.  Eq. (2) can represent the transformation of familiar vectors, while Eq. (3) can represent the transformation between basis vectors.  This can best be illustrated with the simple examples of the transformation between cartesian coordinates and polar coordinates and the transformation between cartesian and polar basis vectors.</content>
+</record>

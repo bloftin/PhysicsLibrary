@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="180">
+ <title>Dirac Notation</title>
+ <name>DiracNotation</name>
+ <created>2006-05-30 11:18:21</created>
+ <modified>2006-05-30 11:25:49</modified>
+ <type>Definition</type>
+ <creator id="132" name="metalac"/>
+ <modifier id="132" name="metalac"/>
+ <author id="132" name="metalac"/>
+ <synonyms>
+	<synonym concept="Dirac Notation" alias="Bra-ket Notation"/>
+ </synonyms>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Dirac notation or bra-ket notation as commonly known in physics is used to represent quantum states in quantum mechanics.  It was invented by Paul Dirac and since then has been a prefered way of notation in quantum mechanics.
+
+The notation denotes the "ket" vector defined as $|{\psi}&gt;$ and its transpose vector is defined as $&lt;{\phi}|$ or "bra" vector. Then "bra-ket" is defined as the inner product of the two which is noted as $&lt;{\phi}|{\psi}&gt;$. Dirac notation also satisifies following identities:
+
+$&lt;{\phi}|{\omega}|{\psi}&gt;{\equiv}&lt;{\phi}|{\omega}{\psi}&gt;$\\
+$&lt;{\phi}|{\psi}&gt;{\equiv}\int_{-{\infty}}^{\infty} \widetilde{\phi} {\psi} dx \quad$\\
+Where $\widetilde{\phi}$ is complex conjugate of ${\phi}$.</content>
+</record>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="276">
+ <title>Laplacian</title>
+ <name>Laplacian</name>
+ <created>2008-03-25 20:22:48</created>
+ <modified>2008-03-25 20:22:48</modified>
+ <type>Definition</type>
+ <creator id="390" name="invisiblerhino"/>
+ <modifier id="390" name="invisiblerhino"/>
+ <author id="390" name="invisiblerhino"/>
+ <classification>
+	<category scheme="msc" code="02.40.Dr"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Laplacian" alias="Laplace operator"/>
+ </synonyms>
+ <related>
+	<object name="LaplacianInSphericalCoordinates"/>
+	<object name="LaplacianInCylindricalCoordinates"/>
+	<object name="LaplacianInCartesianCoordinates"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Laplacian is a vector differential operator. Like all vector operators, it is given in different forms in different coordinate systems. In general it is given by:
+\[
+\nabla^2 f = \Delta f = \sum_i \frac{\partial f_i}{\partial x^2_i}
+\]
+where the subscript $i$ refers to the different coordinate components of the vector $f$.
+
+\subsection{Laplacian in Cartesian coordinates}
+This is the simplest form. It is given by
+\[
+\nabla^2 = {\partial \over \partial x^2} + {\partial \over \partial y^2} + {\partial \over \partial z^2}
+\]
+\subsection{Laplacian in spherical coordinates}
+This is given by
+\[
+\nabla _{cyl}^{2} = \frac{1}{r} \frac{\partial}{\partial r}\left(r \frac{\partial}{\partial r}\right) + \frac{1}{r^2} \frac{\partial^2}{\partial \theta^2} + \frac{\partial^2}{\partial z^2}
+\]
+\subsection{Laplacian in cylindrical coordinates}</content>
+</record>

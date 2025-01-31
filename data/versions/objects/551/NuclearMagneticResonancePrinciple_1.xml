@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="551">
+ <title>nuclear magnetic resonance principle</title>
+ <name>NuclearMagneticResonancePrinciple</name>
+ <created>2009-02-23 04:02:45</created>
+ <modified>2009-02-23 04:02:45</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="83.85.Fg"/>
+	<category scheme="msc" code="82.56.Pp"/>
+	<category scheme="msc" code="82.56.Ub"/>
+	<category scheme="msc" code="02.30.Nw"/>
+	<category scheme="msc" code="20."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>NMR</concept>
+	<concept>MRI</concept>
+ </defines>
+ <keywords>
+	<term>NMR</term>
+	<term>magnetic resonance imaging</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Introduction}
+
+ Nuclear magnetic resonance (NMR) is the name given to a physical resonance phenomenon involving the observation of specific quantum mechanical magnetic properties of an atom's nucleus in the presence of an external magnetic field applied to a molecular system and crystalline or non--crystalline materials. NMR also commonly refers to a family of scientific methods and techniques that exploit the nuclear magnetic resonance resonance phenomenon to study molecules, crystals and non-crystalline materials ("NMR spectroscopy" is perhaps the most important, as well as routine, group of techniques in this family). All nuclei that contain odd numbers of protons and/or neutrons have an intrinsic magnetic moment and angular momentum, in other words a spin $&gt; 0$. The most commonly measured nuclei are 1H (the most NMR-sensitive isotope after the radioactive 3H isotope, and also after the stable $^13C$ nucleus, although nuclei from isotopes of many other elements (e.g. $^2H$, 10B, 11B, 14N, 15N, 17O, 19F, 23Na, 29Si, 31P, 35Cl, 113Cd, 195Pt) are readily measured by high-field NMR spectroscopy as well. NMR resonant frequencies for a particular substance are directly proportional to the strength of the applied magnetic field, in accordance with the equation for the Larmor precession frequency. The scientific literature as of February 2009 includes NMR spectra at magnetic fields in a wide range: from about 5 nT up to 24 T. Very high magnetic fields are often preferred since 1D--NMR detection sensitivity increases proportionally with the magnetic field strength (the ``Golden Rule of NMR''). Other methods to increase either the NMR signal strentgth or the detection sensitivity include hyperpolarization and two-dimensional (2D) FT NMR techniques. The principle of NMR usually involves two sequential steps: (1) the alignment or polarization of the magnetic nuclear spins being studied in an applied, constant magnetic field ${\bf H}_0$, and (2) the perturbation of this alignment of the nuclear spins (in the constant external magnetic field) by employing a second, alternating magnetic field (rf) ${\bf H_{1rf}}$, with the two fields being usually orthogonal for maximum detected NMR signal intensity. The resulting response by the total magnetization, $M = \vec{M}$, of the nuclear spins to the perturbing magnetic field is the phenomenon that is exploited in NMR spectroscopy and magnetic resonance imaging, which both use intense applied magnetic fields H0, in order to achieve high spectral resolution, the details of which are described by the chemical shift, the Zeeman effect, and Knight shifts (in metals). Nuclear magnetic resonance was first described and measured in molecular beams by Isidor Rabi in 1938</content>
+</record>

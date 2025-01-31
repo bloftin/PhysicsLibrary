@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="237">
+ <title>spacetime interval is invariant for a Lorentz transformation</title>
+ <name>SpacetimeIntervalIsInvariantForALorentzTransformation</name>
+ <created>2006-11-25 11:45:31</created>
+ <modified>2006-11-25 11:45:31</modified>
+ <type>Result</type>
+<parent id="41">The Lorentz transformation</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.30.+p"/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The spacetime interval between two events $E_1( x_1, y_1, z_1, t_1 ) $ and $E_2( x_2, y_2, z_2, t_2 )$ is defined as
+
+$$ (\triangle s)^2 = c^2 \triangle t^2 - (\triangle x)^2 - (\triangle y)^2 - (\triangle z)^2. $$
+
+If $\triangle s$ is in reference frame $S$, then $\triangle s'$ is in reference frame $S'$ moving at a velocity $u$ along
+the x-axis.  Therefore, to show that the spacetime interval is invariant under a Lorentz transformation we must show
+
+$$ (\triangle s)^2 = (\triangle s')^2 $$
+
+with the reference frames related by the Lorentz transformation
+
+$$ x' = \frac{ x - u t }{ \sqrt{1 - u^2/c^2} } $$
+$$ y' = y $$
+$$ z' = z $$
+$$t' = \frac{ t - ux/c^2 }{ \sqrt{ 1 - u^2/c^2 } }.$$
+
+The change in coordinates between events in the $S'$ frame is then given by
+
+$$ \triangle x' = \left ( \frac{ x_2 - u t_2 }{ \sqrt{1 - u^2/c^2} } \right ) - \left ( \frac{ x_1 - u t_1 }{ \sqrt{1 - u^2/c^2} } \right ) =
+ \frac{ \triangle x - u \triangle t } { \sqrt{1 - u^2/c^2} } $$
+
+$$ \triangle y' = y_2 - y_1 = \triangle y $$
+
+$$ \triangle z' = z_2 - z_1 = \triangle z $$
+
+$$ \triangle t' = \left ( \frac{ t_2 - u x_2/c^2 }{ \sqrt{1 - u^2/c^2} } \right ) - \left ( \frac{ t_1 - u x_1 / c^2 }{ \sqrt{1 - u^2/c^2} } \right ) =
+ \frac{ \triangle t - u \triangle t } { \sqrt{1 - u^2/c^2} }. $$
+
+Squaring the terms yield
+
+$$ (\triangle x')^2 = \left ( \frac{ \triangle x - u \triangle t } { \sqrt{1 - u^2/c^2} } \right ) \left ( \frac{ \triangle x - u \triangle t } { \sqrt{1 - u^2/c^2} } \right ) = \frac{ (\triangle x)^2 - 2 u \triangle x \triangle t + u^2 (\triangle t)^2 }{ 1 - u^2/c^2 }$$
+
+$$ (\triangle y')^2 = (\triangle y)^2 $$
+
+$$ (\triangle z')^2 = (\triangle z)^2 $$
+
+$$ (\triangle t')^2 = \left (  \frac{ \triangle t - u \triangle t } { \sqrt{1 - u^2/c^2} } \right ) \left (  \frac{ \triangle t - u \triangle t } { \sqrt{1 - u^2/c^2} } \right ) =
+ \frac{ (\triangle t)^2 - 2u \triangle x \triangle t / c^2 + u^2 (\triangle x)^2 / c^4 }{ 1 - u^2/c^2 }. $$
+
+Substituting these terms into the spacetime interval gives
+
+$$ (\triangle s')^2 = \frac{ c^2 ( (\triangle t)^2 - 2u \triangle x \triangle t /c^2 + u^2 (\triangle x)^2 /c^4 )}{ 1 - u^2/c^2 } - \frac{ ( (\triangle x)^2 - 2 u \triangle x \triangle t + u^2 (\triangle t)^2)}{ 1 - u^2/c^2 } - (\triangle y)^2 - (\triangle z)^2 .$$
+
+Adding the first two terms with common denominators together yields
+
+$$ (\triangle s')^2 = \frac{ c^2 (\triangle t^2) -  (\triangle x)^2 - u^2 (\triangle t)^2 + u^2 (\triangle x)^2 / c^2}{ 1 - u^2/c^2 } - (\triangle y)^2 - (\triangle z)^2 .$$
+
+Pulling out a $-u^2/c^2$
+
+$$ (\triangle s')^2 = \frac{ c^2 (\triangle t^2) -  (\triangle x)^2 - u^2/c^2 ( c^2(\triangle t)^2 + (\triangle x)^2 )}{ 1 - u^2/c^2 } - (\triangle y)^2 - (\triangle z)^2 .$$
+
+Factoring out a $c^2 (\triangle t)^2 - (\triangle x)^2$ in the numerator
+
+$$ (\triangle s')^2 = \frac{ (c^2 (\triangle t^2) -  (\triangle x)^2) (1 - u^2/c^2) }{ 1 - u^2/c^2 } - (\triangle y)^2 - (\triangle z)^2 .$$
+
+Finally, canceling terms gives
+
+$$ (\triangle s')^2 = c^2 (\triangle t^2) -  (\triangle x)^2 - (\triangle y)^2 - (\triangle z)^2  = (\triangle s)^2 .$$
+
+Hence, the spacetime interval is invariant under a Lorentz transformation.</content>
+</record>

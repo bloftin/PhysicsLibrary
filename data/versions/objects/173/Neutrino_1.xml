@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="173">
+ <title>Neutrino</title>
+ <name>Neutrino</name>
+ <created>2006-05-19 12:40:01</created>
+ <modified>2006-05-19 12:40:01</modified>
+ <type>Definition</type>
+ <creator id="132" name="metalac"/>
+ <modifier id="132" name="metalac"/>
+ <author id="132" name="metalac"/>
+ <related>
+	<object name="anti-neutrino"/>
+	<object name="electron"/>
+	<object name="muon"/>
+	<object name="tau"/>
+	<object name="WeakForce"/>
+	<object name="lepton"/>
+	<object name="Lepton"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Neutrinos as elementary particles known as leptons.  Currently there is 3 known neutrinos; electron, muon and tau neutrino.  They also have 3 corresponding anti-neutrinos.  Neutrinos react via the weak and gravitational force.  Their mass is as of yet unknown, but there are very good estimates on the relative differences in mass between the 3 types of neutrinos.  Some of the more famous neutrino experiments include SNO (Canada), Super-Kamiokande (Japan), MiniBooNE (USA), etc.</content>
+</record>

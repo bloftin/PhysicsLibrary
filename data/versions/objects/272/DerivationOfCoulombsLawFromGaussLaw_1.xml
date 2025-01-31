@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="272">
+ <title>derivation of Coulomb's Law from Gauss' Law</title>
+ <name>DerivationOfCoulombsLawFromGaussLaw</name>
+ <created>2008-03-20 09:47:57</created>
+ <modified>2008-03-20 09:47:57</modified>
+ <type>Derivation</type>
+<parent id="266">Maxwell's equations</parent>
+ <creator id="556" name="victor_phb"/>
+ <modifier id="556" name="victor_phb"/>
+ <comment>Changes for correction #62 ('Deriving Coulomb's Law from Gauss' Law').</comment>
+ <author id="390" name="invisiblerhino"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <related>
+	<object name="MaxwellsEquations"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>As an example of the statement that Maxwell's equations completely define electromagnetic phenomena, it will be shown that Coulomb's Law may be derived from Gauss' law for electrostatics. Consider a point charge. We can obtain an expression for the electric field surrounding the charge. We surround the charge with a "virtual" sphere of radius $R$, then use Gauss' law in integral form:
+\[
+\oint_S  \mathbf{E} \cdot \mathrm{d}\mathbf{A} = \frac {q}{\epsilon_0}
+\]
+We rewrite this as a volume integral  in spherical polar coordinates over the "virtual" sphere mentioned above, which has the point charge at its centre. Since the electric field is spherically symmetric (by assumption) the electric field is constant over this volume.
+\[
+\oint_S  \mathbf{E} \cdot \mathrm{d}\mathbf{A} = \int^R_0 \int^{2\pi}_0 \int^\pi_0 E r \sin \theta \,dr \,d\theta \,d\phi 
+\]
+Hence
+\[
+4\pi R^2 E = \frac{q}{\epsilon_0}
+\]
+Or
+\[
+E = \frac{q}{4\pi\epsilon_0 R^2}
+\]
+The usual form can then be recovered from the Lorentz force law, $\mathbf{F} = \mathbf{E}q + \mathbf{v} \times \mathbf{B}$ noting the absence of magnetic field.</content>
+</record>

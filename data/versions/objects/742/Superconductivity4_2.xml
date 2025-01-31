@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="742">
+ <title>Superconductivity</title>
+ <name>Superconductivity4</name>
+ <created>2009-05-09 10:32:14</created>
+ <modified>2009-05-09 10:36:37</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="14.20.Dh"/>
+ </classification>
+ <defines>
+	<concept>superconductivity</concept>
+	<concept>high temperature superconductors</concept>
+	<concept>low temperature superconductors</concept>
+	<concept>YBCO</concept>
+ </defines>
+ <related>
+	<object name="Superfluid"/>
+ </related>
+ <keywords>
+	<term>superconductors</term>
+	<term>superconductivity</term>
+	<term>superfluids</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Superconductivity-the phenomenon}
+Low-temperature superconductivity was discovered by H. Kammerlingh Onnes in 1911 when he was able for the first time to liquefy Helium gas. The phenomenon of {\em superconductivity} appeared so bizarre--the presence of extremely high electric currents with no apparent heat generation--that the discoverer repeated over and over the experiments with different instruments until he was finally convinced that what he was seeing was not the result of errors from faulty instruments. 
+Superconductivity is a quantum mechanical phenomenon that can be however observed on a macroscopic scale due to long-range coherence of coupled elctron pairs called Cooper pairs.  Furthermore, an electric (DC) current flowing in a loop of superconducting wire can persist `indefinitely' with no power source connected after the wire has been once energized. Interestingly, the high conductivity metals such as copper, silver and gold do not exhibit superconductivity even close to absolute zero, but some ceramic compunds, such as cuprate-perovskites, containing both copper and ytrium (YBCuO) are superconducting even at liquid nitrogen temperature (77$^o$ K)--which is called ``high temperature superconductivity''. On the other hand, tin and niobium in compunds such as $Nb_3Sn$ exhibit low temperature superconductivity at temperatures close to liquid He (4$^o$ K). The latter are at present the most widespread superconductors in use for scientific instruments such as high field NMR spectrometers. The mechanism responsible for high temperature superconductivity is yet to be established but superfluidity and the presence of long-range coherence are accepted as essential ingredients of any plausible explanation of this phenomenon.</content>
+</record>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="90">
+ <title>axis angle of rotation to quaternions</title>
+ <name>AxisAngleOfRotationToQuaternions</name>
+ <created>2005-08-28 23:44:02</created>
+ <modified>2005-08-29 00:24:32</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <related>
+	<object name="AxisAngleOfRotationToDirectionCosineMatrix"/>
+	<object name="AxisAngleOfRotation"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Quaternions can be defined from the axis angle of rotation by
+
+\begin{equation}
+\left[ \begin{array}{c}
+q_1 \\
+q_2 \\
+q_3 \\
+q_4 \end{array} \right] =
+\left[ \begin{array}{c}
+e_1 sin( \alpha /2 ) \\
+e_2 sin( \alpha /2  )  \\
+e_3 sin( \alpha /2  )  \\
+cos( \alpha /2 )   \end{array} \right]
+\end{equation}</content>
+</record>

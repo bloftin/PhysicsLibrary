@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="876">
+ <title>Mircea Sabau</title>
+ <name>MirceaSabau</name>
+ <created>2010-09-01 02:54:00</created>
+ <modified>2010-09-01 02:54:00</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <keywords>
+	<term>medical physics</term>
+	<term>high energy physics</term>
+	<term>radiology</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Prof. Dr. Mircea N. Sabau} (b. August 24, 1934- d. June 15, 2009).
+
+He was born at Turda, and became a Medical Physicist and Professor of Medical Physics and Health Physics, at the University of Chicago, IL, and until 1988 the Head of Radiology Dept. at Baylor Medical School of Dallas, TX.
+
+He became an Emeritus Professor in 1998 and a Member of the American-Romanian Academy of Arts and Sciences in 1990.
+
+\subsubsection{Education}
+He studied at the School of Physics at the University of Bucharest between 
+1952 and 1957. After he obtained his M.S. in Nuclear Physics in Bucharest he
+worked for 18 years on nuclear reactors at the Institute of Atomic Physics.
+Then, he continued with high energy physics studies and earned his Pd.D. degree in 1970 with a thesis on high energy physics. 
+
+\subsection{Research and Publications} 
+He was then able to study at the Institute of Nuclear Physics at Dubna, in the former USSR, at the time the only foreign country where postdoctoral research was allowed from Romania.
+
+In 1975 he succeeded to travel with his family to Chicago and transferred to the Argonne Laboratory where he studied high energy physics until the late 1970's when funding for high energy physics at Argonne was drastically reduced. Since 1980 until his retirement in 1998 he worked at the University of Chicago as a Professor of Medical Physics, specialized in Nuclear Medicine, 
+with a short term appointment at the Baylor Medical Center of Dallas University since 1999 as the Head of the Department of Radiology. He published over 150 scientific papers in peer-reviewed journals and participated at over 50 International Conferences and meetings.
+
+He has also contributed for 10 years numerous documents for Human Rights that were presented to the United Nations Council.
+
+\subsubsection{Selected Publications}
+Gerald L. Buchel, Mircea N. Sabau, T. Lyle Wilson, John J. Sadler. 
+1998. Evaluation of a test device to assess x-ray phototimers
+Radiologic Technology, July-August, 1998.</content>
+</record>

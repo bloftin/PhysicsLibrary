@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="890">
+ <title>epimorphism</title>
+ <name>Epimorphism2</name>
+ <created>2010-11-01 02:29:13</created>
+ <modified>2010-11-01 02:29:13</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <preamble></preamble>
+ <content>\textbf{Definition 0.1}
+
+A morphism $e: A \to B$ is an \emph{epimorphism} if for any two morphisms $f,g: B \to C$  $f\circ e=g\circ e$ implies $f=g$.</content>
+</record>

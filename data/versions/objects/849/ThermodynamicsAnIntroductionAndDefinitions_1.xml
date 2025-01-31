@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="849">
+ <title>thermodynamics an introduction and definitions</title>
+ <name>ThermodynamicsAnIntroductionAndDefinitions</name>
+ <created>2010-03-08 00:37:58</created>
+ <modified>2010-03-08 00:37:58</modified>
+ <type>Topic</type>
+<parent id="504">Thermodynamics</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.Ce"/>
+ </classification>
+ <keywords>
+	<term>system</term>
+	<term>surroundings</term>
+	<term>boundary</term>
+	<term>homogeneous</term>
+	<term>hetrogeneous</term>
+	<term>open</term>
+	<term>closed</term>
+	<term>isolated</term>
+	<term>extensive</term>
+	<term>intensive</term>
+	<term>thermodynamic equilibrium</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Thermodynamics is the science of the flow of heat.  It applies to macroscopic systems in equilibrium and how to go from one equilibrium state to another.  It is entirely empirical and summed up into four laws and basic mathematics.
+
+Zeroth law of Thermodynamics: defines temperature $T$
+
+First law of Thermodynamics: defines energy $U$
+
+Second law of Thermodynamics: defines entropy $S$
+
+Third law of Thermodynamics: gives numerical value to entropy $S$
+
+These laws are \textbf{UNIVERSALLY VALID} and \textbf{cannot} be circumvented.
+
+Definitions used in Thermodynamics:
+
+\begin{itemize}
+    \item \textbf{System}: The part of the Universe that we choose to study
+    \item \textbf{Surroundings}: The rest of the Universe
+    \item \textbf{Boundary}: The surface dividing the System from the Surroundings
+    \item \textbf{Homogeneous}:  A single phase is in the system
+    \item \textbf{Hetrogeneous}: Different phases are in the system
+\end{itemize}
+
+Examples of systems:
+
+\begin{itemize}
+    \item A person
+    \item Hot coffee in a thermos
+    \item glass of ice water
+    \item Volume of 4 liters of air in a room
+\end{itemize}
+
+whatever is left over is the surroundings.  Between the system and the surroundings is the boundary.  
+
+Examples of boundaries:
+
+\begin{itemize}
+    \item Real like the outside of a person's skin
+    \item The inner wall of the thermos
+    \item An imaginary boundary surrounding the 4 liters of air
+\end{itemize}
+
+Systems can be:
+
+\begin{itemize}
+    \item \textbf{Open}: Mass and Energy can transfer between the System and the Surroundings
+    \item \textbf{Closed}: Energy can transfer between the System and the Surroundings, but not mass
+    \item \textbf{Isolated}: Neither Mass nor Energy can transfer between the System and the Surroundings
+\end{itemize}
+
+Describing Systems requires:
+
+\begin{itemize}
+    \item A few macroscopic properties: p, T, V, n, m, etc.
+    \item Knowledge if System is Homogeneous or Hetrogeneous
+    \item Knowledge if System is in Equilibrium State
+    \item Knowledge of the number of components
+\end{itemize}
+
+Two classes of Properties:
+
+\begin{itemize}
+    \item \textbf{Extensive}: Depend on the size of the system (n,m,V,...)
+    \item \textbf{Intensive}: Independent of the size of the system (T, p, $\bar{V} = \frac{V}{n}$,...)
+\end{itemize}
+
+A system is in \textbf{equilibrium} if the properties that describe the system, such as $P$, $T$, $V$, etc. do not change in time or space.  A gas in a container needs to be the same $P$, $T$, $V$ to be in equilibrium.
+
+\textbf{References}
+
+This is a derivative work from [1] a \PMlinkexternal{Creative Commons Attribution-Noncommercial-Share Alike 3.0 work}{http://creativecommons.org/licenses/by-nc-sa/3.0/us/}
+
+[1] MIT OpenCourseWare, 5.60 \PMlinkexternal{Thermodynamics &amp; Kinetics}{http://ocw.mit.edu/OcwWeb/Chemistry/5-60Spring-2008/CourseHome/index.htm}: Thermodynamics &amp; Kinetics, Spring 2008</content>
+</record>

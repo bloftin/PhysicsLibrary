@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="181">
+ <title>Tau</title>
+ <name>Tau</name>
+ <created>2006-05-31 16:04:11</created>
+ <modified>2006-05-31 16:04:11</modified>
+ <type>Definition</type>
+ <creator id="132" name="metalac"/>
+ <modifier id="132" name="metalac"/>
+ <comment>Changes for correction #17 ('typos').</comment>
+ <author id="132" name="metalac"/>
+ <classification>
+	<category scheme="msc" code="14.60.Fg"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Tau" alias="Tau lepton"/>
+	<synonym concept="Tau" alias="Tauon"/>
+ </synonyms>
+ <related>
+	<object name="lepton"/>
+	<object name="muon"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Tau is a lepton just like electron and muon.  It is considered to be a point-like particle since it doesn't have internal structure, as far as it's known.  Taus have a mass of 1777 MeV which is about 3500 times more than an electron.  They are also twice as heavy as protons.  Being so massive meant that they were not easily discoverable because energies of 1.7 GeV or greater were needed.  Finally in experiments that ran in 1974-7, some 40 years after discovery of muon, taus were discovered by a group of experimentalists at SLAC.  
+
+Taus are able to decay into hadrons via weak interaction, and this makes them unique in the leptonic world.  Taus are very unstable, thus they have a very short lifetime of $3*10^{-13}s$
+
+As a member of the 3rd leptonic group Taus have an anti-particle partner anti-tau, and also two neutrions, a tau neutrino and anti-tau neutrino.</content>
+</record>

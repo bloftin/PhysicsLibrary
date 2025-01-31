@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="443">
+ <title>noncommutative geometry topic</title>
+ <name>NoncommutativeGeometry2</name>
+ <created>2009-01-28 02:01:32</created>
+ <modified>2009-02-02 19:33:10</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>noncommutative topology</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <synonyms>
+	<synonym concept="noncommutative geometry topic" alias="non-commutative geometry"/>
+	<synonym concept="noncommutative geometry topic" alias="nonabelian algebraic topology"/>
+	<synonym concept="noncommutative geometry topic" alias="NAAT"/>
+	<synonym concept="noncommutative geometry topic" alias="quantum geometry"/>
+	<synonym concept="noncommutative geometry topic" alias="NAQAT"/>
+	<synonym concept="noncommutative geometry topic" alias="NA-QAT"/>
+ </synonyms>
+ <related>
+	<object name="QAT"/>
+	<object name="AQFT"/>
+	<object name="QuantumOperatorAlgebrasInQFT"/>
+ </related>
+ <keywords>
+	<term>noncommutative geometry</term>
+	<term>non-abelian algebraic topology</term>
+	<term>NAAT</term>
+	<term>quantum geometry</term>
+	<term>anabelian geometry (A. Grothendieck's)</term>
+	<term>NAQT</term>
+	<term>NA-QAT</term>
+ </keywords>
+ <preamble>% TeX increases, you will probably want to edit this, but
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here</preamble>
+ <content>\subsection{Non-commutative Geometry and Non-Abelian Topology}
+
+Noncommutative `geometry' utilizes non-Abelian (or nonabelian) methods for quantization of spaces through `deformation' to non-commutative 'spaces' (in fact {\em non-commutative} algebraic structures, or algebras of functions).
+therefore, it can be considered a subfield of Non-Abelian Algebraic Topology 
+(NAAT).
+
+\emph{An alternative meaning is often given to Noncommutative Geometry (viz . A Connes et al.)}:
+that is, as a non-commutative `geometric' approach-- \emph{in the relativistic sense}-- to Quantum Gravity. This approach is therefore relevant to 
+\PMlinkexternal{Non-Abelian Quantum Algebraic Topology (NA-QAT, or NAQAT)}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=61}. 
+
+A specific example due to A. Connes is the convolution $C^*$-algebra of (discrete) groups;
+other examples are non-commutative $C^*$-algebras of operators defined on Hilbert spaces of
+quantum operators and states. (Please see also the other PM entries on $C^*$-algebra and
+Noncommutative Topology.)
+
+
+\subsection{Remarks}
+\begin{itemize}
+\item The Royal Swedish Academy of Sciences has awarded the 2001 Crafoord Prize in mathematics
+to Professor Alain Connes of the Institut des Hautes \'Etudes Scientifiques (IHES) and the
+Coll\'ege de France, Paris, ``for his penetrating work on the theory of... (quantum)... operator algebras
+and for having been a founder of \emph{noncommutative geometry}''.
+(\PMlinkexternal{Crafoord Prize in 2001 in Noncommutative Geometry and Quantum Operator Algebras}{http://www.ams.org/notices/200105/comm-crafoord.pdf}).
+
+Professor Alain Connes is also the 1983 recipient of the Field Medal. The following is a concise quote of his work
+from the Crafoord Prize announcement in 2001: ``{\em Noncommutative geometry is a new field of mathematics, and
+Connes played a decisive role in its creation. His work has also provided powerful new methods for treating renormalization theory and the standard model of quantum and particle physics...\PMlinkname{(SUSY)}{SpinGroup}...
+He has demonstrated that these new mathematical tools can be used for understanding and attacking the Riemann Hypothesis.}''
+
+\item ``\emph{The Crafoord Prize prize consisted of a gold medal and US dollars 500,000. The Anna-Greta and Holger Crafoord Foundation was established in 1980 for promoting basic research in mathematics, astronomy, the biosciences
+(particularly ecology), the geosciences, and polyarthritis (joint rheumatism)}''. Previous (`Nobel style'), Crafoord
+Laureates in Mathematics were: Vladimir I. Arnold and Louis Nirenberg in 1982, Alexandre Grothendieck (who publicly declined the prize) and Pierre Deligne--who accepted the prize in 1988, and Simon Donaldson and Shing-Tung Yau (1994).
+\end{itemize}</content>
+</record>

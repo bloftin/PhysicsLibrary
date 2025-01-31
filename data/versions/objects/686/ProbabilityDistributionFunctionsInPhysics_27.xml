@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="27" id="686">
+ <title>probability distribution functions in physics</title>
+ <name>ProbabilityDistributionFunctionsInPhysics</name>
+ <created>2009-04-22 12:45:27</created>
+ <modified>2009-04-24 00:46:49</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>probability distribution function</concept>
+	<concept>random variable</concept>
+	<concept>measure space</concept>
+	<concept>pdf</concept>
+	<concept>probability measure</concept>
+	<concept>associated probability measure</concept>
+	<concept>Poisson distribution</concept>
+	<concept>dpdf</concept>
+	<concept>discrete probability distribution function</concept>
+	<concept>continuous probability distribution function</concept>
+	<concept>cpdf</concept>
+	<concept>distribution of $X$ on $I$</concept>
+	<concept>cummulative distribution function</concept>
+	<concept>cdf</concept>
+	<concept>measurable function</concept>
+	<concept>Radon--Nikodym derivative</concept>
+	<concept>Gaussian distribution</concept>
+	<concept>normal distribution</concept>
+	<concept>Lorentzian</concept>
+	<concept>Gaussian lineshape</concept>
+	<concept>Lorentzian lineshape</concept>
+	<concept>chemical potential</concept>
+	<concept>quantum groupoids with Haar measure</concept>
+	<concept>Radon measure</concept>
+	<concept>Lebesgue measure</concept>
+ </defines>
+ <related>
+	<object name="FermiDiracDistribution"/>
+	<object name="QuantumGroupoids"/>
+	<object name="QuantumAlgebroid"/>
+	<object name="AlgebroidStructuresAndExtendedSymmetries"/>
+ </related>
+ <keywords>
+	<term>Fermi-Dirac distribution function</term>
+ </keywords>
+ <preamble>%%Planet physics followed by special preamble
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+
+
+% define commands here
+\newcommand{\md}{d}
+\newcommand{\mv}[1]{\mathbf{#1}} % matrix or vector
+\newcommand{\mvt}[1]{\mv{#1}^{\mathrm{T}}}
+\newcommand{\mvi}[1]{\mv{#1}^{-1}}
+\newcommand{\mderiv}[1]{\frac{\md}{\md {#1}}} %d/dx
+\newcommand{\mnthderiv}[2]{\frac{\md^{#2}}{\md {#1}^{#2}}} %d^n/dx
+\newcommand{\mpderiv}[1]{\frac{\partial}{\partial {#1}}} %partial d^n/dx
+\newcommand{\mnthpderiv}[2]{\frac{\partial^{#2}}{\partial {#1}^{#2}}} %partial d^n/dx
+\newcommand{\borel}{\mathfrak{B}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\complexes}{\mathbb{C}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\defined}{:=}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\powerset}[1]{\mathcal{P}(#1)}
+\newcommand{\bra}[1]{\langle#1 \vert}
+\newcommand{\ket}[1]{\vert \hspace{1pt}#1\rangle}
+\newcommand{\braket}[2]{\langle #1 \ket{#2}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\newcommand{\esssup}{\mathrm{ess\ sup}}
+\newcommand{\Lspace}[1]{L^{#1}}
+\newcommand{\Lone}{\Lspace{1}}
+\newcommand{\Ltwo}{\Lspace{2}}
+%%\newcommand{\Lp}{\Lspace{p}}
+\newcommand{\Lq}{\Lspace{q}}
+\newcommand{\Linf}{\Lspace{\infty}}
+\newcommand{\sequence}[1]{\{#1\}}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+\newcommand{\&lt;}{{\langle}}
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+\def\C{C^{\ast}}
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>This is a contributed topic on probability distribution functions and their 
+applications in physics, mostly in spectroscopy, quantum mechanics, statistical mechanics and the theory of extended QFT operator algebras (extended symmetry, \PMlinkname{quantum groupoids}{QuantumGroupoids} with Haar measure and quantum algebroids).
+
+\subsection{Probability Distribution Functions in Physics}
+
+\subsubsection{Physical Examples}
+
+\begin{example}
+ {\bf Fermi-Dirac Distribution}
+
+ This is a widely used probability distribution function (pdf) applicable to all fermion particles in quantum statistical mechanics, and is defined as:
+\[
+f_{D-F}(\epsilon) = \frac{1}{1+exp(\frac{\epsilon - \mu}{kT})},
+\]
+
+where $\epsilon$ denotes the energy of the fermion system and $\mu$ is the {\em chemical potential} of the fermion system at an absolute temperature T. 
+\end{example}
+
+\begin{example}
+A classical example of a continuous probability distribution function on $\reals$ is the {\em Gaussian distribution}, or {\em normal distribution}
+$$ f(x) := \frac{1}{\sigma \sqrt{2 \pi}} e^{-(x-m)^2/2\sigma^2},$$
+where $\sigma^2$ is a parameter related to the width of the distribution (measured for example at half-heigth). 
+\end{example}
+
+ In high-resolution spectroscopy, however, similar but much narrower continuous distribution functions called {\em Lorentzians} are more common; for example, high-resolution $^1H$ NMR absorption spectra of neat liquids consist of such Lorentzians whereas rigid solids exhibit often only Gaussian peaks resulting from both the overlap as well as the marked broadening of Lorentzians.
+
+\subsection{General definitions of probability distribution functions}
+
+\begin{definition}
+ One needs to introduce first a Borel space $\borel$, then consider a {\em measure space} $S_M:= (\Omega, \borel, \mu)$, and finally define a real function that is measurable `almost everywhere' on its domain $\Omega$ and is also normalized to unity. Thus, consider $(\Omega, \borel, \mu)$ to be a measure space $S_M$.  A {\em probability distribution function (pdf)} on (the domain) $\Omega$ is a function $f_p: \Omega \longrightarrow \reals$ such that:
+\begin{enumerate}
+\item $f_p$ is $\mu$-measurable
+\item $f_p$ is nonnegative $\mu$-almost everywhere.
+\item $f_p$ satisfies the equation
+$$
+\int_{\Omega} f_p(x)\ d\mu = 1.
+$$
+\end{enumerate}
+\end{definition}
+
+ Thus, a probability distribution function $f$ induces a {\em probability measure} $M_P$ on the measure space $(\Omega, \borel)$, given by
+$$M_P(X) := \int_X f_p(x)\ d\mu = \int_{\Omega} 1_X f_p(x)\ d\mu,$$
+for all $x \in \borel$. The measure $M_P$ is called the {\em associated probability measure} of $f_p$. $M_P$ and $\mu$ are different measures although both have the same underlying measurable space $S_M := (\Omega, \borel)$.
+
+\begin{definition}
+\textbf{The discrete distribution (dpdf)} 
+
+ Consider a countable set $I$ with a counting measure imposed on $I$, such that $\mu(A) := |A|$, is the cardinality of $A$, for any subset $A \subset I$. A {\em discrete probability distribution function (\bf dpdf)} $f_d$ on $I$ can be then defined as a nonnegative function $f_d : I \longrightarrow \reals$ satisfying the equation
+$$\sum_{i \in I} f_d(i) = 1.$$
+\end{definition}
+
+ A simple example of a $dpdf$ is any Poisson distribution $P_r$ on $\naturals$ (for any real number $r$), given by the formula
+$$ P_r(i) := e^{-r} \frac{r^i}{i!}, $$
+for any $i \in \naturals$.
+
+ Taking any probability (or measure) space $S_M$ defined by the triplet $(\Omega, \borel, \mu)$ and a {\em random variable} $X: \Omega \longrightarrow I$, one can construct a distribution function on $I$ by defining 
+$$f(i) := \mu(\{X = i\})$$. The resulting $\Delta$ function is called the {\em distribution of $X$ on $I.$}
+
+\begin{definition}
+\textbf{The continuous distribution (cpdf)}
+  Consider a measure space $S_M$ specified as the triplet 
+$(\reals, \borel_\lambda, \lambda)$, that is, the set of real numbers equipped with a {\em Lebesgue measure}. Then, one can define a {\em continuous probability distribution function} ({\em cpdf}) $f_c : \reals \longrightarrow \reals$ is simply a measurable, nonnegative almost everywhere function such that
+$$ \int_{-\infty}^\infty f_c(x)\ dx = 1.$$
+\end{definition}
+
+ The associated measure has a \PMlinkexternal{Radon--Nikodym derivative}{RadonNikodymTheorem} with respect to $\lambda$ equal to $f_c$:
+$$ \frac{dP}{d\lambda} = f_c.$$
+
+
+\begin{definition}
+  One defines the {\em cummulative distribution function, or {\bf cdf},} $F$ of $f_c$ by the formula
+$$F(x) := P(\{X \leq x\}) = \int_{-\infty}^x f(t)\ dt, $$
+for all $x \in \reals.$
+\end{definition}</content>
+</record>

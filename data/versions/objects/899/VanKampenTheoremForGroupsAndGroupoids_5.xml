@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="899">
+ <title>Van Kampen Theorem for groups and groupoids</title>
+ <name>VanKampenTheoremForGroupsAndGroupoids</name>
+ <created>2010-12-13 13:54:25</created>
+ <modified>2010-12-13 14:15:39</modified>
+ <type>Theorem</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>fundamental groups</concept>
+	<concept>pushout</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Van Kampen Theorem for groups and groupoids" alias="VKT"/>
+ </synonyms>
+ <keywords>
+	<term>frundamental groups</term>
+	<term>pushouts</term>
+	<term>Van Kampen's theorem for groups</term>
+	<term>topological spaces</term>
+	<term>algebraic topology</term>
+ </keywords>
+ <preamble>\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+
+\newcommand{\&lt;}{{\langle}}
+
+%\newcommand{\&gt;}{{\rangle}}
+
+%\usepackage{geometry, amsmath,amssymb,latexsym,enumerate}
+%\usepackage{xypic}
+
+\def\baselinestretch{1.1}
+
+
+\hyphenation{prod-ucts}
+
+%\grpeometry{textwidth= 16 cm, textheight=21 cm}
+
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+
+\def\C{C^{\ast}}
+
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+%\newenvironment{proof}{\noindent {\bf Proof} }{ \hfill $\Box$
+%{\mbox{}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\textbf{Van Kampen's theorem for fundamental groups} may be stated as
+follows:
+\emph{Let $X$ be a topological space which is the union of the interiors of two path connected subspaces $X_1, X_2$. Suppose that $X_0:=X_1\cap X_2$ is path connected. Let  further
+ $*\in X_0$ and $i_k\co \pi_1(X_0,*)\to\pi_1(X_k,*)$, $j_k\co\pi_1(X_k,*)\to\pi_1(X,*)$  be induced by the inclusions for  $k=1,2$.  Then $X$ is path connected and the inclusion morphisms draw a commutative pushout diagram:
+
+$$\xymatrix{ {\pi_1({U_1 \cap U_2)}}\ar [r]^{i_1}\ar[d]^{i_2}
+&amp;\pi_1(U_1)\ar[d]^{j_1} \\
+{\pi_1(U_2)}\ar [r]_{j_2}&amp; {\pi_1(X)} }
+$$
+
+The natural morphism $$\pi_1(X_1,*)\bigstar_{\pi_1(X_0,*)}\pi_1(X_2,*)\to \pi_1(X,*)\,$$  is an isomorphism, that is, the fundamental group of $X$ is the free product of the  fundamental groups of $X_1$ and $X_2$ with amalgamation of $\pi_1(X_0,*)$.}
+
+Usually the morphisms induced by inclusion in this theorem are not
+themselves injective, and the more precise version of the statement
+is in terms of {pushouts} of groups.
+
+The notion of pushout in the category of groupoids allows for a
+version of the theorem for the non path connected case, using the
+fundamental groupoid $\pi_1(X,A)$ on a set $A$ of base points,
+\cite{rb1}. This groupoid consists of homotopy classes rel end
+points of paths in $X$ joining points of $A\cap X$. In particular,
+if $X$ is a contractible space, and $A$ consists of two distinct
+points of $X$, then $\pi_1(X,A)$ is easily seen to be isomorphic to
+the groupoid often written $\mathcal I$ with two vertices and
+exactly one morphism between any two vertices. This groupoid plays a
+role in the theory of groupoids analogous to that of the group of
+integers in the theory of groups.
+
+
+\begin{thm}
+Let the topological space $X$ be covered by the interiors of two
+subspaces $X_1, X_2$ and let $A$ be a set which meets each path
+component of $X_1, X_2$ and $X_0:=X_1 \cap X_2$. Then $A$ meets each
+path component of $X$ and the following diagram of morphisms induced
+by inclusion
+$$\xymatrix{ {\pi_1(X_0,A)}\ar [r]^{\pi_1(i_1)}\ar[d]_{\pi_1(i_2)}
+&amp;\pi_1(X_1,A)\ar[d]^{\pi_1(j_1)} \\
+{\pi_1(X_2,A)}\ar [r]_{\pi_1(j_2)}&amp; {\pi_1(X,A)} }
+$$
+is a pushout diagram in the category of groupoids.
+\end{thm}
+
+The interpretation of this theorem as a calculational tool for
+fundamental groups needs some development of `combinatorial groupoid
+theory', \cite{rb,higgins}. This theorem implies the calculation of
+the fundamental group of the circle as the group of integers, since
+the group of integers is obtained from the groupoid $\mathcal I$ by
+identifying, in the category of groupoids, its two vertices.
+
+There is a version of the last theorem when $X$ is covered by the
+union of the interiors of a family $\{U_\lambda : \lambda \in
+\Lambda\}$ of subsets, \cite{brs}. The conclusion is that if $A$
+meets each path component of all 1,2,3-fold intersections of the
+sets $U_\lambda$, then A meets all path components of $X$ and the
+diagram
+$$ \bigsqcup_{(\lambda,\mu) \in \Lambda^2} \pi_1(U_\lambda \cap U_\mu, A) \rightrightarrows \bigsqcup_{\lambda \in \Lambda} \pi_1(U_\lambda, A)\rightarrow \pi_1(X,A) $$
+of morphisms induced by inclusions is a coequaliser in the category
+of groupoids.
+
+\begin{thebibliography}{8}
+\bibitem{rb1} R. Brown, ``Groupoids and Van Kampen's theorem'', {\em Proc. London
+Math. Soc.} (3) 17 (1967) 385-401.
+
+\bibitem{rb} R. Brown, {\em Topology and Groupoids}, Booksurge PLC (2006).
+\bibitem{brs} R. Brown and A. Razak, ``A van Kampen theorem for unions of
+non-connected spaces'', {\em Archiv. Math.} 42 (1984) 85-88.
+\bibitem{higgins} P.J. Higgins, {\em Categories and Groupoids}, van Nostrand, 1971,
+Reprints of Theory and Applications of Categories, No. 7 (2005)
+pp 1-195.
+
+\end{thebibliography}</content>
+</record>

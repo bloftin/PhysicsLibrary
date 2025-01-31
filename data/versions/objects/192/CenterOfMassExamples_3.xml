@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="192">
+ <title>center of mass examples</title>
+ <name>CenterOfMassExamples</name>
+ <created>2006-07-03 02:30:18</created>
+ <modified>2006-07-03 02:44:57</modified>
+ <type>Definition</type>
+<parent id="96">centre of mass</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The center of mass of a system of equal particles is their average position; in other words, it is that point whose distance from any fixed plane is the average of the distances of all the particles of the system.
+
+Let $x_1, x_2, x_3, . . . x_n$ denote the distances of the particles of a system from the yz-plane; then, by the above definition, the distance of the center of mass from the same plane is
+
+$$ x_{cm} = \frac{ x_1 + x_2 + x_3 + . . . + x_n}{n} = \frac{1}{n} \sum x$$
+
+When the particles have different masses their distances must be weighted, that is, the distance of each particle must by multiplied by the masss of the particle before taking the average.  In this case the distance of the center of mass from the yz-plane is defined by the following equation:
+
+$$ (m_1 + m_2 + ... + m_n)x_{cm} = m_1 x_1 + m_2 x_2 + ... + m_n x_n $$
+
+or
+
+$$ x_{cm} = \frac{ \sum mx}{\sum m} $$
+$$ y_{cm} = \frac{ \sum my}{\sum m} $$
+$$ z_{cm} = \frac{ \sum mz}{\sum m} $$
+
+Evidently $x_{cm}, y_{cm}, z_{cm}$ are the coordinates of the center of mass.
+
+\subsection{Illustrative Examples}
+
+{\bf 1.}  Find the center of mass of two particles of masses $m$ and $nm$, which are separated by a distance $a$.  Taking the origin of the axes at the particle which has the mass $m$, figure 72, and taking as the z-axis the line which joins the two particles we get
+
+$$x_{cm} = \frac{0 + nma}{m + nm} = \frac{n}{n+1}a$$
+$$ y_{cm} = z_{cm} = 0 $$
+
+\begin{figure}
+\includegraphics[scale=.85]{Figure72.eps}
+\vspace{20 pt}
+\end{figure}</content>
+</record>

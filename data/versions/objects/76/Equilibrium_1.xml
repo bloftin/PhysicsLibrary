@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="76">
+ <title>equilibrium</title>
+ <name>Equilibrium</name>
+ <created>2005-08-22 13:07:53</created>
+ <modified>2005-08-22 13:07:53</modified>
+ <type>Definition</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="45.05.+x"/>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In the mechanics, a body is in  (mechanical) {\em equilibrium}, if it is either at rest or moves in a straight line with constant velocity and is not in an accelerated rotational motion.\, This means that the vector sum of all forces and the vector sum of all torques acting on the body vanish.
+
+
+A system is in  {\em thermodynamic equilibrium}, if its observable (macroscopic) properties do not alter with time.\, This contains the 
+\begin{itemize}
+\item {\em thermal equilibrium}, i.e. the temperature is constant in every point; \item the {\em chemical equilibriun}, i.e. the consistency does not alter; 
+\item the {\em mechanical equilibrium}, i.e. there is no macroscopic motion within the system.
+\end{itemize}</content>
+</record>

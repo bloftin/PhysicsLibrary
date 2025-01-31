@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="196">
+ <title>moment of Inertia</title>
+ <name>MomentOfInertia</name>
+ <created>2006-07-10 22:35:37</created>
+ <modified>2006-07-10 22:42:06</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The moment of inertia of a body about an axis equals the sum of the products of the masses
+of the particles of the body by the square of their distances from the axis.
+Thus if \emph{dm} denotes an element of mass of the body and \emph{r} its distance
+from the axis then the following is the analytical statement of the definition of
+moment of inertia:
+
+\begin{equation}
+I = \int_0^m r^2 dm
+\end{equation}
+
+The integration which is involved in equation (1)is often simplified by a proper choice
+of the element of mass.  The choice depends upon the bounding surfaces of the body
+and the position of the axis; therefore there is no general rule by which the most
+convenient element of mass may be selected.  There is one important point, however,
+which the student should always keep in mind in selecting the element of mass,
+namely, \emph{the distances of the various parts of the element of mass from the
+axis must not differ by more than infinitesimal lengths}.
+
+{\bf Theorem I.}
+
+\emph{The moment of inertia of a lamina about an axis which is perpendicular to its plane
+equals the sum of the moments of inertia with respect to two rectangular axes which
+lie in the plane of the lamina with their origin on the first axis.}
+
+Suppose the lamina to be in the xy-plane, then the theorem states that the moment of inertia
+about the z-axis equals the sum of the moments of inertia about the other two axes, that is,
+
+\begin{equation}
+I_x = I_x + I_y
+\end{equation}
+
+The following analysis explains itself.
+
+$$ I_z = \int_0^m r^2 dm $$
+$$ I_z = \int_0^m \left ( x^2 + y^2 \right) dm $$
+$$ I_z = \int_0^m x^2 dm + \int_0^m y^2 dm $$
+$$ I_z = I_x + I_y $$
+
+It is evident from this theorem that when the lamina is rotated about the z-axis $I_x$ and
+$I_y$ change, in general, but their sum remains constant.
+
+{\bf Theorem II.}
+
+\emph{The moment of inertia of a body about any axis equals its moment of inertia about
+a parallel axis through the center of mass plus the product of the mass of the body by
+the square of the distance between the two axes}.
+
+Let the axis be perpendicular to the plane of the paper and pass through the point $O$, Fig. 86.
+
+\begin{figure}
+\includegraphics[scale=.6]{Fig86.eps}
+\vspace{20 pt}
+\end{figure}
+
+Further let $dm$ be any element of mass, $r$ its distance from the axis through $O$, and
+$r_c$ its distance from a parallel axis through the center of mass, $C$.  We have
+
+$$I = \int_0^m r^2 dm $$
+$$I = \int_0^m \left ( r_c^2 + a^2 - 2 a r_c \cos \theta \right ) dm $$
+$$I = \int_0^m r_c^2 dm + \int_0^m a^2 dm - 2a \int_0^m r_c \cos \theta dm $$
+$$I = I_c + ma^2 - 2a \int_0^m x dm $$
+
+But by the definition of the center of mass $\int_0^m x dm = m \bar{x}$ and in the present
+case the center of mass is at the origin therefore $\bar{x}$ and consequently the last
+integral vanishes.  Thus we get
+
+\begin{equation}
+I = I_c + ma^2
+\end{equation}
+
+\subsection{References}
+
+This article is a derivative of the public domain book, "Analytical Mechanics" by Haroutune M. Dadourian, 1913. Made available by the \PMlinkexternal{internet archive}{http://www.archive.org/index.php}</content>
+</record>

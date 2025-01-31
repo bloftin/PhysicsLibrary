@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="206">
+ <title>cross procuct</title>
+ <name>CrossProcuct</name>
+ <created>2006-07-22 11:35:54</created>
+ <modified>2006-07-22 11:35:54</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="cross procuct" alias="vector product"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The cross product or vector product is defined by
+
+$$ \mathbf{A} \times \mathbf{B} = \left ( A_y B_z - A_z B_y \right ) \mathbf{\hat{i}} + \left ( A_z B_x - A_x B_z \right ) \mathbf{\hat{j}} + \left ( A_x B_y - A_y B_x \right ) \mathbf{\hat{k}}$$
+
+Like the dot product, it is useful to look at its geometric definition and properties.  Instead of the cosine of the angle between the two vectors the cross product is defined geometrically as
+
+$$ \mathbf{A} \times \mathbf{B} = \left | \mathbf{A} \right | \left | \mathbf{B} \right | \sin \theta \mathbf{\hat{n}} $$
+
+It is important to see that the unit vector $\mathbf{\hat{n}}$ is normal to the plane defined by the two vectors with the direction determined by the right hand rule.
+
+It can be easier to remember the definition of the cross product with the determinant formulation
+
+$$ \mathbf{A} \times \mathbf{B} = \left| \begin{matrix}
+\mathbf{\hat{i}} &amp; \mathbf{\hat{j}} &amp; \mathbf{\hat{k}} \\
+A_x &amp; A_y &amp; A_z \\
+B_x &amp; B_y &amp; B_z
+\end{matrix}\right| = \left ( A_y B_z - A_z B_y \right ) \mathbf{\hat{i}} + \left ( A_z B_x - A_x B_z \right ) \mathbf{\hat{j}} + \left ( A_x B_y - A_y B_x \right ) \mathbf{\hat{k}}$$</content>
+</record>

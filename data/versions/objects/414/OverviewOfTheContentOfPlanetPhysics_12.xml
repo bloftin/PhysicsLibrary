@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="12" id="414">
+ <title>overview of the content of PlanetPhysics</title>
+ <name>OverviewOfTheContentOfPlanetPhysics</name>
+ <created>2009-01-18 02:45:21</created>
+ <modified>2009-01-18 03:25:20</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>content of PlanetPhysics</term>
+	<term>QFT</term>
+	<term>AQFT</term>
+	<term>QED</term>
+	<term>QCD</term>
+	<term>SR</term>
+	<term>GR</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\section{Overview of the Content of PlanetPhysics}
+
+\PMlinkescapetext{This topic provides a convenient entry point into the content of the PlanetPhysics.org website. It is organized around the main subject areas of physics. Each of the linked subtopics pointed provides an overview of the content of corresponding area of physics.}
+
+\begin{itemize}
+\item Foundations of Physics
+\item Crucial Experiments in Physics
+\item \PMlinkname{Topic on International/major Physics Research Projects}{TopicOnMajorPhysicsResearchProjects}
+\item \PMlinkname{Topic on Axioms}{TopicOnAxioms}
+\item Topic on the Principles and Laws of Physics
+\item \PMlinkname{Topic on Relativity Theories}{SpecialTheoryOfRelativity}
+\item Thermodynamics and Statistical Mechanics
+\item Topic on Applied Physics
+\item \PMlinkname{Algebraic Quantum Field Theory (AQFT)}{AlgebraicQuantumFieldTheory}
+\item \PMlinkname{Classical Mechanics}{SpaceAndTimeInClassicalMechanics}
+\item Solid State Physics
+\item Fluid dynamics and Rheology
+\item Topic on Optics
+\item Physical Instrumentation
+\item Optoelectronics and Lasers
+\item Molecular Spectroscopy
+\item Topic on Atomic Physics
+\item Topic on Nuclear Physics
+\item Theoretical Nuclear Fusion and Plasma Physics
+\item Topic on Nucleonics
+\item \PMlinkname{NuclearMedicine}{TopicOnNuclearMedicine}
+\item \PMlinkname{Quantum Electrodynamics (QED)}{QuantumElectrodynamics}
+\item \PMlinkname{Quantum Field Theory (QFT)}{TopicOnQuantumFieldTheory}
+\item \PMlinkname{Quantum Chromodynamics (QCD)}{QuantumChromodynamics}
+\item \PMlinkname{Elementary Particles}{TopicOnElementaryParticles}
+\item \PMlinkname{Quantum Geometry}{QuantumGeometry}
+\item \PMlinkname{Topological Quantum Field Theory}{TopicEntryOnTQFT}
+\item \PMlinkname{High Energy and Elementary Particle Physics}{HighEnergyPhysics}
+\item \PMlinkname{Dynamic Systems}{DynamicSystems}
+\item \PMlinkname{\Large Chaotic Systems}{TopicOnChaos}
+\item \PMlinkname{Complex Systems}{Complex Systems}
+\item \PMlinkname{Computational Physics}{Computational Physics}
+\item \PMlinkname{Mathematical and Theoretical Physics}{MathematicalAndTheoreticalPhysics}
+\item \PMlinkname{PhysicalMathematics}{TopicOnPhysicalMathematics}
+\item \PMlinkname{Astrophysics and Cosmology}{Astrophysics and Cosmology}
+\item \PMlinkname{Biophysics and Mathematical Biophysics}{BiophysicsAnd MathematicalBiology}
+\item \PMlinkname{Applied Mathematics}{TopicEntryOnAppliedMathematics}
+\item \PMlinkname{Miscellaneous}{TopicEntryOnMiscellaneousPhysics}
+\end{itemize}
+
+\begin{itemize}
+\item High school physics
+\item Major resources and Facilities for Physics Research and Development
+\item Bibliographies and Reference Lists
+\item Index of Fundamental Concepts in Physics
+\end{itemize}</content>
+</record>

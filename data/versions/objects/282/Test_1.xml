@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="282">
+ <title>test</title>
+ <name>Test</name>
+ <created>2008-07-11 03:58:41</created>
+ <modified>2008-07-11 03:58:41</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="00-XX"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{fancybox}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\noindent
+abbreviation According again all all all all Alltogether, also always and and and and and applied are arguments as at at at
+
+\noindent
+be belong
+
+\noindent
+$\vee\ulcorner \mathrm{o}\mathrm{n}\mathrm{d}\mathrm{i}\mathrm{t}\mathrm{i}\mathrm{o}\mathrm{n}$ consider
+
+\noindent
+Diederich
+
+\noindent
+a enough E. ex- expression
+
+\noindent
+Oollowing following, For for for for for for for for Fornaess functions get get get gives gives:
+
+\noindent
+Save have hold
+
+\noindent
+tf In in in in inequality instead is It it
+
+\noindent
+1.
+
+\noindent
+K.
+
+\noindent
+Leviform Leviform
+
+\noindent
+must
+
+\noindent
+$(\hat{\xi},\hat{\eta})\in \mathbb{C}^{2}\rho=-\delta(2-\delta).\hat{h}\in C^{2}(\overline{\Omega}_{r}), (\hat{\xi},\hat{\eta})\in \mathbb{C}^{2}, (\hat{\xi},\hat{\eta})\in \mathbb{C}^{2}.\ \displaystyle \mathcal{L}_{\sigma}(p;(\xi,\ \eta))\frac{\partial^{2}\rho}{\partial w\partial\overline{w}}=1;\zeta_{=}\exp(i\ln|z|^{2}) \delta=0, p=(z,\ 0)\in M_{r}.\ \displaystyle \frac{\partial^{2}\rho}{\partial zk}=2\frac{\delta}{|z|^{2}}$;
+
+\noindent
+$|p\sigma\sigma\sigma\sigma z\Omega_{r}\hat{\sigma}.\ \Omega_{r}$ : $\Omega_{r}.$) $0&lt;\delta&lt;1(\xi,\ \eta)0&lt;\delta&lt;1.1\leqq|z|\leqq r1\leqq|z|\leqq r1\leqq|z|\leqq r$
+
+\noindent
+$\mathrm{z}\in \mathbb{C}, \displaystyle \delta\in \mathrm{R}\frac{\partial\rho}{\partial z}=0;(\hat{\xi},\ \delta\hat{\eta})(\xi,\ \eta)\in \mathbb{C}^{2}$
+
+\noindent
+$p=(z,\ -\delta\exp(i\ln|z|^{2}))].\ \displaystyle \frac{\partial\rho}{\partial w}=(1-\delta)\exp(i\ln|z|^{2});\frac{\partial^{2}\rho}{\partial z\partial\overline{w}}=\frac{i}{Z}\exp(i\ln|z|^{2})$;
+
+\noindent
+$[)=(z,\ w)=(z,\ -\delta\exp(i\ln|z|^{2}))$
+
+\noindent
+$+\displaystyle \tau\delta\hat{h}+\tau(1-\tau)\frac{(1-\delta)^{2}}{2-\delta}\hat{h})|\eta|^{2}\}.\hat{\sigma}(z,\ w)=-\tilde{h}(|z|^{2},\ w)(-\rho_{r}(z,\ w))^{1/\iota}$
+
+\noindent
+$+(2-\displaystyle \delta)(-\delta^{2}(2-\delta)\frac{\partial^{2}\hat{h}}{\partial w\partial\overline{w}}+2\tau\delta(1-\delta){\rm Re}(\zeta\frac{\partial\hat{h}}{\partial w})$
+
+\noindent
+$+2\displaystyle \delta(2-\delta){\rm Re}[(-\delta(2-\delta)\frac{\partial^{2}\hat{h}}{\partial z\partial\overline{w}}+\tau(1-\delta)\frac{\partial\hat{h}}{\partial z}+\tau\frac{i}{Z}\zeta\hat{h})\xi\not\in$
+
+\noindent
+$g_{\sigma}(p;(\displaystyle \xi,\ \eta))=\delta^{\tau-2}(2-\delta)^{\tau-2}\{\delta^{2}(2-\delta)(-(2-\delta)\frac{\partial h}{\partial z\partial\overline{z}}+2\tau\hat{h}\frac{1}{|z|^{2}})|\xi|^{2}$
+
+\noindent
+$+(-\displaystyle \delta^{2}(2-\delta)\frac{\partial^{2}\hat{h}}{\partial w\partial\overline{w}}+2\tau\delta(1-\delta){\rm Re}(\zeta\frac{\partial\hat{h}}{\partial w})+\tau\delta\hat{h}+\tau(1-\tau)\frac{(1-\delta)^{2}}{2-\delta}\hat{h})|\hat{\eta}|^{2}\geqq 0$
+
+\noindent
+$(^{-2\frac{\partial^{2}\hat{h}}{\partial z\partial\overline{z}}+2\frac{\tau}{|z|^{2}}\hat{h})|\xi|^{2}+2{\rm Re}}([\displaystyle \tau\zeta(\frac{\partial\hat{h}}{\partial z}+\frac{i}{Z}\hat{h})\hat{\xi}\hat{\eta}]+\frac{1}{2}\tau(1-\tau)\hat{h}|\hat{\eta}|^{2}\geqq 0$
+
+\noindent
+$(^{-(2-\delta)\frac{\partial^{2}\hat{h}}{\partial z\mathit{5}\overline{z}}+2\frac{\tau}{|z|^{2}}\hat{h})|\xi|^{2}+2{\rm Re}}([(-\displaystyle \delta(2-\delta)\frac{\partial^{2}\hat{h}}{\partial w\partial\overline{w}}+\tau(1-\delta)\frac{\partial\hat{h}}{\partial z}+\tau\frac{i}{Z}\zeta\hat{h})\hat{\xi}\hat{\eta}$
+
+\noindent
+[lecessary
+
+\noindent
+obviously, of of of on on out
+
+\noindent
+286 [ (15) (17) (17) (18 (19) (They, )
+
+\noindent
+plurisubharmonic points points points: pression proof
+
+\noindent
+$\mathrm{r}$
+
+\noindent
+finc suppose
+
+\noindent
+that that the the the the the the the the the the the the then these This This this this to to to to to turn
+
+\noindent
+vecto vector
+
+\noindent
+we we we we we we we will will with with with with with write written</content>
+</record>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="896">
+ <title>electron microscope</title>
+ <name>ElectronMicroscope</name>
+ <created>2010-11-30 18:05:47</created>
+ <modified>2010-11-30 18:06:48</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>electron microscopy</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="electron microscope" alias="transmission electron microscope"/>
+	<synonym concept="electron microscope" alias="TEM"/>
+ </synonyms>
+ <keywords>
+	<term>electron</term>
+	<term>microscope</term>
+	<term>microscopy</term>
+ </keywords>
+ <preamble></preamble>
+ <content>An \textbf{electron microscope (EM)} is a fairly large  and expensive scientific instrument that employs high voltage to accelerate an electron beam, and also utilizes magnetic fields in order to form a tightly focused beam of accelerated electrons that are then illuminating an area of a specimen placed at the electron beam focus in order to create a million times magnified image of the selected specimen area. The resolution of the electron microscope is therefore determined by both the associated wavelength of the accelerated electrons and by the properties of the specimen, such as its thickness and electron density. The electron microscope uses electrostatic and electromagnetic ``lenses" to control the electron beam and focus it to form an image. The electron beam is first diffracted by the specimen, and then, the electron microscope ``lenses" re-focus the beam into a Fourier-transformed image of the diffraction pattern for the selected area of investigation. The real image  thus formed is `magnified' image by a factor of several million, and can be then recorded on a special photographic plate, or viewed on a detecting screen.</content>
+</record>

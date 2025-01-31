@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="41">
+ <title>TheLorentz transformation</title>
+ <name>LorentzTransformation</name>
+ <created>2005-07-20 15:52:10</created>
+ <modified>2006-03-11 23:28:02</modified>
+ <type>Topic</type>
+<parent id="121">Relativity: The Special and General Theory</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.30.+p"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>This is in an intermediate step in converting text from the public domain of Einstein work on relativity.
+
+
+The apparent incompatibility of the law of propagation of light with the principle of relativity has been derived by means of a
+consideration which borrowed two unjustifiable hypotheses from
+classical mechanics; these are as follows:
+
+\begin{enumerate}
+\item The time-interval (time) between two events is independent of the
+condition of motion of the body of reference.
+\item The space-interval (distance) between two points of a rigid body
+is independent of the condition of motion of the body of reference.
+\end{enumerate}
+
+If we drop these hypotheses, then the the theorem of the addition of velocities becomes invalid. The possibility presents itself that
+the law of the propagation of light in vacuo may be compatible with
+the principle of relativity. Can we conceive of a relation between
+place and time of the individual events relative to both
+reference-bodies, such that every ray of light possesses the velocity
+of transmission $c$ relative to the embankment and relative to the train?
+This question leads to a quite definite positive answer, and to a
+perfectly definite transformation law for the space-time magnitudes of
+an event when changing over from one body of reference to another.
+
+% Figure 2
+
+%          z'
+%          | ---&gt; 
+%  z       |    y'  
+%  |       |   / ---&gt;
+%  |    y  |  /  v
+%  |   /   | / ---&gt;
+%  |  /    |/______________x'
+%  | /     K'
+%  |/______________x
+%  K
+
+\begin{figure}[hbtp]
+
+\centering
+\caption{}
+\label{fig:2}
+
+\begin{picture}(200,220)(0,0)
+\thicklines
+\put(15,10){$K$}
+\put(20,20){\line(1,0){125}}
+\put(149,17){$x$}
+\put(20,20){\line(0,1){125}}
+\put(17,150){$z$}
+\put(20,20){\line(1,2){40}}
+\put(55,105){$y$}
+
+\put(85,25){$K'$}
+\put(90,35){\line(1,0){125}}
+\put(219,32){$x'$}
+\put(90,35){\line(0,1){125}}
+\put(87,165){$z'$}
+\put(90,35){\line(1,2){40}}
+\put(125,120){$y'$}
+
+\thinlines
+\put(95,155){\vector(1,0){35}}
+\put(135,110){\vector(1,0){35}}
+\put(110,40){\vector(1,0){35}}
+\end{picture}
+
+\end{figure}
+
+Before we deal with this, we shall introduce the following incidental
+consideration. Up to the present we have only considered events taking
+place along the embankment, which had mathematically to assume the
+function of a straight line. In the manner indicated in Section 2
+we can imagine this reference-body supplemented laterally and in a
+vertical direction by means of a framework of rods, so that an event
+which takes place anywhere can be localised with reference to this
+framework. Similarly, we can imagine the train travelling with
+the velocity $v$ to be continued across the whole of space, so that
+every event, no matter how far off it may be, could also be localised
+with respect to the second framework. Without committing any
+fundamental error, we can disregard the fact that in reality these
+frameworks would continually interfere with each other, owing to the
+impenetrability of solid bodies. In every such framework we imagine
+three surfaces perpendicular to each other marked out, and designated
+as ``co-ordinate planes" (``co-ordinate system"). A co-ordinate
+system $K$ then corresponds to the embankment, and a co-ordinate system
+$K'$ to the train. An event, wherever it may have taken place, would be
+fixed in space with respect to $K$ by the three perpendiculars $x, y, z$
+on the co-ordinate planes, and with regard to time by a time value $t$.
+Relative to $K'$, the same event would be fixed in respect of space and
+time by corresponding values $x', y', z', t'$, which of course are not
+identical with $x, y, z, t$. It has already been set forth in detail how
+these magnitudes are to be regarded as results of physical
+measurements.
+
+Obviously our problem can be exactly formulated in the following
+manner. What are the values $x', y', z', t'$, of an event with respect
+to $K'$, when the magnitudes $x, y, z, t$, of the same event with respect
+to $K$ are given? The relations must be so chosen that the law of the
+transmission of light in vacuo is satisfied for one and the same ray
+of light (and of course for every ray) with respect to $K$ and $K'$. For
+the relative orientation in space of the co-ordinate systems indicated
+in the diagram (Fig \ref{fig:2}), this problem is solved by means of the
+equations:
+
+\begin{eqnarray*} 
+x' &amp;=&amp; \frac{x-vt}{\sqrt{I-\frac{v^2}{c^2}}} \\
+y' &amp;=&amp; y \\
+z' &amp;=&amp; z \\
+t' &amp;=&amp; \frac{t-\frac{v}{c^2}x}{\sqrt{I-\frac{v^2}{c^2}}} \\
+\end{eqnarray*}
+
+\noindent This system of equations is known as the ``Lorentz transformation."\footnotemark
+
+If in place of the law of transmission of light we had taken as our
+basis the tacit assumptions of the older mechanics as to the absolute
+character of times and lengths, then instead of the above we should
+have obtained the following equations:
+
+\begin{eqnarray*} 
+x' &amp;=&amp; x - vt \\
+y' &amp;=&amp; y \\
+z' &amp;=&amp; z \\
+t' &amp;=&amp; t \\
+\end{eqnarray*}
+
+\noindent This system of equations is often termed the ``Galilei
+transformation." The Galilei transformation can be obtained from the
+Lorentz transformation by substituting an infinitely large value for
+the velocity of light $c$ in the latter transformation.
+
+Aided by the following illustration, we can readily see that, in
+accordance with the Lorentz transformation, the law of the
+transmission of light in vacuo is satisfied both for the
+reference-body $K$ and for the reference-body $K'$. A light-signal is sent
+along the positive $x$-axis, and this light-stimulus advances in
+accordance with the equation
+
+                               $$x = ct,$$
+
+\noindent {\it i.e.} with the velocity $c$. According to the equations of the Lorentz
+transformation, this simple relation between $x$ and $t$ involves a
+relation between $x'$ and $t'$. In point of fact, if we substitute for $x$
+the value $ct$ in the first and fourth equations of the Lorentz
+transformation, we obtain:
+
+\begin{eqnarray*} 
+x' &amp;=&amp; \frac{(c-v)t}{\sqrt{I-\frac{v^2}{c^2}}} \\
+t' &amp;=&amp; \frac{(I-\frac{v}{c})t}{\sqrt{I-\frac{v^2}{c^2}}}
+\end{eqnarray*}
+
+\noindent from which, by division, the expression
+
+                               $$x' = ct'$$
+
+\noindent immediately follows. If referred to the system $K'$, the propagation of
+light takes place according to this equation. We thus see that the
+velocity of transmission relative to the reference-body $K'$ is also
+equal to $c$. The same result is obtained for rays of light advancing in
+any other direction whatsoever. Of cause this is not surprising, since
+the equations of the Lorentz transformation were derived conformably
+to this point of view.
+
+
+%  Notes
+
+\footnotetext{A simple derivation of the Lorentz transformation is given in
+Appendix I.}</content>
+</record>

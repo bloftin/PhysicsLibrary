@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="705">
+ <title>generalized toposes with many-valued logic subobject classifiers</title>
+ <name>GeneralizedToposesWithManyValuedLogicSubobjectClassifiers</name>
+ <created>2009-05-01 00:22:17</created>
+ <modified>2010-12-22 14:37:12</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>generalized toposes</concept>
+	<concept>many-valued logic subobject classifiers</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="generalized toposes with many-valued logic subobject classifiers" alias="quantum logic candidates"/>
+ </synonyms>
+ <keywords>
+	<term>generalized toposes</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Introduction}
+
+ \emph{Generalized topoi (toposes) with many-valued algebraic logic subobject classifiers}
+are specified by the associated categories of algebraic logics previously defined as $LM_n$, that is, {\em non-commutative} lattices with $n$ logical values, where $n$ can also be chosen to be any cardinal, including infinity, etc.
+
+\subsection{Algebraic category of $LM_n$ logic algebras}
+ 
+ \L{}ukasiewicz \emph{logic algebras} were constructed by Grigore Moisil in 1941 to define `nuances' in logics, or many-valued logics, as well as 3-state control logic (electronic) circuits. \L{}ukasiewicz-Moisil ($LM_n$) logic algebras were defined axiomatically in 1970, in ref. \cite{GG-CV70}, as n-valued logic algebra representations and extensions of the \L ukasiewcz (3-valued) logics; then, the universal properties of categories of $LM_n$ -logic algebras were also investigated and reported in a series of recent publications (\cite{GG2k6} and references cited therein). Recently, several modifications of {\em $LM_n$-logic algebras} are under consideration as valid candidates for representations of {\em quantum logics}, as well as for modeling non-linear biodynamics in genetic `nets' or networks (\cite{ICB77}), and in single-cell organisms, or in tumor growth. For a recent review on $n$-valued logic algebras, and major published results, the reader is referred to \cite{GG2k6}.
+
+\subsection{Generalized logic spaces defined by $LM_n$ algebraic logics}
+
+\begin{itemize}
+\item Topological semigroup spaces of topological automata
+\item Topological groupoid spaces of reset automata modules 
+\end{itemize}
+
+\subsection{Axioms defining generalized topoi}
+\begin{itemize}
+\item Consider a subobject logic classifier $O$ defined as an LM-algebraic logic
+$L_n$ in the category $L$ of LM-logic algebras, together with logic-valued functors $Fo: L \to V$, where $V$ is the class of N logic values, with $N$ needing not be finite. 
+\item A triple $(O,L,Fo)$ defines a generalized topos, $\tau$, if the above axioms defining $O$ are satisfied, and if the functor $Fo$ is an univalued functor in the sense of Mitchell.
+\end{itemize}
+
+{\bf More to come...}
+
+
+\subsection{Applications of generalized topoi:}
+\begin{itemize}
+\item Modern quantum logic (MQL)
+\item Generalized quantum automata 
+\item Mathematical models of N-state genetic networks \cite{BBGG1}
+\item Mathematical models of parallel computing networks
+\end{itemize}
+
+
+\subsection{Applications of generalized topoi:}
+\begin{itemize}
+\item XY
+\item YZ
+\end{itemize}
+
+\subsection{Generalized logic `spaces' defined by LMn.}
+
+\begin{itemize}
+\item XY
+\item YZ
+\end{itemize}
+
+\begin{thebibliography}{9}
+
+\bibitem{GG-CV70}
+Georgescu, G. and C. Vraciu. 1970, On the characterization of centered \L{}ukasiewicz
+algebras., {\em J. Algebra}, \textbf{16}: 486-495.
+
+\bibitem{GG2k6}
+Georgescu, G. 2006, N-valued Logics and \L ukasiewicz-Moisil Algebras, \emph{Axiomathes}, \textbf{16} (1-2): 123-136.
+
+\bibitem{ICB77}
+Baianu, I.C.: 1977, A Logical Model of Genetic Activities in \L ukasiewicz Algebras: The Non-linear Theory. \emph{Bulletin of Mathematical Biology}, \textbf{39}: 249-258.
+
+\bibitem{ICB2004a}
+Baianu, I.C.: 2004a. \L{}ukasiewicz-Topos Models of Neural Networks, Cell Genome and Interactome Nonlinear Dynamic Models (2004). Eprint. Cogprints--Sussex Univ.
+
+\bibitem{ICB04b}
+Baianu, I.C.: 2004b \L{}ukasiewicz-Topos Models of Neural Networks, Cell Genome and Interactome Nonlinear Dynamics). CERN Preprint EXT-2004-059. \textit{Health Physics and Radiation Effects} (June 29, 2004).
+
+\bibitem{Bgg2}
+Baianu, I. C., Glazebrook, J. F. and G. Georgescu: 2004, Categories of Quantum Automata and N-Valued \L ukasiewicz Algebras in Relation to Dynamic Bionetworks, \textbf{(M,R)}--Systems and Their Higher Dimensional Algebra,
+\PMlinkexternal{Abstract and Preprint of Report in PDF}{http://www.ag.uiuc.edu/fs401/QAuto.pdf} .
+
+\bibitem{BBGG1}
+Baianu I. C., Brown R., Georgescu G. and J. F. Glazebrook: 2006b, Complex Nonlinear Biodynamics in Categories, Higher Dimensional Algebra and \L{}ukasiewicz--Moisil Topos: Transformations of Neuronal, Genetic and Neoplastic Networks., \emph{Axiomathes}, \textbf{16} Nos. 1--2: 65--122.
+
+\end{thebibliography}</content>
+</record>

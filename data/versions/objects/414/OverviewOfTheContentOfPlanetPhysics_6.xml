@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="414">
+ <title>overview of the content of PlanetPhysics</title>
+ <name>OverviewOfTheContentOfPlanetPhysics</name>
+ <created>2009-01-18 02:45:21</created>
+ <modified>2009-01-18 03:01:58</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>content of PlanetPhysics</term>
+	<term>QFT</term>
+	<term>AQFT</term>
+	<term>QED</term>
+	<term>QCD</term>
+	<term>SR</term>
+	<term>GR</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Overview of the Content of PlanetPhysics}
+
+\PMlinkescapetext{This topic provides a convenient entry point into the content of the PlanetPhysics.org website. It is organized around the main subject areas of physics. Each of the linked subtopics pointed provides an overview of the content of corresponding area of physics.}
+
+\PMlinkname{\Large Foundations of Physics}{FoundationsOfPhysics}
+
+\PMlinkname{Crucial Experiments in Physics}
+
+\textbf{Experimental Confirmation of Relativity}
+
+\textbf{The Fizeau Experiment}
+
+\PMlinkname{Topic on Axioms}{TopicOnAxioms}
+
+\PMlinkname{Topic on the Principles and Laws of Physics}{PrinciplesAndLawsOfPhysics}
+
+\PMlinkname{Topic on Relativity Theories}{SpecialTheoryOfRelativity}
+
+\PMlinkname{Thermodynamics and Statistical Mechanics}{TopicOnThermodynamicsAndStatistical Mechanics}
+
+\PMlinkname{Topic on Applied Physics}{TopicEntryOnAppliedPhysics}
+
+\PMlinkname{Algebraic Quantum Field Theory (AQFT)}{AlgebraicQuantumFieldTheory}
+
+\PMlinkname{Classical Mechanics}{SpaceAndTimeInClassicalMechanics}
+
+\PMlinkname{Solid State Physics}{SolidStatePhysics}
+
+\PMlinkname{Fluid dynamics and Rheology}{TopicOnFluidDynamics}
+
+\PMlinkname{Optics}{TopicOnOptics}
+
+\PMlinkname{Physical Instrumentation}{TopicOnPhysicalInstrumentation}
+
+\PMlinkname{Optoelectronics and Lasers}{TopicOnOptoelectronicsAndLasers}
+
+\PMlinkname{Molecular Spectroscopy}{TopicOnMolecularSpectroscopy}
+
+\PMlinkname{Atomic Physics}{TopicOnAtomicPhysics}
+
+\PMlinkname{Nuclear Physics}{TopicOnNuclearPhysics}
+
+\PMlinkname{Theoretical Nuclear Fusion and Plasma Physics}{TheoreticalNuclear FusionAndPlasmaPhysics}
+
+\PMlinkname{Nucleonics}{TopicOnNucleonics}
+
+\PMlinkname{NuclearMedicine}{TopicOnNuclearMedicine}
+
+\PMlinkname{Quantum Electrodynamics (QED)}{QuantumElectrodynamics}
+
+\PMlinkname{Quantum Field Theory (QFT)}{TopicOnQuantumFieldTheory}
+
+\PMlinkname{Quantum Chromodynamics (QCD)}{QuantumChromodynamics}
+
+\PMlinkname{Elementary Particles}{TopicOnElementaryParticles}
+
+\PMlinkname{Quantum Geometry}{QuantumGeometry}
+
+\PMlinkname{Topological Quantum Field Theory}{TopicEntryOnTQFT}
+
+\PMlinkname{High Energy and Elementary Particle Physics}{HighEnergyPhysics}
+
+\PMlinkname{Quantum Chromodynamics}{QuantumChromodynamics}
+
+\PMlinkname{Dynamic Systems}{DynamicSystems}
+
+\PMlinkname{\Large Chaotic Systems}{TopicOnChaos}
+
+\PMlinkname{Complex Systems}{Complex Systems}
+
+\PMlinkname{Computational Physics}{Computational Physics}
+
+\PMlinkname{Mathematical and Theoretical Physics}{MathematicalAndTheoreticalPhysics}
+
+\PMlinkname{PhysicalMathematics}{TopicOnPhysicalMathematics}
+
+\PMlinkname{Astrophysics and Cosmology}{Astrophysics and Cosmology}
+
+\PMlinkname{Biophysics and Mathematical Biophysics}{BiophysicsAnd MathematicalBiology}
+
+\PMlinkname{Applied Mathematics}{TopicEntryOnAppliedMathematics}
+
+\PMlinkname{Miscellaneous}{TopicEntryOnMiscellaneousPhysics}
+\begin{itemize}
+\item High school physics
+\item Major resources and Facilities for Physics Research and Development
+\item Bibliographies and Reference Lists
+\item Index of Fundamental Concepts in Physics
+\end{itemize}</content>
+</record>

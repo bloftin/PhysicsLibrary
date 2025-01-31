@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="114">
+ <title>Analytical Theory of heat chapter 1</title>
+ <name>AnalyticalTheoryOfHeatChapter1</name>
+ <created>2006-02-03 22:38:31</created>
+ <modified>2006-02-03 22:38:31</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="AnalyticalTheoryOfHeat"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Statement of the Object of the Work.}
+
+1.  The effects of heat are subject to constant laws which cannot be discovered without the aid of mathematical analysis.  The object of the theory which we are about to explain is to demonstrate these laws; it reduces all physical researches on the propagation of heat, to problems of the integral calculus whose elements are given by experiment.  No subject has more extensive relations with the progress of industry and the natural sciences;  for the action of heat is always present, it penetrates all bodies and spaces, it influences the processes of the arts, and occurs in all the phenomena of the universe.
+
+When heat is unequally distributed among the different parts of a solid mass, it tends to attain equilibrium, and passes slowly from the parts which are more heated to those which are less; and at the same time it is dissipated at the surface, and lost in the medium or in the void.  The tendency to uniform distribution and the spontaneous emission which acts at the surface of bodies, change continually the temperature at their different points.  The problem of the propagation of heat consists in determining what is the temperature at each point of a body at a given instant, supposing that the inital temperatures are known.  The following examples will more clearly make known the nature of these problems.</content>
+</record>

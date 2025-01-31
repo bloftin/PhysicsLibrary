@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="891">
+ <title>monomorphism</title>
+ <name>Monomorphism</name>
+ <created>2010-11-01 02:37:19</created>
+ <modified>2010-11-01 02:37:19</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <synonyms>
+	<synonym concept="monomorphism" alias="injection"/>
+	<synonym concept="monomorphism" alias="injective map"/>
+ </synonyms>
+ <keywords>
+	<term>monomorphism</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\textbf{Definition 0.1}
+
+A morphism $\Map fAB$ is a \emph{monomorphism}, if for any two morphisms $\Map{g,h}CA$ the equality $f\circ g=f\circ h$ implies $h=g$.
+\end{definition}</content>
+</record>

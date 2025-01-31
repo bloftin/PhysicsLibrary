@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="636">
+ <title>Representations of canonical anti-commutation relations (CAR)</title>
+ <name>RepresentationsOfCanonicalAntiCommutationRelationsCAR</name>
+ <created>2009-04-07 11:51:05</created>
+ <modified>2009-04-07 11:51:05</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Representations of canonical anti-commutation relations (CAR)" alias="CAR"/>
+ </synonyms>
+ <related>
+	<object name="CanonicalCommutationAndAntiCommutationRepresentations"/>
+ </related>
+ <keywords>
+	<term>CAR</term>
+	<term>represntations</term>
+ </keywords>
+ <preamble></preamble>
+ <content>Thsi is a contributed topic in progress on representations of anti-commutation relations (CAR). (See also previous entries on the representations of 
+\PMlinkname{canonical commutation and anti-commutation relations}{CanonicalCommutationAndAntiCommutationRepresentations} CCR).
+
+\subsection{Representations of Canonical Anti-commutation Relations (CAR)}
+
+\subsubsection{CAR Representations in a Non-Abelian Gauge Theory}
+
+One can also provide a representation of canonical anti-commutation relations in a \PMlinkexternal{non-Abelian gauge theory}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=124} defined on a non-simply connected region in the two-dimensional Euclidean space. Such representations were shown to provide also a mathematical expression for the non-Abelian, Aharonov-Bohm effect
+(\cite{GMS81}). Supersymmetry theories admit both CAR and CCR representations.
+
+\begin{thebibliography}{9}
+
+\bibitem{AA93a}
+Arai A., Characterization of anticommutativity of self-adjoint operators in connection with Clifford algebra and applications,
+{\em Integr. Equat. Oper. Th.}, 1993, v.17, 451--463.
+
+\bibitem{AA93b}
+Arai A., Commutation properties of anticommuting self-adjoint operators, spin representation and Dirac operators, {\em Integr. Equat. Oper. Th.}, 1993, v.16, 38--63.
+
+\bibitem{AA94}
+Arai A., Analysis on anticommuting self--adjoint operators, {\em Adv. Stud. Pure Math.}, 1994, v.23, 1--15.
+
+\bibitem{AA95}
+Arai A., Scaling limit of anticommuting self-adjoint operators and applications to Dirac operators, Integr. Equat. Oper. Th., 1995, v.21, 139--173.
+
+\bibitem{AA87}
+Arai A., Some remarks on scattering theory in supersymmetric quantum mechanics, {\em J. Math. Phys.}, 1987, V.28, 472--476.
+
+\bibitem{GMS81}
+Goldin G.A., Menikoff R. and Sharp D.H., Representations of a local current algebra in nonsimply connected space and the Aharonov--Bohm effect, J. Math. Phys., 1981, v.22, 1664--1668.
+
+\bibitem{JVN31}
+von Neumann J., Die Eindeutigkeit der Schr\"odingerschen Operatoren,
+{\em Math. Ann.}, 1931, v.104, 570--578.
+
+\bibitem{PS90}
+Pedersen S., Anticommuting self--adjoint operators, J. Funct. Anal., 1990, V.89, 428--443.
+
+\bibitem{PCR67}
+Putnam C. R., Commutation Properties of Hilbert Space Operators, Springer, Berlin, 1967.
+
+\bibitem{RM-SB72}
+Reed M. and Simon B., {\em Methods of Modern Mathematical Physics}., vol.I, Academic Press, New York, 1972.
+
+
+\end{thebibliography}</content>
+</record>

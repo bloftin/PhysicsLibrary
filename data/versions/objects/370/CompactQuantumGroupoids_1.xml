@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="370">
+ <title>Compact Quantum Groupoids</title>
+ <name>CompactQuantumGroupoids</name>
+ <created>2009-01-10 20:04:16</created>
+ <modified>2009-01-10 20:04:16</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>groupoid C*-algebra</concept>
+ </defines>
+ <keywords>
+	<term>groupoid C*-algebra</term>
+	<term>compact quantum groupoids (CQGDs)</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+\newcommand{\&lt;}{{\langle}}
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+\def\C{C^{\ast}}
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\section{Quantum Compact Groupoids}
+
+Compact quantum groupoids were introduced in Landsman (1998) as a
+simultaneous generalization of a compact groupoid and a quantum group. Since this construction is relevant to the definition of locally compact quantum groupoids and their representations investigated here, its exposition is required before we can step up to the next level of generality. Firstly, let $\mathfrak A$ and $\mathfrak B$ denote C*--algebras equipped with a *--homomorphism $\eta_s : \mathfrak B \lra \mathfrak A$, and a *--antihomomorphism $\eta_t : \mathfrak B \lra \mathfrak A$ whose images in $\mathfrak A$
+commute. A non--commutative Haar measure is defined as a completely
+positive map $P: \mathfrak A \lra \mathfrak B$ which satisfies
+$P(A \eta_s (B)) = P(A) B$~. Alternatively, the composition $\E = \eta_s \circ P : \mathfrak A \lra \eta_s (B) \subset \mathfrak A$ is a faithful conditional expectation.
+
+Next consider $\mathsf{G}$ to be a (topological) groupoid as defined in the Appendix. We denote by $C_c(\mathsf{G})$ the space of smooth complex--valued functions with compact support on $\mathsf{G}$~. In particular, for all $f,g \in C_c(\mathsf{G})$, the
+function defined via convolution
+
+\begin{equation} (f ~*~g)(\gamma)
+= \int_{\gamma_1 \circ \gamma_2 = \gamma} f(\gamma_1) g
+(\gamma_2)~,
+\end{equation}
+
+is again an element of $C_c(\mathsf{G})$, where the convolution product
+defines the composition law on $C_c(\mathsf{G})$~. We can turn
+$C_c(\mathsf{G})$ into a *--algebra once we have defined the involution
+$*$, and this is done by specifying $f^*(\gamma) = \overline{f(\gamma^{-1})}$~.
+
+We recall that following Landsman (1998) a \emph{representation} of a groupoid $\grp$, consists of a
+family (or field) of Hilbert spaces $\{\mathcal H_x \}_{x \in X}$
+indexed by $X = \ob~ \grp$, along with a collection of maps $\{
+U(\gamma)\}_{\gamma \in \grp}$, satisfying:
+
+\begin{itemize}
+\item[1.]
+$U(\gamma) : \mathcal H_{s(\gamma)} \lra \mathcal H_{r(\gamma)}$,
+is unitary.
+\item[2.]
+$U(\gamma_1 \gamma_2) = U(\gamma_1) U( \gamma_2)$, whenever
+$(\gamma_1, \gamma_2) \in \grp^{(2)}$~ (the set of arrows).
+\item[3.]
+$U(\gamma^{-1}) = U(\gamma)^*$, for all $\gamma \in \grp$~.
+\end{itemize}
+
+Suppose now $\mathsf{G}_{lc}$ is a Lie groupoid. Then the isotropy group
+$\mathsf{G}_x$ is a Lie group, and for a (left or right) Haar
+measure $\mu_x$ on $\mathsf{G}_x$, we can consider the Hilbert
+spaces $\mathcal H_x = L^2(\mathsf{G}_x, \mu_x)$ as exemplifying the
+above sense of a representation. Putting aside some technical
+details which can be found in Connes (1994) and Landsman (2006), the
+overall idea is to define an operator of Hilbert spaces
+\begin{equation}\pi_x(f) : L^2(\mathsf{G_x},\mu_x) \lra L^2(\mathsf{G}_x, \mu_x)~,
+\end{equation}
+given by
+\begin{equation}
+(\pi_x(f) \xi)(\gamma) = \int f(\gamma_1) \xi (\gamma_1^{-1}
+\gamma)~ d\mu_x~,
+\end{equation}
+for all $\gamma \in \mathsf{G}_x$, and
+$\xi \in \mathcal H_x$~. For each $x \in X =\ob ~\mathsf{G}$, $\pi_x$
+defines an involutive representation $\pi_x : C_c(\mathsf{G}) \lra
+\mathcal H_x$~. We can define a norm on $C_c(\mathsf{G})$ given by
+\begin{equation}
+\Vert f \Vert = \sup_{x \in X} \Vert \pi_x(f) \Vert~,
+\end{equation}
+whereby the completion of $C_c(\mathsf{G})$ in this norm, defines
+\emph{the reduced C*--algebra $C^*_r(\mathsf{G})$ of $\mathsf{G}_{lc}$}. It is
+perhaps the most commonly used C*--algebra for Lie groupoids
+(groups) in noncommutative geometry.
+
+The next step requires a little familiarity with the theory of
+Hilbert modules (see e.g. Lance, 1995). We define a left
+$\mathfrak B$--action $\lambda$ and a right $\mathfrak B$--action
+$\rho$ on $\mathfrak A$ by $\lambda(B)A = A \eta_t (B)$ and
+$\rho(B)A = A \eta_s(B)$~. For the sake of localization of the
+intended Hilbert module, we implant a $\mathfrak B$--valued inner
+product on $\mathfrak A$ given by $\langle A, C \rangle_{\mathfrak
+B} = P(A^* C)$ ~. Let us recall that $P$ is defined as a \emph{completely positive map}.
+Since $P$ is faithful, we fit a new norm on $\mathfrak A$ given by $\Vert A \Vert^2 = \Vert P(A^* A)
+\Vert_{\mathfrak B}$~. The completion of $\mathfrak A$ in this new
+norm is denoted by $\mathfrak A^{-}$ leading then to a Hilbert
+module over $\mathfrak B$~.
+
+The tensor product $\mathfrak A^{-} \otimes_{\mathfrak B}\mathfrak
+A^{-}$ can be shown to be a Hilbert bimodule over $\mathfrak B$,
+which for $i=1,2$, leads to *--homorphisms $\vp^{i} : \mathfrak A
+\lra \mathcal L_{\mathfrak B}(\mathfrak A^{-} \otimes \mathfrak
+A^{-})$~. Next is to define the (unital) C*--algebra $\mathfrak A
+\otimes_{\mathfrak B} \mathfrak A$ as the C*--algebra contained in
+$ \mathcal L_{\mathfrak B}(\mathfrak A^{-} \otimes \mathfrak
+A^{-})$ that is generated by $\vp^1(\mathfrak A)$ and
+$\vp^2(\mathfrak A)$~. The last stage of the recipe for defining a
+compact quantum groupoid entails considering a certain coproduct
+operation $\Delta : \mathfrak A \lra \mathfrak A
+\otimes_{\mathfrak B} \mathfrak A$, together with a coinverse $Q :
+\mathfrak A \lra \mathfrak A$ that it is both an algebra and
+bimodule antihomomorphism. Finally, the following axiomatic
+relationships are observed~:
+\begin{equation}
+\begin{aligned}
+(\ID \otimes_{\mathfrak B} \Delta) \circ \Delta &amp;= (\Delta
+\otimes_{\mathfrak B} \ID) \circ \Delta \\ (\ID \otimes_{\mathfrak
+B} P) \circ \Delta &amp;= P \\ \tau \circ (\Delta \otimes_{\mathfrak
+B} Q) \circ \Delta &amp;= \Delta \circ Q
+\end{aligned}
+\end{equation}
+where $\tau$ is a flip map : $\tau(a \otimes b) = (b \otimes a)$~. \\
+
+There is a natural extension of the above definition of quantum compact groupoids
+to \textit{locally compact} quantum groupoids by taking $\mathsf{G}_{lc}$ to be a locally compact groupoid (instead of a compact groupoid), and then following the steps in the above construction with the topological groupoid $\mathsf{G}$ being replaced by $\mathsf{G}_{lc}$. Additional integrability and Haar measure system conditions need however be also satisfied as in the general case of locally compact groupoid \textit{representations} (for further details, see for example the monograph by Buneci (2003).
+Compact Quantum Groupoids</content>
+</record>

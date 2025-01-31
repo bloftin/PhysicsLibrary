@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="120">
+ <title>Off axis example of Biot Savart Law</title>
+ <name>OffAxisExampleOfBiotSavartLaw</name>
+ <created>2006-03-11 12:29:40</created>
+ <modified>2006-03-11 12:57:50</modified>
+ <type>Example</type>
+<parent id="103">Biot-Savart law</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Gz"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>$r = x \hat{x} + z \hat{z}$ \\
+$r' = r' \cos \phi' \hat{x} + r' \sin \phi' \hat{y}$ \\
+$dl = -r d\phi' \sin \phi' \hat{x} + r d\phi' \cos \phi' \hat{y} $\\
+$ r - r' = (x - r' \cos \phi') \hat{x} + r' \sin \phi' \hat{y} + z \hat{z}$ \\
+$ dl \times (r - r') = zr' d\phi \cos \phi' \hat{x} + zr'd\phi \sin \phi' \hat{y} + [- x r' d\phi cos\phi' + r'^2 d\phi] \hat{z} $ \\
+
+$ \left | r - r' \right | =  =$</content>
+</record>

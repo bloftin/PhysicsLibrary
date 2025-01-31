@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="171">
+ <title>Vectors and Their Composition</title>
+ <name>VectorsAndTheirComposition</name>
+ <created>2006-05-08 22:05:37</created>
+ <modified>2006-05-08 22:29:11</modified>
+ <type>Topic</type>
+<parent id="169">An Elementary Treatise on Quaternions</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="01.30.-y"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Chapter 1: Vectors and Their Composition}
+
+From \PMlinkname{An Elementary Treatise On Quaternions}{AnElementaryTreatiseOnQuaternions} by Peter Guthrie Tait.
+
+1. FOR at least two centuries the geometrical representation
+of the negative and imaginary algebraic quantities, $-1$ and $\sqrt{-1}$
+has been a favourite subject of speculation with mathematicians.
+The essence of almost all of the proposed processes consists in
+employing such expressions to indicate the DIRECTION, not the
+\emph{length}, of lines.
+
+2. Thus it was long ago seen that if positive quantities were
+measured off in one direction along a fixed line, a useful and lawful
+convention enabled us to express negative quantities of the same
+kind by simply laying them off on the same line in the opposite
+direction. This convention is an essential part of the Cartesian
+method, and is constantly employed in Analytical Geometry and
+Applied Mathematics.
+
+3. Wallis, towards the end of the seventeenth century, proposed
+to represent the impossible roots of a quadratic equation by going
+\emph{out of} the line on which, if real, they would have been laid off.
+This construction is equivalent to the consideration of $\sqrt{-1}$ as a
+directed unit-line perpendicular to that on which real quantities
+are measured.
+
+4. In the usual notation of Analytical Geometry of two
+dimensions, when rectangular axes are employed, this amounts
+to reckoning each unit of length along $Oy$ as $+\sqrt{-1}$, and on
+$Oy'$ as $-\sqrt{-1}$; while on $Ox$ each unit is $+1$, and on $Ox'$ it is $-1$.
+T. Q. I.
+
+If we look at these four lines in circular order, i.e. in the order of
+positive rotation (that of the northern hemisphere of the earth
+about its axis, or opposite to that of the hands of a watch), they
+give
+
+$$1, \sqrt{-1}, -1, -\sqrt{-1}.$$
+
+In this series each expression is derived from that which precedes
+it by multiplication by the factor $\sqrt{-1}$. Hence we may consider
+$\sqrt{-1}$ as an operator, analogous to a handle perpendicular to the
+plane of $xy$, whose effect on any line in that plane is to make it
+rotate (positively) about the origin through an angle of $90^o$.
+
+5. In such a system, (which seems to have been first developed,
+in 1805, by Buee) a point in the plane of reference is defined by a
+single imaginary expression. Thus $a + b\sqrt{-1}$ may be considered
+as a single quantity, denoting the point, $P$, whose coordinates are
+$a$ and $b$. Or, it may be used as an expression for the line $OP$
+joining that point with the origin. In the latter sense, the expression $a + b\sqrt{-1}$ implicitly contains the \emph{direction}, as well as the
+\emph{length}, of this line; since, as we see at once, the direction is
+inclined at an angle $\tan^-1b/a$ to the axis of $x$, and the length is
+$\sqrt{a^2 + b^2}$.  Thus, say we have
+
+$$ OP = a + b\sqrt{-1};$$
+
+the line $OP$ considered as that by which we pass from one extremity, $O$, to the other, $P$. In this sense it is called a VECTOR.
+Considering, in the plane, any other vector,
+
+$$OQ = a' + b'\sqrt{-1};$$
+
+the addition of these two lines obviously gives
+
+$$OR = a + a' + (b + b')\sqrt{-1};$$
+
+and we see that the sum is the diagonal of the parallelogram on
+$OP$, $OQ$. This is the law of the composition of simultaneous
+velocities; and it contains, of course, the law of subtraction of one
+directed line from another.
+
+6. Operating on the first of these symbols by the factor $\sqrt{-1}$,
+it becomes $-b + a \sqrt{-1}$; and now, of course, denotes the point
+whose $x$ and $y$ coordinates are $-b$ and $a$; or the line joining this
+point with the origin. The length is still $\sqrt{a^2 + b^2}$, but the angle
+the line makes with the axis of x is $\tan(-a/b)$; which is
+evidently greater by $\pi/2$ than before the operation.</content>
+</record>

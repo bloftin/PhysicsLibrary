@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="816">
+ <title>Herbert Daniel Landahl</title>
+ <name>HerbertDanielLandahl</name>
+ <created>2009-06-27 22:07:53</created>
+ <modified>2009-06-27 22:07:53</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>CNS</concept>
+	<concept>central nervous system</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Herbert Daniel Landahl" alias="Herbert Landahl"/>
+ </synonyms>
+ <related>
+	<object name="NicolasRashevsky"/>
+ </related>
+ <keywords>
+	<term>mathematical biophysics of CNS</term>
+	<term>central nervous system</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Herbert Daniel Landahl}
+is an American mathematical biophysicist who was born in Fancheng, China, on April 23, 1913. He obtained with {\em Magna Cum Laude} his AB degree at St. Olaf College in 1934, and then earned this SM in Physics at the University of Chicago in 1936. He then became very interested in mathematical biophysics and was the world's first PhD student to graduate in Mathematical Biophysics at the University of Chicago in 1941 under the supervision of Professor Nicolas Rashevsky, the Founder of Mathematical Biophysics and Mathematical Biology.</content>
+</record>

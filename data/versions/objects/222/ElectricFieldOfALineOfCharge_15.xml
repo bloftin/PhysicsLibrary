@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="15" id="222">
+ <title>Electric Field of a Line of Charge</title>
+ <name>ElectricFieldOfALineOfCharge</name>
+ <created>2006-09-21 14:10:33</created>
+ <modified>2008-09-10 20:05:23</modified>
+ <type>Example</type>
+<parent id="99">Electric Field</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>had an extra factor of 4 in the end of line x component</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{The Electric Field of a Line of Charge}
+
+Calculating the electric field due to a non-moving continuous distribution of
+charge is a common task in electrostatics.  Unfortunately, without resorting to
+numerical methods, we are limited to simple geometries and field points that
+rely on symmetry in order to make the integrals tractable.
+
+Here we will examine the electric field due to a continuous line of charge on a line
+segment of length 2L.  Analytically, we will compute the E-field at two different types
+of field points and then look at computing the entire field using a numerical technique.
+
+\subsection{Center Line}
+
+The electric field at a height h above the line segment and along the center line as shown
+in below figure is straight forward and is one of the basic examples given in [1][2][3].
+
+\begin{center}
+\includegraphics[scale=0.8]{ElectricFieldLineSeg.eps}
+\end{center}
+
+Once the problem is setup correctly, the rest is straightforward.  Commbining the notation
+used in [1] and [2] helps us connect the general formulation with our special case
+given here.  For a line of charge, with a charge density of $\lambda(r')$, the general
+formula is
+
+\begin{equation}
+{\bf E} = \frac{1}{4 \pi \epsilon_0} \int \frac{\lambda(r')({\bf r} - {\bf r'}) dl'}{\left |{\bf r} - {\bf r'} \right |^3}
+\end{equation}
+
+The first assumption is that the line of charge has a uniform charge density.  This means
+that for a infinitesimal part dl', the charge per unit length is just $\lambda$.  Then, with the coordinate
+system setup in the figure
+
+$$ \lambda(r')dl' = \lambda dx $$
+
+The vector setup is next and this is where practice is important.  Try out different geometries and coordinate
+systems until your proficient.  Remembering the convention that the prime vector is to the source point and
+the unprimed vector is to the field point, we get in Cartesian coordinates
+
+$${\bf r'} = x \hat{{\bf x}} $$
+$${\bf r} = h \hat{{\bf y}} $$
+
+Then for our integral in (1) we have
+
+$$ {\bf r} - {\bf r'} = h \hat{{\bf y}} - x \hat{{\bf x}} $$
+$$ \left |{\bf r} - {\bf r'} \right | = \sqrt{x^2 + h^2} $$
+
+Substituting these relationships into (1)
+
+\begin{equation}
+{\bf E} = \frac{\lambda}{4 \pi \epsilon_0} \int_{-L}^{L} \frac{(h \hat{{\bf y}} - x \hat{{\bf x}}) dx}{(x^2 + h^2)^{3/2} }
+\end{equation}
+
+The next step is to break the integral into its x and y components and then integrate
+
+{\bf x} component:
+
+Usually, one looks at this setup and quickly sees the symmetry and how all the x components cancel, so
+it should be obvious that this integral will be zero.  However, for the practice let's go throught the motions
+
+$$
+{\bf E}_x = -\int_{-L}^{L} \frac{x \hat{{\bf x}} dx}{(x^2 + h^2)^{3/2} }
+$$
+
+Using u substitution set
+
+$$ u = x^2 + h^2 $$
+$$ du = 2x dx $$
+$$ dx = du / 2x $$
+
+notice that when we plug in the limits of integration from -L to L we get for both limits
+
+$$ u = L^2 + h^2 $$
+
+$$
+{\bf E}_x = -\int_{L^2 + h^2}^{L^2 + h^2} \frac{du}{2(u)^{3/2} }
+$$
+
+however the limits of integration are the same, so we know that the integral is zero.
+
+\begin{equation}
+{\bf E}_x = 0
+\end{equation}
+
+{\bf y} component:
+
+$$
+{\bf E}_y = \int_{-L}^{L} \frac{h \hat{{\bf y}}dx}{(x^2 + h^2)^{3/2} }
+$$
+
+This integral is a little more tricky, but is straight forward once you realize you need to use
+trigonometric substitution.  Trig. substitution is nicely explained in [4] or any other calculus textbook.
+Use the right triangle in below figure to setup the needed relationships:
+
+\begin{center}
+\includegraphics[scale=.4]{TrigSub.eps}
+\end{center}
+
+$$ \tan u = \frac{x}{h} $$
+$$ x = h \tan u $$
+$$ dx = h \sec^2 u du $$
+$$ \cos u = \frac{h}{\sqrt{x^2 + h^2}} $$
+$$ \sqrt{x^2 + h^2} = \frac{h}{\cos u} = h \sec u $$
+
+
+
+Putting all these together into the integral leaves us with
+
+$$
+{\bf E}_y = \hat{y} \int \frac{h^2 \sec^2 u du }{h^3 \sec^3u}
+$$
+
+simplfying
+
+$$
+{\bf E}_y = \frac{\hat{y}}{h} \int \frac{ du }{\sec u}
+$$
+
+but this is just
+
+$$
+{\bf E}_y = \frac{\hat{y}}{h} \int \cos u
+$$
+
+Note that we can pull out the unit vector $\hat{y}$ because they are constant in cartesian coordinates.  Make
+sure that you do not do this for other coordinate systems where the unit vectors may not be constant.  Carrying
+out this simple integration yeilds
+
+$$ {\bf E}_y = \frac{\hat{y}}{h} \left. \right |_{-L}^{L} \sin u $$
+
+we cannot simply plug in the limits of integration here, first convert back using the right triangle in figure
+
+$$ \sin u = \frac{x}{\sqrt{x^2 + h^2}} $$
+
+$$ {\bf E}_y = \frac{\hat{y}}{h} \left. \right |_{-L}^{L}  \frac{x}{\sqrt{x^2 + h^2}}$$
+
+Finally, evaluating this gives the the y component of the electric field.
+
+$$ {\bf E}_y = \frac{\hat{y}}{h} \left ( \frac{2L}{\sqrt{L^2 + h^2}} \right )$$
+
+Now that we know the x component is zero, the overall electric field along the center line is just in
+the y direction and is given by
+
+$$ {\bf E} =  \frac{\lambda L \hat{y}}{2 \pi \epsilon_0 h \sqrt{L^2 + h^2}}$$
+
+\subsection{End Line}
+
+The electric field at a height h above the line segment and along the end line as shown
+in below figure is simliar to the previous example, except our x components of the electric
+field will not cancel out this time.
+
+\begin{center}
+\vspace{10 pt}
+\includegraphics[scale=.8]{ElectricFieldLineSegEnd.eps}
+\vspace{10 pt}
+\end{center}
+
+The vector setup is the same as for the center line and the only difference is the limits
+of integration
+
+\begin{equation}
+{\bf E} = \frac{\lambda}{4 \pi \epsilon_0} \int_{0}^{2L} \frac{(h \hat{{\bf y}} - x \hat{{\bf x}}) dx}{(x^2 + h^2)^{3/2} }
+\end{equation}
+
+Once again, break the integral into its x and y components and integrate
+
+\underline{{\bf x} component}:
+
+This time the x component is non zero
+$$
+{\bf E}_x = -\int_{0}^{2L} \frac{x \hat{{\bf x}} dx}{(x^2 + h^2)^{3/2} }
+$$
+
+Using u substitution set
+
+$$ u = x^2 + h^2 $$
+$$ du = 2x dx $$
+$$ dx = du / 2x $$
+
+notice that when we plug in the limits of integration we now get
+
+$$ u = h^2$$
+
+and
+
+$$ u = 4L^2 + h^2 $$
+
+$$
+{\bf E}_x = -\hat{x} \int_{ h^2}^{4L^2 + h^2} \frac{du}{2(u)^{3/2} }
+$$
+
+integrating yields
+
+$$
+{\bf E}_x = - \hat{x} \left. \right |_{h^2}^{4L^2 + h^2} \frac{1}{4(u)^{1/2} }
+$$
+
+finally, evaluate the limits of integration to get
+
+\begin{equation}
+{\bf E}_x = - \left ( \frac{\hat{x}}{4\sqrt{4L^2 + h^2}} - \frac{\hat{x}}{4h}  \right )
+\end{equation}
+
+
+{\bf y} component:
+
+The y component also just differs in the limits of integration so starting from previous
+setup
+
+$$
+{\bf E}_y = \int_{0}^{2L} \frac{h \hat{{\bf y}}dx}{(x^2 + h^2)^{3/2} }
+$$
+
+which we now know gives
+
+$$ {\bf E}_y = \frac{\hat{y}}{h} \left. \right |_{0}^{2L}  \frac{x}{\sqrt{x^2 + h^2}}$$
+
+Finally, evaluating this gives the the y component of the electric field.
+
+$$ {\bf E}_y = \frac{\hat{y}}{h} \left ( \frac{2L}{\sqrt{4L^2 + h^2}} \right )$$
+
+Now combining x and y components with the other constants of integration, gives the
+overall electric field along the end line
+\begin{equation}
+{\bf E} =  \frac{\lambda }{4 \pi \epsilon_0} \left [ \frac{\hat{x}}{4\sqrt{L^2 + h^2}} - \frac{\hat{x}}{4h} + \frac{2L \hat{y}}{h \sqrt{4L^2 + h^2}} \right ]
+\end{equation}
+
+\subsection{ General Solution }
+
+For the general solution of the electric field due to a line of charge, we will show off the power of the principle of superposition.  Since, we know electric fields follow the principle of superposition, we can build upon simpler solutions to get a total electric field through their sums
+
+\begin{equation}
+E_{tot} = E_1 + E_2 + \dots ... + E_n
+\end{equation}
+
+So we can now find the electric field at any point, P(x,y), in the plane by adding two cases of the earlier end line example.  One electric field to handle the line of charge left of the point and one to handle the line of charge right of the point and the sum their solutions. 
+
+(soon to come) 
+
+[1] Reitz, J., "Foundations of Electromagnetic Theory" Fourth Edition.  Addison-Wesley Publishing Company, Inc. 1993.
+
+[2] Griffiths, D. "Introduction to Electrodynamics", Prentice-Hall, Inc., 1999.
+
+[3] Halliday, D., Resnick, R., Walker, J.: "Fundamentals of Physics". 5th Edition, John Wiley \&amp; Sons, New York, 1997.
+
+[4] Etgen, G. "Calculus" John Wiley \&amp; Sons, New York, 1999.</content>
+</record>

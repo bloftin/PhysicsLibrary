@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="37">
+ <title>Electric Charge</title>
+ <name>ElectricCharge</name>
+ <created>2005-05-11 15:31:01</created>
+ <modified>2005-05-12 11:04:22</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Electric Charge" alias="charge"/>
+ </synonyms>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Electric charge is a property of the fundamental particles of the universe.  This property is easily observed and was known as far back as the ancient Greeks.  
+
+Petting a cat in a dry environment is an easy and fun way to test it out.  If the conditions are correct after one full stroke you can deliver a small shock to the cat and as you continue to pet, it is easily reproduced.  Lightning is another example that exists due to electric charge.
+
+Although a lot of qualitative properties and experiments were done, it took the French Physicist Coulomb in the late 1700s to make the first quantitative measurements involving electric charge and he was able to come up with Coulomb's Law showing the relationship between force and the distance between the charges.
+
+Another great leap forward was provided by the American physicist Robert Millikan who in 1909 was the first person to measure the charge of the electron.
+
+There are two types of charge observed
+
+Positive Charge
+Negative Charge
+
+An important property is that like charges repel and opposites attract.</content>
+</record>

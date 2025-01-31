@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="553">
+ <title>Observables and States</title>
+ <name>ObservablesAndStates</name>
+ <created>2009-02-25 15:59:43</created>
+ <modified>2009-02-25 16:14:27</modified>
+ <type>Definition</type>
+ <creator id="15" name="rspuzio"/>
+ <modifier id="441" name="bci1"/>
+ <author id="15" name="rspuzio"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ca"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Introduction}
+
+The notions of observables and states are fundamental
+to mechanics.  In this entry, we shall begin with the conceptual
+background to these ideas, then proceed to examine how these
+notions work in classical, statistical, and quantum mechanics.
+
+The basis for these notions lies in
+making numerical measurements on physical systems and comparing
+the observed values with predicted theoretical values.  The
+value measured will depend on the quantity being measured and
+upon the initial and boundary conditions imposed on the system.
+To account for this dependence, we introduce observables and
+states --- an observable is a mathematical entity in a theory
+which represents a measurement which can be made on the physical
+system described by that theory and a state is a mathematical
+entity which encodes conditions placed on that system.
+
+[more to come]</content>
+</record>

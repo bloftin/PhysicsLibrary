@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="172">
+ <title>Preface to the Second Edition: An Elementary Treatise On Quaternions</title>
+ <name>PrefaceToTheSecondEditionAnElementaryTreatiseOnQuaternions</name>
+ <created>2006-05-11 19:44:38</created>
+ <modified>2006-05-11 19:44:38</modified>
+ <type>Topic</type>
+<parent id="169">An Elementary Treatise on Quaternions</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="01.30.-y"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Preface to the Second Edition}
+
+From \PMlinkname{An Elementary Treatise On Quaternions}{AnElementaryTreatiseOnQuaternions} by Peter Guthrie Tait.
+
+To the first edition of this work, published in 1867, the
+following was prefixed :
+
+THE present work was commenced in 1859, while I was a
+Professor of Mathematics, and far more ready at Quaternion
+analysis than I can now pretend to be. Had it been then
+completed I should have had means of testing its teaching
+capabilities, and of improving it, before publication, where found
+deficient in that respect.
+
+The duties of another Chair, and Sir W. Hamilton's wish that
+my volume should not appear till after the publication of his
+\emph{Elements}, interrupted my already extensive preparations. I had
+worked out nearly all the examples of Analytical Geometry in
+Todhunter's Collection, and I had made various physical applica
+tions of the Calculus, especially to Crystallography, to Geometrical
+Optics, and to the Induction of Currents, in addition to those on
+Kinematics, Electrodynamics, Fresnel s Wave Surface, \&amp;c., which
+are reprinted in the present work from the \emph{Quarterly Mathematical
+Journal} and the \emph{Proceedings of the Royal Society of Edinburgh}.
+
+Sir W. Hamilton, when I saw him but a few days before his
+death, urged me to prepare my work as soon as possible, his being
+almost ready for publication. He then expressed, more strongly
+perhaps than he had ever done before, his profound conviction of
+the importance of Quaternions to the progress of physical science;
+and his desire that a really elementary treatise on the subject
+should soon be published.
+
+I regret that I have so imperfectly fulfilled this last request of my revered friend. When it was made I was already engaged,
+along with Sir W. Thomson, in the laborious work of preparing
+a large Treatise on Natural Philosophy. The present volume has
+thus been written under very disadvantageous circumstances,
+especially as I have not found time to work up the mass of
+materials which I had originally collected for it, but which I
+had not put into a fit state for publication. I hope, however,
+that I have to some extent succeeded in producing a thoroughly
+elementary work, intelligible to any ordinary student; and that
+the numerous examples I have given, though not specially
+chosen so as to display the full merits of Quaternions, will
+yet sufficiently shew their admirable simplicity and naturalness
+to induce the reader to attack the \emph{Lectures} and the \emph{Elements};
+where he will find, in profusion, stores of valuable results, and
+of elegant yet powerful analytical investigations, such as are
+contained in the writings of but a very few of the greatest
+mathematicians. For a succinct account of the steps by which
+Hamilton was led to the invention of Quaternions, and for
+other interesting information regarding that remarkable genius,
+I may refer to a slight sketch of his life and works in the
+North British Review for September 1866.
+
+It will be found that I have not servilely followed even so
+great a master, although dealing with a subject which is entirely
+his own. I cannot, of course, tell in every case what I have
+gathered from his published papers, or from his voluminous
+correspondence, and what I may have made out for myself.
+Some theorems and processes which I have given, though wholly
+my own, in the sense of having been made out for myself before
+the publication of the Elements, I have since found there. Others
+also may be, for I have not yet read that tremendous volume
+completely, since much of it bears on developments unconnected
+with Physics. But I have endeavoured throughout to point out
+to the reader all the more important parts of the work which I
+know to be wholly due to Hamilton. A great part, indeed, may
+be said to be obvious to any one who has mastered the pre
+liminaries; still I think that, in the two last Chapters especially,
+a good deal of original matter will be found.
+
+The volume is essentially a working one, and, particularly in
+the later Chapters, is rather a collection of examples than a
+detailed treatise on a mathematical method. I have constantly
+aimed at avoiding too great extension; and in pursuance of
+this object have omitted many valuable elementary portions
+of the subject. One of these, the treatment of Quaternion
+logarithms and exponentials, I greatly regret not having given.
+But if I had printed all that seemed to me of use or interest to
+the student, I might easily have rivalled the bulk of one of
+Hamilton's volumes. The beginner is recommended merely to
+\emph{read} the first five Chapters, then to \emph{work} at Chapters VI,
+VII, VIII \footnotemark (to which numerous easy Examples are appended).
+After this he may work at the first five, with their (more
+difficult) Examples; and the remainder of the book should
+then present no difficulty.
+
+Keeping always in view, as the great end of every mathe
+matical method, the physical applications, I have endeavoured
+to treat the subject as much as possible from a geometrical
+instead of an analytical point of view. Of course, if we premise
+the properties of \emph{i, j, k} merely, it is possible to construct from
+them the whole system \footnotemark; just as we deal with the imaginary
+of Algebra, or, to take a closer analogy, just as Hamilton
+himself dealt with Couples, Triads, and Sets. This may be
+interesting to the pure analyst, but it is repulsive to the
+physical student, who should be led to look upon \emph{i, j, k}, from
+the very first as geometric realities, not as algebraic imaginaries.
+
+The most striking peculiarity of the Calculus is that \emph{mul
+tiplication is not generally commutative}, i.e. that \emph{qr} is in general
+different from \emph{rg, r} and \emph{q} being quaternions. Still it is to
+be remarked that something similar is true, in the ordinary
+coordinate methods, of operators and functions: and therefore
+
+% Notes
+
+\footnotetext{In this edition these Chapters are numbered VII, VIII, IX, respectively
+Aug. 1889.}
+
+\footnotetext{This has been done by Hamilton himself, as one among many methods he has employed; and it is also the foundation of a memoir by M. Allegret, entitled \emph{Essai sur le Calcul des Quaternions} (Paris, 1862).}</content>
+</record>

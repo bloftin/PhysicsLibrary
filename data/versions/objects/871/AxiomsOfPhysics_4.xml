@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="871">
+ <title>Axioms of Physics</title>
+ <name>AxiomsOfPhysics</name>
+ <created>2010-06-05 10:32:57</created>
+ <modified>2010-06-05 10:52:34</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.70.-cxx"/>
+	<category scheme="msc" code="02.90.+p"/>
+ </classification>
+ <defines>
+	<concept>physics axioms</concept>
+	<concept>HQFT</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Axioms of Physics" alias="fundamentals of physics"/>
+ </synonyms>
+ <keywords>
+	<term>axioms</term>
+	<term>foundations of physics</term>
+	<term>theoretical physics</term>
+	<term>QFT</term>
+	<term>AQFT</term>
+	<term>TQFT</term>
+	<term>General Relativity theory</term>
+ </keywords>
+ <preamble></preamble>
+ <content>A contributed topic on the Axioms of Physics in the following areas:
+
+\begin{enumerate}
+\item 1. General Relativity Theory
+\item 2. Axiomatic and Algebraic Quantum Field Theory
+\item 3. Quantum Algebraic Topology
+\item 4. Topological Quantum Field Theory (TQFT) and HQFT*
+\item 5. Quantum Logics
+\item 6. Symmetry and Physical Principles and Laws
+\item 7. Categorical Physics: category theory and groupoid/algebraic topology applications in Physics
+\end{enumerate}
+
+* Homotopy and Quantum Field Theory</content>
+</record>
