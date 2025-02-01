@@ -91,7 +91,7 @@ sub wordIndexEntry {
 		# insert into word index
 		#
 		($rv,$sth) = dbInsert($dbh,{INTO=>'wordidx',VALUES=>"$wid,$uid,'$table'"});
-	$sth->finish();
+		$sth->finish();
 	}
 
 	$DEBUG = $OLDDEBUG;

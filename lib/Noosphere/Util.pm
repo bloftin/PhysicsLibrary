@@ -1607,6 +1607,23 @@ sub sendMail {
 	close MAIL;
 }
 
+sub sendMailOld {
+	my $email = shift;
+	my $body = shift;
+	my $subject = shift || getConfig('projname');
+	
+	#dwarn "sending mail: $body";
+	#dwarn "sending mail: [$body]";
+
+#	open (MAIL,"| ".getConfig('sendmailcmd')." -f".getConfig('system_email')." $email") or die "Cannot open .getConfig('sendmailcmd'). $!";
+ 	open (MAIL,"| ".getConfig('sendmailcmd')." $email");
+	print MAIL "From: ".getConfig('projname')."<".getConfig('reply_email').">\n";
+	print MAIL "To: $email\n";
+	print MAIL "Subject: $subject\n";
+	print MAIL "\n$body";
+	close MAIL;
+}
+
 # read in a file to a string
 #
 sub readFile {

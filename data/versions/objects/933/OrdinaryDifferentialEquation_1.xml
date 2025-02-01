@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="933">
+ <title>Ordinary Differential Equation</title>
+ <name>OrdinaryDifferentialEquation</name>
+ <created>2025-01-26 07:48:42</created>
+ <modified>2025-01-26 07:48:42</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>test edit</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.30.Hq"/>
+ </classification>
+ <related>
+	<object name="DifferentialEquations"/>
+ </related>
+ <preamble>          % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>An ordinary differential equation (ODE) is an equation for a function of one variable that involves
+"ordinary" derivatives of the function and, possibly, known functions of
+the same variable.
+
+We give several examples below.
+
+\begin{itemize} 
+    \item[(1)] $\frac{d^2x}{dt^2} + \omega^2 x = 0$
+    \item[(2)] $\frac{d^2x}{dt^2} - \alpha x \frac{dx}{dt} - x + x^3 = sin(wt)$
+\end{itemize}</content>
+</record>

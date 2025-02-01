@@ -5,6 +5,8 @@ use Noosphere::XML;
 use XML::DOM;
 use Cwd qw(chdir);
 use File::Path qw(make_path); 
+use Text::Diff;
+use File::Remove 'remove';
 
 # roll back an object to a particular version.  must be owner!
 #
@@ -368,14 +370,17 @@ sub getVersionList {
 
 		foreach my $file (@files) {
 			warn "*** vlist : processing file $file";
-
+			dwarn "getFileDOM before";
 			my $dom = getFileDOM($file);			
-
+			dwarn "domGetVersion before";
 			my $version = domGetVersion($dom, 'version');
+			dwarn "version: $version";
 			my $modifier = domGetAttrs($dom, 'modifier');
+			dwarn "modifier: $modifier";
 			my $modified = domGetVal($dom, 'modified');
+			dwarn "modified: $modified";
 			my $comment = domGetVal($dom, 'comment');
-			
+			dwarn "comment: $comment";
 			$versions{$version} = {version=>$version, 
 				 modifier=>$modifier->{'id'},
 				 comment=>$comment}; 
@@ -389,6 +394,7 @@ sub getVersionList {
 		#
 		foreach my $version (keys %mlist) {
 			if (exists $versions{$version}) {
+				dwarn "mlist version";
 				$versions{$version}->{'modified'} = $mlist{$version + 1};
 			} 
 		}
@@ -404,13 +410,21 @@ sub getVersionList {
 sub getVersionBrowser {
 	my $params = shift;
 	my $userinf = shift;
-	
+
+	my $file = 'versionbrowser.tt';
+	my $html = '';
+	my $html_pager = '';
+	my $scale = 1;
+	my @item_array = ();
+
 	return errorMessage("You don't have permissions to do that.") if (!hasPermissionTo($params->{from}, $params->{id}, $userinf, 'read') &&
 	($userinf->{data}->{access}<getConfig('access_admin')));	
 
 	# set owner flag
 	my $owner = 0;
 	$owner = 1 if (lookupfield($params->{'from'},'userid', "uid=$params->{id}") == $userinf->{'uid'});
+
+	dwarn "Owner: $owner";
 
 	my $versions = getVersionList($params->{from}, $params->{id});
 	
@@ -428,7 +442,7 @@ sub getVersionBrowser {
 	my $title = qhtmlescape(lookupfield($params->{from},'title',"uid=$params->{id}"));
 
 	$template->addText("<versionbrowser title=\"$title\" href=\"".getConfig("main_url")."/?op=getobj&amp;from=$params->{from}&amp;id=$params->{id}\" owner=\"$owner\">\n");
-
+	my $title_link = getConfig("main_url")."/?op=getobj&amp;from=$params->{from}&amp;id=$params->{id} owner=$owner";
 	my $ord = 0;
 	foreach my $key (@keyset[$offset..$count-1]) {
 		my $nextkey = $key + 1;
@@ -451,6 +465,29 @@ sub getVersionBrowser {
 		$template->addText("	<timestamp>$timestamp</timestamp>\n");
 		$template->addText("	<comment>".htmlescape($comment)."</comment>\n");
 		$template->addText(" </item>\n");
+
+		my $version_name = $key;
+		my $version_link = getConfig("main_url")."/?op=viewver&amp;from=$params->{from}&amp;id=$params->{id}&amp;ver=$key";
+		my $viewdiff = getConfig("main_url")."/?op=viewdiff&amp;from=$params->{from}&amp;old=$key&amp;new=$nextkey&amp;id=$params->{id}";
+		my $rollback = getConfig("main_url")."/?op=rollback&amp;from=$params->{from}&amp;id=$params->{id}&amp;ver=$key";
+		my $modifier_name = $modname;
+		my $modifier_link = getConfig("main_url")."/?op=getuser&amp;id=$modid";
+
+		push(@item_array,{ 
+				modname 		=> $modname, 
+				comment 		=> $comment, 
+				version_name	=> $version_name,
+				version_link	=> $version_link, 
+				ord 			=> $ord, 
+				viewdiff 		=> $viewdiff, 
+				rollback 		=> $rollback,
+				modifier_name 	=> $modifier_name,
+				modifier_link 	=> $modifier_link,
+				timestamp  		=> $timestamp,
+				modid    		=> $modid,
+				version			=> $version,	
+		});
+
 		$ord++;
 	}
 	$template->addText("</versionbrowser>\n");
@@ -458,9 +495,27 @@ sub getVersionBrowser {
 	$params->{offset} = $offset;
 	$params->{total} = $total;
 	
-	getPageWidgetXSLT($template, $params, $userinf);
+	#getPageWidgetXSLT($template, $params, $userinf);
+	$html_pager = getPager($params, $userinf, $scale);
 
-	return $template->expand();
+	dwarn "items: ",scalar @item_array,"\n";
+
+	my $vars = {
+        title        	=> $title,
+		title_link      => $title_link,
+		items			=> \@item_array,
+		pager			=> $html_pager,
+		owner			=> $owner,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return $html; #$template->expand();
 }
 
 # display metadata for a version snapshot of an object
@@ -545,6 +600,11 @@ sub getVersionDiff {
 	my $params = shift;
 	my $userinf = shift;
 
+	my $file = 'ver_diff.tt';
+	my $html = '';
+	my @line_array = ();
+	my $newtext = '';
+	my $oldtext = '';
 	my $template = new XSLTemplate("ver_diff.xsl");
 
 	my @vers=readVersions($params,$params->{old},$params->{new});
@@ -559,114 +619,240 @@ sub getVersionDiff {
 	unless (substr($vers[1],-1) eq "\n") {$vers[1].="\n"}
 	writeFile($oldfile,"xxxxxxxx\nzzzzzzzzzzzzzz\n".$vers[0]);
 	writeFile($newfile,"yyyyyyyy\nzzzzzzzzzzzzzz\n".$vers[1]);
-	my $ftext = readFile(getConfig('diffcmd')." -b -c -C2000 $newfile $oldfile 2>/dev/null |");
-	dwarn("Before getVersionDif unlink");
-	sytem("unlink $oldfile, $newfile");
-	dwarn("After getVersionDif unlink");
+	#my $ftext = readFile(getConfig('diffcmd')." -b -c -C2000 $newfile $oldfile 2>/dev/null |");
+	#my $ftext =  diff("xxxxxxxx\nzzzzzzzzzzzzzz\n".$vers[0], "yyyyyyyy\nzzzzzzzzzzzzzz\n".$vers[1]);
+	my $ftext =  diff($oldfile, $newfile,  { STYLE => "OldStyle" } );
+	#dwarn("Before getVersionDif unlink");
+	#system("unlink $oldfile, $newfile");
+	#dwarn("After getVersionDif unlink");
+	remove($oldfile);
+	remove($newfile);
+	dwarn "diff:\n $ftext";
 	my @diff = split(/\n/,$ftext);
-	my $difflen = (scalar @diff)-9; # number of lines in diff except `x' and `y' 
-
+	##dwarn "after split";
+	my $difflen = (scalar @diff)-5; # number of lines in diff except `x' and `y' 
+	dwarn "after difflen: $difflen";
 	my $title = qhtmlescape(lookupfield($params->{from},'title',"uid=$params->{id}"));
-	$template->addText("<ver_diff title=\"$title\" changed=\"$difflen\" oldvernum=\"$params->{old}\" newvernum=\"$params->{new}\"> href=\"".getConfig("main_url")."/?op=viewdiff&amp;old=$params->{old};new=$params->{new}\"");
+	dwarn "after title";
+	##$template->addText("<ver_diff title=\"$title\" changed=\"$difflen\" oldvernum=\"$params->{old}\" newvernum=\"$params->{new}\"> href=\"".getConfig("main_url")."/?op=viewdiff&amp;old=$params->{old};new=$params->{new}\"");
+	dwarn "after template";
+	my $newvernum = $params->{new};
+	my $oldvernum = $params->{old};
+	my $diff_link = getConfig("main_url")."/?op=viewdiff&amp;old=$params->{old};new=$params->{new}";
 
-        if ($difflen) {
-		$diff[3] =~ /^\*+\s1,(\d+)/;
-		my $newend = 4+$1;
-		$diff[$newend] =~ /^-+\s1,(\d+)/;
-		my $oldend = $newend+1+$1;
-		my $newpos = 4;
-		my $oldpos = $newend + 1;
-		$newpos+=2;$oldpos+=2; # skip xxxx's and yyyy's
-		while ($newpos<$newend) {
-			my $newstr = $diff[$newpos];
-			my $oldstr = $diff[$oldpos];
-			# indicator characters
-			my $nchar = substr($newstr,0,1);
-			my $ochar = substr($oldstr,0,1);
-			# strings without indicator characters
-			my $pnewstr = substr($newstr,2);
-			my $poldstr = substr($oldstr,2);
-			if ($newstr eq $oldstr) {
-				$template->addText(" <line>"); #newtext=\"$newstr\" oldtext=\"$newstr\">\n");
-				$template->addText("    <newtext><span class=\"nodiff\">".htmlescape($pnewstr)."</span></newtext>\n");
-				$template->addText("    <oldtext><span class=\"nodiff\">".htmlescape($pnewstr)."</span></oldtext>\n");
-				$template->addText(" </line>\n");
-				$oldpos++; $newpos++;
-			} elsif ($nchar eq '-') {
-				$template->addText(" <line>\n");
-				$template->addText("    <newtext><ins class=\"diffadd\">".htmlescape($pnewstr)."</ins></newtext>\n");
-				$template->addText(" </line>\n");
-				$newpos++;
-			} elsif ($ochar eq '+') {
-				$template->addText(" <line>\n");
-				$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape($poldstr)."</del></oldtext>\n");
-				$template->addText(" </line>\n");
-				$oldpos++;
-			} elsif ($ochar eq '!') {
-				my $nend=$newpos;
-				my $oend=$oldpos;
-				while (substr($diff[$nend++],0,1) eq '!') {}
-				while (substr($diff[$oend++],0,1) eq '!') {}
-				# if number of lines in two chunks differ, output them as is
-				# otherwise, try to detect differences
-				unless (($oend-$oldpos)==($nend-$newpos)) {
-					while ((substr($diff[$oldpos],0,1) eq '!') && (substr($diff[$newpos],0,1) eq '!')) {
-						$template->addText(" <line>\n");
-						$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape(substr($diff[$oldpos++],2))."</del></oldtext>\n");
-						$template->addText("    <newtext><ins class=\"diffadd\">".htmlescape(substr($diff[$newpos++],2))."</ins></newtext>\n");
-						$template->addText(" </line>\n");
-					}
-					while (substr($diff[$oldpos],0,1) eq '!') {
-						$template->addText(" <line>\n");
-						$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape(substr($diff[$oldpos++],2))."</del></oldtext>\n");
-						$template->addText(" </line>\n");
-					}
-					while (substr($diff[$newpos],0,1) eq '!') {
-						$template->addText(" <line>\n");
-						$template->addText("    <newtext><ins class=\"diffadd\">".htmlescape(substr($diff[$newpos++],2))."</ins></newtext>\n");
-						$template->addText(" </line>\n");
-					}
-				} else {
-					# we can process just one line because the cycle condition is maintained
-					$oldpos++; $newpos++;
-					# find the position where old and new start/end differing with each other 
-					my $spos = 0;
-					my $epos = -1;
-					# To simplify the border cases
-					$pnewstr .= 'Z';
-					$poldstr .= 'Z';
-					while (substr($pnewstr,$spos,1) eq substr($poldstr,$spos,1)) {$spos++;}
-					while (substr($pnewstr,$epos,1) eq substr($poldstr,$epos,1)) {$epos--;}
-					$template->addText(" <line>\n");
-					$template->addText("    <oldtext>".produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($poldstr,0,$spos))).produceHtmlParam("<del class=\"diffdel\">",htmlescape(substr($poldstr,$spos,$epos+1))).produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($poldstr,$epos+1,-1)))."</oldtext>\n");
-					$template->addText("    <newtext>".produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($pnewstr,0,$spos))).produceHtmlParam("<ins class=\"diffadd\">",htmlescape(substr($pnewstr,$spos,$epos+1))).produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($pnewstr,$epos+1,-1)))."</newtext>\n");
-					$template->addText(" </line>\n");
+	# if ($difflen) {
+	# 	dwarn "difflen true";
+	# 	$diff[1] =~ /^\*+\s1,(\d+)/;
+	# 	my $newend = 1+$1;
+	# 	my $temp_diff = $diff[1];
+	# 	dwarn "diff[3]: $temp_diff ";
+		
+	# 	dwarn "newend: $newend";
+	# 	$diff[$newend] =~ /^-+\s1,(\d+)/;
+		
+	# 	my $oldend = $newend+1+$1;
+	# 	$temp_diff = $diff[$newend];
+	# 	dwarn "diff[newend]: $temp_diff ";
+	# 	my $newpos = 2;
+	# 	my $oldpos = $newend + 1;
+	# 	$newpos+=2;$oldpos+=2; # skip xxxx's and yyyy's
+	# 	dwarn "skip xxxx's and yyyy's";
+	# 	dwarn "newpos: $newpos";
+	# 	dwarn "newend: $newend";
+	# 	dwarn "oldpos: $oldpos";
+	# 	dwarn "oldend: $oldend";
+	# 	while ($newpos<$newend) {
+	# 		my $newstr = $diff[$newpos];
+	# 		dwarn "newstring:\n $newstr";
+	# 		my $oldstr = $diff[$oldpos];
+			
+	# 		dwarn "oldstring:\n $oldstr";
+	# 		# indicator characters
+	# 		my $nchar = substr($newstr,0,1);
+	# 		my $ochar = substr($oldstr,0,1);
+	# 		# strings without indicator characters
+	# 		my $pnewstr = substr($newstr,2);
+	# 		my $poldstr = substr($oldstr,2);
+	# 		if ($newstr eq $oldstr) {
+	# 			dwarn "newstr eq oldstr";
+	# 			$template->addText(" <line>"); #newtext=\"$newstr\" oldtext=\"$newstr\">\n");
+	# 			$template->addText("    <newtext><span class=\"nodiff\">".htmlescape($pnewstr)."</span></newtext>\n");
+	# 			$template->addText("    <oldtext><span class=\"nodiff\">".htmlescape($pnewstr)."</span></oldtext>\n");
+	# 			$template->addText(" </line>\n");
+	# 			$newtext = "<span class=\"nodiff\">".htmlescape($pnewstr)."</span>";
+	# 			$oldtext = "<span class=\"nodiff\">".htmlescape($pnewstr)."</span>";
+	# 			push(@line_array,{ 
+	# 				newtext 		=> $newtext, 
+	# 				oldtext 		=> $oldtext, 	
+	# 			});
 
-				}
-			} else {
-				dwarn "****** showVersionDiff : unknown diff command";
-				$newpos++; $oldpos++;
-			}
-		}
-		while ($oldpos<$oldend) {
-			my $oldstr = $diff[$oldpos];
-			my $ochar = substr($oldstr,0,1);
-			my $poldstr = substr($oldstr,2);
-			if ($ochar eq '+') {
-				$template->addText(" <line>\n");
-				$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape($poldstr)."</del></oldtext>\n");
-				$template->addText(" </line>\n");
-				$oldpos++;
-			} else {
-				dwarn "****** showVersionDiff : unknown diff command";
-				$oldpos++;
-			}
-		}
-	} 
+	# 			$oldpos++; $newpos++;
+	# 		} elsif ($nchar eq '-') {
+	# 			dwarn "nchar eq -";
+	# 			$template->addText(" <line>\n");
+	# 			$template->addText("    <newtext><ins class=\"diffadd\">".htmlescape($pnewstr)."</ins></newtext>\n");
+	# 			$template->addText(" </line>\n");
+	# 			$newtext = "<ins class=\"diffadd\">".htmlescape($pnewstr)."</ins>";
+	# 			$oldtext = '';
+	# 			push(@line_array,{ 
+	# 				newtext 		=> $newtext, 
+	# 				oldtext 		=> $oldtext, 	
+	# 			});
+	# 			$newpos++;
+	# 		} elsif ($ochar eq '+') {
+	# 			dwarn "ochar eq +";
+	# 			$template->addText(" <line>\n");
+	# 			$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape($poldstr)."</del></oldtext>\n");
+	# 			$template->addText(" </line>\n");
 
-	$template->addText("</ver_diff>");
+	# 			$newtext = '';
+	# 			$oldtext = "<del class=\"diffdel\">".htmlescape($poldstr)."</del>";
+	# 			push(@line_array,{ 
+	# 				newtext 		=> $newtext, 
+	# 				oldtext 		=> $oldtext, 	
+	# 			});
 
-	return $template->expand();
+	# 			$oldpos++;
+	# 		} elsif ($ochar eq '!') {
+	# 			dwarn "ochar eq !";
+	# 			my $nend=$newpos;
+	# 			my $oend=$oldpos;
+	# 			while (substr($diff[$nend++],0,1) eq '!') {}
+	# 			while (substr($diff[$oend++],0,1) eq '!') {}
+	# 			# if number of lines in two chunks differ, output them as is
+	# 			# otherwise, try to detect differences
+	# 			unless (($oend-$oldpos)==($nend-$newpos)) {
+	# 				dwarn "number of lines in two chunks differ,";
+	# 				while ((substr($diff[$oldpos],0,1) eq '!') && (substr($diff[$newpos],0,1) eq '!')) {
+
+	# 					$newtext = "<ins class=\"diffadd\">".htmlescape(substr($diff[$newpos],2))."</ins>";
+	# 					$oldtext = "<del class=\"diffdel\">".htmlescape(substr($diff[$oldpos],2))."</del>";
+
+	# 					$template->addText(" <line>\n");
+	# 					$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape(substr($diff[$oldpos++],2))."</del></oldtext>\n");
+	# 					$template->addText("    <newtext><ins class=\"diffadd\">".htmlescape(substr($diff[$newpos++],2))."</ins></newtext>\n");
+	# 					$template->addText(" </line>\n");
+
+						
+						
+	# 					push(@line_array,{ 
+	# 						newtext 		=> $newtext, 
+	# 						oldtext 		=> $oldtext, 	
+	# 					});
+
+	# 				}
+	# 				while (substr($diff[$oldpos],0,1) eq '!') {
+
+	# 					$newtext = '';
+	# 					$oldtext = "<del class=\"diffdel\">".htmlescape(substr($diff[$oldpos],2))."</del>";
+
+	# 					$template->addText(" <line>\n");
+	# 					$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape(substr($diff[$oldpos++],2))."</del></oldtext>\n");
+	# 					$template->addText(" </line>\n");
+
+						
+	# 					push(@line_array,{ 
+	# 						newtext 		=> $newtext, 
+	# 						oldtext 		=> $oldtext, 	
+	# 					});
+
+	# 				}
+	# 				while (substr($diff[$newpos],0,1) eq '!') {
+
+	# 					$newtext = "<ins class=\"diffadd\">".htmlescape(substr($diff[$newpos],2))."</ins>";
+	# 					$oldtext = '';
+
+	# 					$template->addText(" <line>\n");
+	# 					$template->addText("    <newtext><ins class=\"diffadd\">".htmlescape(substr($diff[$newpos++],2))."</ins></newtext>\n");
+	# 					$template->addText(" </line>\n");
+
+						
+	# 					push(@line_array,{ 
+	# 						newtext 		=> $newtext, 
+	# 						oldtext 		=> $oldtext, 	
+	# 					});
+
+	# 				}
+	# 			} else {
+	# 				dwarn "we can process just one line because the cycle condition is maintained";
+	# 				# we can process just one line because the cycle condition is maintained
+	# 				$oldpos++; $newpos++;
+	# 				# find the position where old and new start/end differing with each other 
+	# 				my $spos = 0;
+	# 				my $epos = -1;
+	# 				# To simplify the border cases
+	# 				$pnewstr .= 'Z';
+	# 				$poldstr .= 'Z';
+	# 				while (substr($pnewstr,$spos,1) eq substr($poldstr,$spos,1)) {$spos++;}
+	# 				while (substr($pnewstr,$epos,1) eq substr($poldstr,$epos,1)) {$epos--;}
+	# 				$template->addText(" <line>\n");
+	# 				$template->addText("    <oldtext>".produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($poldstr,0,$spos))).produceHtmlParam("<del class=\"diffdel\">",htmlescape(substr($poldstr,$spos,$epos+1))).produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($poldstr,$epos+1,-1)))."</oldtext>\n");
+	# 				$template->addText("    <newtext>".produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($pnewstr,0,$spos))).produceHtmlParam("<ins class=\"diffadd\">",htmlescape(substr($pnewstr,$spos,$epos+1))).produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($pnewstr,$epos+1,-1)))."</newtext>\n");
+	# 				$template->addText(" </line>\n");
+
+	# 				$newtext = produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($pnewstr,0,$spos))).produceHtmlParam("<ins class=\"diffadd\">",htmlescape(substr($pnewstr,$spos,$epos+1))).produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($pnewstr,$epos+1,-1)));
+	# 				$oldtext = produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($poldstr,0,$spos))).produceHtmlParam("<del class=\"diffdel\">",htmlescape(substr($poldstr,$spos,$epos+1))).produceHtmlParam("<span class=\"nodiff\">",htmlescape(substr($poldstr,$epos+1,-1)));
+
+	# 				push(@line_array,{ 
+	# 						newtext 		=> $newtext, 
+	# 						oldtext 		=> $oldtext, 	
+	# 				});
+
+	# 			}
+	# 		} else {
+	# 			dwarn "****** showVersionDiff : unknown diff command";
+	# 			$newpos++; $oldpos++;
+	# 		}
+	# 	}
+	# 	while ($oldpos<$oldend) {
+	# 		dwarn "oldpos < oldend";
+	# 		my $oldstr = $diff[$oldpos];
+	# 		my $ochar = substr($oldstr,0,1);
+	# 		my $poldstr = substr($oldstr,2);
+	# 		if ($ochar eq '+') {
+	# 			dwarn "ochar eq +";
+	# 			$template->addText(" <line>\n");
+	# 			$template->addText("    <oldtext><del class=\"diffdel\">".htmlescape($poldstr)."</del></oldtext>\n");
+	# 			$template->addText(" </line>\n");
+
+	# 			$newtext = '';
+	# 			$oldtext = "<del class=\"diffdel\">".htmlescape($poldstr)."</del>";
+
+
+	# 			push(@line_array,{ 
+	# 						newtext 		=> $newtext, 
+	# 						oldtext 		=> $oldtext, 	
+	# 			});
+
+	# 			$oldpos++;
+	# 		} else {
+	# 			dwarn "****** showVersionDiff : unknown diff command";
+	# 			$oldpos++;
+	# 		}
+	# 	}
+	# } 
+
+##$template->addText("</ver_diff>");
+
+	my $vars = {
+        title        	=> $title,
+		difflen			=> $difflen,
+		newvernum		=> $newvernum,
+		oldvernum		=> $oldvernum,
+		lines			=> \@line_array,
+		diff_text       => $ftext,
+
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	#return $template->expand();
+	return $html;
 }
 
 
