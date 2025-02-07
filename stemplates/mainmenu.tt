@@ -47,6 +47,13 @@
                                     </div>
                                     </p> 
                                     <center>
+                                        <font size="-1"><i>Downloads</i></font>
+                                    </center>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="http://aux.physicslibrary.org/snapshots/">Snapshots</a>
+                                    </div>
+                                    </p> 
+                                    <center>
                                         <font size="-1"><i>Information</i></font>
                                     </center>
                                     <div style="height: 20px; display: block; font-size: 16px">
