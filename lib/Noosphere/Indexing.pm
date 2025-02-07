@@ -80,7 +80,7 @@ sub wordIndexEntry {
 		#
 		$dbh->{PrintError} = 0;	# no, we dont need to see uniqueness errors.
 		dwarn "insert into 'words' word, $word";
-		my ($rv,$sth) = dbInsert($dbh,{INTO=>'words',COLS=>'word',VALUES=>"'$word'"});
+		my ($rv,$sth) = dbInsert($dbh,{INTO=>'words',COLS=>'word',VALUES=>$word});
 		$sth->finish();
 		$dbh->{PrintError} = 1;
 	

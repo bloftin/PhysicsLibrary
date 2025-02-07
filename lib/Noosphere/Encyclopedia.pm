@@ -1296,7 +1296,7 @@ sub publishEncyclopedia {
 	
 	# index this entry (for linking)
 	#
-	wordIndexEntry(getConfig('en_tbl'),$params);
+	#wordIndexEntry(getConfig('en_tbl'),$params);
 
 	# index this entry (for IR)
 	#

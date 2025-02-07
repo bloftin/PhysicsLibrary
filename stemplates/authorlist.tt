@@ -1,0 +1,76 @@
+<!-- clear box -->
+<table width="100%" cellpadding="2" cellspacing="0">
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td bgcolor="#000000">
+
+						<!-- title box -->
+						
+						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+							<tr>
+								<td WIDTH="100%" BGCOLOR="#003399">
+									<font color="white" class="box_title">
+										Viewing Author List for : [% title %]
+									</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<!-- content box -->
+			<table width="100%" cellpadding="0" cellspacing="2">
+				<tr>
+					<td>
+						<center>
+							<a href= "/?op=getobj&amp;from=[% table %]&amp;id=[% objectid %]"> view '[% title %]</a>
+						
+
+						    <p><p/>
+
+                            <table cellpadding="4">
+
+                                <tr>
+                    
+                                    <td align="center">User</td> 
+                                    <td align="center">Last Edit</td> 
+
+                                </tr>
+
+                                [% FOREACH author IN author_list %]
+                                    <tr>
+
+                                        <td>
+
+                                            <a href="/?op=getuser&amp;id=[% author.userid %]">[% author.username %]</a>
+
+                                        </td>
+
+                                        <td> [% author.date %] </td>
+
+                                    </tr>
+                                [% END %]
+
+                            </table>
+
+                        </center>
+
+                        <p><p/>
+
+                        <i>Note: the author history shows any user who has made an edit to the object, along with (and sorted by) last edit timestamp.  However, non-creator editors from before May 5, 2002, may not appear.</i>
+
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end clear box -->
+

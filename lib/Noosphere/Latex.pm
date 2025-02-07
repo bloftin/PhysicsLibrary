@@ -182,14 +182,34 @@ sub singleRenderLaTeX {
 	#chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
 	local $CWD = "$dir";
 	#Ben - error.out is filling the harddrive, remove for now
-	my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." single_render.tex > /dev/null 2>&1");
+	##my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." single_render.tex > /dev/null 2>&1");
 	#my $retval = system(getConfig('base_dir') . "/bin/latex2html ".getConfig('l2h_opts')." single_render.tex > /dev/null 2>&1");
 
-	# abort if a render failed
-	#
-	if ($retval > 0) {
+	my $renderProgram = getConfig('latex2htmlcmd');
+	warn "calling from here";
+	my $run = $renderProgram;#"$renderProgram " . getConfig ('l2h_opts'). " $dir/$fname";
+
+	# run l2h
+	#my $cmd = getConfig('timeoutprog') . "$run";
+	my $cmd = "$run";
+	warn "EXECING $run\n";
+	# get the global request object (requires PerlOptions +GlobalRequest)
+    my $r = Apache2::RequestUtil->request;
+	my $in_fh = "";
+	my $out_fh = "";
+	my $err_fh = "";
+	my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/single_render.tex");
+	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($run,\@run_args);
+	my $output = read_data($out_fh);
+ 	my $error  = read_data($err_fh);
+
+	dwarn "Error from single_render.tex: \n $error"; 
+	# abort if a render failed	
+	# hmm need better way to exit
+	if ($error > 0) {
+			dwarn "GOT ERRROR: abort, rm $dir";
 			pathrm($dir);
-			return $retval;
+			return $error;
 	}
 
 	# read in the resulting image, convert binary data to octal 
@@ -485,7 +505,21 @@ sub render_png {
 	my $latex = shift;
 	my $url = shift;
 
-	dwarn "render_png: this function should not work yet";
+	dwarn "render_png started";
+	my $mapprog = getConfig('base_dir')."/bin/map/MAP";
+	my $latexprog = getConfig('latex2htmlcmd');
+	my $dvipsprog = '/usr/bin/dvips';
+	my $gsprog ='/usr/bin/gs';
+	my $pnmcrop = '/usr/bin/pnmcrop';
+	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
+	
+	# get the global request object (requires PerlOptions +GlobalRequest)
+    my $r = Apache2::RequestUtil->request;
+
+	my $in_fh = "";
+	my $out_fh = "";
+	my $err_fh = "";
+	
 	# see if there are any hyperlinks.
 	#
 	my $haslinks = ($latex =~ /\\htmladdnormallink/);
@@ -494,8 +528,13 @@ sub render_png {
 	# will be filename-HI.tex, which further processing will occur on.
 	# 
 	if ($haslinks) {
-		my $mapprog = getConfig('base_dir')."/bin/map/MAP";
-		system("$mapprog $fname");
+		
+		##system("$mapprog $fname");
+		my @run_args = ("$fname");
+		dwarn "EXECING $mapprog \n";
+		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($mapprog,\@run_args);
+		my $output = read_data($out_fh);
+ 		my $error  = read_data($err_fh);
 	}
 
 	my $fullname = $fname;
@@ -505,17 +544,38 @@ sub render_png {
 
 	# make a dvi (run latex twice to get numberings for refs)
 	if ($latex =~ /\\($reruns)\W/) { 
-		 system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
+		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
+		my @run_args = ("-init_file", "$tpath/.latex2html-init","$fullname.tex");
+		dwarn "EXECING $latexprog \n";
+		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
+		my $output = read_data($out_fh);
+ 		my $error  = read_data($err_fh);
 	}
 	# final rendering runi
-	system("/usr/bin/latex -interaction=batchmode $fullname.tex");
+	#system("/usr/bin/latex -interaction=batchmode $fullname.tex");
+	my @run_args = ("-init_file", "$tpath/.latex2html-init","$fullname.tex");
+	dwarn "EXECING $latexprog \n";
+	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
+	my $output = read_data($out_fh);
+	my $error  = read_data($err_fh);
 
 	print "dvips cmd: /usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps";
 	# make a postscript file
-	system("/usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps");
+	#system("/usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps");
+	my @run_args = ("-t", "letter","-f","$fullname.dvi","> $fullname.ps");
+	dwarn "EXECING $dvipsprog \n";
+	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($dvipsprog,\@run_args);
+	my $output = read_data($out_fh);
+	my $error  = read_data($err_fh);
 
 	# make a pnm 
-	system("/usr/bin/gs -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pnmraw -r100 -sOutputFile=$fullname%03d.pnm $fullname.ps");
+	#system("/usr/bin/gs -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pnmraw -r100 -sOutputFile=$fullname%03d.pnm $fullname.ps");
+
+	my @run_args = ("-q", "-dBATCH","-dGraphicsAlphaBits=4","-dTextAlphaBits=4","-dNOPAUSE","-sDEVICE=pnmraw","-r100","-sOutputFile=$fullname%03d.pnm","$fullname.ps");
+	dwarn "EXECING $gsprog \n";
+	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($gsprog,\@run_args);
+	my $output = read_data($out_fh);
+	my $error  = read_data($err_fh);
 
 	# make the output file
 	#
@@ -539,8 +599,13 @@ sub render_png {
 
 		# make a png 
 		#
-		system("/usr/bin/pnmcrop < $pnm | /usr/bin/pnmpad -white -l20 -r20 -t20 -b20 | /usr/bin/pnmtopng > $png");
-	
+		#system("/usr/bin/pnmcrop < $pnm | /usr/bin/pnmpad -white -l20 -r20 -t20 -b20 | /usr/bin/pnmtopng > $png");
+		my @run_args = ("< $pnm | /usr/bin/pnmpad -white -l20 -r20 -t20 -b20 | /usr/bin/pnmtopng > $png");
+		dwarn "EXECING $pnmcrop \n";
+		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($pnmcrop,\@run_args);
+		my $output = read_data($out_fh);
+		my $error  = read_data($err_fh);
+
 		# add image to the output html file 
 		#
 		print HTMLFILE "<tr><td>";

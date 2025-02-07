@@ -438,6 +438,7 @@ sub handleEncyclopediaChange {
 	my $thash = {reverse %{getConfig("typestrings")}};
 	my $ntype = $thash->{$params->{type}}; 
 
+	dwarn "handleEncyclopediaChange before dbUdate";
 	# update last modified date
 	#
 	my ($rv,$sth) = dbUpdate($dbh,{WHAT=>$table,
@@ -446,31 +447,42 @@ sub handleEncyclopediaChange {
 
 	$sth->finish();
 
+	dwarn "handleEncyclopediaChange after dbUdate";
 	# if title changed, handle re-cross reffing
 	if ($params->{title} ne $rec->{title}) {
+		dwarn "handleEncyclopediaChange before xrefChange";
 		xrefChange($rec->{uid},$table);
+		dwarn "handleEncyclopediaChange before xrefTitleInvalidate";
 		xrefTitleInvalidate($params->{title},$table);
+		dwarn "handleEncyclopediaChange after xrefTitleInvalidate";
 	}
 	
 	# re-index and un-xref this entry if data changed
 	if ($params->{data} ne $rec->{data}) {
-		wordIndexEntry($table,$params);
+		dwarn "handleEncyclopediaChange before wordIndexEntry";
+		#wordIndexEntry($table,$params);
+		dwarn "handleEncyclopediaChange before xrefDeleteLinksFrom";
 		xrefDeleteLinksFrom($rec->{uid},$table);	
 	}
 
+	dwarn "handleEncyclopediaChange before irIndex";
 	# re-index for IR
 	irIndex($table,$params); 
 
+	dwarn "handleEncyclopediaChange before setvalidflag_off";
 	# invalidate the object (for all methods)
 	setvalidflag_off($table,$rec->{uid});	 
 	
+	dwarn "handleEncyclopediaChange after setvalidflag_off";
 	# if synonyms changed handle re-cross reffing
 	#
 	my $calledchange=0;
 	if ($params->{synonyms} ne $rec->{synonyms}) {
+		dwarn "handleEncyclopediaChange before xrefChange";
 		xrefChange($rec->{uid},$table);
 		$calledchange=1;
 		foreach my $syn (splitindexterms($params->{synonyms})) {
+			dwarn "handleEncyclopediaChange before xrefTitleInvalidate";
 			xrefTitleInvalidate($syn,$table);
 		}
 	}

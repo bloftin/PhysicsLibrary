@@ -553,6 +553,7 @@ sub userGenericList {
 	my $params = shift;
 	my $userinf = shift;
 
+	my $html_out = '';
 	my $op = $params->{op};
 	my $offset = $params->{offset}||0;
 	my $total = $params->{total}||-1;
@@ -652,7 +653,8 @@ sub userGenericList {
 
 	getPageWidgetXSLT($template, $params, $userinf);
 
-	return paddingTable($template->expand());
+	#return paddingTable($template->expand());
+	return $html_out;
 }
 
 

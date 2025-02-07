@@ -1599,12 +1599,12 @@ sub sendMail {
 	#dwarn "sending mail: [$body]";
 
 #	open (MAIL,"| ".getConfig('sendmailcmd')." -f".getConfig('system_email')." $email") or die "Cannot open .getConfig('sendmailcmd'). $!";
- 	open (MAIL,"| ".getConfig('sendmailcmd')." $email");
-	print MAIL "From: ".getConfig('projname')."<".getConfig('reply_email').">\n";
-	print MAIL "To: $email\n";
-	print MAIL "Subject: $subject\n";
-	print MAIL "\n$body";
-	close MAIL;
+ 	##open (MAIL,"| ".getConfig('sendmailcmd')." $email");
+	##print MAIL "From: ".getConfig('projname')."<".getConfig('reply_email').">\n";
+	##print MAIL "To: $email\n";
+	##print MAIL "Subject: $subject\n";
+	##print MAIL "\n$body";
+	##close MAIL;
 }
 
 sub sendMailOld {

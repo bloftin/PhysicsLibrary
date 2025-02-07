@@ -406,7 +406,7 @@ sub wget {
 	
 	my @args = split(/\s+/,$cmd);
 	push @args,$source;
-	system(@args);
+	##system(@args);
 
 	my $ret = (($?>>8)==0)?1:0;
 	##chdir $cwd;
