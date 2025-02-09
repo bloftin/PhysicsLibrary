@@ -102,7 +102,7 @@ sub pacsSearch {
 	
 		while (my $row = $sth->fetchrow_hashref()) {
 			my $linkto = (defined $row->{parent})?"id=$row->{parent}":'';
-			$html .= "&nbsp;<b><font face=\"monospace\" size=\"+1\"><a href=\"".getConfig("main_url")."/?op=mscbrowse&$linkto\">$row->{id}</a></font></b> - $row->{comment}<br>";
+			$html .= "&nbsp;<b><font face=\"monospace\" size=\"+1\"><a href=\"".getConfig("main_url")."/?op=pacsbrowse&$linkto\">$row->{id}</a></font></b> - $row->{comment}<br>";
 		}
 		if (!$sth->rows()) {
 			$html .= "Nothing found.";

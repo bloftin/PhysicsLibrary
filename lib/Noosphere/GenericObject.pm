@@ -246,11 +246,15 @@ sub listGeneric {
 	my $params = shift;
 	my $userinf = shift;
 
+	my @objects_array = ();
 	my $factor = 4;  # scale factor for the list size
 
 	my $offset = $params->{offset} || 0;
 	my $limit = int($userinf->{'prefs'}->{'pagelength'} / $factor);
 	my $total = 0;
+	my $html_out = '';
+
+	my $tt_file = 'genericlist.tt';
 
 	my $template = new XSLTemplate('genericlist.xsl');
 
@@ -307,6 +311,17 @@ sub listGeneric {
 
 		$template->addText('</object>');
 
+		push(@objects_array,{ 
+				ord 			=> $ord,
+				date 			=> $date,
+				userid			=> $row->{userid},
+				username		=> $username,
+				authors			=> $row->{authors},
+				title 			=> $row->{title}, 
+				id				=> $row->{uid},
+				classification 	=> $class,  		 	
+		});
+
 		$ord++;
 	}
 
@@ -315,7 +330,8 @@ sub listGeneric {
 	$params->{offset} = $offset;
 	$params->{total} = $total;
 
-	getPageWidgetXSLT($template, $params, $userinf, $factor);
+	#getPageWidgetXSLT($template, $params, $userinf, $factor);
+	my $html_pager = getPager($params, $userinf, $factor);
 
 	$template->addText("</genericlist>");
 
@@ -329,7 +345,23 @@ sub listGeneric {
 	# 
 	$template->addText("</genericscreen>");
 
-	return $template->expand();
+
+	# return $template->expand();
+	my $vars = {
+        	name       				=> $name,
+			objects					=> \@objects_array,
+			pager					=> $html_pager,
+			table					=> $params->{from},
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html_out) || die "Template process failed: ", $tt->error(), "\n";
+
+	return $html_out;
 }
 
 # rendering of any generic object
