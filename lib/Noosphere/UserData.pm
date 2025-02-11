@@ -554,104 +554,131 @@ sub userGenericList {
 	my $userinf = shift;
 
 	my $html_out = '';
+	my @objects_array = ();
 	my $op = $params->{op};
 	my $offset = $params->{offset}||0;
 	my $total = $params->{total}||-1;
 	my $limit = $userinf->{'prefs'}->{'pagelength'};	
 	my $uid = $params->{id};
-# 	my $template = new XSLTemplate("usergeneric.xsl");
+	my $title = '';
+	my $tt_file = 'usergeneric.tt';
+ 	my $template = new XSLTemplate("usergeneric.xsl");
 
-# 	# database invariance (jesus christ this is ugly)
-# 	#
-# 	my ($q_usermsgs, $q_userobjs, $q_usercorsf, $q_usercorsr);
+	# database invariance (this is ugly)
+	#
+	my ($q_usermsgs, $q_userobjs, $q_usercorsf, $q_usercorsr);
 
-# 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
-# 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
-# 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
-# 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit"  if getConfig('dbms') eq 'pg';
-# 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'mysql';
-# 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'MariaDB';
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit"  if getConfig('dbms') eq 'pg';
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'mysql';
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'MariaDB';
 
-# 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
-# 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
-# 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
+	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
+	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
-# 	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
-# 	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
+	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
-# 	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
+	# structure holding the specifics
+	#
+	my $specifics = {
+		'usermsgs'=>[
+		"select uid from messages where messages.userid=$uid",
+		$q_usermsgs,
+		\&formatUserMessageRec
+	 ],
 
-# 	# structure holding the specifics
-# 	#
-# 	my $specifics = {
-# 		'usermsgs'=>[
-# 		"select uid from messages where messages.userid=$uid",
-# 		$q_usermsgs,
-# 		\&formatUserMessageRec
-# 	 ],
+	 'userobjs'=>[
+		"select userid from objindex where userid=$uid and tbl != 'users' and type = 1",
+		$q_userobjs,
+		\&formatUserObjectRec
+	 ],
 
-# 	 'userobjs'=>[
-# 		"select userid from objindex where userid=$uid and tbl != 'users' and type = 1",
-# 		$q_userobjs,
-# 		\&formatUserObjectRec
-# 	 ],
+	 'usercorsf'=>[
+		"select uid from corrections where userid=$uid",
+		$q_usercorsf,
+		\&formatUserCorrectionFiledRec
+	 ],
 
-# 	 'usercorsf'=>[
-# 		"select uid from corrections where userid=$uid",
-# 		$q_usercorsf,
-# 		\&formatUserCorrectionFiledRec
-# 	 ],
-
-# 	 'usercorsr'=>[
-# 		"select distinct corrections.uid from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid",
-# 		$q_usercorsr,
-# 		\&formatUserCorrectionReceivedRec
-# 	 ]
-# 	};
+	 'usercorsr'=>[
+		"select distinct corrections.uid from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid",
+		$q_usercorsr,
+		\&formatUserCorrectionReceivedRec
+	 ]
+	};
 	
-# 	# get total if we're lacking it
-# 	#
-# 	if ($total < 0) {
-# 		my ($rv,$sth) = dbLowLevelSelect($dbh,$specifics->{$op}->[0]);
-# 	$total = $sth->rows();
-# 	$sth->finish();
-# 	}
+	# get total if we're lacking it
+	#
+	if ($total < 0) {
+		my ($rv,$sth) = dbLowLevelSelect($dbh,$specifics->{$op}->[0]);
+		$total = $sth->rows();
+		$sth->finish();
+	}
 	
-# 	# actual retrieve the info
-# 	#
-# 	my ($rv,$sth) = dbLowLevelSelect($dbh,$specifics->{$op}->[1]);
+	# actual retrieve the info
+	#
+	my ($rv,$sth) = dbLowLevelSelect($dbh,$specifics->{$op}->[1]);
 	
-# 	if (! $rv) {
-# 		dwarn "error with query for user $uid";
-# 	return errorMessage("error with query. contact an admin.");
-# 	}
+	if (! $rv) {
+		dwarn "error with query for user $uid";
+		return errorMessage("error with query. contact an admin.");
+	}
 
-# 	my @rows = dbGetRows($sth);
+	my @rows = dbGetRows($sth);
  
-# 	$params->{offset} = $offset;
-# 	$params->{total} = $total;
+	$params->{offset} = $offset;
+	$params->{total} = $total;
 
-# 	# print out the XML
-# 	#
-# 	$template->addText("<$op>");
-# 	if ($#rows >= 0 ) {
-# 	my $num = $offset+1;
+	# print out the XML
+	#
+	$template->addText("<$op>");
+	if ($#rows >= 0 ) {
+	my $num = $offset+1;
 	
-# 		foreach my $row (@rows) {
-# 		$template->addText("	<item_$op>");
-# 		my $xml=&{$specifics->{$op}->[2]}($row,$num);
-# 		$template->addText($xml);
-# #		dwarn "adding [$xml] to template";
-# 		#$template->addText(&{$specifics->{$op}->[2]}($row,$num));
-# 		$template->addText("	</item_$op>");
-		
-# 		$num++;
-# 		}
-# 	}
-# 	$template->addText("</$op>");
+		foreach my $row (@rows) {
+			$template->addText("	<item_$op>");
+			my $xml=&{$specifics->{$op}->[2]}($row,$num);
+			$template->addText($xml);
+			dwarn "adding [$xml] to template";
+			#$template->addText(&{$specifics->{$op}->[2]}($row,$num));
+			$template->addText("	</item_$op>");
 
-# 	getPageWidgetXSLT($template, $params, $userinf);
+			push(@objects_array,{ 
+				title 		=> $row->{title}, 
+				date		=> ymd($row->{'created'}),
+				ord 		=> $num, 
+				table 		=> $row->{tbl},	
+				href		=> getConfig("main_url")."/?op=getobj;from=$row->{tbl};id=$row->{objectid}", 
+			});
+			
+			$num++;
+		}
+	}
+	$template->addText("</$op>");
+
+	#getPageWidgetXSLT($template, $params, $userinf);
+	my $factor = 1;
+	my $html_pager = getPager($params, $userinf, $factor);
+
+	# return $template->expand();
+	my $vars = {
+        	name       				=> 'name',
+			objects					=> \@objects_array,
+			pager					=> $html_pager,
+			item_userobjs			=> "item_$op",
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html_out) || die "Template process failed: ", $tt->error(), "\n";
 
 	#return paddingTable($template->expand());
 	return $html_out;
