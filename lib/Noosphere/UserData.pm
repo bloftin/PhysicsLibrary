@@ -555,6 +555,9 @@ sub userGenericList {
 
 	my $html_out = '';
 	my @objects_array = ();
+	my @msgs_array = ();
+	my @corrs_array = ();
+	my @corrsR_array = ();
 	my $op = $params->{op};
 	my $offset = $params->{offset}||0;
 	my $total = $params->{total}||-1;
@@ -638,23 +641,72 @@ sub userGenericList {
 	#
 	$template->addText("<$op>");
 	if ($#rows >= 0 ) {
-	my $num = $offset+1;
-	
+		my $num = $offset+1;
+		
 		foreach my $row (@rows) {
 			$template->addText("	<item_$op>");
 			my $xml=&{$specifics->{$op}->[2]}($row,$num);
 			$template->addText($xml);
+			#my $var = join "\n", keys &{$specifics->{$op}->[2]}($row,$num);
+			for (keys %$row)
+			{
+				dwarn "$_ : $row->{$_}";
+			}
 			dwarn "adding [$xml] to template";
 			#$template->addText(&{$specifics->{$op}->[2]}($row,$num));
 			$template->addText("	</item_$op>");
 
-			push(@objects_array,{ 
-				title 		=> $row->{title}, 
-				date		=> ymd($row->{'created'}),
-				ord 		=> $num, 
-				table 		=> $row->{tbl},	
-				href		=> getConfig("main_url")."/?op=getobj;from=$row->{tbl};id=$row->{objectid}", 
-			});
+			dwarn "op: $op";
+			if ($op eq "userobjs") {
+				dwarn "userobjs";
+				push(@objects_array,{ 
+					title 		=> $row->{title}, 
+					date		=> ymd($row->{'created'}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					href		=> getConfig("main_url")."/?op=getobj;from=$row->{tbl};id=$row->{objectid}", 
+				});
+			}
+			elsif($op eq "usermsgs") {
+				dwarn "usermsgs";
+				push(@msgs_array,{ 
+					obj_title 	=> lookupfield($row->{tbl},'title',"uid=$row->{objectid}"), 
+					msg_title 	=> $row->{subject},
+					date		=> ymd($row->{'created'}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					obj_href	=> getConfig("main_url")."/?op=getobj;from=$row->{tbl};id=$row->{objectid}", 
+					msg_href	=> getConfig("main_url")."/?op=getmsg;id=$row->{uid}", 
+				});
+			}
+			elsif($op eq "usercorsf") {
+				dwarn "usercorsf";
+				push(@corrs_array,{ 
+					obj_title 	=> lookupfield(getConfig('en_tbl'),'title',"uid=$row->{objectid}"),
+					corr_title 	=> $row->{title},
+					date		=> ymd($row->{filed}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					obj_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{objectid}", 
+					corr_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('cor_tbl').";id=$row->{uid}", 
+				});
+
+			}
+			elsif($op eq "usercorsr") {
+				dwarn "usercorsr";
+				push(@corrsR_array,{ 
+					obj_title 	=> lookupfield(getConfig('en_tbl'),'title',"uid=$row->{objectid}"),
+					username 	=> lookupfield(getConfig('user_tbl'),'username',"uid=$row->{userid}"),
+					corr_title 	=> $row->{title},
+					date		=> ymd($row->{filed}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					obj_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{objectid}", 
+					corr_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('cor_tbl').";id=$row->{uid}",
+					user_href	=> getConfig("main_url")."/?op=getuser;id=$row->{userid}",
+				});
+
+			}
 			
 			$num++;
 		}
@@ -669,8 +721,12 @@ sub userGenericList {
 	my $vars = {
         	name       				=> 'name',
 			objects					=> \@objects_array,
+			msgs					=> \@msgs_array,
+			corrs					=> \@corrs_array,
+			corrsR					=> \@corrsR_array,
 			pager					=> $html_pager,
 			item_userobjs			=> "item_$op",
+			op						=> $op,
     };
 
 	my $tt = Template->new({
