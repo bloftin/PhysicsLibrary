@@ -20,13 +20,20 @@ sub addGeneric {
 	my $params = shift;
 	my $userinf = shift;
 	my $upload = shift;
-	
+
+	dwarn "Start addGeneric";
+
+	my $html_out = '';
+	my $tt_file = 'addgeneric.tt';
 	my $template = new XSLTemplate('addgeneric.xsl'); 
 	my $table = $params->{to};
 	my $error = ''; 
 
 	my $isa = getIsA($table);
 	my $section = getIsA($table, 1);
+
+	dwarn "isa: $isa";
+	dwarn "section: $section";
 
 	$template->addText("<addgeneric section=\"$section\">");
 
@@ -50,7 +57,21 @@ sub addGeneric {
 
 	$template->addText('</addgeneric>');
 	
-	return paddingTable(clearBox("Add a $isa",$template->expand()));
+	# return $template->expand();
+	my $vars = {
+        	section       				=> $section,
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html_out) || die "Template process failed: ", $tt->error(), "\n";
+
+
+	#return paddingTable(clearBox("Add a $isa",$template->expand()));
+	return $html_out;
 }
 
 # check to see if params are good for a potential object
@@ -162,7 +183,7 @@ sub browseGenericNew {
 	return $mainpage;
 
 }
-sub browseGeneric {
+sub browseGenericNew {
 
 	my $params = shift;
 
@@ -217,27 +238,45 @@ sub browseGeneric {
 	return $html;
 }
 
-sub browseGenericOld {
+sub browseGeneric {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $template = new XSLTemplate('genericlobby.xsl');
+	dwarn "Start browseGeneric";
+	my $html_out = '';
+	my $tt_file = 'genericlobby.tt';
+	#my $template = new XSLTemplate('genericlobby.xsl');
 
 	# get plural section descriptor
 	#
 	my $section = getIsA($params->{from}, 1);
 
-	$template->addText("<genericlobby name=\"$section\" table=\"$params->{from}\">");
+	#$template->addText("<genericlobby name=\"$section\" table=\"$params->{from}\">");
 	
 	# output data needed for "interact"
 	#
-	$template->addText("<genericinteract>");
-	$template->addText("<name>$section</name><table>$params->{from}</table>");
-	$template->addText("</genericinteract>");
+	#$template->addText("<genericinteract>");
+	#$template->addText("<name>$section</name><table>$params->{from}</table>");
+	#$template->addText("</genericinteract>");
 	
-	$template->addText('</genericlobby>');
+	#$template->addText('</genericlobby>');
 
-	return $template->expand();
+	my $vars = {
+        	section     => $section,
+			table		=> $params->{from},
+			class		=> getConfig('classification_supported'),
+
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html_out) || die "Template process failed: ", $tt->error(), "\n";
+
+	#return $template->expand();
+	return $html_out;
 }
 
 # listing of any generic object (chronologically)
@@ -371,56 +410,59 @@ sub renderGeneric {
 	my $userinf = shift;
 	my $rec = shift;
 
-	my $outertemplate = new TemplateNS('genericobj.html');
-	my $template = new XSLTemplate('genericobj.xsl');
+	my $html_out = '';
 
-	my $interact = makeBox('Interact', getGenericInteract($params->{from}, $rec));
+	# my $outertemplate = new TemplateNS('genericobj.html');
+	# my $template = new XSLTemplate('genericobj.xsl');
 
-	$template->addText("<object>\n");
+	# my $interact = makeBox('Interact', getGenericInteract($params->{from}, $rec));
 
-	# gather "scattered" information about this record
-	#	 
-	my $coverxml = getCoverImageXML($params->{from}, $params->{id});
-	$template->addText($coverxml);
+	# $template->addText("<object>\n");
+
+	# # gather "scattered" information about this record
+	# #	 
+	# my $coverxml = getCoverImageXML($params->{from}, $params->{id});
+	# $template->addText($coverxml);
 	
-	my $filexml = getFileListXML($params->{from}, $params->{id});
-	$template->addText($filexml);
+	# my $filexml = getFileListXML($params->{from}, $params->{id});
+	# $template->addText($filexml);
 
-	my $classhtml = printclass($params->{from}, $params->{id}, '-1');
-	$template->setKey('classification', $classhtml);
+	# my $classhtml = printclass($params->{from}, $params->{id}, '-1');
+	# $template->setKey('classification', $classhtml);
 
-	my @urls = split (/\s+/,$rec->{urls});
-	if ($#urls >= 0) { 
-		$template->addText('<links>');
-		foreach my $url (@urls) { 
-			$template->addText("<link>$url</link>");
-		} 
-		$template->addText('</links>');
-	}
+	# my @urls = split (/\s+/,$rec->{urls});
+	# if ($#urls >= 0) { 
+	# 	$template->addText('<links>');
+	# 	foreach my $url (@urls) { 
+	# 		$template->addText("<link>$url</link>");
+	# 	} 
+	# 	$template->addText('</links>');
+	# }
 
-	# add the "core" information for this record
-	# 
-	$template->setKey('title', $rec->{title});
-	$template->setKey('abstract', $rec->{data});
-	$template->setKey('authors', $rec->{authors});
-	$template->setKey('userid',$rec->{userid});
-	$template->setKey('username',$rec->{username}); # by GetObj()
-	$template->setKey('comments',$rec->{comments});
-	$template->setKey('rights',$rec->{rights});
-	$template->setKey('isbn',$rec->{isbn});
+	# # add the "core" information for this record
+	# # 
+	# $template->setKey('title', $rec->{title});
+	# $template->setKey('abstract', $rec->{data});
+	# $template->setKey('authors', $rec->{authors});
+	# $template->setKey('userid',$rec->{userid});
+	# $template->setKey('username',$rec->{username}); # by GetObj()
+	# $template->setKey('comments',$rec->{comments});
+	# $template->setKey('rights',$rec->{rights});
+	# $template->setKey('isbn',$rec->{isbn});
 	
-	$template->addText("</object>\n");
+	# $template->addText("</object>\n");
 	
-	my $isa = getIsA($params->{from});
-	my $content = clearBox("$isa: $rec->{title}", $template->expand());
+	# my $isa = getIsA($params->{from});
+	# ##my $content = clearBox("$isa: $rec->{title}", $template->expand());
 
-	# we're basically done, return the outer HTML template
-	# 
-	$outertemplate->setKey('admin', getGenericAdmin($params, $userinf, $rec));
-	$outertemplate->setKey('interact', $interact);
-	$outertemplate->setKey('content', $content);
+	# # we're basically done, return the outer HTML template
+	# # 
+	# $outertemplate->setKey('admin', getGenericAdmin($params, $userinf, $rec));
+	# $outertemplate->setKey('interact', $interact);
+	# $outertemplate->setKey('content', $content);
 
-	return $outertemplate;
+	#return $outertemplate;
+	return $html_out;
 }
 
 # get admin controls for generic object

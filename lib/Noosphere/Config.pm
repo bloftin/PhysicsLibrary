@@ -66,7 +66,7 @@ use constant CONFIG=>(
 
 	# regexp strings for detecting screen-scraper user-agents. 
 	#
-	'screen_scrapers' => ['httrack', 'wget', 'ecatch'],
+	'screen_scrapers' => ['httrack', 'wget', 'ecatch', 'semrush', 'ahrefs', 'DotBot'],
 
 	# search engine stuff
 	#
