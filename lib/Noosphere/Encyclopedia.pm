@@ -376,7 +376,7 @@ sub getEncyclopediaMetadata {
 		my $text = generatePronunciations($rec->{'title'}, $rec->{'pronounce'});
 		my $staticsite = getConfig('siteaddrs')->{'static'};
 
-		$html .= "<br />Pronunciation <font size=\"-1\">(<a href=\"http://$staticsite/doc/jargon.html\">guide</a>)</font>: $text";
+		$html .= "<br />Pronunciation <font size=\"-1\">(<a href=\"https://$staticsite/doc/jargon.html\">guide</a>)</font>: $text";
 	}
 
 	my ($rv,$sth);

@@ -128,7 +128,7 @@ sub dolinktofile {
 	while ($latex =~ /\\PMlinktofile\{(.+?)\}\{(.+?)\}/s) {
 		my $anchor = $1;
 		my $filename = $2;
-		my $url = protectURL("http://$fileserver/files/$table/$id/$filename");
+		my $url = protectURL("https://$fileserver/files/$table/$id/$filename");
 		$latex =~ s/\\PMlinktofile\{.+?\}\{.+?\}/\\htmladdnormallink{$anchor}{$url}/s;
 		#$latex=~s/\\PMlinktofile\{.+?\}\{.+?\}/$url/s;
 	}

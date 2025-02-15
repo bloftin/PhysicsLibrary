@@ -21,8 +21,8 @@ use vars qw(%base_config);
 	STATIC_SITE => 'aux.planetphysics.org',
 	ENTITY_SITE => 'aux.planetphysics.org',
 	
-	BUG_URL => 'http://bugs.planetphysics.org',
-	DOC_URL => 'http://aux.planetphysics.org/doc',
+	BUG_URL => 'https://bugs.planetphysics.org',
+	DOC_URL => 'https://aux.planetphysics.org/doc',
 	
 	# E-mail config
 	

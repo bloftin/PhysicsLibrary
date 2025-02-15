@@ -1026,7 +1026,7 @@ sub getUserOld {
 	my %basicinfo;
 	foreach my $key (keys %$rec) {
 		my $val = $rec->{$key};
-		if ($key eq "homepage" && nb($val)) { $val=~/^http:\/\// or $val="http://$val"; }
+		if ($key eq "homepage" && nb($val)) { $val=~/^https:\/\// or $val="https://$val"; }
 		if ($key eq "email" && 
 			$prefs->{hideemail} eq 'on' && 
 			$userinf->{uid} != $id &&

@@ -28,7 +28,7 @@ use vars qw(%base_config);
 	#BUG_URL => 'bugs.planetmath.org',
 	BUG_URL => 'https://github.com/bloftin/PhysicsLibrary/issues',
 	#BUG_URL => 'https://sourceforge.net/tracker/?atid=1126522&group_id=251294&func=browse',
-	DOC_URL => 'http://aux.physicslibrary.org/doc',
+	DOC_URL => 'https://aux.physicslibrary.org/doc',
 	
 	# E-mail config
 	

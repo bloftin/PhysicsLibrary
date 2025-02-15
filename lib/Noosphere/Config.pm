@@ -91,10 +91,10 @@ use constant CONFIG=>(
 	
 	# root URLs for use in code
 	#
-	"main_url"=>"http://$Noosphere::baseconf::base_config{MAIN_SITE}",      
-	"cache_url"=>"http://$Noosphere::baseconf::base_config{IMAGE_SITE}/cache",
-	"image_url"=>"http://$Noosphere::baseconf::base_config{IMAGE_SITE}/images",
-	"file_url"=>"http://$Noosphere::baseconf::base_config{FILE_SITE}/files",
+	"main_url"=>"https://$Noosphere::baseconf::base_config{MAIN_SITE}",      
+	"cache_url"=>"https://$Noosphere::baseconf::base_config{IMAGE_SITE}/cache",
+	"image_url"=>"https://$Noosphere::baseconf::base_config{IMAGE_SITE}/images",
+	"file_url"=>"https://$Noosphere::baseconf::base_config{FILE_SITE}/files",
 
 	# leave this to direct system bugs to Noosphere home
 	"bug_url" => $Noosphere::baseconf::base_config{BUG_URL},
@@ -110,14 +110,14 @@ use constant CONFIG=>(
 	'xsl_globals' => "
 
 		<feedback_email>$Noosphere::baseconf::base_config{FEEDBACK_EMAIL}</feedback_email>
-		<main_url>http://$Noosphere::baseconf::base_config{MAIN_SITE}</main_url>
+		<main_url>https://$Noosphere::baseconf::base_config{MAIN_SITE}</main_url>
 		<doc_url>$Noosphere::baseconf::base_config{DOC_URL}</doc_url>
 		<bug_url>$Noosphere::baseconf::base_config{BUG_URL}</bug_url>
-		<file_url>http://$Noosphere::baseconf::base_config{FILE_SITE}/files</file_url>
-		<image_url>http://$Noosphere::baseconf::base_config{IMAGE_SITE}/images</image_url>
+		<file_url>https://$Noosphere::baseconf::base_config{FILE_SITE}/files</file_url>
+		<image_url>https://$Noosphere::baseconf::base_config{IMAGE_SITE}/images</image_url>
 
-		<static_site>http://$Noosphere::baseconf::base_config{STATIC_SITE}</static_site>
-		<image_site>http://$Noosphere::baseconf::base_config{IMAGE_SITE}</image_site>
+		<static_site>https://$Noosphere::baseconf::base_config{STATIC_SITE}</static_site>
+		<image_site>https://$Noosphere::baseconf::base_config{IMAGE_SITE}</image_site>
 
 		<subject_domain>$Noosphere::baseconf::base_config{SUBJECT_DOMAIN}</subject_domain>
 

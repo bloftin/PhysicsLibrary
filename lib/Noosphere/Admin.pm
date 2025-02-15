@@ -1043,7 +1043,7 @@ sub getAdminMenu {
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=dbadmin\">DB admin</a><br>";
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=cachecont\">cache control</a><br>";
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=blacklist\">blacklist</a><br>";
-	$menu .= "$bullet&nbsp;<a href=http://aux.physicslibrary.org/stats/awstats.physicslibrary.org.html>web stats</a><br>";
+	$menu .= "$bullet&nbsp;<a href=https://aux.physicslibrary.org/stats/awstats.physicslibrary.org.html>web stats</a><br>";
 	$html = adminBox('Admin Menu',$menu);
 	$html = "<tr><td>$html</td></tr>";
 	}

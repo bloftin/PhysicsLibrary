@@ -8,6 +8,7 @@ use Config;
 use constant PERLIO_IS_ENABLED => $Config{useperlio};
 use vars qw{%ICHAR_TO_ASCII %ICHAR_TO_HTML $DEBUG $dbh};
 use File::chdir;
+use Paws;
 
 # table to convert ISO-8859-1 chars into ASCII.
 #
@@ -1595,6 +1596,44 @@ sub sendMail {
 	my $body = shift;
 	my $subject = shift || getConfig('projname');
 	
+	#add note to every email on how to stop receiving emails
+	$body = $body . "
+	
+	-------------------------------------
+	If you do not want to receive these messages any more, unset 'receive email boxes' in your preferences. ".getConfig("main_url")."/?op=editprefs";
+	
+	dwarn "sending mail: [$body]";
+	dwarn "sending email to: $email";
+	dwarn "sending email subject: $subject";
+	# Someday add to global config 
+	my $obj_email = Paws->service('SESv2', region => 'us-east-2');
+
+	# SendEmail SES amazon
+	# The following example sends a formatted email:
+	my $SendEmailResponse = $obj_email->SendEmail(
+		Content => {
+			Simple => {
+				Body => {
+					Text => {
+						Data    => $body,
+						'Charset' => 'UTF-8',
+					},    # OPTIONAL
+				},
+				Subject => {
+					Data    => $subject,
+				},    # OPTIONAL
+			},    # OPTIONAL
+	},
+	Destination          => {
+		ToAddresses  => [ 'ben.loftin@gmail.com' ],         # OPTIONAL
+	},
+	FromEmailAddress            => 'admin@physicslibrary.org',                # OPTIONAL
+	ReplyToAddresses => [ 'admin@physicslibrary.org' ],    # OPTIONAL
+	);
+
+    # Results:
+    my $MessageId = $SendEmailResponse->MessageId;
+	dwarn "Email response: $MessageId";
 	#dwarn "sending mail: $body";
 	#dwarn "sending mail: [$body]";
 

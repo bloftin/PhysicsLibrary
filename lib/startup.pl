@@ -1,6 +1,8 @@
 #!/usr/bin/perl
 use strict;
 
+use lib qw(/var/www/pp/lib);
+
 use Apache::DBI;
 use Apache2::Request;
 use Apache2::RequestIO;

@@ -527,6 +527,7 @@ sub render_png {
 	# run mapper to produce image map data and highlighted TeX.  this 
 	# will be filename-HI.tex, which further processing will occur on.
 	# 
+	dwarn "haslinks: $haslinks";
 	if ($haslinks) {
 		
 		##system("$mapprog $fname");
@@ -535,21 +536,30 @@ sub render_png {
 		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($mapprog,\@run_args);
 		my $output = read_data($out_fh);
  		my $error  = read_data($err_fh);
+		dwarn "haslinks output: $output";
+		dwarn "haslinks  error: $error";
+
+
 	}
 
 	my $fullname = $fname;
+	dwarn "fullname: $fullname";
 	if ($haslinks) {
 		$fullname = "$fname-HI";
+		dwarn "haslinks fullname: $fullname";
 	}
 
 	# make a dvi (run latex twice to get numberings for refs)
 	if ($latex =~ /\\($reruns)\W/) { 
+		dwarn "latex reruns: $latex";
 		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
 		my @run_args = ("-init_file", "$tpath/.latex2html-init","$fullname.tex");
 		dwarn "EXECING $latexprog \n";
 		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
 		my $output = read_data($out_fh);
  		my $error  = read_data($err_fh);
+		dwarn "latex reruns output: $output";
+		dwarn "latex reruns  error: $error";
 	}
 	# final rendering runi
 	#system("/usr/bin/latex -interaction=batchmode $fullname.tex");
@@ -558,6 +568,8 @@ sub render_png {
 	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
 	my $output = read_data($out_fh);
 	my $error  = read_data($err_fh);
+	dwarn "final rendering output: $output";
+	dwarn "final rendering  error: $error";
 
 	print "dvips cmd: /usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps";
 	# make a postscript file
@@ -567,6 +579,8 @@ sub render_png {
 	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($dvipsprog,\@run_args);
 	my $output = read_data($out_fh);
 	my $error  = read_data($err_fh);
+	dwarn "postscript file output: $output";
+	dwarn "postscript file  error: $error";
 
 	# make a pnm 
 	#system("/usr/bin/gs -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pnmraw -r100 -sOutputFile=$fullname%03d.pnm $fullname.ps");
@@ -576,9 +590,12 @@ sub render_png {
 	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($gsprog,\@run_args);
 	my $output = read_data($out_fh);
 	my $error  = read_data($err_fh);
+	dwarn "gsprog output: $output";
+	dwarn "gsprog  error: $error";
 
 	# make the output file
 	#
+	dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
 	open HTMLFILE,">".getConfig('rendering_output_file');
 
 	print HTMLFILE "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
@@ -588,10 +605,13 @@ sub render_png {
 	my @pnms = <*.pnm>;
 	foreach my $pnm (@pnms) {
 		my $png = $pnm;
+		dwarn "png: $png";
 		$png =~ s/pnm$/png/;
+		dwarn "png: $png";
 
 		# get the series number
 		$pnm =~ /\d(\d\d)\.pnm/;
+		dwarn "png: $png";
 
 		# TODO: MAP should use 3 digits here.
 		#
@@ -601,16 +621,19 @@ sub render_png {
 		#
 		#system("/usr/bin/pnmcrop < $pnm | /usr/bin/pnmpad -white -l20 -r20 -t20 -b20 | /usr/bin/pnmtopng > $png");
 		my @run_args = ("< $pnm | /usr/bin/pnmpad -white -l20 -r20 -t20 -b20 | /usr/bin/pnmtopng > $png");
-		dwarn "EXECING $pnmcrop \n";
+		dwarn "EXECING $pnmcrop @run_args\n";
 		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($pnmcrop,\@run_args);
 		my $output = read_data($out_fh);
 		my $error  = read_data($err_fh);
+		dwarn "pnmpad output: $output";
+		dwarn "pnmpad  error: $error";
 
 		# add image to the output html file 
 		#
 		print HTMLFILE "<tr><td>";
 
 		if ($haslinks) {
+			dwarn "haslinks htmlfile";
 			print HTMLFILE "<img src=\"".htmlescape($url."/$png")."\" border=\"0\" usemap=\"#ImageMap".int($ord)."\"/>\n\n";
 			# read in the image map and output it to the HTML file
 			#
@@ -629,14 +652,14 @@ sub render_png {
 		print HTMLFILE "\n\n</td></tr>\n";
 
 		# remove the pnm
-		unlink $pnm;
+		pathrm($pnm);
 	}
 
 	print HTMLFILE "</table>\n";
 	
-	unlink "$fullname.aux";
-	unlink "$fullname.pnm";
-	unlink "$fullname.log";
+	pathrm("$fullname.aux");
+	pathrm("$fullname.pnm");
+	pathrm("$fullname.log");
 
 	close HTMLFILE;
 }

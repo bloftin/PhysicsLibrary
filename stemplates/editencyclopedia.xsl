@@ -142,7 +142,7 @@
 		<br /> <br />
 
 		Content (edit your LaTeX here. See <a href="{//globals/main_url}/?op=getobj&amp;from=collab&amp;id=28">PhysicsLibrary Content and Style Guide</a>
-			, or <a href="http://aux.physicslibrary.org/doc/faq.html#r_tex" target="syntax_win">Syntax Help</a>
+			, or <a href="https://aux.physicslibrary.org/doc/faq.html#r_tex" target="syntax_win">Syntax Help</a>
 		):
 
 		<br />
