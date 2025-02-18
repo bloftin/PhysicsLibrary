@@ -1625,7 +1625,7 @@ sub sendMail {
 			},    # OPTIONAL
 	},
 	Destination          => {
-		ToAddresses  => [ 'ben.loftin@gmail.com' ],         # OPTIONAL
+		ToAddresses  => [ $email ],         # OPTIONAL
 	},
 	FromEmailAddress            => 'admin@physicslibrary.org',                # OPTIONAL
 	ReplyToAddresses => [ 'admin@physicslibrary.org' ],    # OPTIONAL

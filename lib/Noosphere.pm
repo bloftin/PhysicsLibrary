@@ -529,7 +529,7 @@ sub handler {
 	dwarn "cookies:\n @{[%cookies]}\n";
 	my $html = '';
 
-	$AllowCache = 0;	# default to allow client caching
+	$AllowCache = 1;	# default to allow client caching
 
 	# uri remapping
 	# we use this instead of a mod_rewrite-ish thing
