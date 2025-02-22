@@ -600,13 +600,25 @@ sub getfilelist {
 	my $id = shift;
 	my $html = '';
 	
+	my $filedir = getConfig('file_root')."/$table/$id";
 	my $fileurl = getConfig('file_url');
 	my %index;
 	my $count = 0;
 
+	dwarn "fileurl: $filedir";
+
+	# change to directory
+	if (-e $filedir) { 
+		dwarn "Changing directory to $filedir";
+		$CWD = $filedir;  # just like chdir($dir)!		
+	} else { 
+		return ''; 
+	}
+
 	# process index, if present 
 	#
 	if ( -e '00index.txt' ) {
+		dwarn "00index.txt exists";
 		open INDEX,"00index.txt";
 		my $line = '';
 		while ($line = <INDEX>) {
@@ -620,6 +632,7 @@ sub getfilelist {
 	$html .= "<table>";
 	my @files = <*>;
 	foreach my $file (@files) {
+		dwarn "file: $file";
 		next if ( $file eq "00index.txt" );
 	next if ( $file =~ /^coverimage/ );
 	$html .= "<tr>";

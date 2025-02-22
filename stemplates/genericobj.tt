@@ -1,0 +1,120 @@
+<!-- this template displays papers, expositions, and books -->
+<!-- clear box -->
+<table width="100%" cellpadding="2" cellspacing="0">
+	<tr>
+		<td>
+			<table WIDTH="100%">
+
+				<!-- title -->
+				<tr>
+                    <td bgcolor="#000000">
+
+						<!-- title box -->
+						
+						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+							<tr>
+								<td WIDTH="100%" BGCOLOR="#003399">
+									<font color="white" class="box_title">
+										[% isa %]: [% title %]
+									</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+
+				</tr>
+			
+				<!-- content -->
+				<tr>
+                    <td>
+                        <table width="100%" border="0" cellpadding="0"><tr><td>
+
+                        <!-- handle title image and title-->
+                        [% IF imageurl %]
+                            <!-- generate the clickable title image -->
+                            [% USE Image imageurl %]
+                        [% END %]
+
+                        <p><p/>
+
+                        <!-- generate the title -->
+                        <font size="+2">
+                            [% title %]
+                        </font>
+
+                        <p><p/>
+
+                        [% IF authors %]
+                            Authors: [% authors %]
+                            <p><p/>
+                        [% END %]
+
+                        Uploaded by: 
+
+                        <a href=/?op=getuser;id=[% userid %]>[% username %]</a>
+
+                        </td>
+                        </tr>
+                    </table>
+
+                    <dl>
+
+                        [% IF comments%]
+                            <dt>Comments:</dt>
+                            <dd>[% comments %]</dd>
+                            </xsl:if>
+                        [% END %]
+                        
+                        <dt>Abstract:</dt>
+                        <dd> [% abstract %]</dd>
+
+                        <dt>Rights:</dt>
+                        <dd>
+                            [% IF rights %]
+                                [% rights %]
+                            [% ELSE %]
+                                [none given] (proceed with caution!)
+                            [% END %]
+                        </dd>
+
+                        [% IF files_html %]
+                            <dt>Download:</dt>
+
+                            <dd>
+                                [% files_html %]
+                            </dd>        
+
+                        [% END %]
+                    </dl>
+
+                    [% IF class %]
+                        [% class %]
+                    [% END %]
+
+                    [%- IF isbn -%]
+                        <p><p/>
+                        <font size="-1">
+                            ISBN #:  [% ISBN %]
+                        </font>  
+                    [% END %]    
+                    </td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end standard box -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

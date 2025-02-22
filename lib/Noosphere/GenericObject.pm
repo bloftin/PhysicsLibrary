@@ -411,26 +411,29 @@ sub renderGeneric {
 	my $rec = shift;
 
 	my $html_out = '';
+	my $files_html = '';
+	my $tt_file = 'genericobj.tt';
 
 	# my $outertemplate = new TemplateNS('genericobj.html');
 	# my $template = new XSLTemplate('genericobj.xsl');
 
-	# my $interact = makeBox('Interact', getGenericInteract($params->{from}, $rec));
+	my $interact = makeBox('Interact', getGenericInteract($params->{from}, $rec));
 
 	# $template->addText("<object>\n");
 
 	# # gather "scattered" information about this record
 	# #	 
-	# my $coverxml = getCoverImageXML($params->{from}, $params->{id});
+	#my $coverxml = getCoverImageXML($params->{from}, $params->{id});
 	# $template->addText($coverxml);
 	
 	# my $filexml = getFileListXML($params->{from}, $params->{id});
+	$files_html = getfilelist($params->{from}, $params->{id});
 	# $template->addText($filexml);
 
-	# my $classhtml = printclass($params->{from}, $params->{id}, '-1');
+	my $classhtml = printclass($params->{from}, $params->{id}, '-1');
 	# $template->setKey('classification', $classhtml);
 
-	# my @urls = split (/\s+/,$rec->{urls});
+	# my @urls = imagebigurl (/\s+/,$rec->{urls});
 	# if ($#urls >= 0) { 
 	# 	$template->addText('<links>');
 	# 	foreach my $url (@urls) { 
@@ -452,7 +455,7 @@ sub renderGeneric {
 	
 	# $template->addText("</object>\n");
 	
-	# my $isa = getIsA($params->{from});
+	my $isa = getIsA($params->{from});
 	# ##my $content = clearBox("$isa: $rec->{title}", $template->expand());
 
 	# # we're basically done, return the outer HTML template
@@ -462,6 +465,29 @@ sub renderGeneric {
 	# $outertemplate->setKey('content', $content);
 
 	#return $outertemplate;
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+
+	my $vars = {
+        title       => $rec->{title},
+		isa			=> $isa,
+		authors     => $rec->{authors},
+		userid		=> $rec->{userid},
+		username	=> $rec->{username},
+		comments	=> $rec->{comments},
+		abstract	=> $rec->{data},
+		rights      => $rec->{rights},
+		class		=> $classhtml,
+		isbn		=> $rec->{isbn},
+		files_html  => $files_html,
+    };
+
+
+	my $ret = $tt->process($tt_file, $vars, \$html_out) || die "Template process failed: ", $tt->error(), "\n";
+
 	return $html_out;
 }
 

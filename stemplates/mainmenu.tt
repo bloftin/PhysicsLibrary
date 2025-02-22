@@ -28,6 +28,12 @@
                                     <div style="height: 20px; display: block; font-size: 16px">
                                         <a href="/?op=browse;from=papers">Papers</a>
                                     </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=browse;from=books">Books</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=browse;from=lec">lectures</a>
+                                    </div>
                                     <p> 
                                     <center>
                                         <font size="-1"><i>Talkback</i></font>
