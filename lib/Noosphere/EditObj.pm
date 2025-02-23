@@ -149,6 +149,7 @@ sub editEncyclopedia {
 			<br/>"
 			));
 		} else {
+			dwarn "editEncyclopedia post error"; 
 			$error = editEnPreview($rec, $params, $userinf, $template, $error);
 		}
 	}

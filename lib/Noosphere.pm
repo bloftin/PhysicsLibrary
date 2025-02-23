@@ -735,13 +735,22 @@ sub handler {
 			my $headert = new TemplateNS( 'header.html' );
 			my $header = $headert->expand();
 			my $sidebar_html = '';
+			my $no_index = 0;
+			my $title = $params->{name};
+
+			if ( ($params->{op} eq 'vbrowser') or ($params->{op} eq 'viewdiff') or ($params->{op} eq 'viewver')) {
+				$no_index = 1;
+			}
+
 			$sidebar_html = fillInLeftBar($sidebar_html,$params,\%user_info);
 
 			my $vars = {
+				no_index	  => $no_index,
 				header        => $header,
 				sidebar       => $sidebar_html,
 				content       => $content,
-			};
+				title		  => $title,
+ 			};
 
 			my $tt = Template->new({
 				INCLUDE_PATH => '/var/www/pp/stemplates',
