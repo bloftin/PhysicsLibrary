@@ -845,6 +845,7 @@ sub addEncyclopedia {
 			params						=> $params,
 			fmanager_flag				=> 1,
 			fmanager					=> $fmanager,
+			parent						=> $params->{parent},
 
     };
 
