@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="995">
+ <title>mean solar time example problem</title>
+ <name>MeanSolarTimeExampleProblem</name>
+ <created>2025-03-30 16:51:18</created>
+ <modified>2025-03-30 16:54:03</modified>
+ <type>Example</type>
+<parent id="994">mean solar time</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>formatting deepseek tends to use [] but our latex2html does better with $$</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.Km"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>    % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section*{Mean Solar Time Problem}
+
+\subsection*{Problem Statement:}
+A sundial located in New York City (longitude $73.97^\circ$ W) shows a local apparent solar time of 12:00 PM when the sun is at its highest point in the sky. However, the standard time in New York (Eastern Time Zone, UTC-5) is different due to the equation of time and longitude correction.
+
+\begin{enumerate}
+    \item Calculate the mean solar time corresponding to this observation.
+    \item Determine the difference between local apparent solar time and mean solar time if the equation of time on that day is $-6$ minutes.
+    \item What is the standard clock time (Eastern Time) for this event, considering the longitude-based time zone adjustment?
+\end{enumerate}
+
+\subsection*{Given:}
+\begin{itemize}
+    \item Longitude of New York City: $\lambda = 73.97^\circ$ W.
+    \item Reference longitude for Eastern Time Zone: $\lambda_{\text{ref}} = 75^\circ$ W.
+    \item Equation of Time on the given day: $EoT = -6$ minutes.
+\end{itemize}
+
+\subsection*{Solution:}
+
+1. \textbf{Mean Solar Time (MST)} is related to Local Apparent Solar Time (LAST) by the equation:
+\[
+\text{MST} = \text{LAST} - EoT
+\]
+Since LAST is 12:00 PM,
+\[
+\text{MST} = 12:00\,\text{PM} - (-6\,\text{min}) = 12:06\,\text{PM}.
+\]
+
+2. \textbf{Longitude Correction:} The time zone is based on $\lambda_{\text{ref}} = 75^\circ$ W, but New York City is at $\lambda = 73.97^\circ$ W. The difference is:
+\[
+\Delta\lambda = 73.97^\circ - 75^\circ = -1.03^\circ.
+\]
+Since $15^\circ = 1$ hour, the time difference is:
+\[
+\Delta t = \frac{-1.03^\circ}{15^\circ/\text{hour}} = -0.0687\,\text{hours} \approx -4.12\,\text{minutes}.
+\]
+
+3. \textbf{Standard Clock Time:} The mean solar time must be adjusted by $\Delta t$ to get the standard time:
+\[
+\text{Standard Time} = \text{MST} + \Delta t = 12:06\,\text{PM} - 4.12\,\text{min} \approx 12:01.88\,\text{PM}.
+\]
+
+\subsection*{Final Answer:}
+The mean solar time is $12:06\,\text{PM}$, and the standard clock time is approximately $12:02\,\text{PM}$. \\
+
+This is an example problem generated from DeepSeek AI using prompt, "For a physics class can you give an example problem for mean solar time and write it in latex".</content>
+</record>

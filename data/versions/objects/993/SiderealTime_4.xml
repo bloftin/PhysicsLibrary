@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="993">
+ <title>sidereal time</title>
+ <name>SiderealTime</name>
+ <created>2025-03-29 21:07:02</created>
+ <modified>2025-03-30 15:35:44</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.Km"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>      % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Time} 
+
+Sidereal time is a system of timekeeping used especially by astronomers. Using sidereal time and the celestial coordinate system, it is easy to locate the positions of celestial objects in the night sky. Sidereal time is a "time scale that is based on Earth's rate of rotation measured relative to the fixed stars".[1]
+
+Viewed from the same location, a star seen at one position in the sky will be seen at the same position on another night at the same time of day (or night), if the day is defined as a sidereal day (also known as the sidereal rotation period). This is similar to how the time kept by a sundial (Solar time) can be used to find the location of the Sun. Just as the Sun and Moon appear to rise in the east and set in the west due to the rotation of Earth, so do the stars. Both solar time and sidereal time make use of the regularity of Earth's rotation about its polar axis: solar time is reckoned according to the position of the Sun in the sky while sidereal time is based approximately on the position of the fixed stars on the theoretical celestial sphere.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{Sidereal_Day_poster_(simple).png}
+
+{\tiny Figure 1: A sidereal day is 1 Earth rotation relative to the stars; a solar day is 1 Earth rotation relative to the Sun. The Earth rotates 366 times per 'normal' 365-day year relative to the stars, so Earth's sidereal day is 4 minutes shorter than Earth's solar day. (Angle exaggerated for visibility.)}
+\end{figure} 
+
+More exactly, sidereal time is the angle, measured along the celestial equator, from the observer's meridian to the great circle that passes through the March equinox (the northern hemisphere's vernal equinox) and both celestial poles, and is usually expressed in hours, minutes, and seconds. (In the context of sidereal time, "March equinox" or "equinox" or "first point of Aries" is currently a direction, from the center of the Earth along the line formed by the intersection of the Earth's equator and the Earth's orbit around the Sun, toward the constellation Pisces; during ancient times it was toward the constellation Aries.)[2] Common time on a typical clock (using mean Solar time) measures a slightly longer cycle, affected not only by Earth's axial rotation but also by Earth's orbit around the Sun.
+
+The March equinox itself precesses slowly westward relative to the fixed stars, completing one revolution in about 25,800 years, so the misnamed "sidereal" day ("sidereal" is derived from the Latin sidus meaning "star") is 0.0084 seconds shorter than the stellar day, Earth's actual period of rotation relative to the fixed stars.[3] The slightly longer stellar period is measured as the Earth rotation angle (ERA), formerly the stellar angle.[4] An increase of $360^{\circ}$ in the ERA is a full rotation of the Earth.
+
+A sidereal day on Earth is approximately 86164.0905 seconds (23 h 56 min 4.0905 s or 23.9344696 h). (Seconds are defined as per International System of Units and are not to be confused with ephemeris seconds.) Each day, the sidereal time at any given place and time will be about four minutes shorter than local civil time (which is based on solar time), so that for a complete year the number of sidereal "days" is one more than the number of solar days. 
+
+\begin{thebibliography}{9}
+
+This article is a derivative work of the creative commons share alike with attribution.[7]
+
+[1] Astronomical Almanac for the Year 2017. Washington and Taunton: US Government Printing Office and The UK Hydrographic Office. 2016. ISBN 978-0-7077-41666. \\
+
+[2] Bakich, Michael E. (2000). The Cambridge Planetary Handbook. Cambridge University Press. ISBN 0-521-63280-3. \\
+
+[3] "Earth Rotation Angle". International Earth Rotation and Reference System Service. 2013. Retrieved 20 March 2018. \\
+
+[4] Explanatory Supplement to the Ephemeris. London: Her Majesty's Stationery Office. 1961. \\
+
+[5] "Time and Frequency from A to Z, S to So". National Institute of Standards and Technology. 12 May 2010. \\
+
+[6] Urban, Sean E.; Seidelmann, P. Kenneth, eds. (2013). Explanatory Supplement to the Astronomical Almanac (3rd ed.). Mill Valley, CA: University Science Books. ISBN 978-1-891389-85-6. \\
+
+[7] Wikipedia contributors, "Sidereal time," Wikipedia, The Free Encyclopedia \\
+
+\end{thebibliography}</content>
+</record>

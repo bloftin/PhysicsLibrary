@@ -622,6 +622,7 @@ sub getEncyclopedia {
 	
 	# link to the msc browser for encylcopedia
 	#
+	# BEN Broken link, needs fixing
 	$content .= "<center><a href=\"".getConfig("main_url")."/browse/objects/\">(browse by subject)</a></center>";
 	
 	# build the index selector with an initial query.
@@ -1518,7 +1519,7 @@ sub renderEnPreview {
 	dwarn "preview files go in $root/$dir/$method";
 	if (not -e "$root/$dir/$method") {
 		dwarn "preview files something odd here had to make_path: $root/$dir/$method";
-		make_path("$root/$dir/$method", {verbose => 1})
+		make_path("$root/$dir/$method", {verbose => 1, mode => 0771})
 
 	}
 	dwarn "renderEnPreview before chdr cwd: $CWD";

@@ -768,7 +768,7 @@ sub renderCollabPreview {
 	#
 	if (not -e "$root/$dir/$method") {
 		#changing to make_path as mkdir is causing apache/mod_perl problem/crash
-		make_path("$root/$dir/$method", {verbose => 1});
+		make_path("$root/$dir/$method", {verbose => 1, mode => 0771});
 	}
 	##chdir "$root/$dir";
 	$CWD = "$root/$dir";# or dwarn "ERROR chdir: cannot change: $!\n";

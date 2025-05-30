@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="939">
+ <title>Celestial Sphere</title>
+ <name>CelestialSphere</name>
+ <created>2025-02-22 19:05:28</created>
+ <modified>2025-02-22 19:06:39</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>          % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{caption}
+% define commands here</preamble>
+ <content>If you go on a camping trip or live far from city lights, your view of the sky on a clear night is pretty much identical to that seen by people all over the world before the invention of the telescope. Gazing up, you get the impression that the sky is a great hollow dome with you at the center (insert Figure 2.2), and all the stars are an equal distance from you on the surface of the dome. The top of that dome, the point directly above your head, is called the zenith, and where the dome meets Earth is called the horizon. From the sea or a flat prairie, it is easy to see the horizon as a circle around you, but from most places where people live today, the horizon is at least partially hidden by mountains, trees, buildings, or smog. \\
+
+\begin{center}
+\includegraphics[scale=0.8]{celestial_sphere_2_2.jpg} \\
+\captionof{Figure 1: }{The Sky around Us.}
+\end{center}
+
+This article is a derivative work of the creative commons share alike with attribution in [1].
+
+\begin{thebibliography}{9}
+
+[1] Fraknoi, Andrew, David Morrison, and Sidney  Wolff. The Sky Above. In Astronomy 2e. Houston, Texas : OpenStax, 2022. \PMlinkexternal{The Sky Above}{https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above} \\</content>
+</record>

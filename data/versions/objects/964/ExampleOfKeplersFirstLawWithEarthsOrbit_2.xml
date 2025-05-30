@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="964">
+ <title>example of Kepler's first law with Earth's orbit</title>
+ <name>ExampleOfKeplersFirstLawWithEarthsOrbit</name>
+ <created>2025-03-01 02:18:41</created>
+ <modified>2025-03-01 02:19:39</modified>
+ <type>Example</type>
+<parent id="959">Kepler's first two laws of planetary motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Pk"/>
+ </classification>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{geometry}
+% define commands here</preamble>
+ <content>\section{Introduction}
+Let's explore an example [1] of \textbf{Kepler's First Law}, also known as the Law of Ellipses, which states: \textit{The orbit of a planet around the Sun is an ellipse with the Sun at one of the two foci.} Formulated by Johannes Kepler in 1609, this law overturned the ancient assumption of circular orbits and laid the foundation for modern celestial mechanics. We'll use Earth's orbit around the Sun as a concrete example, breaking it down with real numbers and a touch of cosmic flair.
+
+\section{Understanding the Law}
+An ellipse is a flattened circle defined by:
+\begin{itemize}
+    \item \textbf{Semi-major axis} ($a$): Half the longest diameter (the "width" of the orbit).
+    \item \textbf{Semi-minor axis} ($b$): Half the shortest diameter.
+    \item \textbf{Eccentricity} ($e$): A measure of how stretched the ellipse is ($0 = \text{circle}, &lt; 1$ for an ellipse).
+    \item \textbf{Foci}: Two points inside the ellipse; the Sun occupies one, and the other is empty.
+\end{itemize}</content>
+</record>

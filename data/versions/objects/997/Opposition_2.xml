@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="997">
+ <title>opposition</title>
+ <name>Opposition</name>
+ <created>2025-03-30 23:46:23</created>
+ <modified>2025-03-30 23:47:52</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>finding where render bug happens</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.Km"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <related>
+	<object name="RetrogradeMotion"/>
+ </related>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In astronomy, two astronomical objects are said to be in opposition when they are on opposite sides of the celestial sphere, as observed from a given body (usually Earth).  \\
+
+A planet (or asteroid or comet) is said to be "in opposition" or "at opposition" when it is in opposition to the Sun. Because most orbits in the Solar System are nearly coplanar to the ecliptic, this occurs when the Sun, Earth, and the body are configured in an approximately straight line, or syzygy; that is, Earth and the body are in the same direction as seen from the Sun. Opposition occurs only for superior planets (see Figure 1). \\
+
+The instant of opposition is defined as that when the apparent geocentric celestial longitude of the body differs by $180^{\circ} from the apparent geocentric longitude of the Sun.[1] At that time, a body is:
+
+\begin{itemize}
+    \item  in apparent retrograde motion[2]
+    \item visible almost all night - rising around sunset, culminating around midnight, and setting around sunrise [3]
+    \item at the point in its orbit where it is roughly closest to Earth, making it appear larger and brighter [4]
+    \item nearly completely sunlit; the planet shows a full phase, analogous to a full moon [5] 
+    \item at the place where the opposition effect increases the reflected light from bodies with unobscured rough surfaces
+
+\end{itemize}
+
+The Moon, which orbits Earth rather than the Sun, is in approximate opposition to the Sun at full moon.[6] A more exact opposition occasionally occurs with mathematical regularity if the Moon is at its usual sun and Earth-aligning point so that it appears full and happens to be aligning with the ecliptic (Earth's orbital plane) during the descending or ascending phase of its $5^{\circ}$ inclined (tilted) orbit, which is more concisely termed at a node of its orbit, in which case, a lunar eclipse occurs. A more exact, shaded form is when a central area of the earth aligns more precisely: a central lunar eclipse, of which there were14 in the 50 years to 2000, others being penumbral. \\
+
+Seen from a superior planet, an inferior planet on the opposite side of the Sun is in superior conjunction with the Sun. An inferior conjunction occurs when the two planets align on the same side of the Sun. At inferior conjunction, the superior planet is "in opposition" to the Sun as seen from the inferior planet (see Figure 1). 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=.1]{Positional_astronomy.png}
+
+{\bf Figure 1: Planet confiugration and definitions. } 
+\end{figure}</content>
+</record>

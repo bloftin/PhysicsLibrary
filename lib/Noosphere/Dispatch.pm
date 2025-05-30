@@ -78,7 +78,7 @@ sub dispatch {
 
   # msc stuff
   #
-  'mscsearch' => \&mscSearch,
+  'pacssearch' => \&pacsSearch,
   'pacsbrowse' => \&pacsBrowse,
  
   # user info

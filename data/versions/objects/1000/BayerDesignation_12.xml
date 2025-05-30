@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="12" id="1000">
+ <title>Bayer designation</title>
+ <name>BayerDesignation</name>
+ <created>2025-04-15 03:23:18</created>
+ <modified>2025-04-15 03:34:05</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>hopefully final edit on wayward character</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="97."/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Bayer designation}
+
+A Bayer designation is a stellar designation in which a specific star is identified by a Greek or Latin letter followed by the genitive form of its parent constellation's Latin name. The original list of Bayer designations contained 1564 stars. The brighter stars were assigned their first systematic names by the German astronomer Johann Bayer in 1603, in his star atlas Uranometria. Bayer catalogued only a few stars too far south to be seen from Germany, but later astronomers (including Nicolas-Louis de Lacaille and Benjamin Apthorp Gould) supplemented Bayer's catalog with entries for southern constellations. \\
+
+\section{Scheme}
+
+Bayer assigned a lowercase Greek letter (alpha ($\alpha$), beta ($\beta$), gamma ($\gamma$), etc.) or a Latin letter (A, b, c, etc.) to each star he catalogued, combined with the Latin name of the star's parent constellation in genitive (possessive) form. The constellation name is frequently abbreviated to a standard three-letter form.[1][a] For example, Aldebaran in the constellation Taurus (the Bull) is designated $\alpha$ Tauri (abbreviated $\alpha$ Tau, pronounced Alpha Tauri), which means ``Alpha of the Bull''.[b][2] \\
+
+Bayer used Greek letters for the brighter stars, but the Greek alphabet has only twenty-four letters, while a single constellation may contain fifty or more stars visible to the naked eye. When the Greek letters ran out, Bayer continued with Latin letters: uppercase A, followed by lowercase b through z (omitting j and v, but o was included), for a total of another 24 letters.[3] \\
+
+Bayer did not label ``permanent'' stars with uppercase letters (except for A, which he used instead of a to avoid confusion with $\alpha$). However, a number of stars in southern constellations have uppercase letter designations, like B Centauri and G Scorpii. These letters were assigned by later astronomers, notably Lacaille in his Coelum Australe Stelliferum and Gould in his Uranometria Argentina. Lacaille followed Bayer's use of Greek letters, but this was insufficient for many constellations. He used first the lowercase letters, starting with a, and if needed the uppercase letters, starting with A, thus deviating somewhat from Bayer's practice. Lacaille used the Latin alphabet three times over in the large constellation Argo Navis, once for each of the three areas that are now the constellations of Carina, Puppis and Vela. That was still insufficient for the number of stars, so he also used uppercase Latin letters such as N Velorum and Q Puppis. Lacaille assigned uppercase letters between R and Z in several constellations, but these have either been dropped to allow the assignment of those letters to variable stars or have actually turned out to be variable.[4] \\
+
+\section{Order by magnitude class}
+
+In most constellations, Bayer assigned Greek and Latin letters to stars within a constellation in rough order of apparent brightness, from brightest to dimmest. The order is not necessarily a precise labeling from brightest to dimmest: in Bayer's day stellar brightness could not be measured precisely. Instead, stars were traditionally assigned to one of six magnitude classes (the brightest to first magnitude, the dimmest to sixth), and Bayer typically ordered stars within a constellation by class: all the first-magnitude stars (in some order), followed by all the second-magnitude stars, and so on. Within each magnitude class, Bayer made no attempt to arrange stars by relative brightness.[5] As a result, the brightest star in each class did not always get listed first in Bayer's order and the brightest star overall did not necessarily get the designation ``Alpha''. A good example is the constellation Gemini, where Pollux is Beta Geminorum and the slightly dimmer Castor is Alpha Geminorum.  \\
+
+In addition, Bayer did not always follow the magnitude class rule; he sometimes assigned letters to stars according to their location within a constellation, or the order of their rising, or to historical or mythological details. Occasionally the order looks quite arbitrary.[3] \\
+
+Of the 88 modern constellations, there are at least 30 in which Alpha is not the brightest star, and four of those lack a star labeled ``Alpha'' altogether. The constellations with no Alpha-designated star include Vela and Puppis, both formerly part of Argo Navis, whose Greek-letter stars were split among three constellations. Canopus, the former $\alpha$ Argus, is now $\alpha$ Carinae in the modern constellation Carina. Norma's Alpha and Beta were reassigned to Scorpius and re-designated N and H Scorpii respectively, leaving Norma with no Alpha. Francis Baily died before designating an Alpha in Leo Minor, so it also has no Alpha. (The star 46 Leonis Minoris would have been the obvious candidate.) \\
+
+\section{Orion as an example}
+
+In Orion, Bayer first designated Betelgeuse and Rigel, the two 1st-magnitude stars (those of magnitude 1.5 or less), as Alpha and Beta from north to south, with Betelgeuse (the shoulder) coming ahead of Rigel (the foot), even though the latter is usually the brighter. (Betelgeuse is a variable star and can at its maximum occasionally outshine Rigel.)[6] Bayer then repeated the procedure for the stars of the 2nd magnitude, labeling them from gamma through zeta in ``top-down'' (north-to-south) order. Letters as far as Latin p were used for stars of the sixth magnitude.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1.0]{Orion_constellation_map.png}
+
+\caption{Orion constellation map}
+\end{figure}
+
+\begin{table}[]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Bayer Designation} &amp; \textbf{Bayer's class} &amp; \textbf{Apparent Magnitude} &amp;  \textbf{Proper Name }  \\ \hline
+$\alpha$ Orionis &amp; First &amp; 0.45  &amp;  Betelgeuse  \\ \hline
+$\beta$ Orionis &amp; First &amp; 0.18   &amp;  Rigel  \\ \hline
+$\gamma$ Orionis &amp; Second &amp; 1.64  &amp;  Bellatrix  \\ \hline
+$\delta$ Orionis &amp; Second &amp; 2.23  &amp;  Mintaka  \\ \hline
+$\epsilon$ Orionis &amp; Second &amp; 1.69  &amp;  Alnilam  \\ \hline
+$\zeta$ Orionis &amp; Second &amp; 1.7  &amp;  Alnitak  \\ \hline
+$\eta$ Orionis &amp; Third &amp; 3.42  &amp;  Algjebbah  \\ \hline
+$\theta$ Orionis &amp; Third &amp;   &amp;  (Orion nebula)  \\ \hline
+$\iota$ Orionis &amp; Third &amp; 2.77  &amp;  Hatysa  \\ \hline
+$\kappa$ Orionis &amp; Third &amp; 2.07  &amp;  Saiph  \\ \hline
+
+\end{tabular}
+\end{table}
+
+\section{Bayer's miscellaneous labels}
+
+Although Bayer did not use uppercase Latin letters (except A) for ``fixed stars'', he did use them to label other items shown on his charts, such as neighboring constellations, ``temporary stars'', miscellaneous astronomical objects, or reference lines like the Tropic of Cancer.[7] In Cygnus, for example, Bayer's fixed stars run through g, and on this chart Bayer employs H through P as miscellaneous labels, mostly for neighboring constellations. Bayer did not intend such labels as catalog designations, but some have survived to refer to astronomical objects: P Cygni for example is still used as a designation for Nova Cyg 1600. Tycho's Star (SN 1572), another ``temporary star'', appears as B Cassiopeiae. In charts for constellations that did not exhaust the Greek letters, Bayer sometimes used the leftover Greek letters for miscellaneous labels as well.[7]
+
+
+\section{notes}
+
+[a]  See the article 88 modern constellations (add article) for a list of the genitive forms and the constellations' standard abbreviations.  \\
+
+[b] The letters of the Greek alphabet were used in antiquity as numerals, however in a different way.
+
+\begin{thebibliography}{9}
+
+This article is a derivative work of the creative commons share alike with attribution in [8]. \\
+
+[1] Rabinowitz, Harold; Vogel, Suzanne (12 June 2009). The Manual of Scientific Style: A Guide for Authors, Editors, and Researchers. Elsevier. pp. 363ff.\\
+
+[2] Bayer, Johann (1987). Uranometria. Archival Facsimiles. \\
+
+[3] Ridpath, Ian (1989).  Bayer's Uranometria and Bayer letters'. Star Tales. Lutterworth Press. \\
+
+[4] Coelum australe stelliferum. H.L. Guerin and L.F. Delatour. 1763.  \\
+
+[5] Swerdlow, N. M. (August 1986). ``A Star Catalogue Used by Johannes Bayer''. Journal for the History of Astronomy. 17 (50): 189-197. pg. 192.
+
+[6] Patrick Moore (1996). Brilliant Stars. Cassell.
+
+[8]  Wikipedia contributors, ``Bayer designation,'' Wikipedia, The Free Encyclopedia. \\
+
+\end{thebibliography}</content>
+</record>

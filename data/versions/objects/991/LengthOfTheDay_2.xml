@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="991">
+ <title>The length of the day</title>
+ <name>LengthOfTheDay</name>
+ <created>2025-03-29 15:53:57</created>
+ <modified>2025-03-29 15:54:50</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>Added a key takeaway/summary section to make things a little more clearly defined.</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.Km"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>       % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The most fundamental astronomical unit of time is the day, measured in terms of the rotation of Earth. There is, however, more than one way to define the day. Usually, we think of it as the rotation period of Earth with respect to the Sun, called the solar day. After all, for most people sunrise is more important than the rising time of Arcturus or some other star, so we set our clocks to some version of Sun-time. However, astronomers also use a sidereal day, which is defined in terms of the rotation period of Earth with respect to the stars.
+
+A solar day is slightly longer than a sidereal day because (as you can see from Figure 1) Earth not only turns but also moves along its path around the Sun in a day. Suppose we start when Earth's orbital position is at day 1, with both the Sun and some distant star (located in the direction indicated by the long white arrow pointing left), directly in line with the zenith for the observer on Earth. When Earth has completed one rotation with respect to the distant star and is at day 2, the long arrow again points to the same distant star. However, notice that because of the movement of Earth along its orbit from day 1 to 2, the Sun has not yet reached a position above the observer. To complete a solar day, Earth must rotate an additional amount, equal to $1/365$ of a full turn. The time required for this extra rotation is $1/365$ of a day, or about 4 minutes. So the solar day is about 4 minutes longer than the sidereal day.
+
+\begin{figure}[h]
+\centering
+\includegraphics{LengthOfTheDay.jpeg}
+
+{\tiny {\bf Figure 1: Difference Between a Sidereal Day and a Solar Day.} This is a top view, looking down as Earth orbits the Sun. Because Earth moves around the Sun (roughly $1^{\circ}$ per day), after one complete rotation of Earth relative to the stars, we do not see the Sun in the same position. }
+\end{figure}
+
+This article is a derivative work of the creative commons share alike with attribution in [1].
+
+\begin{thebibliography}{9}
+
+[1] Fraknoi, Andrew, David Morrison, and Sidney Wolff. The Sky Above. In Astronomy 2e. Houston, Texas : OpenStax, 2022. \PMlinkexternal{The Sky Above}{https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above} \\
+
+\end{thebibliography}</content>
+</record>

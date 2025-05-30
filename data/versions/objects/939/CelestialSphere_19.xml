@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="19" id="939">
+ <title>Celestial Sphere</title>
+ <name>CelestialSphere</name>
+ <created>2025-02-22 19:05:28</created>
+ <modified>2025-02-23 05:26:18</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>          % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{caption}
+% define commands here</preamble>
+ <content>If you go on a camping trip or live far from city lights, your view of the sky on a clear night is pretty much identical to that seen by people all over the world before the invention of the telescope. Gazing up, you get the impression that the sky is a great hollow dome with you at the center (Figure 1), and all the stars are an equal distance from you on the surface of the dome. The top of that dome, the point directly above your head, is called the \textbf{zenith}, and where the dome meets Earth is called the \PMlinkescapetext{horizon}. From the sea or a flat prairie, it is easy to see the \PMlinkescapetext{horizon} as a circle around you, but from most places where people live today, the \PMlinkescapetext{horizon} is at least partially hidden by mountains, \PMlinkescapetext{trees}, buildings, or smog. \\
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{celestial_sphere_2_2.jpg}
+\caption{1. The Sky around Us.}
+\end{figure}
+
+\PMlinkescapetext{If you lie back in an open field and observe the night sky for hours, as ancient shepherds and travelers regularly did, you will see stars rising on the eastern horizon (just as the Sun and Moon do), moving across the dome of the sky in the course of the night, and setting on the western horizon. Watching the sky turn like this night after night, you might eventually get the idea that the dome of the sky is really part of a great sphere that is turning around you, bringing different stars into view as it turns. The early Greeks regarded the sky as just such a \textbf{celestial sphere} (Figure 2). Some thought of it as an actual sphere of transparent crystalline material, with the stars embedded in it like tiny jewels.} \\
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{celestial_sphere_2_3.jpg}
+\caption{2. \textbf{Circles on the Celestial Sphere.}  Here we show the (imaginary) celestial sphere around Earth, on which \PMlinkescapetext{objects} are fixed, and which rotates around Earth on an axis. In reality, it is Earth that turns around this axis, creating the illusion that the sky revolves around us. Note that Earth in this picture has been tilted so that your location is at the top and the North Pole is where the N is. The apparent motion of celestial \PMlinkescapetext{objects} in the sky around the pole is shown by the circular arrow.}
+\end{figure}
+
+Today, we know that it is not the celestial sphere that turns as night and day proceed, but rather the planet on which we live. We can put an imaginary stick through Earth's North and South Poles, representing our planet's axis. It is because Earth turns on this axis every 24 hours that we see the Sun, Moon, and stars rise and set with clockwork regularity. Today, we know that these celestial  \PMlinkescapetext{objects} are not really on a dome, but at greatly varying distances from us in space. Nevertheless, it is sometimes still convenient to talk about the celestial dome or sphere to help us keep track of  \PMlinkescapetext{objects} in the sky. There is even a special theater, called a \textit{planetarium}, in which we project a simulation of the stars and planets onto a white dome. \\
+
+As the celestial sphere rotates, the objects on it maintain their positions with respect to one another. A grouping of stars such as the Big Dipper has the same shape during the course of the night, although it turns with the sky. During a single night, even objects we know to have significant motions of their own, such as the nearby planets, seem fixed relative to the stars.
+
+This article is a derivative \PMlinkescapetext{work} of the creative commons share alike with attribution in [1].
+
+\begin{thebibliography}{9}
+
+[1] Fraknoi, Andrew, David Morrison, and Sidney  Wolff. The Sky Above. In Astronomy 2e. Houston, Texas : OpenStax, 2022. \PMlinkexternal{The Sky Above}{https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above} \\</content>
+</record>

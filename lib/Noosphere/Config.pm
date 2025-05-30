@@ -351,7 +351,8 @@ Disallow: /?*",
 		method=>['Encyclopedia rendering style','select','l2h',
 			{l2h=>'HTML with images',
 			 png=>'page images',
-			 src=>'TeX source'}],
+			 src=>'TeX source',
+			 pdf=>'PDF'}],
 		objwatch=>['Automatically watch your objects','check','on'],
 		corwatch=>['Automatically watch corrections to your objects','check','on'],
 		reqfwatch=>['Automatically watch requests you\'ve filled','check','on'],
@@ -456,7 +457,7 @@ Disallow: /?*",
 	},
                       
 	# flat list of method strings
-	"methods" => ["l2h","png","src"],
+	"methods" => ["l2h","png","src",'pdf'],
 					  
 	# this hash contains commands and additional LaTeX
 	# packages needed to support each command

@@ -34,7 +34,17 @@
                                     <div style="height: 20px; display: block; font-size: 16px">
                                         <a href="/?op=browse;from=lec">lectures</a>
                                     </div>
-                                    <p> 
+                                    <p></p> 
+                                    <center>
+                                        <font size="-1"><i>Meta</i></font>
+                                    </center>
+
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/browse/categories/">Classification</a>
+                                    </div>
+
+                                    <p></p>
+
                                     <center>
                                         <font size="-1"><i>Talkback</i></font>
                                     </center>
@@ -51,14 +61,14 @@
                                     <div style="height: 20px; display: block; font-size: 16px">
                                         <a href="/?op=feedback">Feedback</a>
                                     </div>
-                                    </p> 
+                                    <p></p> 
                                     <center>
                                         <font size="-1"><i>Downloads</i></font>
                                     </center>
                                     <div style="height: 20px; display: block; font-size: 16px">
                                         <a href="https://aux.physicslibrary.org/snapshots/">Snapshots</a>
                                     </div>
-                                    </p> 
+                                    <p></p>
                                     <center>
                                         <font size="-1"><i>Information</i></font>
                                     </center>

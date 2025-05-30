@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="964">
+ <title>example of Kepler's first law with Earth's orbit</title>
+ <name>ExampleOfKeplersFirstLawWithEarthsOrbit</name>
+ <created>2025-03-01 02:18:41</created>
+ <modified>2025-03-01 02:25:21</modified>
+ <type>Example</type>
+<parent id="959">Kepler's first two laws of planetary motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Pk"/>
+ </classification>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{geometry}
+% define commands here</preamble>
+ <content>\section{Introduction}
+Let's explore an example [1] of \textbf{Kepler's First Law}, also known as the Law of Ellipses, which states: \textit{The orbit of a planet around the Sun is an ellipse with the Sun at one of the two foci.} Formulated by Johannes Kepler in 1609, this law overturned the ancient assumption of circular orbits and laid the foundation for modern celestial mechanics. We'll use Earth's orbit around the Sun as a concrete example, breaking it down with real numbers and a touch of cosmic flair.
+
+\section{Understanding the Law}
+An ellipse is a flattened circle defined by:
+\begin{itemize}
+    \item \textbf{Semi-major axis} ($a$): Half the longest diameter (the "width" of the orbit).
+    \item \textbf{Semi-minor axis} ($b$): Half the shortest diameter.
+    \item \textbf{Eccentricity} ($e$): A measure of how stretched the ellipse is ($0 = \text{circle}, &lt; 1$ for an ellipse).
+    \item \textbf{Foci}: Two points inside the ellipse; the Sun occupies one, and the other is empty.
+\end{itemize}
+
+Kepler's First Law specifies that a planet traces this ellipse, with its distance from the Sun varying between \textit{perihelion} (closest approach) and \textit{aphelion} (farthest point).
+
+\section{Example: Earth's Orbit Around the Sun}
+Earth's orbit is a near-perfect illustration of Kepler's First Law. Let's use real astronomical data.
+
+\subsection{Orbital Parameters}
+\begin{itemize}
+    \item \textbf{Semi-major axis} ($a$): $149.598$ million kilometers (1 Astronomical Unit, AU).
+    \item \textbf{Eccentricity} ($e$): $0.0167$ (slightly elliptical, close to circular).
+    \item \textbf{Semi-minor axis} ($b$): Calculated as $b = a \sqrt{1 - e^2}$.
+    \begin{align*}
+        b &amp;= 149.598 \times \sqrt{1 - (0.0167)^2} \\
+          &amp;\approx 149.577 \, \text{million km} \quad (\text{a tiny flattening}).
+    \end{align*}
+    \item \textbf{Focal distance} ($c$): Distance from the center to a focus, $c = a e$.
+    \begin{align*}
+        c &amp;= 149.598 \times 0.0167 \\
+          &amp;\approx 2.497 \, \text{million km}.
+    \end{align*}
+    \item \textbf{Perihelion}: $a - c = 149.598 - 2.497 = 147.101 \, \text{million km}$ (around January 3).
+    \item \textbf{Aphelion}: $a + c = 149.598 + 2.497 = 152.095 \, \text{million km}$ (around July 4).
+\end{itemize}
+
+\subsection{Ellipse Equation}
+Place the Sun at one focus, say at $(c, 0, 0)$ in Cartesian coordinates with the center at the origin $(0, 0, 0)$:
+\begin{equation}
+    \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1,
+\end{equation}
+where $a = 149.598 \, \text{million km}$, $b = 149.577 \, \text{million km}$.
+
+Adjust coordinates so the Sun is at $(2.497, 0, 0)$:
+\begin{itemize}
+    \item Shift the origin: $x' = x - c$,
+    \item Equation becomes:
+    \begin{equation}
+        \frac{(x - 2.497)^2}{149.598^2} + \frac{y^2}{149.577^2} = 1 \quad (\text{in million km}).
+    \end{equation}
+\end{itemize}
+
+\subsection{Visualizing the Orbit}
+Imagine Earth tracing this ellipse:
+\begin{itemize}
+    \item At \textit{perihelion} ($x = c + (a - c) = a$, $y = 0$): $(147.101, 0, 0)$, closest to the Sun.
+    \item At \textit{aphelion} ($x = c - (a - c) = -a + 2c$, $y = 0$): $(-152.095, 0, 0)$, farthest from the Sun.
+    \item The Sun sits at $(2.497, 0, 0)$, 2.497 million km from the center, not at the origin.
+\end{itemize}
+Earth completes one full elliptical loop every 365.256 days (a sidereal year), with the Sun fixed at one focus.
+
+\section{Real-World Context}
+\begin{itemize}
+    \item \textbf{Perihelion Date}: January 3, 2025, Earth is 147.1 million km from the Sun-slightly closer than average, giving a subtle boost to solar heating in the Northern Hemisphere's winter.
+    \item \textbf{Aphelion Date}: July 4, 2025, at 152.1 million km-farthest, tempering summer heat slightly.
+    \item \textbf{Eccentricity's Effect}: Earth's $e = 0.0167$ is small, so the orbit is nearly circular (a 3\% variation in distance), unlike Halley's Comet ($e \approx 0.967$), which swings dramatically.
+\end{itemize}
+
+\section{Why It's Kepler's First Law}
+This example embodies the law:
+\begin{itemize}
+    \item \textbf{Ellipse, Not Circle}: $a \neq b$ (though close), confirmed by perihelion/aphelion distances.
+    \item \textbf{Sun at a Focus}: The Sun isn't at the center but offset by 2.497 million km, matching observations of Earth's varying solar distance.
+\end{itemize}</content>
+</record>

@@ -925,7 +925,7 @@ sub getidbyname {
 sub removeTempCacheDir {
 	my $cachedir=shift;
 	my $root=getConfig('cache_root');
-	dwarn "curernt directory in removeTempCacheDir $CWD";
+	#dwarn "curernt directory in removeTempCacheDir $CWD";
 	return if ((not defined($cachedir)) or $cachedir eq "");
 	dwarn "removeTempCacheDir: $root/$cachedir";
 	remove_tree("$root/$cachedir");
@@ -944,7 +944,7 @@ sub makeTempCacheDir {
 		$i++;
 	}
 
-	make_path("$path/$i", {verbose => 1});
+	make_path("$path/$i", {verbose => 1, mode => 0771});
 	return "temp/$i";
 }
 

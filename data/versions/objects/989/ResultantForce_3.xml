@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="989">
+ <title>resultant force</title>
+ <name>ResultantForce</name>
+ <created>2025-03-08 17:04:23</created>
+ <modified>2025-03-10 06:49:04</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The resultant force is simply the sum of the total external forces acting on a body.
+
+\[ \mathbf{F}_{res} = \sum_{i=1}^{n}\mathbf{ F}_{i} =  \mathbf{ F}_1 + \mathbf{ F}_2 + ...\]
+
+Geometrically, the resultant force $\mathbf{R}$ of two forces $\mathbf{P}$ and $\mathbf{Q}$ are shown in Figure 1.  The law of the parallelogam of forces states that given two vectors, the resultant force of using these vectors as sides to a parallelogram is the diagonal of the parallelogram.
+
+
+\begin{figure}[h]
+
+\includegraphics{ResultantForceFig1.png}
+
+{\tiny Figure 1: Resultant force and the law of the parallelogram of forces. }
+\end{figure}
+
+\begin{thebibliography}{9}
+
+[1]  Brooke, William; Wilcox, Hugh. "Engineering Mechancs". Ginn and Company, Boston, 1929. \\
+
+[2] Ling, Samuel et al. "University physics". Volume 1. OpenStax College, Houston, 2021. \\
+
+
+\end{thebibliography}</content>
+</record>

@@ -45,7 +45,7 @@
 							</li>
 							[% IF class %]
                                 <li>
-                                    <a href=/?op=pacsbrowse&amp;from=[% table %]> Physics Subject Classification (not working yet) </a>
+                                    <a href=/?op=pacsbrowse&amp;from=[% table %]> Physics Subject Classification</a>
 
                                 </li>
                             [% END %]

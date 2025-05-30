@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="936">
+ <title>The Age of the Earth using Heat Conduction</title>
+ <name>AgeOfTheEarthUsingHeatConduction</name>
+ <created>2025-02-20 04:54:12</created>
+ <modified>2025-02-20 04:54:12</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="44."/>
+ </classification>
+ <preamble>  % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Houstoun in [1] in 1929 estimates the age of the Earth using heat conduction and Earth temperature.  Let's see how close the estimate comes to current day estimate of $4.54 \pm 0.05 10^9$ years [2].  \\
+
+In the preceding problem (bring this info into article) let $f(x)$ be constant and equal to $c$, $ f(x) = c $.  Then 
+
+
+\begin{equation}
+v = \frac{c}{2\sqrt{\pi \kappa t}} \left[ \int_{0}^{\infty} e^{-\frac{(\xi - x)^2}{4 \kappa t}}\,d \xi  -  \int_{0}^{\infty} e^{-\frac{(\xi + x)^2}{4 \kappa t}} \,d \xi \right]
+\end{equation}
+
+sub in $\beta = \xi - x$ \\
+
+\begin{equation}
+v = \frac{c}{2\sqrt{\pi \kappa t}} \left[ \int_{-x}^{\infty} e^{-\frac{\beta^2}{4 \kappa t}}\,d \beta -  \int_{+x}^{\infty} e^{-\frac{\beta^2}{4 \kappa t}} \,d \beta \right] = \frac{c}{\sqrt{\pi \kappa t}}   \int_{0}^{\infty} e^{-\frac{\beta^2}{4 \kappa t}} \,d \beta,
+\end{equation}
+
+since $ e^{-\frac{\beta^2}{4 \kappa t}}$ is an even function of $\beta$.  Write $\alpha^2=\beta^2/(4\kappa t)$; then the result takes the simpler form
+
+\begin{equation}
+v = \frac{2c}{\sqrt{\pi}}   \int_{0}^{\frac{x}{2\sqrt{\kappa t}}} e^{-\alpha^2} \,d \alpha.
+\end{equation}
+
+Tables of values of this integral have been drawn up, and hence $v$ can be determined as a function of the upper limit. \\
+
+If we descend into the earth we find that after we pass the points where the diurnal and annual variation cease to be appreciable, the temperature begins to increase.  The 
+rate of increase varies from place to place, but may be taken roughly as $1^{\circ} F$ for every 50 feet of descent for depths up to about 1 mile.  This increase of temperature is easily 
+explained on the assumption that the center of the earth is at a high temperature and that heat is flowing outwards. \\
+
+If we assume that the earth was originally at a uniform temperature $c$ and that its surface has been always at a constant temperature zero, we can use the above result to find how 
+long it has taken to cool.  We neglect the convexity of the earth's surface. \\
+
+We find from (3) that
+
+$$ \frac{\partial v}{\partial x} = \frac{2c}{\sqrt{\pi}}   e^{-\frac{x^2}{4 \kappa t}} \frac{1}{2\sqrt{\kappa t}} =  \frac{c}{\sqrt{\pi \kappa t}}  e^{-\frac{x^2}{4 \kappa t}} $$
+
+Kelvin found by the method indicated in paragraph 81 (need to reference new entry) that $\kappa$ for the material of the earth's surface has the value 400, the units of length and time 
+being the foot and year.  Assume that the earth was initially at the temperature of molten rock,\textit{ i.e.}\ about $7000^{\circ} F$.  Insert the value  for the gradient at the surface, 
+namely, $\frac{dv}{dx} = 1^{\circ} F$ for every 50 feet.  Then, writing $ x = 0$ in the exponential, we obtain
+
+$$ \frac{\sqrt{t}}{50} = \frac{7000}{\sqrt{\pi 400}}.$$
+
+\textit{ i.e.}\
+
+$$ t = \frac{7000^2 \times 50^2}{400 \pi} = 10^8 \,\, years. $$
+
+If we write $x = 100 $ miles,
+
+$$  e^{-\frac{x^2}{4 \kappa t}} =  e^{-\frac{(100 \times 5280)^2}{1600 \times 10^8}} = e^{-\frac{3}{2}}. $$
+
+At that depth the gradient is only $\frac{1}{4 \cdot 5}$ of its surface value after $10^8$ years.  We see, therefore, from the first result, that according to our assumptions $10^8$ years 
+have elapsed since the earth was at a temperature of $7000^{\circ} F$, and we see from the second result that it is permissible to neglect the convexity of the earth's surface.  The 
+assumption throughout all the temperature change of constant conductivity, specific heat and density is, of course, open to questions.  Also, the earth may have taken much longer to 
+cool, owing to the liberation of heat due to the radioactive disintegration of some of its material.
+
+This article is a derivative work of the public domain in [1].
+
+\begin{thebibliography}{9}
+
+[1]  Houstoun, R.A., "An Introduction to Mathematical Physics" Longmans, Green and CO., London, 1929. \\
+
+[2]  Wikipedia contributors, "Age of Earth," Wikipedia, The Free Encyclopedia (accessed February 20, 2025).\\
+
+\end{thebibliography}</content>
+</record>

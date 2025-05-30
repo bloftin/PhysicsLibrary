@@ -70,23 +70,22 @@ sub pacsSearch {
 	
 	my $html = '';
 
-	my $term = $params->{mscterm} || '';
+	my $term = $params->{pacsterm} || '';
 	my $leaves = $params->{leaves} ? $params->{leaves} : ($term ? 'off' : 'on');
 	my $leafstatus = $leaves eq 'on' ? 'checked' : '';
 
 	# display search form
 	#
-	$html .= "<h3>Search the 2000 MSC</h3>
+	$html .= "<h3>Search PACS</h3>
 		<center>
 		<table border=\"0\"><td>
 		<form action=\"/\" method=\"get\">						 
-		<input type=\"hidden\" name=\"op\" value=\"mscsearch\">
-		<input type=\"text\" name=\"mscterm\" value=\"$term\">
-	<input type=\"submit\" value=\"search\">
-	<br>
-	<font size=\"-2\">(case insensitive substrings, use '-' to exclude)</font>
-	<br><br>
+		<input type=\"hidden\" name=\"op\" value=\"pacssearch\">
+		<input type=\"text\" name=\"pacsterm\" value=\"$term\">
+		<input type=\"submit\" value=\"search\">
 		<input type=\"checkbox\" name=\"leaves\" $leafstatus> leaves only
+		<p></p>
+		<font size=\"-2\">(case insensitive substrings, use '-' to exclude)</font>
 	</form>
 		<td></table>
 	</center>";
@@ -112,39 +111,207 @@ sub pacsSearch {
 	
 	$html .= "<br>";
 
-	return paddingTable(clearBox('MSC Search',$html));
+	return paddingTable(clearBox('PACS Search',$html));
 }
 
 sub pacsBrowse {
 	my $params = shift;
 	dwarn "pacsBrowse start";
+	my $types = $params->{'types'};
 	my $id = $params->{'id'};
 	my $domain = $params->{'from'} || 'categories';
+	my $tdesc = $domain ne 'categories' ? tabledesc($domain) : '';
 
+	my $scheme = 'msc';
+	my $class = getConfig('class_tbl');
+	my $clinks = getConfig('clinks_tbl');
     my $file = 'pacsbrowse.tt';
 	my $htmlout = "";
 	my $domainSwitch = 0;
 	my $idSwitch = 0;
+	my $parent = '';
+	my $desc = '';
+	my $upstr = '';
+	my $parent_url = '';
+	my $parent_id = '';
+	my $parent_desc = '';
+	my $rv;
+	my $sth;
+	my @pacs_nodes = ();
+	my @pacs_leaves = ();
+	my @rows;
 
 	# top level
 	#
 	# change -XX to .
 	if(not(defined($id))) {
+		dwarn "not defined id";
 		$idSwitch = 0;
 		if ($domain ne 'categories') {
+			dwarn "$domain ne categories";
 			$domainSwitch = 0;
+			my $q = "select $scheme.id, $scheme.comment, count(distinct $class.objectid) as cnt " .
+			"from $clinks, $class, $scheme ".
+			"where ($scheme.id like '%-XX') and " .
+			"$clinks.a = $scheme.uid and $class.catid = $clinks.b and " .
+			"$class.nsid = $clinks.nsb and $class.tbl = '$domain' " .
+			"group by $scheme.id, $scheme.comment order by $scheme.id";
+			($rv, $sth) = dbLowLevelSelect($dbh, $q);
 		}
 		else
 		{
+			dwarn "$domain equals categories";
 			$domainSwitch = 1;
+			($rv, $sth) = dbLowLevelSelect($dbh, "select $scheme.id, $scheme.comment from $scheme where ($scheme.id like '%-XX') order by $scheme.id");
+		}
+
+		@rows = dbGetRows($sth);
+
+		foreach my $row (@rows) {
+			
+			
+			my $child = lookupfield($scheme, 'id', "parent='$row->{id}'");
+			dwarn "row child:  $child";
+			##$template->addText('<mscnode>');
+		
+			##$template->addText("<haschild />") if ($child);
+			##$template->addText("<domain>$domain</domain>");
+			##$template->addText("<id>$row->{id}</id>");
+			##$template->addText("<count>$row->{cnt}</count>") if ($domain ne 'categories');
+			my $comment = latin1ToUTF8(htmlToLatin1($row->{comment}));
+			##$template->addText("<comment>$comment</comment>");
+			##$template->addText('</mscnode>');
+			my $count = 0;
+			if ($domain ne 'categories') {
+				$count = $row->{cnt};
+				dwarn "row count:  $count";
+			}
+			dwarn "comment: $comment";
+			push(@pacs_nodes,{ 
+				child 			=> $child,
+				domain 			=> $domain,
+				id				=> $row->{id},
+				count			=> $count,
+				comment			=> $comment, 		 	
+			});
+		}
+
+	}
+	# ##-XX level / ##Cxx level
+	# Ben changed XX to .
+	elsif ($id =~ /XX$/io) {
+		dwarn "-XX level";
+		dwarn "domain: $domain ";
+		if ($domain ne 'categories') {
+			($rv, $sth) = dbLowLevelSelect($dbh, 
+			
+				"select $scheme.id, $scheme.comment, count(distinct $class.objectid) as cnt " .	
+			"from $clinks, $class, $scheme where ($scheme.parent = '$id') and " .	
+			"$clinks.a = $scheme.uid and $class.catid = $clinks.b and " .	
+			"$class.nsid = $clinks.nsb and $class.tbl = '$domain' " . 
+			"group by $scheme.id, $scheme.comment order by $scheme.id");
+		} else {
+			($rv, $sth) = dbLowLevelSelect($dbh, "select $scheme.id, $scheme.comment from $scheme where $scheme.parent = '$id' order by $scheme.id");
+		}
+
+		my @rows = dbGetRows($sth);
+		$desc = getHierarchicalMscComment($params->{'id'});
+
+		my $upid = lookupfield($scheme, 'parent', "id='$id'");
+		$upstr = (defined $upid ? "$upid/" : '');
+		$parent = 1;
+		##$template->addText("<parent href=\"".getConfig("main_url")."/browse/$domain/$upstr\">");
+		##$template->addText("<id>$params->{id}</id><desc>$desc</desc>");
+		##$template->addText('</parent>');
+	
+		foreach my $row (@rows) {
+			my $count = 0;
+			$count = $row->{'cnt'} if ($domain ne 'categories');
+
+			my $child = lookupfield($scheme, 'id', "parent='$row->{id}'");
+			
+			##$template->addText('<mscnode>');
+			##$template->addText("<domain>$domain</domain>");
+			##$template->addText("<haschild />") if ($child);
+			##$template->addText("<id>$row->{id}</id>");
+			##$template->addText("<count>$count</count>") if ($domain ne 'categories');
+			my $comment = latin1ToUTF8(htmlToLatin1($row->{comment}));
+			##$template->addText("<comment>$comment</comment>");
+			##$template->addText('</mscnode>');
+			dwarn "child count: $count";
+			dwarn "domain: $domain";
+			dwarn "id: $id";
+			push(@pacs_nodes,{ 
+				child 			=> $child,
+				domain 			=> $domain,
+				id				=> $row->{id},
+				count			=> $count,
+				comment			=> $comment, 		 	
+			});
+		}
+	}
+	
+	# leaf level
+	#
+	else {
+		dwarn "leaf level";
+		dwarn "select:";
+		dwarn "domain: $domain";
+		# need to make sure domain is valid else sql will crash things
+		if( $domain eq 'objects' or $domain eq 'papers' or $domain eq 'lec' or $domain eq 'books' ) {
+			# So pacs leaves can have a + symbol in their id which apache request converts to space
+			# so we just need to replace spaces which seems to be only in this case with + and we should be good
+			$id =~ s/\s/+/g;
+			dwarn "select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid from $scheme, $class, $domain, users where $scheme.id = '$id' and $class.tbl = '$domain' and $class.catid = $scheme.uid and $domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)";
+
+			($rv, $sth) = dbLowLevelSelect($dbh, 
+			"select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid " .
+			"from $scheme, $class, $domain, users where $scheme.id = '$id' and " .	"$class.tbl = '$domain' and $class.catid = $scheme.uid and " .
+			"$domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)");
+			my @rows = dbGetRows($sth);
+			$desc = getHierarchicalMscComment($params->{id});
+
+			my $upid = lookupfield($scheme, 'parent', "id='$id'");
+			$parent = 1;
+			##$template->addText("<parent href=\"".getConfig("main_url")."/browse/$domain/$upid/\">");
+			##$template->addText("<id>$params->{id}</id><desc>$desc</desc>");
+			##$template->addText('</parent>');
+			foreach my $row (@rows) {
+				##$template->addText('<mscleaf>');
+				##$template->addText("<domain>$domain</domain>");
+				##$template->addText("<id>$row->{uid}</id>");
+				
+				my $title = mathTitleXSL($row->{'title'}, 'highlight');
+				##$template->addText("<title>$title</title>");
+				
+				##$template->addText("<owner href=\"".getConfig("main_url")."/?op=getuser;id=$row->{userid}\">$row->{username}</owner>");
+				##$template->addText('</mscleaf>');
+				push(@pacs_leaves,{ 
+					domain 			=> $domain,
+					upid			=> $upid,
+					desc			=> $desc,
+					uid				=> $row->{uid}, 
+					userid			=> $row->{userid}, 		
+					username		=> $row->{username},
+					title			=> $title,	
+				});
+			}
 		}
 	}
 
     my $vars = {
         category      => "PACS",
 		idSwitch      => $idSwitch,
+		domain		  => $domain,
 		domainSwitch  => $domainSwitch,
 		my_dbh_ref    => $dbh,
+		tdesc		  => $tdesc, 
+		parent		  => $parent,
+		desc		  => $desc,
+		upstr         => $upstr,
+		id			  => $id,
+		pacs_nodes	  => \@pacs_nodes,
+		pacs_leaves   => \@pacs_leaves,	
     };
 
     my $tt = Template->new({

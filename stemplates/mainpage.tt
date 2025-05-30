@@ -80,7 +80,7 @@
                                                                     <p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community.  All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>
 
                                                                     <font color="red">
-                                                                        Please be patient as we get Physics Library working again.  There are several issues being work.  The biggest issue currently being worked is books/lectures/papers are not fully operational.
+                                                                        Please be patient as we get Physics Library working again.  There are several issues being work.  The biggest issue currently being worked is books on our micro AWS cloud instance is low on disk space so books for download are not ready until we upgrade.  We are waiting on the majority of major bugs to be solved before upgrading due to $.
                                                                     </font>
 
                                                                     

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="970">
+ <title>example calculating orbital periods</title>
+ <name>ExampleCalculatingOrbitalPeriods</name>
+ <created>2025-03-01 06:19:43</created>
+ <modified>2025-03-01 06:20:28</modified>
+ <type>Example</type>
+<parent id="968">Kepler's third law of planetary motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Pk"/>
+ </classification>
+ <preamble>  % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Calculating Periods}
+
+Imagine an object is traveling around the Sun. What would be the orbital period of the object if its orbit has a semimajor axis of $50$ AU? 
+
+
+\subsection{Solution}
+From Kepler's third law of planetary motion, we know that (when we use units of years and AU) 
+
+$$ P^2 = a^3 $$
+
+If the object's orbit has a semimajor axis of $50$ AU ($a = 50$), we can cube $50$ and then take the square root of the result to get $P$
+
+$$ P = \sqrt{a^3} $$
+$$ P = \sqrt{50 \times 50 \times} = \sqrt{125,000} = 353.6 \,\, years $$
+
+Therefore, the orbital period of the object is about $350$ years. This would place our hypothetical object beyond the orbit of Pluto.
+
+\subsection{Check Your Learning}
+What would be the orbital period of an asteroid (a rocky chunk between Mars and Jupiter) with a semimajor axis of $3$ AU? 
+
+\subsection{Answer}
+
+$$ P = \sqrt{3 \times 3 \times 3 } = \sqrt{27} = 5.2 \,\, years $$
+
+This article is a derivative work of the creative commons share alike with attribution in [1].
+
+\begin{thebibliography}{9}
+
+[1] Fraknoi, Andrew, David Morrison, and Sidney Wolff. The Sky Above. In Astronomy 2e. Houston, Texas : OpenStax, 2022. \PMlinkexternal{The Sky Above}{https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above} \\
+
+\end{thebibliography}</content>
+</record>

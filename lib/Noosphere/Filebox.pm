@@ -38,11 +38,11 @@ sub cleanCache {
 
 
 	my $dir = "$cacheroot/$table/$id/$method";
-	#dwarn "*** filebox : cleancache in [$dir]";
+	dwarn "*** filebox : cleancache in [$dir]";
 
 	return if (baddir($dir));
-
-	pathrm("$dir/*");
+	dwarn "removing remove $dir/* ";
+	remove("$dir/*");
 }
 
 # cacheFileBox - copy filebox to a cache dir
@@ -57,8 +57,15 @@ sub cacheFileBox {
  
 	return if (not -e "$fileroot/$table/$id");
 	
-	make_path("$cacheroot/$table/$id", {verbose => 1}) if (not -e "$cacheroot/$table/$id");
-	make_path("$cacheroot/$table/$id/$method", {verbose => 1}) if (not -e "$cacheroot/$table/$id/$method");
+	dwarn "$fileroot/$table/$id exists, make ";
+
+	if (not -e "$cacheroot/$table/$id/$method")
+	{
+		dwarn "$cacheroot/$table/$id/$method does not exist, make";
+	}
+
+	make_path("$cacheroot/$table/$id", {verbose => 1, mode => 0771}) if (not -e "$cacheroot/$table/$id");
+	make_path("$cacheroot/$table/$id/$method", {verbose => 1, mode => 0771}) if (not -e "$cacheroot/$table/$id/$method");
 
 	my @files = <$fileroot/$table/$id/*>;
 	for my $file (@files) {
@@ -149,7 +156,7 @@ sub moveTempFilesToBox {
 		remove("$dest/*");
 	} else {
 		dwarn "destination does not exist, make";
-		make_path("$dest", {verbose => 1});
+		make_path("$dest", {verbose => 1, mode => 0771});
 	}
 
 	# move non-rendering dir files over.
@@ -157,33 +164,36 @@ sub moveTempFilesToBox {
 	dwarn "*** move temp files to box: changing to dir $source";
 	##chdir "$source";
 	##chdir("$source");# or dwarn "ERROR chdir: cannot change: $!\n";
-	local $CWD = "$source";
-	my $dir = getcwd();
-	$dir =~ s/\s*$//;
-	dwarn "temp dir to remove: $dir";
-	if (baddir($dir)) {
-		dwarn "*** move temp files to box: failed to change to dir $source, ended up in root! aborting.";
-	return;
-	}
-	my @files = <*>;
-	my @methoddirs = getMethods();
-	foreach my $file (@files) {
-		if (not inset($file,@methoddirs)) {
-			dwarn "attempt to move $file,$dest";
-			rmove($file, $dest);
-		} else {
-			dwarn "attempt to remove $file, all is removed in removeTempCacheDir";
-			#remove_tree("$file");
-			#pathrm("$file");
+	# brackets used here to localize the chdir
+	{
+		local $CWD = "$source";
+		my $dir = getcwd();
+		$dir =~ s/\s*$//;
+		dwarn "temp dir to remove: $dir";
+		if (baddir($dir)) {
+			dwarn "*** move temp files to box: failed to change to dir $source, ended up in root! aborting.";
+		return;
+		}
+		my @files = <*>;
+		my @methoddirs = getMethods();
+		foreach my $file (@files) {
+			if (not inset($file,@methoddirs)) {
+				dwarn "attempt to move $file,$dest";
+				rmove($file, $dest);
+			} else {
+				dwarn "attempt to remove $file, all is removed in removeTempCacheDir";
+				#remove_tree("$file");
+				#pathrm("$file");
+			}
 		}
 	}
 
 	# clean up cache dir
 	#
 	local $CWD = $cacheroot;
-	dwarn "curernt directory $CWD";
-	#removeTempCacheDir($params->{'tempdir'});
-	dwarn "curernt directory after removeTempCacheDir: $CWD";
+	#dwarn "curernt directory $CWD";
+	removeTempCacheDir($params->{'tempdir'});
+	#dwarn "curernt directory after removeTempCacheDir: $CWD";
 }
 
 # handleFileManager - get files, display manager, uses new template system

@@ -340,7 +340,7 @@ sub snapshot {
 
 	my $dir = getConfig('version_root').'/'."$table/$id";
 
-	make_path("$dir", {verbose => 1}) if (not -e "$dir");
+	make_path("$dir", {verbose => 1, mode => 0771}) if (not -e "$dir");
 
 	open OUTFILE, ">$dir/$filename.xml";	
 	print OUTFILE $xml;

@@ -22,12 +22,15 @@ sub addGeneric {
 	my $upload = shift;
 
 	dwarn "Start addGeneric";
+	return errorMessage('Must be logged in to add to the collection!') if ($userinf->{uid} < 1);
 
 	my $html_out = '';
 	my $tt_file = 'addgeneric.tt';
 	my $template = new XSLTemplate('addgeneric.xsl'); 
 	my $table = $params->{to};
 	my $error = ''; 
+	my $temp_template;
+	my $fmanager;
 
 	my $isa = getIsA($table);
 	my $section = getIsA($table, 1);
@@ -36,6 +39,8 @@ sub addGeneric {
 	dwarn "section: $section";
 
 	$template->addText("<addgeneric section=\"$section\">");
+
+	($temp_template, $fmanager) = handleFileManager($template, $params, $upload); 
 
 	if (defined $params->{post}) { 
 		$error = checkAddGeneric($params); 
@@ -50,7 +55,7 @@ sub addGeneric {
 		} 
 	} 
 	
-	handleFileManager($template, $params, $upload); 
+	
 
 	$template->setKeysIfUnset(%$params); 
 	$template->setKey('error', $error); 
@@ -59,7 +64,22 @@ sub addGeneric {
 	
 	# return $template->expand();
 	my $vars = {
+			op							=> $params->{'op'},
+			to							=> $params->{'to'},
+			isa							=> $isa,
         	section       				=> $section,
+			error						=> $error,
+			title						=> $params->{'title'},
+			authors						=> $params->{'authors'},
+			keywords					=> $params->{'keywords'},
+			class						=> $params->{'class'},
+			isbn						=> $params->{'isbn'},
+			comments					=> $params->{'comments'},
+			rights						=> $params->{'rights'},
+			data						=> $params->{'data'},
+			urls						=> $params->{'urls'},
+			fmanager_flag				=> 1,
+			fmanager					=> $fmanager,
     };
 
 	my $tt = Template->new({
@@ -250,7 +270,7 @@ sub browseGeneric {
 	# get plural section descriptor
 	#
 	my $section = getIsA($params->{from}, 1);
-
+	dwarn "section: $section";
 	#$template->addText("<genericlobby name=\"$section\" table=\"$params->{from}\">");
 	
 	# output data needed for "interact"
@@ -412,6 +432,8 @@ sub renderGeneric {
 
 	my $html_out = '';
 	my $files_html = '';
+	my $links = '';
+
 	my $tt_file = 'genericobj.tt';
 
 	# my $outertemplate = new TemplateNS('genericobj.html');
@@ -433,14 +455,14 @@ sub renderGeneric {
 	my $classhtml = printclass($params->{from}, $params->{id}, '-1');
 	# $template->setKey('classification', $classhtml);
 
-	# my @urls = imagebigurl (/\s+/,$rec->{urls});
-	# if ($#urls >= 0) { 
-	# 	$template->addText('<links>');
-	# 	foreach my $url (@urls) { 
-	# 		$template->addText("<link>$url</link>");
-	# 	} 
-	# 	$template->addText('</links>');
-	# }
+	my @urls = $rec->{urls};
+	##if ($#urls >= 0) { 
+	 	##$template->addText('<links>');
+	 	##foreach my $url (@urls) { 
+	 	##	$template->addText("<link>$url</link>");
+	 	##} 
+	 	##$template->addText('</links>');
+	 ##}
 
 	# # add the "core" information for this record
 	# # 
@@ -483,6 +505,7 @@ sub renderGeneric {
 		class		=> $classhtml,
 		isbn		=> $rec->{isbn},
 		files_html  => $files_html,
+		links       => \@urls,
     };
 
 
