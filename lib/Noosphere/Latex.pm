@@ -391,6 +391,29 @@ sub renderLaTeX {
 		dwarn "renderLaTeX png ended\n";
 
 	}
+	# experimental to see if we use make4ht instead of latex2html
+	elsif ( $method eq "make4ht" ) {
+		dwarn "renderLaTeX make4ht started\n";
+	
+		my $retval = latex_error_check($fname, $latex, $dir);
+		dwarn "latex_error_check ended \n";
+		if (!$retval) {
+			dwarn "no errors\n";
+			write_out_latex($fname, $latex);
+			dwarn "write_out_latex ended\n";
+			# l2h rendering core
+			render_make4ht($fname, $latex, $url, $dir);
+			dwarn "render_make4ht ended\n";
+		} 
+		
+		else {
+			dwarn "error with latex_error_check\n";
+			dwarn "retval: $retval";
+			write_error_output($fname, $table, $id, $method);
+		}
+		dwarn "renderLaTeX l2h ended\n";
+
+	}
 	dwarn "renderLaTeX end";
 	##chdir $cwd;
 	#chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
@@ -536,6 +559,49 @@ sub render_l2h {
 	# post process l2h's HTML output
 	#
 	postProcessL2hIndex($url,$dir);
+}
+
+# latex2html rendering core
+#
+sub render_make4ht {
+	my $fname = shift;
+	my $latex = shift;
+	my $url = shift;
+	my $dir = shift;
+
+	#my $cwd = getcwd();
+	local $CWD = "$dir";
+	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
+	my $latexprog = getConfig('latex2htmlcmd');
+	dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
+	## BEN TODO system("cp $tpath/.latex2html-init .");
+	##copy("$tpath/.latex2html-init","$dir"); # maybe add a make4ht config file
+	
+	dwarn "render_l2h after cp .latex2tml-init";
+	dwarn "dir: $dir";
+
+	my $r = Apache2::RequestUtil->request;
+	my $in_fh = "";
+	my $out_fh = "";
+	my $err_fh = "";
+
+	# run latex to get an aux file for refs
+	#
+	if ($latex =~ /\\($reruns)\W/) { 
+		dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
+		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
+		dwarn "latex reruns: $latex";
+		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
+		my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
+		dwarn "EXECING rerun make4ht -d $dir $dir/$fname.tex";
+		system("make4ht -d $dir $dir/$fname.tex \"mathml\"");
+	}
+
+	dwarn "EXECING make4ht -d $dir $dir/$fname.tex";
+	system("make4ht -d $dir $dir/$fname.tex \"mathml\"");
+
+	# post process HTML output
+	postProcess_make4htIndex($url,$dir,"$fname.html");
 }
 
 
@@ -1090,6 +1156,100 @@ sub postProcessL2hIndex {
 	# }
 
 }
+
+# process latex2html generated index.html file to produce just the html 
+# Noosphere needs to include in pages.	Writes this output to the rendering
+# output file.
+# 
+sub postProcess_make4htIndex {
+	my $url = shift;
+	my $dir = shift;
+	my $filename = shift;
+
+	my $path = getConfig('cache_root');
+
+	# just write the latex2html to the rendering output 
+	# file, with some minor post-processing
+	#
+	my $file = '';
+	my $file_in = '';
+	my $file_path = "$dir/$filename";
+	# read output of l2h, running it through tidy to get XHTML
+	# tidycmd causing apahce crash - need sub process?
+	## BEN TODO $file = readFile(getConfig('tidycmd')." -wrap 1024 -asxml index.html 2>/dev/null |");
+	dwarn "opening file $file_path";
+	#sleep 1;  #need a better way to check for when file is ready to open ugh
+	# Tyring a simple poll method with timeout
+	my $max_wait_time = 30; # in seconds
+	my $poll_interval = 1;  # in seconds
+	my $elapsed_time = 0;
+
+	while ($elapsed_time < $max_wait_time) {
+		if (-e $file_path) {
+			dwarn "File found: $file_path in $elapsed_time seconds";
+			last;
+		}
+		sleep($poll_interval);
+		$elapsed_time += $poll_interval;
+	}
+
+	if ($elapsed_time >= $max_wait_time) {
+		dwarn "File did not appear within the wait time, $max_wait_time.";
+	}
+
+	open(FILEIN, $file_path) or dwarn "postProcess_make4htIndex could not open $file_path";
+	$file_in = do {local $/; <FILEIN> };
+	# pull out just the body, clean some stuff up
+	#
+	dwarn "postProcessL2hIndex before tidy:\n $file_in";
+	my $tidy = HTML::Tidy->new({output_xhtml => 1, wrap => 1024 });
+
+	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
+	$file = $tidy->clean( $file_in );
+	dwarn "postProcessL2hIndex after tidy:\n $file";
+
+	$file =~ m{<body>[\s\S]*?</body>}s;
+	
+	$file = $&;
+	dwarn "postProcess_makehtIndex return 1st regular expression:\n $file";
+	#$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$&\"/igso;
+	$file =~ s{\bsrc=(["'])([^"']+?)\1}{src=$1$url/$2$1}g;
+	dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
+	
+	# add title tooltips
+	$file =~ s/(alt="(.+?)")/$1 title="$2" /igso;
+	dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
+	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
+	dwarn "postProcessL2hIndex final html:\n $file";
+	# write it out to standard location
+	#
+	open OUTFILE,">", "$dir/".getConfig('rendering_output_file');
+	print OUTFILE "$file";
+	close OUTFILE;
+	
+
+	# something went wrong, replace rendering output file with the contents of 
+	# error.out, with some minor post-processing (pull out just error section)
+	#
+	# else {
+	# 	$file = readFile("error.out");
+	# 	$file =~ s/^.*?(\*\*\* Error:)/$1/gs;
+	# 	$file =~ s/Died at.+$//gs;
+	# 	$file =~ s/\n+/\n/gs;
+	
+	# 	my $newfile = $file;
+	# 	while ($file =~ /<<([0-9]+)>>/gs) {
+	# 		my $num = $1;
+	# 		$newfile =~ s/<<$num>>(.*?)<<$num>>/{$1}/gs;
+	# 	}
+	# 	$file = $newfile;
+	# 	$file = tohtmlascii($file);
+	# 	$file =~ s/\n/<br \/>/gs;
+	# 	$file = "<table border=\"0\" width=\"100%\"><tr><td><font color=\"#ff0000\"><b>$file</b></font></td></tr></table>";
+	# }
+
+}
+
 
 # write reference links to a file in the rendering output dir
 #

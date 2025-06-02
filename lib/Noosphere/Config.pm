@@ -350,6 +350,7 @@ Disallow: /?*",
 			 src=>'TeX source'}],
 		method=>['Encyclopedia rendering style','select','l2h',
 			{l2h=>'HTML with images',
+			 make4ht=>'HTML with make4ht',
 			 png=>'page images',
 			 src=>'TeX source',
 			 pdf=>'PDF'}],
@@ -457,7 +458,7 @@ Disallow: /?*",
 	},
                       
 	# flat list of method strings
-	"methods" => ["l2h","png","src",'pdf'],
+	"methods" => ["l2h","make4ht","png","src",'pdf'],
 					  
 	# this hash contains commands and additional LaTeX
 	# packages needed to support each command

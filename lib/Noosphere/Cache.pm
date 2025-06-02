@@ -196,6 +196,12 @@ sub prepareEntryForRendering {
 		$latex = $linked;
 	}
 
+	# pdf uses the pre-processed output; that is, link directives are removed.
+	#
+	if ($method eq "make4ht") {
+		$latex = $linked;
+	}
+
 	# calculate supplementary packages to add (this now only includes
 	# the html package, for linking)
 	#
