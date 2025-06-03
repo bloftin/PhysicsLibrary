@@ -594,11 +594,11 @@ sub render_make4ht {
 		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
 		my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
 		dwarn "EXECING rerun make4ht -d $dir $dir/$fname.tex";
-		system("make4ht -d $dir $dir/$fname.tex \"mathml\"");
+		system("make4ht -d $dir $dir/$fname.tex");
 	}
 
 	dwarn "EXECING make4ht -d $dir $dir/$fname.tex";
-	system("make4ht -d $dir $dir/$fname.tex \"mathml\"");
+	system("make4ht -d $dir $dir/$fname.tex");
 
 	# post process HTML output
 	postProcess_make4htIndex($url,$dir,"$fname.html");
