@@ -122,7 +122,7 @@
 		<table width="0" cellpadding="0" cellspacing="4">
 		<tr> 
 			<td>
-				<textarea name="preamble" cols="60" rows="8"><xsl:value-of select="preamble"/></textarea>
+				<textarea name="preamble" cols="80" rows="8"><xsl:value-of select="preamble"/></textarea>
 			</td>
 
 			<td valign="top">
