@@ -23,6 +23,14 @@
 </ul>
 
 <center>
+    <font size="-1"><i>meta</i></font>
+</center>
+
+<ul>
+<li><a href="/?op=reqlist">Requests <xsl:value-of select="requests"/></a></li>
+</ul>
+
+<center>
     <font size="-1"><i>Information</i></font>
 </center>
 
