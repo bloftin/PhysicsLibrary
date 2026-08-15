@@ -169,6 +169,12 @@ sub getObj {
 		$admin = getEncyclopediaAdminControls($userinf,$params->{'from'},$id,$params->{'method'});
 		$interact = makeBox('Interact',getEncyclopediaInteract($rec));
 	}
+	elsif ($params->{'from'} eq getConfig('papers_tbl') ||
+		$params->{'from'} eq getConfig('exp_tbl') ||
+		$params->{'from'} eq getConfig('books_tbl')) {
+		$admin = getGenericAdmin($params, $userinf, $rec);
+		$interact = makeBox('Interact',getGenericInteract($params->{'from'},$rec));
+	}
 
 	# get owner controls
 	if ($userinf->{'uid'} == $rec->{'userid'}) {
