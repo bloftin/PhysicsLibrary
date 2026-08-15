@@ -10,8 +10,7 @@
                     <tr> 
                         <td WIDTH="155" VALIGN="TOP" ALIGN="LEFT">
                             <div id="left">
-                                [% login %]
-                                [% mainmenu %]
+                                [% sidebar %]
                             </div>
                         </td>
 
