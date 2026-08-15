@@ -31,6 +31,9 @@
                                         <a href="/?op=settings">My Settings</a>
                                     </div>
                                     <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=collab">Collaborations</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
                                          <a href="/?op=edituserobjs">My Articles</a>
                                     </div>
                                     <div style="height: 20px; display: block; font-size: 16px">
