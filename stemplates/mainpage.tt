@@ -117,6 +117,12 @@
                                 [% top_users %]
                             </div>
 
+                            <div id="poll_padding">
+                                <div id="poll">
+                                    [% poll %]
+                                </div>
+                            </div>
+
                             <div id="latest_padding">
                                 <div id="latest">
                                     [% latestadditions %]

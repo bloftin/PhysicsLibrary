@@ -926,6 +926,7 @@ sub buildMainPageTT {
 	my $la = getLatestAdditions();
 
 	my $top_users = getTopUsers();
+	my $poll = getCurrentPoll();
 
 	my $search_results = $params->{sa};
 	dwarn "Searching: $search_results";
@@ -935,6 +936,7 @@ sub buildMainPageTT {
 		login           => $loginbox,
 		mainmenu        => $mainMenubox,
 		latestadditions => $la,
+		poll            => $poll,
 		search_results	=> $search_results,
 		top_users       => $top_users,
     };

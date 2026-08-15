@@ -352,7 +352,7 @@ sub viewPoll {
 		#
 		my @pcts = ();
 		foreach my $option (@options) {
-		my $pct = ($counts{$option}*100)/$total;
+		my $pct = $total ? ($counts{$option}*100)/$total : 0;
 		my $str = sprintf "%3.1f",$pct;
 		push @pcts,"$option=$str%";
 	}
