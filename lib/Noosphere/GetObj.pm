@@ -167,6 +167,13 @@ sub getObj {
 	
 	if ($params->{'from'} eq getConfig('en_tbl')) {
 		$admin = getEncyclopediaAdminControls($userinf,$params->{'from'},$id,$params->{'method'});
+		$interact = makeBox('Interact',getEncyclopediaInteract($rec));
+	}
+	elsif ($params->{'from'} eq getConfig('papers_tbl') ||
+		$params->{'from'} eq getConfig('exp_tbl') ||
+		$params->{'from'} eq getConfig('books_tbl')) {
+		$admin = getGenericAdmin($params, $userinf, $rec);
+		$interact = makeBox('Interact',getGenericInteract($params->{'from'},$rec));
 	}
 
 	# get owner controls
@@ -186,6 +193,24 @@ sub getObj {
 
 	
 	##$html = $html->expand();
+
+	if (ref($html) && $html->can('expand')) {
+		my %common = (
+			watch       => $watch,
+			admin       => $admin,
+			author      => $author,
+			corrections => $corrections,
+			messages    => $messages,
+			interact    => $interact,
+		);
+
+		foreach my $key (keys %common) {
+			next if (!defined($common{$key}) || $common{$key} eq '');
+			$html->setKey($key, $common{$key});
+		}
+
+		return $html->expand();
+	}
 
 	my $vars = {
         renderObj       => $html,
