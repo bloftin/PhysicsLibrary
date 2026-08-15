@@ -188,6 +188,24 @@ sub getObj {
 	
 	##$html = $html->expand();
 
+	if (ref($html) && $html->can('expand')) {
+		my %common = (
+			watch       => $watch,
+			admin       => $admin,
+			author      => $author,
+			corrections => $corrections,
+			messages    => $messages,
+			interact    => $interact,
+		);
+
+		foreach my $key (keys %common) {
+			next if (!defined($common{$key}) || $common{$key} eq '');
+			$html->setKey($key, $common{$key});
+		}
+
+		return $html->expand();
+	}
+
 	my $vars = {
         renderObj       => $html,
 		watch           => $watch,
