@@ -2,3 +2,4 @@ data/cache
 db/11Apr2011.sql
 bin/testlatex2html
 data/stats
+lib/Noosphere/baseconf.pm
