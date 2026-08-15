@@ -921,7 +921,14 @@ sub buildMainPageTT {
 
 	my $loginbox = getLoginBox($params,$userinf);
 
+	my $admin = getAdminMenu($userinf->{data}->{access});
 	my $mainMenubox = getMainMenu();
+	my $sidebar = '';
+	$tt->process('sidebar.tt', {
+		login    => $loginbox,
+		admin    => $admin,
+		features => $mainMenubox,
+	}, \$sidebar) || die "Template process failed: ", $tt->error(), "\n";
 
 	my $la = getLatestAdditions();
 	my $lm = getLatestModifications();
@@ -935,7 +942,9 @@ sub buildMainPageTT {
 	my $vars = {
         head      		=> $head,
 		header          => $header,
+		sidebar         => $sidebar,
 		login           => $loginbox,
+		admin           => $admin,
 		mainmenu        => $mainMenubox,
 		latestadditions => $la,
 		latestmessages  => $latest_messages,
