@@ -761,7 +761,7 @@ sub handler {
 				getcors
 			);
 			my $no_index = $noindex_ops{$params->{op}} ? 1 : 0;
-			my $title = $params->{name};
+			my $title = $NoosphereTitle || $params->{name} || getConfig('projname');
 
 			$sidebar_html = fillInLeftBar($sidebar_html,$params,\%user_info);
 
@@ -771,6 +771,7 @@ sub handler {
 				sidebar       => $sidebar_html,
 				content       => $content,
 				title		  => $title,
+				site_name	  => getConfig('projname'),
  			};
 
 			my $tt = Template->new({

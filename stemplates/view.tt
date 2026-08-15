@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title> [% title %] </title>
+    <title>[% title | html %][% IF site_name && title != site_name %] | [% site_name | html %][% END %]</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     [% IF no_index %]
