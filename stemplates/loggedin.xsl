@@ -15,6 +15,7 @@
             
             <h2>My Stuff</h2>
             <ul> 
+                <li><a href="/?op=collab">Collaborations</a></li>
                 <li><a href="/?op=edituserobjs">My Articles</a></li>
                 <li><a href="/?op=editcors">Corrections (<xsl:value-of select="corrections"/>)</a></li>
                 <li><a href="/?op=mailbox">Mailbox (<xsl:value-of select="mail"/>)</a></li>
