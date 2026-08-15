@@ -32,13 +32,13 @@ sub showWatchers {
 
 	my @watches = getWatches($table, $id);
 
-	my $objtitle = lookuptitle($table, $id);
+	my $objtitle = qhtmlescape(lookuptitle($table, $id) || "$table #$id");
 
 	$template->addText("<watchlist objtitle=\"$objtitle\">\n");
 	my $ord = 1;
 	foreach my $wid (@watches) {
 	my $userid = lookupfield(getConfig('watch_tbl'),'userid',"uid=$wid");
-	my $username = lookupfield(getConfig('user_tbl'),'username',"uid=$userid");
+	my $username = qhtmlescape(lookupfield(getConfig('user_tbl'),'username',"uid=$userid") || "user #$userid");
 
 	$template->addText("	<watcher ord=\"$ord\" name=\"$username\" href=\"".getConfig("main_url")."/?op=getuser;id=$userid\"/>\n");
 	$ord++;
