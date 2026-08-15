@@ -66,7 +66,7 @@
 
 <xsl:template name="clearbox">
     <xsl:param name="title"/>
-    <!--<xsl:param name="content"/>-->
+    <xsl:param name="content"/>
     <table width="100%" cellpadding="0" cellspacing="0">
         <tr><td>
             <table width="100%">
@@ -212,4 +212,4 @@
 
 </xsl:template>
 
-</xsl:stylesheet> 
+</xsl:stylesheet>
