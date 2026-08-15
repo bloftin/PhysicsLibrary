@@ -167,6 +167,7 @@ sub getObj {
 	
 	if ($params->{'from'} eq getConfig('en_tbl')) {
 		$admin = getEncyclopediaAdminControls($userinf,$params->{'from'},$id,$params->{'method'});
+		$interact = makeBox('Interact',getEncyclopediaInteract($rec));
 	}
 
 	# get owner controls

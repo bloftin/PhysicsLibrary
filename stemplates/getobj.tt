@@ -1,7 +1,10 @@
 <table width="100%" cellpadding="0" >
 
-
-    [% renderObj %]
+    <tr>
+        <td>
+            [% renderObj %]
+        </td>
+    </tr>
 
     <tr>
         <td>
