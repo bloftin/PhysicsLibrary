@@ -7,7 +7,7 @@
 	
     <xsl:call-template name="clearbox">
         <xsl:with-param name="title">Users Watching 
-		  ``<xsl:value-of select="@objtitle"/>''
+		  ``<xsl:value-of select="objtitle"/>''
 		</xsl:with-param>
 		
         <xsl:with-param name="content">
@@ -37,10 +37,10 @@
 	<a>
 	  <xsl:attribute name="href">
 
-	    <xsl:value-of select="@href"/>
+	    <xsl:value-of select="href"/>
 	  </xsl:attribute>
 
-	  <xsl:value-of select="@name"/>
+	  <xsl:value-of select="name"/>
 	</a>
 
     <br/>

@@ -32,15 +32,19 @@ sub showWatchers {
 
 	my @watches = getWatches($table, $id);
 
-	my $objtitle = lookuptitle($table, $id);
+	my $objtitle = lookuptitle($table, $id) || "$table #$id";
 
-	$template->addText("<watchlist objtitle=\"$objtitle\">\n");
+	$template->addText("<watchlist>\n");
+	$template->setKey('objtitle', $objtitle);
 	my $ord = 1;
 	foreach my $wid (@watches) {
 	my $userid = lookupfield(getConfig('watch_tbl'),'userid',"uid=$wid");
-	my $username = lookupfield(getConfig('user_tbl'),'username',"uid=$userid");
+	my $username = lookupfield(getConfig('user_tbl'),'username',"uid=$userid") || "user #$userid";
 
-	$template->addText("	<watcher ord=\"$ord\" name=\"$username\" href=\"".getConfig("main_url")."/?op=getuser;id=$userid\"/>\n");
+	$template->addText("	<watcher ord=\"$ord\">\n");
+	$template->setKey('name', $username);
+	$template->setKey('href', getConfig("main_url")."/?op=getuser;id=$userid");
+	$template->addText("	</watcher>\n");
 	$ord++;
 	}
 	$template->addText("</watchlist>\n");
