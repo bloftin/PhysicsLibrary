@@ -8,7 +8,7 @@
             <div id="content">
                     <table width="0" cellpadding="0" cellspacing="4">
                     <tr> 
-                        <td WIDTH="9%" VALIGN="TOP" ALIGN="LEFT">
+                        <td WIDTH="155" VALIGN="TOP" ALIGN="LEFT">
                             <div id="left">
                                 [% login %]
                                 [% mainmenu %]
