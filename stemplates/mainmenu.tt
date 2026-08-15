@@ -49,6 +49,9 @@
                                         <a href="/?op=unclassified">Unclassified [% unclassified %]</a>
                                     </div>
                                     <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=unproven">Unproven [% unproven %]</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
                                         <a href="/browse/categories/">Classification</a>
                                     </div>
 
