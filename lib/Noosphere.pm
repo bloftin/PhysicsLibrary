@@ -7,6 +7,7 @@ use Noosphere::XSLTemplate;
 use HTML::Tidy;
 use XML::Writer;
 use File::chdir;
+use Cwd qw(abs_path);
 use Template;
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
@@ -458,6 +459,76 @@ sub serveFile {
 	return;	
 }
 
+sub serveProtectedDownload {
+	my ($req, $params, $userinf) = @_;
+
+	if ($userinf->{'uid'} <= 0) {
+		my $message = 'Please <a href="'.getConfig('main_url').'">sign in</a> to download this file.';
+		sendOutput($req, makeBox('Sign In Required', $message), 403);
+		return;
+	}
+
+	my $path = $params->{'path'} || '';
+	$path =~ s/^\/+//;
+
+	if ($path =~ /\0/ || $path =~ /\\/ || $path =~ /(?:^|\/)\.\.(?:\/|$)/ ||
+		$path !~ m{^(?:files/(?:objects|books|papers|lec)/.+|snapshots/.+)$}) {
+		sendOutput($req, errorMessage('Invalid download path.'), 400);
+		return;
+	}
+
+	my $file = getConfig('base_dir')."/data/$path";
+	if (! -f $file) {
+		sendOutput($req, errorMessage('File not found.'), 404);
+		return;
+	}
+
+	my $data_root = abs_path(getConfig('base_dir')."/data");
+	my $resolved_file = abs_path($file);
+	if (!$data_root || !$resolved_file || index($resolved_file, "$data_root/") != 0) {
+		sendOutput($req, errorMessage('Invalid download path.'), 400);
+		return;
+	}
+
+	my $type = protectedDownloadContentType($file);
+	my $len = -s $file;
+
+	my $fh;
+	unless (open($fh, '<', $resolved_file)) {
+		sendOutput($req, errorMessage('Could not open file.'), 500);
+		return;
+	}
+
+	binmode($fh);
+	$req->content_type($type);
+	$req->headers_out->add('content-length' => $len);
+
+	while (read($fh, my $buffer, 8192)) {
+		$req->print($buffer);
+	}
+	close($fh);
+	$req->rflush();
+	return;
+}
+
+sub protectedDownloadContentType {
+	my $file = shift;
+
+	return 'application/pdf' if ($file =~ /\.pdf$/i);
+	return 'application/postscript' if ($file =~ /\.(?:ps|eps)$/i);
+	return 'application/gzip' if ($file =~ /\.gz$/i);
+	return 'application/x-tar' if ($file =~ /\.tar$/i);
+	return 'application/zip' if ($file =~ /\.zip$/i);
+	return 'image/png' if ($file =~ /\.png$/i);
+	return 'image/jpeg' if ($file =~ /\.(?:jpe?g)$/i);
+	return 'image/gif' if ($file =~ /\.gif$/i);
+	return 'image/svg+xml' if ($file =~ /\.svg$/i);
+	return 'text/plain; charset=UTF-8' if ($file =~ /\.(?:txt|tex|log|aux)$/i);
+	return 'text/xml; charset=UTF-8' if ($file =~ /\.xml$/i);
+
+	return 'application/octet-stream';
+}
+
 sub serveFileNew {
 	my ($req, $name) = @_;
 	my $html = '';
@@ -730,6 +801,11 @@ sub handler {
 	# user info and cookies
 	#
 	my %user_info = handleLogin($req, $params, \%cookies);
+
+	if ($params->{'op'} eq 'downloadfile') {
+		serveProtectedDownload($req, $params, \%user_info);
+		return;
+	}
 
 	# check for any content that isn't meant for any template
 	#
