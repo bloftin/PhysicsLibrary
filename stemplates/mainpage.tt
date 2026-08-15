@@ -98,15 +98,17 @@
                                             </table>
                                             <!-- end standard box -->
 
-
-                                        
-                                            
-                                                <!--</div>-->
-                                                <div id="go_to_padding">
-                                                    <div id="go_to">
-                                                        Browse Encyclopedia By: <a href="/encyclopedia/">Encyclopedia</a>
-                                                    </div>
+                                            <div id="go_to_padding">
+                                                <div id="go_to">
+                                                    Browse Encyclopedia By: <a href="/encyclopedia/">Encyclopedia</a>
                                                 </div>
+                                            </div>
+
+                                            <div style="height: 12px;"></div>
+
+                                            [% latestmessages %]
+
+                                            <div style="height: 8px;"></div>
                                         [% END %]
                                     </div>
                             </div>
@@ -126,6 +128,14 @@
                             <div id="latest_padding">
                                 <div id="latest">
                                     [% latestadditions %]
+                                    <center><font size="-2"><a href="/?op=enchrono&amp;mode=created">(more)</a></font></center>
+                                </div>
+                            </div>
+
+                            <div id="latest_padding">
+                                <div id="latest">
+                                    [% latestrevisions %]
+                                    <center><font size="-2"><a href="/?op=enchrono&amp;mode=modified">(more)</a></font></center>
                                 </div>
                             </div>
 

@@ -249,7 +249,7 @@ Disallow: /?*",
 	"topusers_2weeks"=>"10",
 	"latest_additions"=>"20",
 	"latest_revisions"=>"20",
-	"latest_messages"=>"1",
+	"latest_messages"=>"20",
 	"search_results_page"=>10,
 	"listings_page"=>20,
 					  
