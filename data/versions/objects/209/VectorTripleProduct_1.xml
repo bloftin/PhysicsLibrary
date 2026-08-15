@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="209">
+ <title>Vector Triple Product</title>
+ <name>VectorTripleProduct</name>
+ <created>2006-07-24 23:24:20</created>
+ <modified>2006-07-24 23:24:20</modified>
+ <type>Definition</type>
+<parent id="208">vector</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="Vector Triple Product" alias="Back CAB"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Vector Triple Product}
+
+Combining three vectors into a product is called a \emph{triple} product.  The vector triple product is the vector product of two vectors of which one is itself a vector product.  Such as 
+
+$$ \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $$
+$$ \left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C} $$
+
+The vector $\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $ is perpendicular to $\mathbf{A}$ and to $\left ( \mathbf{B} \times \mathbf{C} \right ) $.  But $\left ( \mathbf{B} \times \mathbf{C} \right ) $ is perpendicular to the plane of $\mathbf{B}$ and $\mathbf{C.}$  Hence $\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $, being perpendicular to $\left ( \mathbf{B} \times \mathbf{C} \right ) $ must lie in the plane of $\mathbf{B}$ and $\mathbf{C}$ and thus take the form
+
+$$ \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) = x \mathbf{B} + y \mathbf{C}$$
+
+where $x$ an $y$ are two scalars.  In like manner also the vector $ \left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C} $, being perpendicular to $ \left ( \mathbf{A} \times \mathbf{B} \right )$ must lie in the plane of $\mathbf{A}$ and $\mathbf{B}$.  Hence it will be of the form
+
+
+$$\left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C}  = m \mathbf{A} + n \mathbf{B}$$
+
+where $m$ and $n$ are two scalars.  From this it is evident that in general
+
+$$\left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C} \,\, is \, not \, equal \, to \,\, \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $$
+
+The parentheses therefore cannot be removed or interchanged.  It is essential to know which cross product is formed first and which second.  This product is termed the vector triple product in contrast to the scalar triple product.
+
+\subsection{Properties}
+
+The vector triple product $\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $ may be expressed as the sum of two terms as 
+
+$$ \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) =  \mathbf{B} \left( \mathbf{A} \cdot \mathbf{C} \right ) - \mathbf{C} \left ( \mathbf{A} \cdot \mathbf{B} \right) $$
+\subsection{References}
+
+[1] Wilson, E. "Vector Analysis." Yale University Press, New Haven, 1913.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="700">
+ <title>bibliography: doctoral theses supervised by A. Grothendieck</title>
+ <name>BibliographyDoctoralThesesSupervisedByAGrothendieck</name>
+ <created>2009-04-30 21:44:24</created>
+ <modified>2009-04-30 21:44:24</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>http://people.math.jussieu.fr/~leila/grothendieckcircle/theses.pdf</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>bibliographyic data</term>
+	<term>doctoral theses supervised by A. Grothendieck</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Doctoral theses supervised by Alexander Grothendieck}
+
+\PMlinkexternal{(original list in French)}{http://www.math.jussieu.fr/~leila/grothendieckcircle/theses.pdf}
+
+\subsubsection{An incomplete list of ``theses directed by A. Grothendieck'':}
+
+\begin{enumerate}
+\item Schemes of reductive groups, by M. Demazure
+[1] Sch\'emas en groupes r\'eductifs; short version of the thesis by M. Demazure, published in
+\emph{Bull. SMF. M\'em} {\bf 93} (1965), 369-413. (Demazure's thesis is published ``in totto'' in SGA 3.
+\item Derived categories in $l$-adic cohomology.
+[2] Cat\'egories d\'eriv\'ees en cohomologie l'-adique, (1969), thesis of J.-P.
+Jouanolou.
+\item Ample sheaves over group schemes and homogeneous spaces, thesis of Michel
+Raynaud, published in Springer \emph{Lecture Notes} {\bf119} (1970).
+[3] Faisceaux amples sur les sch\'emas en groupes et espaces homog\'enes; thesis of Michel
+Raynaud.
+\item Lefschetz theorems in coherent cohomology nad etale cohomology;
+[4] Th\`eor\'emes de Lefschetz en cohomologie coh\'erente et en cohomologie \'etale; thesis of
+Mich\'ele Raynaud, Bull. SMF M\'em. 41 (1976).
+\item Complexe cotangent et d\'eformations, Springer \emph{Lecture Notes} {\bf 239} (1971); thesis of Luc
+Illusie.
+\item (On) \emph{Tannakian Categories}, Thesis by Saavedra Rivano, published in Springer
+\emph{Lecture Notes}, 265 (1972).
+[6] Cat\'egories Tannakiennes, Springer Lecture Notes 265 (1972); thesis of Saavedra Rivano.
+\item \emph{Non-Abelian Cohomology}, Thesis by J. Giraud.
+[7] Cohomologie non ab\'elienne, \emph{Grundlehren Math. Wiss.} 179 (1972), Springer; thesis
+of J. Giraud.
+\item Ring Topos and relative schemes, Thesis by Monique Hakim.
+[8] Topos annel\'es et sch\'emas relatifs, \emph{Ergebnisse Math. Gr.} {\bf 64} (1972), Springer; thesis
+of Monique Hakim.
+\item Cohomologie cristalline, Springer Lecture Notes 407 (1974); thesis of Pierre Berthelot.
+\item Derived Categories and Abelian Categories, Thesis by Jean-Louis Verdier.,
+[10] Des cat\'egories d\'eriv\'ees des cat\'egories ab\'eliennes; thesis of Jean-Louis Verdier, later
+published in \emph{Ast\'erisque} {\bf 239} (1996), SMF (G. Maltsiniotis, ed.)
+\item \emph{Grothendieck Categories}, Thesis of Hong Suan Xsin.
+[11] Gr-Categories; thesis of Hong Suan Xsin.
+\item Isotopic study of embeddings of a topological $1$-complex into a complex surface; thesis
+of Yves Ladegaillerie, short version published in \emph{Topology} {\bf 23} no. 3(1984), 303-311.
+\item Jacobiennes g\'en\'eralis\'ees globales relatives; thesis of Carlos Contou-Carr\'ere, short version
+published in the \emph{Grothendieck Festschrift}, vol. II (1990).
+\end{enumerate}</content>
+</record>

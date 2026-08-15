@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="261">
+ <title>1D example of the relation between force and potential energy</title>
+ <name>1DExampleOfTheRelationBetweenForceAndPotentialEnergy</name>
+ <created>2007-08-12 00:40:15</created>
+ <modified>2007-08-12 00:40:15</modified>
+ <type>Example</type>
+<parent id="198">relation between force and potential energy</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>Changes for correction #34 ('1D example of the relation between force and potential energy').</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>For a simple one dimensional example of the relationship between force and potential energy, assume that the potential energy of a particle is given by the equation
+
+$$
+ U(x) = -\frac{A}{x} \left [ 1 + B e^{-x/c} \right]
+$$
+
+The realtionship between force and potential energy is
+
+\begin{equation}
+\mathbf{F} = -\nabla U
+\end{equation}
+
+For our 1D example, where the potential energy is dependent only on the position, $x$
+
+$$ F = -\frac{dU}{dx}$$
+
+Taking the derivative yields
+
+$$ \frac{dU}{dx} = \frac{A}{X^2} \left [ 1 + B e^{-x/c} \right ] - \frac{A}{x} \left [ -\frac{B}{C}e^{-x/c} \right ]$$
+
+Therefore, the force on the particle is governed by the equation
+
+\begin{equation}
+ F = -\frac{A}{X^2} \left [ 1 + B e^{-x/c} \right ] + \frac{A}{x} \left [ -\frac{B}{C}e^{-x/c} \right ]
+\end{equation}
+
+If we further assume that the constant C is so much larger than x, the force will simplify.  Rearraning to get
+
+$$
+ F = -\frac{A}{X^2} \left [ 1 + B e^{-x/c}  -\frac{Bx}{C}e^{-x/c} \right ]
+$$
+
+Because $x \ll C$, $e^{-x/c} \Rightarrow e^0 = 1$, we get
+
+$$ F = -\frac{A}{x^2} \left [ 1 + B - \frac{Bx}{C} \right ] $$
+
+Further simplifying $\frac{Bx}{C} = 0$ gives the force under this assumption
+
+\begin{equation}
+F = -\frac{A}{x^2} \left [ 1 + B \right ]
+\end{equation}</content>
+</record>

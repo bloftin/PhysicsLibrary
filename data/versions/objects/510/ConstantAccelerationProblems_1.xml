@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="510">
+ <title>constant acceleration problems</title>
+ <name>ConstantAccelerationProblems</name>
+ <created>2009-02-11 01:55:25</created>
+ <modified>2009-02-11 01:55:25</modified>
+ <type>Example</type>
+<parent id="186">Newton's laws of motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Dd"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textbf{Problem 1}
+
+At time $t = 0 \, sec$ we throw a stone from the ground level straight up with speed of $20 \, m/sec$ (ignore air drag, and assume $g = 10 \, m/sec^2$).
+
+a) At what time (in sec) will this stone reach its highest point, and how high is it then above the ground?
+
+b) We now throw a second stone straight up 2 sec after the first.  How many meters above the ground is the first stone at that moment?
+
+c) At what speed should we throw this second stone from the ground if it is to hit the first stone 1 second after the second stone is thrown?
+
+\textbf{Ans a)}
+
+Let us choose the positive y axis extending into the air.  Then the force due to gravity is in the negative y direction
+
+$$ F = -mg $$
+
+applying Newton's 2nd law
+
+$$ F = m\ddot{y} = -mg $$
+
+Integrate this to get equation for velocity of the stone
+
+$$ \dot{y}(t) = -g t + C_1 $$
+
+At $t = 0, \, \dot{y} = 20 \, m/s$, therefore
+
+\begin{equation}
+\dot{y}(t) = -g t + 20
+\end{equation}
+
+Integrate again to get equation for position of the stone
+
+$$ y(t) = -\frac{1}{2} g t^2 + 20t + C_2 $$
+
+Once, again plug in the initial condition that at $t = 0, \, y = 0$ to get $C_2$
+
+$$ 0 = C_2$$
+
+therefore
+
+\begin{equation}
+y(t) = -\frac{1}{2}g t^2 + 20t
+\end{equation}
+
+Next we know that at the stone's highest point $h$ its velocity will be $0$.  So from equation (1) we can then find the time $t_h$ at this point
+
+$$ 0 = -gt_h + 20 $$
+$$  t_h = 20 / g = 20  / 10  = 2 \, sec $$
+
+Now we can plug this result into equation (2) to get the height
+
+$$h = -\frac{1}{2}g t_h^2 + 20t_h = -\frac{1}{2}(10)(2^2) + 20(2)$$
+
+Therefore
+
+$$ h = 20  \, [m] $$
+
+
+\textbf{Ans b)}
+
+This is straight forward since equation 2 gives us the position of the first stone at some given time.  So at $t = 2$
+
+$$ 
+y(2) = -\frac{1}{2}g(2)^2 + 20(2) = 40 - 20 = 20 \, [m]
+$$
+
+which, makes sense from question a.
+
+\textbf{Ans c)}
+
+The stones will hit when first stone is 3 seconds into its flight.  Its height is then determined from equation 2
+
+$$
+y = -\frac{1}{2}(10)(3)^2 + 20 (3) = -45 + 60 = 15 \, [m]
+$$
+
+If we now look back to see how we got the constant in equation (1), we see that $C_1$ is equal to the initial velocity $v_0$
+
+$$
+\dot{y} = -gt + v_0
+$$
+
+Integrate to get position
+
+$$ y = -\frac{1}{2} gt^2 + v_0 t $$
+
+We want to find $v_0$ at 1 second into the second stone's flight which we know occurs at $15 \, [m]$.  So set $y=15$ and solve for $v_0$ at $t=0$
+
+$$ 15 = -\frac{1}{2} (10)(1)^2 + v_0(1)$$
+$$ 15 = -5 + v_0$$
+
+So we see that the initial velocity needed for second stone is 
+
+$$ v_0 = 20 \, [m/s] $$
+
+There is another way of finding the speed without making any calculations.  At $t=3,$ the first stone is at the same height as it was at $t=1 \, sec.$  Since the stones have to collide at this height exactly 1 sec after the second stone is thrown, the second stone should also begin with a speed of 20 m/sec.
+
+
+\smallskip  
+
+\textbf{References}
+
+This is a derivative work from [1] a \PMlinkexternal{Creative Commons Attribution-Noncommercial-Share Alike 3.0 work}{http://creativecommons.org/licenses/by-nc-sa/3.0/us/}.
+
+[1] MIT OpenCourseWare, 8.01 \PMlinkexternal{Physics I}{http://ocw.mit.edu/OcwWeb/Physics/8-01Physics-IFall1999/CourseHome/index.htm}: Classical Mechanics, Fall 1999.</content>
+</record>

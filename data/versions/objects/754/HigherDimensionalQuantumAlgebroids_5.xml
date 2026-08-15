@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="754">
+ <title>higher dimensional quantum algebroids</title>
+ <name>HigherDimensionalQuantumAlgebroids</name>
+ <created>2009-05-13 12:12:52</created>
+ <modified>2009-05-13 12:19:11</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>n-tuple quantum algebroids with Haar measure</concept>
+	<concept>higher dimensional quantum algebroid</concept>
+	<concept>HD quantum algebroid</concept>
+	<concept>HD algebroid</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="higher dimensional quantum algebroids" alias="n-tuple quantum algebroids with Haar measures"/>
+ </synonyms>
+ <related>
+	<object name="QuantumAlgebroid"/>
+	<object name="NTupleAlgebroids"/>
+ </related>
+ <keywords>
+	<term>higher dimensional quantum algebroids</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic entry on higher dimensional quantum algebroids.
+
+\section{Higher dimensional quantum algebroids}
+
+
+\PMlinkexternal{N-tuple quantum algebroids}{http://planetphysics.org/encyclopedia/NTupleAlgebroids.html}
+
+
+\textbf{[Entry in progress]}
+
+
+\PMlinkname{Higher dimensional quantum algebroids}{http://planetphysics.org/encyclopedia/NTupleAlgebroids.html}</content>
+</record>

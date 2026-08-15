@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="14" id="692">
+ <title>mathml versus Tex</title>
+ <name>MathmlVersusTex</name>
+ <created>2009-04-26 15:10:19</created>
+ <modified>2009-06-09 20:50:45</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>$\mathml$</concept>
+	<concept>$\omdoc$</concept>
+	<concept>$\activemath$</concept>
+	<concept>LaTeXML</concept>
+	<concept>content-oriented languages</concept>
+	<concept>markup languages for mathematics</concept>
+	<concept>MKM format</concept>
+	<concept>macros</concept>
+	<concept>macros-packages</concept>
+	<concept>semi- automated graphics and mathematics presentations</concept>
+	<concept>logic-based languages</concept>
+	<concept>automated reasoning tools</concept>
+	<concept>\openmath</concept>
+	<concept>\cmathml</concept>
+	<concept>program specification languages</concept>
+	<concept>XML</concept>
+	<concept>user-adaptive presentation</concept>
+	<concept>twin semantic preloading</concept>
+ </defines>
+ <keywords>
+	<term>$\mathml$</term>
+	<term>XML</term>
+	<term>Tex</term>
+	<term>cross-referencing</term>
+	<term>user-adaptive presentation</term>
+	<term>LaTeXML</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tabls}
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{\mathcal G}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+
+\newcommand{\&lt;}{{\langle}}
+
+%\newcommand{\&gt;}{{\rangle}}
+
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+
+%\grpeometry{textwidth= 16 cm, textheight=21 cm}
+
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+\def\C{C^{\ast}}
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+
+%\newenvironment{proof}{\noindent {\bf Proof} }{ \hfill $\Box$
+%{\mbox{}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\section{Introduction}\label{sec:intro}
+
+%%\begin{newpart}
+\subsection{Presentations from Latex, etc. }
+
+The following is a quoted software-based approach to semi-automated presentations in LaTex/TeX and mathml.
+  
+ ``The last five years have seen the emergence of various content-oriented {\em xml}-based, markup languages for mathematics on the web, e.g.  {\em openmath}~\cite{BusCapCar:2oms04}, {\em cmathml}~\cite{CarIon:MathML03}, or ...{\em omdoc}~\cite{Kohlhase:omfmd05}. These representation languages for mathematics, that make the structure of the mathematical knowledge in a document explicit enough that machines can operate on it. Other examples of content-oriented formats for mathematics include the various logic-based languages found
+in automated reasoning tools (see~\cite{RobVor:hoar01} for an overview), program
+specification languages (see e.g.~\cite{Bergstra:as89}).
+
+The promise if these content-oriented approaches is that various tasks involved in ``doing mathematics'' (e.g. search, navigation, cross-referencing, quality control, user-adaptive presentation, proving, simulation) can be machine-supported, and thus the working mathematician is relieved to do what humans can still do infinitely better than machines:
+The creative part of mathematics --- inventing interesting mathematical objects,
+conjecturing about their properties and coming up with creative ideas for proving these conjectures. However, before these promises can be delivered upon (there is even a conference series~\cite{MKM-IG-Meetings:web} studying ``Mathematical Knowledge Management (MKM)''), large bodies of mathematical knowledge have to be converted into content form.
+
+Even though {\em mathml} is viewed by most as the coming standard for representing mathematics on the web and in scientific publications, it has not not fully taken off in practice. One of the reasons for that may be that the technical communities that need high-quality methods for publishing mathematics already have an established method which yields excellent results: the {\TeX/\LaTeX} system: and a large part of mathematical knowledge is prepared in the form of {\TeX}/{\LaTeX} documents.
+
+{\TeX}~\cite{Knuth:ttb84} is a document presentation format that combines complex page-description primitives with a powerful macro-expansion facility, which is utilized in {\LaTeX} (essentially a set of {\TeX} macro packages, see~\cite{Lamport:ladps94}) to achieve more content-oriented markup that can be adapted to particular tastes via specialized document styles. It is safe to say that {\LaTeX} largely restricts content markup to the document structure\footnote{supplying macros e.g. for sections, paragraphs,
+theorems, definitions, etc.}, and graphics, leaving the user with the presentational {\TeX} primitives for mathematical formulae. Therefore, even though {\LaTeX} goes a great step into the direction of an MKM format, it is not, as it lacks infrastructure for
+marking up the functional structure of formulae and mathematical statements, and their dependence on and contribution to the mathematical context.
+
+\subsection{The {\em xml} vs. {\TeX/\LaTeX} Formats and Workflows}
+
+{\em mathml} is an {\em xml}-based markup format for mathematical formulae, it is standardized by the World Wide Web Consortium in {\cite{CarIon:MathML03}}, and is supported by the major browsers. The {\em mathml} format comes in two integrated components: presentation {\em mathml}{\em twin}{presentation}{MathML} and content {\em mathml}{\em twin}{content}{MathML}. The
+former provides a comprehensive set of layout primitives for presenting the visual appearance of mathematical formulae, and the second one the functional/logical structure of the conveyed mathematical objects. For all practical concerns, presentation {\em mathml}
+is equivalent to the math mode of {\TeX}. The text mode facilitates of {\TeX} (and the multitude of {\LaTeX} classes) are relegated to other {\em xml} formats, which embed {\em mathml}.
+ 
+The programming language constructs of {\TeX} (i.e. the macro definition
+facilities\footnote{We count the parser manipulation facilities of {\TeX}, e.g. category   code changes into the programming facilities as well, these are of course impossible for   {\em mathml}, since it is bound to {\em xml} syntax.}) are relegated to the {\em xml} transformation language{\em  xslt}~\cite{Deach:exls99,Kay:xslt} or proper {\em xml}-enabled
+programming languages that can be used to develop language extensions.
+
+The {\em xml}-based syntax and the separation of the presentational-, functional- and programming/extensibility concerns in {\em mathml} has some distinct advantages over the integrated approach in {\TeX/\LaTeX} on the services side: {\em mathml} gives us better
+\begin{itemize}
+\item integration with web-based publishing,
+\item accessibility to disabled persons, e.g. (well-written) {\em mathml} contains enough
+  structural information to supports screen readers.
+\item reusability, searchabiliby and integration with mathematical software systems
+  (e.g. copy-and-paste to computer algebra systems), and
+\item validation and plausibility checking.
+\end{itemize}
+ 
+On the other hand, {\TeX/\LaTeX}/s adaptable syntax and tightly integrated programming
+features within has distinct advantages on the authoring side:
+ 
+\begin{itemize}
+\item The {\TeX/\LaTeX} syntax is much more compact than {\em mathml} (see the difference in
+  Figures~\ref{fig:mathml-sum} and~\ref{fig:mathml-eip}), and if needed, the community
+  develops {\LaTeX} packages that supply new functionality in with a succinct and intuitive
+  syntax.
+\item The user can define ad-hoc abbreviations and bind them to new control sequences to
+  structure the source code.
+\item The {\TeX/\LaTeX} community has a vast collection of language extensions and best
+  practice examples for every conceivable publication purpose and an established and very
+  active developer community that supports these.
+\item There is a host of software systems centered around the {\TeX/\LaTeX} language that
+  make authoring content easier: many editors have special modes for {\LaTeX}, there are
+  spelling/style/grammar checkers, transformers to other markup formats, etc.
+\end{itemize}
+ 
+In other words, the technical community is is heavily invested in the whole
+{{\em  index}*{workflow}}, and technical know-how about the format permeates the
+community. Since all of this would need to be re-established for a {\em mathml}-based
+workflow, the technical community is slow to take up {\em mathml} over {\TeX/\LaTeX}, even in
+light of the advantages detailed above.
+ 
+\subsection{A {\LaTeX}-based Workflow for {\em xml}-based Mathematical Documents}
+ 
+An elegant way of sidestepping most of the problems inherent in transitioning from a
+{\LaTeX}-based to an {\em xml}-based workflow is to combine both and take advantage of the
+respective advantages.
+ 
+The key ingredient in this approach is a system that can transform {\TeX\LaTeX} documents
+to their corresponding {\em xml}-based counterparts. That way, {\em xml}-documents can be
+authored and prototyped in the {\LaTeX} workflow, and transformed to {\em xml} for
+publication and added-value services, combining the two workflows.
+ 
+There are various attempts to solve the {\TeX/\LaTeX} to {\em xml} transformation problem; the
+most mature is probably Bruce Miller's {\em  latexml} system~\cite{Miller:latexml}. It
+consists of two parts: a re-implementation of the {\TeX} {{\em  index}*{analyzer}} with all of
+it's intricacies, and a extensible {\em xml} emitter (the component that assembles the output
+of the parser). Since the {\LaTeX} style files are (ultimately) programmed in {\TeX}, the
+{\TeX} analyzer can handle all {\TeX} extensions, including all of {\LaTeX}. Thus the
+{\em  latexml} parser can handle all of {\TeX/\LaTeX}, if the emitter is extensible, which is
+guaranteed by the {\em  latexml} binding language: To transform a {\TeX/\LaTeX} document to a
+given {\em xml} format, all {\TeX} extensions\footnote{i.e. all macros, environments, and
+  syntax extensions used int the source document} must have ``{\em  latexml}
+bindings''{\em  index}{LaTeXML}{binding}, i.e. a directive to the {\em  latexml} emitter that
+specifies the target representation in {\em xml}.
+%%\end{newpart}
+
+\subsection{Old part}
+%%\begin{oldpart}{this has to go somewhere}
+
+One of the great problems of mathematical knowledge management (MKM) systems is to
+obtain access to a sufficiently large corpus of mathematical knowledge to allow
+the management/search/navigation techniques developed by the community to display
+their strength. Such systems usually expect the mathematical knowledge they
+operate on in the form of semantically enhanced documents.
+
+We will use the term {\em  defemph{MKM format}} for a content-oriented representation language for mathematics, that makes the structure of the mathematical knowledge in a document explicit enough that machines can operate on it. Examples of MKM formats include the various logic-based languages found in automated reasoning tools (see~\cite{RobVor:hoar01}
+for an overview), program specification languages (see e.g.~\cite{Bergstra:as89}), and the various {\em xml}-based, content-oriented markup languages for mathematics on the web, e.g.
+{\em openmath}~\cite{BusCapCar:2oms04}, {\em cmathml}~\cite{CarIon:MathML03}, or our own
+{\em omdoc} (see {\em  mysecref{omdoc}}).
+
+In this paper, we will investigate how we can use the macro language of {\TeX} to
+make it into an MKM format by supplying specialized macro packages, which will
+enable the author to add semantic information to the document in a way that does
+not change the visual appearance\footnote{However, semantic annotation will make
+the author more aware of the functional structure of the document and thus mayin fact entice the author to use presentation in a more consistent way than she would usually have.}. We speak of {{\em twin}def{semantic}{preloading}} for this process and call our collection of macro packages {{\em  stex}} (Semantic {\TeX}). Thus,
+{{\em  stex}} can serve as a conceptual interface between the document author and MKM
+systems: Technically, the semantically preloaded {\LaTeX} documents are
+transformed into the (usually {\em xml}-based) MKM representation formats, but
+conceptually, the ability to semantically annotate the source document is
+sufficient.
+
+Concretely,...the {{\em  stex}} macro packages together with a case study, where ... semantically preloaded as the course materials for a two-semester course in Computer Science at International University Bremen and transform them to the {\em omdoc} MKM format (see section~\ref{sec:omdoc}) with the {\em  latexml} system (see section ~\ref{sec:latexml}), so that they can be used in the {\em activemath} system~\cite{activemathAIEDJ01}.  For this case study, we have added {\em  latexml} bindings for the {{\em  stex}} macros, and a post-processor for the {\em omdoc} language, but the {{\em  stex}} package should in principle be independent of these two choices, since it only supplies a general interface for semantic annotation in {\TeX}/{\LaTeX}. Furthermore, we have semantically preloaded the {\LaTeX} sources for the course slides (380 slides, 8200 lies of {\LaTeX} code with 336kb). Almost all examples in this paper come from this case study.''
+%%\end{oldpart}
+%%% Local Variables: 
+%%% mode: stex
+%%% TeX-master: "main"
+%%% End:
+
+\begin{thebibliography}{99}
+\bibitem{BusCapCar:2oms04} 
+2004
+\bibitem{CarIon:MathML03}
+2003
+\bibitem{Kohlhase:omfmd05}
+Kohlhase. 2005.
+\bibitem{Bergstra:as89}
+Bergstra. 1989. 
+
+\end{thebibliography}</content>
+</record>

@@ -115,7 +115,7 @@ sub getLatestMessages_data {
 # get XML data for most recent messages
 #
 sub getLatestMessagesXML {
-#	dwarn "Latest Messages ^^^^^";
+	dwarn "Latest Messages ^^^^^";
 	my $params = shift;
 	my $userinf = shift;
 
@@ -156,7 +156,7 @@ sub getLatestMessagesXML {
 	$sth->finish();
 
 	$xml .= "	</messages>";
-#	dwarn "XML messages are : $xml";	
+    dwarn "XML latest messages are : $xml";	
 	return $xml;
 }
 
@@ -209,7 +209,7 @@ sub getMessage {
 	
 	my $uid = $params->{id};
 	
-	my $template = new Template('dispmessage.html');
+	my $template = new TemplateNS('dispmessage.html');
 	
 	my $html = '';
 	my $interact = '';
@@ -238,7 +238,7 @@ sub getMessage {
 	$msg .= clearBox("$up Viewing Message",
 			printmessage($row, $userinf, $authorinf, {single=>1}));
 
-	my $itemplate = new Template('dispmessage_interact.html');
+	my $itemplate = new TemplateNS('dispmessage_interact.html');
 	$itemplate->setKeys('id' => $row->{'objectid'}, 'replyto'=>$row->{'uid'});
 	$interact .= makeBox('Interact',$itemplate->expand());
 	
@@ -875,17 +875,17 @@ sub getPostForm {
 	my $post;
 	
 	if (defined($params->{'replyto'}) && nb($params->{'replyto'})) {
-		$template = new Template('replymessage.html');
+		$template = new TemplateNS('replymessage.html');
 		my $original = makeBox('Replying to','<table width="100%" border="0" cellpadding="0" cellspacing="0"><td bgcolor="#ffffff">'.singlemessage_byid($params->{'replyto'}).'</td></table>');
 	$boxtitle = 'Compose Post';
-	$post = new Template('postmsgform.html');
+	$post = new TemplateNS('postmsgform.html');
 		my $q = "<input type=\"submit\" name=\"quote\" value=\"quote\">";
 	$template->setKeys('original' => $original);
 	$post->setKeys('replyto' => $params->{'replyto'}, 'quote' => $q);
 	} else {
-		$template = new Template('postmessage.html');
+		$template = new TemplateNS('postmessage.html');
 	$boxtitle = 'Compose Post';
-	$post = new Template('postmsgform.html');
+	$post = new TemplateNS('postmsgform.html');
 	$template->setKeys('replyto' => $params->{'replyto'});
 	}
 	if (not defined($params->{quote})) {

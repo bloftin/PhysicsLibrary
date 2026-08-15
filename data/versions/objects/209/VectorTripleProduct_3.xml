@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="209">
+ <title>Vector Triple Product</title>
+ <name>VectorTripleProduct</name>
+ <created>2006-07-24 23:24:20</created>
+ <modified>2006-07-25 00:19:38</modified>
+ <type>Definition</type>
+<parent id="208">vector</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="Vector Triple Product" alias="BACK CAB"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Vector Triple Product}
+
+Combining three vectors into a product is called a \emph{triple} product.  The vector triple product is the vector product of two vectors of which one is itself a vector product.  Such as 
+
+$$ \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $$
+$$ \left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C} $$
+
+The vector $\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $ is perpendicular to $\mathbf{A}$ and to $\left ( \mathbf{B} \times \mathbf{C} \right ) $.  But $\left ( \mathbf{B} \times \mathbf{C} \right ) $ is perpendicular to the plane of $\mathbf{B}$ and $\mathbf{C.}$  Hence $\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $, being perpendicular to $\left ( \mathbf{B} \times \mathbf{C} \right ) $ must lie in the plane of $\mathbf{B}$ and $\mathbf{C}$ and thus take the form
+
+$$ \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) = x \mathbf{B} + y \mathbf{C}$$
+
+where $x$ an $y$ are two scalars.  In like manner also the vector $ \left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C} $, being perpendicular to $ \left ( \mathbf{A} \times \mathbf{B} \right )$ must lie in the plane of $\mathbf{A}$ and $\mathbf{B}$.  Hence it will be of the form
+
+
+$$\left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C}  = m \mathbf{A} + n \mathbf{B}$$
+
+where $m$ and $n$ are two scalars.  From this it is evident that in general
+
+$$\left ( \mathbf{A} \times \mathbf{B} \right ) \times \mathbf{C} \,\, is \, not \, equal \, to \,\, \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $$
+
+The parentheses therefore cannot be removed or interchanged.  It is essential to know which cross product is formed first and which second.  This product is termed the vector triple product in contrast to the scalar triple product.
+
+\subsection{Geometric Interpretation}
+
+coming soon ....
+
+\subsection{Properties}
+
+The vector triple product $\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) $ may be expressed as the sum of two terms as 
+
+$$ \mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) =  \mathbf{B} \left( \mathbf{A} \cdot \mathbf{C} \right ) - \mathbf{C} \left ( \mathbf{A} \cdot \mathbf{B} \right) $$
+
+To prove this, express $\mathbf{A}$ in terms of the three non-coplanar vectors $\mathbf{B}$, $\mathbf{C}$, and $ \left( \mathbf{B} \times \mathbf{C} \right )$.
+
+\begin{equation}
+\mathbf{A} = b \mathbf{B} + c \mathbf{C} + a \left ( \mathbf{B} \times \mathbf{C} \right )
+\end{equation}
+
+where $a$, $b$, $c$ are scalar constants.  Then
+
+\begin{equation}
+\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) = b \mathbf{B} \times \left ( \mathbf{B} \times \mathbf{C} \right ) + c \mathbf{C} \times \left ( \mathbf{B} \times \mathbf{C} \right ) + a \left ( \mathbf{B} \times \mathbf{C} \right )  \times \left ( \mathbf{B} \times \mathbf{C} \right )
+\end{equation} 
+
+The vector product of any vector by itself is zero.  Hence
+
+$$\left ( \mathbf{B} \times \mathbf{C} \right )  \times \left ( \mathbf{B} \times \mathbf{C} \right ) = 0 
+$$
+
+so
+
+\begin{equation}
+\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) = b \mathbf{B} \times \left ( \mathbf{B} \times \mathbf{C} \right ) + c \mathbf{C} \times \left ( \mathbf{B} \times \mathbf{C} \right )
+\end{equation}
+
+Using the relationship developed under the geometric interpretation
+
+$$  \mathbf{A} \times \left ( \mathbf{A} \times \mathbf{B} \right ) = \mathbf{A} \cdot \mathbf{B} \, \mathbf{B} - \mathbf{A} \cdot \mathbf{B} \, \mathbf{C} $$
+
+with different vectors yields
+
+$$  \mathbf{B} \times \left ( \mathbf{B} \times \mathbf{C} \right ) = \mathbf{B} \cdot \mathbf{C} \, \mathbf{B} - \mathbf{B} \cdot \mathbf{B} \, \mathbf{C} $$
+
+$$ \mathbf{C} \times \left ( \mathbf{B} \times \mathbf{C} \right ) = - \mathbf{C} \times \left ( \mathbf{C} \times \mathbf{B} \right ) = -\mathbf{B} \cdot \mathbf{C} \, \mathbf{C} - \mathbf{C} \cdot \mathbf{C} \, \mathbf{B}$$
+
+Hence
+\begin{equation}
+\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) = \left [ \left( b \mathbf{B} \cdot  \mathbf{C} + c  \mathbf{C} \cdot  \mathbf{C} \right )  \mathbf{B} - \left ( b  \mathbf{B} \cdot  \mathbf{B} + c  \mathbf{C} \cdot  \mathbf{B} \right )  \mathbf{C} \right ]
+\end{equation}
+
+But from (1)
+
+$$  \mathbf{A} \cdot  \mathbf{B} = b  \mathbf{B} \cdot  \mathbf{B} + c  \mathbf{C} \cdot  \mathbf{B} + a \left (  \mathbf{B} \times  \mathbf{C} \right ) \cdot  \mathbf{B} $$
+
+$$  \mathbf{A} \cdot  \mathbf{C} = b  \mathbf{B} \cdot  \mathbf{C} + c  \mathbf{C} \cdot  \mathbf{C} + a \left (  \mathbf{B} \times  \mathbf{C} \right ) \cdot  \mathbf{C} $$
+
+using a property from the scalar triple product
+
+$$ \left (  \mathbf{B} \times  \mathbf{C} \right ) \cdot \mathbf{B} = 0 $$
+
+$$ \left (  \mathbf{B} \times  \mathbf{C} \right ) \cdot \mathbf{C} = 0 $$
+
+we get
+
+$$  \mathbf{A} \cdot  \mathbf{B} = b  \mathbf{B} \cdot  \mathbf{B} + c  \mathbf{C} \cdot  \mathbf{B} $$
+
+$$  \mathbf{A} \cdot  \mathbf{C} = b  \mathbf{B} \cdot  \mathbf{C} + c  \mathbf{C} \cdot  \mathbf{C} $$
+
+Substituting these values into (4)
+
+\begin{equation}
+\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) =  \left( \mathbf{A} \cdot \mathbf{C} \right ) \mathbf{B} - \left ( \mathbf{A} \cdot \mathbf{B} \right) \mathbf{C}
+\end{equation}
+
+Finally, noting that the dot product gives a scalar, we can use the vector identity
+
+$$ a \mathbf{B} = \mathbf{B} a $$
+
+to get
+
+\begin{equation}
+\mathbf{A} \times \left ( \mathbf{B} \times \mathbf{C} \right ) =  \mathbf{B} \left( \mathbf{A} \cdot \mathbf{C} \right ) - \mathbf{C} \left ( \mathbf{A} \cdot \mathbf{B} \right) 
+\end{equation}
+
+The relation is therefore proved for any three vectors $\mathbf{A}$, $\mathbf{B}$ and $\mathbf{C}$ and is often referred to as the {\bf BACK CAB} rule.
+   
+
+\subsection{References}
+
+[1] Wilson, E. "Vector Analysis." Yale University Press, New Haven, 1913.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="12" id="880">
+ <title>Bibliography for non-Newtonian calculus</title>
+ <name>BibliographyForNonNewtonianCalculus</name>
+ <created>2010-10-06 09:53:52</created>
+ <modified>2010-12-22 07:06:21</modified>
+ <type>Data Structure</type>
+<parent id="699">non-Newtonian calculus</parent>
+ <creator id="475" name="vip6"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="475" name="vip6"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Bibliography for non-Newtonian calculus" alias="non-Newtonian calculus"/>
+ </synonyms>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+% define commands here</preamble>
+ <content>\section{Bibliography for Non-Newtonian Calculus}
+
+[1] Dorota Aniszewska. "Multiplicative Runge--Kutta methods.", Nonlinear Dynamics, Volume 50, Numbers 1--2, 2007.
+
+[2] Agamirza E. Bashirov, Emine Misirli Kurpinar, and Ali Ozyapici. "Multiplicative calculus and its applications", Journal of Mathematical Analysis and Applications, Volume 337, Issue 1, pages 36--48, January 2008.
+
+[3] Fernando Cordova--Lepe. "From quotient operation toward a proportional calculus", Journal of Mathematics, Game Theory and Algebra, 2004.
+
+[4] Fernando Cordova--Lepe. "The multiplicative derivative as a measure of elasticity in economics", TMAT Revista Latinoamericana de Ciencias e Ingenieria, Volume 2, Number 3, 2006.
+
+[5] Felix R. Gantmacher. "The Theory of Matrices", Volumes 1 and 2, Chelsea Publishing Company, 1959.
+
+[6] Ivor Grattan--Guinnness. "The Rainbow of Mathematics: A History of the Mathematical Sciences", pages 332 and 774, ISBN 0393320308, 2000.
+
+[7] Jane Grossman. "Meta--Calculus: Differential and Integral", ISBN 0977117022, 1981.
+
+[8] Jane Grossman, Michael Grossman, and Robert Katz. "Averages: A New Approach", ISBN 0977117049, 1983.
+
+[9] Jane Grossman, Michael Grossman, Robert Katz. "The First Systems of Weighted Differential and Integral Calculus", $ISBN 0977117014$, 1980.
+
+[10] Michael Grossman. "Bigeometric Calculus: A System with a Scale--Free Derivative", $ISBN 0977117030$, 1983.
+
+[11] Michael Grossman. "The First Nonlinear System of Differential and Integral Calculus", $ISBN 0977117006$, 1979.
+
+[12] Michael Grossman. "An introduction to non-Newtonian calculus", International Journal of Mathematical Education in Science and Technology, Volume 10, Number 4, pages 525--528, 1979.
+
+[13] Michael Grossman and Robert Katz, "Isomorphic calculi", International Journal of Mathematical Education in Science and Technology, Volume 15, Number 2, pages 253--263, 1984.
+
+[14] Michael Grossman and Robert Katz. "A new approach to means of two positive numbers", International Journal of Mathematical Education in Science and Technology, Volume 17, Number 2, pages 205--208, 1986.
+
+[15] Michael Grossman and Robert Katz. "Non--Newtonian Calculus", ISBN 0912938013, Lee Press, 1972.
+
+[16] James R. Meginniss. "Non-Newtonian calculus applied to probability, utility, and Bayesian analysis", American Statistical Association: Proceedings of the Business and Economic Statistics Section, pages 405--410, 1980.
+
+[17] "Vito Volterra". Wikipedia article (Internet).
+
+[18] M. Rybaczuk and P. Stoppel. "The fractal growth of fatigue defects in materials", International Journal of Fracture, Volume 103, Number 1, 2000.
+
+[19] Dick Stanley. "A multiplicative calculus", Primus, Volume 9, Issue 4, 1999.
+
+[20] Jane Tang. "On the construction and interpretation of means", International Journal of Mathematical Education in Science and Technology, Volume 14, Number 1, pages 55--57, 1983.
+
+[21] "Multiplicative calculus". Wikipedia article (Internet).
+
+[22] "Product integral". Wikipedia article (Internet).
+
+[23] S. L. Blyumin. "Discrete vs. continuous, in information technology: quantum calculus and its alternatives", Reference 13, Lipetsk State Technical University, 2008. (\PMlinkexternal{Quantum Calculus}{http://sites.google.com/site/nonnewtoniancalculus/Home})
+
+[24] Mustafa Riza, Ali Ozyapici, and Emine Misirli Kurpinar. "Multiplicative finite difference methods", Quarterly of Applied Mathematics, Volume 67, pages 745--754, May 2009.
+
+[25] Manfred Peschel and Werner Mende. "The Predator-Prey Model: Do We Live in a Volterra World?", $ISBN 0387818480$, Springer, 1986.
+
+[26] R. Gagliardi and Jerry Pournelle. "The Mathematics of the Energy Crisis", page 76, Intergalactic Pub. Co., 1978.
+
+[27] Ali Ozyapici and Emine Misirli Kurpinar. "Notes on Multiplicative Calculus", 20th International Congress of the Jangjeon Mathematical Society, No. 67, August 2008.
+
+[28] Paul Dickson. "The New Official Rules", page 113, $ISBN 0201172763$, Addison-Wesley Publishing Company, 1989.
+
+[29] Horst Alzer. "Bestmogliche abschatzungen fur spezielle mittelwerte", Reference 19; Univ. u Novom Sadu, Zb. Rad. Prirod.-Mat. Fak., Ser. Mat. $23/1$; 1993.
+
+[30] V. S. Kalnitsky. "Means generating the conic sections and the third degree polynomials", Reference 7, Saint Petersburg Mathematical Society Preprint 2004--04.
+
+[31] Methanias Colaco Junior, Manoel Mendonca, and Francisco Rodrigues. "Mining software change history in an industrial environment", Reference 20, XXIII Brazilian Symposium on Software Engineering, 2009.
+
+[32] Nicolas Carels and Diego Frias. "Classifying coding DNA with nucleotide statistics", Reference 36, Bioinformatics and Biology Insights 2009:3, Libertas Academica, 2009.
+
+[33] Ali Ozyapici and Emine Misirli Kurpinar. "Exponential Approximation on Multiplicative Calculus", 6th ISAAC Congress, page 471, 2007.
+
+[34] Jane Grossman, Michael Grossman, and Robert Katz. "Which growth rate?", International Journal of Mathematical Education in Science and Technology, Volume 18, Number 1, pages 151--154, 1987.
+
+[35] Michael Grossman. "Calculus and discontinuous phenomena", International Journal of Mathematical Education in Science and Technology, Volume 19, Number 5, pages 777--779,1988.
+
+[36] David Malkin. "The Evolutionary Impact of Gradual Complexification on Complex Systems", doctoral thesis at University College London's Computer Science Department,2009.
+
+[37] Raymond W. K. Tang and William E. Brigham. "Transient pressure analysis in composite reservoirs", Reference 18, Stanford University: Petroleum Research Institute (with United States Department of Energy), 1982.
+
+[38] Science Education International, International Council of Associations for Science Education, Volumes 2--3, page 24, 1991.
+
+[39] Ciencia e Cultura, Sociedade Brasileira para o Progresso da Ciencia, Volume 32, Issues 5--8, page 829, 1980.
+
+[40] American Statistical Association: 1998 Proceedings of the Section on Bayesian Statistical Science, page 176, 1998.
+
+[41] Choice, Association of College and Research Libraries, American Library Association, Volume 9, Issues 8--12, 1972.
+
+[42] Indian Journal of History of Science, Indian National Science Academy, Volumes 6--8, page 154, 1971--1973.
+
+[43] Zentralblatt MATH, FIZ Karlsruhe.
+
+[44] Theory and Decision, Springer, Volume 6, page 237, 1975.
+
+[45] Kybernetika, Ceskoslovenska Kyberneticka Spolecnost, Volume 9, page 155, 1973.
+
+[46] Aplikace Matematiky, Ceskoslovenska Akademie Ved. Matematicky Ustav, Volume 18, page 208, 1973.
+
+[47] Mathematical Reviews, American Mathematical Society.
+
+[48] American Mathematical Monthly, Mathematical Association of America, May of 1973.
+
+[49] Mathematics Magazine, Mathematical Association of America, Volume 57, Number 2, page 119, 1984.
+
+[50] ZDM, Springer.
+
+[51] Wissenschaftliche Zeitschrift: Mathematisch-Naturwissenschaftliche Reihe, University of Leipzig, Volume 22, page 97, 1973.
+
+[52] American Mathematical Monthly, Mathematical Association of America, June/July of 1980.
+
+[53] Internationale Mathematische Nachrichten, Osterreichische Mathematische Gesellschaft.
+
+[54] Boletim da Sociedade Paranaense de Matematica, Sociedade Paranaense de Matematica.
+
+[55] Analele Stiintifice ale Universitatii "Al. I. Cuza" din Iasi: Mathematics Section, Universitatea "Al. I Cuza".
+
+[56] Publicationes Mathematicae, Kossuth Lajos Tudomanyegyetem: Matematikai Intezet.
+
+[57] Nieuw Tijdschrift Voor Wiskunde, P. Noordhoff.
+
+[58] The Mathematics Student, Indian Mathematical Society, Volumes 53--54, page 57, 1987.
+
+[59] L'Enseignement Mathematique, International Commission on the Teaching of Mathematics.
+
+[60] Acta Scientiarum Mathematicarum, Institutum Bolyaianum Universitatis Szegediensis.
+
+[61] Industrial Mathematics, Industrial Mathematics Society.
+
+[62] Physikalische Blatter, Physik Verlag, Volume 29, page 48, 1973.
+
+[63] "Scientia"; Rivista di Scienza, ResearchGATE, Volume 107, page 919, 1972.
+
+[64] Science Weekly, American Association for the Advancement of Science,Volume 176, page 954, 1972.
+
+[65] Philosophia mathematica, Canadian Society for the History and Philosophy of Mathematics, Volumes 9-14, page 96, 1972.
+
+[66] Annals of Science, British Society for the History of Science, Volumes 29-30, page 424, 1972.
+
+[67] Science Progress, Science Progress, Volume 60, page 428, 1972.
+
+[68] Revue du CETHEDEC, Centre d'Etudes Theoriques de la Detection et des Communications, Volume 9, page 110, 1972.
+
+[69] Allgemeines Statistisches Archiv, Deutsche Statistische Gesellschaft, Volumes 56-57, page 403, 1972.
+
+[70] Il Nuovo Cimento della Societa Italiana di Fisica: A, Societa Italiana di Fisica, page 851, 1972.
+
+[71] Bollettino della Unione Matematica Italiana, Unione Matematica Italiana, page 289, 1972.
+
+[72] Cahiers du Centre d'Etudes de Recherche Operationnelle, Centre d'Etudes de Recherche Operationnelle, Volumes 14--15, page 85, 1972.
+
+[73] Australian Journal of Statistics. Statistical Society of Australia, Volumes 14-15, 1972.
+
+[74] Synthese, D. Reidel Publishing Company, Volume 26, page 181, 1973.
+
+[75] Mathematical Education, India University Grants Commission, Volume 2, 1985.
+
+[76] Institute of Mathematical Statistics Bulletin, Institute of Mathematical Statistics, Volumes 1--2, 1972.
+
+[77] Search, ANZAAS, Volume 3, page 457, 1972.
+
+[78] Ali Uzer. "Multiplicative type complex calculus as an alternative to the classical calculus", Computers and Mathematics with Applications, 2010.
+
+"The First Systems of Weighted Differential and Integral Calculus" was reviewed in the journal Praxis der Mathematik. [79]
+
+[79] Praxis der Mathematik, Aulis Verlag Deubner, Volume 23, page 94, 1981.
+
+
+"Meta-Calculus: Differential and Integral" was also reviewed in the Indian Journal of Theoretical Physics. [80]
+
+[80] Indian Journal of Theoretical Physics, Institute of Theoretical Physics (India), Volume 31, page 176, 1983.
+
+
+Each of the following two books was reviewed in the journal Economic Books: Current Selections. [81]
+1) "The First Systems of Weighted Differential and Integral Calculus": Volume 9, page 29, 1982.
+2) "Meta-Calculus: Differential and Integral": Volume 9, page 29, 1982.    
+
+[81] Economic Books: Current Selections, University of Pittsburgh. Dept. of Economics, Volume 9, page 29, 1982.
+                             
+(items [80] and [81] were added by smithpith on 10-10-2010).
+
+[84] Emine Misirli and Yusuf Gurefen. ."Multiplicative Adams Bashforth--Moulton methods", Numerical Algorithms, doi: 10.1007/s11075-010-9437-2, Volume 55, 2010.
+
+[85]  James D. Englehardt  and  Ruochen Li. "The discrete Weibull distribution: an alternative for correlated counts with confirmation for microbial counts in water", Risk Analysis, doi: 10.1111/j.1539--6924.2010.01520.x, 2010.
+\subsection{Acknowledgments} Thanks to David Lukas and Kenneth Lukas for constructing previous versions of this website, and for their expert advice on website construction.
+
+
+(items [84] and [85] were added by smithpith on 12-07-2010).
+
+
+\subsection{Further Reading}
+
+Robert Katz. "Axiomatic Analysis", D. C. Heath and Company, 1964.
+
+\subsection{Links}
+
+Non-Newtonian Calculus website:
+http://sites.google.com/site/nonnewtoniancalculus/Home
+
+\subsection{Comments and Remarks}
+
+"Your ideas [in "Non-Newtonian Calculus"] seem quite ingenious." -- Professor Dirk J. Struik, Massachusetts Institute of Technology, USA.
+
+"[Your books] on non--Newtonian calculus ... appear to be very useful and innovative." --Professor Kenneth J. Arrow, Nobel-Laureate, Stanford University, USA.
+
+""Non-Newtonian Calculus", by Michael Grossman and Robert Katz, is a fascinating and (potentially) extremely important piece of mathematical theory. That a whole family of differential and integral calculi, parallel to but nonlinear with respect to ordinary Newtonian (or Leibnizian) calculus, should have remained undiscovered (or uninvented) for so long is astonishing -- but true. Every mathematician and worker with mathematics owes it to himself to look into the discoveries of Grossman and Katz." -- Professor James R. Meginniss, Claremont Graduate School and Harvey Mudd College, USA.
+
+"There is enough here [in "Non--Newtonian Calculus"] to indicate that non-Newtonian calculi ... have considerable potential as alternative approaches to traditional problems. This very original piece of mathematics will surely expose a number of missed opportunities in the history of the subject." --Professor Ivor Grattan-Guinness, Middlesex University, England.
+
+"["Non-Newtonian Calculus" is] original and thought provoking." -- Professor Otakar Zich, Charles University in Prague, Czech Republic.
+
+"The possibilities opened up by the [non-Newtonian] calculi seem to be immense." -- Professor H. Gollmann, Graz, Austria.
+
+"This ["Non--Newtonian Calculus"] is an exciting little book. ... The greatest value of these non-Newtonian calculi may prove to be their ability to yield simpler physical laws than the Newtonian calculus. Throughout, this book exhibits a clarity of vision characteristic of important mathematical creations. ... The authors have written this book for engineers and scientists, as well as for mathematicians. ... The writing is clear, concise, and very readable. No more than a working knowledge of [classical] calculus is assumed." - Professor David Pearce MacAdam, Cape Cod Community College, USA.
+
+"... It seems plausible that people who need to study functions from this point of view might well be able to formulate problems more clearly by using [bigeometric] calculus instead of [classical] calculus." -- Professor Ralph P. Boas, Jr., Northwestern University, USA.
+
+"We think that [the geometric calculus] can especially be useful as a mathematical tool for economics and finance ... ." -- Professor Agamirza E. Bashirov, Eastern Mediterranean University, Cyprus; Professor Emine Misirli Kurpinar, Ege University, Turkey; Professor Ali Ozyapici, Ege University, Turkey.
+
+Note. The comments by Professors Struik, Arrow, and Meginniss are excerpts from their correspondence with Grossman, Grossman, and Katz. The comments by Professors Grattan-Guinness, Zich, Gollmann, and MacAdam are excerpts from their reviews of the book "Non-Newtonian Calculus" in Middlesex Math Notes (1977), Kybernetika (1973), Internationale Mathematische Nachrichten (1972), and Journal of the Optical Society of America (1973), respectively. The comment by Professor Boas is an excerpt from his review of the book "Bigeometric Calculus: A System with a Scale--Free Derivative" in Mathematical Reviews (1984). The comment by Professors Bashirov, Misirli Kurpinar, and Ozyapici is an excerpt from their article "Multiplicative calculus and its applications" in the Journal of Mathematical Analysis and Applications (2008).
+
+An application of non-Newtonian calculus to the study of numerical solutions to multiplicative differential equations was made by Emine Misirli and Yusuf Gurefen (both of Ege University in Turkey). [84]
+
+An application of non-Newtonian calculus to the study of pathogen counts in treated water was made by James D. Englehardt (University of Miami) and Ruochen Li (Shenzhen, China). [85]
+
+----------------------------------------------------------------------
+
+\subsection{Contact}
+
+Name: Michael Grossman
+
+E-mail: smithpith-at--yahoo.com</content>
+</record>

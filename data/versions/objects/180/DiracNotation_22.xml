@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="22" id="180">
+ <title>delta and observable algebras Dirac notations,</title>
+ <name>DiracNotation</name>
+ <created>2006-05-30 11:18:21</created>
+ <modified>2009-01-31 11:39:43</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="132" name="metalac"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ta"/>
+ </classification>
+ <defines>
+	<concept>Dirac notation</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="delta and observable algebras Dirac notations," alias="bra-ket notation"/>
+ </synonyms>
+ <related>
+	<object name="DiracEquation"/>
+ </related>
+ <keywords>
+	<term>Dirac relativistic field equations</term>
+	<term>notation</term>
+	<term>and non-commutative observable algebra</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>[{\bf This is a contributed topic entry in progress on Dirac notations and quantum observable algebras.}]
+
+\subsection{Introduction}
+(In progress.)
+
+\subsection{Non-Abelian (or non-commutative) Observable (Clifford) Algebra}
+
+(In progress.)
+
+
+\subsection{Dirac notations:$&lt;{bra}|$ c $|{ket}&gt;$ and delta}
+
+ The {\em Dirac notation} (or ``bra-ket'' notation as commonly known in physics) is used to represent quantum states in quantum mechanics. It was invented by Physics Nobel Laureate Paul A. M. Dirac, and since then has been established as one of the preferred notations in quantum mechanics.
+
+ The Dirac notation denotes both the ``ket'' vector-- defined as $|{\psi}&gt;$-- and its {\em transpose vector}-- defined as $&lt;{\phi}|$ (or {\em ``bra'' vector}).  Thus, a ``{\em bra-ket}'' is defined as the inner product of the two vectors defined above, which is denoted as $&lt;{\phi}|{\psi}&gt;$. 
+ 
+ Then, the Dirac notation also satisifies the following identities:
+
+$$&lt;{\phi}|{\omega}|{\psi}&gt;{\equiv}&lt;{\phi}|{\omega}{\psi}&gt;$$
+$$&lt;{\phi}|{\psi}&gt;{\equiv}\int_{-{\infty}}^{\infty} \widetilde{\phi} {\psi} dx \quad,$$
+
+where $\widetilde{\phi}$ is the ``complex conjugate'' of ${\phi}$.
+
+\begin{thebibliography}{9}
+\bibitem{PAMD68}
+Paul A.M. Dirac. 1968. {\em Principles of Quantum Mechanics}, 
+Cambridge University Press, Cambridge, UK
+\end{thebibliography}</content>
+</record>

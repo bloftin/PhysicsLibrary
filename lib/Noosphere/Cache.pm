@@ -7,7 +7,7 @@ require Noosphere::Encyclopedia;
 require Noosphere::Crossref;
 require Noosphere::Layout;
 require Noosphere::Latex;
-require Noosphere::Template;
+require Noosphere::TemplateNS;
 
 # entry point for getting an image which is a single TeX math object.
 #
@@ -69,6 +69,7 @@ sub getRenderedContentHtml {
 	my ($valid,$build) = getcacheflags($table, $rec->{'uid'}, $method);
 	
 	if ($valid == 0) {
+		dwarn "object not valid, rerender/build";
 		if (! cacheObject($table, $rec, $method)) {
 			$html .= "<br />Timed out waiting for render.	Please wait a few seconds and try again (for longer documents, give more time.)<br />";
 			return $html;
@@ -94,11 +95,13 @@ sub cacheObject {
 	
 	my ($valid,$build) = getcacheflags($table,$id,$method);
 
+	dwarn "cacheObject started";
 	# not valid, but building, so wait
 	#
 	if ($build == 1)	{
 		do { 
 		sleep 1;
+			print "Not valid, but bulding\n";
 			if ($count >= $max) { return 0; }
 				($valid,$build) = getcacheflags($table,$id,$method);
 			$count++;
@@ -107,11 +110,13 @@ sub cacheObject {
 	# not valid, and not building, so build it
 	#
 	else { 
+		print "not valid and not building, so build it\n";
 		setbuildflag_on($table, $id, $method);
 		cleanCache($table, $id, $method);
 		cacheFileBox($table, $id, $method);
 
 		if ($table eq getConfig('en_tbl')) {
+			print "prepareEntryForRendering start\n";
 			my ($output, $links) = prepareEntryForRendering(
 				0,
 				$rec->{'preamble'},
@@ -122,18 +127,27 @@ sub cacheObject {
 				$table,
 				$rec->{'uid'},
 				classstring($table,$rec->{'uid'}));
-
+			print "prepareEntryForRendering end\n";
+			print "renderLaTeX start\n";
 			renderLaTeX($table, $rec->{'uid'}, $output, $method, $rec->{'name'});
+			print "renderLaTeX end\n";
+			print "writeLinksToFile start\n";
 			writeLinksToFile($table, $id, $method, $links);
+			print "writeLinksToFile end\n";
 		}
 
 		elsif ($table eq getConfig('collab_tbl')) {
+			print "renderLaTeX coolab_tbl start\n";
 			my $name = normalize($rec->{'title'});
 			renderLaTeX($table, $rec->{'uid'}, $rec->{'data'}, $method, $name);
+			print "renderLaTeX coolab_tbl end\n";
 		}
-		
+		print "setbuildflag_off start\n";
 		setbuildflag_off($table, $id, $method);
+		print "setbuildflag_off end\n";
+		print "setbuildflag_on start\n";
 		setvalidflag_on($table, $id, $method);
+		print "setbuildflag_on end\n";
 	}
 
 	return 1;
@@ -155,8 +169,9 @@ sub prepareEntryForRendering {
 	my $id = shift;
 	my $class = shift;
 	
+	dwarn "prepareEntryForRendering start cwd: $CWD";
 	my $file = getConfig('entry_template');
-	my $template = new Template($file);	
+	my $template = new TemplateNS($file);	
  
 	# handle cross-referencing 
 	#
@@ -175,6 +190,18 @@ sub prepareEntryForRendering {
 		$latex = $linked;
 	}
 
+	# pdf uses the pre-processed output; that is, link directives are removed.
+	#
+	if ($method eq "pdf") {
+		$latex = $linked;
+	}
+
+	# pdf uses the pre-processed output; that is, link directives are removed.
+	#
+	if ($method eq "make4ht") {
+		$latex = $linked;
+	}
+
 	# calculate supplementary packages to add (this now only includes
 	# the html package, for linking)
 	#
@@ -185,10 +212,15 @@ sub prepareEntryForRendering {
 	$template->setKeys('preamble' => $preamble, 'math' => $latex);
 	if (nb($packages)) { $template->setKey('packages', $packages) if (nb($packages)); }
 
+	dwarn "prepareEntryForRendering end cwd: $CWD";
+
 	if ( $method eq "src" ) {
 		return ($latex,$links);
 	} else {
-		return ($template->expand(),$links);
+		my $returnTemplate = $template->expand();
+		dwarn "links:\n $links";
+		dwarn "prepareEntryForRendering template:\n$returnTemplate";
+		return ($returnTemplate,$links);
 	}
 }
 

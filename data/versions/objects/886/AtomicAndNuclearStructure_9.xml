@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="886">
+ <title>Atomic and nuclear structure</title>
+ <name>AtomicAndNuclearStructure</name>
+ <created>2010-10-31 12:20:16</created>
+ <modified>2010-10-31 13:16:15</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="20-XX"/>
+	<category scheme="msc" code="21-XX"/>
+	<category scheme="msc" code="13.60.Hb"/>
+	<category scheme="msc" code="95.30.-k"/>
+	<category scheme="msc" code="27-XX"/>
+	<category scheme="msc" code="30-XX"/>
+	<category scheme="msc" code="31-XX"/>
+	<category scheme="msc" code="33-XX"/>
+	<category scheme="msc" code="34-XX"/>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>atomic structure</concept>
+	<concept>atomic number</concept>
+	<concept>mass number</concept>
+	<concept>isotopes</concept>
+	<concept>nuclear structure</concept>
+	<concept>nuclear physics</concept>
+	<concept>nuclear reactors</concept>
+	<concept>nuclear fission reactor</concept>
+	<concept>nuclear fusion reactor</concept>
+	<concept>tokamak</concept>
+	<concept>radioactivity</concept>
+	<concept>nuclides</concept>
+	<concept>radiation</concept>
+	<concept>nucleon structure</concept>
+	<concept>radioactivity</concept>
+	<concept>radioactive decay</concept>
+	<concept>particle scattering</concept>
+	<concept>neutron facility</concept>
+	<concept>neutron diffractometer</concept>
+	<concept>neutron detector</concept>
+	<concept>nuclear binding energy</concept>
+	<concept>isotope</concept>
+	<concept>alpha- beta- gamma-  radiation</concept>
+	<concept>radiopharmaceuticals</concept>
+	<concept>positron annihilation</concept>
+	<concept>positron emission</concept>
+	<concept>PET</concept>
+	<concept>tomography</concept>
+	<concept>SPECT</concept>
+	<concept>CAT scanning</concept>
+	<concept>X-ray radiography</concept>
+	<concept>electron accelerator</concept>
+	<concept>proton accelerator</concept>
+	<concept>NMRI</concept>
+	<concept>MRI</concept>
+	<concept>scintigraphy</concept>
+	<concept>Nuclear Medicine</concept>
+	<concept>Nuclear Engineering</concept>
+	<concept>Nuclear Stability Curve</concept>
+	<concept>cyclotron</concept>
+ </defines>
+ <keywords>
+	<term>atom</term>
+	<term>nucleus</term>
+	<term>nucleon</term>
+	<term>particles</term>
+	<term>electron</term>
+	<term>proton</term>
+	<term>neutron</term>
+	<term>radioactivity</term>
+	<term>nuclear physics</term>
+	<term>atomic physics</term>
+	<term>nuclear fusion reactor</term>
+	<term>tokamak</term>
+	<term>radioactivity</term>
+	<term>nuclides</term>
+	<term>radiopharmaceuticals</term>
+	<term>atomic mass</term>
+	<term>atomic number</term>
+	<term>periodic table</term>
+	<term>nuclear structure in astrophysics</term>
+	<term>nuclear engineering</term>
+	<term>nuclear reactions</term>
+	<term>proton</term>
+	<term>neutron</term>
+	<term>nucleon</term>
+	<term>quarks</term>
+	<term>nucleon strucutre</term>
+	<term>radiation</term>
+	<term>Compton effect</term>
+	<term>photoelectric effect</term>
+	<term>alpha particle</term>
+	<term>beta particle</term>
+	<term>Gamma radiation</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Atomic and Nuclear Structure}
+This is a new, contributed topic intended to cover the essential aspects of the broad theme of both atomic and nuclear structure. Applications, such as Nuclear Engineering, may be covered only partially here, and there should be a separate new topic on Nuclear Engineering, nuclear fission reactors, nuclear fusion reactors, tokamaks, and similar subjects. 
+
+Any member of PlanetPhysics.org can contribute to adding and editing this entry.
+
+The following four subsections introduce elementary concepts that are being cited here only in part from reference 1.
+
+\subsection{Basic Concepts of Atomic and Nuclear Structure}
+\begin{itemize}
+\item ``The \emph{atom} consists of two components - a nucleus (positively charged) and an electron cloud (negatively charged); the \emph{radius of the nucleus} approximated by a sphere is about 10,000 times smaller than that of the atom;
+\item The \emph{Nucleus of an Atom} or \emph{Atomic Nucleus} can have two component particles - neutrons (no charge) and protons (positively charged) - collectively called nucleons;
+\item The mass of a proton is about equal to that of a neutron - and is about 1,840 times that of an electron;
+\item The number of protons equals the number of electrons in an isolated atom;"
+
+\item The \emph{Atomic Number} specifies the number of protons in a nucleus;
+
+\item The \emph{Mass Number} specifies the number of nucleons in a nucleus;
+
+\item \emph{Isotopes} of elements are atoms with the same atomic number but different mass numbers;
+``Isotopes are classified by specifying the element's chemical symbol preceded by a superscript giving the mass number and a subscript giving the atomic number;
+
+\item The atomic mass unit is defined as 1/12th the mass of the stable, most commonly occurring isotope of carbon (i.e. C-12);"
+
+\item The \emph{Nuclear Binding Eenrgy} is the energy which holds the nucleons together in a nucleus and is measured in electron volts (eV);
+
+\item The number of neutrons increases more rapidly in the \emph{Periodic Table} than the number of protons, thus giving rise to the Nuclear Stability Curve; ``there are about 2450 isotopes of about 100 elements and the unstable isotopes lie above or below the Nuclear Stability Curve;
+there are about 2450 isotopes of some 100 elements, and the unstable isotopes lie above or below the Nuclear Stability Curve; the \emph{Nuclear Stability Curve} is a 2D graph or plot of the stability of various `natural' nuclei against the atomic number;"
+Unstable isotopes `attempt' to reach the nuclear stability curve by splitting into fragments (fission) or by emitting particles/energy (radioactivity);
+
+\item \emph{Unstable isotopes} are isotopes that are radioactive isotopes and are also called \emph{radionuclides};  ``about 300 of 2450 isotopes are found in nature - the rest are produced artificially in \emph{nuclear reactors}".
+\end{itemize}
+
+\subsection{Radioactivity and Radioactive Decay}
+
+\subsection{Nuclear Fission processes and Reactors}
+
+\subsection{Nuclear Fusion Experiments and Installations}
+
+\subsection{Units of Radiation Measurement}
+\begin{itemize}
+
+
+\item \emph{Radiation Exposure} expresses the intensity of an X-- or gamma-- ray beam;
+
+\item \emph{Radiation Adsorbed Dose} expresses the accumulated, absorbed amount of radiation;
+
+\item The \emph{SI unit of radiation exposure} is the coulomb per kilogram (C/kg); 1 C/kg = The quantity of X- or gamma-rays such that the associated electrons emitted per kg of air at STP produce in air ions carrying 1 coulomb of electric charge;
+
+\item The traditional unit of exposure is the roentgen (R);
+$1 R = The ~~quantity$ of X- or gamma-rays such that the associated electrons emitted per kg of air at STP produce in air ions carrying $2.58 x 10^{-4}$ coulombs of electric charge;
+
+\item The exposure rate is the exposure per unit time, e.g. C/kg/s;
+
+\item Absorbed dose is the radiation energy absorbed per unit mass of absorbing material; •The SI unit of absorbed dose is the gray (Gy);
+$1 Gy = The~~ absorption$ of 1 joule of radiation energy per kilogram of material;
+The traditional unit of absorbed dose is the rad;
+$1 rad = The ~~absorption$ of $10^{-2}$ joules of radiation energy per kilogram of material;"
+
+\end{itemize}
+
+
+\subsection{Interaction of Radiation with Matter}
+
+\begin{itemize}
+
+\item ``Alpha-Particles: exert considerable electrostatic attraction on the outer orbital electrons of atoms near which they pass and cause ionisations; travel in straight lines - except for rare direct collisions with nuclei of atoms in their path; their energy is always discrete.
+
+\item Beta--Minus Particles: attracted by nuclei and repelled by electron clouds as they pass through matter and cause ionisations; have a tortuous path; have a range of energies; this range of energies results because two particles are emitted - a beta-particle and a neutrino.
+
+\item Gamma-Rays: their energy is always discrete; have many modes of interaction with matter; important interactions for nuclear medicine imaging (and radiography) are the \emph{Photoelectric Effect} and the \emph{Compton Effect}".
+
+\end{itemize}
+
+\subsection{Radiation Detection and Detectors}
+
+
+\subsection{Artificial Generation of Radioisotopes in Nuclear Reactors}
+
+``Naturally-occurring radioisotopes generally have long half lives and belong to relatively heavy elements - and are therefore unsuitable for medical diagnostic applications.
+
+Medical diagnostic radioisotopes are generally produced artificially.
+
+The fission process can be exploited so that radioisotopes of interest can be separated chemically from fission products."
+
+\begin{itemize}
+
+\item A cyclotron can be used to accelerate charged particles up to high energies so that they to collide into a target of the material to be activated;
+\item A radioisotope generator is generally used in hospitals to produce short--lived radioisotopes;
+
+\item A technetium---9m generator consists of an alumina column containing Mo--99 ($Mo^99$, which decays into Tc--99m; •Saline is passed through the generator to elute the Tc--99m - the resulting solution is called sodium pertechnetate; •Both positive pressure and negative pressure generators are in use;
+\item An isotope calibrator is needed when a Tc--99m generator is used in order to determine the activity for preparation of patient doses and to test whether any Mo--99 is present in the collected solution.
+\end{itemize}
+
+\subsection{Nuclear Medicine Imaging Systems}
+\begin{itemize}
+
+\item ``A gamma camera consists of a large diameter (25--40 cm) NaI(Tl) crystal, about 1 cm thick;
+The crystal is viewed by an array of 37--91 PM tubes;
+PM tubes signals are processed by a position circuit which generates $+/- X$ and $+/- Y$ signals;
+These position signals are summed to form a Z signal which is fed to a pulse height analyser;
+The $+/- X, +/- Y$ and discriminated Z signals are sent to a computer for digital image processing;
+A collimator is used to improve the spatial resolution of a gamma--camera;
+Collimators typically consist of a $Pb$ plate containing a large number of small holes;
+The most common type is a parallel multi--hole collimator;
+The most resolvable area is directly in front of a collimator;
+Parallel--hole collimators vary in terms of the number of holes, the hole diameter, the length of each hole and the septum thickness -- the combination of which affect the sensitivity and spatial resolution of the imaging system;
+Other types include the diverging-hole collimator (which generates minified images), the converging-hole collimator (which generates magnified images) and the pin--hole collimator (which generates magnified inverted images);
+Conventional imaging with a gamma camera is referred to as Planar Imaging, i.e. a 2D image portraying a 3D object giving superimposed details and no depth information;
+\item \emph{Single Photon Emission Computed Tomography (SPECT)} produces images of slices through the body;
+SPECT uses a gamma camera to record images at a series of angles around the patient;
+The resultant data can be processed using Filtered Back Projection and Iterative Reconstruction;
+SPECT gamma-cameras can have one, two or three camera heads;
+\item \emph{Positron Emission Tomography (PET)} also produces images of slices through the body;
+PET exploits the positron annihilation process where two 0.51 MeV back--to--back gamma--rays are produced;
+If these gamma--rays are detected, their origin will lie on a line joining two of the detectors of the ring of detectors which encircles the patient;
+
+\item \textbf{PET systems require an on-site, or nearby, cyclotron to produce short-lived radioisotopes, such as $C-11, N-13, O-15$ and $F-18$.}"
+\end{itemize}
+
+\textbf{more to come}...
+
+
+
+
+\begin{thebibliography}{99}
+\bibitem{KMetal2k2}
+K. Maher et al., eds. 2006. \emph{Basic Physics of Nuclear Medicine}. GNUL Wikibooks, 103 pages. 
+
+\end{thebibliography}</content>
+</record>

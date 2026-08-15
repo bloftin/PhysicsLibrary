@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="851">
+ <title>M-theory</title>
+ <name>MTheory</name>
+ <created>2010-04-07 19:08:19</created>
+ <modified>2010-04-07 20:45:45</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02.40.Re"/>
+	<category scheme="msc" code="02.40.Gh"/>
+	<category scheme="msc" code="02.40.-kxx"/>
+ </classification>
+ <defines>
+	<concept>theory of everything</concept>
+	<concept>TOF</concept>
+	<concept>M-theory</concept>
+	<concept>brane</concept>
+	<concept>10D-brane</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="M-theory" alias="Brane theory"/>
+	<synonym concept="M-theory" alias="Membrane theory"/>
+	<synonym concept="M-theory" alias="multi-string theory"/>
+ </synonyms>
+ <keywords>
+	<term>a theory o f two dimensional 'strings' ='membranes' or branes</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{M-theory} is a relatively recent theory of everything, including the time evolution through the Big-Bang event that created our Universe. It replaces the older string theory in 10 dimensions with a \emph{brane} theory in 11 dimensions, one time dimension and 10 spatial dimensions. The Big-Bang is hypothesized to occur in M-theory as a result of the collision of two parallel universe branes, each with ten spatial dimensions and one temporal dimension. Heterogeneities in the new Universe formed after the collision would be explained by wave-like fluctuations of the two colliding branes. Moreover, a unification of five previous 10D string theories would occur in M-theory. Its equations may be then also unified with previous supergravity theory in 11 dimensions.
+
+It has been said that: \emph{``The final mathematical formulation of M-theory will have to make contact with the theory of vector bundles, K-theory and noncommutative geometry.''}
+
+
+
+\section{References}
+1. An introduction to string and M-theory for the layman: $http://www.youtube.com/watch?v=11TcbcW0Dw0$
+
+2. Robbert Dijkgraaf. \emph{The Mathematics of M--Theory}.
+
+3. J. Polchinski, Dirichlet--branes and Ramond--Ramond charges, Phys. Rev. Lett. 75 (1995) 4724--4727, $hep--th/9510017$.
+
+4 J. Polchinski, String Theory (Cambridge Monographs on Mathematical Physics),
+Cambridge University Press, 1998.
+
+5. G. Segal, The definition of conformal field theory, preprint; Two dimensional conformal field theories and modular functors, in IXth International Conference on Mathematical Physics,. B. Simon, A. Truman and I. M. Davies Eds. (Adam Hilger, Bristol,1989).
+
+6. N. Seiberg and E. Witten, String theory and noncommutative geometry, JHEP 9909(1999) 032, $hep--th/9908142$.
+
+7. A. Sen and B. Zwiebach, Tachyon condensation in string field theory, JHEP 0003 (2000) 002, $hep--th/9912249$.
+
+8. E. Witten, String theory in various dimensions, Nucl. Phys. B 443 (1995) 85, $hep--th/9503124$.
+
+9. E. Witten, Bound states of strings and p-branes, Nucl. Phys. B460 (1996) 335, $hep-th/--9510135$.
+
+10. E. Witten, D--branes and K--theory, JHEP 9812 (1998) 019, $hep--th/9810188$.</content>
+</record>

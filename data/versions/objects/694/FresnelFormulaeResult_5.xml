@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="694">
+ <title>Fresnel formulae result</title>
+ <name>FresnelFormulaeResult</name>
+ <created>2009-04-29 09:57:17</created>
+ <modified>2009-04-29 10:07:50</modified>
+ <type>Result</type>
+<parent id="649">Fresnel formulae</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\usepackage{mathrsfs}
+
+% define commands here
+
+\newcommand{\sR}[0]{\mathbb{R}}
+\newcommand{\sC}[0]{\mathbb{C}}
+\newcommand{\sN}[0]{\mathbb{N}}
+\newcommand{\sZ}[0]{\mathbb{Z}}
+\usepackage{bbm}
+\newcommand{\Z}{\mathbbmss{Z}}
+\newcommand{\C}{\mathbbmss{C}}
+\newcommand{\F}{\mathbbmss{F}}
+\newcommand{\R}{\mathbbmss{R}}
+\newcommand{\Q}{\mathbbmss{Q}}
+\newcommand*{\norm}[1]{\lVert #1 \rVert}
+\newcommand*{\abs}[1]{| #1 |}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}</preamble>
+ <content>The Fresnel formulae presented in the parent entry-- that the proof refers to-- are as follows:
+
+$$\int_0^\infty\!\cos{x^2}\,dx \,=\, \int_0^\infty\!\sin{x^2}\,dx \,=\, \frac{\sqrt{2\pi}}{4}$$
+
+(visible there only in the Tex code mode because of a current quirk with pstricks vs. Tex).
+
+The remainder of the equations and formulae following the graphics is as follows, quoted here from the Tex mode correctly specified by pahio :
+``The function \,$\displaystyle z \mapsto e^{-z^2}$\, is entire, whence by the fundamental theorem of complex analysis we have
+\begin{align}
+\oint_\gamma e^{-z^2}\,dz \;=\; 0
+\end{align}
+where $\gamma$ is the \PMlinkname{perimeter}{BasicPolygon} of the circular sector described in the picture.\, We split this contour integral to three portions:
+\begin{align}
+\underbrace{\int_0^R\!e^{-x^2}\,dx}_{I_1}+\underbrace{\int_b\!e^{-z^2}\,dz}_{I_2}
++\underbrace{\int_s\!e^{-z^2}\,dz}_{I_3} \,=\,0
+\end{align}
+By the entry concerning the Gaussian integral, we know that
+$$\lim_{R\to\infty}I_1 = \frac{\sqrt{\pi}}{2}.$$
+
+For handling $I_2$, we use the substitution
+$$z \,:=\, Re^{i\varphi} = R(\cos\varphi+i\sin\varphi), \quad dz \,=\,iRe^{i\varphi}\,d\varphi \quad
+(0 \leqq \varphi \leqq \frac{\pi}{4}).$$
+Using also de Moivre's formula we can write
+$$|I_2| = \left|iR\int_0^{\frac{\pi}{4}}e^{-R^2(\cos2\varphi+i\sin2\varphi)}e^{i\varphi}d\varphi\right| \leqq 
+R\!\int_0^{\frac{\pi}{4}}\left|e^{-R^2(\cos2\varphi+i\sin2\varphi)}\right|\cdot\left|e^{i\varphi}\right|\cdot|d\varphi|
+= R\!\int_0^{\frac{\pi}{4}}e^{-R^2\cos2\varphi}d\varphi.$$
+Comparing the graph of the function \,$\varphi \mapsto \cos2\varphi$\, with the line through the points \,$(0,\,1)$\, and\, $(\frac{\pi}{4},\,0)$\, allows us to estimate $\cos2\varphi$ downwards:
+$$\cos2\varphi \geqq 1\!-\!\frac{4\varphi}{\pi} \quad\mbox{for}\quad 0 \leqq \varphi \leqq \frac{\pi}{4}$$
+Hence we obtain
+$$|I_2| \leqq R\int_0^{\frac{\pi}{4}}\frac{d\varphi}{e^{R^2\cos2\varphi}} 
+\leqq R\int_0^{\frac{\pi}{4}}\frac{d\varphi}{e^{R^2(1-\frac{4\varphi}{\pi})}} 
+\leqq \frac{R}{e^{R^2}} \int_0^{\frac{\pi}{4}} e^{\frac{4R^2}{\pi}\varphi} d\varphi,$$
+and moreover
+$$|I_2| \leqq \frac{\pi}{4Re^{R^2}}(e^{R^2}-1) &lt; \frac{\pi e^{R^2}}{4Re^{R^2}} = \frac{\pi}{4R} \; \to 0
+\quad \mbox{as} \quad R \to \infty.$$
+Therefore
+$$\lim_{R\to\infty}I_2 = 0.\\$$
+
+Then make to $I_3$ the substitution
+$$z \;:=\; \frac{1\!+\!i}{\sqrt{2}}t, \quad dz \,=\, \frac{1\!+\!i}{\sqrt{2}}dt \quad(R \geqq t \geqq 0).$$
+It yields
+\begin{align*}
+I_3 &amp;\quad = \frac{1\!+\!i}{\sqrt{2}}\int_R^0e^{-it^2}\,dt
+= -\frac{1}{\sqrt{2}}\int_0^R(1+i)(\cos{t^2}-i\sin{t^2})\,dt \\
+&amp;\quad = -\frac{1}{\sqrt{2}}\left(\int_0^R\sin{t^2}\,dt+\int_0^R\cos{t^2}\,dt\right)
++\frac{i}{\sqrt{2}}\left(\int_0^R\sin{t^2}\,dt-\int_0^R\cos{t^2}\,dt\right).
+\end{align*}
+Thus, letting\, $R \to \infty$,\, the equation (2) implies
+\begin{align}
+\frac{\sqrt{\pi}}{2}\!+\!0\!
+-\frac{1}{\sqrt{2}}\left(\int_0^\infty\!\sin{t^2}\,dt+\!\int_0^\infty\!\cos{t^2}\,dt\right)\!
++\!\frac{i}{\sqrt{2}}\left(\int_0^\infty\!\sin{t^2}\,dt-\!\int_0^\infty\!\cos{t^2}\,dt\right) \;=\; 0.
+\end{align}
+Because the imaginary part vanishes, we infer that\, $\int_0^\infty\cos{x^2}\,dx = \int_0^\infty\sin{x^2}\,dx$,\, whence (3) reads
+$$\frac{\sqrt{\pi}}{2}+0-\frac{1}{\sqrt{2}}\!\cdot\!2\!\int_0^\infty\!\sin{t^2}\,dt \,=\, 0.$$
+So we get also the result\, $\int_0^\infty\sin{x^2}\,dx = \frac{\sqrt{2}}{2}\cdot\frac{\sqrt{\pi}}{2} = 
+\frac{\sqrt{2\pi}}{4}.$ "</content>
+</record>

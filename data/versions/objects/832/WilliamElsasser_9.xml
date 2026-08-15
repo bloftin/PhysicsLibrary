@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="832">
+ <title>Walter  Elsasser</title>
+ <name>WilliamElsasser</name>
+ <created>2010-02-14 11:35:02</created>
+ <modified>2010-02-14 11:57:18</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="87.10.+e"/>
+	<category scheme="msc" code="87."/>
+	<category scheme="msc" code="02-XX"/>
+	<category scheme="msc" code="87.90.+y"/>
+	<category scheme="msc" code="87.18.-hxx"/>
+	<category scheme="msc" code="87.19.-jxx"/>
+	<category scheme="msc" code="87.23.-nxx"/>
+	<category scheme="msc" code="87.17.-dxx"/>
+ </classification>
+ <related>
+	<object name="BiographiesOnPlanetPhysicsOrg"/>
+ </related>
+ <keywords>
+	<term>theoretical physics</term>
+	<term>geodynamo theory</term>
+	<term>theoretical biology</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Walter Maurice Elsasser} (Born: 20 March 1904, in Mannheim, Germany; died 14 October 1991, in Baltimore) was a physicist and is considered the ``father'' of the geodynamo theory. Long before he became known for his geodynamo theory, while in Göttingen in the 1920s, he has suggested the experiment to test the wave aspect of electrons. This
+suggestion of Elsasser was later communicated by his senior colleague from Göttingen (Nobel Prize recipient Max Born) to physicists in England. This explained the results of the Davisson--Germer and Thomson experiments later
+awarded with the Nobel Prize in Physics. In 1935, while working in Paris, Elsasser calculated the binding energies of protons and neutrons in heavy radioactive nuclei. Wigner, Jensen and Meyer received the Nobel in 1963 for work
+developing out of Elsasser's initial formulation. Elsasser therefore came quite close to a Nobel prize on two occasions.
+In 1946--1947, Elsasser published papers outlining the theory that the Earth's electromagnetic field is powered by eddy currents at the planet's liquid core. This had been developed from around 1941 onwards, partly in his spare time
+during his scientific war service with the US Signal Corps.
+In his later years, Elsasser became interested in what is now called systems biology and contributed a series of articles to Journal of Theoretical Biology.[2] [3] [4] [5] [6] [7] [8] The final version of his thoughts on this subject can be found in his book Reflections on a Theory of Organisms, published in 1987 and again posthumously with a new
+forward by Harry Rubin in 1998.
+
+Biotonic laws
+A biotonic law, a phrase coined by Elsasser, is a law of nature which cannot be contained in the laws of physics.[9]
+Elsasser's biological work is still quite controversial, and in fact sits in an odd relationship to the field of systems
+biology he helped to found. Central to Elsasser's biological thought is the notion of the astronomical complexity of
+the cell. Elsasser deduced from this that any investigation of a causative chain of events in a biological system will
+reach a "terminal point", where the number of possible inputs into the chain will overwhelm the capacity of the
+scientist to make predictions, even with the most powerful computers. This might seem like a counsel of despair, but in fact Elsasser was not calling for the abandonment of biology as a worthwhile research arena, but rather for a
+different kind of biology where molecular causal chains are no longer the main focus of study. Correlation between supra-molecular events would become the main data source.
+
+\subsection{Publications}
+
+Elsasser, W.M. ``The Physical Foundation of Biology. An Analytical Study'', (1958), Pergamon Press, London.
+
+Elsasser, W.M. ``Atom and Organism. A New Approach to Theoretical Biology'', (1966) Princeton University Press.
+
+Elsasser, W.M. ``The Chief Abstractions of Biology'', (1975), North Holland, Amsterdam.
+
+Elsasser, W.M. ``Memoirs of a Physicist in the Atomic Age'', (1978)
+
+Elsasser, W.M. ``The role of individuality in biological theory'', (1970) in Towards a Theoretical Biology vol.3 Edinburgh University Press
+
+Elsasser, W.M. ``Reflections on a Theory of Organisms. Holism in Biology'', (1998) Johns Hopkins University Press (JHU).
+
+The Olin Hall at the Johns Hopkins University has a Walter Elsasser Memorial in the lobby.
+
+Biographical Entry: 
+
+Beyler R \&amp; Gatherer D (2007) Walter Elsasser (biography). In: ``Dictionary of Scientific Biography'', new ed. New York: Charles Scribner's Sons Inc.
+
+\subsection{Web pages}
+Extensive biography at The National Academies Press [10]
+
+Gatherer D: ``Finite universe of discourse. The systems biology of Walter Elsasser.'' The Open Biology Journal 2: 4-15 [11].
+
+\subsection{External links}
+``Oral History interview transcript with Walter Elsasser'', 29 May 1962, American Institute of Physics, Niels Bohr Library and Archives [12]
+
+\subsection{References}
+[1] $http://www. aip.org/history/ohilist/images/elsasser-walter_b1.jpg$
+
+[2] Elsasser, WM (1983). ``Biological application of the statistical concepts used in the Second Law''. Journal of theoretical biology 105 (1):
+103–16. doi: 10.1016;0022--5193(83)90427--7, $(http://dx. doi. org/10. 1016/ 0022-5193(83)90427-7)$. PMID 6656269 ($http://www. ncbi.nlm. nih. gov/pubmed/ 6656269$).
+
+[3] Elsasser, WM (1982). ``The other side of molecular biology''. Journal of theoretical biology 96 (1): 67–76. doi: 10.1016; 0022--5193(82)90156--4 ($http://dx.doi.org/10.1016/0022--5193(82)90156--4$). PMID 7109657 ($http://www. ncbi.nlm.nih.gov/pubmed/7109657$).
+
+[4] Elsasser, WM (1981). ``Principles of a new biological theory: a summary''. Journal of theoretical biology 89 (1): 131--50. doi:10.1016; 0022--5193(81)90182--X ($http://dx.doi.org/10.1016/0022--5193(81)90182--X$). PMID 7278305 ($http:/www.ncbi.nlm.nih.gov/pubmed/7278305$).
+
+\subsection{Note}
+This entry is based in part, and has significant additions to, as well as changes from, a related 
+\PMlinkexternal{web entry}{http://en.wikipedia.org/wiki/Walter_Maurice_Elsasser}.</content>
+</record>

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="722">
+ <title>index of algebraic geometry</title>
+ <name>IndexOfAlgebraicGeometry</name>
+ <created>2009-05-02 16:09:46</created>
+ <modified>2009-05-02 19:50:42</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>index of algebraic geometry</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed entry in progress
+
+\section{Index of Algebraic Geometry}
+
+
+\PMlinkname{Algebraic Geometry (AG)}{AlgebraicGeometry}, and Non-commutative Geometry/NAAT. On the other hand, there are also close ties between algebraic geometry and number theory.
+
+
+\subsection{Outline}
+
+\subsection{Disciplines in algebraic geometry}
+
+\begin{enumerate}
+\item \emph{Birational geometry, Dedekind domains and Riemann-Roch theorem}
+\item Homology and cohomology theories
+\item Algebraic groups: Lie groups, matrix group schemes,group machines, linear groups, generalizing Lie groups, representation theory
+\item {\em Abelian varieties}
+\item {\em Arithmetic algebraic geometry}
+\item Duality
+\item Category theory applications in algebraic geometry
+\item Index of categories, functors and natural transformations
+\item \PMlinkexternal{Grothendieck's Descent theory}{http://www.uclouvain.be/17501.html}
+\item `Anabelian geometry'
+\item Categorical Galois theory
+\item Higher dimensional algebra (HDA)
+\item Quantum algebraic topology (QAT)
+\item Quantum Geometry
+\item Computer algebra systems; an example is: explicit projective resolutions for finitely-generated modules over suitable rings
+\end{enumerate}
+
+\subsection{Cohomology}
+Cohomology is an essential theory in the study of complex manifolds. 
+Computations in cohomology studies of complex manifolds in algebraic geometry utilize similar computations to those of cohomology theory in algebraic topology: spectral sequences, excision, the Mayer-Vietoris sequence, etc.
+\begin{enumerate}
+\item Cohomology groups are defined and then cohomology functors associate Abelian groups to sheaves on a scheme; one may view such Abelian groups them as cohomology with coefficients in a scheme.
+\item Cohomology functors 
+\item Fundamental cohomology theorems
+\item A basic type of cohomology for schemes is the sheaf cohomology
+\item Whitehead groups, torsion and towers
+\item 
+\end{enumerate}
+
+
+\subsection{Algebraic varieties and the GAGA principle}
+\begin{enumerate}
+\item new1x
+\item new2y
+\item new3z
+\end{enumerate}
+
+
+\subsection{Number theory applications}
+
+\subsection{Cohomology theory}
+\begin{enumerate}
+\item Cohomology group
+\item Cohomology sequence
+\item DeRham cohomology
+\item new4
+\end{enumerate}
+
+\subsection{Homology theory}
+\begin{enumerate}
+\item Homology group
+\item Homology sequence
+\item Homology complex
+\item new4
+
+\end{enumerate}
+
+\subsection{Duality in algebraic topology and category theory}
+\begin{enumerate}
+
+\item Tanaka-Krein duality
+\item Grothendieck duality
+\item Categorical duality
+\item Tangled duality
+\item DA5
+\item DA6
+\item DA7
+
+\end{enumerate}
+
+\subsection{Category theory applications}
+\begin{enumerate}
+\item Abelian categories
+\item Topological category
+\item Fundamental groupoid functor
+\item Categorical Galois theory
+\item Non-Abelian algebraic topology
+\item Group category
+\item Groupoid category
+\item $\mathcal{T}op$ category
+\item Topos and topoi axioms
+\item Generalized toposes
+\item Categorical logic and algebraic topology
+\item Meta-theorems
+\item Duality between spaces and algebras
+
+\end{enumerate}
+
+
+\subsection{Examples of Categories}
+The following is a listing of categories relevant to algebraic topology:
+
+\begin{enumerate}
+\item \PMlinkexternal{Algebraic categories}{http://www.uclouvain.be/17501.html}
+\item Topological category
+\item Category of sets, Set
+\item Category of topological spaces
+\item Category of Riemannian manifolds
+\item Category of CW-complexes
+\item Category of Hausdorff spaces
+\item Category of Borel spaces
+\item Category of CR-complexes
+\item Category of graphs
+\item Category of spin networks
+\item Category of groups
+\item Galois category
+\item Category of fundamental groups
+\item Category of Polish groups
+\item Groupoid category
+\item Category of groupoids (or groupoid category)
+\item Category of Borel groupoids
+\item Category of fundamental groupoids
+\item Category of functors (or functor category)
+\item Double groupoid category
+\item Double category
+\item Category of Hilbert spaces
+\item Category of quantum automata
+\item R-category
+\item Category of algebroids
+\item Category of double algebroids
+\item Category of dynamical systems
+\end{enumerate}
+
+\subsection{Index of functors}
+\emph{The following is a contributed listing of functors:}
+
+\begin{enumerate}
+\item Covariant functors
+\item Contravariant functors
+\item Adjoint functors
+\item Preadditive functors
+\item Additive functor
+\item Representable functors
+\item Fundamental groupoid functor
+\item Forgetful functors
+\item Grothendieck group functor
+\item Exact functor
+\item Multi-functor
+\item Section functors
+\item NT2
+\item NT3
+\end{enumerate}
+
+
+\subsection{Index of natural transformations}
+\emph{The following is a contributed listing of natural transformations:}
+
+\begin{enumerate}
+\item Natural equivalence
+\item Natural transformations in a 2-category
+\item NT3
+\item NT1
+
+\end{enumerate}
+
+\subsection{Grothendieck proposals}
+\begin{enumerate}
+\item \PMlinkname{Esquisse d'un Programme}{AlexSMathematicalHeritageEsquisseDunProgramme}
+\item
+\PMlinkexternal{Pursuing Stacks}{http://www.math.jussieu.fr/~leila/grothendieckcircle/stacks.ps}
+\item S2
+\item S3
+
+
+\end{enumerate}
+
+\subsection{Descent theory}
+\begin{enumerate}
+\item D1
+\item D2
+\item D3
+
+
+\end{enumerate}
+
+\subsection{Higher dimensional algebra (HDA)}
+
+\begin{enumerate}
+\item Categorical groups
+\item Double groupoids
+\item Double algebroids
+\item Bi-algebroids
+\item $R$-algebroid
+\item $2$-category
+\item $n$-category
+\item Super-category
+\item weak n-categories
+\item Bi-dimensional Geometry
+\item \PMlinkname{Noncommutative geometry}{NoncommutativeGeometry}
+\item Higher-Homotopy theories
+\item \PMlinkname{Higher-Homotopy Generalized van Kampen Theorem (HGvKT)}{GeneralizedVanKampenTheoremsHigherDimensional}
+\item H1
+\item H2
+\item H3
+\item H4
+
+\end{enumerate}
+
+
+
+\subsubsection{Axioms of cohomology theory}
+\begin{enumerate}
+
+\item A1
+\item A2
+\item A3
+
+\end{enumerate}
+
+\subsubsection{Axioms of homology theory}
+\begin{enumerate}
+
+\item A1
+
+\item A2
+\item A3
+
+\end{enumerate}
+
+\subsection{Quantum algebraic topology (QAT)}
+
+\textbf{(a). Quantum algebraic topology} is described as \emph{the mathematical and physical study of general theories of quantum algebraic structures from the standpoint of algebraic topology, category theory and
+their non-Abelian extensions in higher dimensional algebra and supercategories}
+\begin{enumerate}
+\item Quantum operator algebras (such as: involution, *-algebras, or $*$-algebras, von Neumann algebras,
+, JB- and JL- algebras, $C^*$ - or C*- algebras,
+\item Quantum von Neumann algebra and subfactors; Jone's towers and subfactors
+\item Kac-Moody and K-algebras
+\item categorical groups
+\item Hopf algebras, quantum Groups and quantum group algebras
+\item Quantum groupoids and weak Hopf $C^*$-algebras
+\item Groupoid C*-convolution algebras and *-convolution algebroids
+\item Quantum spacetimes and quantum fundamental groupoids
+\item Quantum double Algebras
+\item Quantum gravity, supersymmetries, supergravity, superalgebras and graded `Lie' algebras
+\item Quantum categorical algebra and higher--dimensional, $\L{}-M_n$- Toposes
+\item Quantum R-categories, R-supercategories and spontaneous symmetry breaking
+\item Non-Abelian Quantum algebraic topology (NA-QAT): closely related to NAAT and HDA.
+\end{enumerate}
+
+\subsection{Quantum Geometry}
+\begin{enumerate}
+\item \PMlinkname{Quantum Geometry overview}{QuantumGeometry2}
+\item Quantum non-commutative geometry
+\end{enumerate}
+
+
+\subsection{2x}
+
+
+\begin{enumerate}
+
+\item new1x
+\item new2y
+
+
+\end{enumerate}
+
+\subsection{13}
+\begin{enumerate}
+
+\item new1x
+\item new2y
+
+
+\end{enumerate}
+
+\subsection{14}
+
+
+\subsection{Textbooks and bibliograpies}
+
+\PMlinkexternal{Bibliography on Category theory, AT and QAT}{http://planetmath.org/?op=getobj&amp;from=objects&amp;id=10746}
+
+
+\subsubsection{Textbooks and Expositions:}
+\begin{enumerate}
+\item A \PMlinkexternal{Textbook1}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=172}
+\item A \PMlinkexternal{Textbook2}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=156}
+\item A \PMlinkexternal{Textbook3}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=159}
+\item A \PMlinkexternal{Textbook4}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=160}
+\item A \PMlinkexternal{Textbook5}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=153}
+\item A \PMlinkexternal{Textbook6}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=68}
+\item A \PMlinkexternal{Textbook7}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=158}
+\item A \PMlinkexternal{Textbook8}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=75}
+\item A \PMlinkexternal{Textbook9}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=73}
+\item A \PMlinkexternal{Textbook10}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=174}
+\item A \PMlinkexternal{Textbook11}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=169}
+\item A \PMlinkexternal{Textbook12}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=178}
+\item A \PMlinkexternal{Textbook13}{http://www.math.cornell.edu/~hatcher/VBKT/VB.pdf}
+\item new1x
+\end{enumerate}
+
+\begin{thebibliography}{99}
+\bibitem{AG-JD60} 
+Alexander Grothendieck and J. Dieudonn\'{e}.: 1960, El\'{e}ments de geometrie alg\'{e}brique., \emph{Publ. Inst. des Hautes Etudes de Science}, \textbf{4}.
+
+\bibitem{Alex4} 
+Alexander Grothendieck. \emph{S\'eminaires en G\'eometrie Alg\`ebrique- 4}, Tome 1, Expos\'e 1 (or the Appendix to Expos\'ee 1, by `N. Bourbaki' for more detail and a large number of results.
+AG4 is \PMlinkexternal{freely available}{http://modular.fas.harvard.edu/sga/sga/pdf/index.html} in French;
+also available here is an extensive
+\PMlinkexternal{Abstract in English}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=158}.
+
+\bibitem{Alex62} 
+Alexander Grothendieck. 1962. S\'eminaires en G\'eom\'etrie Alg\'ebrique du Bois-Marie, Vol. 2 - Cohomologie Locale des Faisceaux Coh\`erents et Th\'eor\`emes de Lefschetz Locaux et Globaux. , pp.287. (with an additional contributed expos\'e by Mme. Michele Raynaud).,
+\PMlinkexternal{Typewritten manuscript available in French}{http://modular.fas.harvard.edu/sga/sga/2/index.html};
+\PMlinkexternal{see also a brief summary in English}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=78} . Available for free downloads at  \PMlinkexternal{on the web}{http://www.numdam.org/numdam-bin/recherche?au=Grothendieck&amp;format=short}.
+
+\bibitem{Alex84} 
+Alexander Grothendieck, 1984. ``Esquisse d'un Programme'', (1984 manuscript), {\em finally published in ``Geometric Galois Actions''}, L. Schneps, P. Lochak, eds., {\em London Math. Soc. Lecture Notes} {\bf 242}, Cambridge University Press, 1997, pp.5-48; English transl., ibid., pp. 243-283. MR 99c:14034 .
+
+\bibitem{Liu2k2}
+Qing Liu.2002. \emph{Algebraic Geometry and Arithmetic Curves}, Oxford Graduate Texts in Mathematics 6, 2002. 300 pages on schemes followed by geometry and  arithmetic surfaces. (Serre duality is approached via Grothendieck duality). 
+
+\bibitem{Shafarevich76}
+Igor Shafarevich, \emph{Basic Algebraic Geometry} Vols. 1 and 2;
+Vol.2:  {\em Schemes and Complex Manifolds}., Second Revised and Expanded Edition. Springer-Verlag; scheme theory, varieties as schemes, varieties and schemes over the complex numbers, and complex manifolds.
+
+\bibitem{Milne}
+ James Milne, \emph{Elliptic Curves}, online course notes. \PMlinkexternal{Available at his website}{http://www.jmilne.org/math/CourseNotes/math679.html}.
+
+\bibitem{Silverman86}
+Joseph H. Silverman, \emph{The Arithmetic of Elliptic Curves}. Springer-Verlag, New York, 1986.
+
+\bibitem{Silverman94}
+Joseph H. Silverman, \emph{Advanced Topics in the Arithmetic of Elliptic Curves}. Springer-Verlag, New York, 1994.
+
+\bibitem{Shimura71} 
+Goro Shimura, \emph{Introduction to the Arithmetic Theory of Automorphic Functions}. Princeton University Press, Princeton, New Jersey, 1971.
+
+\bibitem{Mumford70}
+David Mumford, \emph{Abelian Varieties}, Oxford University Press, London, 1970. This book is a canonical reference on the subject. ``It is written in the language of modern algebraic geometry, and provides a thorough grounding in the theory of abelian varieties.'' 
+
+\end{thebibliography}</content>
+</record>

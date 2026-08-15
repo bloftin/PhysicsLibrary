@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="786">
+ <title>Metatheories, axioms and general theories</title>
+ <name>GeneralTheoriesAndAxiomsMetatheories</name>
+ <created>2009-05-29 11:36:36</created>
+ <modified>2009-05-29 11:55:23</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>meta-theory</concept>
+	<concept>metatheory</concept>
+	<concept>metalogic</concept>
+	<concept>metamathematics</concept>
+	<concept>meta-theorems</concept>
+	<concept>metatheorems</concept>
+ </defines>
+ <related>
+	<object name="AnalyticsAndFormalLogics"/>
+	<object name="DifferentialLogic"/>
+	<object name="RelationTheory"/>
+ </related>
+ <keywords>
+	<term>metatheories</term>
+	<term>axioms and general theories</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>This is a topic on the applications of meta-theories, metalogic and metamathematics to axiomatics in theoretical physics. The topic is of potential importance for areas such as axiomatic quantum field theory (AX-QFT), local quantum field theories (AQFT), general relativity theory, general dynamics system theories and axiomatic mathematical biophysics or abstract relational biology. The axiomatic approach already has wide applications both in metalogic, mathematics, metamathematics and quantum logics. 
+
+\section{Metatheory, Meta-Logic and Meta-Mathematics}
+
+A {\em methatheory} or {\em meta-theory} can be described as a higher level theory about theories belonging to a lower theory class $\mathbb{M}$, or first-level theories. With this meaning, a theory $\mathcal{T}$ of the domain $\mathcal{D}$ is a meta-theory if $\mathcal{D}$ is a theory belonging to a class $\mathbb{M}$ of (lower-level, or first level) theories. A general theory is not a meta-theory because its domain $\mathcal{D}$ does not contain any other theories. Valid statements made in a meta-theory are called {\em meta-theorems} or {\em metatheorems}.
+
+
+A {\em metalogic} is then a meta-theory of various types of logic.
+
+{\em Meta-mathematics} is concerned with the study of metatheories containing mathematical metatheorems.
+
+As an example of a meta-theory is the theory of super-categories $\mathcal{S}$ concerned with metatheorems about categories of categories. On the other hand, an example of a metatheory of supercategories $\S$, such as organismic supercategories $OS$, is the metatheory of the higher dimensional supercategory of supercategories. Higher dimensional algebra (HDA) is a metatheory of algebraic categories and other algebraic structures; good examples are double groupoids, double algebroids and their categories, as well as double categories. Further specific examples of HDA are 2-Lie groups and 2-Lie algebras, as well as their categories of 2-Lie groups and 2-Lie algebras.
+
+In the perspective of the development of mathematics, advances in logic --and over the last century in logics and meta-logics -- have played, and are playing, very important roles both in the foundations of mathematics, as well as in related areas such as: categorical logics, many-valued logic algebras, model theory and many specific fields of mathematics including, but not limited to, number theory/arithmetics.
+
+\subsection{Axiomatic Quantum Field Theory (AQFT)}
+\emph{Algebraic quantum field theory} is the algebraic, geometric and topological study of
+\PMlinkname{quantum field theories (QFT)}{QFTOrQuantumFieldTheories} and local quantum physics in relativistic space-times using tools from algebraic topology, category theory, and quantum operator algebras/quantum algebraic topology (QAT).
+
+ Whereas quantum field theory is the general framework for describing the physics of relativistic quantum systems (notably of elementary particles),
+\PMlinkexternal{algebraic quantum field theories}{http://unith.desy.de/research/aqft/} are usually described as \PMlinkname{algebraic formulations}{AlgebraicSystem} (in terms of an algebraic system and/or physical-axiomatic frameworks) of \PMlinkname{quantum field theories}{QFTOrQuantumFieldTheories}. Thus, whereas QFT represents a synthesis of quantum theory (QT) and \PMlinkexternal{special relativity (SR)}{http://planetphysics.org/encyclopedia/SpecialTheoryOfRelativity.html}, (which is supplemented by the \emph{principle of locality in space and time}, and by the spectral condition in energy and momentum), {\em \PMlinkexternal{algebraic QFTs}{http://unith.desy.de/research/aqft/} study the role of \PMlinkname{algebraic relations}{AlgebraicSystem} among observables that determine a physical system.}
+
+ An important example of AQFT is the \emph{Haag-Kastler axiomatic framework for quantum field theory} (thus named after Rudolf Haag and Daniel Kastler who introduced this axiomatic approach), which represents \emph{local} quantum physics in terms of unital $C^*$-algebras. As in the standard formalism of quantum physics, pure states are described in AQFTs as ``rays'' in a Hilbert space $\mathcal{H}$ --which are unit vectors up to a phase factor $\phi$ -- and (quantum) observables defined by self-adjoint (quantum) operators acting in $\mathcal{H}$. Let us recall that a
+\PMlinkname{state $\Psi$ of a $C^*$-algebra}{State} is defined as a positive linear functional over the algebra equipped with unit norm. With this definition, pure states correspond to irreducible representations of the unital $C^*$-algebras, and mixed states correspond to reducible representations; moreover, an irreducible representation (which is unique up to equivalence) is called a \emph{superselection sector}. Furthermore, for each $C^*$-algebra state, one can associate a Hilbert space representation of a $C^*$-algebra corresponding to a specific choice of relativistic space-time (such as the Minkowski 4D-space in SR).
+
+The symmetry group of a classical Minkowski space-time $\mathcal{M}$ is the Poincar\'e group, generated by translations and Lorentz transformations. The physical vacuum sector can be then shown to correspond to the pure state, and the Hilbert space associated with the vacuum sector can be regarded as a unitary representation of the Poincar\'e group; if one looks at the dual, Poincar\'e algebra then the energy-momentum spectrum corresponding to spacetime translations lies on--\emph{and also within}--the positive light cone. In a more general, supersymmetric context, anti-deSitter vacuum sectors are also possible in principle, but they are not stable (viz. Weinberg, 2000).
+
+
+ A recent review of specific AQFT formulations presented in ref. \cite{HH-MM2k6} provides several examples of AQFT approaches in sufficient mathematical detail to be able to evaluate their correctness from a mathematical viewpoint.
+
+ According to a recent monograph by Halvorson and Mueger (ref. \cite{HH-MM2k6}),
+``\emph{an algebraic quantum field theory provides a general, mathematically precise description of the structure of quantum field theories, and then draws out consequences of this structure by means of various mathematical tools: the theory of operator algebras, category theory, etc. Given the rigor and generality of AQFT, it is a particularly apt tool for studying the foundations of QFT.''}
+
+\subsection{Axioms of Quantum Logics}
+ 
+ The axioms and derived theorems of quantum logics (QL) are being intensely studied. However, a metalogic approach to the class of axiomatic quantum logics
+and the classification problem of quantum logic is yet to be defined. An important question is that of finding or formulating quantum logic axioms that 
+are compatible with General Relativity postulates and/or AQFT.</content>
+</record>

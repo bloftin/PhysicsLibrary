@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="11" id="1007">
+ <title>The Physics of Light: From Waves to Photons</title>
+ <name>PhysicsOfLightFromWavesToPhotons</name>
+ <created>2025-05-25 03:55:10</created>
+ <modified>2025-05-25 04:04:44</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41."/>
+ </classification>
+ <defines>
+	<concept>light</concept>
+	<concept>electromagnetic radiation</concept>
+ </defines>
+ <preamble>      % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>% Section 1: Introduction
+\section{Introduction}
+Light is ubiquitous, shaping our perception of the world and driving technological advancements. In physics, light is studied as electromagnetic radiation, exhibiting both wave-like and particle-like properties. This article explores the nature of light, its historical development, theoretical frameworks, and modern applications, providing a foundation for understanding its role in the universe.
+
+% Section 2: Historical Perspectives 
+\section{Historical Perspectives}
+The understanding of light has evolved significantly over time, reflecting advancements in scientific thought and experimentation.
+
+
+\subsection{Early Theories}
+Ancient philosophers like Euclid and Ptolemy described light in terms of rays, focusing on geometric optics. In the 11th century, Ibn al-Haytham's \textit{Book of Optics} laid the groundwork for modern optics by explaining reflection and refraction. During the 17th century, two competing theories emerged: Isaac Newton's corpuscular theory, which posited that light consists of particles, and Christiaan Huygens' wave theory, which described light as a wave propagating through a medium called the ether.
+
+\subsection{19th Century Advancements}
+The 19th century saw the wave theory gain prominence. Thomas Young's double-slit experiment (1801) demonstrated interference, supporting the wave nature of light. Augustin-Jean Fresnel's work on diffraction and polarization further solidified this view. James Clerk Maxwell's electromagnetic theory (1860s) unified electricity and magnetism, describing light as an electromagnetic wave, a milestone in classical physics.
+
+% Section 3: Light as an Electromagnetic Wave
+\section{Light as an Electromagnetic Wave}
+Maxwell's equations provide the classical framework for understanding light as an electromagnetic wave.
+
+\subsection{Maxwell's Equations}
+
+Maxwell's equations describe the behavior of electric ($\mathbf{E}\,$) and magnetic ($\mathbf{B}\,$) fields:
+
+\begin{align}
+\nabla \cdot \mathbf{E} &amp;= \frac{\rho}{\epsilon_0}, \\
+\nabla \cdot \mathbf{B} &amp;= 0, \\
+\nabla \times \mathbf{E} &amp;= -\frac{\partial \mathbf{B}}{\partial t}, \\
+\nabla \times \mathbf{B} &amp;= \mu_0 \mathbf{J} + \mu_0 \epsilon_0 \frac{\partial \mathbf{E}}{\partial t},
+\end{align}
+
+where \( \rho \) is charge density, \( \mathbf{J} \) is current density, \( \epsilon_0 \) is the permittivity of free space, and \( \mu_0 \) is the permeability of free space. In a vacuum, these equations yield a wave equation for light:
+
+\begin{equation}
+\nabla^2 \mathbf{E} = \frac{1}{c^2} \frac{\partial^2 \mathbf{E}}{\partial t^2}
+\end{equation}
+
+The electromagnetic spectrum spans radio waves to gamma rays, with visible light occupying wavelengths from approximately 400 to 700 nanometers. Light is transverse, with electric and magnetic fields oscillating perpendicular to each other and the direction of propagation. Polarization describes the orientation of these oscillations.</content>
+</record>

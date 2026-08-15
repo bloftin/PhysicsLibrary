@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="21" id="586">
+ <title>Functorial Algebraic Geometry and Physics</title>
+ <name>FunctorialAlgebraicGeometry</name>
+ <created>2009-03-09 12:45:30</created>
+ <modified>2009-03-09 15:58:41</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>functorial geometry</concept>
+	<concept>local ring</concept>
+	<concept>commutative ring with unit</concept>
+	<concept>presheaf</concept>
+	<concept>restriction map</concept>
+	<concept>local coordinate system</concept>
+ </defines>
+ <related>
+	<object name="LagrangesEquations"/>
+	<object name="AlexanderGrothendieck"/>
+ </related>
+ <keywords>
+	<term>functorial algebraic geometry</term>
+	<term>local ring</term>
+	<term>holonomic dynamical system</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. as your 
+
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+\newcommand{\&lt;}{{\langle}}
+%\newcommand{\&gt;}{{\rangle}}
+%\usepackage{geometry, amsmath,amssymb,latexsym,enumerate}
+%\usepackage{xypic}
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+%\grpeometry{textwidth= 16 cm, textheight=21 cm}
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+
+\def\C{C^{\ast}}
+
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+
+%\newenvironment{proof}{\noindent {\bf Proof} }{ \hfill $\Box$
+%{\mbox{}}
+
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>The following is a contributed topic on functorial algebraic geometry and physics:
+
+ \PMlinkexternal{``Functorial Algebraic Geometry: An Introduction'' -by Alexander Grothendieck}{http://www.math.jussieu.fr/~leila/grothendieckcircle/FuncAlg.pdf}
+
+\subsubsection{Vol.1: Affine Algebraic Geometry}
+
+ (Following the Notes typewritten in English and edited by P. Gaeta,
+without implying the approval by A. Grothendieck of these notes.)
+
+ A century ago Algebraic Geometry could be contained in Klein's book (1880; Dover publs. 1963) : ``On Riemann's theory of Algebraic Functions and Their Integrals''. Furthermore, ``the distinction between pure and applied mathematics was then to a large extent artificial and unimportant'' (viz. P. Gaeta). For example in Klein's book cited above ``the study of Riemann surfaces was introduced by considering the practical physical problem of laminar flow in a plane or arbitrary surface. He even quotes Maxwell's treatise on page one.
+The natural continuation of such a `transcedental approach' in our times is the study of {\em complex algebraic manifolds}...''
+In contrast with Algebraic Geometry, the popular beliefs regarding Differential 
+Geometry are totally different: the latter never lost its flavor of applicability; such practical examples of differentiable manifolds are natural examples of {\em locally ringed spaces}. ``Thus, if a reader is familiar with differentiable manifolds, Grothendieck's {\em schemes} cannot look so terribly abstract...; we do not assume knowledge of differentiable manifolds as a
+logical pre-requisite for this course, but a student interested in applications 
+should be interested in differentiable manifolds. The purpose of this informal Introduction is to develop an analogy between these new mathematical objects
+introduced by Grothendieck (that is, in Algebraic Geometry) and certain objects within the structure of Mathematical Physics...'' Consider the `configuration space' $V_n$ or the `phase space' $W_{2n}$ of a holonomic dynamical system `with
+n-degrees of freedom'; for any problems concerning $V_n$ one should only consider local functions $ f: U \to R$ defined within an open set 
+$U \subset V_n$. As an example, a Lagrangian coordinate function $ q_i$
+(with $i= 1,2,..., n$) is only defined locally for a certain coordinate chart.
+The Lagrange equations of motion:
+
+\begin{equation}
+\frac{d}{dt} \left ( \frac{\partial L}{\partial \dot{q_i}} \right ) - \frac{\partial L}{\partial q_i} = 0
+\end{equation}
+
+ are valid only in certain local coordinate system $(q_1, ..., q_n)$. In order to examine the behavior of the dynamic system globally one must piece together local functions corresponding to different sets $U$, and this is achieved by verifying first that the set of functions $[f: U \to \mathbb{R}| U \subset V_n]$ form a {\em commutative ring with unit} $\Gamma (U)$ under pointwise addition and multiplication for such $U$. If $ V \subset U$, then there is a natural {\em restriction map} $r^U_V : \Gamma(U) \to \Gamma(V)$ which assigns to every 
+$\phi: U \to \mathbb{R}$ its restriction map with respect to $V$, that is, 
+$r^U_V = \phi|V : V \to \mathbb{R}$. This also means--in other words--that the local $C^{\infty}$- differentiable functions on $U$ form , or define a 
+`{\em presheaf}' (viz. Ch.III). 
+
+ Next one must consider the ``{\em germ}'' of $f: U \to \mathbb{R}$ at any point $x \in U$. Thus, let $f: U \to \mathbb{R}$ and $g: V \to \mathbb{R}$
+be two such local functions; one then notes that $f$ and $g$ are equivalent
+functions, $f \cong g$, if they agree on $W \subset U \cap V| x \, not \,  in\,  \subset U \cap V$.
+The germ of $f$ at the point $x \in W$ denoted by $\widetilde{x}$ is the equivalence class of functions determined by this $\cong$ relation. One notes that this definition appears in elementary `complex analysis' in one variable. One can readily check that the germs $\widetilde{x}$ for all $x \in W$ form a {\em local ring}
+(in the modern sense of the concept).  Henceforth, with the addition of several
+topological properties, one can define `{\em a sheaf of germs of local 
+$C^{\infty}$-differentiable functions of $M$' denoted by $\Theta_M$. $\Theta_X$
+in the case when $X$ is a topological space can be then defined as the disjoint
+sum $\cup_{x \in M} \Theta_{M,x}$  of the local rings $\Theta_{M,x}$ for every 
+point of $X$. Therefore, the differentiable manifold $V_n$ or $W_{2n}$ of Classical Mechanics (or indeed for any differential manifold) is
+an example of a locally ringed space $(X, \Theta_x)$, that is a topological space $X$ with a structure sheaf $\Theta_X$. Grothendieck's {\em schemes} are
+also {\bf locally ringed spaces} $(X, \Theta_X)$. 
+
+ Thus, sheaves were introduced to provide a transition from local to global properties. Therefore, ``the global study of curves which solve the classical equations of motion--which is a difficult problem--has been simplified by the
+introduction of sheaves''. 
+
+ Following Dieudonn\'e 's and Grothendieck's  famous ``\'Elements de G\'eometrie Alg\'ebrique'', and Dieudonn\'e 's ``Algebraic Geometry'' and ``Fondements de la G\'eometrie Alg\'ebrique.'' Adv. in Math. (1969), Alexander Grothendieck presented in 1973 a Buffalo Summer Course entitled:
+``Survey on the functorial approach to affine algebraic groups''. 
+This was preceded by a lecture introducing the functorial `language' approach 
+(\PMlinkexternal{Introduction au Langage Fonctoriel}{http://www.math.jussieu.fr/~karoubi/Grothendieck.Alger.pdf})
+
+ 
+ Grothendieck also organized and presented most of the four famous SGA seminars (SGA-1 to SGA-4), ``S\'eminaires de G\'eometrie Alg\'ebrique'' (Seminars of Algebraic Geometry.) . Other relevant references were:
+K\"ahler's ``Geometria arithmetica'' (1958), S. MacLane's ``Homology'' (1963),
+Manin's ``Lectures on Algebraic Geometry'', Mumford's ``Introduction to Algebraic Geometry'', and J.P. Serre's ``Faisceaux alg\'ebrique coh\'erents."
+(Coherent Algebraic Sheaves). In 1968 was also published by North-Holland the
+book ``Dix expos\'es sur la cohomologie des sch\'emes'' (Ten expositions on the cohomology of schemes) by J. Giraud and Alexander Grothendieck.</content>
+</record>

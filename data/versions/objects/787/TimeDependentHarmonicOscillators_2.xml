@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="787">
+ <title>time-dependent harmonic oscillators</title>
+ <name>TimeDependentHarmonicOscillators</name>
+ <created>2009-05-29 13:46:17</created>
+ <modified>2009-05-29 13:50:10</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>Ermakov systems</concept>
+ </defines>
+ <keywords>
+	<term>time-dependent harmonic oscillators</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Time-dependent harmonic oscillators}
+Nonlinear equations are of increasing interest in Physics; Riccati and Ermakov systems enter the formalism of quantum theory in the study of cases where exact analytic Gaussian wave packet (WP) solutions of the time-dependent
+Schr\"odinger equation (SE) do exist, and in particular, in the harmonic oscillator (HO) and the free motion cases.
+
+One of the simplest examples of such nonlinear equations is the Milne--Pinney equation:
+$$d^2x/dt^2 = −\omega^2(t)x +k x^3,$$ (1)
+
+where $k$ is a real constant with values depending on the field in which the equation is to be applied.
+
+\subsection{Ermakov systems}
+This equation was introduced in the nineteenth
+century by V.P. Ermakov, as a way of looking for a first integral for the time-dependent harmonic oscillator. He employed some of Lie's ideas for dealing with ordinary differential equations with the tools of classical geometry. Lie had previously obtained a characterisation of non-autonomous systems of first-order differential equations admitting a superposition rule.
+
+
+\textbf{[More to come]}</content>
+</record>

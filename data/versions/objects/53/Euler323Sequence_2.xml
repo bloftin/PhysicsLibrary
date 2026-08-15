@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="53">
+ <title>Euler 323 sequence</title>
+ <name>Euler323Sequence</name>
+ <created>2005-08-13 15:06:45</created>
+ <modified>2005-08-13 15:17:14</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>For more info on Euler Sequences, notation and convention see the generic entry on Euler Angle Sequences. \\
+
+$ R_{323}(\phi, \theta, \psi) = R_3(\psi) R_2(\theta) R_3(\phi) $ \\
+
+
+The rotation matrices are
+
+\begin{equation}
+R_3(\psi) =
+\left[ \begin{array}{ccc}
+c_{\psi} &amp; s_{\psi} &amp; 0 \\
+-s_{\psi} &amp; c_{\psi} &amp; 0 \\
+0 &amp; 0 &amp; 1 \end{array} \right]
+\end{equation}
+
+\begin{equation}
+R_2(\theta) =
+\left[ \begin{array}{ccc}
+c_{\theta} &amp; 0 &amp; -s_{\theta} \\
+0 &amp; 1 &amp; 0 \\
+s_{\theta} &amp; 0 &amp; c_{\theta} \end{array} \right]
+\end{equation}
+
+\begin{equation}
+R_3(\phi) =
+\left[ \begin{array}{ccc}
+c_{\phi} &amp; s_{\phi} &amp; 0 \\
+-s_{\phi} &amp; c_{\phi} &amp; 0 \\
+0 &amp; 0 &amp; 1 \end{array} \right]
+\end{equation}
+
+
+Carrying out the matrix multiplication from right to left \\
+
+
+$
+R_2(\theta)R_3(\phi) =
+\left[ \begin{array}{ccc}
+c_{\theta} &amp; 0 &amp; -s_{\theta} \\
+0 &amp; 1 &amp; 0 \\
+s_{\theta} &amp; 0 &amp; c_{\theta} \end{array} \right] \left[ \begin{array}{ccc}
+c_{\phi} &amp; s_{\phi} &amp; 0 \\
+-s_{\phi} &amp; c_{\phi} &amp; 0 \\
+0 &amp; 0 &amp; 1 \end{array} \right] = \left[ \begin{array}{ccc}
+c_{\theta} c_{\phi} &amp; c_{\theta} s_{\phi} &amp; s_{\theta} \\
+-s_{\phi} &amp; c_{\phi} &amp; 0 \\
+-s_{\theta} c_{\phi} &amp; -s_{\theta} s_{\phi} &amp; c_{\theta} \end{array} \right] $ \\
+
+Finaly leaving us with the Euler 323 sequence \\
+
+$
+R_3(\psi)R_2(\theta)R_3(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} c_{\phi} - s_{\psi} s_{\phi} &amp; c_{\psi} c_{\theta} s_{\phi} + s_{\psi} c_{\phi} &amp; c_{\psi} \\
+- s_{\psi} c_{\theta} c_{\phi} - c_{\psi} s_{\phi} &amp; -s_{\psi} c_{\theta} s_{\phi} + c_{\psi} c_{\phi} &amp; -s_{\psi} s_{\theta} \\
+-s_{\theta} c_{\phi} &amp; -s_{\theta} s_{\phi} &amp; c_{\theta} \end{array} \right] $</content>
+</record>

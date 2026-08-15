@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="19">
+ <title>virial theorem</title>
+ <name>VirialTheorem</name>
+ <created>2004-11-19 01:01:34</created>
+ <modified>2004-11-19 01:06:54</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>We start with the moment of inertia about the origin for the system of particles, which is defined as
+
+\begin{equation}\label{first}
+I = \sum_i m_i {r_i}^2
+\end{equation}
+
+Differentiate using the chain rule.  Note that a vector dotted into itself yields its magnitude square.
+
+
+\begin{equation}
+\vec{r_i} \cdot \vec{r_i}   = r_i^2
+\end{equation}
+
+This lets us make the connection that
+
+\begin{equation}
+I = \sum_i m_i {r_i}^2 = \sum_i m_i (\vec{r_i} \cdot \vec{r_i})
+\end{equation}
+
+So after differentiating we get
+
+\begin{equation}
+\frac{dI}{ dt} = \sum_i m_i \frac{\vec{dr_i}}{dt}  \cdot \vec{r_i} + \vec{r_i} \cdot \frac{\vec{dr_i}}{dt}
+\end{equation}
+
+Differentiating again yields
+
+\begin{equation}
+\frac{d^2I}{dt^2} = \sum_i m_i \frac{d^2\vec{r_i}}{dt^2} \cdot \vec{r_i} + \frac{\vec{dr_i}}{dt} \cdot \frac{\vec{dr_i}}{dt} + \frac{\vec{dr_i}}{dt} \cdot \frac{\vec{dr_i}}{dt} + \vec{r_i} \cdot \frac{d^2\vec{r_i}}{dt^2}
+\end{equation}
+
+In short form
+
+\begin{equation}
+\frac{d^2I}{dt^2} = 2\, \sum_i (m_i \dot{\vec{r_i}} \cdot \dot{\vec{r_i}} + m_i\vec{r_i} \cdot \ddot{\vec{r_i}})
+\end{equation}</content>
+</record>

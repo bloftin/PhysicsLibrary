@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="223">
+ <title>Electric Field of a Charged Disk</title>
+ <name>ElectricFieldOfAChargedDisk</name>
+ <created>2006-09-22 15:42:46</created>
+ <modified>2006-09-22 15:42:46</modified>
+ <type>Example</type>
+<parent id="99">Electric Field</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Electric Field of a Charged Disk}
+
+The Electric Field of a charged disk can teach us important concepts that you will see over and over in physics: superposition, cylindrical coordinates and non-constant basis vectors.  To get a glimpse of the power of superposition, we will solve this problem the hard way first and then see how superposition can be a powerfull tool.
+
+Let us calculate the electric field at a point P above the \emph{center} of a charged disk with radius of R and a uniform surface charge density of $\sigma$ as shown in below figure.
+
+\begin{figure}
+\includegraphics[scale=.8]{EfieldDisk.eps}
+\vspace{20 pt}
+\end{figure}</content>
+</record>

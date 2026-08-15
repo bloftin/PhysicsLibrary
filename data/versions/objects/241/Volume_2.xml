@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="241">
+ <title>Volume</title>
+ <name>Volume</name>
+ <created>2007-02-08 22:58:54</created>
+ <modified>2007-06-08 15:36:34</modified>
+ <type>Definition</type>
+ <creator id="141" name="PhysBrain"/>
+ <modifier id="141" name="PhysBrain"/>
+ <comment>Changes for correction #26 ('capitalization, PACS, other terms').</comment>
+ <author id="141" name="PhysBrain"/>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\emph{Volume} is a property associated with a finite region of space.  The volume occupied by a given region of space $\Omega$ is typically denoted by the symbol $V$.  It is always possible to subdivide a given region into smaller sub-regions.  The symbol $dV$ is often used to denote the volume occupied by an arbitrarily small region of space.  Thus the total volume occupied by $\Omega$ can be expressed as:
+$$
+V = \int_{\Omega} dV
+$$</content>
+</record>

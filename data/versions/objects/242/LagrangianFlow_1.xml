@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="242">
+ <title>Lagrangian flow</title>
+ <name>LagrangianFlow</name>
+ <created>2007-02-10 21:49:39</created>
+ <modified>2007-02-10 21:49:39</modified>
+ <type>Definition</type>
+ <creator id="139" name="mdo"/>
+ <modifier id="139" name="mdo"/>
+ <author id="139" name="mdo"/>
+ <classification>
+	<category scheme="msc" code="47.10.+g"/>
+ </classification>
+ <defines>
+	<concept>Eularian derivative</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Lagrangian flow" alias="material derivative"/>
+ </synonyms>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In fluid mechanics, it is often desireable to describe the properties of a fluid following the motion of the fluid parcel. This is referred to as the Lagrangian description. The Eularian description, on the other hand, considers the fluid properties at a fixed location in space. Suppose, for instance, that two researchers, Dan and Tom, wish to measure the temperature change over time in a river. Dan decides to do so in the Lagrangian description, while Tom chooses the Eularian. Tom attaches a thermometer to a rock on the river bed, and records the temperature on a uniform time interval. Tom has thus measured the temperature change at a fixed location in the river. Dan attaches his thermometer to a free floating buoy, recording the temperature of the river as the thermometer moves along with the flow. Dan has thus measured the temperature change of the river following the fluid parcel.
+
+To apply Newton's second law, and thus study the mechanics of the flow, we must first understand mathematically and conceptually what the Lagrangian derivative represents. Following the example given above, we will relate the temperature measurements made by Dan and Tom, thus relating the Eularian to the Lagrangian descriptions.
+
+Let $T$ denote temperature, where $T=T(\mathbf{x},t)$, with $x$ the position vector $\mathbf{x}=(x_{1},x_{2},x_{3})$, and $t$ is time. Suppose that the fluid parcel is moving in the river with a velocity $\mathbf{u}(\mathbf{x},t)=(u_{1},u_{2},u_{3})$. Then, by definition of the derivative, the time rate of change of temperature is given by
+\begin{equation}
+\frac{DT}{Dt}=\lim_{\delta t\rightarrow 0}\frac{T({x} + \mathbf{u}\delta t,t + \delta t) - T(\mathbf{x})}{\delta t}
+\end{equation}
+We can expand the term at time $t+\delta t$ as a Taylor series, giving
+\begin{equation}
+T({x} + \mathbf{u}\delta t,t + \delta t) = T(\mathbf{x},t) +\frac{\partial T}{\partial t}\delta t + \frac{\partial T}{\partial x_{1}}(u_{1}\delta t) + \frac{\partial T}{\partial x_{2}}(u_{2}\delta t) + \frac{\partial T}{\partial x_{3}}(u_{3}\delta t),
+\end{equation}
+where $\delta t$ is assumed small enough that the quadratic and higher terms in the expansion are negligible. Note that the spatial derivative can be written in terms of the velocity vector, and the gradient of temperature; specifically,
+\begin{equation}
+\frac{\partial T}{\partial x_{1}}(u_{1}\delta t) + \frac{\partial T}{\partial x_{2}}(u_{2}\delta t) + \frac{\partial T}{\partial x_{3}}(u_{3}\delta t) = (\mathbf{u}\cdot \nabla T)\delta t.
+\end{equation}
+Substituting this result into the expression for $DT/Dt$ we see that,
+\begin{equation}
+\frac{DT}{Dt}=\frac{\partial T}{\partial t} + \mathbf{u}\cdot\nabla T
+\end{equation}
+after simplifications. This provides us with the Lagrangian definition of the derivative. If the specific example is removed, the expression can be written as an operator, which can apply to any fluid property \emph{i.e.}
+\begin{equation}
+\frac{D}{Dt}=\frac{\partial}{\partial t} + \mathbf{u}\cdot\nabla.
+\end{equation}
+
+The term on the left hand side, $D/Dt$ is the Lagrangian derivative; the time rate of change of some quantity following the flow of that property. The derivative $\partial/\partial t$ is the Eularian derivative: the time rate of change of some quantity in fixed space. The final term, $\mathbf{u}\cdot\nabla$ is the advective term. Notice that the advection term does not have a time derivative. Rather, the change in the property over time is related through the transport of that property. For example, atmospheric scientists may speak of the advection of pollutants in the atmosphere, such as advection of nitrogen oxide with the jet stream. It is the advective term that accounts for the fluid flow, and thus bridges the gap between the Eularian and Lagrangian descriptions.</content>
+</record>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="410">
+ <title>principles of NIR spectroscopy</title>
+ <name>PrinciplesOfNIRSpectroscopy</name>
+ <created>2009-01-17 20:39:01</created>
+ <modified>2009-01-17 20:50:17</modified>
+ <type>Topic</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="475" name="vip6"/>
+ <author id="475" name="vip6"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>NIR</concept>
+	<concept>near infrared spectrocopy</concept>
+	<concept>NIRS</concept>
+	<concept>fundamental absorption</concept>
+	<concept>NIR absorption frequencies</concept>
+	<concept>NIR absorption band</concept>
+	<concept>calibration</concept>
+	<concept>NIR overtones</concept>
+ </defines>
+ <keywords>
+	<term>principles of NIR spectroscopy</term>
+	<term>Nyquist spectral sampling criterion</term>
+	<term>diode-array NIRS</term>
+	<term>vibro-rotational states</term>
+	<term>electromagnetic radiation</term>
+	<term>NIR spectrometers</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textbf{[Entry in progress]}
+\section{Principles of NIR spectroscopy}
+
+ Molecules have several common quantized vibration and rotation states that can occur separately or in combination.
+
+ A molecule with an electric dipole moment can go through one or more transitions between various vibro-rotational states, if enough electromagnetic radiation at a specific frequency is absorbed by the molecule.  The energy levels of different vibration and rotation states are quantized, and energy levels can be determined using the following equation:
+
+(write equation in LaTex here)
+
+where:
+\begin{itemize}
+\item $n$ is the vibrational quantum number
+\item $h$ is the Planck's constant
+\item $k$ is a bond's force constant, and
+\item $m$ is the reduced mass of the vibrating nucleus.
+\end{itemize}
+
+These transitions can occur with high probability for Dn equal to 1, whereas such absorption is referred to as fundamental absorption when $n=1$ or overtone when $n =2, 3, . . . , m,$ respectively.  The electromagnetic radiation absorbed for vibration state changes are in the infrared region, while NIR spectroscopy utilizes absorption bands whose absorption is mostly due to overtones.  NIR instruments can usually operate with electromagnetic radiation wavelengths between 700 nm and 2500 nm, which are much shorter than that of NMR wavelengths (from 1 to 1000 m).  Different molecules have varying constants of k and m, and thus, different NIR absorption frequencies, or bands, in their spectrum.  Oil has NIR absorption bands at: $890, 1162, 1720, 1760, 2308$ and $2340$ nm (for the $–CH_2$ groups).  Proteins have NIR absorption bands at: $1040, 1210, 1496, 2050$ and $2140–2180$ nm for the $NH$ group.  Water, or moisture, has NIR absorption at the $960, 1150, 1405$ and $1905–2000$ nm regions for the uncharged hydroxyl group, $–O–H$ (since the water molecule is symmetric.  Sugars and carbohydrates have absorption bands at 2060–2150 nm, for their carbonyl group, $–C=O$. This makes qualitative and quantitative analysis feasible by NIR spectroscopy.  The Lambert–Beer law states that the quantity of electromagnetic energy absorbed by a sample is proportional to the amount of constituents in the sample, and this allows quantitative analyses to be performed if the absorption can be separated from other processes such as light scattering and specular (mirror-like) reflection.
+
+Just as with visible light, NIR radiation can be reflected, transmitted and/or absorbed.  NIRS can be performed in either the reflectance or the transmission mode.  As shown previously, different constituents contain absorption bands at their specific corresponding wavelengths.
+
+
+\subsection{NIR Techniques and instrumentation}
+
+ NIR reflectance instruments have detectors that measure the intensity of the NIR radiation that is reflected from the sample at several key wavelengths.  The actual constituent contents can be analyzed and calculated based on the calibration equation above, given the reflectance at the key wavelengths.
+
+ However, NIR transmission instruments measure the intensity of NIR radiation transmitted through a sample at several key wavelengths.  A calibration equation is then created to relate ``log of reflectance'' values at several key wavelengths to the actual constituent fractional content values, usually done by comparing with wet chemistry analysis from a standard sample set using a primary reference method.  Since NIR transmission instruments measure the NIR portion of the electromagnetic radiation that is actually transmitted through the sample, the path length needs to be kept constant, and also selected for a high signal-to-noise ratio.  NIR spectroscopy instruments can also be referred to as discrete-region/filter systems, or continuous spectrum detection systems, based on the mechanisms by which they separate wavelengths.  Discrete filter instruments select wavelengths by passing visible white light (produced, for example, by a tungsten–halogen bulb) through a filter, allowing only a predetermined, narrow-region wavelength to pass through.  Discrete filter instruments do not collect data at all wavelengths, but only at or near the wavelengths of interest.  The biggest advantage of a discrete filter instrument is the high reproducibility of its narrow wavelength ranges.  The main limitation of a filter-based NIR instrument is that absorption data is only collected at a few specified narrow-range wavelengths, and so the initial wavelength range selection may be difficult if the sample matrix is unknown.  Filter-based, discrete wavelength instruments also tend to be slow if they are not utilized in conjunction with simultaneous diode-array (DA) detection for several wavelength ranges.  Another limitation of these filter-based instruments is their limited spectral resolution.  For broad NIR absorption bands, the spectral resolution limitation may not be a problem, especially if the selected filters satisfy the Nyquist spectral sampling criterion [1].
+
+ Continuous NIRS instruments allow the collection of absorption figures for very large numbers of wavelengths and thus, can be used to select or find wavelengths of interest for unknown matrices, in order to develop a precise calibration method for a given type of analysis.  Continuous spectra systems can be divided into three subgroups: the moving grating/scanning systems, stationary grating systems (which would include both diode array and AOTF systems) and Fourier-transform NIR spectrometers.
+
+ Moving grating, or scanning NIRS instruments utilize a moving grating to collect data at all wavelengths, and as such, it is difficult to obtain reproducible scans, and the wavelength accuracy also suffers.  The stationary grating systems typically use parallel-processed diode arrays to collect data from all wavelengths, and wavelength reproducibility and accuracy are thus significantly improved.  Another important advantage is that the scanning speed is also improved.  A moving grating system usually takes about half a minute to perform one scan, while the diode-array based stationary grating system are claimed to be capable of collecting hundreds of spectra per second [2].
+
+ Two modern NIR grain-tester instruments, Zeltex models $ZX800$ and $ZX50$, were tested together alongside the more sophisticated diode-array NIRS model Perten $DA7000$.  The Zeltex $ZX800$ and $ZX50$ are filter-based transmission NIR systems, with 13 and 14 filters, respectively.  The wavelength ranges for both of these instruments is from 893 to 1045 nm.  The $DA7000$, on the other hand, is a stationary grating instrument that allows the entire spectral range from visible light at 500 nm to NIR at 2500 nm to be acquired simultaneously in less than a second, using a large array of silicon and InGaAs diodes.  The $ZX800$ and $ZX50$ are both commercially available from Zeltex (USA) with preliminary calibrations of protein, oil, and moisture for soybeans, wheat and corn seeds.  A total sugars calibration was also determined to be possible with both these instruments [3].  The existing calibrations on the ZX800 and ZX50 are primarily for `normal', yellow-coated seeds; calibrations for seeds with other colors like brown or black are very difficult to create and usually inaccurate.  Previous research has revealed that NIR reflectance and transmission instruments have similar accuracy and reproducibility [4, 5, 6].  However, the DA7000 is a relatively new type of reflectance NIR instrument, and given that 86 pct. of the soybean hull consists of carbohydrates, with only 9 pct. protein and 1 pct. oil [7], it could prove useful in analyzing these non-standard grain samples.  The analysis results from the ZX800 and DA7000 instruments were compared to investigate the difference between transmission and reflectance instrument accuracy as well as overall performance, especially when large sample sizes from different seed varieties (or cultivars) are available for measurement.  The DA7000 is distributed commercially in the US by Perten Instrument North America Inc., but unfortunately has no calibrations available for soybeans or corn seeds, with the exception of those developed in our laboratory for these specific grains, as well as for green-colored soybeans and 2- or 3-soybean seeds.  The total sugars calibration for the ZX800 and ZX50, as well as the calibrations for protein, oil, moisture and total sugars for the DA7000, were based on our high-resolution NMR reference methods [8-19], as well as the primary methods described in Appendix A.
+
+Three different models of FT-NIR spectrometers were extensively tested, and their performance for food and grain applications was compared [1].  The first was a PerkinElmer SpectrumOne-NTS instrument, and it was also the newest (2005/2006).  The other two were the Bruker and the Nicolet Technologies, 
+NIR spectrometers.  The SpectrumOne-NTS model, also commercially available in the United States, appears to have both the hardware advantages of a well-designed integrating sphere (NIRA), sample compartment, lower cost, as well as the ability to transfer calibrations to similarly equipped models.  Furthermore, the latter model is readily interfaced with a room temperature, very high sensitivity Sb-detector for FT-NIR chemical/hyperspectral, or microspectroscopic imaging, which is capable of  approx. 1 $\mu m$ resolution with about 10 pg sensitivity.  On the other hand, the other two NIR instruments tested proved to be more versatile, flexible, and had much faster calibration software than the PerkinElmer model we tested.
+
+
+\subsection{NIR Calibrations}
+
+ NIRS instruments quantify protein content as well as the contents other components by measuring the absorbance.  The absorbance-log $(1=R)$ values are determined, and then related to the fractional content of the component previously by a primary reference or standard method.  The process of establishing this relationship by utilizing a standard sample set is referred to as a calibration.  The association between the absorbance and chemical composition is usually expressed as an approximate value and involves some forms of regression equations. 
+
+ According to the Lambert-Beer law, absorbance at a given wavelength is proportional to the concentration of the component for solution of one component:
+
+(insert)
+
+where:
+\begin{itemize}
+\item $k$ is the molecular absorption constant
+\item $l$ is the path length of the NIR beam passing through the sample
+\item $c$ is the concentration of the component responsible for absorption.
+\end{itemize}
+
+ If a sample contains more than one absorbing component, then the absorption at a given wavelength will be the total sum of the proportional contributions from all components in the sample:
+
+ The measured absorbance is usually referred to as the apparent absorbance, and it can be significantly affected by specular reflection and light scattering, even for thin samples. Therefore, to obtain reliable NIR quantitation, spectral pre-processing and several intensity corrections are always required. Thus, spectral variations between soybean samples can be caused not only by chemical
+composition differences but also by spurious effects that do not monitor chemical composition, such as specular reflection, multiple scattering effects, and internal reflection. Our research group has found that the NIR methods currently employed in industry for spectral pre-processing, including both corrections for multiple light scattering and specular reflection effects, are in need of substantial improvements to produce high accuracy, robust and stable calibrations for rapid composition analyses of seeds. Our NIR calibrations were established mainly for foods and whole kernel seeds, but calibration for ground samples were also successful. Recently, protein content determinations were reported for single wheat kernels with both transmission [5,21,22] and reflectance instruments [2,20]. Oil determinations for single corn kernels were also reported with a transmission NIR instrument [23]. Wheat single-seed studies were also reported by NIR reflectance spectroscopy using the DA7000 instrument [2]. Calibrations for protein, oil, moisture, and total sugars of single soybean seeds were obtained in our laboratory both with the DA7000 and the SpectrumOne-NTS instruments.
+
+The following are the principal NIR calibration steps:
+. Generate or select a suitable set of standard samples of known composition
+. Obtain raw FT-NIR data
+. Correct NIR data for scattering
+. Use Lambert–Beer law computations in conjunction with iterated data regression by PLS-1 or 2; also check up on specific PLS-1software packages for precision and correct computation through numerical simulations for ideal testing, synthetic=numerical data
+. Examine the calibration’s linear correlations, composition predictions, and validate calibration with a wide range of unknown samples
+
+
+\subsection{Regression methods}
+
+There are several regression methods that have been tested with NIR calibrations. Most widely used regression methods include partial least square (PLS) [21, 24], principal component regression (PCR) or principal component analysis (PCA) [5,24,25], and multiple linear regression (MLR) [5,25]. The most widely used spectra pretreatment method is multiplicative scatter correction (MSC) [24]. DA7000 has built-in software able to carry our PLS, PCR, and PCA regressions and it also can enable or disable MSC. The PLS, PCR, and PCA regression methods were all tried on DA7000, with or without MSC correction. The best combination with the highest correlation coefficient is adopted.</content>
+</record>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="39" id="761">
+ <title>double category</title>
+ <name>DoubleCategory</name>
+ <created>2009-05-16 15:57:26</created>
+ <modified>2009-05-17 01:30:43</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>internal category in $Cat$</concept>
+	<concept>intrchange law</concept>
+	<concept>horizontal composition</concept>
+	<concept>vertical composition</concept>
+	<concept>vertical identities</concept>
+	<concept>horizontal identities</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="double category" alias="internal category in $Cat$"/>
+ </synonyms>
+ <keywords>
+	<term>double category</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\subsection{Background}
+
+Charles Ehresmann defined in 1963 a {\em double category} $\mathcal{D}$ as an internal category in the category of small categories $\bf{Cat}$.
+
+\subsection{Double category definition}
+\begin{definition}
+A double category $\mathcal{D}$ consists of:
+\begin{itemize}
+\item a set of objects,
+\item a set of horizontal morphisms $$f: A \to B$$,
+\item a set of vertical morphisms $$j: A \to C$$, and
+\item a class of squares with source and target as shown in the following diagrams: $$\xymatrix{
+{A}\ar[r]^{f}\ar[d]_{k}&amp;{B}\ar[d]^{g}\\
+{C}\ar[r]_{h}&amp;{D}
+}
+$$
+\end{itemize}
+
+with compositions and units of the double category that satisfy the following axioms:
+\begin{itemize}
+\item \emph{i.} Horizontal:
+\[
+A\buildrel f_1 \over \longrightarrow
+B \buildrel f_2 \over \longrightarrow
+C = [f_1, f_2]= f_2 \circ f_1
+\]
+
+\[
+A\buildrel 1^h_A \over \longrightarrow
+A \buildrel f_1 \over \longrightarrow
+B = A\buildrel f_1 \over \longrightarrow
+B = A \buildrel f_1 \over \longrightarrow
+B \buildrel 1^h_B \over \longrightarrow
+B
+\]
+
+\item \emph{ii.} Vertical: 
+\[
+[A\buildrel j_1 \over \longrightarrow
+B \buildrel j_2 \over \longrightarrow
+C]_{vert} = [j_1, j_2]_{vert.}= j_2 \circ j_1
+\]
+
+\[
+[A\buildrel 1^v_A \over \longrightarrow
+A \buildrel j_1 \over \longrightarrow
+B = A\buildrel j_1 \over \longrightarrow
+B = A \buildrel j_1 \over \longrightarrow
+B \buildrel 1^v_B \over \longrightarrow
+B]_{vert.}
+\]
+\emph{Compositions for square diagrams in a double category $\mathcal{D}$:}
+\item \emph{iii.} Horizontal composition: 
+$$\xymatrix{
+{A}\ar[r]^{f_1}\ar[d]_{j}&amp;{B}\ar[d]^{k}\\
+{D}\ar[r]_{g_1}&amp;{E}}~~~~[\alpha]``\circ'' \xymatrix{
+{B}\ar[r]^{f_2}\ar[d]_{k}&amp;{C}\ar[d]^{l}\\
+{E}\ar[r]_{g_2}&amp;{F}}~~~~[\beta] = \xymatrix{
+{A}\ar[r]^{[f_1f_2]}\ar[d]_{j}&amp;{C}\ar[d]^{l}\\
+{D}\ar[r]_{g_1g_2}&amp;{F}} ~~~~[\alpha \beta].$$
+\item \emph{iv.} Vertical composition of squares in $\mathcal{D}$:
+${[\alpha \beta]}_{vert.}$ is expressed as
+$$\xymatrix{
+{A}\ar[r]^{f}\ar[d]_{[j_1 j_2]_v}&amp;{B}\ar[d]^{[k_1 k_2]_v}\\
+{E}\ar[r]_{h}&amp;{F}}~~~~[\alpha \beta]_v.$$
+\end{itemize}
+
+\end{definition}
+
+Moreover, all compositions are associative and unital, and also subject to the Interchange Law:
+ 
+$$\xymatrix{
+{[\alpha]}\ar[r]^{--}\ar[d]_{|}&amp;{[\beta]}\ar[d]^{|}\\
+{[\gamma]}\ar[r]_{--}&amp;{[\delta]}
+} =
+{[ [\alpha \beta] over [\gamma \delta]]}_{vert.} = [\alpha \gamma]_v \circ [\beta \delta]_v.$$ 
+
+Unit morphisms are also subject to the axioms of the double category. For further details on double categories and examples please see the related \PMlinkexternal{free download PDF file}{http://www.math.uchicago.edu/~fiore/1/fiorefolding.pdf}.</content>
+</record>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="1001">
+ <title>Stellar Designations and Names</title>
+ <name>StellarDesignationsAndNames</name>
+ <created>2025-04-15 04:31:36</created>
+ <modified>2025-04-15 04:31:36</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="97."/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Stellar Designations and Names" alias="star names"/>
+ </synonyms>
+ <related>
+	<object name="BayerDesignation"/>
+ </related>
+ <preamble>     % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In astronomy, stars have a variety of different stellar designations and names, including catalogue designations, current and historical proper names, and foreign language names. \\
+
+Only a tiny minority of known stars have proper names; all others have only designations from various catalogues or lists, or no identifier at all. Hipparchus in the 2nd century BC enumerated about 850 naked-eye stars. Johann Bayer in 1603 listed about twice this number. Only in the 19th century did star catalogues list the naked-eye stars exhaustively. The Bright Star Catalogue, which is a star catalogue listing all stars of apparent magnitude 6.5 or brighter, or roughly every star visible to the naked eye from Earth, contains 9,096 stars.[1] The most voluminous modern catalogues list on the order of a billion stars, out of an estimated total of 200 to 400 billion in the Milky Way. \\
+
+Proper names may be historical, often transliterated from Arabic or Chinese names. Such transliterations can vary so there may be multiple spellings. A smaller number of names have been introduced since the Middle Ages, and a few in modern times as nicknames have come into popular use, for example Sualocin for $\alpha$ Delphini and Navi for $\gamma$ Cassiopeiae. \\
+
+The International Astronomical Union (IAU) has begun a process to select and formalise unique proper names for the brighter naked-eye stars and for other stars of popular interest. To the IAU, name refers to the (usually colloquial) term used for a star in everyday speech, while ``designation is solely alphanumerical'' and used almost exclusively in official catalogues and for professional astronomy. Many of the names and some of the designations in use today were inherited from the time before the IAU existed. Other designations are being added all the time. As of the start of 2019, the IAU had decided on a little over 300 proper names, mostly for the brighter naked-eye stars.[2]  \\
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{UniverseObjects.jpg}
+
+\caption{The trend toward ever more catalogued objects in the Universe}
+\end{figure} 
+
+\begin{thebibliography}{9}
+
+This article is a derivative work of the creative commons share alike with attribution in [8]. \\
+
+[1] \PMlinkexternal{The Bright Star Catalogue, 5th Revised Ed.}{http://tdc-www.harvard.edu/catalogs/bsc5.html}\\
+
+[2] ``Naming Stars''. IAU.org. Retrieved 2019-01-17 \\
+
+[8]  Wikipedia contributors, ``Stellar designations and names,'' Wikipedia, The Free Encyclopedia. 
+
+\end{thebibliography}</content>
+</record>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="33" id="375">
+ <title>general definition</title>
+ <name>Definition2</name>
+ <created>2009-01-11 03:35:47</created>
+ <modified>2009-01-31 10:31:30</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>meta-mathematical construct of `definition'</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="general definition" alias="concept"/>
+	<synonym concept="general definition" alias="precise idea"/>
+ </synonyms>
+ <keywords>
+	<term>meta-logical and meta-mathematical constructs of `definition'</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Meta-mathematical construct of: $$\left\langle{`general \; definition' \; of \; a \; definition}\right\rangle$$}
+ The {\em general definition} of a `mathematical or physical definition' of a mathematical or physical term can be shown to be in the nature of a \emph{$$\left\langle{meta-mathematical \; or \; meta-logical \; construct \; or \; statement/proposition}\right\rangle$$} that specifies as precisely as possible the meaning of that term. For example, the definition of a ``sphenic number'' may be expressed as a ``a composite integer with three distinct prime factors.'' A mathematical concept is said to be `well-defined' if its content can be formulated independently of the form or the alternative representative(s) which is/are used for defining it. Furthermore, one may distinguish between mathematical and physical definitions, or mathematical descriptions of a real system. Mathematical definitions express `completely' and meaningfully a mathematical concept in terms of other, related mathematical concepts that have been already defined, and also in terms of a few primary or primitive concepts that can no longer be defined in terms of other mathematical concepts and logical operands. For example, the primitive concept of `collection of elements or members' or ensemble, has no explicit definition even though it is employed to mathematically define the concept of set. Such `primary' concepts are being sparely used in physics and are very scarce in mathematics. The other major distinction between mathematical and physical definitions is that the latter
+are always intended to represent entities or phenomena that `exist or occur 
+in the objective reality', conceived usually to be distinct from the Platonic world of mathematical concepts. Thus, according to Kant's ``General Doctrine 
+of Elements'' in his ``{\em Logic}'':  
+
+ ``{\em The concept is either an empirical or a pure one. A pure concept is one that is not abstracted from experience but springs from the understanding even as to content.
+  The idea is a concept of reason, whose object can be met with nowhere in experience... Whether there are pure concepts of the understanding which, as such, spring solely from understanding, independent of any experience, must be investigated by metaphysics.}''
+
+  Nevertheless, one notes even more complex possibilities being considered that are based, for example, upon the Kantian view according to which the `ultimate reality (in itself) is unknowable', and that all of our conceptual representations of the world depend upon an assumed, or postulated, `transcedental (pre-existing and/or immanent) logic' of the human mind. Thus, according to Immanuel Kant's ``Logic'' (published in 1800): 
+
+  ``{\em It is mere tautology to speak of general or common concepts, a mistake based on a wrong division of concepts into $&lt;$ general, particular and singular $&gt;$. Not the concepts themselves, only $&lt;$ their use $&gt;$ can be divided in this way.}''
+
+ Kant's analytic-synthetic method remains the basis for the logic of modern scientific discovery. For example, contemporary physics upholds the soundness
+of Kant's views on relativity of motion. 
+
+ A definition of a fundamental concept, such as set, category, topos, topology, homology etc., also contains several axioms, or basic assumptions/conditions imposed on the auxilliary concepts employed by such a fundamental concept definition. For example, the category of sheaves on a site is called a (Grothendieck) topos; however, a topos can also be defined directly by specifying only a few (Grothendieck topos) axioms.
+
+ Therefore, ultimately, a mathematical definition depends on the choice of the mathematical foundation selected, e.g., set-theoretical, category-theoretical, or topos-theoretical, as well as the type of logic adopted, e.g., Boolean, intuitionistic or many-valued logic. Thus, the {\em $\left\langle{general\; definition}\right\rangle$ of a mathematical definition} is not simply a mathematical concept, but it is instead a meta-mathematical construct. In the case of topos-theoretical foundations the Brouwer-intuitionistic logic is explicitly assumed in the construction/definition of the topos. As an example, the category of sets--subject to certain axioms, including the axiom of choice-- may be considered a canonical example of a Boolean topos, but it is not the only one possible, as different axioms may be selected to avoid several known antimonies in set theory. 
+ 
+ Thus, a mathematical concept is {\em well-defined} only when its mathematical foundation framework is also specified either explicitly or by its context. For reasons related to apparent `simplicity', many a mathematician prefers only Boolean logic and a set-theoretical foundation for definitions, in spite of severe limitations, known inherent paradoxes and incompleteness.
+
+ Alternative definitions of the same concept often offer additional insights into the meaning(s) of the concept being defined, as well as added flexibility in solving problems and discovering proofs.
+
+A definition of a constant is an equation with a symbol (or some other notation) on the left and either an exact value or a formula for a value on the right.</content>
+</record>

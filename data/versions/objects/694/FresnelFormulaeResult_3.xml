@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="694">
+ <title>Fresnel formulae result</title>
+ <name>FresnelFormulaeResult</name>
+ <created>2009-04-29 09:57:17</created>
+ <modified>2009-04-29 09:58:57</modified>
+ <type>Result</type>
+<parent id="649">Fresnel formulae</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\usepackage{mathrsfs}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+
+\newcommand{\sR}[0]{\mathbb{R}}
+\newcommand{\sC}[0]{\mathbb{C}}
+\newcommand{\sN}[0]{\mathbb{N}}
+\newcommand{\sZ}[0]{\mathbb{Z}}
+
+\usepackage{bbm}
+\newcommand{\Z}{\mathbbmss{Z}}
+\newcommand{\C}{\mathbbmss{C}}
+\newcommand{\F}{\mathbbmss{F}}
+\newcommand{\R}{\mathbbmss{R}}
+\newcommand{\Q}{\mathbbmss{Q}}
+
+
+
+\newcommand*{\norm}[1]{\lVert #1 \rVert}
+\newcommand*{\abs}[1]{| #1 |}
+
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <preamble></preamble>
+ <content>The Fresnel formulae presented in the parent entry-- that the proof refers to-- are as follows:
+
+$$\int_0^\infty\!\cos{x^2}\,dx \,=\, \int_0^\infty\!\sin{x^2}\,dx \,=\, \frac{\sqrt{2\pi}}{4}$$
+
+(visible there only in the Tex code mode because of a current quirk with pstricks vs. Tex).</content>
+</record>

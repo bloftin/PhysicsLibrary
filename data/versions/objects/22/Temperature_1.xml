@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="22">
+ <title>temperature</title>
+ <name>Temperature</name>
+ <created>2004-11-20 15:28:00</created>
+ <modified>2004-11-20 15:28:00</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="441" name="bci1"/>
+ <comment>the</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Temperature is a scalar value we use to measure the the amount of kinetic energy a group of atoms have.</content>
+</record>

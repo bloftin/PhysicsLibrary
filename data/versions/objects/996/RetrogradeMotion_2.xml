@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="996">
+ <title>retrograde motion</title>
+ <name>RetrogradeMotion</name>
+ <created>2025-03-30 19:00:39</created>
+ <modified>2025-03-30 19:04:12</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>missed a CAR reference to remove linlk</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.Km"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>{\bf Retrograde motion} is  the apparent westward motion of a planet on the celestial sphere or with respect to the stars.  Historically, Hipparchus and  Ptolemy explained this with a complicated epicycle motion to maintain circular orbits and was finally properly expalined  over 1000 years later with Copernicus and his heliocentric model of planetary motion. \\
+
+The complicating factor in explaining the motions of the planets is that their apparent wandering in the sky results from the combination of their own motions with Earth's orbital revolution. As we watch the planets from our vantage point on the moving Earth, it is a little like watching a car race while you are competing in it. Sometimes opponents'  \PMlinkescapetext{cars} pass you, but at other times you pass them, making them appear to move backward for a while with respect to you. \\
+
+Figure 1 shows the motion of Earth and a planet farther from the Sun - in this case, Mars. Earth travels around the Sun in the same direction as the other planet and in nearly the same plane, but its orbital speed is faster. As a result, it overtakes the planet periodically, like a faster race car on the inside track. The figure shows where we see the planet in the sky at different times. The path of the planet among the stars is illustrated in the star field on the right side of the figure.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{RetrogradeMotion.jpg}
+
+{\tiny {\bf Figure 1:  Retrograde Motion of a Planet beyond Earth's Orbit. } The letters on the diagram show where Earth and Mars are at different times. By following the lines from each Earth position through each corresponding Mars position, you can see how the retrograde path of Mars looks against the background stars. }
+\end{figure} 
+
+Normally, planets move eastward in the sky over the weeks and months as they orbit the Sun, but from positions B to D in Figure 1, as Earth passes the planets in our example, it appears to drift backward, moving west in the sky. Even though it is actually moving to the east, the faster-moving Earth has overtaken it and seems, from our perspective, to be leaving it behind. As Earth rounds its orbit toward position E, the planet again takes up its apparent eastward motion in the sky. The temporary apparent westward motion of a planet as Earth swings between it and the Sun is called {\bf retrograde motion}. Such backward motion is much easier for us to understand today, now that we know Earth is one of the moving planets and not the unmoving center of all creation. But Ptolemy was faced with the far more complex problem of explaining such motion while assuming a stationary Earth. \\
+
+
+\begin{thebibliography}{9}
+
+This article is a derivative work of the creative commons share alike with attribution in [1]. \\ \\
+
+[1] Fraknoi, Andrew, David Morrison, and Sidney Wolff. The Sky Above. In Astronomy 2e. Houston, Texas : OpenStax, 2022. \PMlinkexternal{The Sky Above}{https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above} \\ 
+
+\end{thebibliography}</content>
+</record>

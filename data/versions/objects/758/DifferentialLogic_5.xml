@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="758">
+ <title>differential logic</title>
+ <name>DifferentialLogic</name>
+ <created>2009-05-15 23:48:01</created>
+ <modified>2009-05-17 00:51:50</modified>
+ <type>Definition</type>
+ <creator id="513" name="Jon Awbrey"/>
+ <modifier id="513" name="Jon Awbrey"/>
+ <author id="513" name="Jon Awbrey"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.10.-v"/>
+	<category scheme="msc" code="02.20.-a"/>
+	<category scheme="msc" code="02.30.-f"/>
+	<category scheme="msc" code="02.40.-k"/>
+	<category scheme="msc" code="02.70.-c"/>
+	<category scheme="msc" code="02.70.Bf"/>
+	<category scheme="msc" code="02.70.Wz"/>
+ </classification>
+ <related>
+	<object name="DifferentialPropositionalCalculus"/>
+	<object name="GeneralDynamicSystems"/>
+	<object name="GroupoidCDynamicalSystems"/>
+	<object name="MinimalNegationOperator"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\PMlinkescapephrase{calculus}
+\PMlinkescapephrase{Calculus}
+\PMlinkescapephrase{component}
+\PMlinkescapephrase{Component}
+\PMlinkescapephrase{formal logic}
+\PMlinkescapephrase{Formal Logic}
+\PMlinkescapephrase{formal logics}
+\PMlinkescapephrase{Formal Logics}
+\PMlinkescapephrase{object}
+\PMlinkescapephrase{Object}
+\PMlinkescapephrase{simple}
+\PMlinkescapephrase{Simple}
+\PMlinkescapephrase{system}
+\PMlinkescapephrase{System}
+\PMlinkescapephrase{universe}
+\PMlinkescapephrase{Universe}
+\PMlinkescapephrase{universes}
+\PMlinkescapephrase{Universes}
+
+\textbf{Differential logic} is the component of logic whose object is the description of variation --- for example, the aspects of change, difference, \PMlinkname{distribution}{Distribution}, and diversity --- in universes of discourse that are subject to logical description.  In formal logic, differential logic treats the principles that govern the use of a \textbf{differential logical calculus}, that is, a formal system with the expressive capacity to describe change and diversity in logical universes of discourse.
+
+A simple example of a differential logical calculus is furnished by a \PMlinkname{differential propositional calculus}{DifferentialPropositionalCalculus}.  This extends an ordinary \PMlinkname{propositional calculus}{PropositionalCalculus} in the same way that \PMlinkname{differential calculus}{Calculus} extends analytic geometry.
+
+\section{Readings}
+
+\begin{itemize}
+\item
+Awbrey, J., ``\PMlinkexternal{Differential Logic and Dynamic Systems}{http://www.mywikibiz.com/Directory:Jon_Awbrey/Papers/Differential_Logic_and_Dynamic_Systems_2.0}".
+\end{itemize}</content>
+</record>

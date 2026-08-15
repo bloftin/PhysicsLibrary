@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="32" id="793">
+ <title>category theory</title>
+ <name>CategoryTheory</name>
+ <created>2009-06-09 20:18:41</created>
+ <modified>2009-06-10 18:54:42</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>morphisms</concept>
+	<concept>homomorphisms</concept>
+	<concept>homeomorphisms</concept>
+	<concept>object</concept>
+	<concept>diagrams</concept>
+	<concept>category theory applications</concept>
+	<concept>functor</concept>
+	<concept>functor category</concept>
+	<concept>group</concept>
+	<concept>monoid</concept>
+	<concept>semigroup</concept>
+	<concept>Abelian group</concept>
+	<concept>commutativity</concept>
+	<concept>naturality condition</concept>
+	<concept>Abelian category</concept>
+	<concept>$Ab$-axioms</concept>
+	<concept>categorical duality</concept>
+	<concept>duality</concept>
+	<concept>categories with structure</concept>
+	<concept>enriched category</concept>
+	<concept>metatheory</concept>
+	<concept>Non-Abelian Algebraic Topology</concept>
+	<concept>NAAT</concept>
+	<concept>metalogic</concept>
+	<concept>algebraic structure</concept>
+	<concept>topological structure</concept>
+	<concept>groupoid spatial component</concept>
+	<concept>topological group</concept>
+	<concept>partial multiplication law</concept>
+	<concept>Mitchell's rings with many identities</concept>
+	<concept>classification</concept>
+	<concept>equivalence relation</concept>
+	<concept>trivial groupoid</concept>
+ </defines>
+ <related>
+	<object name="Category"/>
+	<object name="ETAC"/>
+	<object name="AlternativeDefinitionOfSmallCategory"/>
+	<object name="QuantumCategory"/>
+	<object name="FunctorCategories"/>
+	<object name="FundamentalGroupoidFunctors"/>
+	<object name="Groupoid5"/>
+	<object name="Groupoids"/>
+	<object name="FiniteQuantumGroup"/>
+	<object name="HigherDimensionalAlgebra"/>
+ </related>
+ <keywords>
+	<term>category</term>
+	<term>category theory</term>
+	<term>topos</term>
+	<term>functor</term>
+	<term>natural transformations</term>
+	<term>metagraph</term>
+	<term>metacategory</term>
+	<term>algebraic topology</term>
+	<term>homology theory</term>
+	<term>ETAC</term>
+	<term>unit law</term>
+	<term>associativity axioms</term>
+	<term>identity</term>
+	<term>composition</term>
+	<term>operations</term>
+	<term>graph</term>
+	<term>topological group</term>
+	<term>topological groupoid</term>
+	<term>quantum group</term>
+	<term>quantum groupoid</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Theory of Categories}
+
+{\em Category theory} can be described as the branch of mathematics concerned
+with the general, abstract and universal properties and applications of the fundamental concepts of \PMlinkname{category}{Category}, functor between categories and natural transformations between functors. A {\em category} can also be defined as a mathematical interpretation of the elementary theory of abstract categories, or ETAC. A {\em topos} is often considered as a special type of category subject to the topos axioms, and thus based upon a (commutative) Heyting logic. 
+
+\subsection{Introduction: Basic concepts}
+Category theory has developed, and is now being further developed, very rapidly 
+in comparison with most of the older branches of mathematics, with the notable exception of Topology, certain aspects of Geometry and Number theory which experienced recently most remarkable advances. The official birthdate year of Category Theory is 1945, even though an earlier, published report in 1943 utilized categorical concepts. 
+
+ First of all, a {\em category} consists of arrows, called {\em morphisms} subject to a very small set of basic category theory axioms (which is as small as only four axioms in some recent formulations). Various chains, or geometric forms, composed of such arrows are called (categorical) {\em diagrams}.
+From a logical point of view, morphisms may also be considered as {\em relations}, thus generalizing the concept of set-theoretical mapping or function. Therefore, any logical relation theory may also be formalized in terms
+of morphisms, and any metalogic (metatheory) of relations among relations may be formalized in terms of categories and functors. One can then also say that 
+``{\em mathematics is about relations between relations}''.
+
+ Charles Ehresmann--one of the founders and developers of category theory in Europe-- in evaluating the role played by category theory in modern mathematics pointed out that the concepts of morphism (arrow, with the specific examples of  mapping and mathematical function) and mathematical {\em structure} are the key notions of all modern mathematics, whereas that of a set or {\em object} is relegated to a secondary, less important role. Morphisms of structures such as
+monoids, semigroups,  groups, rings, modules, vector spaces, groupoids, topological spaces, and so on `preserve the basic structure', thus allowing comparisons to be made between different mathematical objects with the 'same'
+structure. 
+
+\subsection{Examples of morphisms and categories}
+
+As well-known examples, one considers morphisms of groups defined as
+{\em group homomorphisms}, and morphisms of topological spaces as {\em homeomorphisms}. Interestingly, morphisms between groupoids are still being called `homomorphisms' even when such objects possess a topological structure as well. Moreover, groupoids are also regarded as a specific type of categories with all invertible morphisms, or natural generalizations of groups as a notion
+of 'group with many identities', and they play fundamental roles in Algebraic Topology. By analogy one might then expect also that Barry Mitchell's concept of a `{\em ring with many objects}' , and also its generalizations to {\em algebroids} may play, respectively, important roles in Algebraic Geometry and Number Theory. There are two important differences between groupoids and groups. One is that, unlike groups, groupoids have a partial multiplication, and the other difference is that the condition for two elements
+to be composable is a geometric one (namely the end point of a groupoid arrow is the starting point of another arrow). Such a partial multiplication law that one has for groupoid arrows may be thought of as a kind of ``group with many identities'', that reduces to the particular case of a group when there is only one identity. The other very important difference between groups and groupoids is that the geometry, or topology, underlying groupoids is that of directed graphs, whereas the geometry underlying groups is simply that of {\em based sets}, that is sets with a chosen base point, or objects with {\em discrete topology} (``set dust''). It is thus quite evident that graphs are far more interesting than sets, and can reflect more geometry--or by considering their connectivity properties in the general case-- are endowed with a topological structure. One can also think that the objects of a groupoid allow for the addition of a spatial component to the simpler objects of group theory that may be considered to have only algebraic structures. Note, however, that this simplification applies only to groups other than topological ones; thus one expects a closer connection between a topological group and a topological groupoid because of their endowment with a topological structure consistently added to their algebraic structure. Furthermore, one may expect even closer links, for example, between a locally compact groupoid equipped with an associated Haar measure and a locally compact group also equipped with a Haar measure; the latter argument carries over to the relationships between a quantum groupoid and a quantum group.
+
+ Last-but-not-least, the so called `trivial' groupoid structures arise from
+the presence of equivalence classes that are important in most fields of mathematics that involve classification or equivalence relations, and are therefore of fundamental importance in mathematics.
+
+ Second level arrows--those between categories-- are called {\em functors}, and third level arrows between functors are called {\em natural transformations}, again subject to specific naturality conditions such as commutativity of diagrams. The third level arrow is the more powerful concept in comparison with either functors or morphisms, and of course, the functor is a more powerful concept than a morphism.  
+
+ On the first conceptual level, mathematical categories provide a most convenient, universal-conceptual `language' founded on the notions of category, functor, natural transformation and functor category, albeit at such an abstract and universal level that many classical mathematicians chose to dub it-- without any strong justification-- as ``abstract nonsense''. Nevertheless, there are also {\em categories with structure}, as well as {\em enriched categories}, algebraic categories, categories of categories, 2-categories, double categories, and so on; category theory can be therefore also also as a kind of {\em metatheory} endowed with different structural levels that are all consistent and natural, in the sense of involving commutativity. Upon imposition of additional ($Ab1$ to $Ab6$) axioms such commutative super-structures become Abelian categories that generalize or extend the universal properties of categories of Abelian, or commutative, groups; in fact, half of such axioms are obtained by merely `inverting the arrows'--which is called (categorical) {\em duality}. Whereas the last 50 years have been dominated 
+by developments in (commutative) Homology Theory (or Homological Algebra) 
+and Abelian category theory, there is currently occurring a very rapid development of \PMlinkexternal{Non-Abelian Algebraic Topology (NAAT)}{http://www.bangor.ac.uk/~mas010/pdffiles/rbrsbookb-e040609.pdf} in modern mathematics. Such developments have close connections to recent results in 
+non-Abelian theories in mathematical physics, and also have potential impact
+on Topological Quantum Field Theories (TQFT), HQFTs and physical mathematics.   
+
+ However, on a different level, when considered as a further sophistication of algebraic topology, category theory embraces not only algebraic and topological structures, but also geometric and analytic ones. At still higher levels, category theory provides natural means to define higher dimensional structures
+such as higher dimensional algebra (HDA) that open completely new avenues of mathematical research of recent, substantial interest in mathematical physics, and especially in the development of quantum gravitation and/or superstring theories. 
+
+ On the other hand, at a fundamental level, the universal categorical concepts of adjoint functors and adjointness semantics may provide a unique foundation of mathematics and algebraic theories, well beyond set theory with its known limitations and problems.
+
+\subsection{Category theory applications}
+Among the important category theory applications in mathematics itself are:
+
+\begin{itemize}
+\item Applications in the Foundations of Mathematics
+\item Algebraic Topology applications
+\item Algebraic Geometry applications
+\item Applications to Number theory
+\item Applications to rings and modules
+\item Applications to the theory of Abelian groups
+\item X
+\item Y
+\item Z
+\item
+\item
+\end{itemize}
+
+ Other category theory applications are in:
+
+\begin{itemize}
+\item Theoretical and Mathematical Physics
+\item Mathematical Biophysics, Complex Systems Biophysics and Theoretical Biology
+\item Theory of Logic Algebras
+\item Categorical logic
+\item Algebraic logic
+\item Computer theory
+\item Quantum Operator Algebra (QOA)
+\item Theoretical Ecology and Environmental sciences
+\item Genomics and Interactomics
+\end{itemize}
+
+\subsection{An Index of categories}
+A partial list of various types of categories.
+\subsection{A Category theory index}
+A partial \PMlinkname{index of the theory of categories}{IndexOfCategoryTheory}.
+\subsection{An Index of Algebraic Geometry}
+\subsection{An Index of Algebraic Topology}
+\subsection{Bibliography of category theory and its applications}
+An extensive, but not complete, literature on category theory. 
+
+\textbf{More to come...}</content>
+</record>

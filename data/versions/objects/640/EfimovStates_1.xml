@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="640">
+ <title>Efimov states</title>
+ <name>EfimovStates</name>
+ <created>2009-04-15 10:42:33</created>
+ <modified>2009-04-15 10:42:33</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>stable bound quantum states</concept>
+	<concept>3-body state</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Efimov states" alias="Efimov trimer"/>
+ </synonyms>
+ <preamble></preamble>
+ <content>\section{Efimov states}
+The {\em Efimov states} were initially proposed in 1970 as hypothetical, stable quantum states of coupled three-body systems such as three coupled bosons in ultracold `experiments'. A most interesting feature of such ultracold 3-boson systems was the presence of an infinite number of Efimov states when the boson coupling was weak but finite when the coupling became strong. 
+
+Subsequently, in 2006, there have been published claims of experiments indicating the presence of such ``Efimov trimers''.
+
+
+References.</content>
+</record>

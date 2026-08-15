@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="772">
+ <title>large hadron collider</title>
+ <name>LargeHadronCollider</name>
+ <created>2009-05-22 21:04:54</created>
+ <modified>2009-05-22 21:24:23</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="14.20.Dh"/>
+ </classification>
+ <keywords>
+	<term>large hadron colider</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Largest Particle Accelerators}
+
+The \PMlinkexternal{Large Hadron Collider (LHC)}{http://en.wikipedia.org/wiki/Large_Hadron_Collider}--built by CERN (the European Organization for Nuclear Research)-- is currently reported as the highest energy particle accelerator; for protons the maximum energy reached at LHC is 7 TeV per proton. Planned experiments are the `hunt' for the Higgs boson(s) and for quantum particles predicted by (quantum) supersymmetry. Under the French-Swiss border near Geneva--at some 570 ft below the sea level-- the 17 miles \PMlinkexternal{toroidal, underground tunnel serving the LHC}{http://en.wikipedia.org/wiki/File:LHC.svg} also includes a Compact Muon Solenoid (CMS) as well as two additional adjacent experimental labs, ALICE and TOTEM, a high=energy physicist's `{em Alice in Wonderland}.' ALICE is a Large Ion Collider Experiment station, and TOTEM  is a ``Total Cross Section, Elastic Scattering and Diffraction Dissociation'' laboratory also using the LHC particle beam(s). The LHC physics collaboration keeps busy over 10,000 coworkers
+from more than 100 countries; these are truly exciting times for the high energy particle physicists as well as theoretical physicists working on supersymmetry, symmetry breaking, Higgs boson physics, unified field theories and superstrings/M-string theories. There is only one very big catch: like most French grand establishments, the LHC facility is closed for repairs (of two superconducting magnets), and it has been out of action since September 10th, 2008. Hopefully, once the two superconducting magnets are re-configured, the Super Proton Synchrotron (SPS), or Proton Super Synchrotron (PSS), will provide very interesting data unavailable elsewhere.  
+
+{\bf [More to come... when/iff PSS is on ...]}</content>
+</record>

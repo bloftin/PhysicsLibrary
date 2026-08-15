@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="14">
+ <title>SI unit prefixes</title>
+ <name>SiUnitPrefixes</name>
+ <created>2004-11-18 23:39:59</created>
+ <modified>2007-07-01 14:07:49</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="313" name="Wkbj79"/>
+ <author id="313" name="Wkbj79"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="06.20.Fn"/>
+ </classification>
+ <related>
+	<object name="SIUnitsAndDerivations"/>
+ </related>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>The SI unit prefixes are given in the table below.
+
+\begin{table}[t]
+\begin{center}
+\begin{tabular}{|c||c|c|}
+\hline
+\textbf{prefix} &amp; \textbf{symbol} &amp; \textbf{factor}
+%heading
+\hline \hline
+yocto &amp; $\mathrm{y}$ &amp; $10^{-24}$ \\
+\hline
+zepto &amp; $\mathrm{z}$ &amp; $10^{-21}$ \\
+\hline
+atto  &amp; $\mathrm{a}$ &amp; $10^{-18}$ \\
+\hline
+femto &amp; $\mathrm{f}$ &amp; $10^{-15}$ \\
+\hline
+pico  &amp; $\mathrm{p}$ &amp; $10^{-12}$ \\
+\hline
+nano  &amp; $\mathrm{n}$ &amp; $10^{-9}$ \\
+\hline
+micro &amp; $\mathrm{\mu}$ &amp; $10^{-6}$ \\
+\hline
+milli &amp; $\mathrm{m}$ &amp; $10^{-3}$ \\
+\hline
+centi &amp; $\mathrm{c}$ &amp; $10^{-2}$ \\
+\hline
+deci  &amp; $\mathrm{d}$ &amp; $10^{-1}$ \\
+\hline
+deka  &amp; $\mathrm{da}$ &amp; $10^{1}$ \\
+\hline
+hecto &amp; $\mathrm{h}$ &amp; $10^{2}$ \\
+\hline
+kilo  &amp; $\mathrm{k}$ &amp; $10^{3}$ \\
+\hline
+mega  &amp; $\mathrm{M}$ &amp; $10^{6}$ \\
+\hline
+giga  &amp; $\mathrm{G}$ &amp; $10^{9}$ \\
+\hline
+tera  &amp; $\mathrm{T}$ &amp; $10^{12}$ \\
+\hline
+peta  &amp; $\mathrm{P}$ &amp; $10^{15}$ \\
+\hline
+exa   &amp; $\mathrm{E}$ &amp; $10^{18}$ \\
+\hline
+zetta &amp; $\mathrm{Z}$ &amp; $10^{21}$ \\
+\hline
+yotta &amp; $\mathrm{Y}$ &amp; $10^{24}$ \\
+\hline
+\end{tabular}
+% Caption does not seem to work
+%\caption{SI Unit Prefixes} 
+\end{center}
+\end{table}
+
+Here is an example of using the SI unit prefixes: A centimeter is 1 meter * $10^{-2}$ or in scientific notation, $1\times10^{-2}$ meters. 
+\vspace{4ex}
+
+\noindent Reference: National Institute of Standards and Technology, 
+\PMlinkexternal{http://physics.nist.gov/cuu/Units/}{http://physics.nist.gov/cuu/Units/}</content>
+</record>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="885">
+ <title>category of groupoids</title>
+ <name>CategoryOfGroupoids2</name>
+ <created>2010-10-17 17:06:22</created>
+ <modified>2010-10-17 17:06:22</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <synonyms>
+	<synonym concept="category of groupoids" alias="groupoid category"/>
+ </synonyms>
+ <preamble></preamble>
+ <content>\section{Category of Groupoids}
+
+\subsection{Properties}
+The category of groupoids, $G_{pd}$ has several important properties not available for groups, although it does contain the category of groups as a full subcategory. One such important property is that $Gpd$ is \emph{cartesian closed}. Thus, if $J$ and $K$ are two groupoids, one can form a groupoid $GPD(J,K)$ such that if $G$ also is a groupoid then there exists a natural equivalence $$Gpd(G \times J, K) \rightarrow Gpd(G, GPD(J,K))$$.
+
+
+Other important properties of $G_{pd}$ are:
+
+\begin{enumerate}
+
+\item The category $G_{pd}$ also has a unit interval object $I$, which is the groupoid with two objects $0,1$ and exactly one arrow $0 \rightarrow 1$;
+
+\item The groupoid $I$ has allowed the development of a useful
+\PMlinkname{Homotopy Theory}{http://planetmath.org/encyclopedia/HomotopyCategory2.html} for groupoids that leads to analogies between groupoids and spaces or manifolds; effectively, groupoids may be viewed as ``adding the spatial notion of a `place' or location'' to that of a group;
+
+\item Groupoids extend the notion of invertible operation by comparison with that available for groups; such invertible operations also occur in the theory of inverse semigroups. Moreover, there are interesting relations beteen inverse semigroups and ordered groupoids. Such concepts are thus applicable to sequential machines and automata whose state spaces are semigroups. Interestingly, the category of finite automata, just like $G_{pd}$ is also \emph{cartesian closed};
+
+\item The category $G_{pd}$ has a variety of types of morphisms, such as: quotient morphisms, retractions, covering morphisms, fibrations, universal morphisms, (in contrast to only the epimorphisms and monomorphisms of group theory);
+
+\item A monoid object, $END(J)= GPD(J,J)$, also exists in the category of groupoids, that contains a maximal subgroup object denoted here as $AUT(J)$. Regarded as a group object in the category groupoids, $AUT(J)$ is equivalent to a crossed module $C_M$, which in the case when $J$ is a group is the traditional crossed module $J\rightarrow Aut(J)$, defined by the inner automorphisms.
+
+\end{enumerate}
+
+\begin{thebibliography} {9}
+
+\bibitem{MJP1999}
+May, J.P. 1999, \emph{A Concise Course in Algebraic Topology.}, The University of Chicago Press: Chicago
+
+\bibitem{BR-JG2k4}
+R. Brown and G. Janelidze.(2004). Galois theory and a new homotopy double groupoid of a map of spaces.(2004).
+{\em Applied Categorical Structures},\textbf{12}: 63-80. Pdf file in arxiv: math.AT/0208211
+
+\bibitem{PJH71}
+P. J. Higgins. 1971. \emph{Categories and Groupoids.}, Originally published by: Van Nostrand Reinhold, 1971
+Republished in: \emph{Reprints in Theory and Applications of Categories}, No. 7 (2005) pp 1-195:
+http://www.tac.mta.ca/tac/reprints/articles/7/tr7.pdf
+
+
+
+
+\end{thebibliography}</content>
+</record>

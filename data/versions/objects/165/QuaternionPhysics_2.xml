@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="165">
+ <title>Quaternion Physics</title>
+ <name>QuaternionPhysics</name>
+ <created>2006-04-28 14:48:18</created>
+ <modified>2006-04-28 14:59:28</modified>
+ <type>Definition</type>
+ <creator id="129" name="asar"/>
+ <modifier id="129" name="asar"/>
+ <author id="129" name="asar"/>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Introduction to Quaternion Physics}
+
+William Rowan Hamilton invented quaternions in 1843 in Ireland.  Quaternions are a four dimensional system, a scalar dimension and three vector dimensions.  Maxwell used the vectors in his famous Equations of electromagnetism.  Hamilton's Rules for quaternions:
+
+\begin{equation}
+i^2 = j^2 = k^2 = ijk = -1
+\end{equation}
+
+caused physicists including Maxwell problems.  The square of a vector is negative in Hamilton's Rules.  This meant that when Maxwell computed a maximum energy by displacing (dropping) a ball in the direction of gravity, the energy was negative and maxwell wanted it to be positive.  Hamilton's Rule said teh energy was negative or "Exergy" rather than energy the positive. This meant that the system was givning energy out.  Lifting the ball against gravity was energy in.  The physicists did not like this and J. Willard Gibbs changed the sign of the square of the vector and this is what we have in vectors today.  Quaternions survive as a curiosity in mathematics.
+
+Hamilton's mathematics is superior in that quaternions are a mathemtical Group having the properties of closure and associativity, which is not the case with vectors.
+
+I believe the Universe structure is quaternionic, that is four dimensional spacetime is a quaternion Group with 'ct' the scalar dimension and $ix+ jy + kz$ are the three vector dimensions.  The Laws of Physics are those of quaternion operations.  The fields of physics are quaternions such as the electromagnetics fields:
+
+\begin{equation}
+E_q = cB_q = zH_q = czD_q
+\end{equation}
+
+
+
+\subsection{Quaternion Calculus}
+When Hamilton invented vectors, he also invented a vector Calculus.  This vector Calculus involved a vector differential operator, he called Nabla after the shape of an Irish Harp $\nabla$. Hamilton did not invent a quaternion differential operator.   When I was a studying electrical engineering, I wondered  where Maxwell's Equations came from and my research led me to Hamilton's Quaternions and his Vector Calculus.  I found it strange that Hamilton did not invent a Quaternion Differential Operator, so I invented one by simply changing  Leibnitz's  Scalar Time Derivative to a Scalar Space Derivative using the speed of light $c$:
+
+\begin{equation}
+  \frac{1}{c} \frac{\partial } {\partial t}  
+ \end{equation}
+  
+  and adding this to to Hamilton's Nabla:
+
+\begin{equation} 
+\nabla = \mathbf{i} {\frac {\partial }  {\partial x}} + \mathbf{i}{\frac {\partial} {\partial y}} + \mathbf{k}{\frac {\partial } {\partial z}}
+\end{equation}
+
+
+This created a Quaternion  Differential Operator I call Xepera  symbolized by $X$, for the Change Operator.  Xepera is a Quaternion Derivative and is the sum of a scalar derivative and a vector derivative.  Xepera is a quaternion and follows Hamilton's Quaternion Rules.
+
+\begin{equation}
+X =  (\frac{1}{c} \frac{\partial } {\partial t} + \nabla )
+\end{equation}
+
+The Quaternion Differential Operator Scalar Radiation $ \frac{1}{c} \frac{\partial } {\partial t}=\frac{\partial } {\partial w}$  is the Radiation Wave Rate and has the value of 1/w, where $dw = cdt$. This gives a simpler representation of $X$. 
+
+\begin{equation}
+X = RAD + GRAD = R + \nabla 
+\end{equation}
+
+\subsection{Quaternion Life}
+The essence of the Universe is a variable I call "Life" symbolized by:
+
+
+\begin{equation}
+L_q = L + \mathbf{L}
+\end{equation}
+
+
+L is a quaternion having a scalar and a vector part.  Life is related to Action h, by the speed of light c, L=ch. Planck's Quantum Energy is "hf" = RL. I use L rather than h to reflect the spatial nature of the Universe and the Differential Operator change/unit distance.  
+
+\subsection{Work the first derivative of Life}
+Work is the Change of Life:
+
+\begin{equation}
+Work = XL_q = (RL - \nabla \cdot \mathbf{L}) + (R \mathbf{L} + \nabla \times \mathbf{L} + \nabla L)
+\end{equation}
+
+
+Einstein's Photoelectric Equations is the scalar equation.  The vector equation is the Induction work and is not part of Einstein's Photoelectric equation, but is a part of Quaternion Physics.
+
+The Conservation Condition or Boundary Condition comes from setting the Change Equation to zero.
+
+\begin{equation}
+XL_q = (R + \nabla )( L + \mathbf{L}) = 0
+\end{equation}
+
+
+\begin{equation}
+XL_q = (RL - \nabla \cdot \mathbf{L}) + (R \mathbf{L} + \nabla \times \mathbf{L} + \nabla L) = 0
+\end{equation}
+
+The Conservation of Life, scalar part, is essentially Planck's Quantum Theory.  Planck did not have induction as part of his theory.  Induction is  represented by the vector part of the quaternion Conservatin equation.  
+
+\subsection{Electromagnetism}
+"Maxwell's Equations" can be derived from the Conservation Condition for the B field.
+
+\begin{equation}
+XB_q = (RB - \nabla \cdot \mathbf{B}) + (R \mathbf{B} + \nabla \times \mathbf{B} + \nabla B) = 0
+\end{equation}
+
+\begin{equation}
+XB_q = (\frac{1}{c} \frac{\partial } {\partial t}B - \nabla \cdot \mathbf{B}) + (\frac{1}{c} \frac{\partial } {\partial t} \mathbf{B} + \nabla \times \mathbf{B} + \nabla B) = 0
+\end{equation}
+
+\begin{equation}
+XB_q = (\frac{1}{} \frac{\partial } {\partial t}B - \nabla \cdot \mathbf{E}) + (\frac{1}{} \frac{\partial } {\partial t} \mathbf{B} + \nabla \times \mathbf{E} + \nabla E) = 0
+\end{equation}
+
+
+
+\subsection{Force, the second derivative of Life}
+
+Force is the Curvature of Life.
+
+\begin{equation}
+X^2L_q =((R^2 - \nabla^2 ) + 2R \nabla ) ( L + \mathbf{L}).
+\end{equation}
+
+\begin{equation}
+X^2L_q =((R^2 - \nabla^2 )L - 2R \nabla \cdot \mathbf{L}) + ((R^2 - \nabla^2 )\mathbf{L} + 2R (\nabla \times \mathbf{L} + \nabla {L})) 
+\end{equation}
+
+
+Einstein introduced a "Cosmological Constant" to explain the non-collapse of the Universe under Gravity.  Today others are looking for the "Cosmological Constant" to explain the continued expansion of the Universe.  The Quaternion Scalar Wave Equation above indicates that the Cosmological "Expansion"  is due to $2R \nabla \cdot \mathbf{L}$ the radiant of the Vector Divergence. the Vector Divergence is called the "Workfunction" by Einstein in his Photoelectric  Equation.  This could mean that the Cosmos expands and contracts similar to atoms in the photoelectric effect.  Absorbing energy causes expansion and the Cosmos releases the energy and contracts.  This process is part of Quantum Physics and is likely a part of Relativity Physics.</content>
+</record>

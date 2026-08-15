@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="246">
+ <title>quantum smarandache quasi-paradoxes</title>
+ <name>QuantumSmarandacheQuasiParadoxes</name>
+ <created>2007-04-05 16:02:48</created>
+ <modified>2007-04-05 16:02:48</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="284" name="nick"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ud"/>
+	<category scheme="msc" code="42.50.Dv"/>
+ </classification>
+ <keywords>
+	<term>paradox</term>
+	<term>Sorites paradox</term>
+	<term>Smarandache paradox</term>
+	<term>quantum paradox</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A \emph{quasi-paradox} is a statement which has a \it{prima facia} self-contradictory support or an explicit contradiction, but which is not completely proven as a paradox.  A quasi-paradox is an informal contradictory statement, while a paradox is a formal contradictory statement.
+
+The below \emph{quantum smarandache quasi-paradoxes and Sorites paradoxes} are based on the antinomies: visible/invisible, determinist/indeterminist, stable/unstable, long time living/short time living, and respectively (for the Sorites paradoxes) on the fact that there is not a clear separation between these pairs of antinomies. 
+
+1.1)  \emph{Invisible Quasi-Paradox}: Our visible world is composed of a totality of invisible particles. 
+\newline 1.2) \emph{Invisible Sorites Paradox}: There is not a clear frontier between visible matter and invisible matter.
+\newline a) An invisible particle does not form a visible object, nor do two invisible particles, three invisible particles, etc. 
+However, at some point, the collection of invisible particles becomes large enough to form a visible object, but there is apparently no definite point where this occurs. 
+\newline b) A similar paradox is developed in an opposite direction. It is always possible to remove a particle from an object in such a way that what is left is still a visible object. However, repeating and repeating this process, at some point, the visible object is decomposed so that the left part becomes invisible, but there is no definite point where this occurs. 
+
+2.1)  \emph{Uncertainty Quasi-Paradox}: Large matter, which is at some degree under the \it{determinist principle}, is formed by a totality of elementary particles, which are under Heisenberg's \it{indeterminacy principle}. 
+\newline 2.2)  \emph{Uncertainty Sorites Paradox}: Similarly, there is not a clear frontier between the matter under the \it{determinist principle} and the matter under it{indeterminist principle}.
+
+3.1)  \emph{Unstable Quasi-Paradox}: \it{Stable} matter is formed by \it{unstable} elementary particles (elementary particles decay when free). 
+\newline 3.2) \emph{Unstable Sorites Paradox}: Similarly, there is not a clear frontier between the \it{stable matter} and the \it{unstable matter}.
+
+4.1)  \emph{Short-Time-Living Quasi-Paradox}: \it{Long-time-living} matter is formed by very \it{short-time-living} elementary particles. 
+\newline 4.2)  \emph{Short-Time-Living Sorites Paradox}: Similarly, there is not a clear frontier between the \it{long-time-living} matter and the \it{short-time-living} matter.
+
+
+
+\begin{thebibliography}{9}
+
+\bibitem{Le} Le, C. T., {\em The Smarandache Class of Paradoxes}, J. Indian Acad. Math. 18, 53-55, 1996.
+\bibitem{Mitroiescu} Mitroiescu, I., {\em The Smarandache's Class of Paradoxes Applied in Computer Science}, Abstracts of Papers Presented to the Amer. Math. Soc. 16, 651, 1995. 
+\bibitem{Niculescu} Niculescu, G., \htmladdnormallink{\em On Quantum Smarandache Paradoxes}{http://at.yorku.ca/cgi-bin/amca/caft-20}, York University, Canada, 2000.
+\bibitem{Smarandache1} Smarandache, F., {\em Invisible Paradox}, \htmladdnormallink{\em Neutrosophy. / Neutrosophic Probability, Set, and Logic}{http://www.gallup.unm.edu/~smarandache/eBook-Neutrosophics2.pdf}, Rehoboth, pp. 22-23, 1998; third edition.
+\bibitem{Smarandache2} Smarandache, F., {\em Sorites Paradoxes}, \htmladdnormallink{\em Definitions, Solved and Unsolved Problems, Conjectures, and Theorems in Number Theory and Geometry}{http://www.gallup.unm.edu/~smarandache/Definitions-book.pdf}, Phoenix, pp. 69-70, 2000.
+\bibitem{Smarandache3} Smarandache, F., {\em Quantum Quasi-Paradoxes and Quantum Sorites Paradoxes}, Infinite Energy, Concord, NH, USA, Vol. 11, Issue 66, March/April, 40-41, 2006.
+\bibitem{Weisstein} Weisstein, E. W., \htmladdnormallink{\em Smarandache Paradox}{http://mathworld.wolfram.com/SmarandacheParadox.html},  
+CRC Concise Encyclopedia of Mathematics, CRC Press, Boca Raton, Florida, p. 1661, 1998.
+\end{thebibliography}</content>
+</record>

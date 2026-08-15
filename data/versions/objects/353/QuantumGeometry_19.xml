@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="19" id="353">
+ <title>Quantum Geometry</title>
+ <name>QuantumGeometry</name>
+ <created>2009-01-07 08:40:14</created>
+ <modified>2009-02-13 05:11:34</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>$SO(2</concept>
+	<concept>1)$ gauge-covariant derivative</concept>
+	<concept>quantum spin foams</concept>
+	<concept>curvature two-form</concept>
+	<concept>quantum 6j-symbols</concept>
+	<concept>(2+1)-dimensional quantum gravity</concept>
+	<concept>(3+1)-dimensional quantum gravity</concept>
+	<concept>triangulation methods for quantized spacetimes</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Quantum Geometry" alias="Quantum Algebraic Topology"/>
+	<synonym concept="Quantum Geometry" alias="loop quantum gravity"/>
+ </synonyms>
+ <related>
+	<object name="Quantum6jSymbolsAndTQFTStateOnTheTetrahedron"/>
+ </related>
+ <keywords>
+	<term>quantum operator algebras</term>
+	<term>quantum geometry</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>This is a contributed topic on:
+\section{Quantum Geometry}
+In 4 dimensions, one of the attractive programs of spacetime quantization is ``quantum geometry'', often represented as ``loop quantum gravity'' .
+Loop quantum gravity starts with a Hamiltonian formulation of the first order formalism, with constraints, written in analogy to the (3+1)-dimensional case   that take the form:
+
+$$D_i E^{ia} =0,$$  
+$$ E^i_a R^a_{ij} =0,$$ and  
+$$\epsilon_{abc}E^{ib}E^{jc}R^a_{ij}=0,$$
+
+ 
+where the indices $i,j$ and $k$ are the spatial indices on a surface of constant time, $$E^{ia}= \epsilon^{ij}e^a_j,$$
+ $D_i$  is the $SO(2,1)$  gauge-covariant derivative for the connection $\omega$, and the $R^a_{ij}$ are the spatial components of the curvature two-form.
+
+\subsection{Lattice methods and Spin Foams}
+Ponzano-Regge and Turaev-Viro models are examples of ``spin foam'' models    that is, they are models based on simplicial complexes with faces, edges, and vertices labeled by group representations and intertwiners.
+Spin foam models are based on a fixed triangulation of spacetime, with edge lengths serving as the basic gravitational variables. An alternative scheme is ``dynamical triangulation'', in which edge lengths are fixed and the path integral is represented as a sum over triangulations. 
+
+Dynamical triangulation is a useful alternative to spin foams that has been shown to provide a useful method in two-dimensional gravity.
+
+\subsection{Quantum 6j-symbols related to `Spherical' (i.e., curved) Tetrahedra (rather than flat tetrahedra)} 
+
+\subsection{Discussion}
+Several quantum observables whose expectation values generally give topological information about the nature of quantized spacetime have been already considered but-- with very few exceptions-- the results in this area has remain largely mathematical in nature; thus, surprisingly little is understood about the physics of such observables, although some are most likely to be related to length and perhaps volumes, whereas other observables are connected to scattering amplitudes for quantum paricles.
+
+``Perhaps the most important lesson of (2+1)-dimensional quantum gravity is that general relativity can, in fact, be quantized.'' (\PMlinkexternal{download here a concise online review}{http://relativity.livingreviews.org/Articles/lrr-2005-1/articlesu13.html})</content>
+</record>

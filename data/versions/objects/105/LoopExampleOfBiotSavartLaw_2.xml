@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="105">
+ <title>loop example of Biot-Savart law</title>
+ <name>LoopExampleOfBiotSavartLaw</name>
+ <created>2006-01-14 21:45:06</created>
+ <modified>2006-01-14 23:17:53</modified>
+ <type>Example</type>
+<parent id="104">quarter loop example of Biot-Savart law</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Gz"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Here we will examine two examples of the Biot-Savart law, one simple and the other more challenging.  To begin we will find the magnetic field at the center of a current carrying loop as shown in figure 1
+
+\begin{figure}
+\includegraphics[scale=.8]{CurrentLoop.eps}
+\vspace{10 pt}
+\caption{Figure 1: Current Loop}
+\end{figure}
+
+this setup is the same as the quater loop example of Biot-Savart law where  we have
+
+$$ d{\bf l} \times \hat{{\bf r}} = dl \, sin(\pi/2) $$
+$$dl = r d\theta$$
+
+giving us a similar integral, except from 0 to 2 $\pi$ and the lack of a minus sign since the current is going in the opposite direction so the magnetic field will be out of the web browser
+
+$$ {\bf B} = \hat{{\bf k}} \frac{\mu_0 I}{4 \pi r} \int_0^{2\pi} \, d \theta $$
+
+taking the integral gives the magnetic field at the center of the loop
+
+$$ {\bf B} = \frac{\mu_0 I \hat{{\bf k}}}{2 \pi r} $$
+
+The second more challenging example is the magnetic field at a point z above the loop as shown in figure 2
+
+\begin{figure}
+\includegraphics[scale=.8]{AxisCurrentLoop.eps}
+\vspace{10 pt}
+\caption{Figure 2: Current Loop}
+\end{figure}
+
+The not so obvious hint is the direction of $d{\bf B}$.  The cross product of ${\bf \hat{r}}$ with $d{\bf l}$ leads to a vector perpendicular to both of them and as you go around the loop, $d{\bf B}$ will always be off the z axis by an angle $\phi$.  This makes all the horizontal components of $d{\bf B}$ cancel leaving just the vertical so
+
+$$ d{\bf l} \times {\bf \hat{r}} = dl \, cos(\phi) \hat{{\bf k}} $$
+
+
+once again the differential is given as $$dl = R d\theta$$, so the integral to get the magnetic field is 
+
+$$ {\bf B} = \hat{{\bf k}} \frac{\mu_0 I R}{4 \pi r^2} \int_0^{2\pi} \, cos(\phi) \, d \theta $$
+
+From the geometry of the problem we see that 
+
+$$ r^2 = R^2 + z^2 $$
+$$ cos(\phi) = \frac{R}{r} $$
+
+this leads to
+
+$$ r = \sqrt{R^2 + z^2} $$
+$$ cos(\phi) = \frac{R}{\sqrt{R^2 + z^2}} $$
+
+substituting these relations into the integral
+
+$$ {\bf B} = \hat{{\bf k}} \frac{\mu_0 I R^2}{4 \pi (R^2 + z^2)^{\frac{3}{2}}} \int_0^{2\pi} \, d \theta $$
+
+Finally, taking the integral gives us the magnetic field
+
+$$ {\bf B} = \frac{\mu_0 I R^2 \, \hat{{\bf k}}}{2 (R^2 + z^2)^{\frac{3}{2}}} $$</content>
+</record>

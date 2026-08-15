@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="610">
+ <title>motion of the center of mass</title>
+ <name>MotionOfTheCenterOfMass</name>
+ <created>2009-03-27 14:13:33</created>
+ <modified>2009-03-27 14:15:49</modified>
+ <type>Theorem</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>put emphasis on k in kth particle, etc</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.Cc"/>
+ </classification>
+ <synonyms>
+	<synonym concept="motion of the center of mass" alias="motion of the centre of mass"/>
+ </synonyms>
+ <related>
+	<object name="CentreOfMass"/>
+	<object name="CenterOfMassExamples"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>We start with a system of $N$ particles.  The kth particle is subject to the following forces:  A number of external forces which we replace by their resultant $\mathbf{F}_k$; further, the force $\mathbf{F}_1k$ due to the presence of the of the first particle, $\mathbf{F}_2k$ from the second and in general, $\mathbf{F}_ik$ from the ith particle.  The equation of motion for the kth particle is thus
+
+\begin{equation}
+m_k \frac{d^2 \mathbf{r}_k}{dt^2} =  \mathbf{F}_k + \sum_i  \mathbf{F}_ik
+\end{equation}
+
+There are $N$ such equations, one for each particle.  Imagine them all written down and added together:
+
+\begin{equation}
+\sum_k m_k \frac{d^2 \mathbf{r}_k}{dt^2} =  \sum_k \mathbf{F}_k + \sum_k \sum_i  \mathbf{F}_ik
+\end{equation}
+
+Since the internal forces having both subscripts alike do not exist, according to our notation, the combinations $k=i$ are to be excluded from the double sum.  Now for every force $\mathbf{F}_{jk}$, the force exerted by the \emph{j}th particle on the \emph{k}th, there corresponds a force $\mathbf{F}_{kj}$ that exerted by the \emph{k}th particle on the \emph{j}th and these two forces are equal and opposite.  Hence the double sum vanishes, and \textbf{the internal forces of the system cancel out in the summation}.  There remains in the right member only the vector sum of the external forces acting on the individual particles.  We now define the center of mass of a system to be a point whose radius vector $\mathbf{r}$(referred to an arbitrary center) multiplied by the total mass of the system is equal to the vector sum of the products of individual radius vectors of the separate particles with the corresponding masses:
+
+\begin{equation}
+M\mathbf{r} = \sum_k m_k \mathbf{r}_k
+\end{equation}
+
+If we substitute this expression in equation (2), we have the theorem
+
+\begin{equation}
+M \frac{d^2 \mathbf{r}}{dt^2} = \sum_k \mathbf{F}_k
+\end{equation}
+
+\textbf{The center of mass of a system moves as if the entire mass of the system were concentrated there, with the resultant of the externally applied forces acting at that point}.  In particular, if there are no external forces, the center of mass remains at rest or in a state of uniform rectilinear motion.  As is well known, this theorem is the basis of the explanation of recoil phenomena.  For example, if a shot is fired from a cannon standing upon a smooth horizontal plane, then the gun must spring back with a velocity such that the common center of mass of cannon and projectile remains in the vertical line through the point of firing for, neglecting friction of the gun with the ground, the only external force is gravity, which has no horizontal component.
+
+Since the most universal external force is that of gravity, the center of mass is commonly referred to as the \textbf{center of gravity}.  Another name for it in equally general use is the \textbf{center of inertia}.  The following elementary considerations are useful in determining this point:  If $\mathbf{r}$ is the radius vector of the center of gravity of two particles $m_1$ and $m_2$, then
+
+$$ (m_1 + m_2) \mathbf{r} = m_1 \mathbf{r}_1 + m_2\mathbf{r}_2$$
+
+or
+
+$$ m_1 (\mathbf{r} - \mathbf{r}_1) = m_2 (\mathbf{r}_2 - \mathbf{r})$$
+
+this means that the vectors $\mathbf{r} - \mathbf{r}_1$ and $\mathbf{r}_2 - \mathbf{r}$ are parallel.  But since they have the terminus of $ \mathbf{r}$ in common, the three points $m_1$, $m_2$ and the center of gravity are collinear.  The position of the center of gravity is determined by
+
+$$ \left| \frac{\mathbf{r} - \mathbf{r}_1}{\mathbf{r}_2 - \mathbf{r}} \right | = \frac{m_2}{m_1}$$
+
+We thus have the rule:  The center of gravity of two particles $m_1$ and $m_2$ divides the distance between the particles in the ratio of the two masses, the center fo gravity being nearer the larger masss.  If, now, a third particle be added to the system, the center of gravity of the set will be the center of gravity of $m_3$ and the original ceter of gravity, where both $m_1$ and $m_2$ may be considered concentrated.  It is readily seen that the center of gravity, found in this way, is independent of the order in which the particles are taken.  The procedure is similar for additional particles.
+
+\subsection{References}
+
+[1] Joos, Georg. "Theoretical Physics"  3rd Edition, Hafner Publishing Company; New York, 1954.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

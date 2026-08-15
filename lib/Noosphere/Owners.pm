@@ -110,7 +110,9 @@ sub showOwnerHistory {
 
 	my $from = $params->{'from'};
 	my $objectid = $params->{'id'};
-
+	my $html_out = '';
+	my @owners_array = ();
+	my $tt_file = 'ownerhistory.tt';
 	my $template = new XSLTemplate('ownerhistory.xsl');
 
 	my $list = getPastOwners($from, $objectid);
@@ -122,6 +124,12 @@ sub showOwnerHistory {
 	foreach my $owner (@$list) {
 
 		$template->addText('<owner>');
+		push(@owners_array,{ 
+				username 		=> $owner->{username},
+				date 			=> $owner->{date},
+				userid			=> $owner->{userid},
+				action			=> $owner->{action},
+		});
 
 		foreach my $key (keys %$owner) {
 			$template->setKey($key, $owner->{$key});
@@ -132,7 +140,22 @@ sub showOwnerHistory {
 	
 	$template->addText('</ownerhistory>');
 
-	return $template->expand();
+	my $vars = {
+        	title       	=> $title,
+			objectid		=> $objectid,
+			table			=> $from,
+			owners			=> \@owners_array,
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html_out) || die "Template process failed: ", $tt->error(), "\n";
+
+	#return $template->expand();
+	return $html_out;
 }
 
 

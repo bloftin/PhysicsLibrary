@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="13" id="35">
+ <title>Euler Angle Sequences</title>
+ <name>EulerAngleSequences</name>
+ <created>2005-03-03 18:54:43</created>
+ <modified>2005-08-14 15:25:44</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble></preamble>
+ <content>A list of the Euler angle rotation matrics for different sequences
+
+1-2-3
+
+$
+R_3(\psi)R_2(\theta)R_1(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} &amp; c_{\psi} s_{\theta} s_{\phi} + s_{\psi} c_{\phi} &amp; -c_{\psi} s_{\theta} c_{\phi} + s_{\psi} s_{\phi} \\
+-s_{\psi} c_{\theta} &amp; -s_{\psi} s_{\theta} s_{\phi} + c_{\psi} c_{\phi} &amp; s_{\psi} s_{\theta} c_{\phi} + c_{\psi} s_{\phi} \\
+s_{\theta} &amp; -c_{\theta} s_{\phi} &amp; c_{\theta} c_{\phi} \end{array} \right] $
+
+2-1-3
+
+$
+R_3(\psi)R_1(\theta)R_2(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\phi} + s_{\psi} s_{\theta} s_{\phi} &amp; s_{\psi} c_{\theta} &amp; -c_{\psi} s_{\phi} + s_{\psi} s_{\theta} c_{\phi} \\
+-s_{\psi} c_{\phi} + c_{\psi} s_{\theta} s_{\phi} &amp; c_{\psi} c_{\theta} &amp; s_{\psi} s_{\phi} + c_{\psi} s_{\theta} c_{\phi} \\
+c_{\theta} s_{\phi} &amp; -s_{\theta} &amp; c_{\theta} c_{\phi} \end{array} \right] $
+
+3-2-1
+
+$
+R_1(\psi)R_2(\theta)R_3(\phi) = \left[ \begin{array}{ccc}
+c_{\theta} c_{\phi} &amp; c_{\theta} s_{\phi} &amp; s_{\theta} \\
+- c_{\psi} s_{\phi} - s_{\psi} s_{\theta} c_{\phi} &amp; c_{\psi} c_{\phi} - s_{\psi} s_{\theta} s_{\phi} &amp; s_{\psi} c_{\theta} \\
+s_{\psi} c_{\phi} - c_{\psi} s_{\theta} s_{\phi} &amp; -s_{\psi} c_{\phi} - c_{\psi} s_{\theta} s_{\phi} &amp; c_{\psi} c_{\theta} \end{array} \right] $
+
+
+3-1-3
+
+$
+R_3(\psi)R_1(\theta)R_3(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\phi} - s_{\psi} s_{\phi} c_{\theta} &amp; c_{\psi} s_{\phi} + s_{\psi} c_{\theta} c_{\phi} &amp; s_{\psi} s_{\theta} \\
+-s_{\psi} c_{\phi} - c_{\psi} s_{\phi} c_{\theta} &amp; -s_{\psi} s_{\phi} + c_{\psi} c_{\theta} c_{\phi} &amp; c_{\psi} s_{\theta} \\
+s_{\theta} s_{\phi} &amp; -s_{\theta} c_{\phi} &amp; c_{\theta} \end{array} \right] $
+
+3-2-3
+
+$
+R_3(\psi)R_2(\theta)R_3(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} c_{\phi} - s_{\psi} s_{\phi} &amp; c_{\psi} c_{\theta} s_{\phi} + s_{\psi} c_{\phi} &amp; c_{\psi} \\
+- s_{\psi} c_{\theta} c_{\phi} - c_{\psi} s_{\phi} &amp; -s_{\psi} c_{\theta} s_{\phi} + c_{\psi} c_{\phi} &amp; -s_{\psi} s_{\theta} \\
+-s_{\theta} c_{\phi} &amp; -s_{\theta} s_{\phi} &amp; c_{\theta} \end{array} \right] $
+
+2-3-2
+
+$$ \left[
+\begin{array}{ c c c }
+ -s_3 s_1 + c_2 c_3 c_1 &amp; s_2 c_3 &amp; -s_3 c_1 - c_2 c_3 s_1 \\
+  -s_2 c_1 &amp; c_2 &amp; s_2 s_1 \\
+  c_3 s_1 + c_2 s_3 c_1 &amp; s_2 s_3 &amp; c_3 c_1 - c_2 s_3 s_1
+\end{array} \right] $$
+
+1-3-1
+
+$$ \left[
+\begin{array}{ c c c }
+ c_2 &amp; s_2 c_1 s_2 &amp; s_2 s_1 \\
+  -s_2 c_3 &amp; s_3 s_1 + c_2 c_3 c_1 &amp; c_2 c_3 s_1 + s_3 c_1 \\
+  s_2 s_3 &amp; -c_2 s_3 c_1 - c_3 s_1 &amp; c_3 c_1 - c_2 s_3 s_1
+\end{array} \right] $$
+
+2-1-2
+
+$$ \left[
+\begin{array}{ c c c }
+ c_3 c_1 - c_2 s_3 s_1 &amp; s_2 s_3 &amp; -c_2 s_3 c_1 - c_3 s_1 \\
+ s_2 s_1 &amp; c_2 &amp; s_2 c_1 \\
+ c_2 c_3 s_1 + s_3 c_1 &amp; -s_2 c_3 &amp; -s_3 s_1 + c_2 c_3 c_1
+\end{array} \right] $$
+
+2-3-1
+
+$$ \left[
+\begin{array}{ c c c }
+ c_2 c_1 &amp; s_2 &amp; -c_2 s_1 \\
+ s_3 s_1 - s_2 c_3 c_1 &amp; c_2 c_3 &amp; s_3 c_1 + s_2 c_3 s_1 \\
+ c_3 s_1 + s_2 s_3 c_1 &amp; -c_2 s_3 &amp; c_3 c_1 - s_2 s_3 s_1
+\end{array} \right] $$
+
+3-1-2
+
+$$ \left[
+\begin{array}{ c c c }
+ c_3 c_1 - s_2 s_3 s_1 &amp; c_3 s_1 + s_2 s_3 c_1 &amp; -c_2 s_3 \\
+ -c_2 s_1 &amp; c_2 c_1 &amp; s_2 \\
+ s_3 c_1 + s_2 c_3 s_1 &amp; s_3 s_1 - s_2 c_3 c_1 &amp; c_2 c_3
+\end{array} \right] $$
+
+1-2-1
+
+$$ \left[
+\begin{array}{ c c c }
+ c_2 &amp; s_2 s_1 &amp; -s_2 c_1 \\
+ s_2 s_3 &amp; c_3 c_1 - c_2 s_3 s_1 &amp; c_3 s_1 + c_2 s_3 c_1 \\
+ s_2 c_3 &amp; -s_3 c_1 - c_2 c_3 s_1 &amp; -s_3 s_1 + c_2 c_3 c_1
+\end{array} \right] $$
+
+1-3-2
+
+$$ \left[
+\begin{array}{ c c c }
+ c_2 c_3 &amp; s_2 c_3 c_1 + s_3 s_1 &amp; s_2 c_3 s_1 - s_3 c_1 \\
+ -s_2 &amp; c_2 c_1 &amp; c_2 s_1 \\
+ c_2 s_3 &amp; s_2 s_3 c_1 - c_3 s_1 &amp; s_2 s_3 s_1 + c_3 c_1
+\end{array} \right] $$</content>
+</record>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="182">
+ <title>Dalton's law</title>
+ <name>DaltonsLaw</name>
+ <created>2006-06-02 12:55:14</created>
+ <modified>2006-06-02 12:55:14</modified>
+ <type>Derivation</type>
+<parent id="178">ideal gas law</parent>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <comment>1801</comment>
+ <author id="21" name="pahio"/>
+ <defines>
+	<concept>partial pressure</concept>
+ </defines>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The gases are mixable with each other in all proportions.\, Since the ideal gas law
+\begin{align}
+pV = nRT
+\end{align}
+is valid for any ideal gas, one may think that it's insignificant whether the mole number $n$ concerns one single gas or several gases.\, It is true, which can be shown experimentally.
+
+Let's think that we mix the volumes $V_1$, $V_2$, ..., $V_k$ different gases having an equal pressure $p$ and an equal temperature $T$.\, If one measures the volume $V$ of the mixture in the same pressure and temperature, one notices that
+$$V = V_1+V_2+...+V_k.$$
+Each of the gases satisfies the equation\, $pV_i = n_iRT$,\, and thus
+\begin{align}
+pV = pV_1+pV_2+...+pV_k = (n_1+n_2+...+n_k)RT.
+\end{align}
+This is similar as the general equation (1).\, If we think that the same volume $V$ would be filled by any of the gases alone, we had an equation
+$$p_iV = n_iRT$$
+for each gas; here the pressure $p_i$, i.e. $n_iRT/V$, is called the {\em partial pressure} of the gas $i$.\, By (2), we have
+$$p = (n_1+n_2+...+n_k)\frac{RT}{V} = 
+n_1\frac{RT}{V}+n_2\frac{RT}{V}+...+n_k\frac{RT}{V} = 
+       p_1+p_2+...+p_k.$$
+Accordingly we have obtained the
+
+\textbf{Dalton's law.}\, The pressure of a gas mixture is equal to the sum of the partial pressures the component gases.</content>
+</record>

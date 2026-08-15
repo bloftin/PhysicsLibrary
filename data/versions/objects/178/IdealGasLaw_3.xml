@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="178">
+ <title>ideal gas law</title>
+ <name>IdealGasLaw</name>
+ <created>2006-05-27 14:17:43</created>
+ <modified>2006-06-03 01:58:47</modified>
+ <type>Topic</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <comment>the value of R</comment>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="51.30.+i"/>
+	<category scheme="msc" code="51.35.+a"/>
+ </classification>
+ <synonyms>
+	<synonym concept="ideal gas law" alias="ideal gas equation"/>
+ </synonyms>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The equation that characterizes any amount of a gas is
+$$pV = nRT,$$
+where $p$ is the pressure, $V$ the volume, $n$ the number of gas moles, $R$ the universal gas constant, and $T$ the absolute temperature of the gas.
+
+The gas law is accurately valid for an ideal gas, but a good approximation for real gases.
+
+The law contains the following gas laws:
+\begin{itemize}
+\item Boyle--Mariotte law ($pV =$\, constant when $n$ and $T$ are constants)
+\item Gay--Lussac law ($\frac{V}{T} =$\, constant when $n$ and $p$ are constants)
+\item Avogadro's law (in equal conditions, equal volumes of different gases contain the same number of molecules)
+\end{itemize}</content>
+</record>

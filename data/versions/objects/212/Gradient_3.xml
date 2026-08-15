@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="212">
+ <title>gradient</title>
+ <name>Gradient</name>
+ <created>2006-07-25 20:30:50</created>
+ <modified>2006-07-25 21:24:31</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="gradient" alias="gradient operator"/>
+ </synonyms>
+ <related>
+	<object name="Divergence"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The gradient is the vector sum of the resultant rate of increase of a scalar funcion $V$ and is denoted $\nabla V$.  It represents a directed rate of change of $V$.  A directed derivative or vector derivative of $V$, so to speak.  In cartesian coordinates
+
+\begin{equation}
+\nabla V = \frac{ \partial V}{\partial x} {\bf \hat{i}} + \frac{ \partial V}{\partial y} {\bf \hat{j}} + \frac{ \partial V}{\partial z} {\bf \hat{k}}  
+\end{equation}
+
+It is common to regard $\nabla$ as the gradient operator which obtains a vector $\nabla V$ from a scalar function $V$ of position in space.
+
+$$ \nabla V = \left ( \frac{ \partial }{\partial x} {\bf \hat{i}} + \frac{ \partial }{\partial y} {\bf \hat{j}} + \frac{ \partial }{\partial z} {\bf \hat{ik}} \right ) V $$
+
+Thus it is easy to work with just the gradient operator
+
+\begin{equation}
+\nabla V = \frac{ \partial }{\partial x} {\bf \hat{i}} + \frac{ \partial }{\partial y} {\bf \hat{j}} + \frac{ \partial }{\partial z} {\bf \hat{k}}  
+\end{equation}
+
+This symbolic operator $\nabla$ was introduced by Sir W. R. Hamilton.  It has been found by experience that the monosyllable \emph{del} is so short and easy to pronounce that even in complicated formulas in which $\nabla$ occurs a number of times no inconvenience to the speaker or hearer arises from the repetition.  $\nabla V$ is read simply as "del $V$."
+
+\subsection{Coordinate System Independence}
+
+Although this operator $\nabla$ has been defined as 
+
+$$\nabla V = \frac{ \partial }{\partial x} {\bf \hat{i}} + \frac{ \partial }{\partial y} {\bf \hat{j}} + \frac{ \partial }{\partial z} {\bf \hat{k}} $$
+
+so that it appears to depend upon the choice of the axes, it is in reality independent of them.  This would be surmised from the interpretation of $\nabla$ as the magnitude and direction of the most rapid increase of $V$.  To demonstrate the independence take another set of axes, ${\bf \hat{i}'}$, ${\bf \hat{j}'}$, ${\bf \hat{k}'}$ and a new set of variables $x'$, $y'$, $z'$ referred to them.  Then $\nabla$ referred to this system is 
+
+$$\nabla' = \frac{ \partial }{\partial x'} {\bf \hat{i'}} + \frac{ \partial }{\partial y'} {\bf \hat{j'}} + \frac{ \partial }{\partial z'} {\bf \hat{k'}} $$
+
+
+(Please Insert PROOF here...)
+
+
+Leaving behind the proof of coordinate system independence, here is the gradient opertor in the most common coordinate systems.
+
+Cartesian Coordinates
+
+\begin{equation}
+\nabla V = \frac{ \partial V}{\partial x} {\bf \hat{i}} + \frac{ \partial V}{\partial y} {\bf \hat{j}} + \frac{ \partial V}{\partial z} {\bf \hat{k}}  
+\end{equation}
+
+Cylindrical Coordinates
+
+\begin{equation}
+\nabla V = \frac{ \partial V}{\partial r} {\bf \hat{r}} + \frac{1}{r}\frac{ \partial V}{\partial \theta} {\bf \hat{\theta}} + \frac{ \partial V}{\partial z} {\bf \hat{z}}  
+\end{equation}                                  
+
+Spherical Coordinates
+
+\begin{equation}
+\nabla V = \frac{ \partial V}{\partial r} {\bf \hat{r}} + \frac{1}{r}\frac{ \partial V}{\partial \phi} {\bf \hat{\phi}} + \frac{1}{r \sin \phi}\frac{ \partial V}{\partial \theta} {\bf \hat{\theta}}  
+\end{equation}
+
+\subsection{References}
+
+[1] Wilson, E. "Vector Analysis." Yale University Press, New Haven, 1913.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

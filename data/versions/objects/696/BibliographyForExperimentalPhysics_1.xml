@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="696">
+ <title>bibliography for experimental physics</title>
+ <name>BibliographyForExperimentalPhysics</name>
+ <created>2009-04-29 13:07:27</created>
+ <modified>2009-04-29 13:07:27</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <keywords>
+	<term>experimental physics literature</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic containing a current bibliography for experimental physics of both recently published papers and archived preprints in Experimental Physics. 
+\section{Experimental Physics: Recent Literature}
+
+\textbf{Entry in progress}</content>
+</record>

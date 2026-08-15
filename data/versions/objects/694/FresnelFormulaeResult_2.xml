@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="694">
+ <title>Fresnel formulae result</title>
+ <name>FresnelFormulaeResult</name>
+ <created>2009-04-29 09:57:17</created>
+ <modified>2009-04-29 09:58:04</modified>
+ <type>Result</type>
+<parent id="649">Fresnel formulae</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <preamble></preamble>
+ <content>The Fresnel formulae presented in the parent entry-- that the proof refers to-- are as follows:
+
+$$\int_0^\infty\!\cos{x^2}\,dx \,=\, \int_0^\infty\!\sin{x^2}\,dx \,=\, \frac{\sqrt{2\pi}}{4}$$
+
+(invisible there only in the Tex code mode because of a current quirk with pstricks vs. Tex).</content>
+</record>

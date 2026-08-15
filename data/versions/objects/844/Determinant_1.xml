@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="844">
+ <title>Determinant</title>
+ <name>Determinant</name>
+ <created>2010-02-21 01:10:36</created>
+ <modified>2010-02-21 01:10:36</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In attempting to solve a linear system of equations for $x^1$, $x^2$ and $x^3$
+
+\begin{equation}
+\begin{array}{ccc} a_1x^1 + b_1x^2 +c_1x^3 &amp; = &amp; d_1 \\ 
+a_2x^1 + b_2x^2 + c_2x^3 &amp; = &amp; d_2 \\
+a_3x^1 + b_3x^2 + c_3x^3 &amp; = &amp; d_3 \end{array}
+\end{equation}
+
+one is led in a very natural way to consider the square array
+
+\begin{equation}
+\left | \begin{array}{ccc} a_1^1 &amp; a_2^1  &amp; a_3^1 \\ 
+a_1^2 &amp; a_2^2  &amp; a_3^2 \\
+a_1^3 &amp; a_2^3  &amp; a_3^3 \end{array} \right |
+\end{equation}
+
+We have written $a_{ij} = a_j^i, i, j = 1, 2, 3$.  The solution of (1) requires that we attach a numerical value to the matrix of elements (2).  We do this in the following way:  We attach $3^3 = 27$ numerical values to a set of $\epsilon^{ijk}, i, j, k = 1, 2, 3$.  If at least two of the superscripts in $\epsilon^{ijk}$ are the same, the value of $\epsilon^{ijk}$ is zero.  Thus $\epsilon^{223} = \epsilon^{131} = \epsilon^{333} = 0$, etc. If the $i$, $j$, $k$ are all different, the value of $\epsilon^{ijk}$ is to be $+1$ or $-1$ according to whether it takes an even or odd number of permutations to rearrange the $ijk$ into the natural order $123$.  Let us lood at $\epsilon^{321}$ and hence at the arrangement $321$.  Permuting the integers $2$ and $3$ permutes $321$ into $231$, then permuting $3$ and $1$ permutes $231$ into $213$, and finally $213$ permutes into $123$ if we interchange the integers $2$ and $1$.  Three (an odd number) permutations were required to permute $321$ into $123$.  Thus $\epsilon^{123} = -1$.  We have
+
+$$\epsilon^{123} = \epsilon^{312} = \epsilon^{231} = +1$$
+$$\epsilon^{213} = \epsilon^{321} = \epsilon^{132} = -1$$
+
+We now define
+
+\begin{equation}
+\left | \begin{array}{ccc} a_1^1 &amp; a_2^1  &amp; a_3^1 \\ 
+a_1^2 &amp; a_2^2  &amp; a_3^2 \\
+a_1^3 &amp; a_2^3  &amp; a_3^3 \end{array} \right | \equiv \epsilon^{ijk}a_i^1 a_j^2 a_k^3
+\end{equation}
+
+The letters $i$, $j$, $k$ are indices of summation.  Equation (3) defines the determinant of the square matrix of elements (2)  Its numerical value is given by the right-hand side of (3).  It consists, in general, of $3! = 3 \cdot 2 \cdot 1 = 6$ terms, each term a product of three elements, one element from each row and column of (3).  Expand (3) to get
+
+$$\epsilon^{ijk}a_i^1 a_j^2 a_k^3 = ( a_1^1 a_2^2 a_3^3 + a_3^1 a_1^2 a_2^3 + a_2^1 a_3^2 a_1^3) - (a_2^1 a_1^2 a_3^3 + a_3^1 a_2^2a_1^3 + a_1^1 a_3^2 a_2^3)$$
+
+Only $3! = 6$ terms occur in the exapansion of (3) since there are $3!$ permutations of $123$.  All other values of $\epsilon_{ijk}$ are zero.  
+
+We can define $\epsilon_{ijk}$ in exactly the same manner in which the $\epsilon^{ijk}$ were defined.  We leave it to the reader to show that
+
+$$ \epsilon^{ijk}a_i^1 a_j^2 a_k^3 = \epsilon_{ijk}a_1^i a_2^j a_3^k $$
+
+The generalization of second and third order determinants (the order of a determinant is the number of rows or columns of the determinant) to the $n$th order determinants is simple.  We define the $\epsilon^{i_1i_2 \cdots i_n}$ to have the following numerical values: $\epsilon^{i_1i_2 \cdots i_n} = 0$ if at least two of the superscripts are the same.  The values of the superscripts range from $1$ to $n$.  If the $i_1, i_2, \dots, i_n$ are distinct, the value of $\epsilon^{i_1i_2 \cdots i_n}$ is to be $+1$ or $-1$ depending on whether an even or odd number of permutations is required to rearrange $i_1, i_2, \dots, i_n$ into the natural order $123 \cdots n$.  The numerical value (determinant) of the square array of elements $\left \|  a_j^i \right \|$, $i, j = 1,2,\dots,n$, is defined as
+
+
+$$\left | a_j^i \right | = \left | \begin{array}{cccc} a_1^1 &amp; a_2^1 &amp; \dots &amp; a_n^1 \\ 
+a_1^2 &amp; a_2^2 &amp; \dots &amp; a_n^2 \\
+\dots &amp; \dots &amp; \dots &amp; \dots \\
+a_1^n &amp; a_2^n &amp; \dots &amp; a_n^n \end{array} \right |
+$$
+
+$$\left | a_j^i \right | = \epsilon^{i_1i_2 \cdots i_n}a_{i_1}^1 a_{i_2}^2 \cdots a_{i_n}^n$$
+
+\begin{equation}
+\left | a_j^i \right | = \epsilon_{i_1i_2 \cdots i_n}a_1^{i_1} a_2^{i_2} \cdots a_n^{i_n}
+\end{equation}
+ 
+where the $\epsilon_{i_1i_2 \cdots i_n}$ are defined in precisely the same manner in which the $\epsilon^{i_1i_2 \cdots i_n}$ are defined.  In general, (4) consists of $n!$ terms, each term a product of elements, one element fom each row and column of $\left | a_j^i \right |$.
+
+To facilitate writing, we shall deal with third order determinants, but it will be obvious to the reader that  any theorem derived for third order determinants will apply to determinants of any finite order.  Le us consider
+
+\begin{equation}
+\Delta = \left | \begin{array}{ccc} a_1^1 &amp; a_2^1  &amp; a_3^1 \\ 
+a_1^2 &amp; a_2^2  &amp; a_3^2 \\
+a_1^3 &amp; a_2^3  &amp; a_3^3 \end{array} \right | = \epsilon^{ijk}a_i^1 a_j^2 a_k^3 = \epsilon_{ijk}a_1^i a_2^j a_3^k
+\end{equation}
+
+We can obtain a new third order determinant by interchanging the first and third row of $\Delta$.  This yields
+
+\begin{equation}
+\Delta^{\prime} = \left | \begin{array}{ccc} a_1^3 &amp; a_2^3  &amp; a_3^3 \\ 
+a_1^2 &amp; a_2^2  &amp; a_3^2 \\
+a_1^1 &amp; a_2^1  &amp; a_3^1 \end{array} \right | = \epsilon^{ijk}a_i^3 a_j^2 a_k^1
+\end{equation}
+
+But $\epsilon^{ijk}a_i^3 a_j^2 a_k^1 = \epsilon^{ijk}a_k^1 a_j^2 a_i^1 = \epsilon^{kji}a_i^1 a_j^2 a_k^3$, since $i$ amd $k$ are dummy indices.  We see that every term of (6) is the same as every term in (5) with the exception that $\epsilon^{ijk}$ is replaced by $\epsilon^{kji}$.  Since $\epsilon^{ijk} = - \epsilon^{kji}$, we conclude that $\Delta = -\Delta^{\prime}$.  we thus obtain the following theorems:
+
+\textbf{THEOREM 1.1}.  Interchanging two rows (or columns) of a determinant changes the sign of the determinant.
+
+\textbf{THEOREM 1.1}.  If two rows (or columns) of a determinant are the same, the value of the determinant is zero.
+
+We note that 
+
+\begin{equation}
+\Delta^{\prime \prime} = \left | \begin{array}{ccc} l a_1^1 &amp; l a_2^1  &amp; l a_3^1 \\ 
+a_1^2 &amp; a_2^2  &amp; a_3^2 \\
+a_1^3 &amp; a_2^3  &amp; a_3^3 \end{array} \right | = \epsilon^{ijk}(la_i^1) a_j^2 a_k^3 = l \Delta
+\end{equation}
+
+\textbf{THEOREM 1.3}.  If a row (or column) of a determinant is multiplied by a factor $l$, the value of the determinant is thereby multiplied by $l$.
+
+Let us now investigate the determinant
+
+$$ \Delta^{\prime \prime \prime} = \left | \begin{array}{ccc} a_1^1 + l a_1^3 &amp; a_2^1 + l a_2^3  &amp; a_3^l + l a_3^3 \\ 
+a_1^2 &amp; a_2^2  &amp; a_3^2 \\
+a_1^3 &amp; a_2^3  &amp; a_3^3 \end{array} \right | $$
+
+$$  \Delta^{\prime \prime \prime} = \epsilon^{ijk}(a_i^1 + l a_i^3) a_j^2 a_k^3 $$
+
+$$ \Delta^{\prime \prime \prime} =  \epsilon^{ijk} a_i^1 a_j^2 a_k^3 + l  \epsilon^{ijk} a_i^3 a_j^2 a_k^3$$
+
+\begin{equation}
+\Delta^{\prime \prime \prime} = \Delta
+\end{equation}
+
+since $\epsilon^{ijk} a_i^3 a_j^2 a_k^3 = 0$ from Theorem (1.2). Hence we obtain the following theorem:
+
+\textbf{THEOREM 1.4}.  The value of a determinant remains unchanged if to the elements of any row (or column) is added a scalar multiple of the corresponding elements of another row (or column).  
+
+The theorems derived above are very useful in evaluating a determinant.
+
+\section{References}
+
+[1] Lass, Harry. "Elements of pure and applied mathematics" New York: McGraw-Hill Companies, 1957.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

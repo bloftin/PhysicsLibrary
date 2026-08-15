@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="550">
+ <title>IonelSolomon</title>
+ <name>IonelSolomon</name>
+ <created>2009-02-22 13:07:41</created>
+ <modified>2009-02-23 07:18:36</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>condensed matter</concept>
+ </defines>
+ <keywords>
+	<term>biography</term>
+	<term>solid-state NMR</term>
+	<term>pulsed NMR</term>
+	<term>dipolar echoes in solids</term>
+	<term>I-I and I-S interactions</term>
+	<term>nuclear Overhauser enhancement</term>
+	<term>(NOE)</term>
+	<term>dipole-dipole interactions in solids</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\em [Entry in progress]}
+
+\section{Biography of Ionel Solomon}
+{\bf Ionel Solomon} (b. 1929-  in free, Greater Roumania) is a French-Roumanian physicist \PMlinkexternal{Member of the French Academy of Sciences}{http://www.academie-sciences.fr/membres/S/Solomon_Ionel.htm}, CNRS Research Director, former Professor at the Polytechnic School in Paris. 
+
+
+
+
+\subsection{Scientific Career}
+
+\begin{itemize}
+\item 1949--1951 PhD, Polytechnic School (\'Ecole Polytechnique) in Paris
+\item 1951--1952 Research Fellow at the University of Liverpool, UK
+\item 1955--1956 Research Fellow at Harvard University, USA
+\item 1953-1962 Researcher in the Resonance Group of the Atomic Energy Commission (Commissariat Energie Atomique in Saclay)
+\item 1962 Director of the Laboratory for Condensed Matter (Solid-State) Physics (Laboratoire de Physique de la Mati\'ere Condens\'ee), at the Polytechnic School in Paris
+\item 1962 Head of Research at C.N.R.S.
+\item 1962 Head of Conferences 
+\item 1968 CNRS Research Director
+\item 1973-1976 Physics Departement Head at the Polytechnic School in Paris
+1973-1974  President of the Societ\'e Française de Physique (the French Physics Society).
+\item 1975-1979 Professor, at the Polytechnic School in Paris 
+\item 1976 Invited Visiting Professor at the Xerox Research Center, Palo Alto,USA
+\item 1980 Invited Visiting Professor at Tokyo University
+\item 1981-1985 Founder and Scientific Director of SOLEMS Company
+\item 1987 President of the Scientific Council of PHOTOTRONICS (a French-german Company for dphotovoltaic products)
+\item 1988, June 22,  Elected Member of the Physics Institute of the  French Academy of Sciences
+\item Laboratory of Condensed Matter Physics 
+\end{itemize}
+
+
+\subsection{Major Scientific Contributions}
+ Ionel Solomon made major contributions to the fields of: Nuclear Magnetic Resonance (NMR), Solid-state physics, Semiconductors and Photovoltaics. In Nuclear Magnetic Resonance he derived fundamental equations that bear his name, and specify the nuclear spin-echo response and dipole-dipole interactions in solids (the Solomon equations).   
+
+ 
+
+\subsection{Awards and Prizes}
+
+\begin{itemize}
+\item 1958 Grand Prix for Research (with Anatole Abragam and J. Combrisson)
+\item 1963 The CNRS Silver Medal  
+\item 1969 Robin Prize of the French Physics Society (Societe Francaise de Physique)
+\item 1972 Holweck Prize of the Institute of Physics and S.F.P (French Physics Society)
+\item 1981 The Y. Peyches Prize of the Academy of Sciences
+\item XYZ
+ 
+\end{itemize}</content>
+</record>

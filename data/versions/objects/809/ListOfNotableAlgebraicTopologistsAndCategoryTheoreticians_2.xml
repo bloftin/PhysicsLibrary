@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="809">
+ <title>List of notable algebraic topologists and category theoreticians</title>
+ <name>ListOfNotableAlgebraicTopologistsAndCategoryTheoreticians</name>
+ <created>2009-06-19 23:48:08</created>
+ <modified>2009-06-19 23:52:53</modified>
+ <type>Topic</type>
+<parent id="386">biographies on PlanetPhysics-org</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <keywords>
+	<term>algebraic topologists</term>
+	<term>category theoreticians</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Notable algebraic topologists}
+\begin{itemize}
+\item Sir Michael Francis Atiyah 
+\item Karol Borsuk 
+\item Luitzen Egbertus Jan Brouwer 
+\item Ronald Brown (mathematician) 
+\item Nicolas Bourbaki 
+\item Jean Dieudonn\'e 
+\item Otto Hermann K\"unneth 
+\item Charles Ehresmann 
+\item Samuel Eilenberg 
+\item Peter Freyd 
+\item Alexander Grothendieck 
+\item Heinz Hopf 
+\item Saunders Mac Lane 
+\item J. H. C. Whitehead 
+\item Witold Hurewicz 
+\item Egbert van Kampen 
+\item William Lawvere 
+\item J.P. May 
+\item Barry Mitchell (mathematician) 
+\item Grigori Perelman 
+\item Nicolae Popescu 
+\item Daniel Quillen 
+\item Robert Rosen 
+\item Jean--Pierre Serre 
+\item Dennis Sullivan
+\end{itemize}</content>
+</record>

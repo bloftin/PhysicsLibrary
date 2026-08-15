@@ -11,6 +11,11 @@ use Noosphere::ACL;
 use Noosphere::IR;
 use Noosphere::Crossref;
 use Noosphere::Authors;
+use URI::Escape;
+use File::chdir;
+use File::Path qw(make_path); 
+use File::Copy qw( copy );
+use File::Remove 'remove';
 
 # display an encyclopedia object
 # 
@@ -18,9 +23,151 @@ sub renderEncyclopediaObj {
 	my $rec = shift;
 	my $params = shift;
 	my $userinf = shift;
+
+	my $method = $params->{'method'} || $userinf->{'prefs'}->{'method'};
+	my $html = '';
+	my $en = getConfig('en_tbl');
+	my $content = getRenderedContentHtml($en,$rec,$method);
+	my $contentbox = '';
+	my $title = $rec->{'title'};
+	my $file = 'encyclopediaobject.tt';
+
+	if ( nb($content) ) {
+
+		# draw world-writeable comment
+		#
+		dwarn "isWorldWriteable started";
+		if (isWorldWriteable($en, $rec->{'uid'})) {
+			
+			$content .= "<br /><i>Anyone <a href=\"".getConfig("main_url")."/?op=newuser\">with an account</a> can edit this entry.  Please help improve it!</i><br />";
+		}
+		dwarn "isWorldWriteable ended";
+
+		# draw owner comment. handles no owner.
+		#
+		dwarn "owner comment started";
+		if ($rec->{'userid'} > 0) {
+			$content .= "<br /><font size=\"-1\">\"".mathTitle($title)."\" is owned by <a href=\"".getConfig("main_url")."/?op=getuser&amp;id=".$rec->{'userid'}."\">".$rec->{'username'}."</a>.</font>";
+		} else {
+			my ($lastid, $lastname) = getLastData($en, $rec->{'uid'});
+			
+			$content .= "<br /><font size=\"-1\">\"".mathTitle($title)."\" has no owner. (Was owned by <a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$lastid\">$lastname</a>.  <a href=\"".getConfig("main_url")."/?op=adopt&amp;from=$params->{from}&amp;id=$rec->{uid}&amp;ask=yes\">Adopt</a>)</font>";
+		}
+		dwarn "owner comment ended ";
+		# draw author/owner list links
+		#
+		dwarn "getAuthorCount started";
+		my $acount = getAuthorCount($en, $rec->{'uid'});
+		dwarn "getAuthorCount ended";
+		my $ocount = getPastOwnerCount($en, $rec->{'uid'});
+		dwarn "getPastOwnerCount ended";
+		if ($acount > 1 || $ocount > 0) {
+			$content .= " <font size=\"-1\">[ ";
+
+			my @links;
+			push @links, "<a href=\"".getConfig("main_url")."/?op=authorlist&amp;from=$en&amp;id=$rec->{uid}\">full author list</a> ($acount)" if $acount > 1;
+			push @links, "<a href=\"".getConfig("main_url")."/?op=ownerhistory&amp;from=$en&amp;id=$rec->{uid}\">owner history</a> ($ocount)" if $ocount > 0; 
+
+			$content .= join(' | ', @links);
+
+			$content .= " ]</font>";
+		}
+		dwarn "acount ended";
+		# draw title bar, with "up" arrow for attachments, and type string.
+		#
+		my $up = '';
+		if (defined $rec->{'parentid'} && $rec->{'parentid'} >= 0) {
+			$up = getUpArrow("".getConfig("main_url")."/?op=getobj&amp;from=$en&amp;id=$rec->{parentid}",'parent');
+		}
+		
+		dwarn "getUpArrow ended";
+
+		my $btitle = "
+			<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
+				<tr>
+					<td align=\"left\">$up 
+						<font color=\"#ffffff\">".mathTitle($title, 'title')."</font>
+					</td>
+				
+					<td align=\"right\"> 
+						<font color=\"#ffffff\" size=\"-2\">(".getTypeString($rec->{type}).")
+						</font>
+					</td>
+				</tr>
+			</table>";
+
+		# ugly hack to handle failed rendering, since we don't really return
+		# an error code from rendering, just an error log.
+		#
+		my $failed = ($content =~ /rendering\s+failed/i);
+		my $isowner = ($userinf->{'uid'} == $rec->{'userid'});
+		if ($failed && !$isowner) {
+			my $ftemplate = new XSLTemplate('render_fail.xsl');	# TODO: Need to update to new Template Toolkit
+			$ftemplate->addText('<render_fail>');
+			$ftemplate->setKey('id',$rec->{'uid'});
+			$ftemplate->addText('</render_fail>');
+			$content = $ftemplate->expand();
+		}
+		dwarn "failed ended";
+		$contentbox = mathBox($btitle, $content);
+		dwarn "mathBox ended";
+	} else	{
+		dwarn "No Content";
+		my $contact = getAddr('feedback');
+		$contentbox = errorMessage("Missing cached output! Please <a href=\"mailto:$contact\">contact</a> an admin."); 
+		dwarn "getRenderContentHtml Failed!!!!"
+	}
+	dwarn "getEncyclopediaMetadata started";
+	my $metadata = getEncyclopediaMetadata($rec,$method);
+	dwarn "getEncyclopediaMetadata ended";
+	# get method select box
+	#
+	my $viewstyle = getViewStyleWidget($params,$method);
+	dwarn "getViewStyleWidget ended";
+	my $interact = makeBox('Interact',getEncyclopediaInteract($rec));
+	dwarn "getEncyclopediaInteract ended";
+	my $messages = ''; # where connect?
+	my $corrections = ''; # where connect?
+	my $admin = ''; # where connect?
+	my $author = ''; # where connect?
+	my $watch = ''; # where connect?
+
+	my $vars = {
+        mathobj        	=> $contentbox,
+		viewstyle       => $viewstyle,
+		watch     		=> $watch,
+		metadata    	=> $metadata,
+		admin           => $admin,
+		author          => $author,
+		corrections     => $corrections,
+		messages        => $messages,
+		interact        => $interact,
+    };
+	dwarn "vars ended";
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	dwarn "process ended";
+	##$html->setKey('id',$rec->{'uid'});
+	##$html->setKeys('mathobj' => $contentbox, 'metadata' => $metadata, 'interact' => $interact);
+	
+	return $html;
+
+	
+
+}
+
+
+sub renderEncyclopediaObjOld {
+	my $rec = shift;
+	my $params = shift;
+	my $userinf = shift;
  
 	my $method = $params->{'method'} || $userinf->{'prefs'}->{'method'};
-	my $html = new Template('encyclopediaobject.html');
+	my $html = new TemplateNS('encyclopediaobject.html');
 	my $en = getConfig('en_tbl');
 	my $content = getRenderedContentHtml($en,$rec,$method);
 	my $contentbox = '';
@@ -137,6 +284,8 @@ sub getRandomEntry {
 		if getConfig('dbms') eq 'pg';
 	$count = dbEval("count(*) from $tbl")
 		if getConfig('dbms') eq 'mysql';
+	$count = dbEval("count(*) from $tbl")
+        if getConfig('dbms') eq 'MariaDB';
 
         $index = int(rand($count));
        
@@ -147,6 +296,8 @@ sub getRandomEntry {
 		if getConfig('dbms') eq 'pg';
 	$uid = dbEval("uid from $tbl limit $index,1")
 		if getConfig('dbms') eq 'mysql';
+	$uid = dbEval("uid from $tbl limit $index,1")
+        if getConfig('dbms') eq 'MariaDB';
 
 	# "stuff" the proper getobj params
 	#
@@ -225,7 +376,7 @@ sub getEncyclopediaMetadata {
 		my $text = generatePronunciations($rec->{'title'}, $rec->{'pronounce'});
 		my $staticsite = getConfig('siteaddrs')->{'static'};
 
-		$html .= "<br />Pronunciation <font size=\"-1\">(<a href=\"http://$staticsite/doc/jargon.html\">guide</a>)</font>: $text";
+		$html .= "<br />Pronunciation <font size=\"-1\">(<a href=\"https://$staticsite/doc/jargon.html\">guide</a>)</font>: $text";
 	}
 
 	my ($rv,$sth);
@@ -456,7 +607,8 @@ sub getTypeString {
 #
 sub getEncyclopedia {
 	my $params = shift;
-	
+
+	dwarn "getEncyclopedia start";	
 	my $idx = $params->{idx};
 	my $content = '';
 	my $letter = '';
@@ -470,6 +622,7 @@ sub getEncyclopedia {
 	
 	# link to the msc browser for encylcopedia
 	#
+	# BEN Broken link, needs fixing
 	$content .= "<center><a href=\"".getConfig("main_url")."/browse/objects/\">(browse by subject)</a></center>";
 	
 	# build the index selector with an initial query.
@@ -559,6 +712,7 @@ sub getEncyclopedia {
 	<tr>
 		<td>$interact</td>
 	</tr></table>";
+	dwarn "getEncyclopedia end";
 	return $html;
 }
 
@@ -566,7 +720,243 @@ sub getEncyclopedia {
 #
 sub addEncyclopedia {
 	my ($params,$user_info,$upload) = @_;
+	dwarn "addEncyclopedia Started";
+	dwarn "addEncyclopedia start cwd: $CWD";
+	my $tt_file = 'addencyclopedia.tt'; 
+	my $html = '';
+	my $template = new XSLTemplate('addencyclopedia.xsl');
+	my $table = getConfig('en_tbl');
+	my $preview_content = '';
+	my $preview = '';
+	my $preamble = '';
+	my $id = '';
+	my $op = '';
+	my $tempdir = '';
+	my $data = '';
+	my $fmanager;
+	my $fmanager_flag = 1;
+	my $temp_template;
+
+	$template->addText('<entry>');
  
+	return errorMessage('You can\'t post anonymously.') if ($user_info->{uid} <= 0);
+ 
+	
+	# handle post - done editing
+	#
+	if (defined $params->{'post'}) {
+		dwarn "insertEncyclopedia before";
+		return insertEncyclopedia($params, $user_info);
+		dwarn "insertEncyclopedia after";
+		dwarn "insertEncyclopedia after cwd: $CWD";
+	}
+ 
+	# handle preview 
+	#
+	elsif (defined $params->{'preview'}) {
+		$AllowCache = 0;	# kill caching
+		dwarn "addEncyclopedia previewEncyclopedia before";
+		$preview_content = previewEncyclopedia($template,$params,$user_info);
+		dwarn "preview_content:\n $preview_content";
+		dwarn "addEncyclopedia previewEncyclopedia after";
+		dwarn "previewEncyclopedia after cwd: $CWD";
+		dwarn "Preview handleFileManager before";
+		($temp_template, $fmanager) = handleFileManager($template,$params,$upload);
+		dwarn "Preview handleFileManager after";
+		dwarn "handleFileManager after cwd: $CWD";
+		$preview = 'on';
+		$preamble = $params->{'preamble'};
+		
+	} 
+
+	elsif (defined($params->{filebox})) {
+		dwarn " handleFileManager before";
+		($temp_template, $fmanager) = handleFileManager($template, $params, $upload);
+		dwarn " handleFileManager after";
+		dwarn "handleFileManager after cwd: $CWD";
+		$preamble = $params->{'preamble'};
+	}
+ 
+	# initial request, return blank form
+	#
+	else {
+		dwarn "initial request, return blank form";
+		# initialize parent data
+		#
+		if ($params->{parent}) {
+			dwarn "return blank form parent: $params->{parent}" ;
+			$template->setKeys(
+				'parent' => $params->{parent},
+				'title' => $params->{title},
+				'class' => classstring($table, getidbyname($params->{parent}))
+			);
+
+		}
+		# initialize request data
+		#
+		if ($params->{request}) {
+			dwarn "initialize request data:  $params->{request}";
+			$template->setKey('title', $params->{title});
+
+		}
+		$template->setKey('preamble', $user_info->{data}->{preamble});
+		$preamble = $user_info->{data}->{preamble};
+		dwarn " handleFileManager before";
+		($temp_template, $fmanager) = handleFileManager($template, $params);
+		dwarn "handleFileManager after";
+		dwarn "handleFileManager after cwd: $CWD";
+
+		$id = $params->{'id'};
+		$op = $params->{'op'};
+		$tempdir = $params->{'tempdir'};
+		
+	}
+	$id = $params->{'id'};
+	$op = $params->{'op'};
+	$tempdir = $params->{'tempdir'};
+	
+	$data = $params->{'data'};
+
+	
+	refreshAddEncyclopedia($template, $params);
+	
+	my $type = $params->{type} || 'Definition';
+
+	my $fillreq = getUnfilledReqsEscaped();
+	my @key_test = values %$fillreq;
+	dwarn "fillreq before escape:\n" . join(",", @key_test);
+
+
+
+	#my $fillreq = getRequestFiller($params);
+	#my $ttext = gettypebox({reverse %{getConfig("typestrings")}}, $type);
+	my %type_hash = %{getConfig("typestrings")};
+	my $vars = {
+        	type_hash       			=> \%type_hash,
+			type						=> $type,
+			fillreq         			=> $fillreq,
+			classification_supported	=> getConfig('classification_supported'),
+			preamble                    => $preamble,
+			preview						=> $preview,
+			showpreview					=> $preview_content,
+			id							=> $id,
+			op							=> $op,
+			tempdir						=> $tempdir,
+			data						=> $data,
+			params						=> $params,
+			fmanager_flag				=> 1,
+			fmanager					=> $fmanager,
+			parent						=> $params->{parent},
+
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	##$template->setKeys('fillreq' => $fillreq, 'tbox' => $ttext, 'typeis' => $type);
+	##$template->setKeysIfUnset(%$params);
+
+	##dwarn "refreshAddEncyclopedia before";
+	
+	##dwarn "refreshAddEncyclopedia after";
+	##dwarn "refreshAddEncyclopedia after cwd: $CWD";
+
+	$template->addText('</entry>');
+
+	dwarn "addEncyclopedia end";
+	dwarn "addEncyclopedia end cwd: $CWD";
+	#return paddingTable(clearBox('Add to the Encyclopedia',$template->expand()));
+	return paddingTable(clearBox('Add to the Encyclopedia',$html));
+}
+
+sub addEncyclopediaHybrid {
+	my ($params,$user_info,$upload) = @_;
+	dwarn "addEncyclopedia Started";
+	#my $table = getConfig('en_tbl');
+
+	#my $template = new XSLTemplate;
+	#$template->addText('<entry>');
+
+	return errorMessage('You can\'t post anonymously.') if ($user_info->{uid} <= 0);
+ 
+	# handle post - done editing
+	#
+	if (defined $params->{'post'}) {
+		dwarn "Add ency - params - post";
+		#dwarn "insertEncyclopedia before";
+		#return insertEncyclopedia($params, $user_info);
+		#dwarn "insertEncyclopedia before";
+	}
+ 
+	# handle preview 
+	#
+	elsif (defined $params->{'preview'}) {
+		dwarn "Add ency - params - preview";
+		$AllowCache = 0;	# kill caching
+
+		#previewEncyclopedia($template,$params,$user_info);
+		dwarn "Preview handleFileManager before";
+		#handleFileManager($template,$params,$upload);
+		dwarn "Preview handleFileManager after";
+	} 
+
+	elsif (defined($params->{filebox})) {
+		dwarn " handleFileManager before";
+		#handleFileManager($template, $params, $upload);
+		dwarn " handleFileManager after";
+	}
+ 
+	# initial request, return blank form
+	#
+	else {
+		dwarn "initial request, return blank form";
+		# initialize parent data
+		#
+		if ($params->{parent}) {
+			dwarn "return blank form parent: $params->{parent}" ;
+			#$template->setKeys(
+			#	'parent' => $params->{parent},
+			#	'title' => $params->{title},
+			#	'class' => classstring($table, getidbyname($params->{parent}))
+			#);
+		}
+		# initialize request data
+		#
+		if ($params->{request}) {
+			dwarn "initialize request data:  $params->{request}";
+			#$template->setKey('title', $params->{title});
+		}
+		#$template->setKey('preamble', $user_info->{data}->{preamble});
+		dwarn " handleFileManager before";
+		#handleFileManager($template, $params);
+		dwarn " handleFileManager after";
+	}
+ 
+	dwarn "refreshAddEncyclopedia before";
+	#refreshAddEncyclopedia($template, $params);
+	dwarn "refreshAddEncyclopedia after";
+
+	#$template->addText('</entry>');
+
+	my $xmlstring = '';
+	my $writer = new XML::Writer( OUTPUT=>\$xmlstring, UNSAFE=>1 );
+	$writer->startTag("addencyclopedia");	
+	$writer->endTag("addencyclopedia");
+	
+
+	my $xslt = getConfig("stemplate_path") . "/addencyclopedia.xsl";
+
+	my $mainpage = buildStringUsingXSLT( $xmlstring, $xslt );
+	dwarn "addEncyclopedia Ended";
+	return $mainpage;
+}
+sub addEncyclopediaOld {
+	my ($params,$user_info,$upload) = @_;
+	
 	my $template = new XSLTemplate('addencyclopedia.xsl');
 	my $table = getConfig('en_tbl');
 
@@ -577,7 +967,9 @@ sub addEncyclopedia {
 	# handle post - done editing
 	#
 	if (defined $params->{'post'}) {
+		dwarn "insertEncyclopedia before";
 		return insertEncyclopedia($params, $user_info);
+		dwarn "insertEncyclopedia before";
 	}
  
 	# handle preview 
@@ -586,19 +978,25 @@ sub addEncyclopedia {
 		$AllowCache = 0;	# kill caching
 
 		previewEncyclopedia($template,$params,$user_info);
+		dwarn "Preview handleFileManager before";
 		handleFileManager($template,$params,$upload);
+		dwarn "Preview handleFileManager after";
 	} 
 
 	elsif (defined($params->{filebox})) {
+		dwarn " handleFileManager before";
 		handleFileManager($template, $params, $upload);
+		dwarn " handleFileManager after";
 	}
  
 	# initial request, return blank form
 	#
 	else {
+		dwarn "initial request, return blank form";
 		# initialize parent data
 		#
 		if ($params->{parent}) {
+			dwarn "return blank form parent: $params->{parent}" ;
 			$template->setKeys(
 				'parent' => $params->{parent},
 				'title' => $params->{title},
@@ -608,14 +1006,18 @@ sub addEncyclopedia {
 		# initialize request data
 		#
 		if ($params->{request}) {
+			dwarn "initialize request data:  $params->{request}";
 			$template->setKey('title', $params->{title});
 		}
 		$template->setKey('preamble', $user_info->{data}->{preamble});
-
+		dwarn " handleFileManager before";
 		handleFileManager($template, $params);
+		dwarn " handleFileManager after";
 	}
  
+	dwarn "refreshAddEncyclopedia before";
 	refreshAddEncyclopedia($template, $params);
+	dwarn "refreshAddEncyclopedia after";
 
 	$template->addText('</entry>');
 	
@@ -633,9 +1035,9 @@ sub deleteSynonyms {
 	# delete existing synonyms if existing record
 	#
 	if (defined $uid) {
-	my ($rv,$sth) = dbDelete($dbh,{FROM=>$index,WHERE=>"tbl='$table' and objectid=$uid and type>1"});
-	
-	$sth->finish();
+		dwarn "Deleting Synonym:\nindex:\n$index\ntable:\n$table\nuid:\n$uid";
+		my ($rv,$sth) = dbDelete($dbh,{FROM=>$index,WHERE=>"tbl='$table' and objectid=$uid and type>1"});
+		$sth->finish();
 	}
 }
 
@@ -696,7 +1098,7 @@ sub createSynonyms {
 		my @syns = splitindexterms($synonyms);
 		foreach my $syn (@syns) {
 			#warn "processing synonym $syn";
-			#dwarn "processing synonym (type=$type) $syn";
+			dwarn "processing synonym (type=$type) $syn";
 			$syn =~ s/^\s*//;
 			$syn =~ s/\s*$//;	
 			my $sname = uniquename(swaptitle($syn),$name);
@@ -705,6 +1107,7 @@ sub createSynonyms {
 		
 			# insert records into main object index table
 			#
+			dwarn "Create Synonyms:\nindex:\n$index\nuid:\n$uid\ntable:\n$table\nuserid:\n$userid\nsyn:\n$syn\nsname:\n$sname\ntype:\n$type\nsource:\n$source\nichar:\n$ichar";
 			my $sth = $dbh->prepare("insert into $index (objectid,tbl,userid,title,cname,type,source,ichar) values (?,?,?,?,?,?,?,?)");
 			my $rv = $sth->execute($uid, $table, $userid, $syn, $sname, $type, $source, $ichar);
 			$sth->finish();
@@ -745,17 +1148,27 @@ sub insertEncyclopedia {
 	my $pronunciation = normalizePronunciation($params->{title}, $params->{pronounce});
 
 	my $table = getConfig('en_tbl'); 
+	dwarn "nextval before";
 	my $next = nextval("${table}_uid_seq");
-	
+	dwarn "nextval after";
+
 	my $cols = 'created, modified,uid,version,type,userid,title,preamble,data,name,related,synonyms,defines,keywords,pronounce,self, parentid';
 
 	my $parentid = undef;
 	if (nb($params->{'parent'})) {
 		$parentid = getidbyname($params->{'parent'});
 	}
-
+	dwarn "insertEncyclopedia:";
+	dwarn "insert into $table ($cols) values (now(), now(), ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	my $sth = $dbh->prepare("insert into $table ($cols) values (now(), now(), ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	my $ouid = $userinf->{'uid'};
+	my $otitle = $params->{'title'};
+	my $opreamble = $params->{'preamble'};
+	my $odata = $params->{'data'};
+	my $oself = $params->{'self'};
 
+	dwarn "insert execute";
+	dwarn "next:\n$next\ntype:\n$type\nuid:\n$ouid\ntitle:\n$otitle\npreamble:\n$opreamble\ndata:\n$odata\nname:\n$name\nrelated:\n$related\nsynonyms:\n$synonyms\ndefines:\n$defines\nkeywords:\n$keywords\npronunciation\n$pronunciation\nparentid:\n$parentid";
 	my $rv = $sth->execute($next, $type, $userinf->{'uid'}, $params->{'title'}, $params->{'preamble'}, $params->{'data'}, $name, $related, $synonyms, $defines, $keywords, $pronunciation, ($params->{'self'} eq 'on' ? 1 : 0), $parentid);
 
 	if (! $rv) {
@@ -766,8 +1179,9 @@ sub insertEncyclopedia {
 
 	# take care of files
 	#
+	dwarn "Before moveTempFilesToBox";
 	moveTempFilesToBox($params,$next,getConfig('en_tbl'));
-
+	dwarn "After moveTempFilesToBox";
 	# handle title indexing
 	#
 	indexTitle($table,$params->{id},$userinf->{uid},$params->{title},$name);
@@ -785,11 +1199,11 @@ sub insertEncyclopedia {
 	
 	# index this entry (for linking)
 	#
-	wordIndexEntry(getConfig('en_tbl'),$params);
+	#wordIndexEntry(getConfig('en_tbl'),$params);
 
 	# index this entry (for IR)
 	#
-	irIndex(getConfig('en_tbl'),$params);
+	##irIndex(getConfig('en_tbl'),$params);
 
 	# handle classification
 	#
@@ -884,7 +1298,7 @@ sub publishEncyclopedia {
 	
 	# index this entry (for linking)
 	#
-	wordIndexEntry(getConfig('en_tbl'),$params);
+	#wordIndexEntry(getConfig('en_tbl'),$params);
 
 	# index this entry (for IR)
 	#
@@ -939,13 +1353,13 @@ sub refreshAddEncyclopedia {
 #
 sub previewEncyclopedia {
 	my ($template, $params, $userinf) = @_;
-	
+	dwarn "previewEncyclopedia started";
 	my $name = normalize(swaptitle($params->{'title'}));
 	my $error = '';
 	my $warn = '';
-	
+	dwarn "previewEncyclopedia start cwd: $CWD";
 	my $method = $userinf->{'prefs'}->{'method'} || 'l2h';
-	
+	my $preview = '';
 	# check for errors in entered data
 	#
 	($error,$warn) = checkEncyclopediaEntry($params,1);
@@ -953,7 +1367,10 @@ sub previewEncyclopedia {
 	# do our rendering if there were no errors
 	#
 	if ($error eq '') {
-		my $preview = renderEnPreview(1, $params, $method);
+		dwarn "renderEnPreview Before";
+		$preview = renderEnPreview(1, $params, $method);
+		dwarn "renderEnPreview End";
+		#my $preview = "<p>This is renderEnPreview,a simple HTML page with one paragraph.</p>";
 		$template->setKey('showpreview', $preview);
 
 	}
@@ -961,14 +1378,22 @@ sub previewEncyclopedia {
 	# if there were no errors, put up the "post" button.
 	#
 	if ($error eq '') {
+		dwarn "set key preview Before";
 		$template->setKey('post', '<input TYPE="submit" name="post" VALUE="post" />');
+		dwarn "set key preview After";
 	}
 	
 	# insert error messages
 	#
 	$error .= $warn;	 # toss in warnings now
-	if ($error ne '') { $error .= '<hr />'; }
+	if ($error ne '') { 
+		dwarn "previewEncyclopedia Error + warn $error ";
+		$error .= '<hr />'; 
+	}
+	dwarn "previewEncyclopedia ended";
+	dwarn "previewEncyclopedia end cwd: $CWD";
 	$template->setKey('error', $error);
+	return $preview;
 }
 
 # make sure encyclopedia metadata is kosher
@@ -986,7 +1411,7 @@ sub checkEncyclopediaEntry {
 	# check for lack of classification
 	#
 	if (blank($params->{class}) && getConfig('classification_supported') == 1) {
-		$warn .= "Please classify your entry.	If you need help, try using the <a href=\"".getConfig("main_url")."/?op=mscbrowse\">MSC search</a>.<br />";
+		$warn .= "Please classify your entry.	If you need help, try using the <a href=\"".getConfig("main_url")."/?op=pacsbrowse\">PACS search</a>.<br />";
 	}
 	
 	# check title
@@ -1057,11 +1482,17 @@ sub checkEncyclopediaEntry {
 
 # rendering wrapper - returns an error message if rendering fails.
 #
+#sub renderEnPreview {
+#	my $preview = "<p>This is renderEnPreview,a simple HTML page with one paragraph.</p>";
+#	return $preview;
+#}
 sub renderEnPreview {
 	my $newent = shift;	 # new entry flag
 	my $params = shift;
 	my $method = shift;
 	
+	dwarn "renderEnPreview Started";
+	dwarn "renderEnPreview start cwd: $CWD";
 	my $title = swaptitle($params->{'title'});
 	my $math = $params->{'data'};
 	my $name = normalize(swaptitle($title));
@@ -1070,41 +1501,60 @@ sub renderEnPreview {
  
 	# figure out cache dir. it really should already exist for us.
 	#
+	dwarn "defined before tempdir";
 	if (defined $params->{'tempdir'}) {
+		
 		$dir = $params->{'tempdir'};
+		dwarn "tempdir: $dir";
 	} else {
+		dwarn "makeTempCacheDir Before";
 		$dir = makeTempCacheDir();
-#	dwarn "temp cache dir = $dir";
+		dwarn "makeTempCacheDir After, made dir $dir";
 		$params->{'tempdir'} = $dir;
 	}
-	#dwarn "going to try to render a preview to $dir";
+	dwarn "going to try to render a preview to $dir";
  
 	# copy files from main dir to method subdir
 	#
-	#dwarn "preview files go in $root/$dir/$method";
+	dwarn "preview files go in $root/$dir/$method";
 	if (not -e "$root/$dir/$method") {
-		mkdir "$root/$dir/$method";
+		dwarn "preview files something odd here had to make_path: $root/$dir/$method";
+		make_path("$root/$dir/$method", {verbose => 1, mode => 0771})
+
 	}
-	#dwarn "changing dir to $dir";
-	chdir "$root/$dir";
+	dwarn "renderEnPreview before chdr cwd: $CWD";
+	dwarn "changing dir to $root/$dir";
+	##chdir "$root/$dir";
+	#chdir("$root/$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
+	local $CWD = "$root/$dir";  # chdir seems to be crashing mod_perl, looking for worarounds
+	dwarn "renderEnPreview after chdr cwd: $CWD";
 	my @files = <*>;
 	my @methoddirs = getMethods();
 	foreach my $file (@files) {
 		if (not inset($file,@methoddirs)) {
-			`cp $file $method`;
+			copy($file, $method);
+			dwarn "copy file: $file to method: $method";
 		}
 	}
-	chdir "$root";
-	
+	dwarn "changing dir to $root";
+	##chdir "$root";
+	#chdir("$root");# or dwarn "ERROR chdir: cannot change: $!\n";
+	dwarn "renderEnPreview before chdr cwd: $CWD";
+	local $CWD = "$root"; 
+	dwarn "renderEnPreview after chdr cwd: $CWD";
 	# remove old rendering file if it exists
 	#
 	my $outfile = getConfig('rendering_output_file');
+	dwarn "outfile is $outfile";
 	if (-e "$root/$dir/$method/$outfile") {
-		`rm $root/$dir/$method/$outfile`;
+		dwarn "outfile existed so removing: $root/$dir/$method/$outfile";
+		remove("$root/$dir/$method/$outfile");
 	}
 	
 	# do the rendering
 	#
+	dwarn "prepareEntryForRendering before call";
+	dwarn "renderEnPreview before prepareEntryForRendering cwd: $CWD";
 	my ($latex,$links) = prepareEntryForRendering($newent,
 		$params->{'preamble'},
 		$math,
@@ -1115,24 +1565,35 @@ sub renderEnPreview {
 		$params->{'table'},
 		defined $params->{'id'} ? $params->{'id'} : '0',
 		$params->{'class'});
-
+	dwarn "prepareEntryForRendering after call";
+	dwarn "renderEnPreview after prepareEntryForRendering cwd: $CWD";
 	my $table = getConfig('en_tbl');
 	renderLaTeX('.', $dir, $latex, $method, $name);
+	dwarn "renderEnPreview after renderLaTeX cwd: $CWD";
 	
 	# if we succeeded, show preview
 	#
 	my $file = "$root/$dir/$method/$outfile";
 	#my $size = (stat($file))[7];
 	#if ( defined($size) && $size > 0 ) {
-		my $preview = mathBox(mathTitle($title,'title'),readFile($file));
-		return $preview;
+	dwarn "READING Preview from $file\n";
+	#my $preview = mathBox(mathTitle($title,'title'),readFile($file));
+	#my $text = readFile($file);
+	#dwarn "PREVIEW FILE CONTAINS\n $text";
+	#dwarn "renderEnPreview Ended";
+	#	return $preview;
+	my $preview = mathBox(mathTitle($title,'title'),readFile($file));
+	return $preview;
+	##return mathBox(mathTitle($title), $text);
+	#my $preview = "<p>This is renderEnPreview5,a simple HTML page with one paragraph.</p>";
+	#return $preview;
 	#} 
 }
 
 # get a little associations guidelines screen 
 #
 sub getAssocGuidelines {
-	my $guidelines = new Template('assoc_guidelines.html');
+	my $guidelines = new TemplateNS('assoc_guidelines.html');
 
 	return paddingTable(clearBox('Association Guidelines', $guidelines->expand()));
 }
@@ -1140,9 +1601,9 @@ sub getAssocGuidelines {
 # get a little latex guidelines screen 
 #
 sub getLatexGuidelines {
-	my $guidelines = new Template('latex_guidelines.html');
+	my $guidelines = new TemplateNS('latex_guidelines.html');
 	my $file = getConfig('entry_template');
-	my $latextemplate = new Template($file);
+	my $latextemplate = new TemplateNS($file);
 
 	$latextemplate->setKeys('packages' => '$packages', 'preamble' => '$preamble', 'math' => '$math');
 	$guidelines->setKey('template', $latextemplate->expand());

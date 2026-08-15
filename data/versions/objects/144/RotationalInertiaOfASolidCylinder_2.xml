@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="144">
+ <title>Rotational Inertia of a Solid Cylinder</title>
+ <name>RotationalInertiaOfASolidCylinder</name>
+ <created>2006-03-28 11:22:14</created>
+ <modified>2006-03-28 14:21:48</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Rotational Inertia of a Solid Cylinder" alias="moment of inertia of a solid cylinder"/>
+ </synonyms>
+ <related>
+	<object name="RotationalInertiaOfASolidSphere"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The rotational inertia or moment of inertia of a solid cylinder rotating about the central axis or the z axis as shown in the figure is
+
+\begin{equation}
+I = \frac{1}{2} M R^2 
+\end{equation}
+
+for other axes, such as rotation about x or y, the moment of inertia is given as
+
+\begin{equation}
+I = \frac{1}{4} M R^2 + \frac{1}{12} M L^2
+\end{equation}
+
+\begin{figure}
+\includegraphics[scale=.6]{SolidCylinder.eps}
+\caption{Rotational inertia of a solid cylinder}
+\end{figure}
+
+For the moment of inertia about the z axis, the integration in cylindrical coordinates is straight forward, since r in cylindrical coordinates is the same as in the inertia calculation so we have
+
+$$ I = \int r^2 dm $$
+
+Assuming constant density throughout the cylinder leads to
+
+$$ dm = \rho dV $$
+
+and in cylindrical coordinates the infinitesmal volume dV is given by
+
+$$ dV = r \, dr d\phi dz $$
+
+giving the equation to integrate as 
+
+$$ \int_{-L/2}^{L/2} \int_0^{2\pi} \int_0^R r^3 \, dr d\phi dz $$
+
+\subsection{References}
+
+[1] Halliday, D., Resnick, R., Walker, J.: "Fundamentals of Physics".\, 5th Edition, John Wiley \&amp; Sons, New York, 1997.</content>
+</record>

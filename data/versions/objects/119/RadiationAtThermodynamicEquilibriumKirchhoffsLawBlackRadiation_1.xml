@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="119">
+ <title>radiation at thermodynamic equilibrium.  Kirchhoff's law.  black radiation</title>
+ <name>RadiationAtThermodynamicEquilibriumKirchhoffsLawBlackRadiation</name>
+ <created>2006-03-02 23:28:28</created>
+ <modified>2006-03-02 23:28:28</modified>
+ <type>Definition</type>
+<parent id="110">the theory of heat radiation</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{CHAPTER II}
+\subsection{Radiation at Thermodynamic Equilibrium.  Kirchoff's Law.  Black Radiation}
+From The Theory of Heat Radiation by Max Planck
+
+{\bf 24.}  We shall now apply the laws enunciated in the last chapter to the special case of thermodynamic equilibrium, and hence we begin our consideration by stating a certain consequence of the second principle of thermodynamics: A system of bodies of arbitrary nature, shape, and position which is at rest and is surounded by a rigid cover impermeable to heat will, no matter what its initial state may be, pass in the course of time into a permanent state, in which the temperature of all bodies of the system is the same.  This is the state of thermodynamic equilibrium, in which the entropy of the system has the maximum value compatible with the total energy of the system as fixed by the initial conditions.  This state being reached, no further increase in entropy is possible.
+
+In certain cases it may happen that, under the given conditions, the entropy can assume not only one but several maxima, of which one is the absolute one, the others having only a relative significance[1].  In these cases every state corresponding to a maximum value of the entropy represents a state of thermodynamic equilibrium of the system.  But only one of them, the one corresponding to the absolute maximum of entropy, represents the absolutely stabe equilibrium.  All the others are in a certain sense unstable, inasmuch as a sutiable, however small, disturbance may produce in the system a permanent change in the equilibrium in the direction of the absolutely stable equilibrium.  An example of this is offered by supersaturated steam enclosed in a rigid vessel or by any explosive substance.  We shall also meet such unstable equilibria in the case of radiation phenomena (Sec. 52).
+
+{\bf 25.}  We shall now, as in the previous chapter, assume that we are dealing with homogeneous isotropic media whose condition depends only on the temperature, and we shall inquire what laws the radiation phenomena in them must obey in order to be consistent with the deduction from the second principle mentioned in the preceding section.  The means of answering this inquiry is supplied by the investigation of the state of thermodynamic equilibrium of one or more of such media, this investigation to be conducted by applying the conceptions and laws established in the last chapter.
+
+We shall begin with the simplest case, that of a single medium extending very far in all directions of space, and, like all systems we shall here consider, being surrounded by a rigid cover impermeable to heat.  For the preseent we shall assume that the medium has finite coefficients of absorption, emission, and scattering.
+
+Let us consider, first, points of the medium that are far away from the surface.  At such points the influence of the surface is, of course, vanishingly small and from the homogeneity and the isotropy of the medium it will follow that in a state of thermodynamic equilibrium the radiation of heat has everywhere and in all directions the same properties.  Then $\bf{K}_\nu$, the specific intensity of radiation of a plane polarized ray of frequency $\nu$ (Sec. 17), must be independent of the azimuth of the plane of polarization as well as of position and direction of the ray.  Hence to each pencil of rays starting at an element of area $d\sigma$ and diverging within a conical element $d\omega$ corresponds an exactly equal pencil of opposite direction converging within the same conical element toward the element of area.
+
+Now the condition of thermodynamic equilibrium requires that the temperature shall be everywhere the same and shall not vary in time.  Therfore in any given arbitrary time just as much radiant heat must be absorbed as is emitted in each volume-element of the medium.  For the heat of the body depends only on the heat radiation, since, on account of the uniformity in temperature, no conduction of heat takes place.  This condition is not influenced by the phenomenon of scattering, because sacttering refers only to a change in direction of the energy radiated, not to a creation or destruction of it.  We shall, therefore, calculate the energy emmitted and absorbed in the time $dt$ by a volume-element $v$.
+
+According to equation (2) the energy emitted has the value 
+
+$$ dt \, v \cdot 8 \pi \int_0^{\infty}{ \epsilon_\nu d\nu } $$
+
+where $\epsilon_\nu$, the coefficient of emission of the medium, depends only on the frequency $\nu$ and on the temperature in addition to the chemical nature of the medium.
+
+{\bf 26.}  For the calculation of the energy absorbed we shall employ the same reasoning as was illustrated by Fig. 1 (Sec. 22) and shall retain the notation there used.  The radiant energy absorbed by the volume-element $v$ in the time $dt$ is found by considering the intensities of all the rays passing through the element $v$ and taking that fraction of each of these rays which is absorbed in $v$.  Now, according to (19), the conical element that starts from $d\sigma$ and cuts out of the volume $v$ a part equal to $fs$ has the intensity (energy radiated per unit time)
+
+$$ d\sigma \cdot \frac{f}{r^2} \cdot K $$
+
+or according to (12), by considering the different parts of the spectrum separately:
+
+$$ 2 \, d\sigma \frac{f}{r^2} \int_0^{\infty}{ K_{\nu} \, dv}.$$
+
+Hence the intensity of a monochromatic ray is:
+
+$$ 2 \, d\sigma \frac{f}{r^2} K_{\nu} \, dv. $$
+
+The amount of energy of this ray absorbed in the distance $s$ in the time $dt$ is, according to (r),
+
+$$ dt \, \alpha_{\nu} s \, 2 \, d\sigma \frac{f}{r^2} K_{\nu} \, dv.$$
+
+Hence the absorbed part of the energy of this small cone of rays, as found by integrating over all frequencies, is:
+
+$$dt \, 2 \, d\sigma \frac{fs}{r^2} \int_0^{\infty}{ \alpha_{\nu} K_{\nu} \, dv}.$$
+
+Wen this expression is summed up over all the different crossections $f$ of the concial elements starting at $d\sigma$ and passing through $v$, it is evident that $\sum \,fs = v$, and when we sum up over all elements $d\sigma$ of the spherical surface of radius $r$ we have
+
+$$ \int{ \frac{d\sigma}{r^2} = 4 \pi}. $$
+
+Thus for the total radiant energy absorbed in the time $dt$ by the volume-element $v$ the following expression is found:
+
+\begin{equation}
+\tag{25}
+dt \, v \, 8\pi \, \int_0^{\infty}{ \alpha_{\nu} K_{\nu} \, dv}.
+\end{equation}
+
+[1]  See, e.g., M. Planck, Vorlesungen uber Thermodynamik, Leipzig, Vet and Comp., 1911 (or English Translation, Longmans Green \&amp; Co.), Secs. 165 and 189, et seq.</content>
+</record>

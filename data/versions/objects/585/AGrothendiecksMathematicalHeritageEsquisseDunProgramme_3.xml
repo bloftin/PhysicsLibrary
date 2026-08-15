@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="585">
+ <title>Esquisse d'un Programme</title>
+ <name>AGrothendiecksMathematicalHeritageEsquisseDunProgramme</name>
+ <created>2009-03-09 10:32:19</created>
+ <modified>2009-03-11 00:14:28</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>Esquisse d'un Programme</term>
+	<term>Alexander Grothendieck</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{``Esquisse d'un Programme'' (original document was written in French by Alexander Grothendieck)}
+
+\subsubsection{A Concise Summary and Outline of ``Esquisse d'un Programme'':}
+An influential research proposal submitted by Alexander Grothednieck in 1984 that 
+continues to inspire even today several related areas of mathematics. Of considerable interest to many mathematicians are the recent Galois groupoid and categorical generalizations of Galois theory initiated by Alexander Grothendieck, now developed towards maturity by several other seasoned mathematicians. 
+
+\textbf{Abstract of the paper}
+(In French: ``Sommaire'')
+\begin{enumerate}
+\item The Proposal and enterprise (''Envoi''). 
+\item Teichm\"uller's Lego-game and the Galois group of Q over Q (``Un jeu de ''Lego-Teichm\"uller'' et le groupe de Galois de Q sur Q''). 
+\item Number fields associated with ``dessin d'enfants''. 
+(or in orig. : ''Corps de nombres associ\'es \`a un dessin d' enfant''). 
+\item Regular polyhedra over finite fields (``Poly\'edres r\'eguliers sur les corps finis''). 
+\item General topology or a `Moderated topology' (``Haro sur la topologie dite 'g\'en\'erale', et r\'eflexions heuristiques vers une topologie dite ``mod\'er\'ee''). 
+\item Differentiable theories and moderated theories (``Th\'eories diff\'erentiables'' (\`{a} la Nash) et ``th\'eories mod\'er\'ees''). 
+\item \PMlinkexternal{Pursuing Stacks (``\`A la Poursuite des Champs'')}{http://www.math.jussieu.fr/~leila/grothendieckcircle/stacks.ps}. 
+\item Digression on two-dimensional geometry (``Digressions de g\'eom\'etrie bidimensionnelle'';
+now called ``Higher Dimensional Algebra'' that Alexander Grothendieck anticipated by several years). 
+\item A Synthesis of the proposed Research Activity (''Bilan d'une activit\'e enseignante''). 
+\item Epilogue. 
+\item Notes 
+\end{enumerate}
+
+\PMlinkexternal{\bf Reference}{http://www.math.jussieu.fr/~leila/grothendieckcircle/EsquisseFr.pdf}
+
+Alexander Grothendieck, 1984. ``Esquisse d'un Programme'', (1984 manuscript), finally published in ``Geometric Galois Actions'', L. Schneps, P. Lochak, eds., London Math. Soc. Lecture Notes 242,Cambridge University Press, 1997, pp.5-48; English transl., ibid., pp. 243-283. MR 99c:14034.</content>
+</record>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="787">
+ <title>time-dependent harmonic oscillators</title>
+ <name>TimeDependentHarmonicOscillators</name>
+ <created>2009-05-29 13:46:17</created>
+ <modified>2009-05-29 14:04:48</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>Ermakov systems</concept>
+	<concept>superposition function</concept>
+	<concept>Lie's geometric approach</concept>
+	<concept>non-autonomous systems of first-order DEs</concept>
+	<concept>exact analytic Gaussian wave packet (WP) solutions</concept>
+	<concept>Milne--Pinney equation</concept>
+	<concept>non-linear equations</concept>
+	<concept>nonlinear equations</concept>
+	<concept>second-order differential equations</concept>
+	<concept>Milne--Pinney equation</concept>
+ </defines>
+ <keywords>
+	<term>time-dependent harmonic oscillators</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Time-dependent harmonic oscillators}
+Nonlinear equations are of increasing interest in Physics; Riccati and Ermakov systems enter the formalism of quantum theory in the study of cases where exact analytic Gaussian wave packet (WP) solutions of the time-dependent
+Schr\"odinger equation (SE) do exist, and in particular, in the harmonic oscillator (HO) and the free motion cases.
+
+One of the simplest examples of such nonlinear equations is the Milne--Pinney equation:
+$$d^2x/dt^2 = − {\omega}^2(t)x +k x^3,$$ (1)
+where $k$ is a real constant with values depending on the field in which the equation is to be applied.
+
+\subsection{Ermakov systems}
+
+ This equation was introduced in the nineteenth century by V.P. Ermakov, as a way of looking for a first integral for the time-dependent harmonic oscillator. He employed some of Lie's ideas for dealing with ordinary differential equations with the tools of classical geometry. Lie had previously obtained a characterization of non-autonomous systems of first-order differential equations admitting a superposition rule: 
+$$dx_i/dt = Y i(t, x), i = 1, . . . , n, $$ (2).
+
+ This approach has been recently reformulated from a geometric perspective in which the role of the superposition function is played by an appropriate algebriac connection. The new approach allows one to consider a superposition of solutions of a given system in order to obtain solutions of another system as it was done in; such a superposition rule may be understood from a geometric viewpoint in some interesting cases, as in the Milne–Pinney equation (1), or in the Ermakov system and its generalisations. One recalls here that {\em Ermakov systems} are defined as systems of second-order differential equations composed
+by the Milne--Pinney differential equation (1) together with the corresponding time--dependent harmonic oscillator.
+
+ Ermakov systems have been also broadly studied in Physics since their introduction in the nineteenth century. They also appear in the study of the Bose–Einstein condensates, cosmological models, and the solution of time-dependent harmonic or anharmonic oscillators. Several recent reports are concerned with the use Hamiltonian or Lagrangian structures in the study of such a system, and many generalisations or new insights from the mathematical point of view have ben thus obtained. Ermakov–Lewis invariants naturally emerge as functions defining the foliation associated to the superposition rule.</content>
+</record>

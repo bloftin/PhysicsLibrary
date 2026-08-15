@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="190">
+ <title>Spacetime</title>
+ <name>Spacetime</name>
+ <created>2006-06-21 16:36:26</created>
+ <modified>2006-06-21 16:36:26</modified>
+ <type>Definition</type>
+ <creator id="129" name="asar"/>
+ <modifier id="129" name="asar"/>
+ <author id="129" name="asar"/>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Einstein introduced the idea of spacetime to physics.  However he did not recognize that Quaternions model the structure of the universe or the Universe is Quaternionic.  An illustration of this point is seen in looking at  Einstein's Interval. Einstein's Interval is described in THE FOUNDATION OF THE GENERAL THEORY OF RELATIVITY (section 4) BY A. EINSTEIN ANNALS OF PHYSICs, 49, 1916.
+
+
+A point in spacetime can be given by quaternion  $p$ where $ct$ is the scalar part  and $ ix + jy + kz$ is the vector part.
+
+\begin{equation}
+p =  ct + ix + jy + kz = ct + r = w + r
+\end{equation}
+
+The square of this point gives  Einstein's Interval as the scalar part
+
+
+\begin{equation}
+p^2 = ((ct)^2 - (x^2 + y^2 + z^2)) + 2(ct)(ix + jy + kz)= (w^2 - r^2) + 2wr
+\end{equation}
+
+
+This expression shows that as long as 
+
+\begin{equation}
+c^2 &gt; v^2  ~~where ~v^2 = (x^2 + y^2 + z^2)/t^2 
+\end{equation}
+
+then the Interval will be positive and the speed of light is the limiting speed.
+
+At the limiting speed where $c^2=v^2$, the scalar Interval goes to zero and the quaternion $p^2$ changes from a quaternion to a vector:
+
+
+\begin{equation}
+2(ct)(ix + jy + kz)= 2wr
+\end{equation}
+
+The vector part of the "Interval" is missing from the traditional math and physics .  Recognizing the Quaternionic nature of spacetime is still to come. 
+
+Thoughts on the "Ether" of spacetime.
+
+Maxwell in predicting that light was a form of electromagnetism, believed that electromagnetism required a transmission medium, the ether.  I believe Maxwell's Ether exists and is manifested in "z", the free space impedance to electromagnetic waves.  This impedance or resistance is found in the "vacuum" of space.  Further I believe this impedance is a quantum constant, like Planck's Constant, h.
+
+Planck's Constant has units of Joule-seconds called Action.  Joules-seconds is the product of Weber times Coulomb.  Weber is the unit of Magnetic "charge" and Coulomb is the unit of Electric charge.  The "free space" impedance, z has units of volts/Amp, which is dimensionally the same as Webers/Coulomb.  This coincidence led me to associate the impedance z, with Planck's Constant and solve for the W, Quantum Magnetic charge and C, Quantum Electric charge.
+
+Allowing for some uncertainty in the published values, I give the values as:
+
+$W = 500$  atto Webers and $C = 4/3$  atto Coulombs, where atto is ten to the minus eighteen, making $z = 375$ Ohms.
+
+The Fine Structure Constant, $\alpha$, is the ratio of the rms electron charge, 'e' and the quantum charge 'C' squared:
+
+\begin{equation}
+\alpha = .5(e/C)^2 =  .5((.16)/(4/3))^2 = 7.2\times10^{-3} = 1/138.888
+\end{equation}</content>
+</record>

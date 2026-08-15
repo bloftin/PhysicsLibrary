@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="247">
+ <title>Schr\"odinger equation wtih ramp potential</title>
+ <name>SchrodingerEquationWtihRampPotential</name>
+ <created>2007-04-13 19:02:19</created>
+ <modified>2007-04-13 19:02:19</modified>
+ <type>Example</type>
+<parent id="101">time independent Schr\"odinger equation</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>Changes for correction #47 ('check differential equation').</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.-w"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Here we will investigate time independent Schr\"odinger equation with a ramp potential.
+
+$$V(x) = kx $$
+
+Starting with the S.E
+
+$$ -\frac{\hbar^2}{2m}\frac{d^2\psi(x)}{dx^2} + V(x)\psi(x) = \psi(x) E $$
+
+substitute the potential in to get 
+
+
+$$ -\frac{\hbar^2}{2m}\frac{d^2\psi(x)}{dx^2} + kx\psi(x) = \psi(x) E $$
+
+Not sure off hand how to solve this differential equation analytically, so it may be useful to write it in operator form, using the momentum operator we get
+
+
+$$ -\frac{1}{2m}\left[ \left( \frac{\hbar}{i}\frac{\partial}{\partial x}\right)^2 + kx \right ]\psi(x) = E \psi(x)  $$
+
+Before we choose a method of attack, let us get a feel for the problem at hand.  In Figure 1, we plot a potential function that goes from $\pm \infty$.  In this example we see the classical turning point at $E = V$, and we should remember that there will be tunneling.  
+
+\begin{center}
+\includegraphics[scale=.4]{RampPot1.eps}
+
+{\bf Figure 1:} Open Ramp Potential
+\end{center}
+
+This representation where $E$ exceeds $V$ on the left side, demonstrates that the particle would come in from infinity, slow down because of the increase in potential energy and then reflect back going off into infinity.  This results in the so called Scattering State.
+
+However, if in a similar way to the infinite square well, we say that $V(0) = \infty$, then we get the potential depicted in Figure 2.
+
+\begin{center}
+\includegraphics[scale=.4]{RampPot2.eps}
+
+{\bf Figure 2:} Open Ramp Potential
+\end{center}
+
+For this example, we see that at $V(-\infty)$ and at $V(+\infty)$, $E$ is less than $V$.  Therefore, we would get bound states.  One more thing to keep in mind is that the square of the wave function for these 1D potentials, leads to the relation
+
+$$ \left| \psi(x) \right |^2 \approx \frac{ \left| C \right|^2}{p(x)} $$
+
+This tells us that the probability of finding the particle is higher where the potential energy is higher, i.e. higher up the ramp, because here the kinetic energy which is related to momentum is low.  This makes sense because if the particle is moving fast on the left side of Figure 2 near the infinite potential, you will be less likely to find it here and more likely to find the particle when it is slowed down up the ramp.  Next, we should attempt to solve for $\psi$.  The three most common ways to attack this type of problem are: to solve the differential equation using a power series, use some algebraic trick similar to the harmonic oscillator or use the WKB method.  
+
+All of these techniques would be excellent exercises for students to solve and make good PlanetPhysics entries.  Here we will explore the WKB (Wentzel, Kramers, Brillouin) method, which is used to find approximate solutions to the time-independent Schor\"odinger equation for 1D problems.  Before we go on, we can look at solutions to a similar problem to guide us.  If we have the exact same setup, except that instead of the ramp in Figure 2, we have a harmonic oscillator ramp, where $V(x) = \frac{1}{2}m\omega^2x^2$ for positive x, the WKB approximation yields
+
+$$ E_n = \left(2n - \frac{1}{2}\right) \hbar \omega $$
+
+Finally, from [Griffiths] the allowed energies for a general power-law potential 
+
+$$ V(x) = k\left|x\right|^m $$
+
+is
+
+$$E_n = k\left[ \left(n - \frac{1}{2}\right)\hbar \sqrt{\frac{\pi}{2mk}}\frac{\Gamma \left( \frac{1}{m} + \frac{3}{2}\right)}{\Gamma \left( \frac{1}{m} + 1\right)} \right]^\frac{2m}{m+2}$$
+
+{\bf References}
+
+[1] Griffiths, D. "Introduction to Quantum Mechanics" Prentice Hall, New Jersey, 1995.</content>
+</record>

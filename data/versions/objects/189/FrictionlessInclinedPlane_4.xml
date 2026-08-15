@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="189">
+ <title>frictionless inclined plane</title>
+ <name>FrictionlessInclinedPlane</name>
+ <created>2006-06-18 21:44:19</created>
+ <modified>2006-11-17 18:32:32</modified>
+ <type>Example</type>
+<parent id="186">Newton's laws of motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Dd"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The inclined plane is a common example of Newton's laws of motion.  It was used in Galileo's experiment to calculate the acceleration due to gravity and has been used by students for centuries to explore the laws of motion.  Here we will examine a block sliding down a frictionless inclined plane as shown below.  The y axis is perpendicular to the incline and  the x axis is parallel to incline.
+
+\begin{figure}
+\includegraphics[scale=.85]{InclinePlane.eps}
+\vspace{20 pt}
+\caption{ Inclined Plane}
+\label{Figure 1}
+\end{figure}
+
+
+The first thing to do is draw a free body diagram to describe the external forces acting on our object and the coordinate system for the problem.
+
+\begin{figure}
+\includegraphics[scale=.85]{FreeBodyDiagram.eps}
+\vspace{20 pt}
+\caption{Free Body Diagram}
+\label{Figure 2}
+\end{figure}
+
+Applying Newton's 2nd law to both x and y
+
+$$ \sum \vec{F} = m \vec{a} $$
+
+{\bf y-dir} \\
+
+First note that the block is stationary in the y direction, so we know that the acceleration is zero.
+
+$$ \sum F_y = 0 $$
+
+The two forces in the y direction are due to the normal force applied by the incline and the force due to gravity.
+
+$$ \sum F_y = N - mg \cos \theta = 0 $$
+
+{\bf x-dir} \\
+
+With the block sliding down the frictionless incline, we get
+
+$$ \sum F_x = mg \sin \theta = m a_x $$
+
+There are several quantities of interest, but let us start with the basics of acceleration, velocity and displacement.  For acceleration we see that it is constant in the x direction
+
+\begin{equation}
+a_x = g \sin \theta
+\end{equation}
+
+Next, let us calculate the velocity at a given displacement.  As usual, we integrate acceleration
+
+$$ \frac{dv_x}{dt} = g \sin \theta $$
+$$ \int_0^{v_x} dv_x = \int_0^t g \sin \theta dt $$
+
+and carrying out the integration gives us the velocity of the block as a function of time as it slides down the incline. 
+
+\begin{equation}
+v_x(t) = g \, t \sin \theta
+\end{equation}
+
+Next, integrate again to get displacement down the incline.
+
+$$ \frac{dx}{dt} = g \, t \sin \theta $$
+$$ \int_0^{x} dx = \int_0^t g \, t \sin \theta dt $$
+
+Carrying out the integration gives us the displacement of the block as a function of time as it slides down the incline. 
+
+\begin{equation}
+x(t) = \frac{1}{2} g \, t^2 \sin \theta
+\end{equation}
+
+Now we can focus on other interesting quantities such as the velocity as a function of displacement.  To get this solve (3) for t and plug it into (2)
+
+\begin{equation}
+t = \sqrt{\frac{2x}{g \sin \theta}}
+\end{equation}
+
+$$ v_x(x) = g \, \sqrt{\frac{2x}{g \sin \theta}} \sin \theta $$
+
+putting all the terms under the square root gives
+
+\begin{equation}
+v_x(x) =\sqrt{2\, g \,x \,\sin \theta}
+\end{equation}
+
+A fun and easy experiment is to measure the acceleration of gravity by rolling objects down an incline.  All you have to do is solve equation (4) for g
+
+$$ g = \frac{2x}{t^2 \sin \theta} $$
+
+and then just measure $\theta$, $x$ and $t$.  There is really nothing like carrying out experiments that helped shape physics, so go forth and measure.
+
+{\bf Equilibrium.}
+
+We already saw that the forces perpindicular to the plane in the y direction are in equilibrium
+
+$$ N = mg cos \theta. $$
+
+For the x direction parallel to the plane, one must apply a force $F_a$ in the opposite direction (up the plane) to counter the force due to gravity.  This equilibrium condition would mean our forces in the x direction would cancel so
+
+$$ F_a + mg sin \theta = 0 $$
+$$ F_a = -mg sin \theta. $$</content>
+</record>

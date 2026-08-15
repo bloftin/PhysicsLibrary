@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="854">
+ <title>$C_1$-category</title>
+ <name>C_1Category</name>
+ <created>2010-05-09 15:21:41</created>
+ <modified>2010-05-09 16:23:19</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.70.-cxx"/>
+	<category scheme="msc" code="02.90.+p"/>
+ </classification>
+ <defines>
+	<concept>C1-category</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="$C_1$-category" alias="C1-category"/>
+ </synonyms>
+ <related>
+	<object name="GrothendieckCategory"/>
+	<object name="BibliographyForCategoryTheoryAndAlgebraicTopologyApplicationsInTheoreticalPhysics"/>
+ </related>
+ <keywords>
+	<term>categories</term>
+	<term>Ab5 categories</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\begin{definition}
+A category $\mathcal{C}_1$ with coproducts is called a \emph{$C_1$-category} if for every family of
+of monomorphisms $\left\{u_i: A_i \to B_i\right\}$ the morphism
+$$\iota := \oplus_i \, u_i: \oplus_i \, A_i \to \oplus_i \, B_i $$
+is also a monomorphism (\cite{BM266}).
+\end{definition}
+
+\begin{remark}
+With certain additional conditions (as explained in ref. \cite{BM266}) $\mathcal{C}_1$ may satisfy the Grothendieck axiom $\mathcal{A}b5$, thus becoming a
+$C_3$-category (Ch. 11 in \cite{BM266}).
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{BM266}
+See p.81 in ref. $[266]$ in the
+\PMlinkname{Bibliography for categories and algebraic topology}{BibliographyForCategoryTheoryAndAlgebraicTopologyApplicationsInTheoreticalPhysics}
+
+\bibitem{NP288}
+Ref. $[288]$ in the \PMlinkname{Bibliography for categories and algebraic topology}{BibliographyForCategoryTheoryAndAlgebraicTopologyApplicationsInTheoreticalPhysics}
+
+\end{thebibliography}</content>
+</record>

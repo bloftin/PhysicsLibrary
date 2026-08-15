@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="248">
+ <title>velocity of wave</title>
+ <name>VelocityOfWave</name>
+ <created>2007-06-03 12:19:53</created>
+ <modified>2007-06-03 12:19:53</modified>
+ <type>Definition</type>
+<parent id="235">power</parent>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <comment>clarific.</comment>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+	<category scheme="msc" code="45."/>
+	<category scheme="msc" code="45.20.Dd"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The {\em monochromatic wave} is the fundamental model of the wave motion.\, The vibration in every point along the way of wave motion is harmonic and has the same period time $T$ and the fraquency\, $f = \frac{1}{T}$.\, The {\em wave length} $\lambda$ of the wave motion is the displacement which the wave propagates in a period time:
+$$\lambda = vT = v/f$$
+Thus the formula
+$$v = f\lambda$$
+is valid for the wave motion.</content>
+</record>

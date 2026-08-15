@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="222">
+ <title>Electric Field of a Line of Charge</title>
+ <name>ElectricFieldOfALineOfCharge</name>
+ <created>2006-09-21 14:10:33</created>
+ <modified>2006-09-21 14:10:33</modified>
+ <type>Topic</type>
+<parent id="99">Electric Field</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{The Electric Field of a Line of Charge}
+
+Calculating the electric field due to a non-moving continuous distribution of
+charge is a common task in electrostatics.  Unfortunately, without resorting to
+numerical methods, we are limited to simple geometries and field points that
+rely on symmetry in order to make the integrals tractable.
+
+Here we will examine the electric field due to a continuous line of charge on a line
+segment of length L.  Analytically, we will compute the E-field at two different field
+points and then look at computing the entire field using a numerical technique.
+
+\subsection{Center Line}
+
+The electric field at a height y above the line segment and on the center line as shown
+in below figure is straight forward and is one of the basic examples given in [1][2][3].
+
+\begin{figure}
+\includegraphics[scale=.8]{ElectricFieldLineSegment.eps}
+\vspace{20 pt}
+\end{figure}</content>
+</record>

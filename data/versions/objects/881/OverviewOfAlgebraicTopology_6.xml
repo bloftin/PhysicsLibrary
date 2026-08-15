@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="881">
+ <title>overview of algebraic topology</title>
+ <name>OverviewOfAlgebraicTopology</name>
+ <created>2010-10-07 01:35:34</created>
+ <modified>2010-10-10 22:10:26</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>omega-groupoid</concept>
+	<concept>higher homotopy</concept>
+	<concept>algebraic topology</concept>
+	<concept>nonabelian algebraic topology</concept>
+	<concept>manifold</concept>
+	<concept>homology group</concept>
+	<concept>cohomology theory</concept>
+	<concept>nonabelian theory</concept>
+	<concept>quantum geometry</concept>
+	<concept>quantum algebra</concept>
+	<concept>quantum algebraic topology</concept>
+	<concept>category thyeory</concept>
+	<concept>noncommutative geometry</concept>
+ </defines>
+ <related>
+	<object name="NonAbelianAlgebraicTopology5"/>
+ </related>
+ <keywords>
+	<term>overview</term>
+	<term>algebraic topology</term>
+	<term>nonabelian</term>
+	<term>algebraic topology invarinats</term>
+	<term>groupoid</term>
+	<term>topological space</term>
+	<term>higher homotopy theory</term>
+	<term>higher homotopy van Kampen theorem</term>
+	<term>crossed complex</term>
+	<term>module</term>
+	<term>omega-groupoid</term>
+	<term>double groupoid</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{An Overview of Algebraic Topology topics}
+
+
+\subsection{Introduction}
+\emph{Algebraic topology} (AT) utilizes algebraic approaches to solve topological problems, such as the classification of surfaces, proving duality theorems for manifolds and  approximation theorems for topological spaces. A central problem in algebraic topology  is to find algebraic invariants of topological spaces, which is usually carried out by means
+of homotopy, homology and cohomology groups. There are close connections between algebraic topology, 
+\PMlinkname{Algebraic Geometry (AG)}{AlgebraicGeometry), Non-commutative Geometry and NAAT. On the other hand, there are also close ties between algebraic geometry and number theory. 
+
+
+\subsection{Outline}
+\begin{enumerate}
+
+\item Homotopy theory and fundamental groups
+\item Topology and groupoids; \PMlinkname{van Kampen theorem}{VanKampensTheorem} 
+\item Homology and cohomology theories
+\item Duality
+\item Category theory applications in algebraic topology
+\item Index of categories, functors and natural transformations
+\item \PMlinkexternal{Grothendieck's Descent theory}{http://www.uclouvain.be/17501.html}
+\item `Anabelian geometry'
+\item Categorical Galois theory
+\item Higher dimensional algebra (HDA)
+\item Quantum algebraic topology (QAT)
+\item \PMlinkexternal{Non-Abelian Quantum Algebraic Topology}{http://aux.planetphysics.org/files/lec/61/ANAQAT20c.pdf}
+\item Quantum Geometry
+\item \PMlinkexternal{Non-Abelian algebraic topology (NAAT)}{http://planetphysics.org/encyclopedia/NonAbelianAlgebraicTopology6.html}
+
+\end{enumerate}
+
+\subsection{Homotopy theory and fundamental groups}
+\begin{enumerate}
+\item Homotopy
+\item Fundamental group of a space
+\item Fundamental theorems
+\item van Kampen theorem
+\item Whitehead groups, torsion and towers
+\item Postnikov towers
+\end{enumerate}
+
+
+\subsection{Topology and Groupoids}
+\begin{enumerate}
+\item Topology definition, axioms and basic concepts
+\item Fundamental groupoid
+\item Topological groupoid
+\item van Kampen theorem for groupoids
+\item Groupoid pushout theorem 
+\item Double groupoids and crossed modules
+\item new4
+
+\end{enumerate}
+
+
+\subsection{Homology theory}
+\begin{enumerate}
+
+\item Homology group
+\item Homology sequence
+\item Homology complex
+\item new4
+
+\end{enumerate}
+
+
+\subsection{Cohomology theory}
+\begin{enumerate}
+
+\item Cohomology group
+\item Cohomology sequence
+\item DeRham cohomology
+\item new4
+
+\end{enumerate}
+
+\subsection{Non-Abelian Algebraic Topology}
+\begin{enumerate}
+
+\item Crossed Complexes
+\item Modules
+\item omega-groupoids
+\item double groupoids
+\item Higher Homotopy van Kampen Theorems
+
+\end{enumerate}</content>
+</record>

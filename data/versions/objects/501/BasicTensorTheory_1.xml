@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="501">
+ <title>basic tensor theory</title>
+ <name>BasicTensorTheory</name>
+ <created>2009-02-05 03:12:53</created>
+ <modified>2009-02-05 03:12:53</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="04.20.Cv"/>
+	<category scheme="msc" code="02.40.Hw"/>
+ </classification>
+ <related>
+	<object name="Tensor"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>(Work in progress)
+
+\section{BASIC TENSOR THEORY}
+
+Tensor analysis is the study of invariant objects, whose properties must be independent of the coordinate systems used to describe the objects. A tensor is represented by a set of functions called components. For an object to be a tensor it must be an invariant that transforms from one acceptable coordinate system to another by the tensor rules.
+
+Several examples of tensors are velocity vector, base vectors, metric coefficients for the length of a line, Gaussian curvature, and the Newtonian gravitation potential.
+
+Many of the important differential equations for physics, engineering, and applied mathematics can also be written as tensors. Examples of differential equations that can be written in tensor form are Lagrange's equations of motion and Laplace's equation. When an equation is written in tensor form it is in a general form that applies to all admissible coordinate systems.
+
+\subsection{Summation Notation}
+The summation notation used throughout this section will be of the type:
+
+$$
+\sum_{i=1}^n = a_i x^i =\mathrm{a}_{1}\mathrm{x}_{1}+\mathrm{a}_{2}\mathrm{x}_{2}+\ldots+\mathrm{a}_{\mathrm{n}}\mathrm{x}_{n}\text{ }\quad (1.1)
+$$
+
+The superscripts on $\mathrm{x}$ are not powers; they are used to distinguish between the various $\mathrm{x}' \mathrm{s}$. In rectangular cartesian coordinates and vector notation, Equation 1.1 would be:
+
+$$ \sum_{i=1}^{3} a_i x^i $$
+
+where,
+
+$\mathrm{x}^{1}=\mathrm{x}, \mathrm{x}^{2}=\mathrm{y}, \mathrm{x}^{3}=\mathrm{z}$
+
+$\mathrm{a}_{1}=\mathrm{i}, \mathrm{a}_{2}=\mathrm{j}, \mathrm{a}_{\mathrm{3}}=\mathrm{k}$
+
+With this interpretation of Equation 1.1 and the specific values for $\mathrm{a}_{\mathrm{i}}$ and $\mathrm{x}^{\mathrm{i}}$ as noted, sum $\mathrm{S}$ would be:
+$$
+\mathrm{S}=\mathrm{i}\mathrm{x}+\mathrm{j}\mathrm{y}+\mathrm{k}\mathrm{z}
+$$
+
+For additional simplification, Einstein dropped the $\sum$ in Equation 1.1 and the summation is then expressed
+
+$$
+\mathrm{S}=\mathrm{a}_{i}\mathrm{x}^{i}
+$$
+
+This short cut is referred to as Einstein notation or Einstein summation convention.  Further, a superscript index will indicate a contravariant tensor, while a subscript index will indicate a covariant tensor.
+
+The rank of a tensor is the sum of the covariant and contravariant indexes.
+
+\subsection{Relative Tensors}
+\subsection{Admissible Transformations}
+\subsection{N Dimensional Space}
+\subsection{Contravariant Tensors}
+\subsection{Covariant Tensors}
+\subsection{Higher Rank and Mixed Tensors}
+\subsection{Metric Tensors and the Line Element}
+\subsection{Base Vectors}
+\subsection{Associated Tensors and the Inner Product}
+\subsection{Kronecker Deltas}
+
+This is a Derivative work from the public domain work of 
+
+"Principles and Applications of Tensor Analysis"
+By MATTHEW S. SMITH</content>
+</record>

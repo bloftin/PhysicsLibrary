@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="586">
+ <title>functorial algebraic geometry</title>
+ <name>FunctorialAlgebraicGeometry</name>
+ <created>2009-03-09 12:45:30</created>
+ <modified>2009-03-09 12:45:30</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>functorial geometry</concept>
+ </defines>
+ <keywords>
+	<term>functorial algebraic geometry</term>
+ </keywords>
+ <preamble></preamble>
+ <content>The following is a contributed topic on functorial algebraic geometry
+\PMlinkexternal{``Functorial Algebraic Geometry: An Introduction'' -by Alexander Grothendieck}{http://www.math.jussieu.fr/~leila/grothendieckcircle/FuncAlg.pdf}
+
+\subsubsection{Vol.1: Affine Algebraic Geometry}
+
+ (Following the Notes in English typewritten and edited by P. Gaeta,
+without implying the approval by A. Grothendieck of these notes.)
+
+ A century ago Algebraic Geometry could be contained in Klein's book (1880; Dover publs. 1963) : ``On RIEMANN's theory of Algebraic Functions and Their Integrals''. Furthermore, ``the distinction between pure and applied mathematics was then to a large extent artifical and unimportant'' (viz. P. Gaeta). For example in Klein's book cited above ``the study of Riemann surfaces was introduced by considering the practical physical problem of laminar flow in a plane or arbitrary surface. He even quotes Maxwell's treatise on page one.
+The natural continuation of such a `transcedental approach' in our times is the study of {\em complex algebraic manifolds}...''
+
+ Following Dieudonn\'e 's and Grothendieck's  famous ``\'Elements de G\'eometrie Alg\'ebrique'', and Dieudonn\'e 's ``Algebraic Geometry'' and ``Fondements de la G\'eometrie Alg\'ebrique.'' Adv. in Math. (1969), Alexander Grothendieck presented in 1973 a Buffalo Summer Course entitled:
+``Survey on the functorial approach to affine algebraic groups''. 
+This was preceded by a lecture introducing the functorial `language' approach 
+(\PMlinkexternal{Introduction au Langage Fonctoriel}{http://www.math.jussieu.fr/~karoubi/Grothendieck.Alger.pdf})
+
+ 
+ Grothendieck also organized and presented most of the four famous SGA seminars (SGA-1 to SGA-4), ``S\'eminaires de G\'eometrie Alg\'ebrique'' (Seminars of Algebraic Geometry.) . Other relevant references were:
+K\"ahler's ``Geometria arithmetica'' (1958), S. MacLane's ``Homology'' (1963),
+Manin's ``Lectures on Algebraic Geometry'', Mumford's ``Introduction to Algebraic Geometry'', and J.P. Serre's ``Faisceaux alg\'ebrique coh\'erents."
+(Coherent Algebraic Sheaves). In 1968 was also published by North-Holland the
+book ``Dix expos\'es sur la cohomologie des sch\'emes'' (Ten expositions on the cohomology of schems) by J. Giraud and Alexander Grothendieck.</content>
+</record>

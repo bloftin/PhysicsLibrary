@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="353">
+ <title>Quantum Geometry</title>
+ <name>QuantumGeometry</name>
+ <created>2009-01-07 08:40:14</created>
+ <modified>2009-01-07 08:40:14</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Quantum Geometry" alias="Quantum Algebraic Topology"/>
+ </synonyms>
+ <keywords>
+	<term>quantum operator algebras</term>
+	<term>quantum geometry</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>This is a contributed topic on:
+\section{Quantum Geometry}
+In 4 dimensions, one of the attractive programs of spacetime quantization is “quantum geometry”, often represented as “loop quantum gravity” .
+Loop quantum gravity starts with a Hamiltonian formulation of the first order formalism, with constraints, written in analogy to the (3+1)-dimensional case   that take the form:
+
+$$D_i E^{ia} =0$$,  $$ E^i_a R^a_{ij} =0,$$ and  
+$$\epsilon_{abc}E^{ib}E^{jc}R^a_{ij}=0,$$
+
+ 
+where the indices $i,j$ and $k$ are the spatial indices on a surface of constant time, $$E^{ia}= \epsilon^{ij}e^a_j$$, $D_i$  is the $SO(2,1)$  gauge-covariant derivative for the connection $\omega$, and the $R^a_{ij}$ are the spatial components of the curvature two-form.</content>
+</record>

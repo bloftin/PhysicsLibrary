@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="223">
+ <title>Electric Field of a Charged Disk</title>
+ <name>ElectricFieldOfAChargedDisk</name>
+ <created>2006-09-22 15:42:46</created>
+ <modified>2006-09-24 13:06:50</modified>
+ <type>Example</type>
+<parent id="99">Electric Field</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Electric Field of a Charged Disk}
+
+The Electric Field of a charged disk can teach us important concepts that you will see over and over in physics: superposition, cylindrical coordinates and non-constant basis vectors.  To get a glimpse of the power of superposition, we will solve this problem the hard way first and then see how superposition can be a powerfull tool.
+
+Let us calculate the electric field at a point P above the \emph{center} of a charged disk with radius of R and a uniform surface charge density of $\sigma$ as shown in below figure.
+
+\begin{figure}
+\includegraphics[scale=.8]{EfieldDisk.eps}
+\vspace{20 pt}
+\end{figure}
+
+Starting with the general formula for a surface charge
+
+\begin{equation}
+{\bf E} = \frac{1}{4 \pi \epsilon_0} \int \frac{\sigma(r')({\bf r} - {\bf r'}) da'}{\left |{\bf r} - {\bf r'} \right |^3}
+\end{equation}
+
+choose a coordinate system, a disk clearly lends itself to cylindrical coordinates.  As a refresher the next figure shows the ininitesimal displacement, where we have the ininitesmal area $da'$
+
+cartesian coordinates:
+
+$$da' = dx'dy'$$
+
+cylindrical coordinates:
+
+$$da' = s'ds'd\phi'$$
+
+\begin{figure}
+\includegraphics[scale=.5]{InfDis.eps}
+\vspace{20 pt}
+\end{figure}
+
+The vectors to the source and field points that are needed for the integration in cylindrical coordinates
+
+$${\bf r} = z \hat{z}$$
+$${\bf r'} = s' \hat{\phi}'$$
+
+therefore
+
+$${\bf r} - {\bf r'} = z \hat{z} - s' \hat{\phi}'$$
+$$ \left |{\bf r} - {\bf r'} \right | = \sqrt{s'^2 + z^2} $$
+
+substituting these relationships into (1) gives us
+
+\begin{equation}
+{\bf E} = \frac{\sigma}{4 \pi \epsilon_0} \int_0^{2\pi} \int_0^R \frac{s'ds'd\phi'}{\left ( s'^2 + z^2 \right )^{3/2}}\left ( z \hat{z} - s' \hat{\phi}' \right )
+\end{equation}
+
+As usual break up the integration into the $z$ and $\phi$ components
+
+{\bf z} component:
+
+$${\bf E}_z = \frac{\sigma}{4 \pi \epsilon_0} \int_0^{2\pi} \int_0^R \frac{z \hat{z}s'ds'd\phi'}{\left ( s'^2 + z^2 \right )^{3/2}} $$
+
+Since $\hat{z}$ is always in the same direction and has the same magnitude (unit vector), it is constant and can be brought out of the integration.  Integrating the ds them
+
+
+$${\bf E}_z = \frac{\sigma z \hat{z}}{4 \pi \epsilon_0} \int_0^{2\pi} d\phi' \int_0^R \frac{s'ds'}{\left ( s'^2 + z^2 \right )^{3/2}} $$
+
+using u substitution
+
+$$u = s'^2 + z^2$$
+$$du = 2s' ds$$
+$$ds = \frac{du}{2s}$$
+
+with the limits of integration becoming
+
+$$u(s'=0) = z^2$$
+$$u(s'=R) = R^2 + z^2$$
+
+trasnforming the integral to
+
+$${\bf E}_z = \frac{\sigma z \hat{z}}{4 \pi \epsilon_0} \int_0^{2\pi} d\phi' \int_{z^2}^{R^2 + z^2} \frac{u^{-3/2}du}{2} $$
+
+integrating
+
+$${\bf E}_z = \frac{\sigma z \hat{z}}{4 \pi \epsilon_0} \int_0^{2\pi} d\phi' \left. \right |_{z^2}^{R^2 + z^2} -u^{-1/2}du$$
+
+evaluating the limits
+
+$${\bf E}_z = \frac{\sigma z \hat{z}}{4 \pi \epsilon_0} \int_0^{2\pi} \left ( \frac{1}{z} - \frac{1}{\sqrt{R^2 + z^2}} \right ) d\phi' $$
+
+integrating again simply gives
+
+$${\bf E}_z = \frac{\sigma z \hat{z}}{2 \epsilon_0}  \left ( \frac{1}{z} - \frac{1}{\sqrt{R^2 + z^2}} \right ) $$
+
+${\bf \phi}$ component:
+
+$${\bf E}_{\phi} = \frac{\sigma}{4 \pi \epsilon_0} \int_0^{2\pi} \int_0^R -\frac{s'^2\hat{\phi}'ds'd\phi'}{\left ( s'^2 + z^2 \right )^{3/2}} $$
+
+If you cannot simply see how the $\phi$ component is zero through symmetry, then carry out the integration.  The key thing to learn here, and why it is not good to just skip over the $\phi$ component, is to realize that $\hat{\phi}$ is not constant throughout the integration.  Therefore, one cannot bring it out of the integration.  What needs to be done is to substitute in for $\hat{\phi}$.  An important result from cylindrical coordinates is the relation between its unit vectros and those of cartesian coordinates.
+
+$$ \hat{s} = \cos \phi \hat{x} + \sin \phi \hat{y} $$
+$$ \hat{\phi} = -\sin \phi \hat{x} + \cos \phi \hat{y} $$
+$$ \hat{z} = \hat{z} $$
+
+Plugging in the $ \hat{\phi}'$ into our integral
+
+$${\bf E}_{\phi} = \frac{\sigma}{4 \pi \epsilon_0} \int_0^{2\pi} \int_0^R -\frac{s'^2 \left (  -\sin \phi' \hat{x} + \cos \phi' \hat{y} \right )ds'd\phi'}{\left ( s'^2 + z^2 \right )^{3/2}} $$
+
+${\bf x}$ component:
+
+To make our job easier, let us first integrate $d\phi'$
+
+$${\bf E}_{\phi}^x = \frac{\sigma \hat{x}}{4 \pi \epsilon_0} \int_0^R   \frac{s'^2 ds'}{\left ( s'^2 + z^2 \right )^{3/2}} \int_0^{2\pi} \sin \phi'  d\phi'$$
+
+Note how $\hat{x}$ can be taken out of integral, so we get
+
+$${\bf E}_{\phi}^x = \frac{\sigma \hat{x}}{4 \pi \epsilon_0} \int_0^R \frac{s'^2  ds'}{\left ( s'^2 + z^2 \right )^{3/2}}  \left. \right |_0^{2\pi} - \cos \phi'  $$
+
+Evaluating the limits, gives us the result we expected.
+
+$${\bf E}_{\phi}^x = \frac{\sigma}{4 \pi \epsilon_0} \int_0^R \frac{s'^2  \hat{x} ds'}{\left ( s'^2 + z^2 \right )^{3/2}}  \left ( -1 - (-1) \right ) = 0   $$
+
+
+${\bf y}$ component:
+
+$${\bf E}_{\phi}^y = \frac{\sigma \hat{y}}{4 \pi \epsilon_0} \int_0^R   \frac{s'^2  ds'}{\left ( s'^2 + z^2 \right )^{3/2}} \int_0^{2\pi} -\cos \phi'  d\phi'$$
+
+integrating
+
+$${\bf E}_{\phi}^y = \frac{\sigma \hat{y}}{4 \pi \epsilon_0} \int_0^R \frac{s'^2   ds'}{\left ( s'^2 + z^2 \right )^{3/2}}  \left. \right |_0^{2\pi} -\sin \phi'  $$
+
+which once again yeilds a zero.
+
+$${\bf E}_{\phi}^y = \frac{\sigma \hat{y}}{4 \pi \epsilon_0} \int_0^R \frac{s'^2   ds'}{\left ( s'^2 + z^2 \right )^{3/2}}  \left ( 0 - 0 \right ) = 0   $$
+
+Since the x and y components are zero
+
+$$ {\bf E}_{\phi} = 0$$
+
+Therefore, for a charged disk at a point above the center, we have
+
+
+$${\bf E} = \frac{\sigma z \hat{z}}{2 \epsilon_0}  \left ( \frac{1}{z} - \frac{1}{\sqrt{R^2 + z^2}} \right ) $$
+
+and rearranging
+
+$${\bf E} = \frac{\sigma }{2 \epsilon_0}  \left ( 1 - \frac{z}{\sqrt{R^2 + z^2}} \right ) \hat{z} $$</content>
+</record>

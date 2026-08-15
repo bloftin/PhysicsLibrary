@@ -7,7 +7,7 @@ use strict;
 #
 sub checkdoc {
 	my $text = striphtml(shift);
-
+	dwarn "checkdoc started";
 	my $cmd = getConfig('spellcmd');
 	
 	my $prehighlight = "<a class=\"spell\" href=\"".getConfig("main_url")."/?op=checkword&word=\$word\" target=\"ZxbcMZXC\" onclick=\"window.open('".getConfig("main_url")."/?op=checkword&word=\$word', 'ZxbcMZX', 'width=300,height=120'); return false\">";
@@ -53,10 +53,10 @@ sub checkdoc {
 #
 sub checkword {	
 	my $params = shift;
-
+	dwarn "checkword started";
 	my $word = $params->{'word'};
 	my $cmd = getConfig('spellcmd');
-	my $template = new Template('checkword.html');
+	my $template = new TemplateNS('checkword.html');
 	my $result = "";
 
 	my $out = `echo "$word" | $cmd`;

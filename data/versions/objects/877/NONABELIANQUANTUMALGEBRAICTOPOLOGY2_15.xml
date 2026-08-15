@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="15" id="877">
+ <title>non-Abelian Quantum Algebraic Topology</title>
+ <name>NONABELIANQUANTUMALGEBRAICTOPOLOGY2</name>
+ <created>2010-09-28 01:45:05</created>
+ <modified>2010-10-24 21:03:30</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="03-XX"/>
+	<category scheme="msc" code="02.40.Re"/>
+	<category scheme="msc" code="02.20.Sv"/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="02.40.-kxx"/>
+	<category scheme="msc" code="02.90.+p"/>
+ </classification>
+ <defines>
+	<concept>quantum algebraic topology</concept>
+	<concept>quantum spacetimes</concept>
+	<concept>quantum state space</concept>
+	<concept>non-Abelian</concept>
+	<concept>TQFT</concept>
+	<concept>AQFT</concept>
+	<concept>non-Abelian theory</concept>
+	<concept>quantum algebra</concept>
+	<concept>quantum geometry</concept>
+	<concept>quantum fundamental groupoid</concept>
+ </defines>
+ <related>
+	<object name="QuantumAlgebra"/>
+	<object name="AlgebraicTopology"/>
+	<object name="AlexanderGrothendieck"/>
+	<object name="RonaldBrown"/>
+	<object name="NoncommutativeGeometry"/>
+ </related>
+ <keywords>
+	<term>quantum algebra</term>
+	<term>algebraic topology</term>
+	<term>quantum gravity</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Non-Abelian Quantum Algebraic Topology (NAQAT)}
+
+This is a new contributed topic (under construction).
+
+\emph{Quantum Algebraic Topology} is the area of theoretical physics and physical mathematics concerned with the applications of Algebraic Topology methods, results and constructions (including its extensions to Category Theory, Topos Theory and Higher Dimensional Algebra) to fundamental quantum physics problems, such as the representations of Quantum spacetimes and Quantum State Spaces in Quantum Gravity, in arbitrary reference frames.
+Non--Abelian gauge field theories can also be formalized or presented in the QAT framework. 
+
+Perhaps the neighbor areas with which QAT overlaps significantly
+are: Algebraic Quantum Field Theories (AQFT)/Local Quantum Physics (LQP), Axiomatic QFT, Lattice QFT (LQFT) and Supersymmetry/Supergravity. One can also claim overlap with various Topological Field Theories (TFT), or Topological Quantum Field Theories (TQFT), Homotopy QFT (HQFT), Dilaton, and Lattice Quantum Gravity (respectively, DQG and LQG) theories.
+
+%%%%%%%%%
+
+\subsection{Applications of the Van Kampen Theorem to Crossed Complexes. Representations of Quantum Space-Time in terms of Quantum Crossed
+Complexes over a Quantum Groupoid.}
+
+
+There are several possible applications of the generalized van Kampen theorem in the development of physical representations of a
+quantized space-time 'geometry'.  For example, a  possible
+application of the generalized van Kampen theorem is the
+construction of the initial, quantized space-time as the
+\emph{unique colimit} of \emph{quantum causal sets (posets)} which
+was precisely described in ref.[69] in terms of \emph{the nerve of an open covering} $N \cU$ of the topological space $X$ that would be isomorphic to a $k$-simplex $K$ underlying $X$. %%[44]
+The corresponding,\emph{noncommutative} algebra $\Omega$ associated
+with the finitary $T_0$-poset $P(S)$ is \emph{the Rota algebra}
+$\Omega$ discussed in [69], and the \emph{quantum topology} $T_0$ is defined by the partial ordering arrows for regions that can overlap, or superpose, coherently (in the quantum sense) with each other.  When the poset $P(S)$ contains $2N$ points we write this as $P_{2N}(S)$~. The \emph{unique} (up to
+an isomorphism) $P(S)$ in the \emph{colimit}, $\lim_\leftarrow
+P_N{X}$, recovers a space homeomorphic to $X$ [69]. Other non-Abelian results derived from the generalized van Kampen theorem were discussed by Brown, Hardie, Kamps and Porter in  [72], and also by Brown, Higgins and Sivera in [68].
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Local--to--Global (LG) Construction Principles
+consistent with Quantum `Axiomatics'}
+
+
+A novel approach to QST construction in AQFT may involve the
+use of fundamental theorems of algebraic topology generalised from
+topological spaces  to spaces with structure, such as a filtration,
+or as an $n$-cube of spaces.  In this category are the generalized,
+\emph{Higher Homotopy Seifert-van Kampen theorems (HHSvKT)} of
+Algebraic Topology with novel and unique non-Abelian applications.
+Such theorems have allowed some new calculations of homotopy types
+of topological spaces. They have also allowed new proofs and
+generalisations of the classical Relative Hurewicz Theorem by R.
+Brown and coworkers [68],[72]. One  may find links of such results
+to the expected \emph {`non-commutative} geometrical' structure of
+quantized space--time [85].
+
+
+%%
+
+
+
+See also the Exposition on NAQAT at: http://aux.planetphysics.org/files/lec/61/ANAQAT20e.pdf</content>
+</record>

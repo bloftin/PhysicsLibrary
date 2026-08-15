@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="630">
+ <title>Higgs boson simulation</title>
+ <name>HiggsBosonANeutralScalarParticle</name>
+ <created>2009-04-05 16:28:29</created>
+ <modified>2009-04-10 13:44:44</modified>
+ <type>Experiment</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>$H^0$ boson</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Higgs boson simulation" alias="Higgs boson"/>
+	<synonym concept="Higgs boson simulation" alias="Goldstone boson"/>
+	<synonym concept="Higgs boson simulation" alias="$H^0$"/>
+ </synonyms>
+ <related>
+	<object name="Boson"/>
+ </related>
+ <keywords>
+	<term>Higgs boson: a neutral scalar particle</term>
+	<term>Ho</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Higgs boson}
+The following is a link to a \PMlinkexternal{simplified demonstration using $Mathematica^{TM}$ for the generation of the Higgs boson}{http://demonstrations.wolfram.com/TheHiggsParticle/}, a (hypothetical) fundamental, neutral scalar particle $H^0$ which is supposed to be detected `soon' by one of the two Tevatron, particle accellerators presently in operation. 
+
+One can obtain a free download of this demonstration and play the
+oversimplified simulation as a color animation with the $Mathematica^{TM}$ Player (which is also a free download that does not save however). 
+The simulated experiment seems to indicate that unless the available energy
+is not greater than about 150 GeV the Higgs boson is not readily observed.
+Feynman diagrams for the generation of the Standard Model Higgs boson are also
+shown in this demo.
+
+
+
+According to the current Standard Model theory, various particles are supposed to acquire mass only via their interactions with the neutral scallar Higgs boson, $H^0$. (A Nobel prize has already been predicted for such a hypothetical discovery that would close the gap between the current Standard Model theory and experimental, high energy physics. There have already been \PMlinkexternal{unconfirmed rumors of Higgs bosons generated}{http://news.bbc.co.uk/2/hi/science/nature/7893689.stm} at the \PMlinkexternal{Fermilab}{http://www.fnal.gov/} Tevatron in US.)</content>
+</record>

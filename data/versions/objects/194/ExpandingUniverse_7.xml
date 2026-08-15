@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="194">
+ <title>expanding universe</title>
+ <name>ExpandingUniverse</name>
+ <created>2006-07-08 02:54:42</created>
+ <modified>2006-07-08 22:52:00</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="98.80.Es"/>
+	<category scheme="msc" code="98.62.Py"/>
+	<category scheme="msc" code="98.80.Bp"/>
+	<category scheme="msc" code="98.80.-k"/>
+ </classification>
+ <keywords>
+	<term>expanding universe Hubble</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A cornerstone of cosmology is the observation of an expanding universe.  In 1929, Hubble published the constant of proportionality $H_0$ that has become to be known as Hubble's constant [1].  The importance of this constant to the expanding universe is seen through Hubble's law, which states that the velocity of a galaxy is proportional to its distance from any point.
+
+$$ \vec{v} = H_0 \vec{r} $$
+
+When Hubble discovered the expansion of the universe, he came up with values of 500 and 530 [km/(s Mpc)].  Although remarkable for the time, astronomers today can measure distance with a lot more accuracy.  The Hubble space telescope (HST) key project used the HST to measure the Hubble constant in multiple ways.  The final combined result of these different methods, yielded a Hubble constant of [3] 
+
+$$H_0 = 72 \pm 8 \,\,\,\, [km s^{-1} Mpc^{-1}] $$
+
+As an example, let us compute the Hubble constant using redshift data from the \PMlinkexternal{SIMBAD Astronomical Database}{http://simbad.u-strasbg.fr/Simbad} and distances from papers involved in the HST key project.  The SINBAD data comes in two formats, either it directly gives the velocity or it reports the redshift value, which is related to a nonrelativistic velocity by
+
+$$ z = \frac{v}{c} $$
+
+A table  of selected galaxies, with their receding velocities and distances is given below
+
+\begin{table}[t]
+\begin{center}
+
+
+\begin{tabular}{ccc}
+\\ [.3ex] \hline \\ [.3ex]
+
+Object (NGC) &amp; SINBAD (v) [km/s] &amp; Distance [Mpc] \\ [0.5ex]
+%heading
+\hline \\ [.3ex]
+925 &amp; 553 &amp; 929 \\
+1326A &amp; 1718 &amp; 1870 \\
+1365 &amp; 1662 &amp; 1830 \\
+1425 &amp; 1508.1 &amp; 2220 \\
+2090 &amp; 924.6 &amp; 1230 \\
+3198 &amp; 663 &amp; 1450 \\
+3319 &amp; 742.5 &amp; 1430 \\
+3351 &amp; 778.5 &amp; 1005 \\
+3621 &amp; 727 &amp; 630 \\
+4321 &amp; 1575 &amp; 1610 \\
+4414 &amp; 718.5 &amp; 1910 \\
+4535 &amp; 1964.4 &amp; 1600 \\
+4548 &amp; 493.2 &amp; 1590 \\
+4725 &amp; 1209.9 &amp; 1260 \\ [1ex]
+
+\hline
+\end{tabular}
+% Caption does not seem to work
+%\caption{SI Unit Prefixes} 
+\end{center}
+\end{table}
+
+As suggested by Liddle in [2], let us set up a square grid showing Hubble's law and then transform the origin to another point to see that it also follows Hubble's law.  First we set up the grid with equally spaced squares of unit length as shown in the first figure.  If you are able to view the attached spreadsheet, note that the constant used was 0.25 with the the length of each side of the squares being 1.  This means that at a distance of 1, the velocity vector will be of length 0.25 and at a distance of 2, a length of 0.5, etc.
+
+\begin{figure}
+\includegraphics[scale=.8]{figure1a.eps}
+\vspace{20 pt}
+\end{figure}
+
+The next step is to transform our origin to the red dot at (1,1).  This is done by subtracting off the equivalent velocity vector at a distance to (1,1) from all vectors as shown by the pink vectors in the second figure.
+
+\begin{figure}
+\includegraphics[scale=.8]{figure2a.eps}
+\vspace{20 pt}
+\end{figure}
+
+After computing the subtraction (green vectors), we see how it looks like every point is receding away from our new origin.  This is true for any other point we choose.
+
+\begin{figure}
+\includegraphics[scale=.8]{figure3a.eps}
+\vspace{20 pt}
+\end{figure}
+
+* Lots more to come, if you would like to help drop me an email
+
+\subsection{References}
+
+[1]  Hubble, E.,  "A Relation between Distance and Radial Velocity among Extra-Galactic Nebulae."  Proceedings of the National Academy of Sciences, 1929; 15: 168-173.
+
+[2]  Liddle, A., "An Introduction To Modern Cosmology."  2nd Edition.  John Wiley \&amp; Sons, West Sussex, 2003.
+
+[3]  Freedman, W., Madore, B., Gibson, B., "Final Results from the Hubble Space Telescope Key Project to Measure the Hubble constant."  The Astrophysical Journal, 553:47-72, 2001 May 20.</content>
+</record>

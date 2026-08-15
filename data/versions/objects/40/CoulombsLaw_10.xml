@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="40">
+ <title>Coulomb's law</title>
+ <name>CoulombsLaw</name>
+ <created>2005-05-12 11:21:16</created>
+ <modified>2005-08-15 17:53:47</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Coulomb's law describes the electrostatic force between electric charges.  Coulomb was the first scientist to measure the force using a torsion balance and he discovered that the attraction or repulsion force increases or decreases inversely as the square of the distance between the charges. As an equation Coulomb's law is given as 
+
+\begin{center}
+$F = k \frac{q_1 q_2}{r^2}$
+\end{center}
+
+This equation only gives the magnitude of the force, but we must also take into account the direction of the force.  Similar to gravity, the force between the charges acts along a line between them.  Coulomb's law in vector form is
+
+\begin{center}
+$ \vec{F} = k \frac{q_1 q_2}{r_{12}^3} \vec{r}_{12} $
+\end{center}
+
+Some explanation is needed for the variables. $r_{12}$ is the distance between the two charges.  The direction of the force is taken into account through the unit vector $\hat{r}_{12}$ which will point towards the other charge or in the oppososite direction depending on attraction or repulsion. So to go from the first equation we add the unit vector
+
+\begin{center}
+$ \vec{F} = k \frac{q_1 q_2}{{r^2}_{12}} \hat{r}_{12}$
+\end{center}
+
+To get a unit vector we divide the vector between the charges by its magnitude
+
+\begin{center}
+$\vec{r}_{12} = r_{12} \hat{r}_{12}$
+\end{center}
+
+so the unit vector is
+
+\begin{center}
+$\hat{r}_{12} = \frac{\vec{r}_{12}}{r_{12}} $
+\end{center}
+
+repacing the unit vector with the above equation yields the vector form of Colomb's Law.
+
+More to come on how Coulomb used a torsion balance to come up with this relationship...</content>
+</record>

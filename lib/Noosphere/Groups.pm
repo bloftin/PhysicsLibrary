@@ -51,7 +51,7 @@ sub groupEditor  {
 
 	my $error = '';
 
-	my $template = new Template('groupeditor.html');
+	my $template = new TemplateNS('groupeditor.html');
 
 	# handle adding a group
 	#

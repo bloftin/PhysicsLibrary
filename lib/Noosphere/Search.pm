@@ -447,7 +447,7 @@ sub searchRenderEn {
 #
 sub advSearch {
 	my $params=shift;
-	my $template=new Template('advsearch.html');
+	my $template=new TemplateNS('advsearch.html');
 
 	return stubMessage();
 	#return paddingTable(makeBox('Advanced Search',$template->expand()));
@@ -457,7 +457,7 @@ sub advSearch {
 #
 sub getSearchBox {
 	my $params=shift;
-	my $template=new Template("search.html");
+	my $template=new TemplateNS("search.html");
 	
 	if (defined($params->{term})) {
 		$template->setKey('term', $params->{'term'});

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="13" id="1004">
+ <title>The Physics of Light: From Waves to Photon</title>
+ <name>PhysicsOfLightFromWavesToPhoton</name>
+ <created>2025-05-24 17:55:45</created>
+ <modified>2025-05-25 03:30:35</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41."/>
+ </classification>
+ <defines>
+	<concept>light</concept>
+ </defines>
+ <preamble>      % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage[pdftex]{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>% Section 1: Introduction
+\section{Introduction}
+Light is ubiquitous, shaping our perception of the world and driving technological advancements. In physics, light is studied as electromagnetic radiation, exhibiting both wave-like and particle-like properties. This article explores the nature of light, its historical development, theoretical frameworks, and modern applications, providing a foundation for understanding its role in the universe.
+
+
+Figure 1 highlights the visible portion of the electromagnetic spectrum [5].
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{EM_spectrum.png}
+\caption{1.\textbf{ The electromagnetic spectrum.}}
+\end{figure}
+
+% Section 2: Historical Perspectives
+\section{Historical Perspectives}
+The understanding of light has evolved significantly over time, reflecting advancements in scientific thought and experimentation.
+
+\subsection{Early Theories}
+Ancient philosophers like Euclid and Ptolemy described light in terms of rays, focusing on geometric optics. In the 11th century, Ibn al-Haytham's \textit{Book of Optics} laid the groundwork for modern optics by explaining reflection and refraction. During the 17th century, two competing theories emerged: Isaac Newton's corpuscular theory, which posited that light consists of particles, and Christiaan Huygens' wave theory, which described light as a wave propagating through a medium called the ether.
+
+\subsection{19th Century Advancements}
+The 19th century saw the wave theory gain prominence. Thomas Young's double-slit experiment (1801) demonstrated interference, supporting the wave nature of light. Augustin-Jean Fresnel's work on diffraction and polarization further solidified this view. James Clerk Maxwell's electromagnetic theory (1860s) unified electricity and magnetism, describing light as an electromagnetic wave, a milestone in classical physics.
+
+% Section 3: Light as an Electromagnetic Wave
+\section{Light as an Electromagnetic Wave}
+Maxwell's equations provide the classical framework for understanding light as an electromagnetic wave.
+
+\subsection{Maxwell's Equations}
+
+Maxwell's equations describe the behavior of electric $\( \mathbf{E} \)$</content>
+</record>

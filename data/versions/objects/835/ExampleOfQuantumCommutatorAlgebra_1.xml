@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="835">
+ <title>example of quantum commutator algebra</title>
+ <name>ExampleOfQuantumCommutatorAlgebra</name>
+ <created>2010-02-14 15:16:41</created>
+ <modified>2010-02-14 15:16:41</modified>
+ <type>Example</type>
+<parent id="834">commutator algebra</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>added in reference</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ca"/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Here we illustrate a simple example of quantum commutator algebra using a one-dimensional quantum system.  Let $f(q)$ be a function of $q$.  The three commutators of $q$ and of each of the functions $p^2 f(q)$, $pf(q)p$, and $f(q)p^2$ may all be identified (to within the factor $i \hbar$) with the derivative with respect to $p$ of these functions, but they are not the same operators.  Indeed, by repeated application of the commutator algebra rule 
+
+\begin{equation}
+[q_i,G(p_1,\dots,p_R)] =  i\hbar \frac{\partial G}{\partial p_i}
+\end{equation}
+
+we get
+
+$$[q,p^2 f(q)] = 2 i \hbar p f(q)$$
+$$[q,pfp] = i \hbar(fp+pf)$$
+$$[q,fp^2] = 2 i \hbar f p$$
+
+In the same way
+
+$$[p,p^2f] = \frac{\hbar}{i} p^2 f^{\prime}$$
+$$[p,pfp] = \frac{\hbar}{i} pf^{\prime}p$$
+$$[p,fp^2] = \frac{\hbar}{i} f^{\prime}p^2$$</content>
+</record>

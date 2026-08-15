@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Test Template</title>
+  </head>
+  <body>
+    [% USE DBI( dbh = my_dbh_ref ) %]
+    <p>Users:  </p>
+    [% FOREACH user = DBI.query("select username from users") %]
+      <p> [% user.username %] </p>
+    [% END %]
+    <p>Message: [% message %]</p>
+    <p>Table: </p>
+    <p>PACS: <br> [% pacs_id.join('<br>') %]</p>
+    <p>[% pacs_id.first %] - [% pacs_id.last %] </p>
+    <p>size: [% pacs_id.size %] </p>
+    <div class="footer">
+      This is the footer.
+    </div>
+  </body>
+</html>

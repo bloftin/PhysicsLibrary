@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="774">
+ <title>Felix Bloch</title>
+ <name>FelixBloch</name>
+ <created>2009-05-24 11:29:27</created>
+ <modified>2009-05-24 12:32:47</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>Bloch waves</concept>
+ </defines>
+ <related>
+	<object name="AndreBloch"/>
+ </related>
+ <keywords>
+	<term>biography</term>
+	<term>HerbertGutowsky</term>
+	<term>EdwardPurcell</term>
+	<term>CharlesSlichter</term>
+	<term>WernerHeisenberg</term>
+	<term>NielsBohr</term>
+	<term>JohnVonNeumann</term>
+	<term>PeterDebyeWernerHeisenberg</term>
+	<term>NielsBohr</term>
+	<term>JohnVonNeumann</term>
+	<term>PeterDebye</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\emph{Felix Bloch} (b. October 23, 1905 in Z\"urich--d. September 10, 1983) was a Swiss physicist, established in the U.S.A. His parents, Gustav and Agnes Bloch, were both Jewish, and he was educated at the Eidgen\"ossische Technische Hochschule in Z\"urich, but changed fields from engineering to physics. 
+ 
+\subsection{Education}
+He attended lectures and seminars by physical chemist/theoretical physicist Peter Debye and also by Hermann Weyl at ETH Z\"urich, and then by Erwin Schr\"odinger at University of Z\"urich. A neighbor student in such seminars was the American--Hungarian Jewish mathematician and mathematical physicist John (Janosh) von Neumann. Then he continued his physics studies at the University of Leipzig under Werner Heisenberg, earning his doctorate in 1928 with a famous doctoral thesis that established the quantum theory of crystalline solids, using what are now called ``{\em Bloch waves}'' to describe electron distributions in crystalline metals. Then, he also studied with Wolfgang Pauli in Z\"urich, Niels Bohr in Copenhagen and Enrico Fermi in Rome before he went back to Leipzig assuming a position as lecturer.
+
+
+\subsection{Notable Achievements}
+In 1933, immediately after the nazis came to power, he left Germany, emigrating permanently to work at Stanford University in 1934, where he became the first professor for theoretical physics. 
+
+In 1939, he became a naturalized citizen of the United States and during WW II he worked on atomic energy at Los Alamos National Laboratory.
+
+Then he resigned the atomic energy project to join the radar war project at Harvard University where he capitalized heavily on the technical expertise with high power generators of radio waves that were then utilized by radar (based on the British radar invention by Sir John Randall, which is shared with the US during WW II). This technical experience allowed him and his close coworkers to
+cconcentrate on investigating the possibility of nuclear magnetic resonance (NMR) which he was able to demonstrate in 1944 independently of Purcell. Then, he proposed in 1946 his nuclear induction theory of NMR, together with his phenomenological (now called) Bloch equations which determine the time evolution of nuclear magnetization according to Bloch equations which determine the time evolution of nuclear magnetization. (Later, during 1960 to 1980,
+based on the same principles and theory on which NMR absorption and relaxation techniques were previously established, (N) MRI, or (Nuclear) Magnetic Resonance Imaging applications were also developed for medical diagnosis, investigations and treatments; the latter however requires \PMlinkname{2D-FT NMR}{} to be able to reconstruct the 3D anatomical and also the dynamic/relaxation structure that often confounds the X-ray trained radiologists).
+
+\subsection{Awards and Recognitions}
+ Felix Bloch and Edward Mills Purcell shared in 1952 the Nobel Prize for ``their development of new ways and methods for nuclear magnetic precision measurements,'' or in other words for the first successful experimental demonstrations of the NMR phenomenon in wax and water, respectively. Notably,
+a famous Dutch physicist reported failed experiments to observe any NMR-related signal in 1942 using a microcalorimetric method on a single, high-purity crystal of (undoped) LiFl that had a very long spin-lattice relaxation time ($T_1$) which resulted in complete saturation, and thus no obsewrvable signal.
+
+(On the other hand, Herbert S. Gutowsky and Pake-- who demonstrated in 1945 the first dipolar-resolved NMR spectra in a dihydrated gypsum single crystal--were not thus recognized by the Nobel committee, nor was the discovery of the very important ``chemical shift'' effect discovered by H. S. Gutowsky and Charles P. Slichter in the early 50's; the chemical shift is the basis for all NMR spectroscopy, including 2D-FT NMR. An NAS member was reputed to have said in the 80's that H. S. Gutowsky perhaps--according to many-- deserved not one but two Nobels  awards, that cannot be however awarded posthumously). 
+
+In 1954–1955, Felix Bloch served for one year as the first General Director of CERN, and then, in 1961, he was appointed Max Stein Professor of Physics at the famous Stanford University.</content>
+</record>

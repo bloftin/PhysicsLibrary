@@ -1,11 +1,116 @@
 package Noosphere;
 use strict;
+use File::Path qw(make_path); 
+use File::chdir;
+use File::Copy qw( copy );
+use File::Remove 'remove';
+use Template;
+use vars qw{$dbh $DEBUG};
 
 require Noosphere::Util;
+
+sub templateTestPerl
+{
+	my $params = shift;
+	dwarn "templateTestPerl start";
+	my @pacs_ids;
+
+	my ($rv,$sth)=Noosphere::dbSelect($dbh,{WHAT=>'*',FROM=>'msc'});
+
+	my @rows = dbGetRows($sth);
+
+	foreach my $row (@rows) {
+		my $rowID = $row->{id};
+		push(@pacs_ids,  $rowID);
+	}
+
+    my $file = 'greeting.tt';
+	my $htmlout = "";
+    my $vars = {
+        message  => "Hello World\n",
+		pacs_id  => \@pacs_ids,
+		my_dbh_ref => $dbh,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
+	#dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
+	dwarn "templateTestPerl end";
+    return $htmlout;
+}
 
 # collaborative site documentation center.
 #
 sub siteDoc {
+	my $params = shift;
+	my $userinf = shift;
+
+	##my $template = new XSLTemplate('sitedoc.xsl');
+
+	##$template->addText('<sitedoc>');
+
+	##$template->addText("	<loggedin>1</loggedin>") if $userinf->{'uid'} > 0;
+
+	# get a list of collaborations that are site docs and are publicly 
+	# *writeable*
+	#
+	my $collab = getConfig('collab_tbl');
+	my $acl = getConfig('acl_tbl');
+	my $sth = $dbh->prepare("select objectid from $acl where tbl='$collab' and _write = 1 and user_or_group = 'u' and default_or_normal = 'd'");
+	$sth->execute();
+
+	my @uids = (-1);	# so the "in ($list)" statement is always valid 
+
+	while (my $row = $sth->fetchrow_arrayref()) {
+		dwarn "found  collab that are public";
+		push @uids, $row->[0];
+	}
+	$sth->finish();
+
+	my $uidlist = join(', ', @uids);
+	dwarn "list of collabs that are public (uids):\n $uidlist";
+	# get the intersection of the above list of IDs and the collaborations
+	# that are site docs
+	#
+	my $xml = getCollabObjList($userinf, "sitedoc = 1");
+	dwarn "After getCollabObjList, xml:\n $xml";
+	##$template->addText($xml);
+
+	##$template->addText('</sitedoc>');
+
+	##return $template->expand();
+
+	my $xmlstring = '';
+	my $writer = new XML::Writer( OUTPUT=>\$xmlstring, UNSAFE=>1 );
+	$writer->startTag("sitedoc");
+	$writer->startTag("items");
+	$writer->raw($xml);
+	$writer->endTag("items");	
+	$writer->endTag("sitedoc");
+
+
+	my $xslt = getConfig("stemplate_path") . "/sitedoc.xsl";
+
+	#warn "building with:\n\n\n\n\n\n\n\n$xmlstring\n\n\n\n\n\n\n";
+	open( OUT, ">/tmp/sitedoc_xmlstring.xml");
+	print OUT $xmlstring;
+	close(OUT);
+	
+	my $sitedoc = buildStringUsingXSLT( $xmlstring, $xslt );
+
+	#warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
+	open( OUT, ">/tmp/sitedoc.xml");
+	print OUT $sitedoc;
+	close(OUT);
+
+	return $sitedoc;
+}
+
+sub siteDocOld {
 	my $params = shift;
 	my $userinf = shift;
 
@@ -95,6 +200,59 @@ sub siteDoc {
 	$template->addText('</sitedoc>');
 
 	return $template->expand();
+}
+
+sub getCollabObjList {
+	my $userinf = shift;
+	my $where = shift; # something like "sitedoc = 1", "sitedoc = 0", etc
+
+	my $xml = "";
+
+	my $collab = getConfig('collab_tbl');
+
+	my $q = "select * from $collab where $where";
+	my $sth = $dbh->prepare($q);
+	$sth->execute();
+
+	while (my $row = $sth->fetchrow_hashref()) {
+		dwarn "found item int getCollabObjList, where = $where";
+		$xml .= '	<docitem>';
+
+		$xml .= "		<uid>$row->{uid}</uid>";
+		$xml .= "		<title>".htmlescape($row->{'title'})."</title>";
+
+		if (defined $row->{'abstract'}) {
+			my $ab = $row->{'abstract'};
+			$ab =~ s/\s+/ /gs;
+			$xml .= "		<abstract>".htmlescape($ab)."</abstract>";
+		}
+		
+		# need to get lastedit information 
+		#
+		my $edits = getConfig('author_tbl');
+		my $sth2 = $dbh->prepare("select userid, ts from $edits where tbl='$collab' and objectid=$row->{uid} order by ts desc limit 1");
+		$sth2->execute();
+		my $lastedit = $sth2->fetchrow_hashref();
+		$sth2->finish();
+
+		if (defined $lastedit) {
+			my $lastwhen = mdhm($lastedit->{'ts'});
+			my $lastuser = lookupfield(getConfig('user_tbl'), 'username', "uid=$lastedit->{userid}");
+
+			$xml .= "		<lastedit>";
+			$xml .= "			<who>$lastuser</who>";
+			$xml .= "			<when>$lastwhen</when>";
+			$xml .= "		</lastedit>";
+		}
+
+		my $owner = lookupfield(getConfig('user_tbl'), 'username', "uid=$row->{userid}");
+		$xml .= "		<ownername>$owner</ownername>";
+		$xml .= "		<owner>1</owner>" if $row->{'userid'} == $userinf->{'uid'};
+
+		$xml .= '	</docitem>';
+	}
+
+	return $xml;
 }
 
 # display main collab screen, show's your collaborations, and collaborations
@@ -287,7 +445,7 @@ sub renderCollab {
 
 	$template->expand();
 
-	my $outertemplate = new Template('collabobj.html');
+	my $outertemplate = new TemplateNS('collabobj.html');
 
 	$outertemplate->setKey('collab', $template->expand());
 
@@ -594,33 +752,42 @@ sub renderCollabPreview {
  
 	# figure out cache dir. it really should already exist for us.
 	#
+	dwarn "renderCollabPreview start";
 	if (defined $params->{'tempdir'}) {
+		
 		$dir = $params->{'tempdir'};
+		dwarn "renderCollabPreview tempdir defined:\n $dir";
 	} else {
 		$dir = makeTempCacheDir();
 		$params->{'tempdir'} = $dir;
+		dwarn "renderCollabPreview tempdir not defined, define now:\n $dir";
 	}
+	dwarn "renderCollabPreview ended";
  
 	# copy files from main dir to method subdir
 	#
 	if (not -e "$root/$dir/$method") {
-		mkdir "$root/$dir/$method";
+		#changing to make_path as mkdir is causing apache/mod_perl problem/crash
+		make_path("$root/$dir/$method", {verbose => 1, mode => 0771});
 	}
-	chdir "$root/$dir";
+	##chdir "$root/$dir";
+	$CWD = "$root/$dir";# or dwarn "ERROR chdir: cannot change: $!\n";
 	my @files = <*>;
 	my @methoddirs = getMethods();
 	foreach my $file (@files) {
 		if (not inset($file,@methoddirs)) {
-			`cp $file $method`;
+			copy($file,$method);
 		}
 	}
-	chdir "$root";
+	##chdir "$root";
+	$CWD = "$root";
+	##chdir("$root");
 	
 	# remove old rendering file if it exists
 	#
 	my $outfile = getConfig('rendering_output_file');
 	if (-e "$root/$dir/$method/$outfile") {
-		`rm $root/$dir/$method/$outfile`;
+		remove("$root/$dir/$method/$outfile");
 	}
 	
 	my $table = getConfig('collab_tbl');

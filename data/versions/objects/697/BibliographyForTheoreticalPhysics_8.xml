@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="697">
+ <title>bibliography for theoretical physics</title>
+ <name>BibliographyForTheoreticalPhysics</name>
+ <created>2009-04-29 13:22:21</created>
+ <modified>2009-04-29 13:38:52</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <preamble></preamble>
+ <content>This is a contributed topic containing a current bibliography for theoretical physics of recently published papers, books and archived preprints in Theoretical Physics. 
+
+\section{Theoretical/Mathematical Physics: Recent Literature}
+
+\textbf{Entry in progress}
+
+\begin{thebibliography}{999}
+\bibitem{Weinberg2k8}
+Weinberg, S. 2004, ``Quantum Field Theory''.,
+vols. I to III, Cambridge University Press, Cambridge, UK, 1,800 pages.
+
+\bibitem{SDG2k9}
+{\em Ultracold Quantum Fields (Theoretical and Mathematical Physics)} 
+by Henk T.C. Stoof, Dennis B.M. Dickerscheid and Koos Gubbels.,
+Sprnger: Berlin, 2009, 481 pages; very recent book on ultracold atomic quantum gases (missing however topological order theories in condensed matter).  
+``Presently there are many exciting directions that are being explored with 
+ultracold atomic gases.''
+
+\bibitem{Aitchinson2k8}
+``Gauge Thetheories in Particle Physics'', (Graduate Student Series in Physics) by Aitchison. (A reviewer says:   "The structure of gauge field theories is well described in an introductory way." )
+ 
+\bibitem{Cheng2k8}
+``Gauge Theory of elementary particle physics by Ta-Pei Cheng 
+(A reader says:    "Most complete graduate level particle physics and field theory text. (has solutions manual)")  
+
+\bibitem{Quigg2k8} 
+``Gauge Theories Of Strong, Weak, And Electromagnetic Interactions (Advanced Book Classics)'' by Chris Quigg. 
+
+\bibitem{French2k8}
+{\em Special Relativity (M.I.T. Introductory Physics Series)} by A. P. French
+
+\end{thebibliography}</content>
+</record>

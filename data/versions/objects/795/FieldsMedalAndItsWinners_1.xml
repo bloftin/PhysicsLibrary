@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="795">
+ <title>Fields Medal and its winners</title>
+ <name>FieldsMedalAndItsWinners</name>
+ <created>2009-06-12 19:10:13</created>
+ <modified>2009-06-12 19:10:13</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <keywords>
+	<term>Field Medal</term>
+	<term>Fields Medal awardees list</term>
+ </keywords>
+ <preamble></preamble>
+ <content>
+In his Will, John Charles Fields proposed to establish the Fields Medal which has played since 1936 the role that the Nobel Prize might have placed if it were awarded to mathematicians (which it is not). His proposal was accepted at The International Congress of Mathematicians at Z\"urich in 1932. However, it was not until the next congress, held at Oslo in 1936, that the Fields Medal was first awarded. Fields Medals were then not awarded during World War II so that the second Fields Medals were not awarded until 1950. 
+
+In his Will Mr.Fields wished that the awards should recognize both existing mathematical work and also the promise of future achievement, and to fit these criteria the Fields Medals can only be awarded to eminent mathematicans that are under the age of 40 at the time when the award decision is being made. 
+ 
+(A similar proposal was discussed without success between Sweeden and Norway 
+in 1905 for the establishment of an Abel Prize in Mathematics and Physical Mathematics/Mathematical Physics. In 2001, Norway alone established the substantial Abel prize for eminent mathematicians and also mathematical physicists on a par with the Sweedish prize for sciences other than mathematics. Considering the existing Crafoord prize which is also in Mathematics, it would seem that mathematicians may easily become either over-prized or `over-priced'(?), whichever comes first.)</content>
+</record>

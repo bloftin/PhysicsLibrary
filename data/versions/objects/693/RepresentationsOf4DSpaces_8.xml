@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="693">
+ <title>representations of 4-D  spaces</title>
+ <name>RepresentationsOf4DSpaces</name>
+ <created>2009-04-28 19:02:54</created>
+ <modified>2009-04-28 19:27:47</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>octacube</concept>
+	<concept>4-D</concept>
+	<concept>4D</concept>
+	<concept>higher-dimensional space structures</concept>
+	<concept>4-D space</concept>
+	<concept>4D-space</concept>
+ </defines>
+ <keywords>
+	<term>Representations of 4-D and Higher Dimensional Space Structures</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic entry on representing four dimensional and higher
+space structures.
+ 
+\subsection{2D and 3D Representations of 4-D and Higher Dimensional Space Structures}
+
+ The ``representation'' of 4-D and higher dimensional space structures
+is a subject of significant interest to both mathematical physicists/mathematicians and abstract art professionals or amateurs. 
+
+ A somewhat artistic rendering and animation of such a `representation' of a four dimensional ``{\em octacube}'' by a mathematical physicist, and also a static representation by a famous mathematician are presented in a \PMlinkexternal{related Exposition}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=187} that can be accessed through this link.
+
+\subsection{Stereographic Projection}
+The animation uses Ocneanu's metod of windowed, radial \PMlinkexternal{stereographic projection}{http://en.wikipedia.org/wiki/Stereographic_projection}. This projection method is claimed to be ``the first good method for representing four dimensional solids as it shows the
+2d walls of the 3d rooms, not only their 1d scaffolding. The edge and corner angles between walls and are all equal, preserving the 4d symmetry of the model.''  However, there are other projection methods currently employed for 
+Riemannian spaces that are likely to work equanlly well for Euclidean 4D space
+structures, including the 4D-cube in question. Such questions may be important
+for representing \PMlinkexternal{Dirac particles in Riemannian, 4D space-times}{http://www.springerlink.com/content/u2m03x0716k37051/} (Tagirov. 1994. General-covariant quantum mechanics in Riemannian space-time: III. The Dirac particle.,Springer: New York, ISSN 0040-5779, pp. 1573-9333 (Online) 
+Volume 106, Number 1. January, 1996., DOI 10.1007/BF02070767, re-printed in 2005).</content>
+</record>

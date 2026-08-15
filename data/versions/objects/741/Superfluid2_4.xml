@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="741">
+ <title>superfluid</title>
+ <name>Superfluid2</name>
+ <created>2009-05-09 09:38:02</created>
+ <modified>2009-05-09 10:02:17</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>supefluid $^3$He</concept>
+	<concept>Cooper (electron) pairs</concept>
+	<concept>long-range coupling</concept>
+	<concept>superconductivity</concept>
+	<concept>coupled boson systems</concept>
+	<concept>quantum statistical theories</concept>
+	<concept>quantum statistical mechanics</concept>
+ </defines>
+ <preamble></preamble>
+ <content>A {\em superfluid} is described as a macroscopically coherent quantum system $S_F$ that exhibits `unusual' properties such as negligible losses or no resistance to flows. Therefore, it is defined as a phase that exhibits most unusual effects, previously considered to be anomalous from a thermodynamic viewpoint, that can be however explained in terms of quantum statistical theory/quantum statistical mechanics and long-range coherence of coupled boson systems. As an example, in a superconductor the long-ranged coupling of Cooper electron pairs form a superfluid that sustains very high electric currents without any significant heating of the metal.  Liquid $^3$He is another example of a superfluid where the liquid flow can take place upwards in the absence of externally applied pressure and no apparent resistance to flow--no viscosity.</content>
+</record>

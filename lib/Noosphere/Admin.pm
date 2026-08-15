@@ -3,6 +3,58 @@ use strict;
 
 use Noosphere::IR;
 
+# take a collab and add it as a site doc
+#
+sub addSiteDoc {
+	my $params = shift;
+	my $userinf = shift;
+	
+	return loginExpired() if ($userinf->{'uid'} <= 0);
+	
+	return errorMessage("You don't have access to that function") if ($userinf->{data}->{access} < getConfig('access_admin'));
+
+	# process an addition
+	#
+	if (defined $params->{'id'}) {
+		
+		my $collab = getConfig('collab_tbl');
+
+		# set site doc flag
+		#
+		my $sth = $dbh->prepare("update $collab set sitedoc = 1 where uid = $params->{id}");
+		$sth->execute();
+		$sth->finish();
+
+		# update ACL to ensure world-writeable flag
+		#
+		my $acl = getConfig('acl_tbl');
+		$sth = $dbh->prepare("update acl set _write = 1 where tbl='$collab' and objectid = $params->{id} and default_or_normal = 'd'");
+		$sth->execute();
+		$sth->finish();
+	}
+
+	my $template = new XSLTemplate('addsitedoc.xsl');
+
+	$template->addText('<addsitedoc>');
+
+	$template->addText("	<loggedin>1</loggedin>") if $userinf->{'uid'} > 0;
+
+	my $collab = getConfig('collab_tbl');
+
+	# get the intersection of the above list of IDs and the collaborations
+	# that are site docs
+	#
+	dwarn "getCollabObjList before";
+	my $xml = getCollabObjList($userinf, "sitedoc = 0 and published = 1");
+	dwarn "getCollabObjList after";
+	$template->addText($xml);
+
+	$template->addText('</addsitedoc>');
+
+	return $template->expand();
+}
+
+
 # admin score editing function
 #
 sub editScore {
@@ -478,6 +530,8 @@ sub cacheControl {
 			if (getConfig('dbms') eq 'pg');
 		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='l2h' order by lower(e.title) limit $offset, $limit")
 			if (getConfig('dbms') eq 'mysql');
+		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='l2h' order by lower(e.title) limit $offset, $limit")
+            if (getConfig('dbms') eq 'MariaDB');
 
 		my @rows = dbGetRows($sth);
 
@@ -941,7 +995,6 @@ sub printResultRows {
 # encyclopedia-specific admin controls
 #
 sub getEncyclopediaAdminControls {
-	my $template = shift;
 	my $userinf = shift;
 	my $from = shift;
 	my $id = shift;
@@ -968,7 +1021,8 @@ sub getEncyclopediaAdminControls {
 
 		$admin .= "</center>";
 
-		$template->setKey('admin', adminBox('Admin Controls', $admin));
+		#$template->setKey('admin', adminBox('Admin Controls', $admin));
+		return adminBox('Admin Controls', $admin);
 	}
 }
 
@@ -989,6 +1043,7 @@ sub getAdminMenu {
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=dbadmin\">DB admin</a><br>";
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=cachecont\">cache control</a><br>";
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=blacklist\">blacklist</a><br>";
+	$menu .= "$bullet&nbsp;<a href=https://aux.physicslibrary.org/stats/awstats.physicslibrary.org.html>web stats</a><br>";
 	$html = adminBox('Admin Menu',$menu);
 	$html = "<tr><td>$html</td></tr>";
 	}

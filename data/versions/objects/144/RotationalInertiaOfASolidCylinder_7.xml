@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="144">
+ <title>Rotational Inertia of a Solid Cylinder</title>
+ <name>RotationalInertiaOfASolidCylinder</name>
+ <created>2006-03-28 11:22:14</created>
+ <modified>2006-03-29 16:45:02</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Rotational Inertia of a Solid Cylinder" alias="moment of inertia of a solid cylinder"/>
+ </synonyms>
+ <related>
+	<object name="RotationalInertiaOfASolidSphere"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The rotational inertia or moment of inertia of a solid cylinder rotating about the central axis or the z axis as shown in the figure is
+
+\begin{equation}
+I = \frac{1}{2} M R^2 
+\end{equation}
+
+for other axes, such as rotation about x or y, the moment of inertia is given as
+
+\begin{equation}
+I = \frac{1}{4} M R^2 + \frac{1}{12} M L^2
+\end{equation}
+
+\begin{figure}
+\includegraphics[scale=.6]{SolidCylinder.eps}
+\caption{Rotational inertia of a solid cylinder}
+\end{figure}
+
+For the moment of inertia about the z axis, the integration in cylindrical coordinates is straight forward, since r in cylindrical coordinates is the same as in the inertia calculation so we have
+
+$$ I = \int r^2 dm $$
+
+Assuming constant density throughout the cylinder leads to
+
+$$ dm = \rho dV $$
+
+and in cylindrical coordinates the infinitesmal volume dV is given by
+
+$$ dV = r \, dr d\phi dz $$
+
+giving the equation to integrate as 
+
+$$ I = \rho \int_{-L/2}^{L/2} \int_0^{2\pi} \int_0^R r^3 \, dr d\phi dz $$
+
+Integrating the r term yields
+
+$$ I = \frac{R^4 \rho}{4} \int_{-L/2}^{L/2} \int_0^{2\pi} \, d\phi dz $$
+
+and ingtegrating the $\phi$ term gives
+
+$$ I = \frac{2 \pi R^4 \rho}{4} \int_{-L/2}^{L/2} \, dz $$
+
+Next, integrating the z term and putting in the limits simplifies to
+
+$$ I =  \frac{\pi R^4 \rho L}{2}  $$
+
+Finally,  plugging in the equation for density and volume of a cylinder
+
+$$ \rho = \frac{M}{V} $$
+$$ V = \pi R^2 L $$
+
+leaves us with equation (1)
+
+$$ I = \frac{1}{2} M R^2 $$
+
+In order to derive the rotational inertia about the x and y axes, one needs to reference the inertia tensor to make things easy on us.  Essentially, we are trying to calculate $I_{11}$ and $I_{22}$ which correspond to the moments of inertia about the x and y axes in this case.  Turning the sums into integrals for our continuous example to work with these equations
+
+$$ I_{11} =  \int (r^2 - x^2) dm $$
+$$ I_{22} =  \int (r^2 - y^2) dm $$
+
+before we can dive into the integration, we need to convert to cylindrical coordinates.  First we note that 
+
+$$ r^2 = x^2 + y^2 + z^2 $$
+
+which gives us 
+
+$$ I_{11} =  \int (y^2 + z^2) dm $$
+$$ I_{22} =  \int (x^2 + z^2) dm $$
+
+Next, we see that in cylindrical coordinates that
+
+
+$$ x = r \cos \phi $$
+$$ y = r \sin \phi $$
+$$ z = z $$
+
+the z coordinate is obvious, but to see the x and y coordinates see the below figure which shows a slice out of the cylinder
+
+\begin{figure}
+\includegraphics[scale=.4]{CylinderSlice.eps}
+\caption{Cylinder Slice}
+\end{figure}
+
+It might not be obvious now but the integrals for x and y will come out to the same answer and we shall show this shortly.  So the switch to cylindrical coordinates is complete once we change $dm$ to $\rho dV$ giving
+\begin{equation}
+I_{11} =  \int (r^2 \sin^2 \phi + z^2) \rho dV 
+\end{equation}
+\begin{equation}
+I_{22} =  \int (r^2 \cos^2 \phi + z^2) \rho dV
+\end{equation}
+
+Once again in cylindrical coordinates the infinitesmal volume dV is given by
+
+$$ dV = r \, dr d\phi dz $$
+
+so we must integrate
+
+$$ I_{11} =  \rho \int_{-L/2}^{L/2} \int_0^{2\pi} \int_0^R (r^3 \sin^2 \phi + r z^2) \, dr d\phi dz $$
+$$ I_{22} =  \rho \int_{-L/2}^{L/2} \int_0^{2\pi} \int_0^R (r^3 \cos^2 \phi + r z^2) \, dr d\phi dz $$
+
+Let us break up the integral and start with the $r z^2$ term so first integrate $dr$ to get
+
+$$ \int_{-L/2}^{L/2} \int_0^{2\pi} \frac{1}{2}R^2 z^2 d\phi dz $$
+
+the $\phi$ term leaves us with
+
+$$ \frac{2\pi}{2}R^2\int_{-L/2}^{L/2} z^2 dz $$
+
+Finally, integrating the $z$ term gives us
+
+\begin{equation}
+\frac{ \pi R^2 L^3}{12}
+\end{equation}
+
+Next up is the $r^3 \sin^2$ term, so first integrate $dr$ to get
+
+
+$$ \int_{-L/2}^{L/2} \int_0^{2\pi} \frac{1}{4}R^4 \sin^2 \phi d\phi dz $$
+
+to integrate the $\phi$ term use the trigonometric identity that
+
+$$ \sin^2 \phi = 1 - \cos^2 \phi $$
+
+and then use another trigonometric identity
+
+$$ \cos^2 \phi = \frac{1}{2} ( 1 + \cos (2\phi)$$
+
+so the integration becomes
+
+$$ \int_{-L/2}^{L/2} \int_0^{2\pi} \frac{1}{4}R^4(1 - 1/2 +  1/2 \cos (2 \phi)) d\phi dz $$
+
+Use u substitution to solve this so
+
+$$ u = 2 \phi $$
+$$ du = 2 d\phi $$
+$$ d\phi = \frac{du}{2} $$
+
+and we carry out the integration of 
+
+$$ \int_0^{2\pi} \cos u \, du $$
+
+and this integrates to zero and we are left with
+
+$$ \int_{-L/2}^{L/2} \int_0^{2\pi} \frac{1}{8}R^4 d\phi dz $$
+
+This integration is simple now and we get
+
+$$ \int_{-L/2}^{L/2} \frac{\pi}{4}R^4 dz $$
+
+Finally, the $z$ term gives us
+
+\begin{equation}
+\frac{\pi}{4}R^4 L
+\end{equation}
+
+Plugging equations (5) and (6) into (3) gives us 
+
+\begin{equation}
+I_{11} = \rho ( \frac{\pi}{4}R^4 L + \frac{ \pi R^2 L^3}{12} )
+\end{equation}
+
+Using the volume of a cylinder
+
+$$ V_{cyl} = \pi R^2 L $$
+
+we get the expression for the density
+
+$$ \rho = \frac{M}{\pi R^2 L} $$
+
+and plugging this into seven and simplifying gives us the moment of inertia about the x axis, which was stated in (1)
+
+\begin{equation}
+I_{11} = \left( \frac{1}{4}M R^2 + \frac{1}{12}M L^2 \right)
+\end{equation}
+
+
+\subsection{References}
+
+[1] Halliday, D., Resnick, R., Walker, J.: "Fundamentals of Physics".\, 5th Edition, John Wiley \&amp; Sons, New York, 1997.</content>
+</record>

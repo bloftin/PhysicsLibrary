@@ -1,0 +1,338 @@
+<!-- a generic printing-out-linear-list-with-paging template -->
+[% IF op == "userobjs" %]
+
+	<!-- clear box -->
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<table width="100%">
+					<tr>
+						<td bgcolor="#000000">
+
+							<!-- title box -->
+							
+							<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+								<tr>
+									<td WIDTH="100%" BGCOLOR="#003399">
+										<font color="white" class="box_title">
+											User Objects
+										</font>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<!-- content box -->
+				<table width="100%" cellpadding="0" cellspacing="2">
+					<tr>
+						<td>
+
+							[% IF objects.size > 0 %]
+								[% pager %]
+					
+								<p></p>
+
+								<table cellspacing="0" cellpadding="2" width="100%">
+									[% FOREACH object IN objects %]
+
+										<tr>
+											[% IF (object.ord mod 2) == 1 %]
+												<table width="100%" cellpadding="4" bgcolor=#eeeeee>
+											[% ELSE %]
+												<table width="100%" cellpadding="4" bgcolor=#ffffff>
+											[% END  %]
+
+											<td>
+												[% object.ord %].
+
+												[% object.date %] 
+
+												<!-- what the hell? if we put nothing here we get no space, -->
+												<!-- if we put a non-breakable space we get two spaces! -->
+												&#160;
+
+												<a href=[% object.href %]> [%- object.title -%]</a>
+
+											
+
+											<!-- <td align="right"> -->
+											<!--	<font size="-1"> -->
+
+											[% IF object.table == "lec" %]
+												(from&#160;<a href="/?op=browse&amp;from=lec">Expositions</a>)
+											[% ELSIF object.table == "lec" %]
+												(from&#160;<a href="/?op=browse&amp;from=papers">Papers</a>)
+											[% ELSIF object.table == "books" %]	
+												(from&#160;<a href="/?op=browse&amp;from=books">Books</a>)
+											[% ELSIF object.table == "objects" %]	
+												(from&#160;<a href="/encyclopedia">Encyclopedia</a>)
+											[% END %]
+
+											<!--	</font> -->
+											<!--</td> -->
+											</td>
+										</tr>
+									[% END %]
+								</table>
+								
+								<p></p>
+								[% pager %]
+						
+							[% ELSE %]
+								<p>
+									Nothing to show.
+								</p>
+							[% END %]
+							
+
+
+
+						</td>
+					</tr>
+
+					
+				</table>
+			</td>
+		</tr>
+	</table>
+	<!-- end clear box -->
+[% ELSIF op == "usermsgs" %]
+	<!-- clear box -->
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<table width="100%">
+					<tr>
+						<td bgcolor="#000000">
+
+							<!-- title box -->
+							
+							<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+								<tr>
+									<td WIDTH="100%" BGCOLOR="#003399">
+										<font color="white" class="box_title">
+											User Messages
+										</font>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<!-- content box -->
+				<table width="100%" cellpadding="0" cellspacing="2">
+					<tr>
+						<td>
+							[% IF msgs.size > 0 %]
+								[% pager %]
+					
+								<p></p>
+
+								[% FOREACH msg IN msgs %]
+
+									[% IF (msg.ord mod 2) == 1 %]
+										<table width="100%" cellpadding="4" bgcolor=#eeeeee>
+									[% ELSE %]
+										<table width="100%" cellpadding="4" bgcolor=#ffffff>
+									[% END  %]
+
+									[% msg.ord %].   [% msg.date %] 
+
+									<a href=[% msg.msg_href %]> [%- msg.msg_title -%]</a>
+
+									posted to
+
+									<a href=[% msg.obj_href %]> [%- msg.obj_title -%]</a>
+
+									<br>
+
+											
+								[% END %]
+								
+								<p></p>
+								[% pager %]
+						
+							[% ELSE %]
+								<p>
+									Nothing to show.
+								</p>
+							[% END %]
+							
+
+						</td>
+					</tr>
+
+					
+				</table>
+			</td>
+		</tr>
+	</table>
+	<!-- end clear box -->
+
+[% ELSIF op == "usercorsf" %]
+	<!-- clear box -->
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<table width="100%">
+					<tr>
+						<td bgcolor="#000000">
+
+							<!-- title box -->
+							
+							<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+								<tr>
+									<td WIDTH="100%" BGCOLOR="#003399">
+										<font color="white" class="box_title">
+											User Corrections Filed
+										</font>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<!-- content box -->
+				<table width="100%" cellpadding="0" cellspacing="2">
+					<tr>
+						<td>
+							
+							[% IF corrs.size > 0 %]
+								[% pager %]
+					
+								<p></p>
+
+								[% FOREACH corr IN corrs %]
+
+									[% corr.ord %].   [% corr.date %] 
+
+									<a href=[% corr.corr_href %]> [%- corr.corr_title -%]</a>
+
+									filed for
+
+									<a href=[% corr.obj_href %]> [%- corr.obj_title -%]</a>
+
+									<br>
+
+											
+								[% END %]
+								
+								<p></p>
+								[% pager %]
+						
+							[% ELSE %]
+								<p>
+									Nothing to show.
+								</p>
+							[% END %]
+							
+
+						</td>
+					</tr>
+
+					
+				</table>
+			</td>
+		</tr>
+	</table>
+	<!-- end clear box -->
+
+[% ELSIF op == "usercorsr" %]
+	<!-- clear box -->
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<table width="100%">
+					<tr>
+						<td bgcolor="#000000">
+
+							<!-- title box -->
+							
+							<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+								<tr>
+									<td WIDTH="100%" BGCOLOR="#003399">
+										<font color="white" class="box_title">
+											User Corrections Received
+										</font>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<!-- content box -->
+				<table width="100%" cellpadding="0" cellspacing="2">
+					<tr>
+						<td>
+
+							[% IF corrsR.size > 0 %]
+								[% pager %]
+					
+								<p></p>
+
+								[% FOREACH corr IN corrsR %]
+
+									[% corr.ord %].   [% corr.date %] 
+
+									<a href=[% corr.corr_href %]> [%- corr.corr_title -%]</a>
+
+									by
+
+									<a href=[% corr.user_href %]> [%- corr.username -%]</a>
+
+									received for 
+
+									<a href=[% corr.obj_href %]> [%- corr.obj_title -%]</a>
+
+									<br>
+
+											
+								[% END %]
+								
+								<p></p>
+								[% pager %]
+						
+							[% ELSE %]
+								<p>
+									Nothing to show.
+								</p>
+							[% END %]
+							
+
+						</td>
+					</tr>
+
+					
+				</table>
+			</td>
+		</tr>
+	</table>
+	<!-- end clear box -->
+
+[% ELSE %]
+	[% op %]
+[% END %]
+
+
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="888">
+ <title>Enriched Category Theory</title>
+ <name>EnrichedCategoryTheory</name>
+ <created>2010-11-01 00:27:13</created>
+ <modified>2010-11-01 00:46:03</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <keywords>
+	<term>Kan adjointness</term>
+	<term>enriched categories</term>
+	<term>weak Yoneda Lemma</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Enriched Category Theory}
+
+\subsection{Monoidal Categories} 
+
+2--category VCAT for a monoidal V--category 
+
+2--functor $F: VCAT \to CAT$
+
+Tensor products and duality  
+
+Closed and bi--closed bimonoidal categories 
+
+Representable V--functors 
+
+Extraordinary V--naturality and the V--naturality of the canonical maps 
+
+\subsection{The Weak Yoneda Lemma for VCAT}
+
+
+\subsection{Adjunctions and equivalences in VCAT}
+
+\subsection{2--Functor categories} 
+
+\subsection{The functor category $[A, B]$ for small A} 
+
+
+The isomorphism $[A \times [B, C]] isomorphic~ with [A, [B,C]]$
+
+\subsection{The (strong) Yoneda lemma for VCAT and the Yoneda embedding} 
+
+\subsection{The free V category on a Set category}
+
+\subsection{Universe enlargement $V \to enV$; $[A,B]$ as a enV category$
+
+\subsection{Indexed limits and colimits}
+
+Indexing types; limits and colimits; Yoneda isomorphisms 
+
+Preservation of limits and colimits 
+
+\subsection{Limits in functor categories: double limits and iterated limits} 
+
+ The connection with classical conical limits when $V = Set$  
+
+\subsection{Full subcategories and limits: the closure of a full subcategory}
+
+\subsection{Strongly generating functors}
+
+\subsection{Tensor and Cotensor Products} 
+
+\subsection{Kan extensions}
+
+The definition of Kan extensions; their expressibility by limits and colimits 
+
+\subsection{Iterated Kan extensions; Kan adjoints} 
+
+
+\subsection{Filtered categories when $V = Set$}
+
+\subsection{General Representability and Adjoint Functor theorems}
+
+
+\subsection{Representability and adjoint-functor theorems when $V = Set$}
+
+
+\subsection{Functor categories, small Projective Limits and Morita Equivalence}</content>
+</record>

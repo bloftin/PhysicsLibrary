@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="175">
+ <title>Lepton</title>
+ <name>Lepton</name>
+ <created>2006-05-19 16:39:02</created>
+ <modified>2006-07-06 10:49:51</modified>
+ <type>Definition</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="475" name="vip6"/>
+ <comment>Changes for correction #38 ('Capitalization').</comment>
+ <author id="132" name="metalac"/>
+ <classification>
+	<category scheme="msc" code="14.60.-z"/>
+ </classification>
+ <related>
+	<object name="muon"/>
+	<object name="neutrino"/>
+	<object name="Muon"/>
+	<object name="Neutrino"/>
+	<object name="Tau"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Lepton is a 1/2 spin fermion that does not interact via the strong force.  Today there are three flavours of leptons known.  They are electron, muon, tau with their corresponding anti-particles.  Neutrinos are also leptons and are divided in  the three flavours.  
+
+All leptons (except neutrinos) have EM charge and their masses are well established. Also the number of leptons in interactions is conserved even though the mass of the system might change.  Flavour on the other hand is not conserved like in case of neutrino oscillations or muon decay.
+
+NOTE:
+Tables of properties, reaction diagrams and some data to be added later.</content>
+</record>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="211">
+ <title>Ballistics</title>
+ <name>Ballistics</name>
+ <created>2006-07-25 16:23:33</created>
+ <modified>2006-07-25 16:23:33</modified>
+ <type>Definition</type>
+ <creator id="154" name="shmulik"/>
+ <modifier id="154" name="shmulik"/>
+ <author id="154" name="shmulik"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <related>
+	<object name="velocity"/>
+	<object name="acceleration"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>work in progress
+
+Ballistics is the study of the dynamics and kinematics of a projected object.
+
+for a start let's define a horizontal axis $x$ and a vertical axis $y$.
+
+Assuming that the drag force is insignificant, the sum of forces along the axis $\Sigma F_x$ equals zero, and so the acceleration along the axis $a_x$ is also insignificant and so the velocity along the the axis $v_x$ is constant and equal to the projection velocity $V_i,x$
+\[\Sigma F_x=0 \rightarrow a_x=0 \rightarrow V_x=V_i,x \]</content>
+</record>

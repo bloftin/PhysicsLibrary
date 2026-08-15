@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="581">
+ <title>Recursive Function</title>
+ <name>RecursiveFunction2</name>
+ <created>2009-03-09 01:03:16</created>
+ <modified>2009-03-09 01:03:16</modified>
+ <type>Definition</type>
+ <creator id="15" name="rspuzio"/>
+ <modifier id="441" name="bci1"/>
+ <author id="15" name="rspuzio"/>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Intuitively, a recursive function may be defined as
+an integer-valued function of one or more integer
+variables which may be computed by a definite 
+algorithm.  In order to produce a rigorous definition,
+one may proceed long at least two approaches; one
+may define the notion of algorithm rigorously
+in order to complete the intuitive definition
+given above or one may proceed inductively, first 
+declaring certain functions to be recursive and then
+specifying definite procedures by which one may 
+construct any other recursive function starting
+from the initial set.  In this entry, we shall
+concentrate on the latter approach, only making a 
+few brief remarks regarding the former approach 
+towards the end.
+
+\begin{enumerate}
+\item The constant function $c: \mathbb{Z}_+ \to \mathbb{Z}_+$ defined by $c(x) = 1$ for all $x \in \mathbb{Z}_+$ is a recursive function.
+\item The addition function $+: \mathbb{Z}_+^2 \to \mathbb{Z}_+$ and the multiplication function $\times: \mathbb{Z}_+^2 \to \mathbb{Z}_+$  are recursive function.
+\item The projection functions $I^n_m \colon \mathbb{Z}_+^n \to \mathbb{Z}_+$ with $1 \le m \le n$ defined as $I^n_m (x_1, \ldots, x_n) = x_m$ are recursive functions.
+\item {\it (Closure under composition)} If $f \colon \mathbb{Z}_+^n \to \mathbb{Z}_+$ is a recursive function and $g_i \colon \mathbb{Z}_+^m \to \mathbb{Z}_+$ with $i = 1, \ldots n$ are recursive functions, then $h \colon \mathbb{Z}_+^n \to \mathbb{Z}_+$, defined by $h(x_1, \ldots, x_n) = f(g_1(x_1, \ldots, x_m), \ldots, g_n(x_1, \ldots, x_m))$ is a recursive function.
+\item {\it (Closure under primitive recursion)}If $f \colon \mathbb{Z}_+^n \to \mathbb{Z}_+$ and $g \colon \mathbb{Z}_+^{n+2} \to \mathbb{Z}_+$ are recursive function, then $h \colon \mathbb{Z}_+^{n+1} \to \mathbb{Z}_+$, defined by the recursion
+ $$h(n+1,x_1,\ldots,x_{k}) = g(h(n,x_1,\ldots,x_k),n,x_1,\ldots, x_k)$$
+with the initial condition
+ $$h(0,x_1,\ldots,x_k) = f(x_1,\ldots,x_k)$$
+is a recursive function.
+\item {\it (Closure under minimization)} If $f \colon \mathbb{Z}_+^{n+1} \to \mathbb{Z}_+$ is a recursive function then $g \colon \mathbb{Z}_+^n \to \mathbb{Z}_+$ is a recursive function, where $g$ is defined to equal $y$ if there exists a $y \in \mathbb{Z}_+$ such that 
+\begin{itemize}
+\item $f(0, x_1, \ldots, x_n), f(1, x_1, \ldots, x_n), \ldots, f(y, x_1, \ldots, x_n)$ are all defined, 
+\item $f(z, x_1, \ldots, x_n) = 0$ when $1 \le z &lt;y$, and 
+\item $f(y, x_1, \ldots, x_n) = 0$, otherwise $g(x_1, \ldots, x_n)$ is undefined.
+\end{itemize}
+\end{enumerate}</content>
+</record>

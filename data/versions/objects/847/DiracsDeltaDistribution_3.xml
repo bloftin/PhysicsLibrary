@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="847">
+ <title>Dirac's delta distribution</title>
+ <name>DiracsDeltaDistribution</name>
+ <created>2010-03-05 12:45:01</created>
+ <modified>2010-03-05 12:54:10</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <preamble>\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+%\usepackage{psfrag}
+%\usepackage{graphicx}
+%\usepackage{xypic}</preamble>
+ <content>It is widely known that distributions play important roles in Dirac's formulation of quantum mechanics. An example of how the Dirac distribution arises in a physical, classical context is available \PMlinkexternal{on line.}{http://www.rose-hulman.edu/~rickert/Classes/ma222/Wint0102/dirac.pdf}
+
+
+The Dirac delta  $\delta(x)$ \emph{distribution} is not a true function because it is not uniquely defined for all values of the argument $x$. Somewhat similar to the older Kronecker delta symbol, the notation $\delta(x)$ stands for
+
+$$ \delta(x) = 0 \;\text{for}\; x \ne 0, \;\text{and}\; \int_{-\infty}^\infty \delta(x) dx = 1 $$.
+
+Moreover, for any continuous function $F$:
+
+$$ \int_{-\infty}^\infty \delta(x) F(x)dx = F(0) $$
+
+or in $n$ dimensions:
+
+$$\int_{\mathbb{R}^n} \delta(x - s)f(s) \, d^ns = f(x)$$
+
+one could attempt to define the values of $\delta(x)$ via a series of normalized Gaussian functions (normal distributions) in the limit of their width going to zero; however, such a limit of the normalized Gaussian function is still meaningless as a function, even though one sees in engineering textbooks especially such a limit as being written to be equal to the Dirac distribution considered above, which it is not. 
+An example of how the Dirac distribution arises in a physical, classical context is available
+\PMlinkexternal{on line.}{http://www.rose-hulman.edu/~rickert/Classes/ma222/Wint0102/dirac.pdf}
+
+The \emph{Dirac delta}, $\delta$, can be, however, correctly defined as a \emph{linear functional}, i.e. a linear mapping from a function space, consisting e.g. of certain real functions, to $\mathbb{R}$ (or $\mathbb{C}$), having the property
+$$\delta[f] \;=\; f(0).$$
+One may consider this as an inner product
+$$\langle f,\,\delta\rangle \;=\; \int_0^\infty\!f(t)\delta(t)\,dt$$
+of a function $f$ and another ``function'' $\delta$, when the well-known \PMlinkescapetext{formula}
+$$\int_0^\infty\!f(t)\delta(t)\,dt \;=\; f(0)$$
+is true.\
+
+\begin{thebibliography}{9}
+\bibitem{rudin_fap}
+W. Rudin, {\em Functional Analysis},
+McGraw-Hill Book Company, 1973.
+\bibitem{hormander}
+L. H\"ormander, {\em The Analysis of Linear Partial Differential Operators I,
+(Distribution theory and Fourier Analysis)}, 2nd ed, Springer-Verlag, 1990.
+\bibitem{TDAB}
+Originally from The Data Analysis Briefbook
+(\PMlinkexternal{http://rkb.home.cern.ch/rkb/titleA.html}{http://rkb.home.cern.ch/rkb/titleA.html})
+\end{thebibliography}</content>
+</record>

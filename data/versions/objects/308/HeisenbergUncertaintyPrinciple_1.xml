@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="308">
+ <title>Heisenberg uncertainty principle</title>
+ <name>HeisenbergUncertaintyPrinciple</name>
+ <created>2008-10-16 13:37:46</created>
+ <modified>2008-10-16 13:37:46</modified>
+ <type>Law</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="03.67.-a"/>
+	<category scheme="msc" code="03.67.Mn"/>
+ </classification>
+ <defines>
+	<concept>quantum uncertainty</concept>
+	<concept>identity operator</concept>
+ </defines>
+ <keywords>
+	<term>Heisenberg</term>
+	<term>uncertainty principle</term>
+	<term>quantum theory</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Heisenberg Uncertainty Principle in Quantum theories:}
+
+If X and P are, respectively, the coordinate and conjugate momentum quantum operators then they satisfy the Heisenberg non-commutation/ 'uncertainty' relation, or the\emph{Heisenberg Uncertainty Principle}:  
+
+ $$[X,P] \leq i\hbar I,$$
+ where the identity operator $I$ is employed to simplify notation.</content>
+</record>

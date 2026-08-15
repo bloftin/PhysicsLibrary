@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="193">
+ <title>Reynolds Transport Theorem</title>
+ <name>ReynoldsTransportTheorem</name>
+ <created>2006-07-05 12:34:49</created>
+ <modified>2006-07-05 14:31:40</modified>
+ <type>Theorem</type>
+ <creator id="141" name="PhysBrain"/>
+ <modifier id="141" name="PhysBrain"/>
+ <comment>Changed Reynolds to Reynolds' and added a comment about the surface normal vector.</comment>
+ <author id="141" name="PhysBrain"/>
+ <classification>
+	<category scheme="msc" code="51.10.+y"/>
+	<category scheme="msc" code="47.10.+g"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Let $F(\mathbf{r},t)$ represent the amount of some physical property of a continuous material medium per unit volume.  The total amount of this property present in a finite region ${\cal V}$ of the material is obtained through the volume integral.
+\[
+\int_{\cal V} F(\mathbf{r},t) \;dV
+\]
+If this property is being transported by the action of the flow of the material with a velocity $\mathbf{u}(\mathbf{r},t)$, then the \emph{Reynolds transport theorem} states that the rate of change of the total amount of $F$ within the material volume is equal to the volume integral of the instantaneous changes of $F$ occuring within the volume, plus the surface integral of the rate at which $F$ is being transported through the surface ${\cal S}$ (bounding ${\cal V}$) to and from the surrounding region.
+\[
+\frac{d}{d t} \int_{\cal V} F(\mathbf{r},t) \;dV = 
+\int_{\cal V} \frac{\partial F}{\partial t} \;dV +
+\int_{\cal S} F\mathbf{u} \cdot \mathbf{n} \;dS
+\]</content>
+</record>

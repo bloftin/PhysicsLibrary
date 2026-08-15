@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="239">
+ <title>penny falling from Empire State Building</title>
+ <name>PennyFallingFromEmpireStateBuilding</name>
+ <created>2006-12-18 16:39:51</created>
+ <modified>2006-12-18 17:05:47</modified>
+ <type>Example</type>
+<parent id="186">Newton's laws of motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Dd"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <synonyms>
+	<synonym concept="penny falling from Empire State Building" alias="free fall acceleration example"/>
+	<synonym concept="penny falling from Empire State Building" alias="drag on a penny"/>
+	<synonym concept="penny falling from Empire State Building" alias="constant acceleration example"/>
+ </synonyms>
+ <keywords>
+	<term>penny</term>
+	<term>Empire State Building</term>
+	<term>free fall</term>
+	<term>constant acceleration</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{A Penny's Journey}
+
+As an example of constant acceleration, we will analyze a penny falling from the roof of the Empire State Building.  Hopefully, any worries one might have of being killed by a falling penny as thy stroll by tall buildings in New York will be quelled.  After all, people are usually not injured by hail falling from the clouds.
+
+We will apply Newton's laws of motion to two cases.  At first we will neglect air resistance (drag) so we can solve the problem analytically.  Then we will use a simple model of drag to show how the penny reaches a terminal velocity and how this dramatically affects the impact velocity of the penny on the ground.
+
+\subsection{Free Fall Acceleration}
+
+When the only force acting on a body as it falls toward another body, similar to an apple falling to the Earth, is gravity then we say the body is in free fall.  The only way we can do this is if we neglet things like drag caused by the atmosphere, wind or variations in the gravitational field.  This situation is depicted in Figure 1, where the force due to gravity is 
+
+$$F = -mg$$
+
+\begin{center}
+\includegraphics[scale=1]{FreeFallAcceleration.eps}
+
+{\bf Figure 1:} Penny falling from Empire State Building
+\end{center}
+
+The two things we want to calculate is the velocity of the penny when it impacts the ground and the time it takes the penny to fall.  
+Applying Newton's second law to the penny
+
+$$F = ma$$
+
+yields the acceleration of the penny in the y direction
+
+$$a(t) = \frac{F}{m} = -\frac{mg}{m} = -g \, .$$
+
+Notice that the minus sign comes from  the coordinate system choice with the y axis pointing up.  Next, integrate the acceleration equation to get the velocity of the penny at a given time.  Remember that the acceleration is defined as 
+
+$$a = \frac{dv}{dt}.$$
+
+This leads to the integration setup of
+
+$$ \int dv = - \int g dt.$$
+
+Integrate to get
+
+$$v(t) = -gt + C.$$
+
+The constant is found using initial conditions, so at $t = 0$, the velocity of the penny is zero
+
+$$v(0) = 0 = -g(0) + C.$$
+
+This is only true if C is also zero, therefore the velocity equation is
+
+\begin{equation}
+v(t) = -gt
+\end{equation}
+
+Well, this is great, we can find the velocity at any given time.  However, we do not know the time of the impact.  For this we must integrate (1) to get the position of the penny.  Remember, that velocity is defined as 
+
+$$ v = \frac{dx}{dt}$$
+
+This leads to the integration setup of
+
+$$\int dx = -\int gt dt.$$
+
+Integrate to get
+
+$$ x(t) = -\frac{1}{2} g t^2 + C .$$
+
+Once again, the constant is found from the initial condition, at $t = 0$, $x(0) = h$.  Therefore, the position equation is
+
+\begin{equation}
+x(t) = -\frac{1}{2} g t^2 + h
+\end{equation}
+
+What we want is the time of impact.  This happens when $x = 0$. So solve (2) for $t$.
+
+$$0 = -\frac{1}{2} g t_f^2 + h .$$
+
+Rearrange to get 
+
+\begin{equation}
+t_f = \sqrt{ \frac{2h}{g} }
+\end{equation}
+
+Evaluate (3), using the value $g = 9.8$, to get
+
+$$t_f = \sqrt{ \frac{(2)*(381)}{9.8} }$$
+$$ t_f = 8.82 \,\, [s].$$
+
+Finally, we get the velocity at impact by substituting (3) into (1)
+
+$$v(t_f) = -g \sqrt{ \frac{2h}{g} }.$$
+
+Bringing $g$ under the square root to get
+
+\begin{equation} 
+v(t_f) = -\sqrt{2hg}.
+\end{equation}
+
+This evaluates to
+
+$$v(t_f) = -\sqrt{2*381*9.8} = -86.42 \,\, [m/s] .$$
+
+In english units, the velocity is
+
+$$v(t_f) = -193.3 \,\, [mi/hr] .$$
+
+This is fairly fast for a penny,  however this does not come very close to the actual speed because for such a large height, air resistance will become a big factor.  In the next section we will model air resistance to capture this effect.
+
+\subsection{Resist the Penny}
+
+Since the penny is traveling through the atmosphere (a fluid), we need to use some basic results from fluid mechanics to model the drag force acting on the penny.  A simple model combined with experimental data results in the drag expression
+
+\begin{equation}
+F_d = \frac{1}{2} C_d \rho A v^2
+\end{equation}
+
+where $C_d$ is the drag coefficient of the penny.  It is an experimantly derived value and here we will use the value given by [1],
+
+$$ C_d = 1.17 .$$
+
+The drag force is in the opposite direction of the velocity vector as shown in the free body diagram in Figure 2.
+
+\begin{center}
+\includegraphics[scale=1]{FreeBodyDiagram.eps}
+
+{\bf Figure 2:} Free Body Diagram
+\end{center}
+
+The density we will use is the standard day value at sea level given in the tables from [2],
+
+$$ \rho = 1.225 \,\, [kg/m^2] $$
+
+Next $A$, is the effective cross-sectional area of the penny,  From Wikipedia [3], the diameter of the US penny is 
+
+$$D = 19.05 \,\, [mm] = 1.905 \times 10^{-2} \,\,[m] $$
+
+So the cross-sectional area is then
+
+$$ A = \pi r^2 = \pi \frac{D^2}{4} = 0.000286 m^2$$
+
+Combining all these constants gives us the drag force that is proportional to the square of the velocity
+
+$$F_d = 0.0002 v^2.$$
+
+Now we have 2 forces to use with Newton's second law, this gives the acceleration equation as
+
+$$ a(t) = \frac{0.0002 v^2}{m} - g$$
+
+The integral setup is then
+
+$$ \int dv = \int \frac{0.0002 v^2}{m} dt - \int g dt .$$
+
+Unlike the free fall example, we cannot analytically solve this integral.  However, all is not lost.  We must turn to numerical methods such as Euler's method or numerical programs such as Matlab, Octave or Maple.  Here we will solve the differential equation using Octave [4]. First a little setup must be done to use Octave's lsode solver.  The differential equation of motion that we will solve with the mass of the penny, $m = 2.5 \times 10^{-3} \,\, [kg]$ [3]
+
+\begin{equation}
+\frac{d^2x}{dt^2} = 0.0817 \left( \frac{dx}{dt} \right)^2 - 9.8
+\end{equation}
+
+We cannot use a 2nd order differential equation in lsode, so we must use two 1st order equations.  This is done by using two states, one for position and another for velocity.  Then our equations of motion become
+
+$$ \dot{y} = \dot{y}$$
+$$ \ddot{y} = 0.0817 \dot{y}^2 - 9.8$$
+
+The commands in octave are
+
+\begin{center}
+t = linespace(0, 100, 10000);
+
+y = lsode(``penny'', [381 0], t);
+\end{center}
+
+The function ``penny'' passed to lsode is \PMlinktofile{here}{penny.m}.  The results are displayed in Figure 3, Figure 4 and Figure 5.  
+
+\begin{center}
+\includegraphics[scale=1]{figure1.eps}
+
+{\bf Figure 3:} Penny's Velocity
+\end{center}
+
+Note how the max velocity is now a measly $-10.952 \,\, [m/s]$ and that it stays constant for quite awhile up until impact.  This is because the penny reaches what is called terminal velocity where the upward drag force at the terminal velocity cancels out the gravitational force,
+
+$$ 0.0817 v_t^2 = g $$
+$$ v_t = \sqrt{\frac{g}{0.0817}} = 10.952 \,\, [m/s] .$$
+
+Figure 2 is a plot of the position and upon further inspection we see impact occurs at
+
+$$t_f = 35.36 \, \, [s]$$
+
+and the impact velocity is the terminal velocity
+
+$$v(t_f) = -10.952 \,\, [m/s] .$$
+
+
+\begin{center}
+\includegraphics[scale=1]{figure2.eps}
+
+{\bf Figure 4:} Penny's Position
+\end{center}
+
+Finally, we will zoom in on the first few seconds of the fall to see the position before terminal velocity is reached.
+
+\begin{center}
+\includegraphics[scale=1]{figure3.eps}
+
+{\bf Figure 5:} First Few Seconds
+\end{center}
+
+So to wrap things up, we see that air resistance makes a dramatic difference in the maximum velocity of the penny and the time of impact.  In reality, the motion is a little more complicated due to winds and the fact that the penny will tumble, but understanding how a falling object reaches terminal velocity is something to take away.
+
+\begin{thebibliography}{9}
+
+\bibitem{Aerospaceweb} Yoon, Joe, Scott, Jeff, {\em Gravity, Acceleration \&amp; Speed}. \PMlinkexternal{Aerisoaceweb}{http://www.aerospaceweb.org/question/dynamics/q0203.shtml}
+\bibitem{Anderson} Andersonn, John, {\em Fundamentals of Aerodynamics}. 4th Edition.  McGraw-Hill, New York, 2007.
+\bibitem{Wikipedia} Wikipedia, \PMlinkexternal{Cent (United States coin)}{http://en.wikipedia.org/wiki/Cent_\%28United_States_coin\%29}
+\bibitem{Octave}  Octave, \PMlinkexternal{GNU Octave}{ http://www.gnu.org/software/octave/}
+\bibitem{Halliday} Halliday, D., Resnick, R., Walker, J. {\em Fundamentals of Physics}. 5th Edition.  John Wiley \&amp; Sons, New York, 1997.
+\end{thebibliography}</content>
+</record>

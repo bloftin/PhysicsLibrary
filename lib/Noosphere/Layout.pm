@@ -34,7 +34,7 @@ sub needAccount {
 sub showISE {
 	
 	# just load up the HTML template
-	my $template = new Template('ise.html');
+	my $template = new TemplateNS('ise.html');
 
 	return paddingTable(
 				clearBox(
@@ -55,7 +55,7 @@ sub noAccess {
 #
 sub errorMessage {
 	my $message = shift; 
-	my $template = new Template('error.html');
+	my $template = new TemplateNS('error.html');
 	
 	$template->setKey('error', $message);
 
@@ -80,7 +80,7 @@ sub makeISE {
 #
 sub getMaintenance {
 	
-	my $template = new Template('maintenance.html');
+	my $template = new TemplateNS('maintenance.html');
 
 	return $template->expand();
 }
@@ -133,7 +133,7 @@ sub makeBox {
 	my $title = shift;
 	my $content = shift;
 	
-	my $box = new Template("box.html");
+	my $box = new TemplateNS("box.html");
 	$box->setKeys("title" => $title, "content" => $content);
 	
 	return $box->expand();
@@ -141,7 +141,7 @@ sub makeBox {
 
 sub adminBox {
 	my ($title, $content) = @_;
-	my $box = new Template("adminbox.html");
+	my $box = new TemplateNS("adminbox.html");
 	
 	$box->setKeys("title" => $title, "content" => $content);
 	return $box->expand();
@@ -151,7 +151,7 @@ sub mathBox {
 	my $title = shift;
 	my $content = shift;
  
-	my $box = new Template("mathbox.html");
+	my $box = new TemplateNS("mathbox.html");
 	$box->setKeys('title' => $title, 'content' => $content);
 	
 	return $box->expand();
@@ -161,7 +161,7 @@ sub clearBox {
 	my $title = shift;
 	my $content = shift;
 
-	my $box = new Template("clearbox.html");
+	my $box = new TemplateNS("clearbox.html");
 	$box->setKeys('title' => $title, 'content' => $content, 'templatehack' => '<'.getConfig('template_cmd_prefix').':template');
 	
 	return $box->expand();
@@ -287,7 +287,7 @@ sub getPager {
 #
 sub getPageWidgetXSLT {
 	my ($template, $params, $userinf, $scale) = @_;
-
+	dwarn "getPageWidgetXSLT start";
 	my $slicesize = $userinf->{'prefs'}->{'pagelength'} || '020';
 
 	$scale = 1 unless $scale;
@@ -362,6 +362,9 @@ sub getPageWidgetXSLT {
 			$template->addText("href=\"".getConfig("main_url")."/?$ps\"/>");
 		}
 	}
+	#dwarn "getPageWidgetXSLT end";
+	#my $template_txt = $template->{'TEXT'};
+	#dwarn "template with page text:\n $template_txt";
 	$template->addText("</pager>");
 }
 

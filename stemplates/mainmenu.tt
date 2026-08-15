@@ -1,0 +1,93 @@
+<!-- standard box -->
+<table width="100%">
+	<tr>
+		<td bgcolor="#003399">
+			<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+
+				<!-- title -->
+				<tr>
+					<td WIDTH="100%" BGCOLOR="#003399">
+						<font color="white" class="box_title">
+							Main Menu
+						</font>
+					</td>
+				</tr>
+			
+				<!-- content -->
+				<tr>
+					<td WIDTH="100%" BGCOLOR="dddddd">
+                        <table width="100%" border="0" cellpadding="4" cellspacing="0">
+		                    <tr>
+			                    <td>
+                                    <center>
+                                        <font size="-1"><i>Sections</i></font>
+                                    </center>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/encyclopedia">Encyclopedia</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=browse;from=papers">Papers</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=browse;from=books">Books</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=browse;from=lec">lectures</a>
+                                    </div>
+                                    <p></p> 
+                                    <center>
+                                        <font size="-1"><i>Meta</i></font>
+                                    </center>
+
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/browse/categories/">Classification</a>
+                                    </div>
+
+                                    <p></p>
+
+                                    <center>
+                                        <font size="-1"><i>Talkback</i></font>
+                                    </center>
+
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=viewpolls">Polls</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=forums">Forums</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="https://github.com/bloftin/PhysicsLibrary/issues">Bug Reports</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=feedback">Feedback</a>
+                                    </div>
+                                    <p></p> 
+                                    <center>
+                                        <font size="-1"><i>Downloads</i></font>
+                                    </center>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="https://aux.physicslibrary.org/snapshots/">Snapshots</a>
+                                    </div>
+                                    <p></p>
+                                    <center>
+                                        <font size="-1"><i>Information</i></font>
+                                    </center>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=license">Legalese</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=about">About</a>
+                                    </div>
+                                </td>
+		                    </tr>
+	                    </table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end standard box -->
+
+
+

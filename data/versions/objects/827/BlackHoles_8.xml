@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="827">
+ <title>black holes</title>
+ <name>BlackHoles</name>
+ <created>2009-10-03 12:11:31</created>
+ <modified>2009-10-04 09:47:18</modified>
+ <type>Example</type>
+<parent id="570">quantum gravity programs</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <keywords>
+	<term>black hole symmetry</term>
+	<term>black hole structure</term>
+ </keywords>
+ <preamble></preamble>
+ <content>The following considerations relate to the quantum gravity programs currently being developed.
+\subsection{Conjectures on Black Hole Symmetry and Structure}
+
+\begin{itemize}
+\item 1. A black hole--spinning or otherwise-- can be considered as a tightly coupled boson system, and thus a quantum spin group system; therefore, it is unlikely that it would be chaotic. instead, it is predicted to be organized as some kind of spin foam that would exhibit 'extremely slow' fluctuations related to the energy radiation leaks near the black hole horizon. 
+
+\item 2. A graded Lie groupoid, $\mathbf{G}_{Lg}$, is a more likely representation of the black hole gravitational, quantized field symmetry. (Both the precise concept of a $\mathbf{G}_{Lg}$ and that of quantized gravitational fields are available at PlanetPhysics). 
+
+\item 3. Instead of "clouds" of probability one may wish to consider transition probability distributions for tightly coupled spin foams within the black hole. 
+
+\item 4. Whereas space-time point topology is indeed a problem for black holes, a $CW$-complex non-discrete topology remains a possibility nicely represented by the spin foams that do form a CW-complex associated with the black hole. The $CW$-complex topology is consistent with both the
+ $\mathbf{G}_{Lg}$symmetry of the quantized gravitational fields and the associated spin foams. 
+
+\item 5. Instead of the 'standard' time in QM, one would may introduce for the region inside the horizon of the black hole a quantum superoperator associated with the time observable (as our quantum group has done in a few recent publications, echoing Prigogine's published work on quantum superoperators). 
+ 
+
+\end{itemize}
+
+\textbf{Remark.}
+
+The black hole structure and symmetry are difficult, challenging problems that are at the cutting edge and intersections of both physics and algebraic topology.</content>
+</record>

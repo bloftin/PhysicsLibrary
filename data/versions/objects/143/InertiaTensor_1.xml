@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="143">
+ <title>inertia tensor</title>
+ <name>InertiaTensor</name>
+ <created>2006-03-28 00:25:45</created>
+ <modified>2006-03-28 00:25:45</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The inertia tensor is straight forward to calculate in theory from equation (1).  However, in practice finding the inertia tensor of an object is quite involved and high precision is needed in applications such as spacecraft design.
+
+$$ \sum_i = m_i $$
+
+$$ I =
+\left[ \begin{array}{ccc}
+{\sum_i {m_i (r^2_i - x^2_i)}} &amp; -\sum_i m_i x_i y_i &amp; -\sum_i m_i x_i z_i \\
+-\sum_i m_i y_i x_i &amp; \sum_i m_i (r^2_i - y^2_i) &amp; -\sum_i m_i y_i z_i\\
+-\sum_i &amp; -\sum_i &amp; \sum_i \end{array} \right] $$</content>
+</record>

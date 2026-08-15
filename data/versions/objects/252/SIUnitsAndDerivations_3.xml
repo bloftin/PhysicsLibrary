@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="252">
+ <title>SI units and derivations</title>
+ <name>SIUnitsAndDerivations</name>
+ <created>2007-07-01 06:55:14</created>
+ <modified>2007-07-01 14:05:44</modified>
+ <type>Topic</type>
+ <creator id="313" name="Wkbj79"/>
+ <modifier id="313" name="Wkbj79"/>
+ <author id="313" name="Wkbj79"/>
+ <classification>
+	<category scheme="msc" code="06.20.Fn"/>
+ </classification>
+ <related>
+	<object name="SiUnitPrefixes"/>
+ </related>
+ <preamble>\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{psfrag}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{xypic}</preamble>
+ <content>The seven SI base units are given in the table below.  These units are assumed to be independent of each other.
+
+\begin{center}
+\begin{tabular}{|c||c|c|}
+\hline
+\textbf{base quantity} &amp; \textbf{SI base unit} &amp; \textbf{symbol} \\
+\hline \hline
+length &amp; meter &amp; $\mathrm{m}$ \\
+\hline
+mass &amp; kilogram &amp; $\mathrm{kg}$ \\
+\hline
+time &amp; second &amp; $\mathrm{s}$ \\
+\hline
+current &amp; ampere &amp; $\mathrm{A}$ \\
+\hline
+temperature &amp; Kelvin &amp; $\mathrm{K}$ \\
+\hline
+amount of substance &amp; mole &amp; $\mathrm{mol}$ \\
+\hline
+intensity &amp; candela &amp; $\mathrm{cd}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+There are many quantities that can be measured using units that are derived from the base units.  Some of these are written in terms of the base units.  Some examples are given in the table below.
+
+\begin{center}
+\begin{tabular}{|c||c|c|}
+\hline
+\textbf{quantity} &amp; \textbf{SI derived unit} &amp; \textbf{symbol} \\
+\hline \hline
+area &amp; square meter &amp; $\mathrm{m^2}$ \\
+\hline
+volume &amp; cubic meter &amp; $\mathrm{m^3}$ \\
+\hline
+speed, velocity &amp; meter per second &amp; $\mathrm{m/s}$ \\
+\hline
+acceleration &amp; meter per second squared &amp; $\mathrm{m/s^2}$ \\
+\hline
+density &amp; kilogram per cubic meter &amp; $\mathrm{kg/m^3}$ \\
+\hline
+specific volume &amp; cubic meter per kilogram &amp; $\mathrm{m^3/kg}$ \\
+\hline
+concentration &amp; mole per cubic meter &amp; $\mathrm{mol/m^3}$ \\
+\hline
+wave number &amp; reciprocal meter &amp; $\mathrm{m^{-1}}$ \\
+\hline
+current density &amp; ampere per square meter &amp; $\mathrm{A/m^2}$ \\
+\hline
+magnetic field strength &amp; ampere per cubic meter &amp; $\mathrm{A/m^3}$ \\
+\hline
+luminance &amp; candela per square meter &amp; $\mathrm{cd/m^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Other derived units have their own names.  Some examples are given in the table below.
+
+\begin{center}
+\begin{tabular}{|c||c|c|c|}
+\hline
+\textbf{quantity} &amp; \textbf{SI unit} &amp; \textbf{symbol} &amp; \textbf{derivation from other SI units} \\
+\hline \hline
+volume &amp; liter &amp; $\mathrm{L}$ or $\mathrm{\ell}$ &amp; $\mathrm{10^{-3}m^3}$ \\
+\hline
+plane angle &amp; radian &amp; $\mathrm{rad}$ &amp; \\
+\hline
+solid angle &amp; steradian &amp; $\mathrm{sr}$ &amp; \\
+\hline
+frequency &amp; hertz &amp; $\mathrm{Hz}$ &amp; $\mathrm{s^{-1}}$ \\
+\hline
+force &amp; newton &amp; $\mathrm{N}$ &amp; $\mathrm{kg \cdot m/s^2}$ \\
+\hline
+pressure, stress &amp; pascal &amp; $\mathrm{Pa}$ &amp; $\mathrm{N/m^2}$ \\
+\hline
+energy, work &amp; joule &amp; $\mathrm{J}$ &amp; $\mathrm{N \cdot m}$ \\
+\hline
+power &amp; watt &amp; $\mathrm{W}$ &amp; $\mathrm{J/s}$ \\
+\hline
+charge &amp; coulomb &amp; $\mathrm{C}$ &amp; $\mathrm{A \cdot s}$ \\
+\hline
+potential difference &amp; volt &amp; $\mathrm{V}$ &amp; $\mathrm{W/A}$ \\
+\hline
+resistance &amp; ohm &amp; $\mathrm{\Omega}$ &amp; $\mathrm{V/A}$ \\
+\hline
+temperature &amp; degree Celsius &amp; $\mathrm{{}^{\circ}C}$ &amp; $\mathrm{K}+273.15$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{4ex}
+
+\noindent Reference: National Institute of Standards and Technology, \PMlinkexternal{http://physics.nist.gov/cuu/Units/}{http://physics.nist.gov/cuu/Units/}</content>
+</record>

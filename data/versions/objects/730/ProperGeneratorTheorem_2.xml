@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="730">
+ <title>proper generator theorem</title>
+ <name>ProperGeneratorTheorem</name>
+ <created>2009-05-03 14:10:44</created>
+ <modified>2009-05-03 14:13:42</modified>
+ <type>Theorem</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>proper generator theorem,GrothendieckCategory,commutative ring,</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>commutative ring</concept>
+ </defines>
+ <related>
+	<object name="GrothendieckCategory"/>
+ </related>
+ <keywords>
+	<term>proper generator theorem</term>
+	<term>GrothendieckCategory</term>
+	<term>commutative ring</term>
+ </keywords>
+ <preamble>proper generator theorem,GrothendieckCategory,commutative ring,</preamble>
+ <content>\begin{theorem}
+Any commutative ring is the endomorphism ring of a proper generator in a suitably chosen Grothendieck category.
+\end{theorem}</content>
+</record>

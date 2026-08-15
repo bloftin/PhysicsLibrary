@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="22">
+ <title>temperature</title>
+ <name>Temperature</name>
+ <created>2004-11-20 15:28:00</created>
+ <modified>2009-06-22 03:07:04</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="441" name="bci1"/>
+ <comment>thermodyamic (independent) variable related to the amount of kinetic energy that either a group of atoms, or a molecular, or a spin system have. 
+
+For an atomic or molecular system, $T$ is usually measured with a calibrated thermometer; in the case of an ensemble or system of spins, $T$ is called the {\em spin temperature} of the system, and is typically measured through magnetization transfer experiments at equilibrium.  The absolute temperature, or Kelvin scale, has only values that are greater than, or equal to, zero. One notes, however, that according to quantum mechanics, even at zero
+degrees Kelvin there are still motions present in any atomic or molecular system--the zero-point vibrations, yielding an absolute minimum zero-point vibration energy $E^v_o &gt; 0$.</comment>
+ <author id="441" name="bci1"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Temperature is a scalar value we use to measure the amount of kinetic energy a group of atoms have.</content>
+</record>

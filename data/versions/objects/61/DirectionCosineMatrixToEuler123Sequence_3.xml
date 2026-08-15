@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="61">
+ <title>direction cosine matrix to Euler 123 sequence</title>
+ <name>DirectionCosineMatrixToEuler123Sequence</name>
+ <created>2005-08-16 00:08:53</created>
+ <modified>2005-08-16 08:45:02</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Starting with a direction cosine matrix (DCM), we need to determine the three Euler angles.  The connection is made by comparing the DCM elements with the combined Euler 123 sequence.  It is important to note that the 12 combinations of Euler angles for a given sequence can be found from a given DCM.  The DCM matrix is
+
+\begin{equation}
+DCM =
+\left[ \begin{array}{ccc}
+A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right]
+\end{equation}
+
+The Euler 123 sequence is
+
+\begin{equation}
+R_3(\psi)R_2(\theta)R_1(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} &amp; c_{\psi} s_{\theta} s_{\phi} + s_{\psi} c_{\phi} &amp; -c_{\psi} s_{\theta} c_{\phi} + s_{\psi} s_{\phi} \\
+-s_{\psi} c_{\theta} &amp; -s_{\psi} s_{\theta} s_{\phi} + c_{\psi} c_{\phi} &amp; s_{\psi} s_{\theta} c_{\phi} + c_{\psi} s_{\phi} \\
+s_{\theta} &amp; -c_{\theta} s_{\phi} &amp; c_{\theta} c_{\phi} \end{array} \right] 
+\end{equation}
+
+If we examine the element in coloum 1 row 3, then by inspection
+
+$A_{31} = sin(\theta)$
+
+Solving for $\theta$ yields
+
+\begin{equation}
+\theta = sin^{-1}(A_{31})
+\end{equation}
+
+Care must now be taken when evaluating the inverse sine.  It is a multivalued function, which will have values of $\theta$ and $\pi - \theta$. Analytically, the convention is to choose the principle value such that 
+
+$-\pi/2 \le \theta \le \pi/2$
+
+If a numerical program is used, a function asin() usually does this for us.  The next step is to analyze the ratio $\dfrac{A_{32}}{A_{33}}$.  Using these values from the Euler sequence we get
+
+$\dfrac{A_{32}}{A_{33}}= \dfrac{-sin(\phi) cos(\theta)}{cos(\phi) cos(\theta)}$
+
+Rearranging the minus sign and using the tangent yields
+
+$tan(\phi) = \dfrac{-A_{32}}{A_{33}}$
+
+Solving the quadrant ambiquity caused by the inverse tangent is done by examining the signs of the numerator and denominator.  Denoting y as the numerator and x as the denominator, then the quadrant is chosen by:
+
+quadrant 1
+$
+\left[ \begin{array}{cc}
+y &amp; x \\
++ &amp; + \\
+\end{array} \right] 
+$
+
+so if x and y are both positive, then $0 \le \phi \le \pi /2$.  Similarily  for the other quadrant possibilites
+
+quadrant 2
+$
+\left[ \begin{array}{cc}
+y &amp; x \\
++ &amp; - \\
+\end{array} \right] 
+$
+
+quadrant 3
+$
+\left[ \begin{array}{cc}
+y &amp; x \\
+- &amp; - \\
+\end{array} \right] 
+$
+
+quadrant 4
+$
+\left[ \begin{array}{cc}
+y &amp; x \\
+- &amp; + \\
+\end{array} \right] 
+$
+
+Ofcourse, it is much simplier to use a calculator or numerical program that uses the atan2() function which will choose the principle value.  In a similar fashion we can find the final Euler angle by looking at the ratio $\dfrac{A_{21}}{A_{11}}$ which gives the relation
+
+$\dfrac{A_{21}}{A_{11}} = \dfrac{-cos(\theta) sin(\psi)}{cos(\theta)cos(\psi)}$
+
+Canceling terms and rearrangeing gives us
+
+$\psi = tan^{-1}(\dfrac{-A_{21}}{A_{11}})$
+
+which uses the same method to resolove quadrant ambiguity as above.  To summarize, we will give the formulas for the conversion from a direction cosine matrix to the Euler 123 angles in Matlab syntax
+
+
+$\phi = atan2(-A_{32}, A_{33})$
+$\theta = asin(A_{31})$  
+$\psi = atan2(-A_{21}, A{_11})$</content>
+</record>

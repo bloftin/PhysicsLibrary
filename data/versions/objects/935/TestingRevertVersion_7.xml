@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="935">
+ <title>Testing revert version</title>
+ <name>TestingRevertVersion</name>
+ <created>2025-02-02 17:47:47</created>
+ <modified>2025-02-03 05:04:36</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <preamble>  % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Initial Version: $E=mc^2$
+
+2nd version after revision $ mc^2 + 2$
+
+3rd revision
+
+4th revision: $E=mc^2$
+
+5th revision $pv = nrt$
+
+6th revision $y = 1/2vt^2 $
+
+7th revision $ F=ma$</content>
+</record>

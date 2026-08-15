@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="164">
+ <title>Magnetic Forces on Moving charges</title>
+ <name>MagneticForcesOnMovingCharges</name>
+ <created>2006-04-27 12:43:53</created>
+ <modified>2006-04-27 12:43:53</modified>
+ <type>Topic</type>
+ <creator id="129" name="asar"/>
+ <modifier id="129" name="asar"/>
+ <author id="129" name="asar"/>
+ <classification>
+	<category scheme="msc" code="94.30.Hn"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Charged particles are trapped in the Earth's magnetosphere, supposedly by the "mirror effect". The general motion of charged particles in magnetic fields is said to be covered by Lorentz's Force.
+
+Lorentz's Force is given as:
+\begin{equation}
+F = e \mathbf{v} \times \mathbf{B}
+\end{equation}
+
+
+where "e" is the \htmladdnormallink{Electric Charge}{http://planetphysics.org/encyclopedia/Charge.html} traveling with \htmladdnormallink{velocity}{http://planetphysics.org/encyclopedia/Velocity.html} "v" in the "B-field".
+
+The general Electromagentic force should include a scalar and a vector force:
+
+\begin{equation}
+F= e \mathbf{vB} = -e \mathbf{v \cdot B} + e\mathbf{v \times B}
+\end{equation}
+
+The scalar force is parallel to the magnetic field and the magnetic field acts like a hamonic oscillator. This action, in effect traps the charge parallel to the field.
+
+Example for positive charge e=1, v= I + J and B= J
+
+F = (I + J)J = -1 + K
+
+F = (-1 + K) J = -J - I = -(I + J)
+
+F = -(I + J) J = 1 - K
+
+F = (1 - K)J = J + I repeating, etc, etc.
+
+The vector force rotates AROUND the B field (I, K, -I, -K) CCW around B.
+
+The scalar force oscillates ALONG the B field (J, -1, -J, 1).
+
+In general whenever the velocity is oblique to the B field , there are two forces, a scalar force parallel to the field and a vector force perpendicular to the field. Conservation of energy requires these two velocities to exist when oblique and common sense indicates that two forces should be exist.
+
+I have not seen any experiments confirming this scalar force. It could be that no one is looking given the influence of the Lorentz Force "Law".
+
+Obviously, negative charges rotate in the opposite direction from positive charges. In general, I believe fields in physics are quaternion, after Hamilton, and thus the more complex product of veleocity and filed takes place:
+
+\begin{equation}
+\mathbf{v_qB_q = (v_sB_s - v_v \cdot B_v) + (v_sB_v + v_vB_s + v_v \times B_v)}
+\end{equation}
+
+
+I welcome discussion on this topic and any experimental confirmation or refutation of the paralllel magnetic force.</content>
+</record>

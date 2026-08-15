@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="352">
+ <title>principles of thermodynamics</title>
+ <name>PrinciplesOfThermodynamics</name>
+ <created>2009-01-07 04:10:36</created>
+ <modified>2009-01-31 10:17:57</modified>
+ <type>Topic</type>
+<parent id="414">overview of the content of PlanetPhysics</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="05.70.-axx"/>
+ </classification>
+ <defines>
+	<concept>reversible process</concept>
+	<concept>open system</concept>
+	<concept>closed system</concept>
+	<concept>absolute temperature</concept>
+	<concept>internal energy</concept>
+	<concept>entropy</concept>
+	<concept>state functions</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="principles of thermodynamics" alias="thermodynamic principles"/>
+ </synonyms>
+ <keywords>
+	<term>thermodynamic principles</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>[This is a contributed entry in progress.]
+
+\section{Principles of Thermodynamics}
+
+\subsection{Basic Concepts}
+{Thermodynamic systems}: Closed vs. Open systems.
+
+\textbf{Thermodynamic Processes:}
+Reversible vs. Irreversible := Equilibrium vs. Non-equilibrium
+
+\subsection{The Zeroth Principle}
+
+\textbf{1. Thermal Equilibrium definition. 2. Temperature is a \emph{measure} of the degree of molecular motion: the higher the average magnitude of velocities in a system measured at equilibrium with the system, the higher the temperature is (the hotter the system is).  Absolute temperature scale}
+
+\begin{remark}
+Whereas absolute temperatures of molecular systems can only take on positive values, spin temperature--or spin-lattice temperature-- for example, may take on `negative' values as a result of spin population inversion through polarization, or cross-polarization.
+
+ Such cross-polarization processes might be thus utilized in designing and operating quantum `computers' or quantum nano-robots.
+\end{remark}
+
+
+\subsection{The First Principle}
+\textbf{Total Energy Conservation}
+
+\subsection{The Second Principle}
+
+During any thermodynamic process the entropy of a closed system always increases if the closed system is not at equilibrium (when the latter becomes constant), [or, equivalently, that perpetual motion machines are impossible].
+
+
+\subsection{The Third Principle}
+The entropy of any crystalline system tends to zero in the limit of absolute zero temperature.
+
+
+\subsection{Discussion}
+
+Suggested Fourth Principle:  \emph{the Onsager reciprocity relations}
+
+
+\textbf{Remark:}  Commonly, the four principles of reversible thermodynamics 
+are also known as 'the four thermodynamic laws'.</content>
+</record>

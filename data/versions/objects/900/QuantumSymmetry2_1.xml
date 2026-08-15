@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="900">
+ <title>quantum symmetry</title>
+ <name>QuantumSymmetry2</name>
+ <created>2011-01-15 13:36:43</created>
+ <modified>2011-01-15 13:36:43</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>QuantumSymmetriesFromGroupAndGroupoidRepresentations</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>quantum categories</concept>
+	<concept>Poisson transformation</concept>
+	<concept>Lie group</concept>
+	<concept>Lie Algebra</concept>
+	<concept>Hamilton algebroid</concept>
+	<concept>graded Lie superalgebra</concept>
+	<concept>extended quantum symmetry</concept>
+	<concept>topological order</concept>
+	<concept>symmetry group</concept>
+ </defines>
+ <related>
+	<object name="QuantumGroupsAndVonNeumannAlgebras"/>
+ </related>
+ <preamble></preamble>
+ <content>\section{Quantum Symmetry}
+Often quantum symmetry is understood in terms of properties of symmetry groups, their representations and related algebras. Quantum groups also possess quantum symmetries which are distinct from those exhibited by classical Lie groups, groups of rotations and Poisson or Lorentz transformation groups. Extended quantum symmetries are also encountered for quantum groupoids, quantum categories, Hamilton algebroids, graded Lie super-algebras, Lie algebroids and quantum systems with topological order.</content>
+</record>

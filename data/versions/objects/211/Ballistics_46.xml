@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="46" id="211">
+ <title>ballistics (2D)</title>
+ <name>Ballistics</name>
+ <created>2006-07-25 16:23:33</created>
+ <modified>2009-06-12 11:49:56</modified>
+ <type>Topic</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="475" name="vip6"/>
+ <author id="154" name="shmulik"/>
+ <classification>
+	<category scheme="msc" code="45.40.Gj"/>
+ </classification>
+ <defines>
+	<concept>ballistics</concept>
+	<concept>ballistic testing</concept>
+	<concept>reference systems</concept>
+	<concept>ballistic animation</concept>
+	<concept>two-dimensional</concept>
+	<concept>2D-projection</concept>
+	<concept>projected motion</concept>
+	<concept>kinematic function</concept>
+	<concept>relative motion</concept>
+	<concept>kinematics</concept>
+	<concept>intercontinental ballistics</concept>
+	<concept>ballistics applications</concept>
+	<concept>drag force</concept>
+	<concept>Coriolis force</concept>
+	<concept>Coriolis effect</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="ballistics (2D)" alias="two-dimensional ballistic projections"/>
+ </synonyms>
+ <related>
+	<object name="Velocity"/>
+	<object name="Acceleration"/>
+	<object name="Position"/>
+	<object name="ProjectileMotion"/>
+ </related>
+ <keywords>
+	<term>ballistics</term>
+	<term>ballistic testing</term>
+	<term>reference system</term>
+	<term>two-dimensional</term>
+	<term>2D-projection</term>
+	<term>projected motion</term>
+	<term>kinematic function</term>
+	<term>relative motion</term>
+	<term>kinematics</term>
+	<term>intercontinental ballistics</term>
+	<term>ballistics applications</term>
+	<term>drag force</term>
+	<term>Coriolis force</term>
+	<term>Coriolis effect</term>
+	<term>spinning black hole</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\em Ballistics} is the study of the kinematics and dynamics of a projected motion of an object. The object in motion relative to the agency applying the
+force causing the beginning of the accelerated motion of the object is thus called a ``projectile''. Note however that in the presence of a gravitational
+field the latter also contributes to either accelerating or decelerating the 
+projectile depending on the initial conditions, i.e. the orientation and direction of the applied force relative to gravitational forces. The two following \PMlinkexternal{animations}{http://upload.wikimedia.org/wikipedia/commons/b/b6/Corioliskraftanimation.gif} provide interesting visual and dynamic examples of such projectile motions that are also represented graphically in the attached entry. As an interesting illustration of the problem, please attempt to explain, and also calculate, why in the above linked animation the trajectories of a ball in the vertical and horizontal planes appear to be quite different; in the case of the vertical spinning disk the trajectory appears to be simply a straight line, whereas on the horizontal spinning disk the trajectory of the same ball is `visibly' curved. In the next animation, shown as a quick
+\PMlinkexternal{movie download}{http://ww2010.atmos.uiuc.edu/(Gh)/guides/mtr/fw/gifs/coriolis.mpg}, one sees the `puzzling', 
+\PMlinkexternal{marked effects of a Coriolis force}{http://en.wikipedia.org/wiki/Coriolis_effect}, and more generally the effects of a spinning projectile (such as a football, soccerball, tenis/ping-pong/golf ball) on its trajectory. 
+
+ Similarly, a spinning black hole behaves quite differently from a non-spinning one, but one would not be able to correctly calculate such a major difference only with Newtonian mechanics. Even Special Relativity is insufficient for this purpose, and General Relativity theory is needed.  
+
+ The two-dimensional (2D) projection is a major step in defining the trajectory of a projectile object in its motion relative to that of an observer, or reference system. (Note also the
+exceptions specified in the concluding remarks).
+
+ Let us define first a horizontal axis $x$ and a vertical axis $y$ in the latter reference system of the observer.
+
+
+\subsection{Horizontal Motion}
+
+  This will be considered first. Assuming that the drag force caused by the friction with the atmosphere surrounding the object is negligible, the sum of forces along the $x$ axis $\Sigma F_x$ equals zero, and so the acceleration along the axis $a_x$ is also insignificant.  Thus, the velocity along the the axis $v_x$ is constant and equal to the projection velocity $V_{i,x}$. When dealing with a constant velocity motion the following kinematic function is relevant:
+\[ x=x_i+v_x \cdot \Delta t \rightarrow x=x_i+ \Delta t\cdot V_i \cos \alpha \]
+($x_i$-the initial position, $V_x$-the velocity along the axis, $\Delta t$-the duration)
+
+\subsection{Vertical Motion:}
+
+The motion along the $y$ axis is under the effect of gravity $(mg)$ when $m$ is the object's mass and $g$ is the the free fall acceleration on earth. $\rightarrow \Sigma F_y=mg$
+
+Because the force along the $y$ axis is constant, the motion along the axis is evenly accelerated, and so the position of the object as a function of time $y(t)$ is:
+
+\[ y= y_i+\Delta t \cdot V_{i,y} + 0.5g\Delta t^2 \rightarrow y= y_i+\Delta t \cdot V_i\sin\alpha + 0.5g\Delta t^2 \]
+
+\subsection{2D Motion:}
+
+The merging of the functions of place-time $x(t),y(t)$ produces the route equation $y(x)$: \[ y= y_i + (x-x_i) V_i \tan\alpha + \frac {g(x-x_i)^2}{2v_i^2 \cos^2\alpha} \]
+
+\textbf{Remarks:}
+ Ballistics has also been a subject of great interest to both army and navy engineers that wished to improve the performance of various types of guns and succeded in doing so by applying physical principles and mathematics. One such 
+early apllications of ballistics is discussed in the Old Testament, in the 
+widely known story about David and Golliath. Other earlier examples of the use of ballistics in battles and sieges were the ancient uses of various catapults in Roman conquests. Perhaps even older was the use of gun powder propelled rockets by the ancient Chinese entertainers, and also in hunting by hurtling stones spears and arrows by primitive {\em H. sapiens} bands or tribes, and earlier still by hominins and hominids; the latter, the Chinese and the Romans however did not obviously benefit from the physical science of ballistics that began only with Galileo Galilei's foundation of experimental, classical kinematics, fully dveloped later by Newton's foundation of dynamics and Netwonian calculus. Ballistics is also of considerable importance today in forensic science that also uses such physical principles combined with actual experimental ballistic testing. Ballistic considerations were also of the essence during the Cuban missile crisis, the earlier period of the Cold War, and in all earlier, `hot wars'. 
+
+ Intercontinental ballistics, satellite launches and NASA's interplanetary programs also make intensive use of ballistics, but in its more sophisticated forms; in such cases, the 2D projection method outlined above for ballistic calculations is obviously insufficient.</content>
+</record>

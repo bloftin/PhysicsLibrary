@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="183">
+ <title>Fermion</title>
+ <name>Fermion</name>
+ <created>2006-06-06 15:49:05</created>
+ <modified>2006-06-06 15:49:05</modified>
+ <type>Definition</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="475" name="vip6"/>
+ <comment>Changes for correction #49 ('Unclassified entries cause problems with the search engine.'). accepted
+
+\begin{defintion}
+{\em Fermions} are particles with a half-integer spin value, and they are named after the famous Italian--American, Nobel Laureate physicist Enrico Fermi who built the first known operational nuclear reactor in Chicago as part of the Manhattan project during WWII. Several particles like leptons, quarks and baryons are all fermions.  
+\end{defintion}</comment>
+ <author id="132" name="metalac"/>
+ <related>
+	<object name="Boson"/>
+	<object name="PauliExclusionPrinciple"/>
+	<object name="FermiDiracDistribution"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Fermions are half-integer spin particles named after a famous Italian physicist Enrico Fermi.  Particles like leptons, quarks and baryons are fermions.  
+
+Since fermions have half-integer spin they obey Fermi-Dirac statistics, which in turn constitues a Pauli Exclusion principle which states that no two fermions can occupy a same quantum mechanical state at the same time in a given quantum mechanical system.  This phenomenon is the sole reason behind fermions being a building block of the "real" world and also for the stability of electron shells in atoms.
+
+All know elementary particles that are fermions have spin 1/2 and are the most basic in physics and thus make spin 1/2 state a unique state. 
+
+Fermions act on each other by exchanging bosons, just like it's the case with quarks (fermions) and gluons (bosons) inside a nucleon.</content>
+</record>

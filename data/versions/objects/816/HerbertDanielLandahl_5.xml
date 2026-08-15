@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="816">
+ <title>Herbert Daniel Landahl</title>
+ <name>HerbertDanielLandahl</name>
+ <created>2009-06-27 22:07:53</created>
+ <modified>2009-06-27 22:50:43</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>CNS</concept>
+	<concept>central nervous system</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Herbert Daniel Landahl" alias="Herbert Landahl"/>
+ </synonyms>
+ <related>
+	<object name="NicolasRashevsky"/>
+ </related>
+ <keywords>
+	<term>mathematical biophysics of CNS</term>
+	<term>central nervous system</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Herbert Daniel Landahl}
+is an American mathematical biophysicist who was born in Fancheng, China, on April 23, 1913. He obtained with {\em Magna Cum Laude} his AB degree at St. Olaf College in 1934, and then earned this SM in Physics at the University of Chicago in 1936. He then became very interested in mathematical biophysics and was the world's first PhD student to graduate in Mathematical Biophysics at the University of Chicago in 1941 under the supervision of Professor Nicolas Rashevsky, the Founder of Mathematical Biophysics and Mathematical Biology.
+\subsection{Academic career}
+He worked at first as a Research assistant in the Psychometrics Laboratory at the University of Chicago (1937-39), and transferred to change his research to the field of mathematical biophysics as a Research Assistant in the Department of Physiology between 1939 and 1942. After graduation in 1941 with a PhD in Mathematical Biophysics, he was able to continue as a Research Associate of Professor Nicolas Rashevsky bewteen 1942 and 1945. He was then promoted in rapid succession to a tenured track Assistant Professorship in 1945, and to a tenured position of Associate Professor and full Professor of Mathematical Biology between 1948 and 1958. In 1945 he co-authored with  Scott Alston Householder a fundamental book on the "Mathematical biophysics of the central nervous system." (The Principia Press, 1945). He became a full Professor of Biophysics in 1964 and continued to work as full professor at the University of Chicago (UC) until 1968 when he was lured by the University of California at San Francisco (UCSF) after the former UC president declined to promote him to the Chair of the Committee for Mathematical Biology as Nicolas Rashevsky's successor upon the latter's planned retirement in 1969. As a result of the insuing disagreement between Rashevsky and the UC president, Nicolas Rashevsky resigned from his UC position in 1968 and moved to Ann Arbor in Michigan.
+Dr. Landahl took up his new position of full Professor of Biophysics and Biomathematics in 1969 at UCSF where he became a Professor Emeritus in 1980.
+\subsection{Research Interests}
+Dr. Landahl's research interests were, and are, focused on the
+dynamics of neural networks and the central nervous system (CNS).
+He also studied the biophysics of cell division, biological effects of radiation, population interactions in ecology, biological clocks and
+insulin biosynthesis. 
+ 
+\subsection{The Society for Mathematical Biology Leadership}
+Dr. Landahl cofounded with George Karreman and Anthony Bartholomay "The Society for Mathematical Biology" (SMB), and served as SMB's first Vice-President between 1972 and 1982. He also served between 1973 and 1981 as the Chief Editor of the Bulletin of Mathematical Biology--the main journal of SMB.</content>
+</record>

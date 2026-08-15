@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="205">
+ <title>dot product</title>
+ <name>DotProduct</name>
+ <created>2006-07-22 11:25:19</created>
+ <modified>2006-07-22 11:25:19</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="dot product" alias="scalar  product"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The dot product or scalar product is defined as
+
+$$ \mathbf{A} \cdot \mathbf{B} = A_x B_x + A_y B_y + A_z B_z $$
+
+{\bf Geometric interpretation}
+
+Using a geometric interpretation allows us to find the angle between two vectors because
+
+$$ \mathbf{A} \cdot \mathbf{B} = \left | \mathbf{A} \right | \left | \mathbf{B} \right | \cos \theta$$
+
+It is also useful to note that if the two vectors are perpindicular, their dot product is zero since
+
+
+$$ \cos 90^o = 0$$</content>
+</record>

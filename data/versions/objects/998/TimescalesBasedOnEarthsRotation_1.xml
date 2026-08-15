@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="998">
+ <title>timescales based on Earth's rotation</title>
+ <name>TimescalesBasedOnEarthsRotation</name>
+ <created>2025-04-02 03:14:03</created>
+ <modified>2025-04-02 03:14:03</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>fixed quotation marks</comment>
+ <author id="1" name="bloftin"/>
+ <preamble>    % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Timescales Based on Earth's Rotation} 
+
+As the Earth rotates about its axis, it also moves in its orbit around the Sun.  Thus, while the Earth rotates once with respect to a fixed star, the Earth moves in its orbit so that additional rotation is necessary with respect to the Sun to bring the fixed star back to the meridian.  The rotation of the Earth with respect to the equinox is called {\bf sidereal time}.  The Earth's rotation with respect to the Sun is the basis of {\bf Universal Time} (UT), also called solar time.  Since the rotation of the Earth is subject to irregular forces, sidereal time and Universal Time are irregular with respect to atomic time.  Sidereal time is the hour angle of the equinox and is subject to the motion (due to precession and nutation) of the equinox itself.  Otherwise, it is a direct measure of the diurnal rotation of the Earth.  Sidereal time reflects the actual rotation of the Earth and can be determined by observations of stars, artificial satellites, extragalactic radio sources, and data from Global Positioning System satellites.  On the other hand, the apparent diurnal motion of the Sun involves both the non-uniform diurnal rotation of the Earth and the motion of the Earth in its orbit around the Sun.  In practice, Universal Time, specifically UT1, is directly related to sidereal time by means of a numerical formula.  For each local meridian there is a corresponding {\bf local sidereal time}.  The measure of the rotation of the Earth with respect to the true equinox is called {\bf apparent sidereal time}.  The measure with respect to the mean equinox of date is referred to as {\bf mean sidereal time}.  Apparent sidereal time minus mean sidereal time is called the {\bf equation of the equinoxes}.  \\
+
+In 2000 the International Astronomical Union (IAU) redefined UT1 to be a linear function of the Earth Rotation Angle (ERA), which is the geocentric angle between the {\bf Celestial Intermediate Origin} (CIO), which has no instantaneous rotation, and the Terrestrial Intermediate Origin (TIO), which rotates with the Earth.  So, the ERA is a direct measure of the Earth's rotational motion.  Sidereal time, Earth Rotation Angle, and UT1 are mathematically linked and affected by variations in the Earth's rate of rotation (length of day), which are unpredictable and must be determined for observations.
+
+\section{Sidereal Time}
+
+The local hour angle of the equinox has a special significance since it serves to specify the orientation of the celestial (equatorial) coordinate system with respect to the local terrestrial coordinate system in which the hour angle is measured.  The local hour angle of the equinox is known as the {\bf local sidereal time} (LST) and it increased by $24^h$ in a sidereal day.  The fundamental relation for some celestial object $X$ is
+
+\begin{equation}
+\text{local hour angle of } X = \text{local sidereal time } - \text{ right ascension of } X.
+\end{equation}
+
+This may be written in abbreviated form
+
+\begin{equation}
+\text{LHA } X = \text{LST } - \text{ RA } X.
+\end{equation}
+
+The value of the local sidereal time is equal to the right ascension of the local meridian, and so may be determined by observing the meridian transits of stars of known right ascensions, the positions of radio sources using Very Long Baseline Interferometry, the motion of GPS satellites in their orbits, or the distance from a location on Earth to retroreflector on the Moon by Lunar Laser Ranging.  Local sidereal time can be calculated from the sidereal time on the prime meridian (Greenwich) when the difference in geographic longitude is known (see Figure 1); thus
+
+\begin{equation}
+\text{local sidereal time} = \text{Greenwich sidereal time} + \text{east longitude }.
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{SiderealTime.jpeg}
+
+{\bf Figure 1: Calculation of sidereal time } 
+\end{figure}
+
+\section{Solar and Universal Time}
+
+The general form of the relationship between solar time and Universal Time may be derived by substituting the Sun for $X$ in (3).  The local hour angle of the Sun is, by definition, $12$ hours less than local apparent solar time (LAT) and so
+
+\begin{equation}
+\text{LAT} = \text{LST } - \text{ RA } - 12^h.
+\end{equation}
+
+The right ascension of the Sun does not vary uniformly with time nor does the Sun move on the equator, but it is possible to introduce the concept of a point $U$ that moves around the celestial equator at a uniform rate.  Hence, Universal Time is defined in terms of Greenwich Sidereal Time (GST) by an expression of the form
+
+\begin{equation}
+\text{UT} = \text{GST} - \text{RA} U - 12^h.
+\end{equation}
+
+where the coefficients in the expression for $\text{RA} U$ are chosen so that UT may for most purposes be regarded as mean solar time on the Greenwich meridian.
+
+\section{Equation of Time}
+
+The difference between local mean time (LMT) and local apparent solar time is known as the {\bf equation of time}, and the relationship is now expressed in the form
+
+\begin{equation}
+\text{LAT} = \text{LHA Sun} + 12^h = \text{LMT} + \text{equation of time}.
+\end{equation}
+
+although the equation of time used to be regarded as the correction to be applied to apparent time to obtain mean time.  The principal contributions to the equation of time arise from the eccentricity of the Earth's orbit around the Sun (which causes a non-uniformity in the apparent motion of the Sun around the ecliptic) and the inclination of the plane of the ecliptic to the plane of the equator.  The equation of time varies through the year in a smoothly periodic manner by up to 16 minutes, as shown in Figure 2.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{VariationEquationOfTime.jpeg}
+
+{\bf Figure 2: Variation in the equation of time through the year} 
+\end{figure}
+
+\section{Coordinated Universal Time (UTC)}
+
+Although International Atomic Time (TAI) provides a continuous, uniform, and precise timescale for scientific reference purposes, it is not convenient for general use.  In everyday life it is more convenient to use a system of timescales that correspond to the alternation of day and night, apply over fairly wide areas, and can be easily related to each other and to TAI.  In these timescales, the numerical expression, or measure, of the time of an event is given in the conventional form of years, months, days, hours, minutes, seconds, and decimals of seconds - i.e., as a calendar date and time of day.  The standard time on the prime meridian is known as Coordinate Universal Time (UTC).  UTC is an atomic timescale that is kept in close agreement with Universal Time (UT), which is a measure of the rotation of the Earth on its axis.  The rate of rotation of the Earth is not uniform (with respect to atomic time), and the difference between TAI and UT is increasing irregularly by about 1 second every 18 months.  The difference between UTC and TAI is always an integral number of seconds.  UTC maintained in close agreement, to better than one second, with UT by introducing extra seconds, known as {\bf leap seconds}, to UTC, usually at the end of the last day of June or December.  The Earth is divided into standard time zones in which the time kept is that of a standard meridian (multiples of $15^{\circ}$ longitude).  Thus, the local noon at any place in the zone is near twelve noon of the standard time.  These standard times usually differ from UTC by integral numbers of hours.  In summer, the time may be advanced by an hour to increase the hours of daylight in the evening.
+
+\section{Greenwich Mean Time (GMT)}
+
+In the past, the term "Greenwich Mean Time" (GMT) has been used for UTC and UT1.  It remains the basis of the civil time for the United Kingdom and, as such, is related to UTC.  However, in the navigation terminology, GMT means Universal Time.  For precise purposes it is recommended that the term "GMT" not be used, since it is ambiguous. \\
+
+Prior to 1925, GMT was measured for astronomical purposes from noon to noon, so that the date would not change in the middle of a night for an observer in Europe.  In 1925 that practice was discontinued, and GMT was then measured from midnight to midnight.  Thus, care must be taken in using time references before 1925.  The term ``Greenwich Civil Time" was used for a while for time measured from midnight.
+
+
+\begin{thebibliography}{9}
+
+This is a derivative work of the public domain excerpt from [1].  Important to note that only the US data is in public domain for [1].  Based on the preface chapter 1 is US data. \\ \\
+
+[1]  Urban, Sean E.; Seidelmann, P. Kenneth, eds. (2013). Explanatory Supplement to the Astronomical Almanac (3rd ed.). Mill Valley, CA: University Science Books. ISBN 978-1-891389-85-6. \\
+
+
+\end{thebibliography}</content>
+</record>

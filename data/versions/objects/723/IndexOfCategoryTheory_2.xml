@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="723">
+ <title>index of category theory</title>
+ <name>IndexOfCategoryTheory</name>
+ <created>2009-05-02 16:11:48</created>
+ <modified>2009-05-02 16:24:55</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <keywords>
+	<term>index of category theory</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\bf This is a contributed entry in progress...}
+
+\section{Index of Category Theory}
+\subsection{Foundamental Concepts and Axioms}
+
+\subsubsection{Basic Definitions}
+\begin{enumerate}
+\item category theory
+\item object
+\item identity
+\item arrow
+\item morphism
+\item composition law
+\item commutativity
+\item associativity
+\item axioms of category theory
+\item ETAC
+\item triples
+\item Abelian group
+\item group
+\item groupoid
+\item semigroup
+\item monoid
+\item ring
+\item diagram
+\item precategory
+\item category
+\item alternative definition of category
+\item subcategory
+\item small category
+\item category of sets ($Set$, $Ens$)
+\item automorphism
+\item commutative diagram
+\item concrete category
+\item dual category
+\item duality principle
+\item endomorphism
+\item epi
+\item monic
+\item extremal monomorphism
+\item source
+\item sink
+\item initial source
+\item final sink
+\item isomorphism-closed subcategory
+\item locally finite category
+\item preimage of category
+\item product of categories
+\item types of morphisms
+\item wellpowered category
+\item zero object
+\item \PMlinkid{$\mathcal{U}$-small}{5658}
+\item equalizer
+\item subobject
+\item quotient object
+\item direct product
+\item direct sum
+\item pullback
+\item pushout
+\item direct limit
+\item limiting cone
+\item cocone and colimit functor
+\item complete category
+\item groupoid (category theoretic)
+\end{enumerate}
+
+\subsection{2-Categories and Generalizations}
+\begin{enumerate}
+\item functor
+\item autofunctor
+\item category isomorphism
+\item diagonal functor
+\item endofunctor
+\item forgetful functor
+\item identity functor
+\item isomorphism
+\item multifunctor
+\item natural transformation
+\item surjective maps 
+\item univalent functors
+\item faithful functor
+\item full functor
+\item natural equivalence
+\item adjoint functor
+\item equivalence of categories
+\item \PMlinkname{isomorphic categories}{CategoryIsomorphism}
+\item universal property
+\item representable functor
+\item Equivalent definition of a Representable Functor
+\item simplicial object
+\end{enumerate}
+
+\subsection{Fundamental Theorems}
+\begin{itemize}
+\item Yoneda-Grothendieck lemma
+\item properties of monomorphisms and epimorphisms
+\item properties of regular and extremal monomorphisms
+\item monomorphisms are pullback stable
+\item proof that an equalizer is a monomorphism
+\item categorical direct product is an inverse limit
+\item kernel is an inverse limit
+\end{itemize}
+
+\subsection{Examples of Categories}
+\begin{enumerate}
+\item discrete category
+\item category example (arrow category)
+\item category of sets
+\item category of Abelian groups
+\item category of Topological spaces
+\item category of pointed topological spaces
+\item simplicial category
+\item category of groupoids
+\item category associated to a partial order
+\item category of matrices
+\item Category of pseudomorphisms
+\item Category of intermorphisms
+\item examples of initial objects and terminal objects and zero objects
+\item monoid as a category
+\item comma category
+\item enriched category 
+\item Algebraic category
+\item Logic category 
+\item Quantum Logic category
+\item Quantum Topos
+\end{enumerate}
+
+\subsection{Algebraic categories}
+\begin{enumerate}
+\item algebra formed from a category
+\item monad
+\item comonad
+\item monoidal category
+\item group object
+\item nerve
+\item gerbs
+\end{enumerate}
+
+\section{Additive Categories and Homology}
+\begin{enumerate}
+\item preadditive category
+\item additive category
+\item Abelian category
+\item supplemental axioms for an Abelian category
+\item exact sequence
+\item exact functor
+\item Grothendieck spectral sequence
+\item enough projectives
+\item enough injectives
+\item projective object
+\item injective object
+\item derived functor
+\item derived category
+\item Algebraic K-theory
+\item examples of algebraic K-theory groups
+\item Grothendieck group
+\item delta functor
+\item horseshoe lemma
+\item syzygy
+\item Ext
+\item Tor
+\item projective dimension
+\item 5-lemma
+\item proof of 5-lemma
+\item 9-lemma
+\item snake lemma
+\item \PMlinkname{proof of snake lemma}{ProofOfSnakeLemma}
+\item chain homotopy
+\item chain homotopy equivalence
+\item chain map
+\item homology of a chain complex
+\item Leray spectral sequence
+\item spectral sequence
+\end{enumerate}
+
+\section{Sheaves, Topoi, and the like}
+\begin{enumerate}
+\item presheaf
+\item sheaf
+\item sheafification
+\item presheaf of a topological basis
+\item stalk
+\item \'Etal\'e space
+\item resolution of a sheaf
+\item site
+\item small site on a scheme
+\item topos
+\item cosmos
+\item Heyting logic algebra
+\item subobject classifier
+\item well-pointed topos
+\item power object
+\item exponential object
+\item Cartesian closed category
+\item natural numbers object
+\end{enumerate}</content>
+</record>

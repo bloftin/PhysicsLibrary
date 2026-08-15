@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="238">
+ <title>Gauss's Law</title>
+ <name>GausssLaw</name>
+ <created>2006-12-17 21:51:43</created>
+ <modified>2006-12-19 18:13:08</modified>
+ <type>Definition</type>
+ <creator id="231" name="Saketh"/>
+ <modifier id="231" name="Saketh"/>
+ <author id="231" name="Saketh"/>
+ <classification>
+	<category scheme="msc" code="40-XX"/>
+ </classification>
+ <related>
+	<object name="Divergence"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Introduction}
+Gauss's law, one of Maxwell's equations, gives the relation between the electric or gravitational flux flowing out a closed surface and, respectively, the electric charge or mass enclosed in the surface. It is applicable whenever the inverse-square law holds, the most prominent examples being electrostatics and Newtonian gravitation. 
+
+If the system in question lacks symmetry, then Gauss's law is inapplicable, and integration using Coulomb's law is necessary.
+
+\subsection{Definition (Integral form)}
+In its integral form, Gauss's law is
+\begin{displaymath}
+\Phi = \oint_S \vec{E} \cdot \,\vec{dA} = \frac{1}{\epsilon_0}\int_V \,dV = \frac{q_{enc}}{\epsilon_0}
+\end{displaymath}
+where $\Phi$ is electric flux, $S$ is some closed surface with outward normals, $\vec{E}$ is the electric field, $\vec{dA}$ is a differential area element, $\epsilon_0$ is the permittivity of free space, $q_{enc}$ is the charge enclosed by $S$, and $V$ is the volume enclosed by $S$. 
+
+\subsection{Definition (Differential form)}
+In its differential form, Gauss's law is
+\begin{displaymath}
+\nabla \cdot \vec{E} = \frac{\rho}{\epsilon_0}
+\end{displaymath}
+where $\nabla$ is the divergence operator, and $\rho$ is the charge density.
+
+\subsection{Gauss's Law with Electric Displacement}
+When dielectrics or other polarizable media enter the system, we must modify Gauss's law accordingly. However, we rescind the mathematical perfection of the above formulation of Gauss's law in favor of a more accurate approximation of the real world.
+
+Polarizable media can contain two types of charge - free and bound. Free charge can move around, while bound charge results from the induced dipoles within the dielectric. Replacing the electric field with the electric displacement field, and the charge density with, specifically, the free charge density, we have a new form of Gauss's Law:
+\begin{displaymath}
+\nabla \cdot \vec{D} = \frac{\rho_{\mathrm{free}}}{\epsilon_0}
+\end{displaymath}</content>
+</record>

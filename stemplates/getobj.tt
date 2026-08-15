@@ -1,0 +1,40 @@
+<table width="100%" cellpadding="0" >
+
+
+    [% renderObj %]
+
+    <tr>
+        <td>
+		    [%  watch %]
+	    </td>
+    </tr>
+    <tr>
+        <td>
+            [% admin %]
+        </td>    
+    </tr>
+        
+    <tr>
+        <td>
+            [% author %]
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            [% corrections %]
+        </td>
+    </tr>
+        
+    <tr>
+        <td>
+            [% messages %]
+        </td>
+    </tr>
+        
+    <tr>
+        <td>
+            [% interact %]
+        </td>
+    </tr>
+</table>

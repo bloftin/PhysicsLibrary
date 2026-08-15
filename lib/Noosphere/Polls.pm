@@ -57,7 +57,13 @@ sub insertNewPoll {
 		COLS=>'uid,userid,start,finish,options,title',
 		VALUES=>"$nextid,$userinf->{uid},now(),CURRENT_TIMESTAMP + interval $ttl,'".sq($params->{response})."','".sq($params->{question})."'"}
 	) if (getConfig('dbms') eq 'mysql');
-								 
+	
+	($rv, $sth) = dbInsert($dbh,{
+        INTO=>'polls',
+        COLS=>'uid,userid,start,finish,options,title',
+        VALUES=>"$nextid,$userinf->{uid},now(),CURRENT_TIMESTAMP + interval $ttl,'".sq($params->{response})."','".sq($params->{question})."'"}
+    ) if (getConfig('dbms') eq 'MariaDB');
+						 
 	if (!$rv) {
 		dwarn "error inserting poll";
 		return errorMessage("Could not insert poll!");
@@ -95,7 +101,7 @@ sub checkNewPoll {
 #
 sub getPoll {
 	my $params = shift;
-	
+	dwarn "getPoll started";
 	my $html = '';
 
 	(my $rv, my $sth) = dbSelect($dbh,{WHAT=>'title,options,uid',
@@ -127,7 +133,7 @@ sub getPoll {
 	$html .= "</tr></td></form>";
  
 	$html .= "</table>";
-
+	dwarn "getPoll ended";
 	return paddingTable(clearBox('Vote in Poll',$html));
 
 }
@@ -215,7 +221,7 @@ sub checkVote {
 	my $params=shift;
 	my $userinfo=shift;
 	my $error="";
-	my $template=new Template('error.html');
+	my $template=new TemplateNS('error.html');
 	
 	# some basic checks
 	#
@@ -288,7 +294,7 @@ sub viewPolls {
 sub viewPoll {
 	my $params = shift;
 	my $userinf = shift;
-	
+	dwarn "viewPoll Started";
 	my $voted = (defined $params->{voted})?$params->{voted}:0;
 	my $id = $params->{id};
 	
@@ -371,6 +377,7 @@ sub viewPoll {
 	my $txt = paddingTable(clearBox("Viewing Poll",$html)); 
 	my $prefix = getConfig('template_cmd_prefix');
 	$txt =~ s/###NSTAG###/<$prefix:template /o;
+	dwarn "viewPoll Ended";
 	return templateFromText($txt);
 }
 

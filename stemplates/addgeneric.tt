@@ -1,0 +1,204 @@
+<!-- clear box -->
+<table width="100%" cellpadding="2" cellspacing="0">
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td bgcolor="#000000">
+
+						<!-- title box -->
+						
+						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+							<tr>
+								<td WIDTH="100%" BGCOLOR="#003399">
+									<font color="white" class="box_title">
+										Add a [% isa %]
+									</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+    <tr>
+		<td>
+			<!-- content box -->
+			<table width="100%" cellpadding="0" cellspacing="2">
+				<tr>
+					<td>
+
+                        <!-- instructions and junk -->
+                        [% IF section == "Papers" %] 
+
+                            <b>Paper guidelines</b>:
+
+                            <p />
+
+                            <ul>
+                                <li>This section is chiefly for your original work. It does not have to be published, but should be research-oriented. Theses and dissertations can go here as well. However, we are not attempting to take on the role of online publisher of research papers, so don't put other people's work here.</li>
+                                <li><b>"Rights" are required for every item</b>! If you dont know what the rights are, please check before doing anything (including asking the author of the work if need be). If you are the author, please formulate a rights statement ("Public domain" is a nice one).</li>
+                                <li><b>You must upload the paper</b>. There is currently no external linking to papers. Use the Filebox Manager at the bottom to upload.</li>
+                                <li>Starred (<font color="#ff0000">*</font>) fields are required. </li>
+                            </ul>
+
+                        [% ELSIF section == "Expositions" %]	
+
+                            <b>Exposition guidelines</b>:
+
+                            <p />
+
+                            <ul>
+                                <li>This section is for expositions which are <b>not books</b>. They will generally be for educational purposes, but it is most important that they are not considered papers or books for them to appear here. Lecture notes for a course are a good example of what should go here.</li>
+                                <li><b>"Rights" are required for every item</b>! If you dont know what the rights are, please check before doing anything (including asking the author of the work if need be). If you are the author, please formulate a rights statement ("Public domain" is a nice one).</li>
+                                <li>You must either upload the exposition or provide URLs linking to it. <b>Uploads are preferable to linking</b>, but require rights to redistribute. Try to get permission to upload if possible.</li>
+                                <li>Starred (<font color="#ff0000">*</font>) fields are required. </li>
+                            </ul>
+
+                        [% ELSIF section == "Books" %]	
+
+
+                            <b>Book guidelines</b>:
+
+                            <p />
+
+                            <ul>
+
+                                <li>This section is for <b>books only</b>, published or unpublished. I.e., lecture notes would not go here.</li>
+                                <li><b>"Rights" are required for every item!</b> If you dont know what the rights are, please check before doing anything (including asking the author of the work if need be).</li>
+                                <li><b>Either at least one URL or some uploaded files are required</b>.  Uploads are preferable to linking, but require redistribution rights. Try to get permission to upload if it is needed, if possible.</li>
+                                <li><b>To add a cover image for the book</b>, upload files "coverimage.ext" and "coverimage_big.ext" (for the zoomed-in version), where "ext" is any image format extension (e.g. "jpg", "gif", "png").</li>
+                                <li>Starred (<font color="#ff0000">*</font>) fields are required. </li>
+                            </ul>
+                        [% END %]
+
+                        <hr />
+
+                        <p />
+
+
+                        <form method="post" action="https://physicslibrary.org/" enctype="multipart/form-data" accept-charset="UTF-8">
+
+                            <table align="center" cellpadding="0" cellspacing="0">
+
+                                <tr><td>
+
+                                <font face="sans-serif, arial, helvetica">
+
+                                [% IF error %]
+                                    <font color="#ff0000" size="+1">[% error %]</font>
+
+                                    <p><p/>
+                                [% END %]
+                                
+                                Title<font color="#ff0000">*</font>: 
+                                
+                                <p><p/>
+
+                                <input class="small" TYPE="text" NAME="title" SIZE="75" value="[% title %]">
+
+                                <p><p />
+
+                                Authors<font color="#ff0000">*</font>: 
+
+                                <p><p/>
+                                
+                                <input class="small" TYPE="text" NAME="authors" SIZE="75" value="[% authors %]">
+                                
+                                <p><p/>
+
+                                Keywords (<a href=/?op=assocguidelines>Guidelines</a>): 
+                                
+                                <p><p/>
+                                    
+                                <input class="small" TYPE="text" NAME="keywords" SIZE="75" value="[% keywords %]">     
+
+                                <p><p/>
+
+                                Classification (See <a target="physicslibrary.popup" href=/?op=pacsbrowse>PACS</a>):
+
+                                <p><p/>
+                                
+                                <input class="small" TYPE="text" NAME="class" SIZE="75" value="[% class %]"> 
+                                
+                                <p><p/>
+
+                                <font size="-2">(examples: "01.65.+g", "00.,45.20.Jj,04.25.Dm". "pacs:" can be ommitted, assumed by default.)</font>
+
+                                <p><p/>
+
+                                [% IF section == "Books" %]
+
+                                    ISBN #:
+
+                                    <input class="small" TYPE="text" NAME="isbn" SIZE="16" value="[% isbn %]"> 
+
+                                    <p><p/>
+                                    
+                                [% END %]
+
+                                Additional Comments (typically date, # of pages, chapters, etc):
+                                
+                                <p><p/>
+
+                                <input class="small" TYPE="comments" NAME="comments" SIZE="75" max="128" value="[% comments %]"> 
+
+                                <p><p/>
+                                
+                                Rights statement<font color="#ff0000">*</font> (URLs will become hyperlinks):
+
+                                <p><p/>
+
+                                <textarea name="rights" cols="75" rows="4">[% rights %]</textarea>
+
+                                <p><p/>
+
+                                Abstract<font color="#ff0000">*</font>:
+
+                                <p><p/>
+
+                                <textarea name="data" cols="75" rows="8">[% data %]</textarea>
+
+                                <p><p/>
+
+                                [% IF section == "Books" or section == "Expositions" %]
+                                    
+                                    URLs for any remote content (one per line):
+                                    <textarea name="urls" cols="75" rows="4">[% urls %]</textarea>
+
+                                    <p><p/>
+
+                                [% END %]
+
+                                <input TYPE="hidden" NAME="op" value=[% op %]> 
+
+                                <input TYPE="hidden" NAME="to" value=[% to %]> 
+
+                                <center>
+                                    <input TYPE="submit" NAME="post" value="finished"> 
+                                    <p><p/>
+                                </center>
+
+                                </font>
+
+                                </td></tr>
+                            </table>
+
+                            <!--==============-->
+                            <!-- file manager -->
+                            <!--==============-->
+
+                            [% IF fmanager_flag %]
+                                [% fmanager %]
+                            [% END %]
+
+                        </form>
+                    </td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end clear box -->

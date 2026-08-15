@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="194">
+ <title>expanding universe</title>
+ <name>ExpandingUniverse</name>
+ <created>2006-07-08 02:54:42</created>
+ <modified>2006-07-08 15:43:55</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="98.80.Es"/>
+	<category scheme="msc" code="98.62.Py"/>
+	<category scheme="msc" code="98.80.Bp"/>
+	<category scheme="msc" code="98.80.-k"/>
+ </classification>
+ <keywords>
+	<term>expanding universe Hubble</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A cornerstone of cosmology is the observation of an expanding universe.  In 1929, Hubble published the constant of proportionality $H_0$ that has become to be known as Hubble's constant [1].  The importance of this constant to the expanding universe is seen through Hubble's law, which states that the velocity of a galaxy is proportional to its distance from any point.
+
+\begin{equation}
+\vec{v} = H_0 \vec{r}
+\end{equation}
+
+As suggested by Liddle in [2], let us set up a square grid showing Hubble's law and then transform the origin to another point to see that it also follows Hubble's law.  First we set up the grid with equally spaced squares of unit length as shown in the first figure.  If you are able to view the attached spreadsheet, note that the constant used was 0.25 with the the length of each side of the squares being 1.  This means that at a distance of 1, the velocity vector will be of length 0.25 and at a distance of 2, a length of 0.5, etc.
+
+\begin{figure}
+\includegraphics[scale=1]{figure1.eps}
+\vspace{20 pt}
+\end{figure}
+
+The next step is to transform our origin to the red dot at (1,1).  This is done by subtracting off the equivalent velocity vector at a distance to (1,1) from all vectors as shown by the pink vectors in the second figure.
+
+\begin{figure}
+\includegraphics[scale=1]{figure2.eps}
+\vspace{20 pt}
+\end{figure}
+
+After computing the subtraction (green vectors), we see how it looks like every point is receding away from our new origin.  This is true for any other point we choose.
+
+\begin{figure}
+\includegraphics[scale=1]{figure3.eps}
+\vspace{20 pt}
+\end{figure}
+
+* Lots more to come, if you would like to help drop me an email
+
+\subsection{References}
+
+[1]  Hubble, E.,  "A Relation between Distance and Radial Velocity among Extra-Galactic Nebulae."  Proceedings of the National Academy of Sciences, 1929; 15: 168-173.
+
+[2]  Liddle, A., "An Introduction To Modern Cosmology."  2nd Edition.  John Wiley \&amp; Sons, West Sussex, 2003.</content>
+</record>

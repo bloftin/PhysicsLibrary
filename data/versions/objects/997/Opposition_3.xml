@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="997">
+ <title>opposition</title>
+ <name>Opposition</name>
+ <created>2025-03-30 23:46:23</created>
+ <modified>2025-03-31 01:31:13</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.Km"/>
+	<category scheme="msc" code="45.50.Pk"/>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <related>
+	<object name="RetrogradeMotion"/>
+ </related>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In astronomy, two astronomical objects are said to be in opposition when they are on opposite sides of the celestial sphere, as observed from a given body (usually Earth).  \\
+
+A planet (or asteroid or comet) is said to be "in opposition" or "at opposition" when it is in opposition to the Sun. Because most orbits in the Solar System are nearly coplanar to the ecliptic, this occurs when the Sun, Earth, and the body are configured in an approximately straight line, or syzygy; that is, Earth and the body are in the same direction as seen from the Sun. Opposition occurs only for superior planets (see Figure 1). \\
+
+The instant of opposition is defined as that when the apparent geocentric celestial longitude of the body differs by $180^{\circ} from the apparent geocentric longitude of the Sun.[1] At that time, a body is:</content>
+</record>

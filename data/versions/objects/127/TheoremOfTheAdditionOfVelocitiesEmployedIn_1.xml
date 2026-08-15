@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="127">
+ <title>The Theorem of the Addition of Velocities Employed in</title>
+ <name>TheoremOfTheAdditionOfVelocitiesEmployedIn</name>
+ <created>2006-03-11 23:19:42</created>
+ <modified>2006-03-11 23:19:42</modified>
+ <type>Topic</type>
+<parent id="121">Relativity: The Special and General Theory</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.30.+p"/>
+ </classification>
+ <related>
+	<object name="SpecialTheoryOfRelativity"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{The Theorem of the Addition of Velocities Employed in 
+Classical Mechanics}
+
+
+Let us suppose our old friend the railway carriage to be travelling
+along the rails with a constant velocity $v$, and that a man traverses
+the length of the carriage in the direction of travel with a velocity
+$w$. How quickly or, in other words, with what velocity $W$ does the man
+advance relative to the embankment during the process? The only
+possible answer seems to result from the following consideration: If
+the man were to stand still for a second, he would advance relative to
+the embankment through a distance $v$ equal numerically to the velocity
+of the carriage. As a consequence of his walking, however, he
+traverses an additional distance $w$ relative to the carriage, and hence
+also relative to the embankment, in this second, the distance w being
+numerically equal to the velocity with which he is walking. Thus in
+total be covers the distance $W=v+w$ relative to the embankment in the
+second considered. We shall see later that this result, which
+expresses the theorem of the addition of velocities employed in
+classical mechanics, cannot be maintained; in other words, the law
+that we have just written down does not hold in reality. For the time
+being, however, we shall assume its correctness.</content>
+</record>

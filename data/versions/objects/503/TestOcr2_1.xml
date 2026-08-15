@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="503">
+ <title>test ocr 2</title>
+ <name>TestOcr2</name>
+ <created>2009-02-07 00:57:44</created>
+ <modified>2009-02-07 00:57:44</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>necessary to consider the second bundle. The curvature form of our connection is a tensorial quadratic differential form in $M$, of type $ad(G^{\prime})$ and with values in the Lie algebra $L(O^{\prime})$ of $G^{\prime}$. Since the Lie algebra $L(O)$ of $G$ is a subalgebra of $L(G^{\prime})$, there is a natural projection of $L(O^{\prime})$ into the quotient space $L(G^{\prime})/L(G)$. The image of the cur- vature form under this proiection will be called the torsion form or the torsion tensor. If the forms $\pi^{\rho}$ in (13) define a $G$-connection, the vanishing of the torsion form is expressed analytically by the con- ditions
+$$
+(22)\text{ }\quad c_{f^{\prime\prime}k^{\prime\prime}}^{i^{\prime\prime}}=0.
+$$
+\quad We proceed to derive the analytical formulas for the theory of a $G$-connection without torsion in the tangent bundle. In general we will consider such formulas in $B_{G}$. The fact that the O-connection has no torsion simplifies (13) into the form
+$$
+(23)\text{ }\quad d\omega^{i}=\Sigma_{\rho,k}a_{\rho k}^{i}\pi^{\rho}\wedge\omega^{k}.
+$$
+By taking the exterior derivative of (23) and using (18), we get
+$$
+(24)\text{ }\quad \Sigma_{\rho,k}a_{\rho k}^{i}\Pi\rho_{\mathrm{A}\omega^{k}=0_{;}}
+$$
+where we put
+$$
+(25)\text{ }\quad \Pi\rho=d\pi^{\rho}+\#\Sigma_{\sigma.\tau}\gamma_{\sigma\tau}^{\rho}\pi^{\sigma}\mathrm{A}\pi^{\tau}.
+$$
+For a fixed value of $k$ we multiply the above equation by
+$$
+\omega^{1}\text{ }A.\text{ . . }A\text{ }\omega^{k-1}\text{ }A\text{ }\omega^{k+1_{\Lambda}}\ldots\text{ }A\text{ }\omega^{n},
+$$
+getting
+$$
+\sum_{\rho}a_{\rho k^{\prod\rho}}^{i}\text{ }A\text{ }\omega^{1}\text{ }A.\text{ . . }A\text{ }\omega^{n}=0,
+$$
+or $\Sigma_{\rho}a_{\rho k^{\Pi\rho}}^{l}\equiv 0,\ \mathrm{m}\mathrm{o}\mathrm{d}\ \omega^{;}$.
+
+\noindent
+Since the infinitesimal transformations $X_{\rho}$ are linearly independent, this implies that
+$$
+\Pi\rho\equiv 0,\text{ }\mathrm{m}\mathrm{o}\mathrm{d}\ \omega^{j}.
+$$
+It followo that II $\rho$ is of the form
+$$
+IA\text{ }\rho_{=\Sigma_{j}\phi_{J^{\mathrm{A}\omega^{f}}}^{\rho}}
+$$
+where $\phi_{j}^{\rho}$ are Pfaffian forms. Substituting these expressions into (24), we get
+$$
+\Sigma_{\rho,j,k(a_{\rho k}^{i}\phi_{j}^{\rho}-a_{\rho j}^{i}\phi_{k}^{\rho})\mathrm{A}\omega^{j}\mathrm{A}\omega^{k}=0}.
+$$
+It follows that
+$$
+\Sigma_{\rho}(a_{\rho k}^{i}\phi_{f}^{\rho}-a_{\rho j}^{1}\phi_{k}^{\rho})\equiv 0,\text{ }\mathrm{m}\mathrm{o}\mathrm{d}\ \omega^{\prime}.
+$$
+Since $G$ has the property $(C)$, the above equations imply that
+$$
+\phi_{f}^{\rho}\equiv 0,\text{ }\mathrm{m}\mathrm{o}\mathrm{d}\ \omega^{k}.
+$$</content>
+</record>

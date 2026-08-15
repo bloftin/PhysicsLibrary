@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="62">
+ <title>link test</title>
+ <name>LinkTest</name>
+ <created>2005-08-16 20:33:20</created>
+ <modified>2005-08-16 20:34:59</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>direction cosine 
+electric charge
+Euler angle
+action
+simple harmonic oscillator
+Euler 123 Sequence
+Euler 212 Sequence
+Euler 121 Sequence
+Euler 131 Sequence
+insulator
+
+I am trying to kill the database.</content>
+</record>

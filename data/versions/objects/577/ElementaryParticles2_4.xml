@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="577">
+ <title>elementary particles topic</title>
+ <name>ElementaryParticles2</name>
+ <created>2009-03-08 01:57:59</created>
+ <modified>2009-03-08 02:16:53</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>nucleons</concept>
+	<concept>neutrons</concept>
+	<concept>neutrinos and positrons</concept>
+ </defines>
+ <related>
+	<object name="QFT"/>
+	<object name="QCD"/>
+	<object name="AQFT"/>
+	<object name="QED"/>
+ </related>
+ <keywords>
+	<term>elementary particles</term>
+	<term>electrons</term>
+	<term>neutrons</term>
+	<term>neutrinos and positrons</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is acontributed topic on elementary particles and their interactions.
+
+\subsection{Brief History} 
+Elementary particle physics is about a century old as it began with J. J. Thomson's discovery of the electron in 1897; the electron `remains' an elementary particle, whereas a few other particle were found to be composites of other, `elementary' particles as in the case of nucleons (proton and neutron), for example. Neutrons, neutrinos and positrons came about 1930 though it took many more years to prove the existence of neutrinos; thus, the neutrino 
+($\nu_e$)  was not detected experimentally until 1953, but a four fermion interaction theory is not renormalizable. Yukawa succeeded in extending the electromagnetic (em) theory of radiation to the strong interactions, introducing a new type of field quantum-- the pion ($\pi$). The pion corresponds
+in the nuclear physics to the photon of electromagnetism, but it has zero spin and also a non--zero mass. Furthermore, the Yukawa theory is found to be renormalizable, although its field carrier took awhile to be discovered experimentally. Yukawa's idea of the nuclear exchange interactions remains
+valid even if many more nuclear particles have been discovered other than those predicted by his theory. 
+
+Quantum field theory-- the `merging' of Lorentz invariance and quantum mechanics-- allows an adequate description of elementary particles and their interactions, although quantum chromodynamics (QCD) still falls short of 
+many nyclear physicists' expectations.
+
+The physicists who contributed in an essential way early in the last century   to the discovery of three elementary particles : the electron $e$, the photon $\gamma$ and the proton $p$ were: J.J. Thomson, E. Rutherford, M. Planck, A. Einstein, Chadwick and W. Mosley; the proton however has lost its `elementary' status some 40 years ago. Furthermore, Heisenberg in his last published book 
+argued against the use of the term `elementary' for any particle, but few have followed his suggestion in either the high-energy or the quantum theoretical physics camp. 
+
+[Entry in progress]</content>
+</record>

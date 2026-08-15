@@ -1,0 +1,60 @@
+<!-- clear box -->
+<table width="100%" cellpadding="2" cellspacing="0">
+	<tr>
+		<td>
+			<table WIDTH="100%">
+
+				<!-- title -->
+				<tr>
+                    <td bgcolor="#000000">
+
+						<!-- title box -->
+						
+						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+							<tr>
+								<td WIDTH="100%" BGCOLOR="#003399">
+									<font color="white" class="box_title">
+										Revision difference : [% title %]
+									</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+
+				</tr>
+			
+				<!-- content -->
+				<tr>
+					<td WIDTH="100%" BGCOLOR="dddddd">
+                        [% IF difflen > 0 %]
+                            <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <th width="50%" valign="top"> Version [% newvernum %] - Version [% oldvernum %]</th>
+                                </tr>
+
+                                <tr>
+                                    <td> 
+                                        <textarea rows="50" cols="100"> 
+                                            [%- diff_text -%] 
+                                        </textarea>
+
+                                    </td>
+                                </tr>
+                                <!-- [% FOREACH line IN lines %]  -->
+                                <!--     <tr>  -->
+                                <!--         <td>[% line.newtext %] </td><td> [% line.oldtext %]</td>  -->
+                                <!--     </tr> -->
+                                <!-- [% END %]  -->
+                            </table>
+
+
+                        [% ELSE %]
+                            No changes were made to the content between versions [% oldvernum %] and [% newvernum %]. Metadata might have changed.
+                        [% END %]
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end standard box -->

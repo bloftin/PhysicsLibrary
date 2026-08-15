@@ -4,7 +4,7 @@
 	<xsl:with-param name="content">
 	<xsl:call-template name="clearbox">
 	
-		<xsl:with-param name="title">PlanetMath Collaboration Objects (not yet site docs)</xsl:with-param>
+		<xsl:with-param name="title">PlanetPhysics Collaboration Objects (not yet site docs)</xsl:with-param>
 
 		<xsl:with-param name="content">
 	

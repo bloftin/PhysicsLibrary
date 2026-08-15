@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="850">
+ <title>stellar magnitude</title>
+ <name>StellarMagnitude</name>
+ <created>2010-03-23 01:58:01</created>
+ <modified>2010-03-24 00:56:24</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.-a"/>
+	<category scheme="msc" code="95.30.-k"/>
+ </classification>
+ <defines>
+	<concept>apparent magnitude</concept>
+	<concept>brightness</concept>
+	<concept>flux</concept>
+	<concept>inverse square law for light</concept>
+	<concept>absolute magnitude</concept>
+	<concept>distance modulus</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="stellar magnitude" alias="astronomical magnitude"/>
+	<synonym concept="stellar magnitude" alias="magnitude"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In physics we enjoy measuring everything along with developing relationships that help give insight into the physical world around us.  When it comes to the stars above, \textbf{apparent magnitude} is a relative scale used in comparing the brightness of astronomical objects.  Like many things in physics, it has a rich history and non-intuitive consequences. In this case, dating all the way back to the Greek astronomer Hipparchus, who was the first to classify the brightness of stars.  
+
+Although apparent magnitude has seen many revisions over the years, the agreed upon scale today is that a difference of 5 magnitudes is equivalent to a factor of 100 in brightness.  Before studying the equations, it is important for us to be more precise and define the \textbf{brightness} also known as the \textbf{flux} of an astronomical object, such as a star, galaxy or planet, as the energy received per second per area from the object.  Think about how much water is flowing through a cross-section of a hose of a certain area in a certain amount of time.  We are just applying this concept to the photons received from the stars.
+
+For a more complete picture, we relate flux, the received energy, to the transmitter of the photons through its intrinsic \textbf{luminosity}.  More precisely, the energy emitted per second.  Of course the amount of flux received is not only dependent on an object's luminosity, but also how far it is away from the detector.  This is encapsulated by the \textbf{Inverse Square Law for Light}
+
+\begin{equation}
+F = \frac{L}{4 \pi r^2}
+\end{equation}
+
+So if 2 objects differ by an apparent magnitude of 5, than we receive 100 times more flux from one than the other.  As an equation we write this ratio as 
+
+$$ \frac{F_2}{F_1} = 100^1 = 100 $$
+
+Generalizing apparent magnitude to any difference between two objects
+
+$$ m_1 - m_2$$
+
+we note that a difference of 1 magnitude yields the flux ratio of
+
+$$ 100^{1/5} \approx 2.512$$
+
+Therefore, in general we have
+
+\begin{equation}
+\frac{F_2}{F_1} = 100^{(m_1-m_2) / 5}
+\end{equation}
+
+A more common form of this equation is obtained by taking the base 10 logarithm of both sides of the equation.
+
+$$\log_{10} \left( \frac{F_2}{F_1} \right) = \log_{10} \left[  100^{(m_1-m_2) / 5} \right] $$
+
+Using the logarithm property
+
+$$ \log_b x^n = n \log_b x$$
+
+we get
+
+$$\log_{10} \left( \frac{F_2}{F_1} \right) = \frac{ (m_1 - m_2)}{5} \log_{10}(100) = \frac{ (m_1 - m_2)}{5} \cdot 2  = 0.4 (m_1 - m_2)$$
+
+dividing both sides by $0.4$ yields
+
+$$\left (m_1 - m_2 \right ) = 2.5 \log_{10}\left( \frac{F_2}{F_1} \right) $$
+
+Finally, using the logarithm property
+
+$$ \log_b \left( \frac{1}{\alpha} \right ) = - \log_b (\alpha) $$
+
+we are left with
+
+\begin{equation}
+\left (m_1 - m_2 \right ) = - 2.5 \log_{10}\left( \frac{F_1}{F_2} \right)
+\end{equation}
+
+Apparent magnitude can be a bit deceiving since it does not tell us whether an object is close to us or whether it is just producing a copious amount of photons.  We can shed some light on the situation by defining \textbf{absolute magnitude} as the apparent magnitude of an object if it was at a distance of 10 parsecs.  Combining the inverse square law for light Eq. (1) with the flux ratio Eq. (2) and having $F_2$ be the flux that would be received at 10 pc
+
+$$ 100^{(m - M)/5} = \frac{F_{10}}{F} = \frac{\frac{L_{10}}{4 \pi 10^2 [pc]^2}}{ \frac{L}{4 \pi d^2}}$$
+
+Canceling terms and noting that luminosity is the same $L_{10} = L$ yields
+
+$$ 100^{(m - M)/5} = \left( \frac{d}{10} \right)^2$$
+
+taking the square root of both sides
+
+$$ 100^{[(m-M)/5] \cdot 1/2} = 100^{(m-M)/10} = \frac{d}{10}$$
+
+convert 100 to 10
+
+$$ (10^2)^{(m-M)/10} = \frac{d}{10} $$
+
+combining exponents by multiplication
+
+$$ 10^{(m - M)/5} = \frac{d}{10} $$
+
+multiply both sides by 10
+
+$$ d = 10^1 \cdot 10^{(m - M)/5} = 10^{5/5} \cdot 10^{(m - M)/5} $$
+
+combining exponents through addition
+
+$$ d = 10^{(m - M + 5)/5} $$
+
+Similar to apparent magnitude take the logarithm of both sides
+
+$$ \log_{10}(d) = \frac{(m - M + 5)}{5} $$
+
+Rearrange the equation to get what is referred to as the \textbf{distance modulus}
+
+\begin{equation}
+m - M = 5 \log_{10}(d) - 5
+\end{equation}
+
+Note that the distance units for all these equations is in parsecs.
+
+If you have not yet caught on to the non-intuitive consequences of stellar magnitudes, we point out that 
+
+\begin{itemize}
+\item The larger the magnitude the fainter the object.  So a $10^{th}$ magnitude star is $100$ times fainter than a $5^{th}$ magnitude star.
+\item An astronomical object can have a negative magnitude.  As an example our sun has an absolute magnitude of $-26.7$ 
+\end{itemize}
+
+\textbf{References}
+
+[1] Buck, M.T.  "Exercises in Practical Astronomy Using Photographs"  Taylor &amp; Francis; 1st edition, January 1, 1990.
+
+[2] Carroll B., Ostilie, D.  "An Introduction to Modern Astrophysics", Addison-Wesley Publishing Company, Inc.  Reading, Massachusetts, 1996.
+
+[3] Inglis, Mike.  "Astrophysics is Easy!: An Introduction for the Amateur Astronomer"  Springer; 1st edition, August 23, 2007.
+
+[4] Roy, A.E.; Clarke, D.  "Astronomy: Principles and Practice"  Fourth Edition.  Taylor &amp; Francis; June 2003.
+
+[5] Schulman, Eric; Cox, Caroline V.  "Misconceptions about astronomical magnitudes"  American Journal of Physics, Volume 65, Issue 10, pp. 1003-1007 (1997).</content>
+</record>

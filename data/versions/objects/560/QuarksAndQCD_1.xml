@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="560">
+ <title>quarks and QCD</title>
+ <name>QuarksAndQCD</name>
+ <created>2009-03-03 04:26:15</created>
+ <modified>2009-03-03 04:26:15</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>fermion</concept>
+	<concept>gluon</concept>
+	<concept>boson</concept>
+	<concept>quark-pair jets</concept>
+	<concept>quark triplets</concept>
+	<concept>quark matter</concept>
+	<concept>hot gluon-quark plasma</concept>
+	<concept>nucleons</concept>
+	<concept>partons</concept>
+	<concept>CP-symmetry violation</concept>
+	<concept>hadronization</concept>
+	<concept>heavy quark decay</concept>
+	<concept>constituent quark mass</concept>
+	<concept>current quark mass</concept>
+	<concept>beta (radioactive) decay</concept>
+	<concept>J/psi meson</concept>
+	<concept>pi-mesons</concept>
+	<concept>hadrons</concept>
+	<concept>baryon</concept>
+	<concept>valence quarks</concept>
+	<concept>sea quarks</concept>
+	<concept>mesons</concept>
+	<concept>strong interactions</concept>
+	<concept>nuclear field</concept>
+	<concept>color confinement</concept>
+	<concept>gauge bosons</concept>
+	<concept>quark masses</concept>
+	<concept>quark</concept>
+	<concept>valence quark</concept>
+	<concept>sea quark</concept>
+	<concept>hadron</concept>
+	<concept>isospin</concept>
+	<concept>Higgs boson</concept>
+	<concept>Higgs field</concept>
+	<concept>K-meson</concept>
+	<concept>xi-baryon</concept>
+	<concept>top quark</concept>
+	<concept>bottom quark</concept>
+	<concept>spin</concept>
+	<concept>quark spin distribution</concept>
+	<concept>proton spin fine structure</concept>
+	<concept>reduced quark mass</concept>
+	<concept>relativistic mass</concept>
+	<concept>Yukawa model</concept>
+	<concept>flavor</concept>
+	<concept>color charge</concept>
+	<concept>charm</concept>
+	<concept>strangeness</concept>
+	<concept>baryon number</concept>
+	<concept>hypercharge</concept>
+	<concept>electroweak symmetry</concept>
+	<concept>SU(2)</concept>
+	<concept>SU(3)</concept>
+	<concept>U(1)</concept>
+	<concept>SUSY</concept>
+	<concept>Standard Model of physics</concept>
+	<concept>charmonium</concept>
+	<concept>quark-antiquark pair</concept>
+ </defines>
+ <keywords>
+	<term>quarks</term>
+	<term>gluons and QCD</term>
+	<term>protons and neutrons</term>
+	<term>Werner Heisenberg</term>
+	<term>Gell-Mann</term>
+	<term>color confinement</term>
+	<term>color `charge'</term>
+	<term>Gell--Mann--Zweig model</term>
+	<term>Sheldon Lee Glashow and James Bjorken</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. as your 
+
+% almost certainly you want these
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+\newcommand{\&lt;}{{\langle}}
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+%\grpeometry{textwidth= 16 cm, textheight=21 cm}
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+\def\C{C^{\ast}}
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+%\newenvironment{proof}{\noindent {\bf Proof} }{ \hfill $\Box$
+%{\mbox{}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\section{Quarks, Gluons and QCD}
+
+\subsection{Brief History}
+
+ The quark model was independently proposed by theoretical/mathematical physicists (Nobel Laureate) Murray Gell--Mann and George Zweig in 1964. However, there was little experimental evidence for the physical reality of quarks until 1968, when electron--proton scattering experiments indicated that the electrons were scattering off three point--like constituents `inside' the proton.
+
+ Gell--Mann  `borrowed' the word quark from James Joyce's book ``Finnegans Wake'':
+
+ ``{\em Three quarks for Muster Mark!
+
+  Sure he has not got much of a bark
+
+  And sure any he has it's all beside the mark.''}
+ 
+ By 1995, when the top quark was detected in high--energy experiments at the Fermilab in Illinois, all six quark flavors have been finally observed. 
+Gell--Mann and Zweig proposed in 1964, without any substantial experimental evidence, that hadrons were not elementary particles, but they were instead composed of specific (triplet) combinations of quarks and antiquarks. They also postulated independently that there are only three flavors of quarks: up, down and strange, to which there also ascribed known properties such as, mass, spin and electric charge.
+
+
+ However, within a year, two extensions of the Gell--Mann--Zweig model were proposed when two other physicists, Sheldon Lee Glashow and James Bjorken, predicted the existence of a fourth flavor of quark, which they referred to as \emph{charm}. This addition was needed because it expanded the power and self--consistency of the theory: it allowed a much improved and consistent description of the weak interaction when it was relaized that it provided the mechanism that causes the quarks to decay; interestingly, this new theoretical prediction also equalized the number of quarks with the number of known leptons, and led to a formula for predicting correctly the mass of known ($\pi$) mesons (that are hadrons with integer spin, or {\em bosons}, previously predicted theoretically by Yukawa in 1934 as the carriers of the nuclear interaction {\em via} their exchange).
+ 
+ In 1968, deep inelastic electron scattering experiments at the Stanford Linear Accelerator Center (SLAC) showed that the proton was not an elementary particle, but instead contained much smaller, `point--like' objects, that were not so hastily identified with quarks. While this showed that hadrons indeed had a substructure, as predicted by the quark model, physicists remained reluctant to identify these smaller objects with quarks. Instead, they became known as `partons' (a term proposed by Richard Feynman, and supported by some experimental project reports). Such partons were later identified as the $up$ and $down$ quarks when other flavors were also detected. Their discovery is claimed to have `validated' the existence of the strange quark, because it was necessary in the predictions made by the Gell--Mann/Zweig model.
+
+ In a 1970 paper, Glashow, John Iliopoulos and Luciano Maiani gave much more compelling theoretical arguments for the prediction of the as--yet undiscovered quark that had charm. The number of the predicted quark flavors thus grew from two to the current six in 1973, following the more complete predictions by Makoto Kobayashi and Toshihide Maskawa who noted that the experimental observation of CP violation could only be explained if there were another pair of quarks with different flavor from the ones already observed. These two new quarks became known as `beauty' and `truth', but later were re--named as  `bottom' , $b$,  and `top', $t$, respectively. 
+
+  Following a decade without experimental evidence supporting the actual existence of charm quarks, they were finally produced and observed almost simultaneously by two teams in November 1974 : one team working at the Stanford Linear Accelerator Center (SLAC) supervised by Burton Richter and the other at the Brookhaven National Laboratory supervised by Samuel Ting. The two teams had assigned the discovered particle two different names, the $J$ and the $\psi$. The particle hence became formally known as the $J/ \psi$ `meson' and it was considered a quark--antiquark pair with the charm flavor that Glashow and Bjorken had predicted, called the `charmonium' particle by the latter theoreticians.
+
+ In 1977, the bottom quark was observed by Leon Lederman's team at Fermilab in Illinois.  This indicated that a `top' quark should also exist, because the bottom quark would have been most strangely without a partner if it had not
+existed. However, it was not until 1995, that the top quark was finally detected after much effort and lengthy high--energy experimentation. The top quark's discovery was crucial; furthermore, it showed that the top quark was significantly more massive than predicted, `almost as heavy as a gold atom',
+and thus its presence was found at higher energies than those expected. The actual theoretical reasons for the top quark's larger mass remain to be determined.
+
+\subsection{Quarks, Anti-quarks, Nucleons and Hadrons}
+
+ The building blocks of the atomic nucleus, called also `{\em nucleons}'--the proton and the neutron--are baryons. Stable quarks are then considered at present as the {\em `elementary particles'} found in nucleons, that is, `inside' protons and neutrons of atomic nuclei, as well as in mesons where they appear as quark--pairs. Unstable, high-energy quarks are present in the `physical' vacuum in  virtual states, and also in other subatomic particles generated in particle accelerators. They are major constituents of matter, along with leptons (such as electrons and neutrinos). In theoretical physicsl terms, quarks are elementary fermions (of spin $1/2$) because they are subject to Fermi statistics and the Pauli exclusion principle. 
+
+ A critical limitation to the experimental and theoretical studies of quarks is the fact that quarks are never found as isolated, single particles; rather, they are bound either as quark--pairs or bound together in composite particles named hadrons, (with the most common hadrons being protons and neutrons, which are the basic building blocks of all atomic nuclei). For this reason, much of what is known about quarks has been inferred from observations on the hadrons themselves and observations of quark jets or pairs that are generated in particle accelerators at very high energies. Quarks (and antiquarks) are the only known particles whose electric charge comes as exactly one third of the elementary charge of the electron or proton. However this can never be directly observed as {\em hadrons} because they latter have always an integer charge.  There are two known types of hadrons: {\em baryons}, formed of three quarks, and {\em mesons}, formed of a quark and an antiquark pair. The quarks (and antiquarks) which determine the quantum numbers of hadrons are called {\em valence quarks}. Apart from these, any hadron may contain an indefinite number of virtual quarks, antiquarks and gluons which do not influence their quantum numbers. Such virtual quarks are called {\em sea quarks} ({\em vide infra}).
+
+ Remarkably, quarks are the only particles in the current Standard Model of physics (SUSY) to experience all four fundamental forces: strong, electromagnetic, electroweak and gravitational. 
+
+ There are currently six known different types of quarks, that are defined by their flavor: $up$ (symbols: $u$), $down$ ($d$), charm ($c$), strange ($s$), top ($t$) and bottom ($b$). Furthermore, the QCD theory holds the view that these are the only possible types of quarks found in nature or in the high-energy laboratory. 
+
+ The quarks with the lowest masses, the $up$ and the $down$ quark, are stable  within nucleons of atomic nuclei where they are coupled with each other and interact strongly also {\em via} \emph{gluons}- the nuclear field carrier particles. The heavier charm, strange, top and bottom quarks are unstable and decay extremely rapidly; these can only be produced in high energy collisions, such as in particle accelerators and in cosmic rays. Quarks have defining property in addition to mass, electric charge, and spin which is unique to nuclear interactions--the {\em color `charge'}--which behaves somewhat like a very strong `magnetic' interaction, but with three `poles' instead of the `North and South' characteristic magnetic poles of the classical magnets derived from electron magnetic moment/spin interactions. 
+
+ For every quark flavor there is a corresponding antiparticle, called its antiquark flavor, which differs from the quark only in that its electrical charge has the opposite sign. Such antiparticles of quarks--called antiquarks-- are denoted by a bar over the designating letter for the quark, such as $u$ for a quark and $\overline{u}$ for an $up$ antiquark. As with all antimatter, general, antiquarks have the same mass, lifetime and spin as their respective quarks, but the electric charge and other charges have the opposite sign.
+
+ Having electric charge, mass, spin, flavor and color charge, the quarks are the only known elementary particles that engage in all four fundamental interactions of contemporary physics: electromagnetism, weak interaction, strong interaction and gravitation. Gravitation, however, is not included in the theoretical Standard Model, because quantum gravity developments are yet to be completed, and also because gravitational interactions are extremely weak in comparison with all of the other three fundamental interactions.</content>
+</record>

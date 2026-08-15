@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="295">
+ <title>categories of quantum automata and quantum computers</title>
+ <name>CategoriesOfQuantumAutomataAndQuantumComputers</name>
+ <created>2008-09-28 15:14:48</created>
+ <modified>2008-09-28 15:17:24</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>\\
+N-- \L ukasiewicz Algebras and Quantum Computers}</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03.67.-a"/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <keywords>
+	<term> quantum automata categories; limits and colimits; bicomplete categories</term>
+	<term>centered n--\textsl{\L}ukasiewicz algebras</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+
+\usepackage{graphicx}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\numberwithin{equation}{section}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}</preamble>
+ <content>\section{Categories of Quantum Automata, N- \L ukasiewicz Algebras
+ and Quantum Computers} 
+
+Quantum Automata were defined (in ref.\cite{IB71}) as generalized, probabilistic automata with quantum state spaces. Their next-state functions operate through transitions between quantum states defined by the quantum equations of motions in the Schr\"{o}dinger representation, with both initial and boundary conditions in space-time. A new theorem is proven which states that the \emph{category of quantum automata and automata--homomorphisms has both
+limits and colimits.} Therefore, both categories of quantum automata and classical automata (sequential machines) are \emph{bicomplete.} A second new theorem establishes that the standard automata category is a subcategory of the quantum automata category. The quantum automata category has a faithful representation in the category of Generalized (\textbf{M,R})--Systems which are open, dynamic bio-networks (\cite{ICB87}) with defined biological relations that represent physiological functions of primordial(s), single cells and the simpler organisms. A new \emph{category of quantum computers} is also defined in terms of \emph{reversible} quantum automata with quantum state spaces represented by topological groupoids that admit a local characterization through unique 'quantum' \emph{Lie algebroids}. On the other hand, the category of n-- \textsl{\L}ukasiewicz algebras has a subcategory of \emph{centered} n-- \textsl{\L}ukasiewicz algebras (ref. \cite{GGV70}) which can be employed to design and construct subcategories of quantum automata based on n--\textsl{\L}ukasiewicz diagrams of existing VLSI. Furthermore, as shown in ref.(\cite{GGV70}) the category of centered n--\textsl{\L}ukasiewicz algebras and the category of Boolean algebras are naturally equivalent. A `no-go' conjecture is also proposed which states that Generalized (\textbf{M,R})--Systems complexity prevents their complete computability (\cite{ICB87,BGGB2k7}) by either standard or quantum automata.
+
+\begin{thebibliography}{99}
+
+\bibitem{IB71}
+Baianu, I.1971.``Organismic Supercategories and Qualitative Dynamics of Systems."  \emph{Bull. Math.Biophysics}., 33, 339-353.
+
+\bibitem{GGV70}
+Georgescu, G. and C. Vraciu 1970. ``On the Characterization of \L ukasiewicz Algebras." \emph{J. Algebra}, 16 (4), 486-495.
+
+\bibitem{ICB77}
+Baianu, I.C. 1977. ``A Logical Model of Genetic Activities in \L ukasiewicz Algebras: The Non-linear Theory."
+\emph{Bulletin of Mathematical Biology}, 39:249-258 (1977).
+
+\bibitem{ICB87}
+Baianu, I.C. 1987. ``Computer Models and Automata Theory in Biology and Medicine" (A Review). In:  \emph{"Mathematical Models in Medicine.}",vol.7., M. Witten, Ed., Pergamon Press: New York, pp.1513-1577.
+
+\bibitem{BGGB2k7}
+Baianu, I.C., J. Glazebrook, G. Georgescu and R.Brown. 2007. ``A Novel Approach to Complex Systems Biology  based on Categories, Higher Dimensional Algebra and A Generalized \L ukasiewicz Topos. " , \emph{Axiomathes},vol.17,(in press): 46 pp.
+
+\end{thebibliography}</content>
+</record>

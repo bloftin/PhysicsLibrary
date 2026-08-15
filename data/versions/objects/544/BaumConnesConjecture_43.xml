@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="43" id="544">
+ <title>Baum-Connes conjecture</title>
+ <name>BaumConnesConjecture</name>
+ <created>2009-02-19 11:16:18</created>
+ <modified>2009-02-20 02:14:09</modified>
+ <type>Conjecture</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>assembly map</concept>
+	<concept>BCC</concept>
+	<concept>LCG</concept>
+	<concept>OKT</concept>
+	<concept>SL(3</concept>
+	<concept>Z)</concept>
+	<concept>BC-conjecture</concept>
+	<concept>Baum-Connes conjecture</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Baum-Connes conjecture" alias="noncommutative geometry with elliptic operators"/>
+ </synonyms>
+ <related>
+	<object name="Groupoids"/>
+	<object name="QuantumGroup"/>
+ </related>
+ <keywords>
+	<term>the Baum-Connes conjecture (BCC)</term>
+	<term>locally compact groups</term>
+	<term>irreducible unitary representations</term>
+	<term>operator K-theory (OKT)</term>
+	<term>K-homology  of a group</term>
+	<term>C*-algebra of a group</term>
+	<term>proper actions of a group</term>
+ </keywords>
+ <preamble> % this is the default PlanetPhysics preamble. as your 
+
+% almost certainly you want these
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+\newcommand{\&lt;}{{\langle}}
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+\def\C{C^{\ast}}
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\subsection{Introduction}
+
+The goal of \PMlinkexternal{the Baum-Connes conjecture (BCC)}{http://www.math.vanderbilt.edu/~bisch/ncgoa07/talks/roe1_NCGOA07.pdf} is to understand irreducible, unitary representations from a topological viewpoint. Furthermore, the relationship between topology and representation theory is mediated by elliptic operators.
+
+``The origins of the BC-conjecture go back to Fredholm theory, the Atiyah-Singer index theorem and the interplay of geometry with operator K-theory as expressed in the works of Brown, Douglas and Fillmore, among many other motivating subjects.'' Thus, equivariant K-homology classes are represented by certain generalizations of the Connes-`Dirac' (D) operator, and the map to the K-theory of the C*-algebra is defined by taking the index of the 
+Connes D-operator.
+
+
+The non-Abelian group 
+\PMlinkexternal{$SL(3,\mathbb{Z})$ is the simplest example}{http://www.math.ist.utl.pt/~matsnev/BCexpository.pdf} of a group that it is not presently known to satisfy (or not satisfy) the BC-conjecture, but it is nevertheless `suspected' to be true for the latter. Moreover,
+the BC-conjecture remains so far unproven for general discrete groups.
+It was also speculated that BCC is also true for groupoids but numerous
+counter-examples have already been reported.
+
+\subsection{The Baum--Connes Conjecture (BCC)}
+
+{\bf BCC Conjecture:} \emph{The assembly map $\mu$ from the equivariant
+K-homology with $ \mathfrak{G}$--compact supports of the classifying space of proper actions $ \underline{E \mathfrak{G}}$ to the K--theory of the reduced 
+C*-algebra of $\mathfrak{G}$ is an isomorphism}.
+
+ Thus, in operator K-theory (OKT), the Baum--Connes proposition conjectures that there is a link between the K--theory of the C*--algebra of a group and the K-homology of the corresponding classifying space of proper actions of that same group. It thus proposes that there exists a correspondence between several distinct areas of mathematics: K--homology (related to geometry), differential operator theory, and homotopy theory on the one hand, and the K-theory of the reduced C*-algebra--which is currently formulated as an analytical object--on the other hand.
+
+ Several authors consider BCC to consist of two major parts that can be  separately approached: the injectivity and surjectivity involved in the isomorphism. Actually, even the injectivity part of the conjecture in itself is a rather difficult problem. It was, however, reported that the injectivity of the Baum-Connes assembly map implies the Novikov's higher signature conjecture
+ \cite{[3]}. The injectivity is also known for the following classes of subgroups:
+\begin{itemize}
+\item Discrete subgroups of connected Lie groups or virtually connected Lie groups; 
+\item Discrete subgroups of p-adic groups; 
+\item Bolic groups that are generalized hyperbolic groups; 
+\item Groups which admit an amenable action on a compact space.
+\end{itemize}
+
+ The BCC, if it were shown to be generally true, would also have some older, quite famous conjectures as consequences. For instance, the surjectivity part of BCC implies the Kadison-Kaplansky conjecture for a discrete torsion-free group, whereas--as already discussed above-- the injectivity part of BCC would seem to be closely related to the earlier, Novikov conjecture.
+
+BCC may also be seen as related to Index Theory (IT), because the assembly map $ \mu $ is a type of index, that plays a major role in Alain Connes' noncommutative geometry formulation.
+
+\subsubsection{Mathematical Formulation}
+Let us consider $G$ to be the group $\mathbb{Z}$ (with the discrete topology; that is, not a ``topological group''). Then, every complex number $u$ with 
+$|u| = 1$ corresponds to a $1$-dimensional irreducible representation of $G$, on which $n \in \mathbb{Z}$ acts by multiplication by $u^n$. Furthermore, these are all of the possible irreducible representations of $G$ that can be found. When $G =\, \mathbb{Z}$ every unitary representation can be uniquely decomposed into a direct sum of irreducible representations. The space of irreducible representations of $G$ carries a natural Hausdorff topology and can be studied as a commutative, standard geometric/topological space.
+
+In the general case, as for example for a non-Abelian group, ${N_G}^A$,
+the ``space of irreducible representations of such a group'' is no longer a commutative object, and was replaced by A. Connes by a C*-algebra which is in general a noncommutative object-- or a so-called (non-standard), noncommutative ``space''. One is especially interested in \emph{graded Hilbert spaces} 
+$H = H_+ \oplus H_-$. In this case an odd unbounded operator is identified with a \emph{grading--preserving functional calculus homomorphism}
+
+$$\Phi_T: f \mapsto f(T), \mathfrak{A} \to \mathfrak{B}(H)$$
+where $\mathfrak{A}$ denotes the algebra $C_0(\mathbb{R})$ graded by even and odd functions.
+
+Consider $\mathfrak{G}$ to be a second countable locally compact group (such as a countable discrete group, for example). Then, one can define a morphism
+
+$$\mu \colon KK^{\mathfrak{G}}_*(\underline{E \mathfrak{G}}) \to K_*(C^*_\lambda(\mathfrak{G}),$$
+
+called the \emph{assembly map}, from the equivariant K-homology with
+$ \mathfrak{G}$--compact supports of the classifying space of proper actions
+$ \underline{E \mathfrak{G}}$ to the K--theory of the reduced C*-algebra of
+$\mathfrak{G}$. The index $*$ can be either $0$ or $1$.
+
+Alain Connes and Paul Baum proposed in 1982 the following conjecture about the morphism (assembly map) $\mu$:
+
+
+{\bf Conjecture:} \emph{The assembly map $\mu$ is an isomorphism.}
+
+\subsubsection{Existing Support for the BCC and Cases when the BC-Conjecture Holds}
+ 
+ Because there are hardly any general structure theorems of the $ C^* $-algebra,
+the left hand side is much more accessible than the right hand one, and therefore one views the BB-conjecture as some type of ``explanation'' of the right hand side. Furthermore, it is now known (see, for example, \cite{[5]}) that if a discrete group $\mathfrak{G}$  is uniformly embedded into a Hilbert space, then the Baum-Connes assembly map is {\bf injective}.
+This injectivity /injectiveness allows one to prove the following (GHW)
+theorem of Guentner, Higson and Weinberger, \cite{[4]}. 
+
+\begin{theorem} {\bf Guentner, Higson and Weinberger, \cite{[4]}.}
+For any field $k$ and any natural number $n$ the injectivity part of the Baum-Connes Conjecture holds for any countable subgroup of $GL(n;k)$.
+\end{theorem}
+
+ Furthermore, a refined argument in \cite{[4]} showed that in the case of a subgroup of $GL(2;k)$ by reducing the full Baum-Connes Conjecture to the GHW theorem that BCC then holds true.
+
+\subsection{Potential Relevance of BC-Conjecture to Quantum Physics: AQFT and QG}
+ Perhaps, a physically relevant case for quantum theories is that of 
+infnite--dimensional spaces, where one can mention the HK-theorem of 
+Higson and Kasparov, \cite{[6]}. If a group $\mathfrak{G}$ admits a metrically
+proper isometric action on a Hilbert space, then the Baum-Connes Conjecture
+holds for $\mathfrak{G}$. This result allowed Yu to utilize the `coarse geometry machinery' to prove that the `coarse version' of the Baum-Connes Conjecture holds for any bounded geometry metric space which can be uniformly embedded into a Hilbert space \cite{[10]}.
+
+ One might think that the Baum-Connes Conjecture may not be directly relevant to either QFT or AQFT because it involves just locally compact groups (LCG 's)--and therefore, does not say anything directly about gauge groups (either Abelian or non-Abelian). On the other hand, certain types of LCG's called locally compact quantum groups (L-CQG 's) are relevant to AQFT; moreover,
+other quantum groups that have as duals Hopf coalgebras are useful for solving a number of important physical problems treated via quantum Yang-Mills equations (that are already of great interest in quantum physics).
+Locally compact quantum groups are likely also to be important for further developments of quantum gravity theories, where the Hopf might be replaced by graded Lie, or superalgebras, in the supersymmetric form of supergravity theories. Thus, the natural question of the likely role played by the Baum-Connes Conjecture arises also in the context of classifying L-CQG' s and
+quantum groups, in general. Whereas, the discrete, finite and commutative `quantum' groups are readily computed by Fourier transformation of their dual 
+Hopf algebras, the classification of the more important, noncommutative quantum groups may utilize BCC thus providing additional motivation for obtaining a  proof of BCC. 
+
+\begin{remark}
+Professor Alain Connes is a Fields Medal recipient (an `equivalent' of the Nobel prize award in the field of Mathematics).
+\end{remark}
+
+\begin{thebibliography}{99}
+
+\bibitem{BCHk94}
+P. Baum, A. Connes, N. Higson, Classifying space for proper action and
+K--theory of group C*--algebras, Contemp. Math., 167:241--291, 1994.
+
+\bibitem{MD2k5}
+Matsnev, D. 2005. On the Baum--Connes Conjecture.,
+\PMlinkexternal{preprint.}{http://www.math.ist.utl.pt/~matsnev/BCexpository.pdf}
+
+\bibitem{[3]}
+S. Ferry, A. Ranicki, J. Rosenberg, A history and survey of the Novikov conjecture, Novikov Conjectures, Index Theorems and Rigidity, Vol. I:7--
+66, 1995.
+
+\bibitem{[4]}
+E. Guentner, N. Higson, S. Weinberger, The Novikov Conjecture for
+Linear Groups, preprint, 2003.
+
+\bibitem{[5]}
+N. Higson, Bivariant K--theory and the Novikov conjecture, Geom. Funct.
+Anal., 10(3):563--581, 2000.
+
+\bibitem{[6]}
+N. Higson, G. Kasparov, E--theory and KK--theory for groups which act
+properly and isometrically on Hilbert space, Invent. Math., 144(1):23--74,
+2001.
+
+\bibitem{[7]}
+H. Oyono--Oyono, La Conjecture de Baum--Connes pour les groupes agissant
+sur les arbres, C.R. Acad. Sci. Paris, t. 326, S\'erie I:799--804, 1998.
+
+\bibitem{[8]}
+M. Pimsner, KK-groups of crossed products by groups acting on trees,
+Invent. Math., 86:603--634, 1986.
+
+\bibitem{[9]}
+A. Valette, Introduction to the Baum--Connes Conjecture, ETH Lecture
+Notes series, Birkh\"auser publs.
+
+\bibitem{[10]}
+G. Yu, The coarse Baum--Connes conjecture for spaces which admit a
+uniform embedding into Hilbert space, Invent. Math., 139:201--240, 2000.
+
+\end{thebibliography}</content>
+</record>

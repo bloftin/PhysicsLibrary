@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <title>User Info</title>
+  </head>
+  <body>
+    <!-- title box -->
+		[% USE DBI( dbh = my_dbh_ref ) %]
+    [% prefs = parsePrefs(user.perfs) %]
+       
+    <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+      <tr>
+        <td align="left" WIDTH="100%" BGCOLOR="#003399">
+          <font color="white" class="box_title">
+            [% user = DBI.query("select * from users where users.uid=$userID") %]
+    		    [% IF user.size == 1 %]
+              [% FOREACH entry IN user %]
+                  User Info for [% entry.username %]
+              [% END %]
+            [% ELSIF user.size == 0 %]  
+              User not found!
+            [% ELSE %] 
+              User Info bad more than 1 user returned, size [% user.size %], uid = $userID
+            [% END %]
+                
+          </font>
+        </td>
+      </tr>
+    </table>
+
+    <div>
+        [% FOREACH user = DBI.query("select * from users where users.uid=$userID") %]
+            [% IF user.active == 1 %]
+              <table cellpadding="2">
+                <tr>
+                    <td bgcolor="#dddddd">User ID:</td>
+                    <td>[% user.username %]</td>
+                </tr>
+                [% IF user.forename || user.surname %]
+                  <tr>
+                    <td bgcolor="#dddddd">Name:</td>
+                    <td>
+                      [% user.forename %] [% user.surname %] 
+                    </td>
+                  </tr>
+                [% END %]
+                [% IF loggedin == 1 %]
+                  <tr>
+                    <td bgcolor="#dddddd">E-mail Address:</td>
+                    <td>
+                      [% IF prefs.hideemail.search('on') %]
+                        Email hidden by user preferences.
+                      [% ELSE %]
+                        Email hidden until working preferences working right
+                      [% END %]
+                    </td>
+                  </tr>
+                [% END %]
+                [% IF user.state.trim or user.city.trim or user.country.trim %]
+                  <tr>
+                    <td bgcolor="#dddddd">From:</td>
+                    <td>
+                      [% IF user.state %]
+                        [% user.city %], [% user.state %], [% user.country %]
+                      [% ELSE %] 
+                        [% user.city %], [% user.country %]
+                      [% END %]
+                    </td>
+                  </tr>
+                [% END %]
+                <tr>
+                  <td bgcolor="#dddddd">Joined On:</td>
+			            <td>[% user.joined %]</td>
+			          </tr>
+                <tr>
+                  <td bgcolor="#dddddd">Last Logged in:</td>
+			            <td>[% user.last %]</td>
+			          </tr>
+
+                [% IF user.homepage.trim %]
+                  <tr>
+                    <td bgcolor="#dddddd">Homepage:</td>
+                    [% IF user.homepage.search('http')%] 
+                      <td>
+                        [% USE pagelink = url(user.homepage) -%]
+                        <a href=[% pagelink %]>[% user.homepage %]</a>
+                      </td>
+                    [% ELSE %]
+                      <td>
+                        [% user.homepage %]
+                      </td>
+                      <td>
+                        Note: if you want a hyperlink to site add http:// or https://
+                      </td>
+                    [% END %]
+                  </tr>
+                [% END %]
+                <tr>
+                  <td bgcolor="#dddddd">Access Level:</td>
+                  <td>[% user.access %]</td>
+                </tr>
+                <tr>
+                  <td bgcolor="#dddddd">Score:</td>
+                  [% IF isadmin %]
+                    <td>[% user.score %] </td>
+                    <td>
+                    <font size="-1">
+						          <a href="{//globals/main_url}/?op=editscore&amp;user=[%- userID -%]">(admin edit)</a>
+						        </font>
+                    </td>
+                  [% ELSE %]
+                    <td>[% user.score %] </td>
+                  [% END %]
+                </tr>
+          
+              </table>
+
+              <p></p>
+
+                [%user.username%]'s
+                <ul>
+                  <li> <a href="[% msg_link %]">Message Count ([% mc %]) </a> </li>
+                  <li> <a href="[% obj_link %]">Object Count ([% oc %]) </a> </li>
+                  <li> <a href="[% cfc_link %]">Corrections Filed ([% cfc %]) </a> </li>
+                  <li> <a href="[% crc_link %]">Corrections Received ([% crc %]) </a> </li>   
+                </ul>
+
+              [% IF user.bio.trim %]
+
+                <hr />
+
+                  <center> <font size="+1">Bio:</font> </center>
+
+                  <p>
+                         [% user.bio %]
+                  </p>
+                  
+              [% END %]
+
+                <hr />
+            [% ELSE %] 
+              <font color="#ff0000" size="+1">(This account has been deactivated)</font>
+            [% END %]
+        [% END %]
+        
+    </div>
+  </body>
+
+</html>

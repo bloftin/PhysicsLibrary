@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="97">
+ <title>Maple for PlanetPhysics</title>
+ <name>MapleForPlanetPhysics</name>
+ <created>2005-09-02 12:26:13</created>
+ <modified>2005-09-03 01:01:53</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="01.30.Xx"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{maplestd2e}
+% define commands here</preamble>
+ <content>\begin{maplelatex}\mapleinline{inert}{2d}{%[poincare, generate_ic, zoom, hamilton_eqs]}{
+$[{\it poincare},{\it generate\_ic},{\it zoom},{\it hamilton\_eqs}\\
+\mbox{}]$}
+\end{maplelatex}\begin{maplelatex}\begin{Maple Heading 1}{\textbf{The Toda Hamiltonian}}\end{Maple Heading 1}
+\end{maplelatex}
+\begin{maplelatex}\begin{Maple Normal}{\textbf{Reference: }A.J. Lichtenberg and M.A. Lieberman, "Regular and Stochastic Motion", \textit{Applied Mathematical Sciences} 38 (New York: Springer Verlag, 1994).}\end{Maple Normal}
+\textbf{H := 1/2*(p1\symbol{94}2 + p2\symbol{94}2) + 1/24*(exp(2*q2+2*sqrt(3)*q1) + exp(2*q2-2*sqrt(3)*q1) + exp(-4*q2))-1/8;}\end{maplelatex}
+\mapleresult
+\begin{maplelatex}\mapleinline{inert}{2d}{%H := p1^2/2+p2^2/2+1/24*exp(2*q2+2*3^(1/2)*q1)+1/24*exp(2*q2-2*3^(1/2)*q1)+1/24*exp(-4*q2)-1/8}{
+$H\, := \,1/2\,{{\it p1}}^{2}+1/2\,{{\it p2}}^{2}+1/24\,{e^{2\,{\it q2}+2\,\sqrt {3}{\it q1}}}\\
+\mbox{}+1/24\,{e^{2\,{\it q2}-2\,\sqrt {3}{\it q1}}}+1/24\,{e^{-4\,{\it q2}}}-1/8$}
+\end{maplelatex}\begin{mapleinput}
+\mapleinline{active}{1d}{\textbf{H, t=-150..150, \{[0,.1,1.4,.1,0]\}:}}{}
+\end{mapleinput}
+\begin{mapleinput}
+\mapleinline{active}{1d}{\begin{Maple Normal}{\textbf{poincare(%, stepsize=.05,iterations=5); }(12 sec.)}\end{Maple Normal}
+}{}
+\end{mapleinput}
+
+\mapleresult
+\begin{maplelatex}\mapleinline{inert}{2d}{%_____________________________________________________}{
+\[{\it \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}\]}
+\end{maplelatex}\begin{maplelatex}\mapleinline{inert}{2d}{%`H = .99005020`, `  Initial conditions:`, t = 0, p1 = .1, p2 = 1.4, q1 = .1, q2 = 0}{
+$\mbox {{\tt `H = .99005020`}},\,\mbox {{\tt `  Initial conditions:`}},\,t=0,\,{\it p1}= 0.1,\,{\it p2}= 1.4,\,{\it q1}= 0.1,\,{\it q2}=0$}
+\end{maplelatex}\begin{maplelatex}\mapleinline{inert}{2d}{%`Number of points found crossing the (p1,q1) plane: 127`}{
+$\mbox {{\tt `Number of points found crossing the (p1,q1) plane: 127`}}$}
+\end{maplelatex}\begin{maplelatex}\mapleinline{inert}{2d}{%`Maximum H deviation : .5740000000e-5 %`}{
+$\mbox {{\tt `Maximum H deviation : .5740000000e-5 \%`}}$}
+\end{maplelatex}\begin{maplelatex}\mapleinline{inert}{2d}{%_____________________________________________________}{
+\[{\it \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}\]}
+\end{maplelatex}\begin{maplelatex}\mapleinline{inert}{2d}{%`Time consumed: 12 seconds`}{
+$\mbox {{\tt `Time consumed: 12 seconds`}}$}
+\end{maplelatex}
+
+%\mapleplot{poly.eps}
+\medskip
+\begin{figure}
+\includegraphics{poincareplot1.eps}
+\end{figure}
+\medskip
+
+\begin{maplelatex}\begin{Maple Normal}{Figure 1.a. shows a 2-D surface-of-section (2PS) over the q2=0 plane, with 127 intersection points lying on smooth curves.
+}\end{Maple Normal}
+\end{maplelatex}\begin{mapleinput}
+\mapleinline{active}{1d}{\begin{Maple Normal}{\textbf{poincare(%%,stepsize=.05,iterations=5,scene=[p2,q2]); }(13 sec.)}\end{Maple Normal}
+}{}
+\end{mapleinput}</content>
+</record>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="836">
+ <title>commutation relations of angular momentum</title>
+ <name>CommutationRelationsOfAngularMomentum</name>
+ <created>2010-02-14 19:22:36</created>
+ <modified>2010-02-14 19:22:36</modified>
+ <type>Application</type>
+<parent id="834">commutator algebra</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ca"/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>As an application of the commutator algebra rules 
+
+\begin{equation}
+[A,B] = -[B,A]
+\end{equation}
+
+\begin{equation}
+[A,BC] = [A,B]C +B[A,C]
+\end{equation}
+
+let us calculate the commutators of the components of the angular momentum of a particle
+
+$$\mathbf{l} \equiv \mathbf{r} \times \mathbf{p} $$
+
+One has
+
+$$[l_x,l_y] = [yp_z - zp_y, zp_x - xp_z]$$
+
+$$[l_x,l_y] = [yp_z,zp_x] + [zp_y,xp_z]$$
+
+$$[l_x,l_y] = y[p_z,z]p_x + p_y[z,p_z]x$$
+
+$$[l_x,l_y] = i\hbar(xp_y-yp_x)$$
+
+$$[l_x,l_y] = i \hbar l_z$$
+
+The other two commutators are calculated by cyclic permutation.  Thus
+
+\begin{equation}
+[l_x,l_y] = i \hbar l_z \,\,\,\,\,\,\, [l_y,l_z]=i\hbar l_x \,\,\,\,\,\,\, [l_z,l_x]=i \hbar l_y
+\end{equation}
+
+The three components of the angular momentum do not commute in pairs.  There is no complete orthonormal set common to any two of them.  In other words, two components of angular momentum cannot, in general, be defined simultaneously with infinite precision.  Note that
+
+$$[l_z,l_x^2] = i\hbar(l_yl_x+l_xl_y)$$
+$$[l_z,l_y^2] = -i\hbar(l_yl_x+l_xl_y)$$
+$$[l_z,l_z^2] = 0$$
+
+Adding term by term, we obtain
+
+\begin{equation}
+l_z, \mathbf{l}^2] = 0
+\end{equation}
+
+where the operator
+
+\begin{equation}
+\mathbf{l}^2 = l_x^2 + l_y^2 +l_z^2
+\end{equation}
+
+is the square of the length of the vector $\mathbf{l}$.
+
+The operators $\mathbf{l}^2$ and $l_z$ commute: they can therefore be simultaneously defined with infinite preicision.  The pairs $(\mathbf{l}^2,l_x)$ and $(\mathbf{l}^2,l_y)$ obviosly possess the same property.
+
+\subsection{References}
+
+[1] Messiah, Albert. "Quantum Mechanics: Volume I." Amsterdam, North-Holland Pub. Co.; New York, Interscience Publishers, 1961-62.
+
+This entry is a derivative of the Public domain work [1].</content>
+</record>

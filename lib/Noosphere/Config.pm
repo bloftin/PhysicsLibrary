@@ -66,7 +66,7 @@ use constant CONFIG=>(
 
 	# regexp strings for detecting screen-scraper user-agents. 
 	#
-	'screen_scrapers' => ['httrack', 'wget', 'ecatch'],
+	'screen_scrapers' => ['httrack', 'wget', 'ecatch', 'semrush', 'ahrefs', 'DotBot'],
 
 	# search engine stuff
 	#
@@ -91,10 +91,10 @@ use constant CONFIG=>(
 	
 	# root URLs for use in code
 	#
-	"main_url"=>"http://$Noosphere::baseconf::base_config{MAIN_SITE}",      
-	"cache_url"=>"http://$Noosphere::baseconf::base_config{IMAGE_SITE}/cache",
-	"image_url"=>"http://$Noosphere::baseconf::base_config{IMAGE_SITE}/images",
-	"file_url"=>"http://$Noosphere::baseconf::base_config{FILE_SITE}/files",
+	"main_url"=>"https://$Noosphere::baseconf::base_config{MAIN_SITE}",      
+	"cache_url"=>"https://$Noosphere::baseconf::base_config{IMAGE_SITE}/cache",
+	"image_url"=>"https://$Noosphere::baseconf::base_config{IMAGE_SITE}/images",
+	"file_url"=>"https://$Noosphere::baseconf::base_config{FILE_SITE}/files",
 
 	# leave this to direct system bugs to Noosphere home
 	"bug_url" => $Noosphere::baseconf::base_config{BUG_URL},
@@ -110,14 +110,14 @@ use constant CONFIG=>(
 	'xsl_globals' => "
 
 		<feedback_email>$Noosphere::baseconf::base_config{FEEDBACK_EMAIL}</feedback_email>
-		<main_url>http://$Noosphere::baseconf::base_config{MAIN_SITE}</main_url>
+		<main_url>https://$Noosphere::baseconf::base_config{MAIN_SITE}</main_url>
 		<doc_url>$Noosphere::baseconf::base_config{DOC_URL}</doc_url>
 		<bug_url>$Noosphere::baseconf::base_config{BUG_URL}</bug_url>
-		<file_url>http://$Noosphere::baseconf::base_config{FILE_SITE}/files</file_url>
-		<image_url>http://$Noosphere::baseconf::base_config{IMAGE_SITE}/images</image_url>
+		<file_url>https://$Noosphere::baseconf::base_config{FILE_SITE}/files</file_url>
+		<image_url>https://$Noosphere::baseconf::base_config{IMAGE_SITE}/images</image_url>
 
-		<static_site>http://$Noosphere::baseconf::base_config{STATIC_SITE}</static_site>
-		<image_site>http://$Noosphere::baseconf::base_config{IMAGE_SITE}</image_site>
+		<static_site>https://$Noosphere::baseconf::base_config{STATIC_SITE}</static_site>
+		<image_site>https://$Noosphere::baseconf::base_config{IMAGE_SITE}</image_site>
 
 		<subject_domain>$Noosphere::baseconf::base_config{SUBJECT_DOMAIN}</subject_domain>
 
@@ -133,7 +133,7 @@ Disallow: /?*",
 
 	#BB: the list of additional files to serve from (these are cached)
 	#    they are served from `files' virtual directory
-	'cachedfiles' => {'style.css' => ["$Noosphere::baseconf::base_config{BASE_DIR}/stemplates/style.css",'text/css'] },
+	'cachedfiles' => {'style.css' => ["$Noosphere::baseconf::base_config{BASE_DIR}/data/files/style.css",'text/css'] },
 
 	# email addresses for the system mail account
 	#
@@ -142,8 +142,8 @@ Disallow: /?*",
 					  
 	# root server directories
 	#
-	"template_path"=>"$Noosphere::baseconf::base_config{BASE_DIR}/templates",
-	"stemplate_path"=>"$Noosphere::baseconf::base_config/var/www/pp/noosphere/stemplates",
+	"template_path"=>"$Noosphere::baseconf::base_config{BASE_DIR}/stemplates",
+	"stemplate_path"=>"$Noosphere::baseconf::base_config/var/www/pp/stemplates",
 	"cache_root"=>"$Noosphere::baseconf::base_config{BASE_DIR}/data/cache",
     "file_root"=>"$Noosphere::baseconf::base_config{BASE_DIR}/data/files",
 	"symbol_root"=>"$Noosphere::baseconf::base_config{BASE_DIR}/data/symbols",
@@ -237,7 +237,7 @@ Disallow: /?*",
 	# various limits and counts
 	#
 	'useractivity_max'=>50,			# show last this many users.
-	"news_frontpage_count"=>10,
+	"news_frontpage_count"=>1,
 	"page_widget_width"=>15,
 	"news_list_page"=>30,
 	"message_maxcols"=>65,
@@ -249,7 +249,7 @@ Disallow: /?*",
 	"topusers_2weeks"=>"10",
 	"latest_additions"=>"20",
 	"latest_revisions"=>"20",
-	"latest_messages"=>"30",
+	"latest_messages"=>"1",
 	"search_results_page"=>10,
 	"listings_page"=>20,
 					  
@@ -350,8 +350,10 @@ Disallow: /?*",
 			 src=>'TeX source'}],
 		method=>['Encyclopedia rendering style','select','l2h',
 			{l2h=>'HTML with images',
+			 make4ht=>'HTML with make4ht',
 			 png=>'page images',
-			 src=>'TeX source'}],
+			 src=>'TeX source',
+			 pdf=>'PDF'}],
 		objwatch=>['Automatically watch your objects','check','on'],
 		corwatch=>['Automatically watch corrections to your objects','check','on'],
 		reqfwatch=>['Automatically watch requests you\'ve filled','check','on'],
@@ -456,7 +458,7 @@ Disallow: /?*",
 	},
                       
 	# flat list of method strings
-	"methods" => ["l2h","png","src"],
+	"methods" => ["l2h","make4ht","png","src",'pdf'],
 					  
 	# this hash contains commands and additional LaTeX
 	# packages needed to support each command
@@ -490,6 +492,7 @@ Disallow: /?*",
 	# 
 	"spellcmd" => "/usr/bin/ispell -a", 
 	"wgetcmd" => "/usr/bin/wget -nv", 
+	"latex2htmlcmd" => $Noosphere::baseconf::base_config{latex2htmlcmd},
 	"tidycmd" => "/usr/bin/tidy",
 	#BB: made location of vim and sendmail configurable
 	"vimcmd" => "/usr/bin/vim",
@@ -501,7 +504,10 @@ Disallow: /?*",
 	#    when unicode.pl loads latin1
 	#    which in turn in sub do_require_extension (in latex2html)
 	#    resets $NO_UTF and $USE_UTF flag
-	"l2h_opts" => "-antialias -html_version 4.0,latin1,unicode",
+	#    Ben - testing nonstopmode so renderall does not prompt user on error
+	#"l2h_opts" => "-antialias html_version 4.0,latin1,unicode",
+	# BEN - latest noosphere has no l2h optons
+    "l2h_opts" => "",
 					  
 	# message stuff
 	"msgstylesel" => {flat=>'Flat',threaded=>'Threaded'},
@@ -621,7 +627,8 @@ Disallow: /?*",
 # 
 sub getConfig {
   my $key = shift;
- 
+  #dwarn "getConfig key: ";
+  #dwarn $key; 
   my %config = CONFIG;
  
   return $config{$key}; 
@@ -662,7 +669,7 @@ sub tabledesc {
 
   # read in the descriptions from the database
   #
-  if (not defined %tdesc) {
+  if (not %tdesc) {
     my ($rv,$sth) = dbSelect($dbh,{WHAT=>"*",FROM=>'tdesc'}); 
 	my @rows = dbGetRows($sth);
 	foreach my $row (@rows) {
@@ -680,7 +687,7 @@ sub tablename {
 
   # read in the descriptions from the database
   #
-  if (not defined %tname) {
+  if (not %tname) {
     my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>'tdesc'}); 
 	my @rows = dbGetRows($sth);
 	foreach my $row (@rows) {
@@ -698,7 +705,7 @@ sub tableid {
 
   # cache the lookup table
   #
-  if (not defined %table_id) {
+  if (not %table_id) {
     my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>'tdesc'}); 
 	my @rows = dbGetRows($sth);
 	foreach my $row (@rows) {

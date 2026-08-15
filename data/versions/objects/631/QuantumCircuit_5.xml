@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="631">
+ <title>Quantum circuit</title>
+ <name>QuantumCircuit</name>
+ <created>2009-04-05 19:46:03</created>
+ <modified>2009-04-15 11:21:05</modified>
+ <type>Experiment</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>Hadamard operation</concept>
+	<concept>Bell basis states</concept>
+	<concept>qubit</concept>
+	<concept>entangled quibit</concept>
+	<concept>CNOT operation</concept>
+	<concept>E.P.R pair</concept>
+	<concept>quantum circuit operation</concept>
+	<concept>quantum circuit design</concept>
+	<concept>quantum circuit simulation</concept>
+ </defines>
+ <keywords>
+	<term>quantum `computer'</term>
+	<term>Boolean computer</term>
+	<term>quantum circuit</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Quantum circuit simulation}
+The following is an imaginary experiment or simulation of a quantum circuit
+avalaible as a free download from \PMlinkexternal{$Mathematica^{(TM)}$ website}{http://demonstrations.wolfram.com/GeneratingEntangledQubits/}. The link shows 
+how a `quantum circuit' of the selected design might perform a Hadamard operation followed by a simple CNOT operation with two qubits thus yielding an
+entangled qubit (or \PMlinkexternal{E.P.R}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=119}) pair which is one the four Bell basis states (cf.
+Brad Rubin, the author of this simulation).
+
+ Such quantum circuits represent hypothetical possibilites for building a quantum `computer' that would handle qubits of information instead of the
+regular bits in the existing, Boolean logic computers.</content>
+</record>

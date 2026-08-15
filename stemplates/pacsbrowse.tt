@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <title>PACS Browser</title>
+  </head>
+  <body>
+
+  <!-- clear box -->
+  <table width="100%" cellpadding="2" cellspacing="0">
+    <tr>
+      <td>
+        <table WIDTH="100%">
+
+          <!-- title -->
+          <tr>
+              <td bgcolor="#000000">
+
+              <!-- title box -->
+              
+              <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+                <tr>
+                  <td WIDTH="100%" BGCOLOR="#003399">
+                    <font color="white" class="box_title">
+                      [% IF tdesc%]
+                        By subject
+                      [% ELSE %]
+                        Browsing PACS
+                      [% END %]
+                    </font>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+			  </table>
+		  </td>
+	  </tr>
+
+    <tr>
+		  <td>    
+        <!-- content box -->
+			  <table width="100%" cellpadding="0" cellspacing="2">
+				  <tr>
+					  <td>
+             <table>
+              <!-- content -->
+              <!-- [% USE DBI( dbh = my_dbh_ref ) %] -->
+              
+              <!-- search box if we are browsing categories only -->
+              [% IF !tdesc%]
+                <table align="center" border="0">
+                  <td>
+                    <form method="get" action="https://physicslibrary.org/">
+                      <input type="hidden" name="op" value="pacssearch"/>
+                      <input type="text" name="pacsterm" value=""/>
+                      <input type="submit" value="search"/>
+                      <input type="checkbox" name="leaves" checked="1" /> leaves only
+                      <p></p>
+                      <font size="-2">(Case insensitive substrings, use '-' to exclude)</font>
+                    </form>
+                  </td>
+                </table>
+              [% END %]  
+
+              <p></p>
+
+              <!-- print header -->
+              <font size="+1">
+                [% IF parent %]
+                  [% id %] - [% desc %]
+                [% ELSE %]
+                  Top Level Categories
+                [% END %]
+              </font>
+
+              <p></p>
+
+              <!-- <p> size: [% pacs_nodes.size %] </p> -->
+
+              <!-- browse content pane -->
+              <table border="0" width="100%" >
+                <!-- display PACS node content -->
+                [% IF pacs_nodes.size > 0 %]
+                  [% FOREACH pacsnode IN pacs_nodes %]
+                    <tr valign="top">
+                      <td style="min-width:50px;>
+                        
+                        <font face="monospace" size="+1">
+                          [% IF pacsnode.child or pacsnode.count > 0 %]
+                            <a href=/browse/[% pacsnode.domain %]/[% pacsnode.id %]/>[% pacsnode.id %]</a>
+                          [% ELSE %] 
+                            [% pacsnode.id %]
+                          [% END %]
+                        
+                        </font>
+                      </td>
+                      <td>-</td>
+
+                      <td>
+                        [% pacsnode.comment %] 
+                      </td>
+                      [% IF count %]
+                        <td>-</td>
+                        <td align="right">
+                          [% pacsnode.count %]
+                        </td>
+                        <td>
+                          [% IF count > 1%]
+                            s
+                          [% END %]
+                        </td>
+                      [% END %]
+                    </tr>
+                  [% END %]
+                [% END %] 
+                <!-- leaf size: [% pacs_leaves.size %]  -->
+                [% IF pacs_leaves.size > 0 %]
+                  <tr>
+                      <td>
+                          <ol>
+                            [% FOREACH pacsleaf IN pacs_leaves %]
+                                  <li>
+                                    <a href=/?op=getobj&amp;from=[% pacsleaf.domain %]&amp;id=[% pacsleaf.uid %]>[% pacsleaf.title %]</a>
+                                    <font size="-1"> owned by
+                                      <a href=/?op=getuser;id=[% pacsleaf.userid %]>[% pacsleaf.username %]</a>
+                                    </font>
+                                  </li>
+                            [% END %]
+                          </ol>
+                      </td>
+                  </tr>
+                [% END %]   
+
+                <!-- navigation buttons -->
+				
+                <tr>
+                  <td align="center" colspan="6">
+                    [ 
+                      
+                      [% IF parent %]
+                        <a href=/browse/[% domain %]/[% upstr %]>up</a>
+                      [% END %]
+
+                      [% IF pacs_leaves.size > 0 %]
+                        <a href=/browse/[% pacs_leaves.first %]/domain/>top</a>
+                      [% END %]
+
+                      [% IF pacs_nodes.size > 0 %]
+                        <a href=/browse/categories/>top</a>
+                      [% END %]
+                        
+                    ] 
+                  </td>
+                </tr>
+
+              </table>  
+        </table>
+      </td>
+    </tr>
+  </table>
+  <!-- end standard box -->
+
+    
+  </body>
+</html>

@@ -44,7 +44,7 @@
 			<center>
 				<a>
 					<xsl:attribute name="href">
-						/?op=addobj&amp;to=<xsl:value-of select="table"/>
+						/?op=addobj;to=<xsl:value-of select="table"/>
 					</xsl:attribute>
 					Add to <xsl:value-of select="name"/>
 				</a>
@@ -105,7 +105,7 @@
 
 					<a>
 						<xsl:attribute name="href">
-							/?op=getobj&amp;from=<xsl:value-of select="../@table"/>&amp;id=<xsl:value-of select="id"/>
+							/?op=getobj;from=<xsl:value-of select="../@table"/>;id=<xsl:value-of select="id"/>
 						</xsl:attribute>
 
 						<xsl:value-of select="title"/>
@@ -115,7 +115,7 @@
 
 					<a>
 						<xsl:attribute name="href">
-							/?op=getuser&amp;id=<xsl:value-of select="userid"/>
+							/?op=getuser;id=<xsl:value-of select="userid"/>
 						</xsl:attribute>
 
 						<xsl:value-of select="username"/>

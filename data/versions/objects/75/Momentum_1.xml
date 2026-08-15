@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="75">
+ <title>momentum</title>
+ <name>Momentum</name>
+ <created>2005-08-20 18:02:00</created>
+ <modified>2005-08-20 18:02:00</modified>
+ <type>Definition</type>
+ <creator id="17" name="pbruin"/>
+ <modifier id="17" name="pbruin"/>
+ <comment>Changes for correction #4 ('Where mass?').</comment>
+ <author id="17" name="pbruin"/>
+ <classification>
+	<category scheme="msc" code="45.05.+x"/>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <keywords>
+	<term>dynamics</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In classical mechanics, \emph{momentum} is the product of mass and velocity of a moving object.  More precisely, the momentum of a particle or rigid body with mass $m$ and velocity $v$ is defined as
+$$
+\mathbf{p}\equiv\mathbf{v}.
+$$
+For a collection of $n$ particles (or rigid bodies) moving with different velocities, the total momentum, $\mathbf{p}$, is defined as the vector sum of the momenta of the particles, $\mathbf{p}_1,\mathbf{p}_2,\ldots,\mathbf{p}_n$:
+$$
+\mathbf{p}\equiv\sum_{i=1}^n\mathbf{p}_i.
+$$
+The SI unit of momentum is kilogram metre per second (kg m/s).
+
+Momentum plays an important role in Newton's second law, which in its most concise formulation reads
+$$
+\mathbf{F}=\mathbf{\dot p},
+$$
+expressing that the total force exerted on an object equals the time derivative of its momentum.  In the special case that there are no forces acting on the object, we get back Newton's first law: $\mathbf{p}$ (and therefore $\mathbf{v}$) is constant.  More generally, if in a system consisting of a number of objects there are no external forces (i.e., the only forces present are those between the objects themselves), then Newton's third law implies that all the forces cancel each other, so that the total momentum is still constant.
+
+This last observation leads to the idea of a \emph{conserved quantity}.  It turns out that the law of conservation of momentum is equivalent to the invariance of the physical laws under translations.  This idea can be extended: Noether's theorem shows that every continuous symmetry of a physical law that can be formulated as an action principle leads to a conserved quantity.  In this setting, momentum can be viewed as the conserved quantity corresponding to spatial translations.  This notion of momentum can be generalised in such a way that it is also possible to speak of the momentum of, for example, electromagnetic waves.
+
+Momentum plays an important role in the Hamiltonian formalism of classical mechanics, where mechanical systems are described in terms of generalised coordinates and generalised momenta.  This, in turn, explains the appearance of the momentum operator in the Schr\"odinger equation in quantum mechanics.
+
+A quantity related to momentum is \emph{impulse}, which is defined as the force exerted on a moving object integrated over a time interval $[t_0,t_1]$:
+$$
+\mathbf{I}\equiv\int_{t_0}^{t_1}\mathbf{F}(t)\,\mathrm{d}t.
+$$
+By integrating the two sides of Newton's second law over time, we obtain the equation
+$$
+\mathbf{I}=\mathbf{p}(t_1)-\mathbf{p}(t_0).
+$$
+In words: the impulse is equal to the change in momentum.</content>
+</record>

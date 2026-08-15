@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="100">
+ <title>Laplacian in Spherical Coordinates</title>
+ <name>LaplacianInSphericalCoordinates</name>
+ <created>2005-12-30 20:39:07</created>
+ <modified>2005-12-31 00:25:14</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.40.Dr"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Laplacian operator in spherical coordinates is 
+
+$$\nabla _{sph}^{2} = \frac{1}{r^2} \frac{\partial}{\partial r}(r^2 \frac{\partial}{\partial r} + \frac{1}{r^2 sin\theta} \frac{\partial}{\partial \theta} ( sin \theta \frac{\partial}{\partial \theta}) + \frac{1}{r^2 sin^2 \theta} \frac{\partial^2}{\partial \phi^2} $$
+
+The derivation is fairly straight forward and begins with locating a vector {\bf r} in spherical coordinates as shown in the figure.
+
+\begin{figure}
+\includegraphics[scale=.698]{SphericalCoordinates.eps}
+\caption{Spherical Coordinates}
+\end{figure}
+
+The z component of the unit vector in direction of {\bf r} is given from the simple right triangle
+
+$$ cos \theta = \frac{z}{| \hat{r} |} $$
+
+Since a unit vector has a length of 1, the z component is
+
+$$ z = cos \theta $$
+
+To get the x component, we need to get the $\hat{r}$ projected onto the xy-plane
+
+$$ cos( 90 - \theta) = \frac{ |\hat{r}_{xy}|}{ |\hat{r}| } $$
+
+using the trig identity
+
+$$ cos( 90 - \theta ) = sin \theta $$
+
+the projected unit vector is
+
+$$ |\hat{r}_{xy}| = sin \theta $$
+
+Finally, the x component is reached through the right triangle 
+
+$$ cos \phi = \frac{x}{|\hat{r}_{xy}| }$$
+
+giving 
+
+$$ x = cos \phi \, sin \theta $$
+
+the y component follows the x component through
+
+$$ sin \phi = \frac{y}{|\hat{r}_{xy}|} $$
+
+which yields
+
+$$ y = sin \phi \, sin \theta $$
+
+The vector in spherical coordinates is then
+
+$$ {\bf r} = r \hat{r} = r[ sin \theta \, cos \phi \, \hat{i} + sin \theta \, sin \phi \, \hat{j} + cos \theta \, \hat{k}] $$</content>
+</record>

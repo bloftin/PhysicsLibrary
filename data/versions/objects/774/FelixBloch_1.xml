@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="774">
+ <title>Felix Bloch</title>
+ <name>FelixBloch</name>
+ <created>2009-05-24 11:29:27</created>
+ <modified>2009-05-24 11:29:27</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>Bloch waves</concept>
+ </defines>
+ <related>
+	<object name="AndreBloch"/>
+ </related>
+ <keywords>
+	<term>biography</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\emph{Felix Bloch} (b. October 23, 1905 in Z\"urich--d. September 10, 1983) was a Swiss physicist, established in the U.S.A. His parents, Gustav and Agnes Bloch, were both Jewish, and he was educated at the Eidgen\"ossische Technische Hochschule in Z\"urich, but changed fields from engineering to physics. 
+ 
+\subsection{Education}
+He attended lectures and seminars by physical chemist/theoretical physicist Peter Debye and also by Hermann Weyl at ETH Z\"urich, and then by Erwin Schr\"odinger at University of Z\"urich. A neighbor student in such seminars was the American--Hungarian Jewish mathematician and mathematical physicist John (Janosh) von Neumann. Then he continued his physics studies at the University of Leipzig under Werner Heisenberg, earning his doctorate in 1928 with a famous doctoral thesis that established the quantum theory of crystalline solids, using what are now called ``{\em Bloch waves}'' to describe electron distributions in crystalline metals.
+
+{\em [more to come...]}</content>
+</record>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="308">
+ <title>Heisenberg uncertainty principle</title>
+ <name>HeisenbergUncertaintyPrinciple</name>
+ <created>2008-10-16 13:37:46</created>
+ <modified>2009-01-10 13:30:23</modified>
+ <type>Law</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="03.67.-a"/>
+	<category scheme="msc" code="03.67.Mn"/>
+ </classification>
+ <defines>
+	<concept>quantum uncertainty</concept>
+	<concept>identity operator</concept>
+	<concept>quantum particle</concept>
+ </defines>
+ <related>
+	<object name="Something20related20to20Heisenberg20uncertainty20principle"/>
+ </related>
+ <keywords>
+	<term>Heisenberg</term>
+	<term>uncertainty principle</term>
+	<term>quantum theory</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Heisenberg Uncertainty Principle in Quantum theories:}
+
+If X and P are, respectively, the coordinate and conjugate momentum quantum operators then they satisfy the Heisenberg non-commutation/ 'uncertainty' relation, or the \emph{Heisenberg Uncertainty Principle}:  
+
+ $$[X,P] \geq i\hbar I,$$
+where the identity operator $I$ is employed to simplify notation.
+Stated in words, in quantum physics, the \emph{Heisenberg uncertainty principle} says that one cannot simultaneously measure with any desired precision both the position and momentum of a quantum particle; thus, ``locating a particle in a small region of space makes the momentum of the particle uncertain, and conversely, measuring precisely the momentum of a particle makes the position uncertain--in inverse proportion to the precision of the particle momentum measurement''. The principle applies also to 
+energy and time, where it takes however a somewhat different form in quantum mechanics and QFT. More generally, it applies to many, but not all quantum operators, as there are certain pairs of quantum operators that do commute--those that belong to the same set of eigenvalues.
+
+\textbf{Note:}  A quantum `particle' is also subject to the de Broglie 
+{\em wave-particle duality} principle, which establishes the relation between the associated wavelength and the momentum of a quantum particle.</content>
+</record>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="21">
+ <title>Planck's radiation law</title>
+ <name>PlancksRadiationLaw</name>
+ <created>2004-11-20 15:11:07</created>
+ <modified>2005-08-14 20:13:52</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.Ce"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>\begin{equation}
+I(\lambda,T) = \frac{2 \pi c^2 h}{\lambda^5} \, \frac{1}{e^{hc/ \lambda kT} - 1}
+\end{equation}
+
+more to come, this was used for testing the linking between entries</content>
+</record>

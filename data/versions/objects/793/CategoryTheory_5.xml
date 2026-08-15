@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="793">
+ <title>category theory</title>
+ <name>CategoryTheory</name>
+ <created>2009-06-09 20:18:41</created>
+ <modified>2009-06-09 20:37:24</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>\subsection{An Index of categories}
+A partial list of various types of categories.
+\subsection{A Category theory index}
+A partial \PMlinkname{index of the theory of categories}{IndexOfCategoryTheory}.
+\subsection{An Index of Algebraic Geometry}
+\subsection{An Index of Algebraic Topology}</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>category theory applications</concept>
+	<concept>functor</concept>
+	<concept>functor category</concept>
+	<concept>group</concept>
+	<concept>monoid</concept>
+	<concept>semigroup</concept>
+ </defines>
+ <related>
+	<object name="Category"/>
+	<object name="ETAC"/>
+	<object name="AlternativeDefinitionOfSmallCategory"/>
+	<object name="FunctorCategories"/>
+	<object name="FundamentalGroupoidFunctors"/>
+	<object name="Groupoid5"/>
+	<object name="Groupoids"/>
+	<object name="FiniteQuantumGroup"/>
+ </related>
+ <keywords>
+	<term>category</term>
+	<term>category theory</term>
+	<term>topos</term>
+	<term>functor</term>
+	<term>natural transformations</term>
+	<term>metagraph</term>
+	<term>metacategory</term>
+	<term>algebraic topology</term>
+	<term>homology theory</term>
+	<term>ETAC</term>
+	<term>unit law</term>
+	<term>associativity axioms</term>
+	<term>identity</term>
+	<term>composition</term>
+	<term>operations</term>
+	<term>graph</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{The Theory of Categories}
+
+{\em Category theory} can be described as the branch of mathematics concerned
+with the properties and applications of the fundamental concepts of: \PMlinkname{category}{Category}, functor between categories and natural transformations between functors. A {\em category} can also be defined as a mathematical interpretation of the elementary theory of abstract categories, or ETAC. 
+A {\em topos} is often considered as a special type of category subject to the
+topos axioms. 
+
+\subsection{Category theory applications}
+Among the important category theory applications in mathematics itself are:
+
+\begin{itemize}
+\item Applications in the Foundations of Mathematics
+\item Algebraic topology applications
+\item Algebraic Geometry applications
+\item Applications to Number theory
+\item Applications to rings and modules
+\item Applications to the theory of Abelian groups
+\item X
+\item Y
+\item Z
+\item
+\item
+\end{itemize}
+
+ Other category theory applications are in:
+
+\begin{itemize}
+\item Theoretical and Mathematical Physics
+\item Mathematical Biophysics, Complex Systems Biophysics and Theoretical Biology
+\item Theory of Logic Algebras
+\item Categorical logic
+\item Algebraic logic
+\item Computer theory
+\item Quantum Operator Algebra (QOA)
+\item Theoretical Ecology and Environmental sciences
+\item Genomics and Interactomics
+\end{itemize}
+
+\subsection{Index of categories}
+A partial list of various types of categories.
+\subsection{Category theory index}
+A partial \PMlinkname{index of the theory of categories}{IndexOfCategoryTheory}.
+
+\subsection{Bibliography of category theory and its applications}
+An extensive, but not complete, literature on category theory. 
+
+\textbf{More to come...}</content>
+</record>

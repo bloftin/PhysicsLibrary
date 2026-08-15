@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="14" id="85">
+ <title>direction cosine matrix</title>
+ <name>DirectionCosineMatrix</name>
+ <created>2005-08-25 19:56:33</created>
+ <modified>2005-08-28 20:34:54</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.05.+x"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A direction cosine matrix (DCM) is a transformation matrix that transforms one coordinate reference frame to another.  If we extend the concept of how the three dimensional direction cosines locate a vector, then the DCM locates three unit vectors that describe a coordinate reference frame.  Using the notation in equation 1, we need to find the matrix elements that correspond to the correct transformation matrix.
+
+
+\begin{equation}
+DCM =
+\left[ \begin{array}{ccc}
+A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right]
+\end{equation}
+
+The first unit vector of the second coordinate frame can be located in the first frame by normal vector notation.  See figure 1 for relationship.
+
+\begin{center}
+$ \hat{y}_1 = A_{11} \hat{x}_1 + A_{12} \hat{x}_2 + A_{13} \hat{x}_3 $
+\end{center}
+
+\medskip
+\begin{figure}
+\includegraphics[scale=0.78]{DCM.eps}
+\end{figure}
+\medskip
+
+Similarily, the other two unit vectors can be described by
+
+\begin{center}
+$$ \hat{y}_2 = A_{21} \hat{x}_1 + A_{22} \hat{x}_2 + A_{23} \hat{x}_3 $$
+$$ \hat{y}_3 = A_{31} \hat{x}_1 + A_{32} \hat{x}_2 + A_{33} \hat{x}_3 $$
+\end{center}
+
+It is easy to see how equation 1 works as a transformation matrix through simple matrix multiplication.
+
+\begin{equation}
+\left[ \begin{array}{c}
+\hat{y}_1 \\
+\hat{y}_2 \\
+\hat{y}_3 \end{array} \right] = \left[ \begin{array}{ccc} A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right] \left[ \begin{array}{c}
+\hat{x}_1 \\
+\hat{x}_2 \\
+\hat{x}_3 \end{array} \right]
+\end{equation}
+
+Once this transformation matrix is found, it can be used to transform vectors from the second frame to the first frame and vice versa.  Equation 2 transforms the x frame to the y frame and can be denoted as $R_{1-2}$.  In order to get $R_{2-1}$, which transforms the y frame to the x frame, we use a property of transformation matrices of orthonomal reference frames (a frame that is described by unit vectors and are perpindicular to each other).  See the entry on a transformation matrix for more info on its properties.  We use the properties that
+
+$$ R_{1-2}^{-1} = R_{1-2}^T  = R_{2-1} $$
+$$ R_{1-2} R_{1-2}^T = \left[ \begin{array}{ccc} 1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 \end{array} \right] $$
+
+so using these properties and rearranging equation 2 $$ \hat{y} = R_{1-2} \hat{x} $$ yields
+
+$$ R_{1-2}^{-1} \hat{y} = R_{1-2}^{-1} R_{1-2} \hat{x}  $$
+
+giving the transformation of the y frame to the x frame
+
+$$ \hat{x} = R_{2-1} \hat{y} $$
+
+So to extend this concept to transform vectors from one frame to another a closer examination of a vector being represented in both frames is needed.  If we denote the second frame as the prime ($\prime$) frame, then a vector expressed in each of these is given by
+
+\begin{equation}  v = v_1 \hat{x}_1 + v_2 \hat{x}_2 + v_3 \hat{x}_3 \end{equation}
+\begin{equation} v = v_1\prime \hat{y}_1 + v_2\prime \hat{y}_2 + v_3\prime \hat{y}_3 \end{equation}
+
+Since both equations describe the same vector, let us set them equal to each other so
+
+$$  v_1 \hat{x}_1 + v_2 \hat{x}_2 + v_3 \hat{x}_3 = v_1\prime \hat{y}_1 + v_2\prime \hat{y}_2 + v_3\prime \hat{y}_3 $$
+
+This notation is clumsy so we want to represent it in matrix notation.  This is simple enough if you have an understanding of multiplying a column vector by a row vector.  This allows us to describe equations 3 and 4 by
+
+$$ v =  \left[ \begin{array}{ccc} v_1 &amp; v_2 &amp; v_3  \end{array} \right] \left[ \begin{array}{c} \hat{x}_1 \\ \hat{x}_2 \\ \hat{x}_3  \end{array} \right] $$
+$$ v =  \left[ \begin{array}{ccc} v_1\prime &amp; v_2\prime &amp; v_3\prime  \end{array} \right] \left[ \begin{array}{c} \hat{y}_1 \\ \hat{y}_2 \\ \hat{y}_3  \end{array} \right] $$
+
+Setting them equal and substituting equation 2 in for the second coordinate frame yields
+
+$$ v =  \left[ \begin{array}{ccc} v_1 &amp; v_2 &amp; v_3  \end{array} \right] \left[ \begin{array}{c} \hat{x}_1 \\ \hat{x}_2 \\ \hat{x}_3  \end{array} \right] = \left[ \begin{array}{ccc} v_1\prime &amp; v_2\prime &amp; v_3\prime  \end{array} \right]  \left[ \begin{array}{ccc} A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right] \left[ \begin{array}{c}
+\hat{x}_1 \\
+\hat{x}_2 \\
+\hat{x}_3 \end{array} \right] $$
+
+Then by inspection (or go through the matrix manipulation to cancel the x frame) 
+
+$$ \left[ \begin{array}{ccc} v_1 &amp; v_2 &amp; v_3  \end{array} \right] = \left[ \begin{array}{ccc} v_1\prime &amp; v_2\prime &amp; v_3\prime  \end{array} \right]  \left[ \begin{array}{ccc} A_{11} &amp; A_{12} &amp; A_{13} \\
+A_{21} &amp; A_{22} &amp; A_{23} \\
+A_{31} &amp; A_{32} &amp; A_{33} \end{array} \right] $$
+
+Representing the transformation matrix as $R_{1-2}$ as the transformation from the first frame to the second frame and transposing the previous equation gives
+
+$$ \left[ \begin{array}{ccc} v_1 &amp; v_2 &amp; v_3  \end{array} \right] = (\left[ \begin{array}{ccc} v_1\prime &amp; v_2\prime &amp; v_3\prime  \end{array} \right] R_{1-2} )^T $$
+
+Performing the transposition and using a transposition property for two matrices A and B such that 
+
+$$ (AB)^T = B^TA^T $$ 
+
+leads to the relationship
+
+$$ \left[ \begin{array}{c} v_1 \\ v_2 \\ v_3  \end{array} \right] = R_{1-2}^T \left[ \begin{array}{c} v_1\prime \\ v_2\prime \\ v_3\prime  \end{array} \right] $$
+
+Finally giving us the ability to transform a vector from the second (prime) frame to the first frame.
+
+$$ \vec{v} = R_{2-1} \vec{v \prime} $$
+
+Much much more can be found in the general entry about the Transformation matrix.</content>
+</record>

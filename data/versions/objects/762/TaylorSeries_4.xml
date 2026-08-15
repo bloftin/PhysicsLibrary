@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="762">
+ <title>Taylor series</title>
+ <name>TaylorSeries</name>
+ <created>2009-05-18 13:58:16</created>
+ <modified>2009-05-18 15:29:33</modified>
+ <type>Topic</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <comment>several variables case</comment>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="02.30.-f"/>
+ </classification>
+ <defines>
+	<concept>Taylor polynomial</concept>
+	<concept>Taylor formula</concept>
+ </defines>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Any power series represents on its convergence domain a function.\, One may set a converse task:\, If there is given a function $f(x)$, on which conditions one can represent it as a power series; how one can find the coefficients of the series?\, Then one comes to Taylor polynomials, Taylor formula and Taylor series.
+
+\textbf{Definition.}\, The \emph{Taylor polynomial} of degree $n$ of the function $f(x)$ in the point\, $x = a$\, means the polynomial $T_n(x,a)$ of degree at most $n$, which has in the point the value $f(a)$ and for which the derivatives $T_n^{(j)}(x,a)$ up to the order $n$ have the values $f^{(j)}(a)$.
+
+It is easily found that the Taylor polynomial in question is uniquely
+\begin{align}
+T_n(x,a) \;=\; f(a)+\frac{f'(a)}{1!}(x\!-\!a)+\frac{f''(a)}{2!}(x\!-\!a)^2+
+\ldots+\frac{f^{(n)}(a)}{n!}(x\!-\!a)^n 
+\end{align}
+
+
+When a given function $f(x)$ is replaced by its Taylor polynomial $T_n(x,a)$, it's important to examine, how accurately the polynomial approximates the function, in other words one has to examine the difference
+$$f(x)\!-\!T_n(x,a) \;:=\; R_n(x).$$
+Then one is led to the\\
+
+\textbf{Taylor formula.}\, If $f(x)$ has in a neighbourhood of the point\, 
+$x = a$\, the continuous derivatives up to the order $n\!+\!1$, then it can be represented in the form
+\begin{align}
+f(x) \,=\ f(a)\!+\!\frac{f'(a)}{1!}(x\!-\!a)\!+\!\frac{f''(a)}{2!}(x\!-\!a)^2\!+
+\ldots+\!\frac{f^{(n)}(a)}{n!}(x\!-\!a)^n\!+\!R_n(x)
+\end{align}
+with
+$$R_n(x) \;=\; \frac{f^{(n+1)}(\xi)}{(n\!+\!1)!}(x\!-\!a)^{n+1}$$
+where $\xi$ lies between $a$ and $x$.\\
+
+If the function $f(x)$ has in a neighbourhood of the point\, $x = a$\, the derivatives of all orders, then one can let $n$ tend to infinity in the Taylor formula (2).\, One obtains the so-called \emph{Taylor series}
+\begin{align}
+\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x\!-\!a)^n \;=\; 
+f(a)+\frac{f'(a)}{1!}(x\!-\!a)+\frac{f''(a)}{2!}(x\!-\!a)^2+\ldots
+\end{align}
+
+\textbf{Theorem.}\, A necessary and sufficient condition for that the Taylor series (3) converges and that its sum represents the function $f(x)$ at certain values of $x$ is that the limit of $R_n(x)$ is 0 as $n$ tends to infinity.\, For these values of $x$ on may write
+\begin{align}
+f(x) \;=\; 
+f(a)+\frac{f'(a)}{1!}(x\!-\!a)+\frac{f''(a)}{2!}(x\!-\!a)^2+\ldots
+\end{align}
+
+
+The most known Taylor series is perhaps
+$$e^x \;=\; 1+\frac{x}{1!}+\frac{x^2}{2!}+\ldots$$
+which is valid for all real (and complex) values of $x$.</content>
+</record>

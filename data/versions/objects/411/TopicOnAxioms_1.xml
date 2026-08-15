@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="411">
+ <title>topic on axioms</title>
+ <name>TopicOnAxioms</name>
+ <created>2009-01-18 01:09:00</created>
+ <modified>2009-01-18 01:09:00</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <keywords>
+	<term>axioms in mathematics</term>
+	<term>logic algebra</term>
+	<term>mathematical physics</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Topic on axioms in mathematics, logic algebra, mathematical physics
+and mathematical biophysics}
+
+\subsection{Introduction}
+ In classical logic, an axiom or postulate is a `simple', fundamental proposition that is neither proven nor demonstrated (within a theory) ``but considered to be self-evident''; furthermore, the choice of an axiom or system of axioms is justified by the large number of consistent consequences or mathematical propositions derived from such axioms. One needs, however, to distinguish between `physical axioms' (often called `postulates' that apply to various fields of physics), and mathematical axioms that have both a meaning and scope of applicability which is distinct from that of physical postulates (or physical axioms). On the other hand, physical axioms, or postulates, are ultimately also expressed in a mathematical form, albeit without becoming axioms of mathematics, or specific fields of mathematics. (In the remainder of this entry the attribute `axiomatic' will be employed only with the meaning of `physical-axiomatic', or `physically-postulated'.)
+ 
+ Furthermore, physical postulates, unlike mathematical ones, emerged as a result of numerous experimental studies and crucial physical experiments that can be logically and consistently explained
+on the basis of such fundamental, physical postulates; often, mathematical formulations of such fundamental physical
+postulates are referred to as (physical) `axioms', as in the case of `axiomatic' QFTs.
+
+\subsection{Axioms in Mathematics}
+
+\begin{itemize}
+\item Axioms of Set theory
+\item Axioms of Number theory
+\item Axioms of Geometry
+\item Axioms of Topology
+\item Axioms of Homology and Cohomology theories
+\item Axioms of Topos theory
+\item Axioms of Category theory
+\item Axioms of XYZ
+\end{itemize}
+
+\subsection{Axioms of Logic and Logic Algebras}
+\begin{itemize}
+\item Axioms of Boolean logic algebra
+\item Axioms of $LM_n$ logic algebras
+\item Axioms of Quantum Logics
+\item Axioms of XYZ
+\end{itemize}
+
+\subsection{Axioms and Postulates in Mathematical Physics}
+\begin{itemize}
+\item Postulates of Relativity theories: Special and General Relativity
+\item Axioms of Quantum Geometry
+\item Axioms of Local Quantum Physics (Algebraic Quantum Field Theories (AQFT))
+\item Axioms of XYZ
+\end{itemize}
+
+\subsection{Axioms and Postulates of Mathematical biology/Mathematical Biophysics}
+\begin{itemize}
+\item Axiom of Selection
+\item Postulate of Optimal Design
+\item Postulate of Relational `Forces'
+\item Axioms of supercategories
+\item Axiom of Fuzziness
+\item Epimorphism axioms and homology
+\item Adjointness axioms
+\item Axioms of XYZ
+\end{itemize}</content>
+</record>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="823">
+ <title>example of testing</title>
+ <name>ExampleOfTesting</name>
+ <created>2009-09-15 02:52:37</created>
+ <modified>2009-09-15 14:07:52</modified>
+ <type>Example</type>
+<parent id="822">testing</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>%%It timed out in attempting to render the HTML mode; thus, I think the 
+%%problem is on the server, not the client computers. 
+%%Retest of editing mode that is extremely slow to update the HTML mode, at 
+%%least as seen on client computer running Windows XT. 
+%%Preview of this very simple test took in excess of 5 minutes to preview, timed.</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03.30.+p"/>
+ </classification>
+ <related>
+	<object name="Testing"/>
+ </related>
+ <keywords>
+	<term>retest of editing mode that is extremely slow to update the HTML mode</term>
+ </keywords>
+ <preamble></preamble>
+ <content>It timed out in attempting to render the HTML mode; thus, I think the problem is on the server, not the client computers. 
+Retest of editing mode that is extremely slow to update the HTML mode, at least as seen on client computer running Windows XT. 
+Preview of this very simple test took in excess of 5 minutes to preview, timed.</content>
+</record>

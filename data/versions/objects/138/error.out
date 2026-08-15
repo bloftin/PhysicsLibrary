@@ -1,0 +1,56 @@
+Note: Loading ./.latex2html-init
+Note: Initialising with file: .latex2html-init
+This is LaTeX2HTML Version 2002-2 (1.70)
+by Nikos Drakos, Computer Based Learning Unit, University of Leeds.
+
+Revised and extended by:
+ Marcus Hennecke, Ross Moore, Herb Swan and others
+...producing markup for HTML version 4.0  with latin1,unicode extensions
+
+
+
+Extension: loading /usr/local/share/lib/latex2html/versions/latin1.pl
+HTML version: loading /usr/local/share/lib/latex2html/versions/html4_0.pl
+
+Extension: loading /usr/local/share/lib/latex2html/versions/unicode.pl
+ *** processing declarations ***
+
+OPENING /var/www/pp/noosphere/data/versions/objects/138/SchrodingerEquationWithARampPotential.tex 
+
+Cannot create directory ./: File exists, reusing it.
+Reusing directory ./:
+
+Note: Working directory is /var/www/pp/noosphere/data/versions/objects/138
+Note: Images will be generated in /tmp/l2h5389
+
+texexpand V2002-2 (Revision 1.11)
+
+
+
+Loading /usr/local/share/lib/latex2html/styles/texdefs.perl...
+Package: loading /usr/local/share/lib/latex2html/styles/article.perl
+Package: loading /usr/local/share/lib/latex2html/styles/amsmath.perl
+Package: loading /usr/local/share/lib/latex2html/styles/more_amsmath.perl
+Package: loading /usr/local/share/lib/latex2html/styles/graphixx.perl
+Package: loading /usr/local/share/lib/latex2html/styles/graphics-support.perl
+Package: loading /usr/local/share/lib/latex2html/styles/getimagesize.perl
+Reading ...
+++
+@@@@@
+
+Translating ...
+0/0:top of SchrodingerEquationWithARampPotential: for SchrodingerEquationWithARampPotential.html
+
+ *** translating preamble ***
+.....
+Warning: No implementation found for package: graphicx..
+ *** preamble done ***
+;..;
+
+Doing section links ....
+ *** Adding document-specific styles *** 
+
+*********** WARNINGS ***********  
+No implementation found for style `graphicx'
+
+Done.

@@ -21,7 +21,7 @@ sub getForumsTop {
 	}
 
 	my @rows = dbGetRows($sth);
-	my $template = new Template('forums_main.html');
+	my $template = new TemplateNS('forums_main.html');
 	
 	if (@rows) {
 		$index .= "<dl>";
@@ -46,17 +46,41 @@ sub getForumsTop {
 #
 sub renderForum {
 	my $rec = shift;
+
+	my $file = 'forumobj.tt';
+	my $html_obj = '';
+	dwarn "renderForum start";
 	my $table = getConfig('forum_tbl');
-	
-	my $template = new Template('forumobj.html');
+	my $title = $rec->{title};
+	dwarn "rec title:\n $title";
+	my $rec_data = $rec->{data};
+	dwarn "rec data:\n $rec_data";
+
+	##my $template = new TemplateNS('forumobj.html');
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
 	
 	my $forumobj = clearBox("Forum: $rec->{title}","<center>Welcome to the $rec->{title} forum!</center><hr width=\"100%\" size=1 noshade>".$rec->{data}."<p><center>[ <a href=\"".getConfig("main_url")."/?op=forums\">back to forums top</a> ]</center>");
 	
+	dwarn "forumobj:\n $forumobj";
+
 	my $interact = makeBox("Interact","<center><a href=\"".getConfig("main_url")."/?op=postmsg&from=$table&id=$rec->{uid}\">post</a></center>");
 	
-	$template->setKeys('forumobj' => $forumobj, 'commands' => $interact);
-	
-	return $template;
+	dwarn "interact:\n $interact";
+
+	##$template->setKeys('forumobj' => $forumobj, 'commands' => $interact);
+	my $vars = {
+        forumobj        => $forumobj,
+		commands        => $interact,
+    };
+
+	my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";
+
+	dwarn "renderForum end";
+	return $html_obj;
 }
 
 sub getForumInteract {

@@ -26,7 +26,7 @@ package Noosphere;
 ###############################################################################
 
 use strict;
-use Inline::denter;
+#use Data::denter;
 
 # make the object. starts off empty.
 #

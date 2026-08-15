@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="1004">
+ <title>The Physics of Light: From Waves to Photon</title>
+ <name>PhysicsOfLightFromWavesToPhoton</name>
+ <created>2025-05-24 17:55:45</created>
+ <modified>2025-05-24 18:02:31</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41."/>
+ </classification>
+ <defines>
+	<concept>light</concept>
+ </defines>
+ <preamble>      % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+
+% define commands here</preamble>
+ <content>% Section 1: Introduction
+\section{Introduction}
+Light is ubiquitous, shaping our perception of the world and driving technological advancements. In physics, light is studied as electromagnetic radiation, exhibiting both wave-like and particle-like properties. This article explores the nature of light, its historical development, theoretical frameworks, and modern applications, providing a foundation for understanding its role in the universe.
+
+
+Figure 1 highlights the visible portion of the electromagnetic spectrum [5].
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{EM_spectrum.eps}
+\caption{1.\textbf{ The electromagnetic spectrum.}}
+\end{figure}</content>
+</record>

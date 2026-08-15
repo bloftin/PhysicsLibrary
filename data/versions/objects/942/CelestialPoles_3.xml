@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="942">
+ <title>Celestial Poles</title>
+ <name>CelestialPoles</name>
+ <created>2025-02-23 20:01:32</created>
+ <modified>2025-03-30 18:09:56</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <defines>
+	<concept>Celestial Equator</concept>
+	<concept>north circumpolar zone</concept>
+	<concept>south circumpolar zone</concept>
+	<concept>circumpolar zone</concept>
+	<concept>South Celestial Pole</concept>
+	<concept>North Celestial Pole</concept>
+ </defines>
+ <related>
+	<object name="CelestialSphere"/>
+	<object name="ConstellationsOnTheEcliptic"/>
+ </related>
+ <preamble>                      % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{caption}
+% define commands here</preamble>
+ <content>To help orient us in the turning sky, astronomers use a system that extends Earth's axis points into the sky. Imagine a line going through Earth, connecting the North and South Poles. This is Earth's axis, and Earth rotates about this line (Figure 1). 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{celestial_sphere_2_3.jpg}
+\caption{1.\textbf{ Circles on the Celestial Sphere.}}
+\end{figure}
+
+If we extend this imaginary line outward from Earth, the points where this line intersects the celestial sphere are called the north celestial pole and the south celestial pole. As Earth rotates about its axis, the sky appears to turn in the opposite direction around those celestial poles (Figure 2). We also (in our imagination) throw Earth's equator onto the sky and call this the celestial equator. It lies halfway between the celestial poles, just as Earth's equator lies halfway between our planet's poles.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{SouthCelestialPole.jpg}
+\caption{2.\textbf{ Circling the South Celestial Pole.} This long-exposure photo shows trails left by stars as a result of the apparent rotation of the celestial sphere around the south celestial pole. (In reality, it is Earth that rotates.) (Credit: ESO-Iztok Boncina)}
+\end{figure}
+
+Now let's imagine how riding on different parts of our spinning Earth affects our view of the sky. The apparent motion of the celestial sphere depends on your latitude (position north or south of the equator). First of all, notice that Earth's axis is pointing at the celestial poles, so these two points in the sky do not appear to turn. \\
+
+If you stood at the North Pole of Earth, for example, you would see the north celestial pole overhead, at your zenith (Figure 3). The celestial equator,  $90^{\circ}$ from the celestial poles, would lie along your horizon. As you watched the stars during the course of the night, they would all circle around the celestial pole, with none rising or setting. Only that half of the sky north of the celestial equator is ever visible to an observer at the North Pole. Similarly, an observer at the South Pole would see only the southern half of the sky. \\
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.8]{StarCriclesDifferentLatitudes.jpg}
+\caption{3.\textbf{ Star Circles at Different Latitudes.} The turning of the sky looks different depending on your latitude on Earth. The red circle in each case is your horizon. Your zenith is the point above your head. (a) At the North Pole, the stars circle the zenith and do not rise and set. (b) At the equator, the celestial poles are on the horizon, and the stars rise straight up and set straight down. (c) At intermediate latitudes, the north celestial pole is at some position between overhead and the horizon. Its angle above the horizon turns out to be equal to the observer's latitude. Stars rise and set at an angle to the horizon.}
+\end{figure}
+
+If you were at Earth's equator, on the other hand, you see the celestial equator (which, after all, is just an "extension" of Earth's equator) pass overhead through your zenith. The celestial poles, being $90^{\circ}$ from the celestial equator, must then be at the north and south points on your horizon. As the sky turns, all stars rise and set; they move straight up from the east side of the horizon and set straight down on the west side. During a 24-hour period, all stars are above the horizon exactly half the time. (Of course, during some of those hours, the Sun is too bright for us to see them.) \\
+
+What would an observer in the latitudes of the United States or Europe see? Remember, we are neither at Earth's pole nor at the equator, but in between them. For those in the continental United States and Europe, the north celestial pole is neither overhead nor on the horizon, but in between. It appears above the northern horizon at an angular height, or altitude, equal to the observer's latitude. In San Francisco, for example, where the latitude is $38^{\circ}$ N, the north celestial pole is $38^{\circ}$ above the northern horizon. \\
+
+For an observer at $38^{\circ}$ N latitude, the south celestial pole is $38^{\circ}$ below the southern horizon and, thus, never visible. As Earth turns, the whole sky seems to pivot about the north celestial pole. For this observer, stars within $38^{\circ}$ of the North Pole can never set. They are always above the horizon, day and night. This part of the sky is called the north \textbf{circumpolar zone}. For observers in the continental United States, the Big Dipper, Little Dipper, and Cassiopeia are examples of star groups in the north circumpolar zone. On the other hand, stars within $38^{\circ}$ of the south celestial pole never rise. That part of the sky is the south circumpolar zone. To most U.S. observers, the Southern Cross is in that zone. \\
+
+At this particular time in Earth's history, there happens to be a star very close to the north celestial pole. It is called Polaris, the pole star, and has the distinction of being the star that moves the least amount as the northern sky turns each day. Because it moved so little while the other stars moved much more, it played a special role in the mythology of several Native American tribes, for example (some called it the "fastener of the sky"). \\
+
+This article is a derivative work of the creative commons share alike with attribution in [1].
+
+\begin{thebibliography}{9}
+
+[1] Fraknoi, Andrew, David Morrison, and Sidney Wolff. The Sky Above. In Astronomy 2e. Houston, Texas : OpenStax, 2022. \PMlinkexternal{The Sky Above}{https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above} \\ 
+
+\end{thebibliography}</content>
+</record>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="766">
+ <title>boolean-valued function</title>
+ <name>BooleanValuedFunction</name>
+ <created>2009-05-20 14:06:03</created>
+ <modified>2009-05-20 14:06:03</modified>
+ <type>Definition</type>
+ <creator id="513" name="Jon Awbrey"/>
+ <modifier id="513" name="Jon Awbrey"/>
+ <author id="513" name="Jon Awbrey"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.10.Ab"/>
+	<category scheme="msc" code="02.10.Hh"/>
+	<category scheme="msc" code="02.10.Ox"/>
+	<category scheme="msc" code="02.50.Cw"/>
+	<category scheme="msc" code="02.50.Tt"/>
+	<category scheme="msc" code="02.70.Wz"/>
+ </classification>
+ <defines>
+	<concept>boolean function</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="boolean-valued function" alias="characteristic function"/>
+	<synonym concept="boolean-valued function" alias="indicator function"/>
+	<synonym concept="boolean-valued function" alias="predicate"/>
+	<synonym concept="boolean-valued function" alias="proposition"/>
+ </synonyms>
+ <related>
+	<object name="BooleanDomain"/>
+ </related>
+ <preamble>% This is the default PlanetPhysics preamble.
+% as your knowledge of TeX increases, you
+% will probably want to edit this, but it
+% should be fine as is for beginners.
+
+% Almost certainly you want these:
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% Used for TeXing text within EPS files:
+
+\usepackage{psfrag}
+
+% Need this for including graphics (\includegraphics):
+
+\usepackage{graphicx}
+
+% For neatly defining theorems and propositions:
+
+%\usepackage{amsthm}
+
+% Making logically defined graphics:
+
+%\usepackage{xypic}
+
+% There are many more packages, add them here as you need them.
+
+% define commands here</preamble>
+ <content>\PMlinkescapephrase{object}
+\PMlinkescapephrase{Object}
+\PMlinkescapephrase{objects}
+\PMlinkescapephrase{Objects}
+
+A \textbf{Boolean-valued function} is a function of type $f : X \to \mathbb{B}$, where $X$ is an arbitrary set and where $\mathbb{B}$ is a Boolean domain.
+
+A \textbf{Boolean function} (of finite arity $k$) is a Boolean-valued function of type $f : \mathbb{B}^k \to \mathbb{B}$.
+
+In some contexts a Boolean-valued function may be referred to as a \textit{predicate} or a \textit{proposition}.  In other contexts these terms may be used to describe the syntactic entities that denote or express Boolean-valued functions, or that have Boolean-valued functions among their canonical or intended \PMlinkname{models}{Model}.  When necessary to avoid confusion, terms like \textit{propositional expression} or \textit{predicate formula} may be used to distinguish \PMlinkname{signs}{SignRelation} from their objects.</content>
+</record>

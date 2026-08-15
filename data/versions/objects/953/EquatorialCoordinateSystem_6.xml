@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="953">
+ <title>equatorial coordinate system</title>
+ <name>EquatorialCoordinateSystem</name>
+ <created>2025-02-25 06:52:53</created>
+ <modified>2025-02-25 07:42:01</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The equatorial coordinate system is a celestial coordinate system widely used to specify the positions of celestial objects. It may be implemented in spherical or rectangular coordinates, both defined by an origin at the center of Earth, a fundamental plane consisting of the projection of Earth's equator onto the celestial sphere (forming the celestial equator), a primary direction towards the March equinox, and a right-handed convention.[1][2]  \\
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{Equatorial_Coordinate_System.png}
+\caption{1.  Model of the equatorial coordinate system. Declination (vertical arcs, degrees) and hour angle (horizontal arcs, hours) is shown. For hour angle, right ascension (horizontal arcs, degrees) can be used as an alternative. }
+\end{figure}
+
+The equatorial coordinate system is a celestial coordinate system widely used to specify the positions of celestial objects. It may be implemented in spherical or rectangular coordinates, both defined by an origin at the center of Earth, a fundamental plane consisting of the projection of Earth's equator onto the celestial sphere (forming the celestial equator), a primary direction towards the March equinox, and a right-handed convention.[1][2]  \\</content>
+</record>

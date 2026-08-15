@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="742">
+ <title>Superconductivity</title>
+ <name>Superconductivity4</name>
+ <created>2009-05-09 10:32:14</created>
+ <modified>2009-05-09 10:56:51</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="14.20.Dh"/>
+ </classification>
+ <defines>
+	<concept>superconductivity</concept>
+	<concept>high temperature superconductors</concept>
+	<concept>low temperature superconductors</concept>
+	<concept>YBCO</concept>
+	<concept>magnon dispersion</concept>
+	<concept>spin-wave excitations</concept>
+	<concept>Meissner effect</concept>
+	<concept>London penetration depth</concept>
+	<concept>London equation</concept>
+ </defines>
+ <related>
+	<object name="Superfluid"/>
+ </related>
+ <keywords>
+	<term>superconductors</term>
+	<term>superconductivity</term>
+	<term>superfluids</term>
+	<term>London equation</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{Superconductivity-the phenomenon}
+Low-temperature superconductivity was discovered by H. Kammerlingh Onnes in 1911 when he was able for the first time to liquefy Helium gas. The phenomenon of {\em superconductivity} appeared so bizarre--the presence of extremely high electric currents with no apparent heat generation--that the discoverer repeated over and over the experiments with different instruments until he was finally convinced that what he was seeing was not the result of errors from faulty instruments. 
+Superconductivity is a quantum mechanical phenomenon that can be however observed on a macroscopic scale due to long-range coherence of coupled elctron pairs called Cooper pairs.  Furthermore, an electric (DC) current flowing in a loop of superconducting wire can persist `indefinitely' with no power source connected after the wire has been once energized. Interestingly, the high conductivity metals such as copper, silver and gold do not exhibit superconductivity even close to absolute zero, but some ceramic compunds, such as cuprate-perovskites, containing both copper and ytrium (YBCuO) are superconducting even at liquid nitrogen temperature (77$^o$ K)--which is called ``high temperature superconductivity''. On the other hand, tin and niobium in compunds such as $Nb_3Sn$ exhibit low temperature superconductivity at temperatures close to liquid He (4$^o$ K). The latter are at present the most widespread superconductors in use for scientific instruments such as high field NMR spectrometers. The mechanism responsible for high temperature superconductivity is yet to be established but superfluidity and the presence of long-range coherence are accepted as essential ingredients of any plausible explanation of this phenomenon. Moreover, ferromagnets and anti-ferromagnets do not exhibit superconductivity in the crystalline state; an interesting question that remains to be investigated is whether some ferromagnetic glasses may exhibit superconducting properties because such materials exhibit long-range ordering of electron spins and sustain spin-wave excitations at room temperature involving two- and three- magnon dispersion.
+
+\subsection{Meissner effect}
+All superconductors exhibit the Meissner effect which consists in the expelling 
+of a static or varying magetic field from the interior of the superconductor,
+beyond a penetration depth (called {\em London penetration depth}) $\lambda$ of less than about 100 nm. The London equation
+ 
+$$\nabla^2\mathbf{H} = \lambda^{-2} \mathbf{H}\, $$
+
+where $\mathbf{H}$ is the magnetic field and $\lambda$ is the London penetration depth, predicts that the magnetic field in a superconductor decays exponentially from the boundary value that it has on the surface of the superconductor.</content>
+</record>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="17" id="897">
+ <title>X-ray microscope</title>
+ <name>XRayMicroscope</name>
+ <created>2010-11-30 19:25:59</created>
+ <modified>2010-11-30 19:47:13</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>X-ray diffraction</concept>
+	<concept>image reconstruction</concept>
+	<concept>focused X-ray beams</concept>
+	<concept>X-ray Microscope</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="X-ray microscope" alias="X-ray tomograph"/>
+ </synonyms>
+ <keywords>
+	<term>X-ray diffraction</term>
+	<term>image reconstruction</term>
+	<term>focused X-ray beams</term>
+	<term>X-ray Microscope</term>
+ </keywords>
+ <preamble></preamble>
+ <content>An \textbf{X-ray microscope}, or {\em X-ray tomograph} uses electromagnetic radiation in the soft (long wavelength) X-ray region to produce images of  tiny objects, such as living cells. Sir Lawrence Bragg produced some of the first usable X-ray images with his apparatus in the late 1940's. Early X-ray microscopes that were built by Paul Kirkpatrick and Albert Baez used grazing-incidence reflective `optics' to focus the X-rays, which grazed X-rays off parabolic, curved mirrors at a very high angle of incidence, in order to avoid total absorption and scattering of the X-ray beam. 
+
+At the Advanced Light Source (ALS)in Berkeley, CA, ($http://ncxt.lbl.gov$) the X-ray microscope model XM-1 is a complete field soft X-ray microscope operated by the Center for X-ray Optics which is dedicated to various applications in materials sciences and biology, nanoscience, (such as nanomagnetic materials) and  environmental  sciences. XM-1 utilizes an X-ray `lens' to focus X-rays on a CCD, in a
+manner superficially similar to an optical or electron microscope. Unlike the latter two types of earlier microscopes, however, the X-ray beam of long wavelengths is diffracted in the XM-1 by Fresnel zone plates down to 15nm and is thus able to combine moderately high spatial resolution with a sub-100ps time resolution to study ultrafast spin dynamics or fast kinetics. Its successor at ALS ($http://www.cxro.lbl.gov/BL612/$), XM-2, is capable of producing 3-dimensional (3D) tomograms of a single cell. A resolution of 30 nanometer is possible uwith XM-2 using the Fresnel zone plate `lens' which forms the reconstructed, highly-magnified image using the soft x-rays emitted from a synchrotron. Recently, the use of  soft x-rays emitted from laser-produced plasmas rather than synchrotron radiation is becoming more popular.</content>
+</record>

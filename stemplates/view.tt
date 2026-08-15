@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title> [% title %] </title>
+    
+    [% IF no_index %]
+      <meta name="robots" content="noindex" />
+    [% ELSE %]
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    [% END %]
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+
+  </head>
+  <body>
+    [% header %]
+
+    <!-- content and sidebar -->
+    <table WIDTH="100%" CELLPADDING="0" CELLSPACING="0">
+        <tr>
+            <td WIDTH="10%" VALIGN="TOP" ALIGN="LEFT">
+                [% sidebar %]
+            </td>
+            <td VALIGN="TOP" ALIGN="LEFT" >
+                [% content %]
+            </td>
+        </tr>
+    </table>
+    <p>
+
+        Testing some escape charachters for html
+
+        category with a generator has an injective cogenerator"
+
+        now escape ” with &quot;
+    
+    </p>
+  </body>
+</html>

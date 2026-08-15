@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="17">
+ <title>virial theorem</title>
+ <name>VirialTheorem</name>
+ <created>2004-11-19 00:45:17</created>
+ <modified>2004-11-19 00:45:17</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>We start with the moment of inertia about the origin for the system of particles, which is defined as
+
+\begin{equation}\label{first}
+I = \sum_i m_i {r_i}^2
+\end{equation}
+
+Differentiate using the chain rule.  Note that a vector dotted into itself yields its magnitude square.b
+
+\begin{equation}
+\vec{r_i} \cdot \vec{r_i}   = r_i^2
+\end{equation}
+
+This lets us make the connection that
+
+\begin{equation}
+I = \sum_i m_i {r_i}^2 = \sum_i m_i (\vec{r_i} \cdot \vec{r_i})
+\end{equation}
+
+So after differentiating we get
+
+\begin{equation}
+\frac{dI}{ dt} = \sum_i m_i \frac{\vec{dr_i}}{dt}  \cdot \vec{r_i} + \vec{r_i} \cdot \frac{\vec{dr_i}}{dt}
+\end{equation}
+
+Differentiating again yields
+
+\begin{equation}
+\frac{d^2I}{dt^2} = \sum_i m_i \frac{d^2\vec{r_i}}{dt^2} \cdot \vec{r_i} + \frac{\vec{dr_i}}{dt} \cdot \frac{\vec{dr_i}}{dt} + \frac{\vec{dr_i}}{dt} \cdot \frac{\vec{dr_i}}{dt} + \vec{r_i} \cdot \frac{d^2\vec{r_i}}{dt^2}
+\end{equation}
+
+In short form
+
+\begin{equation}
+\frac{d^2I}{dt^2} = 2\, \sum_i (m_i \dot{\vec{r_i}} \cdot \dot{\vec{r_i}} + m_i\vec{r_i} \cdot \ddot{\vec{r_i}})
+\end{equation}
+
+When dealing with a system of particles we found that the Kinetic Energy associated with a system of particles was
+
+\begin{equation}
+T = \frac{1}{2} \sum_i m_i \dot{\vec{r_i}} \cdot \dot{\vec{r_i}}
+\end{equation}
+
+Plugging in T into (6) gives us
+
+\begin{equation}
+\frac{d^2I}{dt^2} = 4T + 2 \, \sum_i m_i\vec{r_i} \cdot \ddot{\vec{r_i}}
+\end{equation}
+
+Next we need to tackle the  $2 \, \sum_i m_i\vec{r_i} \cdot \ddot{\vec{r_i}}$ term.  We first bring in the potential energy through its connection with force.  This part is named the Virial of Claussius.
+
+\begin{equation}
+\vec{f_i} = m_i \ddot{\vec{r_i}} = \nabla_i U
+\end{equation}
+
+This gives us the equality 
+
+\begin{equation}
+ 2 \, \sum_i m_i\vec{r_i} \cdot \ddot{\vec{r_i}} = \sum_i \vec{r_i} \cdot \nabla_i U
+\end{equation}
+
+Now due to Newton's 3rd law that states for every action there is an opposite and equal reaction we have the forces on the ith particle in our system given by
+
+\begin{equation}
+\vec{f_i} = \sum_j \vec{F_ij} \: \: \: where \, i \ne \, j
+\end{equation}
+
+So when we go to sum up all the forces we notice 'force pairing' such that
+ 
+\begin{equation}
+\sum_i \vec{f_i} = \sum_i \sum_{j&gt;i} \vec{F_{ij}} + \vec{F_{ji}}
+\end{equation}
+
+Plugging this into the virial of Claussius yields
+
+\begin{equation}
+\sum_i \vec{f_i} \cdot \vec{r_i} = \sum_i \sum_{j&gt;i} (\vec{F_{ij}} \cdot \vec{r_i} + \vec{F_{ji}} \cdot \vec{r_j})
+\end{equation}
+
+Now we need to take the gradient of the potential energy to get the force.  This is a tedious calculation which can be found here (insert link)
+
+\begin{equation}
+\vec{F_{ij}} = -\nabla_i \frac{G m_i m_j}{r_{ij}} = - \frac{G m_i m_j(\vec{r_i} - \vec{r_j})}{r_{ij}^3}
+\end{equation}
+
+Inserting this into (13) gives
+
+\begin{equation}
+\sum_i \vec{f_i} \cdot \vec{r_i} = \sum_i \sum_{j&gt;i} (- \frac{G m_i m_j(\vec{r_i} - \vec{r_j}) \cdot \vec{r_i}}{r_{ij}^3} - \frac{G m_i m_j(\vec{r_j} - \vec{r_i}) \cdot \vec{r_j}}{r_{ij}^3}
+\end{equation}
+
+The two keys in understanding the above equation is to note that
+
+\begin{equation}
+r_{ij} = \vert \vec{r_i} - \vec{r_j} \vert
+\end{equation}
+
+and that
+
+\begin{equation}
+\vert \vec{r_i} - \vec{r_j} \vert^2 = (\vec{r_i} - \vec{r_j}) \cdot (\vec{r_i} - \vec{r_j})
+\end{equation}
+
+So now we add the numerators of (15) to get
+
+\begin{equation}
+(\vec{r_i} - \vec{r_j}) \cdot \vec{r_i} - (\vec{r_j} - \vec{r_i}) \cdot \vec{r_j} = (\vec{r_i} \cdot \vec{r_i} - \vec{r_i} \cdot \vec{r_j} + \vec{r_j} \cdot \vec{r_j} - \vec{r_i} \cdot \vec{r_j})
+\end{equation}
+
+Next we expand (17) to see that it is equal to (18) and this cancels a power of 2 in the denominator of (15) to finally yeild the expression for potential energy
+
+\begin{equation}
+\sum_i \sum_{j&gt;i} - \frac{G m_i m_j}{r_{ij}} = -U
+\end{equation}
+
+So going back to (8) we see
+
+\begin{equation}
+\frac{d^2I}{dt^2} = 4T - 2U
+\end{equation}
+
+From the energy equation of the system, E = T - U and the key to finish up the virial theorem is to note that the momemt of inertia does not change on average with time ("After one dynamical timescale, the time derivative of I is constant so the second derivative is zero
+
+\begin{equation}
+\frac{d^2I}{dt^2} = 0
+\end{equation}
+
+This leads to 
+
+\begin{equation}
+T = \frac{1}{2}U
+\end{equation}
+
+plugging this into the energy equation gives us the result of the virial theorem which states that the total energy of a stationary system (no significant dynamical evolution) is one-half the potential energy of the system.
+
+\begin{equation}
+E = \frac{1}{2}U - U = - \frac{1}{2}U
+\end{equation}</content>
+</record>

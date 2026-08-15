@@ -195,7 +195,7 @@ sub parseParams {
   #
   else {
     dwarn "mime/multipart params\n";
-	$upload=readMime($req,\%params);
+	  $upload=readMime($req,\%params);
   }
   return({%params},$upload); 
 }

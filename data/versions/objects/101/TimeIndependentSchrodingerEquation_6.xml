@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="101">
+ <title>time independent Schr\"odinger equation</title>
+ <name>TimeIndependentSchrodingerEquation</name>
+ <created>2006-01-04 23:02:45</created>
+ <modified>2006-01-05 00:26:08</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.-w"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Schr\"odinger equation can be a little intimidating the first time you see it.  One wonders where to begin mathematically and what physical situations to work with.  In mechanics, we always seem to begin with simple examples such as a ball dropping from a building, while ignoring things like drag.  So where do we start with the Schr\"odinger equation?
+
+Mathematically, it is an equation we want to solve for a general solution. However, berfore we can find a general solution, we need to define a potential function.  Clearly, we want a potential that means something to us physically and at the same time allows us to find an analytical solution.  Choosing a potential function that is independent of time lets us accomplish this goal.  Also, looking at a 1D potential $V(x)$ first gets the point across quickly.  Using this in the 1D Schr\"odinger equation yields
+
+\begin{equation}
+i \hbar \frac{\partial \Psi(x,t)}{\partial t} = -\frac{\hbar^2}{2m}\frac{\partial^2 \Psi(x,t)}{\partial x^2} + V(x) \Psi(x,t)
+\end{equation}
+
+Using a potential independent of time allows us to use one of a few tools for analyticaly solving partial differential equations, separation of variables.  This means we want solutions to the equation in (1) that have the form 
+
+\begin{equation}
+\Psi(x,t) = \psi(x) f(t) 
+\end{equation}
+
+Notice the change to the lowercase psi to denote we are working independent of time.  Also see how the variables are 'separated'.  This changes our partial differential equation into the ordinary differential equation.  Using the product rule for higher order derivatives, we have
+
+$$i \hbar \left( \frac{d\psi(x)}{d(t)}f(t) + \psi(x)\frac{df(t)}{dt} \right) = \frac{-\hbar^2}{2m}\left ( \frac{d^2\psi(x)}{dx^2}f(t) + 2\frac{d\psi(x)}{dx}\frac{df(t)}{dx} + \psi(x) \frac{d^2 f(t)}{dx^2}\right) + V(x)\psi(x)f(t)$$
+
+Ofcourse
+
+$$ \frac{d\psi(x)}{dt} = 0,\,\,\, \frac{df(t)}{dx} = 0,\,\,\, \frac{d^2 f(t)}{dx^2} = 0 $$
+
+so we have
+
+$$ i\hbar\psi(x)\frac{df(t)}{dt} = -\frac{\hbar^2}{2m}\frac{d^2\psi(x)}{dx^2}f(t) + V(x)\psi(x)f(t)$$
+
+To finish off the setup for separation of variables, we need to get all the functions of t on ones side and x on the other.  Therefore, divide both sides by  $f(t) \psi(x)$
+
+$$ \frac{i\hbar}{f(t)}\frac{df(t)}{dt} = -\frac{\hbar^2}{2m\psi(x)}\frac{d^2\psi(x)}{dx^2} + V(x)$$
+
+If we now take the indefinite integral of each side, then both sides can only be equal if and only if they are equal to the same constant since they are each functions of different variables.  So the right hand side is equal to the constant, C
+
+$$ -\frac{\hbar^2}{2m\psi(x)}\frac{d^2\psi(x)}{dx^2} + V(x) = C $$
+
+Rearrange to get the {\bf time independent Schr\"odinger equation}
+
+$$ -\frac{\hbar^2}{2m}\frac{d^2\psi(x)}{dx^2} + V(x)\psi(x) = \psi(x) C $$</content>
+</record>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="736">
+ <title>algebraic geometry and algebraic topology references list for homological algebra</title>
+ <name>AlgebraicGeometryAndAlgebraicTopologyReferencesListForHomologicalAlgebra</name>
+ <created>2009-05-09 01:43:16</created>
+ <modified>2009-05-09 01:43:16</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>bibliography</term>
+	<term>algebraic topology</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{A Reference (partial) List for Homological Algebra, Algebraic Geometry and Algebraic Topology:}
+
+\begin{thebibliography}{99}
+
+\bibitem{Alex1}
+Alexander Grothendieck. 1971, Rev\^{e}tements \'Etales et Groupe Fondamental (SGA1),
+chapter VI: Cat\'egories fibr\'ees et descente, \emph{Lecture Notes in Math.}
+\textbf{224}, Springer--Verlag: Berlin.
+
+\bibitem{Alex2}
+Alexander Grothendieck. 1957, Sur quelque point d-alg\'{e}bre homologique. , \emph{Tohoku Math. J.}, \textbf{9:} 119-121.
+
+\bibitem{Alex3}
+Alexander Grothendieck and J. Dieudonn\'{e}.: 1960, El\'{e}ments de geometrie alg\'{e}brique., \emph{Publ. Inst. des Hautes Etudes de Science}, \textbf{4}.
+
+\bibitem{ALEXsem1}
+Alexander Grothendieck et al.,1971. S\'eminaire de G\'eom\'etrie Alg\'ebrique du Bois-Marie, Vol. 1--7, Berlin: Springer-Verlag.
+
+\bibitem{ALEXsem2}
+Alexander Grothendieck. 1962. S\'eminaires en G\'eom\'etrie Alg\'ebrique du Bois-Marie, Vol. 2 - Cohomologie Locale des Faisceaux Coh\`erents et Th\'eor\`emes de Lefschetz Locaux et Globaux. , pp.287. (with an additional contributed expos\'e by Mme. Michele Raynaud).
+\PMlinkexternal{Typewritten manuscript available in French}{http://modular.fas.harvard.edu/sga/sga/2/index.html};
+\PMlinkexternal{see also a brief summary in English}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=78}
+
+\bibitem{ALEX57}
+Alexander Grothendieck. 1957, Sur Quelques Points d'alg\`ebre homologique, {\em Tohoku Mathematics Journal}, 9, 119--221.
+
+\bibitem{Alex60to61sga1}
+Alexander Grothendieck et al. \emph{S\'eminaires en G\'eometrie Alg\`ebrique- 4}, Tome 1, Expos\'e 1
+(or the Appendix to Expos\'ee 1, by `N. Bourbaki' for more detail and a large number of results.
+AG4 is \PMlinkexternal{freely available}{http://modular.fas.harvard.edu/sga/sga/pdf/index.html} in French;
+also available here is an extensive
+\PMlinkexternal{Abstract in English}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=158}.
+
+\bibitem{Alex84}
+Alexander Grothendieck, 1984. ``Esquisse d'un Programme'', (1984 manuscript),
+{\em finally published in ``Geometric Galois Actions''}, L. Schneps, P. Lochak, eds.,
+{\em London Math. Soc. Lecture Notes} {\bf 242}, Cambridge University Press, 1997, pp.5-48;
+English transl., ibid., pp. 243-283. MR 99c:14034 .
+
+\bibitem{Alex81}
+Alexander Grothendieck, ``La longue marche in \`a travers la th\'eorie de Galois''
+\emph{= ``The Long March Towards/Across the Theory of Galois''}, 1981 manuscript, University of Montpellier preprint series 1996, edited by J. Malgoire.
+
+\bibitem{LS94}
+Leila Schneps. 1994.
+\PMlinkexternal{The Grothendieck Theory of Dessins d'Enfants}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=163}.
+(London Mathematical Society Lecture Note Series), Cambridge University Press, 376 pp.
+
+\bibitem{DHSL2k}
+David Harbater and Leila Schneps. 2000.
+\PMlinkexternal{Fundamental groups of moduli and the Grothendieck-Teichm\"uller group}{http://www.ams.org/tran/2000-352-07/S0002-9947-00-02347-3/home.html}, \emph{Trans. Amer. Math. Soc}. 352 (2000), 3117-3148.
+MSC: Primary 11R32, 14E20, 14H10; Secondary 20F29, 20F34, 32G15.
+
+\bibitem{JPS1964}
+J. P. Serre. 1964. {\em Cohomologie Galoisienne}, Springer-Verlag: Berlin.
+
+\bibitem{JLV1965}
+J. L. Verdier. 1965. {\em Alg\`ebre homologiques et Cat\'egories deriv\'ees}. North Holland Publ. Cie.
+
+\bibitem{GJ2k7}
+G. Janelidze, 2007, \PMlinkexternal{Descent and Galois Theory}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=168}, Outline of a three-lecture series presented in Belgium, in June 2007.
+
+\bibitem{YL91}
+Yves Laszlo. \PMlinkexternal{Descent Cohomologique}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=167},
+Monograph, Preprint: ``Cohmology Descent theory''; pp.43, (orig. in French).
+
+\bibitem{JSM1993}
+J.S. Milne. 1993,
+\PMlinkexternal{``Algebraic Geometry- Lecture notes for Math 631''}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=22}
+, taught at the University of Michigan, Fall 1993.
+
+\bibitem{AH2k8a}
+Allen Hatcher. 2008a,
+\PMlinkexternal{\emph{Spectral Sequences in Algebraic Topology}}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=95}
+\PMlinkexternal{Ch.1 (J.P.) Serre Spectral Sequence}{http://www.math.cornell.edu/~hatcher/SSAT/SSch1.pdf}
+
+\bibitem{AH2k8b}
+Allen Hatcher. 2008b,
+{Allen Hatcher's Book Projects}{http://www.math.cornell.edu/~hatcher/}
+
+\bibitem{AH2k8b}
+Allen Hatcher. 2008c, \PMlinkexternal{Vector Bundles and K-Theory}{http://www.math.cornell.edu/~hatcher/VBKT/VB.pdf},
+(v. also \PMlinkexternal{Extended Abstract}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=169})
+
+\end{thebibliography}</content>
+</record>

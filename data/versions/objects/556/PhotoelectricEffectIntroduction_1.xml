@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="556">
+ <title>photoelectric effect introduction</title>
+ <name>PhotoelectricEffectIntroduction</name>
+ <created>2009-02-28 22:06:00</created>
+ <modified>2009-02-28 22:06:00</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="30."/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In 1895 Heinrich Hertz observed that ultraviolet light from the sparks of his generator for radio waves he had recently discovered, falling on the negative electrode of his radio wave detector, induced the flow of electricity in the gap between the electrodes. Pursuing the phenomenon in detail, he discovered the photoelectric effect whereby light of sufficiently short wavelength causes the ejection of electrons from a metal surface. 1905 Nobel Laureate Philipp Lenard made improved measurements and demonstrated by determination of their charge to mass ratio that the ejected particles are identical with the electrons that had recently been discovered by 1906 Nobel Laureate J. J. Thomson in experiments with cathode rays.
+
+Crude though the early data were, the qualitative fact of the dependence of the critical cutoff voltage on the wavelength of light emerged with sufficient clarity to induce the young Albert Einstein, working as a patent examiner in the Swiss Patent Office in 1905, to link the effect with the recent idea, introduced by Planck in 1900, that matter radiates its energy in quanta of energy $hv$. He postulated that light delivers its energy to an absorber in quanta with energy $hv$. Thus, if it takes an amount of energy $\phi$ to lift an electron out of the surface and away from its image charge, then the residual kinetic energy $K$ of the ejected electron is
+
+\begin{equation}
+K = hv - \phi
+\end{equation}
+
+1921 Nobel Prize was awarded to Albert Einstein for his discovery of "the law of photoelectric effect". It was not until 1912 that the technical problems of making precision measurements of the photoelectric effect were overcome
+by 1928 Nobel Laureate Sir Owen Wilans Richardson and K. T. Compton (former MIT president) to the point where the Einstein photoelectric equation could be tested to high accuracy and used in precise determinations of Planck's Constant $h = 6.626 \times 10^{-34} J \cdot s = 4.135 \times 10^{-15} eV \cdot s$
+
+
+\smallskip
+
+\textbf{References}
+
+This is a derivative work from [1] a \PMlinkexternal{Creative Commons Attribution-Noncommercial-Share Alike 3.0 work}{http://creativecommons.org/licenses/by-nc-sa/3.0/us/}.
+
+[1] MIT OpenCourseWare, 8.13-14 \PMlinkexternal{Experimental Physics I + II }{http://ocw.mit.edu/OcwWeb/Physics/8-13-14Fall-2007-Spring-2008/CourseHome/index.htm}, Fall 2007 - Spring 2008.</content>
+</record>

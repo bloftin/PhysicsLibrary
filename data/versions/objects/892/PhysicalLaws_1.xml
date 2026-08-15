@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="892">
+ <title>physical laws</title>
+ <name>PhysicalLaws</name>
+ <created>2010-11-07 14:53:01</created>
+ <modified>2010-11-07 14:53:01</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>physical law</concept>
+ </defines>
+ <keywords>
+	<term>law</term>
+	<term>physical law</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{The Laws of Physics}
+
+This is a new contributed topic summarizing the laws of Physics.
+
+\textbf{more to come...}
+
+\subsection{Conservation Laws and Symmetry}
+
+\subsection{Laws of Classical, Newtonian Mechanics}
+
+Newton's first, second and third laws.
+
+\subsection{Principles and Laws of Relativistic Mechanics}
+
+\begin{itemize}
+\item Equivalence of reference systems or coordination frames
+
+\item Constancy of the speed of light, $c$
+
+\item Einstein's Equivalence of gravitational and inertial mass
+\end{itemize}
+
+\subsection{Principle and Laws of Optics}
+
+
+\begin{itemize}
+\item Maupertuis' Principle 
+
+\item Snell's Laws
+
+\item Hamilton's Principle
+
+\item Huygens's Principle of Diffraction 
+\end{itemize}
+
+
+\subsection{Laws of Electromagnetism and Electrodynamics}
+
+\begin{itemize}
+
+\item Charge Conservation
+\item Maxwell's Equations 
+\item xx
+\item xxx
+\item xxxx
+\end{itemize}
+
+
+\subsection{Laws of Quantum Mechanics}
+
+\begin{itemize}
+\item Quantization Laws
+\item First and Second Quantization Principles
+\item Correspondence Principle 
+\item Wave-Particle Duality (de Broglie)
+\item Uncertainty Principle (Heisenberg)
+\item Schr"/odinger's Equations
+\item Hamilton's Principle
+\item Conservation Laws in Spontaneous and Quantum Measurement Processes
+
+\end{itemize}
+
+
+\subsection{Laws of Thermodynamics and Molecular Physics}
+
+First, second and third Principles of Thermodynamics
+
+\subsection{Statistical Mechanics}
+
+\subsection{Laws of Atomic and Nuclear Physics}
+
+
+\textbf{more to come...}</content>
+</record>

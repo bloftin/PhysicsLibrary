@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="198">
+ <title>relation between force and potential energy</title>
+ <name>RelationBetweenForceAndPotentialEnergy</name>
+ <created>2006-07-14 10:32:00</created>
+ <modified>2009-03-06 18:11:50</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="139" name="mdo"/>
+ <classification>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\textit{This is a contributed entry}
+
+\section{Potential Energy and Force acting on a Particle}
+
+Let us asssume from the start that the field's force $\mathbf{F}$ is irrotational, i.e. $\nabla\times\mathbf{F}=\marhbf{0}$, that is, $\nabla\times\mathbf{F}=\marhbf{0} \Leftrightarrow \marhbf{F}=-\nabla U$.
+In another words, the field's force is conservative if and only if it is irrotational. So the conseravation of mechanical energy $dE/dt=d(T+U)/dt=0$ is a consequence of that theorem. Once you impose $\nabla\times\mathbf{F}=\marhbf{0}$, then you are proving the necessary condition for $\marhbf{F}=-\nabla U$. No problem about that. Another consequence about the theorem is that the ``work'' of the field's force is independent of the path described by the particle in its motion. That is, if $\Gamma_1$ and $\Gamma_2$ are two different paths, described by the particle, and joininig its initial and end position on the time interval $[t_1,t_2]$, then the line integrals 
+$\int_{\Gamma_1}\mathbf{F}\cdot d\mathbf{r}=
+\int_{\Gamma_2}\mathbf{F}\cdot d\mathbf{r}$
+must be equal and hence the work of the field's force, as the particle describes a closed path, must be zero, i.e. 
+$\oint\mathbf{F}\cdot d\mathbf{r}=0$. 
+
+The relation between the force, $\mathbf{F}$, acting on a particle, and the potential energy, $U$ of that particle is:
+\begin{equation}
+\mathbf{F} = -\nabla U,
+\end{equation}
+where $\nabla$ is the gradient operator.
+
+\subsection{Derivation}
+The above relationship can be derived from the conservation of energy.  Let $T$ denote the kinetic energy of a particle, and $U$ its potential energy, with $E$ the total energy, given by $E=T+U$.  
+
+Take the total time derivative of $E$, giving
+\begin{equation}
+\frac{dE}{dt} = \frac{dT}{dt} + \frac{dU}{dT}
+\end{equation}
+
+The kinetic energy of a particle is expressed as $T=\frac{1}{2}mv^{2}$, where $m$ is the mass of the particle, and $v$ is the magnitude of the particle's velocity.  Recall that by Newton's second law, $\mathbf{F} = md\mathbf{v}/dt$, where $\mathbf{v}$ is the velocity vector.  Consider, next, the quantity $\mathbf{F}\cdot d\mathbf{r}$, where $\mathbf{r}$ is the position vector of the particle.  Expanding $\mathbf{F}$ in terms of Newton's second law, it is seen that
+\begin{eqnarray*}
+\mathbf{F}\cdot d\mathbf{r} &amp; = &amp; m\frac{d\mathbf{v}}{dt}\cdot\frac{d\mathbf{r}}{dt}dt\\
+&amp; = &amp; m\frac{d\mathbf{v}}{dt}\cdot\mathbf{v}dt\\
+&amp; = &amp; \frac{1}{2}m\frac{d}{dt}(\mathbf{v}\cdot\mathbf{v})dt\\
+&amp; = &amp; d(\frac{1}{2}mv^{2}) = dT.
+\end{eqnarray*}
+Therefore, $dT/dt = \mathbf{F}\cdot d\mathbf{r}/dt$.
+
+It is assumed that the potential energy is a function of time and space \emph{i.e.} $U=U(x_{1},x_{2},x_{3},t)$.  The time derivative of the potential energy can be expanded through the chain rule as
+\begin{equation}
+\frac{dU}{dt} = \frac{\partial U}{\partial t} + \frac{\partial U}{\partial x_{1}}\frac{\partial x_{1}}{\partial t} + \frac{\partial U}{\partial x_{2}}\frac{\partial x_{2}}{\partial t} + \frac{\partial U}{\partial x_{3}}\frac{\partial x_{3}}{\partial t}.
+\end{equation}
+Notice that
+\begin{equation}
+\frac{\partial U}{\partial x_{1}}\frac{\partial x_{1}}{\partial t} + \frac{\partial U}{\partial x_{2}}\frac{\partial x_{2}}{\partial t} + \frac{\partial U}{\partial x_{3}}\frac{\partial x_{3}}{\partial t} = \nabla U\cdot\mathbf{v},
+\end{equation}
+and substitute this result, as well as the expression for the time derivative of kinetic energy back into the original equation for the time derivative of the total energy,
+\begin{eqnarray}
+\frac{dE}{dt} &amp; = &amp; \frac{dT}{dt} + \frac{dU}{dt}\\
+&amp; = &amp; \mathbf{F}\cdot\frac{d\mathbf{r}}{dt} + \frac{\partial U}{\partial t} + \nabla U\cdot\mathbf{v}\\
+&amp; = &amp; (\mathbf{F} + \nabla U)\cdot\mathbf{v} + \frac{\partial U}{\partial t}
+\end{eqnarray}
+If the potential has no explicity time dependence \emph{i.e.} it is dependent upon position, which is dependent on time, then $dU/dt=0$, and the above becomes
+\begin{equation}
+\frac{dE}{dt} = (\mathbf{F} + \nabla U)\cdot\mathbf{v} = 0,
+\end{equation}
+where $dE/dt=0$ arises because of the conservation of energy within a closed system \emph{i.e.} energy does not enter or leave the system.  Therefore, it follows that under the conservation of energy, and the time independence of potential energy,  $\mathbf{F} + \nabla U = 0$, which can be rewritten as
+\begin{equation}
+\mathbf{F} = -\nabla U,
+\end{equation}
+which is the desired relation between the force acting on a particle, and its potential energy.</content>
+</record>

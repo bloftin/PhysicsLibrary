@@ -262,7 +262,7 @@ sub dbSelect {
   elsif (defined($args->{ASC})) {
     $query .= " ASC"; } }
 
-	if (getConfig('dbms') eq 'mysql') {
+	if ((getConfig('dbms') eq 'mysql') or (getConfig('dbms') eq 'MariaDB')) {
 		if ($args->{LIMIT} && $args->{OFFSET}) {
 			$query .= " LIMIT $args->{OFFSET}, $args->{LIMIT}";
 		}

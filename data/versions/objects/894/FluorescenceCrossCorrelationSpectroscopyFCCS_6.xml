@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="894">
+ <title>Fluorescence cross-correlation spectroscopy (FCCS)</title>
+ <name>FluorescenceCrossCorrelationSpectroscopyFCCS</name>
+ <created>2010-11-28 16:35:34</created>
+ <modified>2010-11-28 16:47:57</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>Fluorescence cross-correlation spectroscopy (FCCS)</concept>
+	<concept>Fluorescence correlation spectroscopy (FCS)</concept>
+	<concept>correlated label spectroscopy</concept>
+	<concept>dual labels</concept>
+	<concept>cross-correlation</concept>
+	<concept>FFT fluorescence</concept>
+	<concept>single molecule detection</concept>
+	<concept>ultra-high resolution spectroscopy in solutions and gels</concept>
+	<concept>superimposed confocal images</concept>
+	<concept>confocal microscopy</concept>
+ </defines>
+ <related>
+	<object name="FluorescenceCorrelationSpectroscopyFCS2"/>
+ </related>
+ <keywords>
+	<term>laser spectroscopy</term>
+	<term>fluorescence correlation spectroscopy (FCS)</term>
+	<term>correlated label spectroscopy</term>
+	<term>dual labels</term>
+	<term>cross-correlation</term>
+	<term>FFT fluorescence</term>
+	<term>single molecule detection</term>
+	<term>ultra-high resolution spectroscopy in solutions and gels</term>
+	<term>superimposed confocal images</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\textbf{Fluorescence correlation spectroscopy (FCS)} is a {\em laser spectroscopy technique that monitors correlations between molecules or particle motions in solutions or gels}. 
+
+Fluorescence cross-correlation spectroscopy (FCCS) was introduced by Eigen and Rigler in 1994 and
+experimentally realized by Schwille in 1997.It extends the fluorescence correlation spectroscopy (FCS) procedure
+by introducing high sensitivity for distinguishing fluorescent particles which have a similar diffusion coefficient.
+FCCS uses two species which are independently labelled with two spectrally separated fluorescent probes. These
+fluorescent probes are excited and detected by two different laser light sources and detectors commonly known as
+green and red respectively. Both laser light beams are focused into the sample and tuned so that they overlap to form
+a superimposed confocal observation volume.
+
+\textbf{...more to come}
+
+See also: $http://planetphysics.org/?op=getobj\&amp;from=papers\&amp;id=126$</content>
+</record>

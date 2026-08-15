@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="291">
+ <title>example of generalized coordinates for constrained motion on a horizontal circle</title>
+ <name>ExampleOfGeneralizedCoordinatesForConstrainedMotionOnAHorizontalCircle</name>
+ <created>2008-07-21 00:51:29</created>
+ <modified>2008-07-21 00:51:29</modified>
+ <type>Example</type>
+<parent id="290">generalized coordinates for constrained motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>kinetic energy equation had a typo, forgot the dot on theta</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.Jj"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Let a particle of mass $m$, constrained to move on a smooth horizontal circle of radius $a$, be given an initial velocity $V$, and let it be resisted by the air with a force proportional to the square of its velocity.
+
+Here we have one degree of freedom. Let us take as our coordinate $q_{1}$ the angle $\theta$ which the particle has described about the center of its path in the time $t$.
+
+For the kinetic energy
+
+$$
+T=\frac{m}{2}a^{2}\theta^{2},
+$$
+
+and we have 
+
+$$
+\frac{\partial T}{\partial \dot{\theta}}=ma^{2}\dot{\theta}.
+$$
+
+\quad Our differential equation is
+
+$$
+ma^{2}\ddot{\theta}\delta\theta=-ka^{2}\dot{\theta}^{2}a\delta\theta,
+$$
+
+which reduces to 
+
+$$
+\ddot{\theta}+\frac{k}{m}a\dot{\theta}^{2}=0,
+$$
+
+or 
+
+$$
+\frac{d \dot{\theta}}{dt}+\frac{k}{m}a\dot{\theta}^{2}=0.
+$$
+
+Separating the variables,
+
+$$
+\frac{d \dot{\theta}}{\dot{\theta}^{2}}+\frac{k}{m}a dt=0.
+$$
+
+Integrating, 
+
+$$
+-\frac{1}{\dot{\theta}}+\frac{k}{m} a t= C =-\frac{a}{V}.
+$$
+
+$$
+\frac{1}{\dot{\theta}}=\frac{ma+k V a t}{m V},
+$$
+
+$$
+\frac{d\theta}{dt}=\frac{mV}{ma+kVat},
+$$
+
+$$
+\theta=\frac{m}{ka}\log\left[m+kVt\right]+C,
+$$
+
+$$
+\theta=\frac{m}{ka}\log\left[1+\frac{kVt}{m}\right];
+$$
+
+and the problem of the motion is completely solved.</content>
+</record>

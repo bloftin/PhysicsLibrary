@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="358">
+ <title>quantum nano-automata</title>
+ <name>QuantumNanoAutomata</name>
+ <created>2009-01-09 03:19:56</created>
+ <modified>2009-01-09 03:22:25</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>\begin{definition}: alternatively, as a quantum algebraic topology object, a \emph{quantum automaton} is defined by the
+triplet $(\grp,\emph{H}-\Re_{\grp}, Aut(\grp)$), where $\grp$ is a locally compact \emph{quantum groupoid},
+\emph{H}-$\Re_{\grp}$ are the unitary representations of $\grp$ on rigged Hilbert spaces $\Re_\grp$ of quantum states and quantum operators on \emph{H}, and $Aut(\grp)$ is the transformation, or automorphism, groupoid of quantum transitions.
+\end{definition}</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>quantum nanoautomaton</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="quantum nano-automata" alias="nanorobot"/>
+	<synonym concept="quantum nano-automata" alias="nanodevice"/>
+ </synonyms>
+ <related>
+	<object name="QuantumAutomaton"/>
+ </related>
+ <keywords>
+	<term>quantum nano-automata</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textbf{Description:} A \emph{quantum nano-automaton} or \emph{(quantum nano-computer)}
+is realized as a microphysical nano-device represented by a quantum automaton that is also capable of quantum computation involving, for example, a field of computations specified over a quantum groupoid.
+The latter can be realized as a locally compact (topological) groupoid, topological semi-group;in the more general
+case, it can be defined over a \emph{quantum algebraic category}, quantum algebroid or a higher dimensional algebraic structure (as previously defined in higher dimensional algebra).
+
+
+\textbf{Note:} Quantum nano-automata possess intrinsic, extended quantum symmetries defined by quantum groupoid or quantum algebroid representations</content>
+</record>

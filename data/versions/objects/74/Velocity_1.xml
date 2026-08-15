@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="74">
+ <title>velocity</title>
+ <name>Velocity</name>
+ <created>2005-08-20 12:00:37</created>
+ <modified>2005-08-20 12:00:37</modified>
+ <type>Definition</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="475" name="vip6"/>
+ <author id="17" name="pbruin"/>
+ <classification>
+	<category scheme="msc" code="45.05.+x"/>
+	<category scheme="msc" code="45.40.-f"/>
+	<category scheme="msc" code="45.50.Dd"/>
+ </classification>
+ <defines>
+	<concept>speed</concept>
+ </defines>
+ <related>
+	<object name="Acceleration"/>
+	<object name="Ballistics"/>
+	<object name="Position"/>
+ </related>
+ <keywords>
+	<term>kinematics</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The \emph{velocity} of an object is the time derivative of its position.  It is usually denoted by the symbol $v$ or by $\dot x$ (where $x$ stands for position and the dot for the time derivative).  Velocity can be considered either as a vector quantity or as a scalar quantity.  If there is more than one spatial dimension and the direction of motion is important, the vector quantity $\mathbf{v}$ is used.  In the case of one spatial dimension, it is common to view the velocity as a scalar quantity, $v$ (although it is formally a vector with only one component).  In both cases, if only the magnitude of the velocity is of importance, the \emph{speed} can be used, which is defined as the absolute value of the velocity and is also denoted by $v$, or by $\vert\mathbf{v}\vert$.
+
+The SI unit of velocity is metre per second (m/s).  Other units of velocity are also used, such as kilometres per hour (km/h) and the speed of light, $c=299\,792\,458\;\mathrm{m/s}$.
+
+The definition of velocity can be written as
+$$
+\mathbf{v}\equiv\frac{\mathrm{d}\mathbf{x}}{\mathrm{d}t}.
+$$
+In addition to this definition of velocity as the instantaneous rate of change of the position, the \emph{average velocity}, or the change in position $\Delta\mathbf{x}$ over a specified period of time $\Delta t$, is also used:
+$$
+\mathbf{\bar v}\equiv\frac{\Delta\mathbf{x}}{\Delta t}.
+$$
+
+In classical mechanics, the velocity of an object with mass $m$ enters into the equations for its momentum,
+$$
+\mathbf{p}\equiv m\mathbf{v}
+$$
+and its kinetic energy,
+$$
+E_{\mathrm{kin}}\equiv\frac{1}{2}mv^2.
+$$
+Notice that this last equation is an example where only the speed of the object, and not the direction of motion, is important.
+
+In special (and general) relativity, there are two distinct concepts of velocity.  The first, called \emph{coordinate velocity}, is the rate of change of the position of an object with respect to time \emph{as measured by the observer}:
+$$
+v^\mu\equiv\frac{\mathrm{d}x^\mu}{\mathrm{d}t}.
+$$
+The second, called \emph{proper velocity} or \emph{world velocity}, is the derivative of the position of the object with respect to its \emph{proper time}, $\tau$:
+$$
+u^\mu\equiv\frac{\mathrm{d}x^\mu}{\mathrm{d}\tau}
+$$
+Only the proper velocity is a vector in the full sense of the word: to express the proper velocity in a different coordinate system, all that needs to be done is multiplying the vector on the left by the Jacobian matrix of the coordinate transformation (in the case of Lorentz transformations in special relativity, this is just the Lorentz transformation matrix itself).  In mathematical terms, this is a consequence of the fact that the proper velocity is a tangent vector to the spacetime manifold.  To express the coordinate velocity in a different coordinate system, on the other hand, the relation between coordinate time and proper time in each of the two coordinate systems needs to be taken into account.</content>
+</record>

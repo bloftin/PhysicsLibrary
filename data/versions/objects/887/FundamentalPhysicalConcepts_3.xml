@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="887">
+ <title>Fundamental  physical concepts</title>
+ <name>FundamentalPhysicalConcepts</name>
+ <created>2010-10-31 20:56:18</created>
+ <modified>2010-10-31 21:07:49</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="02.70.-cxx"/>
+	<category scheme="msc" code="02.90.+p"/>
+ </classification>
+ <defines>
+	<concept>fundamental physical concepts</concept>
+	<concept>Physics  axioms</concept>
+	<concept>local interactions</concept>
+	<concept>quantum measurement</concept>
+	<concept>Local Quantum Physics</concept>
+	<concept>Algebraic Quantum Field Theory</concept>
+	<concept>AQFT</concept>
+	<concept>Axiomatic Quantum Field Theory</concept>
+	<concept>HQFT</concept>
+	<concept>fundamental physics concepts</concept>
+	<concept>energy</concept>
+	<concept>field</concept>
+	<concept>wave</concept>
+	<concept>mass</concept>
+	<concept>universal constant</concept>
+	<concept>speed of light</concept>
+	<concept>reference frame</concept>
+	<concept>Lorentz transformations</concept>
+	<concept>Poincare transformations group</concept>
+	<concept>Lorentz group of transformations</concept>
+	<concept>energy-mass law</concept>
+	<concept>quantum fields</concept>
+	<concept>gauhe fields</concept>
+	<concept>non-Abelian physical theories</concept>
+	<concept>motion</concept>
+	<concept>universal constant</concept>
+	<concept>cosmological constant</concept>
+ </defines>
+ <keywords>
+	<term>local interactions</term>
+	<term>quantum measurement</term>
+	<term>Local Quantum Physics</term>
+	<term>Algebraic Quantum Field Theory</term>
+	<term>AQFT</term>
+	<term>Axiomatic Quantum Field Theory</term>
+	<term>HQFT</term>
+	<term>fundamental physics concepts</term>
+	<term>energy</term>
+	<term>field</term>
+	<term>wave</term>
+	<term>mass</term>
+	<term>universal constant</term>
+	<term>speed of light</term>
+	<term>reference frame</term>
+	<term>Lorentz transformations</term>
+	<term>Poincare transformations group</term>
+	<term>Lorentz group of transformations</term>
+	<term>energy-mass law</term>
+	<term>quantum fields</term>
+	<term>gauhe fields</term>
+	<term>non-Abelian physical theories</term>
+	<term>motion</term>
+	<term>universal constant</term>
+	<term>cosmological constant</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Fundamental Concepts in Physics}
+
+\begin{enumerate}
+\item Space, $s$
+\item Time, $t$
+\item Spacetime, $ST$
+\item Reference System or Frame of Reference ($RS$)
+\item Motion
+\item Measurement
+\item Observable
+\item Universal constants: Planck's constant ($h$, the speed of light, $c$, gravitational constant, $G$; hyperfine constant, $e$; cosmological constant, $\lambda$
+\item Matter
+\item Mass
+\item Particle
+\item Elementary Particles and Quarks
+\item Energy: Conservation Laws, Hamiltonian Operator, energy eigenvalues. eigenstates, Lagrangian, Photons/Electromagnetic radiation
+\item Fields: Electromagnetic, magnetic, electrical; nuclear; gravitational
+\item Gravity
+\item String/strings
+\item Oscillatory motion, Oscillation, Periodic and Quasi-periodic motions
+\item Wave
+\item WaveFunction, Hermitian Operator, non-Hermitian operator, Super-operator, Prigogine Time operator
+\item Period of oscillation
+\item Frequency
+\item Oscillation
+\item Force
+\item Reaction force
+\item Interactions: Strong Interactions: quark-quark, quark-pair, quark-gluon, gluon-gluon interactions, etc; Electromagnetic Interactions, Electro-weak interactions, gravitational interactions and gravitons
+\item Potential
+\item virtual particles
+\item Kinetics and Dynamics, Chaotic Dynamics, Quantum Dynamics
+\item System: closed, open, dynamic; classical or Newtonian, mechanical, relativistic,  thermodynamic, quantum; simple, chaotic, complex, super-complex, ultra-complex, hyper-complex
+\item Dynamical System
+\item Entropy, $S$
+\item Mechanical Work
+\item Temperature
+\item Heat, $Q$
+\item Enthalpy, $H$
+\item Partition Function, $Z$
+\end{enumerate}
+
+
+\begin{thebibliography}{99}
+
+\bibitem{IN1}
+Isaac Newton. 1686.\emph{Principles of Natural Philosophy}.
+
+\bibitem{IN2}
+G. Gray, ed. 1888. The complete list of 
+\PMlinkexternal{``Works of Sir Isaac Newton--Isaaci Newtoni Opera quae exstant omnia".}{http://www.archive.org/details/bibliographyofwo00grayrich}. London, UK. (See also: $http://planetphysics.org/?op=getobj\&amp;from=books\&amp;id=177$).
+
+\bibitem{AE1}
+Albert Einstein. 1956. \emph{Relativity Theory}. NL
+
+\bibitem{IN2}
+Dirac, Paul A.M. 1958. \emph{Principles of Quantum Mechanics}. NL
+
+\bibitem{IN2}
+Richard Feynman. 1965. \emph{Lecture Notes in Physics}. NL
+
+\bibitem{IN2}
+Stephen Weinberg. 1994. \emph{Quantum FieldTheory}. NL
+
+\bibitem{ESKGM65}
+Eilenberg, S., and Kelly, G.M., Closed Categories, 
+\emph{Proceedings of the Conference on Categorical Algebra} (La Jolla 1965), Springer Verlag 1966.
+
+\bibitem{ESML45}
+Eilenberg, S., and Mac Lane, S., General Theory of Natural Equivalences, 
+\emph{Trans. Amer. Math. Soc.} 58, 231--294 (1945).
+
+\bibitem{KDM1}
+Kan, D. M., Adjoint Functors, \emph{Trans. Amer. Math. Soc.} 87, 294--329 (1958).
+
+\bibitem{LFW66}
+Lawvere, F. W., Functorial Semantics of Algebraic Theories, 
+\emph{Proc. Nat. Acad. Sc. U.S.A.},\textbf{50}, 869--872 (1963).
+
+\bibitem{LFW66}
+Lawvere, F. W., The Category of Categories as a Foundation for Mathematics, \emph{Proceedings of the Conference on Categorical Algebra} (La Jolla 1965), Springer Verlag. 1966. 
+
+(See also the Review 7332 by J. Isbell, Dec. 1967, Math. Reviews).
+
+\bibitem{LMS65}
+Mac Lane, S., Categorical Algebra, \emph{Bull. Amer. Math. Soc.}, 71, 40--106 (1965).
+\end{thebibliography}
+
+
+\subsection{Remark}
+*1. Unlike Mathematical Axioms that have all terms defined mathematically, the Axioms of Physics, oftentimes called ``Postulates'', are defined in terms of physical concepts that may also relate to measurements and may include basic physical assumptions derived on an experimental and physical-conceptual basis, such as the fundamental axiom of Local Quantum Field Theory, or Axiomatic Quantum Field Theory, also called Algebraic Quantum Field Theory (AQFT), that all quantum measurement and observations involve \emph{local} interactions in spacetime.</content>
+</record>

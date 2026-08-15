@@ -16,7 +16,9 @@ sub showUserActivity {
 		if getConfig('dbms') eq 'pg';
 	($rv,$sth) = dbSelect($dbh,{WHAT=>'uid,username,last,unix_timestamp(now())-unix_timestamp(last) as idle', FROM=>'users', WHERE=>"last is not null and uid != $userinf->{uid}", 'ORDER BY'=>'last', LIMIT=>getConfig('useractivity_max'), DESC=>''})
 		if getConfig('dbms') eq 'mysql';
-	
+	($rv,$sth) = dbSelect($dbh,{WHAT=>'uid,username,last,unix_timestamp(now())-unix_timestamp(last) as idle', FROM=>'users', WHERE=>"last is not null and uid != $userinf->{uid}", 'ORDER BY'=>'last', LIMIT=>getConfig('useractivity_max'), DESC=>''})
+        if getConfig('dbms') eq 'MariaDB';
+
 	my @rows = dbGetRows($sth);
 
 	$list .= "<center><table cellpadding=\"2\">";
@@ -134,6 +136,13 @@ sub userList {
 		2/(1/(users.score/(round((unix_timestamp(now())-unix_timestamp(users.joined))/86400)+1)+1)+1/(round((unix_timestamp(now())-unix_timestamp(users.joined))/86400)+1)) as consistency, 
 		sum(objects.uid is not null) as entries',
 		FROM=>'users left outer join objects ON users.uid = objects.userid', WHERE=>'users.uid > 0', 'GROUP BY' => 'users.uid', 'ORDER BY'=>$sortstmt, OFFSET=>$params->{'offset'}, LIMIT=>$limit}) if getConfig('dbms') eq 'mysql';
+
+	($rv, $sth) = dbSelect($dbh,{WHAT=>'users.uid,
+        users.username,
+        users.joined,                                                                                                           users.score,
+        users.score/(round((unix_timestamp(now())-unix_timestamp(users.joined))/86400)+1) as productivity,
+        2/(1/(users.score/(round((unix_timestamp(now())-unix_timestamp(users.joined))/86400)+1)+1)+1/(round((unix_timestamp(now())-unix_timestamp(users.joined))/86400)+1)) as consistency,                                                             sum(objects.uid is not null) as entries',
+        FROM=>'users left outer join objects ON users.uid = objects.userid', WHERE=>'users.uid > 0', 'GROUP BY' => 'users.uid', 'ORDER BY'=>$sortstmt, OFFSET=>$params->{'offset'}, LIMIT=>$limit}) if getConfig('dbms') eq 'MariaDB';
 
 	my @rows = dbGetRows($sth);
 

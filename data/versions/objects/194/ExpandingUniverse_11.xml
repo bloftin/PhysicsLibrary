@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="11" id="194">
+ <title>expanding universe</title>
+ <name>ExpandingUniverse</name>
+ <created>2006-07-08 02:54:42</created>
+ <modified>2006-07-09 00:43:44</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="98.80.Es"/>
+	<category scheme="msc" code="98.62.Py"/>
+	<category scheme="msc" code="98.80.Bp"/>
+	<category scheme="msc" code="98.80.-k"/>
+ </classification>
+ <keywords>
+	<term>expanding universe Hubble</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A cornerstone of cosmology is the observation of an expanding universe.  In 1929, Hubble published the constant of proportionality $H_0$ that has become to be known as Hubble's constant [1].  The importance of this constant to the expanding universe is seen through Hubble's law, which states that the velocity of a galaxy is proportional to its distance from any point.
+
+$$ \vec{v} = H_0 \vec{r} $$
+
+When Hubble discovered the expansion of the universe, he came up with values of 500 and 530 [km/(s Mpc)].  Although remarkable for the time, astronomers today can measure distance with a lot more accuracy.  The Hubble space telescope (HST) key project used the HST to measure the Hubble constant in multiple ways.  The final combined result of these different methods, yielded a Hubble constant of [3] 
+
+$$H_0 = 72 \pm 8 \,\,\,\, [km s^{-1} Mpc^{-1}] $$
+
+As an example, let us compute the Hubble constant using redshift data from the \PMlinkexternal{SIMBAD Astronomical Database}{http://simbad.u-strasbg.fr/Simbad} and distances from papers involved in the HST key project.  The SINBAD data comes in two formats, either it directly gives the velocity or it reports the redshift value, which is related to a nonrelativistic velocity by
+
+$$ z = \frac{v}{c} $$
+
+A table of selected objects and their NGC galaxy, with their receding velocities and distances is given below
+
+\begin{table}[t]
+\begin{center}
+
+
+\begin{tabular}{cccc}
+\\ [.3ex] \hline \\ [.3ex]
+
+Object (NGC) &amp; SINBAD (v) [km/s] &amp; Distance [Mpc] &amp; Type and Source \\ [0.5ex]
+%heading
+\hline \\ [.3ex]
+925 &amp; 553 &amp; 9.29 &amp; Cepheid variable stars [4] \\
+1326A &amp; 1718 &amp; 18.7 &amp; Cepheid variable stars [5]  \\
+1365 &amp; 1662 &amp; 18.3 &amp; Cepheid variable stars [6] \\
+1425 &amp; 1508.1 &amp; 22.2 &amp; Cepheid variable stars [7]\\
+2090 &amp; 924.6 &amp; 12.3 &amp; Cepheid variable stars [8] \\
+3031 &amp; -42 &amp; 3.63 &amp; Cepheid variable stars [9] \\
+3198 &amp; 663 &amp; 14.5 &amp; Cepheid variable stars [10] \\
+3319 &amp; 742.5 &amp; 14.3 &amp; Cepheid variable stars [11]\\
+3351 &amp; 778.5 &amp; 10.05 &amp; Cepheid variable stars [12] \\
+3621 &amp; 727 &amp; 6.3 &amp; Cepheid variable stars [13] \\
+4321 &amp; 1575 &amp; 16.1 &amp; Cepheid variable stars [14] \\
+4414 &amp; 718.5 &amp; 19.1 &amp; Cepheid variable stars [15] \\
+4535 &amp; 1964.4 &amp; 16 &amp; Cepheid variable stars [16] \\
+4548 &amp; 493.2 &amp; 15.9 &amp; Cepheid variable stars [17] \\
+4725 &amp; 1209.9 &amp; 12.6 &amp; Cepheid variable stars [18] \\
+5457 &amp; 241 &amp; 7.4 &amp; Cepheid variable stars [19] \\
+7331 &amp; 819.6 &amp; 15.1 &amp; Cepheid variable stars [20] \\ [1ex]
+
+\hline
+\end{tabular}
+% Caption does not seem to work
+%\caption{SI Unit Prefixes} 
+\end{center}
+\end{table}
+
+As suggested by Liddle in [2], let us set up a square grid showing Hubble's law and then transform the origin to another point to see that it also follows Hubble's law.  First we set up the grid with equally spaced squares of unit length as shown in the first figure.  If you are able to view the attached spreadsheet, note that the constant used was 0.25 with the the length of each side of the squares being 1.  This means that at a distance of 1, the velocity vector will be of length 0.25 and at a distance of 2, a length of 0.5, etc.
+
+\begin{figure}
+\includegraphics[scale=.8]{figure1a.eps}
+\vspace{20 pt}
+\end{figure}
+
+The next step is to transform our origin to the red dot at (1,1).  This is done by subtracting off the equivalent velocity vector at a distance to (1,1) from all vectors as shown by the pink vectors in the second figure.
+
+\begin{figure}
+\includegraphics[scale=.8]{figure2a.eps}
+\vspace{20 pt}
+\end{figure}
+
+After computing the subtraction (green vectors), we see how it looks like every point is receding away from our new origin.  This is true for any other point we choose.
+
+\begin{figure}
+\includegraphics[scale=.8]{figure3a.eps}
+\vspace{20 pt}
+\end{figure}
+
+* Lots more to come, if you would like to help drop me an email
+
+\subsection{References}
+
+[1]  Hubble, E.,  "A Relation between Distance and Radial Velocity among Extra-Galactic Nebulae."  Proceedings of the National Academy of Sciences, 1929; 15: 168-173.
+
+[2]  Liddle, A., "An Introduction To Modern Cosmology."  2nd Edition.  John Wiley \&amp; Sons, West Sussex, 2003.
+
+[3]  Freedman, W., Madore, B., Gibson, B., "Final Results from the Hubble Space Telescope Key Project to Measure the Hubble constant."  The Astrophysical Journal, 553:47-72, 2001 May 20.
+
+[4]  Silbermann, N., Harding, P., Madore, B.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale VI.  the Cepheids in NGC 925."   The Astrophysical Journal, 470:1-37, 1996 October 10.
+
+[5]  Prossner, C., Kennicutt, R., Bresolin, F.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale XXII.  the Discovery of Cepheids in NGC 1326A."   The Astrophysical Journal, 525:80-104, 1999 November 1.
+
+[6]  Silbermann, N., Harding, P., Ferrarese, L.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale XIV.  the Cepheids in NGC 1365."   The Astrophysical Journal, 515:1-28, 1999 April 10.
+
+[7]  Mould, J., Hughes, S., Stetson, P.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale XXL.  the Cepheid distance to NGC 1425."   The Astrophysical Journal, 528:665-676, 2000 January 10.
+
+[8]  Phelps, R., Sakai, S., Freedman, W.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale IX.  the Discovery of Cepheids and a New Distance to NGC 3198."   The Astrophysical Journal, 500:763-788, 1998 June 20.
+
+[9]  Freedman, W., Hughes, S., Madore, B.  "The Hubble Space Telescope Extragalactic Distance Scale Key Project I.  the Discovery of Cepheids and a New Distance to M81"   The Astrophysical Journal, 427:628-655, 1994 June 1.
+
+[10]  Kelson, D., Illingworth, G., Saha, A.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale XIX.  the Discovery of Cepheids in NGC 2090."   The Astrophysical Journal, 514:614-636, 1999 April 1.
+
+[11]  Sakai, S., Ferrarese, L., Kennicutt, R.  "The Hubble Space Telescope Extragalactic Distance Scale Key Project XXIII.  the Discovery of Cepheids in NGC 3319."   The Astrophysical Journal, 523:540-558, 1999 October 1.
+
+[12] Graham, J., Phelps, R., Freedman, W.  "The Hubble Space Telescope Extragalactic Distance Scale Key Project VII.  the Discovery of Cepheids in the LEO I Group Galaxy NGC 3351."   The Astrophysical Journal, 477:535-559, 1997 March 10.
+
+[13]  Rawson, D., Macri, L., Mould, J.  "The Extragalactic Distance Scale Key Project VIII.  the Discovery of Cepheids and a New Distance to NGC 3621 using the Hubble Space Telescope."   The Astrophysical Journal, 490:517-556, 1997 December 1.
+
+[14]  Ferrarese, L., Freedman, W., Hill, R.  "The Extragalactic Distance Scale Key Project IV.  the Discovery of Cepheids and a New Distance to M100 using the Hubble Space Telescope."   The Astrophysical Journal, 464:568-599, 1996 June 20.
+
+[15]  Turner, A., Ferrarese, L., Saha, A.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale XI.  the Cepheids in NGC 4414."   The Astrophysical Journal, 505:207-229, 1998 September 20.
+
+[16]  Macri, L., Huchra, J., Stetson, P.  "The Extragalactic Distance Scale Key Project XVIII. the Discovery of Cepheids and a New Distance to NGC 4535 using the Hubble Space Telescope."   The Astrophysical Journal, 521:155-178, 1999 August 10.
+
+[17]  Graham, J., Ferrarese, L., Freedman, W.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale XX. the Discovery of Cepheids in the VIRGO Cluster Galaxy NGC 4548."   The Astrophysical Journal, 516:626-646, 1999 May 10.
+
+[18]  Gibson, B., Hughes, S., Stetson, P.  "The Hubble Space Telescope Key Project on the Extragalactic Distance Scale XVII.  the Cepheid distance to NGC 4725."   The Astrophysical Journal, 512:48-64, 1999 February 10.
+
+[19]  Kelson, D., Illingworth, G., Freedman, W.  "The Extragalactic Distance Scale Key Project III. the Discovery of Cepheids and a New Distance to M101 using the Hubble Space Telescope."   The Astrophysical Journal, 463:26-59, 1996 May 20.
+
+[20]  Hughes, S., Mingsheng, H., Hoessel, J.  "The Hubble Space Telescope Extragalactic Distance Scale Key Project X.  the Cepheid distance to NGC 7331."   The Astrophysical Journal, 501:32-53, 1998 July 1.</content>
+</record>

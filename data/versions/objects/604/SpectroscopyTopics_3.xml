@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="604">
+ <title>Spectroscopy topics</title>
+ <name>SpectroscopyTopics</name>
+ <created>2009-03-21 17:22:33</created>
+ <modified>2009-03-21 17:27:36</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="78-XX"/>
+	<category scheme="msc" code="78."/>
+	<category scheme="msc" code="82.53.Kp"/>
+	<category scheme="msc" code="87.64.Hd"/>
+	<category scheme="msc" code="95.75.Fg"/>
+	<category scheme="msc" code="78.90.+t"/>
+ </classification>
+ <defines>
+	<concept>Kramers-Kronig relations</concept>
+	<concept>spectrsocopy</concept>
+	<concept>Polarization</concept>
+	<concept>Poynting vector</concept>
+	<concept>reflection</concept>
+	<concept>refraction</concept>
+	<concept>transmission</concept>
+	<concept>absorption</concept>
+	<concept>Fresnel equations</concept>
+	<concept>electric dipole</concept>
+	<concept>electrical field</concept>
+	<concept>ion-dipole interactions</concept>
+	<concept>dipole-dipole interactions</concept>
+	<concept>dipole-induced dipole interactions</concept>
+	<concept>polarizability</concept>
+	<concept>London dispersion forces</concept>
+	<concept>total intermolecular pair potentials</concept>
+	<concept>optical constants</concept>
+	<concept>extinction coefficient</concept>
+	<concept>refraction coefficients</concept>
+	<concept>reflection coefficient</concept>
+	<concept>coherent spectroscopy</concept>
+	<concept>X-ray spectroscopy</concept>
+	<concept>EXAFS</concept>
+	<concept>neutron spectroscopy</concept>
+	<concept>hyperspectral imaging</concept>
+	<concept>electron energy loss spectroscopy</concept>
+	<concept>Mössbauer spectroscopy</concept>
+	<concept>ESR</concept>
+	<concept>EPR</concept>
+	<concept>NMR spectroscopy</concept>
+ </defines>
+ <keywords>
+	<term>vector calculus and electrostatics</term>
+	<term>Maxwell's equations</term>
+	<term>Kramers-Kronig relations</term>
+	<term>Stokes theorem</term>
+	<term>laplace and Poisson equations</term>
+	<term>vector and scalar potentials</term>
+	<term>Polarization</term>
+	<term>Poynting vector</term>
+	<term>reflection</term>
+	<term>refraction</term>
+	<term>transmission</term>
+	<term>absorption</term>
+	<term>Fresnel equations</term>
+	<term>electric dipoles</term>
+	<term>electrical fields</term>
+	<term>ion-dipole interactions</term>
+	<term>dipole-dipole interactions</term>
+	<term>dipole-induced dipole interactions</term>
+	<term>polarizability</term>
+	<term>London dispersion forces</term>
+	<term>total intermolecular pair potentials</term>
+	<term>optical constants</term>
+	<term>extinction coefficients</term>
+	<term>refraction and reflection coefficients</term>
+	<term>derivation of the Kramers-Kronig relations</term>
+	<term>the Lorentz model</term>
+	<term>displacement</term>
+	<term>AC and DC conductivity</term>
+	<term>skin depth</term>
+	<term>total internal reflection.</term>
+ </keywords>
+ <preamble></preamble>
+ <content>A toopic on spectroscopy topics
+
+\begin{itemize}
+\item Electrical fields
+\item Magnetic fields
+\item Electromagnetic fields and waves
+\item Maxwell's equations
+\item Vector calculus in electrostatics
+\item Vector and scalar potentials
+\item Kramers-Kronig relations
+\item Stokes theorem
+\item Laplace equation
+\item Poisson equation
+\item Polarization
+\item Polarizability
+\item Poynting vector
+\item Reflection spectroscopy (NIR, vis, electron, etc.)
+\item Transmission spectroscopy (vis/UV, NIR/IR, etc.) 
+\item Absorption spectroscopy (vis/UV, NIR/IR, NMR, EPR/ESR, FMR etc.)
+\item Spectroscopy and spectrophotometry 
+\item Coherent spectroscopy of atoms and molecules 
+\item Electron spectroscopy (x-ray photoelectron (XPS), Auger electron spectroscopy (AES), and so on)
+\item EXAFS and X-ray spectroscopy 
+\item Neutron spectroscopy
+\item Mössbauer spectroscopy 
+\item Infrared and Raman spectroscopy
+\item Hyperspectral (NIR, IR, UV/vis) imaging
+\item Fresnel equations
+\item Diffraction equations
+\item Electric dipoles
+\item Dipole-dipole interactions
+\item dipole-induced dipole interactions
+\item Ion-dipole interactions
+\item London dispersion forces,
+\item Total intermolecular pair potentials
+\item Optical constants 
+\item Extinction coefficient 
+\item Refraction and reflection coefficients
+\item Total internal reflection 
+\item Derivation of the Kramers-Kronig relations
+\item Lorentz model 
+\item AC and DC conductivity
+\item Displacement
+\item Skin depth
+\end{itemize}</content>
+</record>

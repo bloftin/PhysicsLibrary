@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="103">
+ <title>Biot-Savart law</title>
+ <name>BiotSavartLaw</name>
+ <created>2006-01-14 18:47:52</created>
+ <modified>2006-01-14 18:48:31</modified>
+ <type>Law</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Gz"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Biot-Savart law is a physical law with applications in both electromagnetism and aerodynamics. As originally formulated, the law describes the magnetic field set up by a steady current density. More recently, by a simple analogy between magnetostatics and fluid dynamics, the same law has been used to calculate the velocity of air induced by vortex lines in aerodynamic systems.
+
+The Biot-Savart law is fundamental to magnetostatics just as Coulomb's law is to electrostatics. The Biot-Savart law follows from and is fully consistent with Ampère's law, much as Coulomb's law follows from Gauss' law.
+
+In particular, if we define a differential element of current
+
+$$I d{\bf l} $$
+
+then the corresponding differential element of magnetic field is
+
+$$ d{\bf B} = \frac{\mu_0}{4 \pi}\frac{I {\bf dl} \times {\bf\hat{r}}}{r^2} $$
+
+where
+
+I is the current, measured in amperes
+
+$\hat{r}$ is the unit displacement vector from the element to the field point and the integral is over the current distribution
+
+This entry is a derivative of the  Biot-Savart law article \PMlinkexternal{from Wikipedia, the Free Encyclopedia}{http://en.wikipedia.org/wiki/Biot-Savart\%27s_Law}.  Authors of the orginial article include: Salsb, Tim Starling, Metacomet, JabberWok and Toby Bartels.  History page of the original is \PMlinkexternal{here}{http://en.wikipedia.org/w/index.php?title=Biot-Savart_law\&amp;action=history}
+
+{\bf References }
+
+[2] Jackson, D.  "Classical Electrodynamics", John Wiley and Sons, Inc., 1975.</content>
+</record>

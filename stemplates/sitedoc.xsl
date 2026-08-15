@@ -1,51 +1,59 @@
-<xsl:template match="sitedoc">
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output method="html" />
+    <xsl:template match="/sitedoc">
+        <html>
+            
+            <body>
+                <div id="container">
+                    
+                    <div id="content">
+                         <table width="0" cellpadding="0" cellspacing="4">
+                            <tr> 
 
- <xsl:call-template name="paddingtable">
-  <xsl:with-param name="content">
-   
-  <xsl:call-template name="clearbox">
-    <xsl:with-param name="title">PlanetPhysics Collaborative Documentation</xsl:with-param>
-	<xsl:with-param name="content">
-		<font size="+1">Welcome</font> to the PlanetPhysics Collaborative Documentation Center!  Until the Documentation Center is ready please refer to <a href="http://planetmath.org/?op=sitedoc">PlanetMath docuemtation</a> since there is a lot of related information.
-<p/>    
+                                <td valign="top">
+                                    <div id="right">
+                                        <div class="box_padding">
+                                            
+                                            <div id="maincontent_box">
 
-  <xsl:for-each select="item">
-	    <xsl:apply-templates select="."/>
-      </xsl:for-each>
+                                                <p>
+                                                     <font size="+3">Page Under Construction!</font>
+                                                </p>
 
-    </xsl:with-param>
+                                                <p>
+			                                        <font size="+1">Welcome</font> to the Physics Library Collaborative Documentation Center!  All of the documentation items here are editable by all Physics Library users, each supervised by an object owner.  All who consider themselves experienced and knowledgeable are encouraged to improve and expand upon the documentation here.
+			                                    </p>
+                                                
+                                                <p>
 
-  </xsl:call-template>
+			                                        <i>Note: Feel free to start new site documentation.  The steps for doing this are : (1) click on the "create new" link below and fill in the metadata and data for the initial document on the next page, (2) save the object and click "publish" for it on your "collaborations" page (3) notify the administration that you'd like to make your object a site-wide documentation object using the <a href="mailto:{//globals/feedback_email}">feedback email</a>.  Pending approval, the document will then show up on this page. </i>
 
-  </xsl:with-param>
-  
- </xsl:call-template>
-
-</xsl:template>
-
-<xsl:template match="item">
-
-  <xsl:value-of select="series/@ord"/>.
-  
-  <a>
-    <xsl:attribute name="href"> 
-	 <xsl:value-of select="object/@href"/>
-	</xsl:attribute>
-
-	 <!--<xsl:value-of select="object/@title"/>-->
-     <xsl:apply-templates select="title/mathytitle"/>
-  </a>	
-  
-	contributed by 
-	
-  <a>
-    <xsl:attribute name="href">  
-	 <xsl:value-of select="user/@href"/>
-	</xsl:attribute>
-
-	<xsl:value-of select="user/@name"/>
-  </a>
-  
-  <br/>
-
-</xsl:template>
+			                                    </p>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td>
+                                    <div id="latest_padding">
+                                        <div id="latest">
+                                            <xsl:copy-of select="items/node()" />
+                                        </div>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <tr> 
+                                
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- end container -->
+            </body>
+        </html>
+    </xsl:template>
+</xsl:stylesheet>

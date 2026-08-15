@@ -84,7 +84,7 @@ sub printclass {
 		if ($curns ne $row->{ns}) {
 			$nsprintable =~ s/ /&nbsp;/;
 			if (nb($nslink)) {
-				$html .= "<td valign=\"top\"><font size=\"$fs\"><a target=\"planetphysics_popup\" href=\"$nslink\">$nsprintable</a>:&nbsp;</font></td>";
+				$html .= "<td valign=\"top\"><font size=\"$fs\"><a target=\"physicslibrary_popup\" href=\"".getConfig("main_url")."/?op=pacsbrowse\">$nsprintable</a>:&nbsp;</font></td>";
 			} else {
 				$html .= "<td><font size=\"$fs\">$nsprintable:&nbsp;</font></td>";
 			}
@@ -97,7 +97,7 @@ sub printclass {
 			my $fss = $fs-1;
 			$desc = "<font size=\"$fss\">(".getHierarchicalMscComment($row->{cat}).")</font>";
 		}
-		$html .= "<td><font size=\"$fs\"><a href=\"".getConfig("main_url")."/?op=mscbrowse&amp;from=$tbl&amp;id=$row->{cat}\">$row->{cat}</a> $desc</font></td>";
+		$html .= "<td><font size=\"$fs\"><a href=\"".getConfig("main_url")."/?op=pacsbrowse&amp;from=$tbl&amp;id=$row->{cat}\">$row->{cat}</a> $desc</font></td>";
 		$html .= "</tr>";
 	}
 

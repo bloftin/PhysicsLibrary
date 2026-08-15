@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="142">
+ <title>Rotational Inertia of a Solid Sphere</title>
+ <name>RotationalInertiaOfASolidSphere</name>
+ <created>2006-03-27 21:02:11</created>
+ <modified>2006-03-27 23:11:56</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Rotational Inertia of a Solid Sphere" alias="moment of inertia of a Solid Sphere"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The rotational inertia or moment of inertia of a solid sphere rotating about a diameter is 
+
+\begin{equation}
+I = \frac{2}{5}M R^2
+\end{equation}
+
+This can be shown in many different ways, but here we have chosen integration in spherical coordinates to give the reader practice in this coordinate system.  If we choose an axis such as the z axis, then we just have one moment of inertia given by
+
+\begin{equation}
+I = \int {z^2 dm}
+\end{equation}
+
+It is important to understand this distinction and the more general case about an arbitrary axis is handled by the inertia tensor.  Since we have chosen z as our axis of rotation, then z in formula (2) is the distance from dm (dV) to the z axis.  In the figure below this is shown as the purple line.  
+
+\begin{figure}
+\includegraphics[scale=.6]{InertiaSphere.eps}
+\caption{Rotational inertia of a solid sphere rotating about a diameter, z}
+\end{figure}
+
+Then from spherical coordiantes we obtain z through
+
+$$ z = r \sin \theta $$
+
+leaving us with the integral
+
+$$ I = \int {r^2 \sin^2 \theta dm} $$
+
+Assuming a constant density throughout the sphere converts the infinitesimal mass dm to
+
+$$ dm = \rho dV $$
+
+and in spherical coordinates the infinitesmal volume dV is given by
+
+$$ dV = r^2 \sin \theta d\theta d\phi $$
+
+giving the final function to integrate as 
+
+$$ I = \rho \int_{0}^{2\pi} \int_{0}^{\pi} \int_0^R { r^4 \sin^3 \theta \, \, dr d\theta d\phi} $$
+
+Integrating the r term is simply
+
+$$ I = \frac{R^5 \rho}{5}  \int_{0}^{2\pi} \int_{0}^{\pi} { \sin^3 \theta \, \, d\theta d\phi} $$
+
+The $\theta$ term is a little more involved and we substitude in the trigonometric relation
+
+$$ \sin^2 \theta = (1 - \cos^2 \theta) $$
+
+and the integrand for the $\theta$ term becomes
+
+$$ \int_{0}^{\pi} { (\sin \theta -  \cos^2 \theta \sin \theta \, \, d\theta )} $$
+
+Using the technique of u substitution to solve this 
+
+$$ u = \cos \theta $$
+$$ du = -\sin \theta d\theta $$
+$$ d\theta = \frac{-du}{\sin \theta} $$
+
+so
+
+$$ \int_{0}^{\pi} { \sin \theta \, d\theta + u^2 \, du } $$
+
+completing the integration yields
+
+$$ I = \frac{4 R^5 \rho}{15}  \int_{0}^{2\pi} { d\phi} $$
+
+Finally, the $\phi$ term integrates to $2 \pi$ so
+
+\begin{equation}
+I = \frac{8 \pi R^5 \rho}{15}
+\end{equation}
+
+Using the simple formula for density
+
+$$ \rho = M/V $$
+
+and we know that the volume of a sphere is
+
+$$  V = \frac{4}{3} \pi R^3 $$
+
+plugging these into (3) gives us our original equation in (1)
+
+$$ I = \frac{2}{5}M R^2 $$</content>
+</record>

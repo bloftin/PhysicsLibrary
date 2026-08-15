@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="211">
+ <title>Ballistics (2D)</title>
+ <name>Ballistics</name>
+ <created>2006-07-25 16:23:33</created>
+ <modified>2009-03-06 17:48:41</modified>
+ <type>Definition</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="475" name="vip6"/>
+ <author id="475" name="vip6"/>
+ <author id="154" name="shmulik"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <related>
+	<object name="velocity"/>
+	<object name="acceleration"/>
+	<object name="Position"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Ballistics is the study of the dynamics and kinematics of a projected object.
+
+ Let's define first a horizontal axis $x$ and a vertical axis $y$.
+
+
+\subsection{Horizontal Motion}
+
+  This will be considered first. Assuming that the drag force is insignificant, the sum of forces along the $x$ axis $\Sigma F_x$ equals zero, and so the acceleration along the axis $a_x$ is also insignificant.  Thus, the velocity along the the axis $v_x$ is constant and equal to the projection velocity $V_{i,x}$. When dealing with a constant velocity motion the following kinematic function is relevant:
+\[ x=x_i+v_x \cdot \Delta t \rightarrow x=x_i+ \Delta t\cdot V_i \cos \alpha \]
+($x_i$-the initial position, $V_x$-the velocity along the axis, $\Delta t$-the duration)
+
+\subsection{Vertical Motion:}
+
+The motion along the $y$ axis is under the effect of gravity $(mg)$ when $m$ is the object's mass and $g$ is the the free fall acceleration on earth. $\rightarrow \Sigma F_y=mg$
+
+Because the force along the $y$ axis is constant the motion along the axis is evenly acclerated and so the place of the object as a function of time $y(t)$ is: \[ y= y_i+\Delta t \cdot V_i,y + 0.5g\Delta t^2 \rightarrow y= y_i+\Delta t \cdot V_i\sin\alpha + 0.5g\Delta t^2 \]
+
+\subsection{2D Motion:}
+
+The merging of the functions of place-time $x(t),y(t)$ produces the route equation $y(x)$: \[ y= y_i + (x-x_i) V_i \tan\alpha + \frac {g(x-x_i)^2}{2v_i^2 \cos^2\alpha} \]</content>
+</record>

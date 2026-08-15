@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="941">
+ <title>Constellations on the Ecliptic</title>
+ <name>ConstellationsOnTheEcliptic</name>
+ <created>2025-02-23 18:35:15</created>
+ <modified>2025-02-23 18:35:15</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>paragraph breaks were forward slashes so needed to change to back slashes</comment>
+ <author id="1" name="bloftin"/>
+ <defines>
+	<concept>ecliptic</concept>
+ </defines>
+ <related>
+	<object name="CelestialSphere"/>
+ </related>
+ <preamble>         % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+\usepackage{caption}
+% define commands here</preamble>
+ <content>As Earth revolves around the Sun, we sit on "platform Earth" and see the Sun moving around the sky. The circle in the sky that the Sun appears to make around us in the course of a year is called the ecliptic. This circle (like all circles in the sky) goes through a set of constellations. The ancients thought these constellations, which the Sun (and the Moon and planets) visited, must be special and incorporated them into their system of astrology. Note that at any given time of the year, some of the constellations crossed by the ecliptic are visible in the night sky; others are in the day sky and are thus hidden by the brilliance of the Sun.  \\
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{constellations.jpg}
+\caption{1.\textbf{ Constellations on the Ecliptic.}}
+\end{figure}
+
+As the months go by and we look at the Sun from different places in our orbit, we see it projected against different places in our orbit, and thus against different stars in the background (Figure and Table) or we would, at least, if we could see the stars in the daytime. In practice, we must deduce which stars lie behind and beyond the Sun by observing the stars visible in the opposite direction at night. After a year, when Earth has completed one trip around the Sun, the Sun will appear to have completed one circuit of the sky along the ecliptic.
+
+\begin{table}[]
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Constellation on the Ecliptic} &amp; \textbf{Dates When the Sun Crosses It}  \\ \hline
+Capricornus       &amp; January 21 - February 16 \\ \hline
+Aquarius            &amp;  February 16 - March 11 \\ \hline
+Pisces                &amp;  March 11 - April 18   \\ \hline
+Aries                  &amp;  April 18 - May 13   \\ \hline
+Taurus                &amp;  May 13 - June 22   \\ \hline
+Gemini                &amp;  June 22 - July 21   \\ \hline
+Cancer               &amp;  July 21 - August 10   \\ \hline
+Leo                     &amp;  August 10 - September 16   \\ \hline
+Virgo                   &amp;  September 16 - October 31   \\ \hline
+Libra                   &amp;  October 31 - November 23   \\ \hline
+Scorpius             &amp;  November 23 - November 29   \\ \hline
+Ophiuchus          &amp;  November 29 - December 18   \\ \hline
+Sagittarius          &amp;  December 18 - January 21   \\ \hline
+\end{tabular}
+\end{table} 
+
+The ecliptic does not lie along the celestial equator but is inclined to it at an angle of about $23.5^{\circ}$. In other words, the Sun's annual path in the sky is not linked with Earth's equator. This is because our planet's axis of rotation is tilted by about $23.5^{\circ}$ from a vertical line sticking out of the plane of the ecliptic (Figure 2). Being tilted from "straight up"  is not at all unusual among celestial bodies; Uranus and Pluto are actually tilted so much that they orbit the Sun "on their side." //
+
+The inclination of the ecliptic is the reason the Sun moves north and south in the sky as the seasons change. In Earth, Moon, and Sky, we discuss the progression of the seasons in more detail. //
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{ecliptic.jpg}
+\caption{2.\textbf{ The Celestial Tilt.} The celestial equator is tilted by $23.5^{\circ}$ to the ecliptic. As a result, North Americans and Europeans see the Sun north of the celestial equator and high in our sky in June, and south of the celestial equator and low in the sky in December.}
+\end{figure}
+
+
+This article is a derivative work of the creative commons share alike with attribution in [1].
+
+\begin{thebibliography}{9}
+
+[1] Fraknoi, Andrew, David Morrison, and Sidney Wolff. The Sky Above. In Astronomy 2e. Houston, Texas : OpenStax, 2022. \PMlinkexternal{The Sky Above}{https://openstax.org/books/astronomy-2e/pages/2-1-the-sky-above} \\
+
+\end{thebibliography}</content>
+</record>

@@ -27,7 +27,7 @@ sub dispatch {
   my $upload = shift || {};
   
   my $content = '';
-
+  dwarn "Dispatch handler_hr: $params";
   if (defined $handler_hr->{$params->{op}}) {
     $content = &{$handler_hr->{$params->{op}}}($params, $userinf, $upload);
   }
@@ -78,8 +78,8 @@ sub dispatch {
 
   # msc stuff
   #
-  'mscsearch' => \&mscSearch,
-  'mscbrowse' => \&mscBrowse,
+  'pacssearch' => \&pacsSearch,
+  'pacsbrowse' => \&pacsBrowse,
  
   # user info
   #
@@ -150,7 +150,7 @@ sub dispatch {
   # polls
   # 
   'vote' => \&vote,
-#  'viewpoll' => \&getObj,  
+  'viewpoll' => \&getObj,  
   'viewpolls' => \&viewPolls,
   'newpoll' => \&addPoll,
   'getpoll' => \&getPoll,
@@ -237,6 +237,7 @@ sub dispatch {
   'about' => \&getAbout,
   'feedback' => \&getFeedback,
   'sitedoc' => \&siteDoc,  # collaborative site docs
+  'templatetestperl' => \&templateTestPerl,  # A page dedicated to Template Toolkit testing
 
   # misc
   #

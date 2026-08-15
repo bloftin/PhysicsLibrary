@@ -20,7 +20,7 @@ sub getNewUser {
 
 	if (!defined($params->{'verify'})) {
 		$boxtitle = "Create New User Account";
-		$template = new Template("new_user.html");
+		$template = new TemplateNS("new_user.html");
 	} 
 	
 	# we just need to verify the information they submitted, then proceed 
@@ -29,7 +29,7 @@ sub getNewUser {
 	else {
 		$error = checkNewUserInfo($params);
 		if ($error eq '') {
-			my $body = new Template("newuseremail");
+			my $body = new TemplateNS("newuseremail");
 			my $hostname = $addrs->{'main'};
 			my $hash = makeHash($params->{"user"},$params->{"email"});
 			#$hash =~ s/ /%20/;
@@ -40,12 +40,12 @@ sub getNewUser {
 			sendMail($params->{email},$body->expand());
 			# TODO: figure out a way to see if the mail bounces and return error
 			$boxtitle = "Mail Sent";
-			$template = new Template("sentmail.html");
+			$template = new TemplateNS("sentmail.html");
 			$template->setKey('email', $params->{"email"});
 		}
 		else {
 			$boxtitle = "Create New User Account";
-			$template = new Template("new_user.html");
+			$template = new TemplateNS("new_user.html");
 			$template->setKeys('error' => $error, 'user' => $params->{'user'}, 'email' => $params->{'email'});
 		}
 	}
@@ -63,7 +63,7 @@ sub getActivate {
 		return(clearBox("Error",$error));
 	}
 	if (!defined($params->{"setpass"})) {
-		my $tobj = new Template("activate.html");
+		my $tobj = new TemplateNS("activate.html");
 
 	$tobj->setKey("hash", $params->{"hash"});
 		$html = clearBox("Activate Account",$tobj->expand());
@@ -71,10 +71,10 @@ sub getActivate {
 	else {
 		$error = activateAccount($dbh,$params->{"hash"},$params->{"p1"},$params->{"p2"});
 		if ($error eq '') {
-			$html = clearBox("Success",(new Template("success.html"))->expand());
+			$html = clearBox("Success",(new TemplateNS("success.html"))->expand());
 		}
 		else {
-			my $tobj = new Template("activate.html");
+			my $tobj = new TemplateNS("activate.html");
 
 		$tobj->setKey("hash", $params->{"hash"});
 		#BEN - there is a problem here;
@@ -183,8 +183,8 @@ sub checkHash {
 # dwarn "user is $ticket{'user'} email is $ticket{'email'}";
  
 	my $hash = sha1_hex(join(':',@ticket{qw(user email)}),SECRET);
- dwarn "checking, hash is $hash";
- dwarn "ticket hash is $ticket{'hash'}";
+ 	dwarn "checking, hash is $hash";
+ 	dwarn "ticket hash is $ticket{'hash'}";
 	return $error unless ($ticket{"hash"} eq $hash);
 	return ''; 
 }
@@ -197,7 +197,7 @@ sub activateAccount {
 	
 	my $error = checkHash($hash);
 	my $preamble_file = getConfig('default_preamble');
-	my $defpreamble = (new Template($preamble_file))->expand();
+	my $defpreamble = (new TemplateNS($preamble_file))->expand();
 
 	# TODO: this function needs to be nicified in many ways, and have the 
 	# actual database insert split off into another sub.

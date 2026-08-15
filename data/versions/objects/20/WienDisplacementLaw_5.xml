@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="20">
+ <title>wien displacement law</title>
+ <name>WienDisplacementLaw</name>
+ <created>2004-11-20 00:53:11</created>
+ <modified>2004-11-20 02:37:58</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>The Wien Displacement Law can be used to find the peak wavelength of a blackbody at a given temperature.  Planck's Radiation Law gives us a function of $\lambda$ and temperature so we can find the maximum of this function and hence the peak wavelength emitted.
+
+So for a given T we have
+
+\begin{equation}
+f(\lambda) = \frac{2 \pi c^2 h}{\lambda^5} \, \frac{1}{e^{hc/ \lambda kT} - 1}
+\end{equation}
+  
+To find the peak of this function differentiate with respect to $\lambda$ and set it equal to 0 
+
+\begin{equation}
+\frac{df(\lambda)}{d\lambda} = 0
+\end{equation}
+
+Use the product rule to carry out this differentiation
+
+\begin{equation}
+0 = \frac{-10 \pi c^2 h}{\lambda^6} \, \frac{1}{e^{hc/\lambda kT} - 1} +  (\frac{2 \pi c^2 h}{\lambda^5})\frac{d}{d\lambda}(e^{hc/\lambda kT} - 1)^{-1}
+\end{equation}
+
+Next use the chain rule to get
+
+\begin{equation}
+0 = \frac{1}{\lambda^6} \, \frac{-10 \pi c^2 h}{e^{hc/\lambda kT} - 1} +  (\frac{2 \pi c^2 h}{\lambda^5}) \, (-(e^{hc/\lambda kT} - 1)^{-2}) \,   \frac{d}{d\lambda}(e^{hc/\lambda kT} - 1)
+\end{equation}
+
+Apply the chain rule again
+
+\begin{equation}
+0 = \frac{1}{\lambda^6} \, \frac{-10 \pi c^2 h}{e^{hc/\lambda kT} - 1} +  (\frac{2 \pi c^2 h}{\lambda^5}) \, (-(e^{hc/\lambda kT} - 1)^{-2}) \,   (-\frac{hc}{\lambda^2 kT}e^{hc/\lambda kT})
+\end{equation}
+
+Multiply both sides by $\lambda^6 (e^{hc/\lambda kT} - 1)$
+
+\begin{equation}
+0 = -10 \pi c^2 h +  (\frac{2 \pi c^3 h^2}{\lambda kT}) \, \frac{e^{hc/\lambda kT}}{(e^{hc/\lambda kT} - 1)}
+\end{equation}
+
+Pull the e term into the denominator and divide out $2 \pi c^2h$ to get
+
+\begin{equation}
+\frac{ch}{\lambda kT(1 - e^{-hc/\lambda kT})} - 5 = 0
+\end{equation}
+
+This leaves us with a transendental function, which must be solved numerically
+
+Set $\alpha = \frac{ch}{\lambda kT}$ and substitute into above
+
+\begin{equation}
+\frac{\alpha}{(1 - e^{-\alpha})} - 5 = 0
+\end{equation}
+
+After solving this equation for $\alpha$, the result yields Wien's Law
+
+\begin{equation}
+\alpha = \frac{ch}{\lambda kT}
+\end{equation}
+
+rearranging
+
+\begin{equation}
+\lambda = \frac{hc}{\alpha k} \, \frac{1}{T}
+\end{equation}
+
+A simple way to find $\alpha$ is to use Newton's Method.  This can be done by hand or with your favorite numerical program.  Some matlab routines have been attached to see how to get $\alpha$.  
+
+To use Newton's Method we need we rewrite and arrange (8) to get
+
+\begin{equation}
+F(\alpha) = \alpha - 5 + 5e^{-\alpha}
+\end{equation}
+
+We also need the first derivative of this so
+
+\begin{equation}
+\frac{dF(\alpha)}{d\alpha} = 1 - 5e^{-\alpha}
+\end{equation}
+
+Then through iteration we can converge on the solution
+
+\begin{equation}
+\alpha_{i+1} = \alpha_i - \frac{F(\alpha_i)}{dF(\alpha_i)}
+\end{equation}
+
+For our accuracy needs we choose $1\mathsf{x}10^{-8}$ so we stop iterating when
+
+\begin{equation}
+|\alpha_{i+1} - \alpha_i| &lt; 1\mathsf{x}10^{-8}
+\end{equation}
+
+In matlab you can run \PMlinktofile{WienConstant.m}{WienConstant.m} which depends on \PMlinktofile{fWien.m}{fWien.m} and \PMlinktofile{dfWien.m}{dfWien.m} and will get a value for $\alpha$. So we see
+
+\begin{equation}
+\alpha = 4.9651142
+\end{equation}
+
+Plugging this value into (10) and evaluating the other constants yields the Wien Displacement Law, which gives the peak wavelength for a given temperature of a blackbody.
+
+\begin{equation}
+\lambda = \frac{2.897 \mathsf{x} 10^{-3} \, [Km]}{T}
+\end{equation}
+
+Note that the temperature must be in Kelvin [K] and then $\lambda$ will have units of meters [m].</content>
+</record>

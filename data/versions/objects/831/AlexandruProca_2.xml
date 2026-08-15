@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="831">
+ <title>Alexandru Proca</title>
+ <name>AlexandruProca</name>
+ <created>2010-02-14 10:23:18</created>
+ <modified>2010-02-14 10:32:32</modified>
+ <type>Biography</type>
+<parent id="386">biographies on PlanetPhysics-org</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <related>
+	<object name="BiographiesOnPlanetPhysicsOrg"/>
+ </related>
+ <keywords>
+	<term>meson theory</term>
+	<term>theoretical physics</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Alexandru Proca}
+
+\emph{Born} on October 16th, 1897(1897--10--16) in Bucharest, Romania
+\emph{Deceased} on December 13th, 1955 (aged 58)in Paris, France
+Citizenship 	France
+Nationality 	Romania
+Fields: 	Theoretical Physicist 
+Alma mater 	Paris-Sorbonne University in France
+Doctoral advisor : Louis de Broglie
+Known for: 	Proca's equations
+Notable awards: Honorary Member of the Romanian Academy of Arts and Sciences, elected post mortem in 1990.
+
+\subsection{Introduction}
+Alexandru Proca (October 16, 1897, Bucharest-- December 13, 1955, Paris) was a Romanian theoretical physicist. He developed the meson theory of nuclear forces and the mathematical physics equations that bear his name (Proca's equations). He became a French citizen in 1931.
+
+\subsection{Contents}
+    * 1 Education
+          o 1.1 High--school and college
+          o 1.2 Ph.D. studies
+    * 2 Scientific achievements
+    * 3 Notes
+    * 4 References
+    * 5 External links
+
+
+\subsection{Education}
+\emph{High--school and college}
+
+In Romania, he was one of the eminent students of the school ``Gheorghe Lazar'' and the Polytechnic School in Bucharest. With a very strong interest in theoretical physics, he went to Paris where he graduated in Science from the Paris-Sorbonne University, receiving from the hand of Marie Curie his diploma of the Bachelor of Science degree. Then, he was employed as a researcher, physicist at the Radium Institute in Paris in 1925.
+
+\emph{Ph.D. studies}
+
+He carried out Ph.D. studies in theoretical physics under the supervision of Nobel laureate Louis de Broglie. He defended successfully his Ph.D. thesis entitled {\em ``On the relativistic theory of Dirac's electron''} in front of an examination committee chaired by the Nobel laureate Jean Perrin.
+
+\subsection{Scientific achievements}
+
+He also studied and worked with Nobel laureates Niels Bohr and Marie Curie,[1]. Alexandru Proca became to be known as one of the most influential Romanian theoretical physicists of the last century [2], having developed the meson theory of nuclear forces ahead of the first reports of Nobel laureate Hideki Yukawa. Proca's equations for the vectorial mesonic field were employed by Yukawa who subsequently received the Nobel Prize for an explanation of the nuclear forces by using this field.
+
+\subsection{References}
+
+1. Romanian review, Volume 30, Distributed by Europolis Pub., 1976, p.105 $http://books.google.com/books?id=K6viAAAAMAAJ\&amp;cd=1$ 
+
+2. Brown, Laurie M.; Rechenberg, Helmut (1996), 
+\PMlinkexternal{The origin of the concept of nuclear forces, CRC Press, p.185, ISBN 9780750303736}{http://books.google.com/books?id=IJPTgDTOmgMC}.
+ 
+3. Poenaru, Dorin N.; Calboreanu, Alexandru (2006). ``Alexandru Proca (1897--1955) and his equation of the massive vector boson field''. Europhysics News 37 (5): 24--26. doi--10.1051;epn--2006504.
+ 
+4. Poenaru, Dorin N. (2005). \PMlinkexternal{``Alexandru Proca (1897--1955) the Great Physicist''}{http://arxiv.org/abs/physics/0508195}. Retrieved 2009--12--19.
+
+    5. Brief History of IFIN--HH: PRECURSORS Hon. Acad. Alexandru Proca (1897-- 1955) and Acad. Prof. Dr. Horia Hulubei (1896--1972).
+
+\subsection{Note}
+This entry is based in part on the content of a different GNU Licensed \PMlinkexternal{website by the same author}{http://en.wikipedia.org/wiki/Alexandru_Proca} that may be subsequently even further modified, altered, or updated in its contents.</content>
+</record>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="110">
+ <title>the theory of heat radiation</title>
+ <name>TheoryOfHeatRadiation</name>
+ <created>2006-02-01 03:17:45</created>
+ <modified>2006-03-03 11:33:01</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="RadiationAtThermodynamicEquilibriumKirchhoffsLawBlackRadiation"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Theory of Heat Radiation is an attempt to make the translated work of Max Planck availabe on PlanetPhysics.  The Sections are derivatives from the public domain work in [1].
+
+{\subsection Part 1: Fundamental Facts and Definitions}
+
+{\bf Chapter I:} General Introduction \\
+{\bf Chapter II:} Radiation at Thermodynamic Equilibrium.  Kirchoff's Law.  Black Radiation
+
+\subsection{The Theory of Heat Radiation Part 2}
+
+Deductions from Electrodynamics and Thermodynamics 
+
+\subsection{The Theory of Heat Radiation Part 3}
+
+Entropy and Probability
+
+\subsection{The Theory of Heat Radiation Part 4}
+
+A System of Oscillators in a Stationary Field of Radiation
+
+\subsection{The Theory of Heat Radiation Part 5}
+
+Irreversible Radiation Processes
+
+\subsection{References}
+
+[1]  Planck, M.  "The Theory of Heat Radiation" Translation by Morton Masius, P. Blakiston's Son \&amp; CO., Philadephia, 1914.</content>
+</record>

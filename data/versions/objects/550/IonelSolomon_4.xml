@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="550">
+ <title>IonelSolomon</title>
+ <name>IonelSolomon</name>
+ <created>2009-02-22 13:07:41</created>
+ <modified>2009-02-22 13:14:05</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>http://www.academie-sciences.fr/membres/S/Solomon_Ionel.htm</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>NMR</concept>
+ </defines>
+ <keywords>
+	<term>biography</term>
+	<term>solid-state NMR</term>
+	<term>pulsed NMR</term>
+	<term>dipolar echoes in solids</term>
+	<term>I-I and I-S interactions</term>
+	<term>nuclear Overhauser enhancement</term>
+	<term>(NOE)</term>
+	<term>dipole-dipole interactions in solids</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\em [Entry in progress]}
+
+\section{Biography of Ionel Solomon}
+{\bf Ionel Solomon} is a French physicist of Roumanian origin, 
+\PMlinkexternal{Member of the French Academy of Sciences}{http://translate.google.co.uk/translate?hl=en&amp;sl=fr&amp;u=http://www.academie-sciences.fr/membres/S/Solomon_Ionel.htm&amp;ei=IIShSeOgO8iLngfiwcH8DQ&amp;sa=X&amp;oi=translate&amp;resnum=2&amp;ct=result&amp;prev=/search%3Fq%3DIonel%2BSolomon%26hl%3Den%26sa%3DG}, CNRS Research Director, former Professor at the Polytechnic School in Paris. 
+
+
+
+
+\subsection{Scientific Career}
+
+\begin{itemize}
+\item PhD, Polytechnic School in Paris
+\item Professor, Polytechnic School in Paris 
+\item
+\item CNRS Research Director
+\item Scientific director of SOLEMS
+\item 
+\item 1973-1974 President of a French company for Physics research
+\item 1981 The Y. Peyches Prize of the Academy of Sciences
+\item
+\end{itemize}
+ 
+He was also invited and visited various universities (e.g., Liverpool, Harvard, Tokyo, Bucharest, Jassy).
+
+
+\subsection{Major Scientific Contributions}
+ Ionel Solomon made major contributions to the fields of: Nuclear Magnetic Resonance (NMR), Solid-state physics, Semiconductors and Photovoltaics. In Nuclear Magnetic Resonance he derived fundamental equations that bear his name, and specify the nuclear spin-echo response and dipole-dipole interactions in solids (the Solomon equations).   
+
+ 
+
+\subsection{Awards and Prizes}
+\begin{itemize}
+\item 1958 Grand Prix for Research (with Anatole Abragam and J. Combrisson)
+\item 1963 CNRS Medal  
+\item 1969 Robin Prize for Physics
+\item 1972 Holweck Prize of the Institute of Physics and S.F.P (French Physics Society)
+\item
+\item
+\item
+\item
+\item
+ 
+
+ 
+ 
+ 
+ 
+1981 Price Y. Peyches of the Academy of Science. 
+\end{itemize}</content>
+</record>

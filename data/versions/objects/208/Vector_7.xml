@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="208">
+ <title>vector</title>
+ <name>Vector</name>
+ <created>2006-07-24 20:56:05</created>
+ <modified>2006-07-31 21:10:14</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <synonyms>
+	<synonym concept="vector" alias="vectors"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Vector}
+
+A {\bf vector} is a quantity which is considered as possessing \emph{direction} as well as \emph{magnitude}.
+
+In mathematics and especially in physics there are two different kinds of quantities that are often used.  Consider, for example, mass, time, density, temperature, force, displacement of a point, velocity, and acceleration.  Of these quantities some can be represented adequately by a single number: temperature, by degrees on a thermometer; time, by years, days, or seconds; mass and density, by numerical values which are wholly determined when the unit of the scale is fixed.  On the other hand the remaining quantities are not capable of such representation.  Force to be sure is said to be of so many Newtons; velocity, of so many meters per second.  But in \emph{addition} to this each of them must be considered as having \emph{direction} as well as magnitude.  A force points North, South, East, West, up, down, or in some intermediate direction.  The same is true of displacement, velocity, and acceleration.  No scale of numbers can represent them adequately.  It can represent only their magnitude, not their direction.
+
+A {\bf scalar} is a quantity which is considered as possessing \emph{magnitude} but no direction.  The positive and negative numbers of ordinary algebra are the typical scalars.  For this reason the ordinary algebra is called \emph{scalar} algebra, which is different from \emph{vector} algebra.
+
+\subsection{Representation of a vector}
+
+Vectors are usually denoted in boldface, as {\bf A} or $\vec{A}$.  Vectors are usually depicted as arrows, as illustrated below:
+
+%\begin{figure}[p]
+%\includegraphics[scale=.5]{Fig1.eps}
+%\vspace{20 pt}
+%\end{figure}
+\begin{center}
+
+\psfrag{l}{$\;\;\;\;\;\;\;\;l$}
+\psfrag{w}{$\!\!\!w$}
+\includegraphics[scale=.5]{Fig1.eps}
+
+{\tiny Figure 1: A vector arrow. }
+\end{center}
+
+
+Here the point a is called the tail, base, start, or origin; point b is called the head, tip, endpoint, or destination. The length of the arrow represents the vector's magnitude, while the direction in which the arrow points represents the vector's direction.
+
+On a two-dimensional diagram, sometimes a vector perpendicular to plane of the diagram is desired. These vectors are commonly shown as small circles. A circle with a dot at its center indicates a vector pointing out of the front of the diagram, towards the viewer. A circle with a cross inscribed in it indicates a vector pointing into and behind the diagram. These can be thought of as viewing the tip an arrow front on and viewing the vanes of an arrow from the back.  Vectors pointing into (left) and out of (right) the plane are shown below:
+
+
+\begin{figure}[t]
+\includegraphics[scale=.5]{Fig2.eps}
+\vspace{20 pt}
+\end{figure}
+
+The graphical representation may be too cumbersome in calculations, so we use various mathematical notations. Vectors in a n-dimensional Euclidean space can be represented as a linear combination of n mutually perpendicular unit vectors. In this article, we will consider R3 as an example. In R3, we usually denote the unit vectors parallel to the x-, y- and z-axes by $\mathbf{\hat{i}}$, $\mathbf{\hat{j}}$ and $\mathbf{\hat{k}}$ respectively. Any vector {\bf A} in R3 can be written as $ \mathbf{A} = A_x \mathbf{\hat{i}} + A_y \mathbf{\hat{j}} + A_z \mathbf{\hat{k}}$ with real numbers $A_x$, $A_y$ and $A_z$, which are uniquely determined by $\mathbf{A}$ . Sometimes $\mathbf{A}$ is then also written as a 3-by-1 or 1-by-3 matrix:
+
+${A} = \begin{bmatrix} A_x\\ A_y\\ A_z\\ \end{bmatrix}$ \\
+${A} = \begin{pmatrix} A_x &amp; A_y &amp; A_z\\ \end{pmatrix}$ 
+
+\subsection{References}
+
+[1]  Wilson, E.  "Vector Analysis."  Yale University Press, New Haven, 1913.
+
+
+This entry is a derivative of the Public domain work [1] and the Vector article \PMlinkexternal{from Wikipedia, the Free Encyclopedia}{http://en.wikipedia.org/wiki/Vector_\%28spatial\%29}. Authors of the orginial article include: Stevenj, Wshun, Tarquin,  Michael Hardy and Patrick. History page of the original is \PMlinkexternal{here}{http://en.wikipedia.org/w/index.php?title=Vector_\%28spatial\%29\&amp;action=history}</content>
+</record>

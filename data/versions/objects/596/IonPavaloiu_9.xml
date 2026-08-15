@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="596">
+ <title>Ion Pavaloiu</title>
+ <name>IonPavaloiu</name>
+ <created>2009-03-15 14:32:53</created>
+ <modified>2009-03-15 14:53:00</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <keywords>
+	<term>functional analysis</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. as your 
+% almost certainly you want these
+
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+% define commands here
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+
+\newcommand{\&lt;}{{\langle}}
+
+%\newcommand{\&gt;}{{\rangle}}
+
+%\usepackage{geometry, amsmath,amssymb,latexsym,enumerate}
+%\usepackage{xypic}
+
+\def\baselinestretch{1.1}
+
+
+\hyphenation{prod-ucts}
+
+%\grpeometry{textwidth= 16 cm, textheight=21 cm}
+
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+
+\def\C{C^{\ast}}
+
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+
+%\newenvironment{proof}{\noindent {\bf Proof} }{ \hfill $\Box$
+%{\mbox{}}
+
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>\section{$Biography \, of \, Ion \, P\check{a}v\check{a}loiu$ }
+
+b. 1939 in Romania. 
+Ph.D. in Mathematics in 1971, specialized in Mathematical Analysis, Functional
+Analysis and Numerical Analysis, with applications to physics and medicine.
+
+\subsection{Academic positions}
+
+ 1998-present Professor at North University of Baia-Mare 
+
+ 1991-present Senior researcher (I) at Tiberiu Popoviciu Institute of Numerical Analysis 
+
+ 1990-present Director of Tiberiu Popoviciu Institute of Numerical Analysis 
+
+ 1990-1991 Senior researcher (II) at Tiberiu Popoviciu Institute of Numerical Analysis 
+
+ 1970-1990 Senior researcher (III) at Tiberiu Popoviciu Institute of Numerical Analysis
+ 
+ 1966-1970 Researcher at Tiberiu Popoviciu Institute of Numerical Analysis 
+ 
+ 1962-1966 Research assistant at Tiberiu Popoviciu Institute of Numerical Analysis 
+
+\subsection{Membership in professional societies}
+
+The Romanian Mathematical Society 
+
+\subsection{Grants:}
+
+ GAR nr.95/1998 of the Romanian Academy, Theme: "The qualitative study of the perturbations influence on the stability of inexact Newton method" (collaborator). 
+
+ GAR nr.97/1999 of the Romanian Academy, Theme: "The relation between the characterizations of the convergence orders of the practical methods for Newton algorithm". 
+
+ GAR nr.6100GR/13 oct. 2000 cu ANSTI, Theme: Convergence theorems for quasi-Newton and inexact Newton methods (collaborator). 
+
+ GAR nr.64/2001 of the Romanian Academy, Theme: High order convergence of the successive approximations (collaborator) 
+
+ Grant nr.7037/2001 of M.E.C., Theme: "Newton methods for the singular case; the linear convergence" (consultant) 
+
+ GAR nr.45/2002 of the Romanian Academy, Theme: High order convergence of the successive approximations (Co-PI). 
+
+ GAR nr.19/2003 of the Romanian Academy, Theme: The error control in floating arithmetic for the finite differences of the Newton-Krylov methods" (Co-PI) 
+
+ GAR nr.16/2004 of the Romanian Academy, Theme: Finite difference Newton-Krylov methods 
+
+\subsection{Current research in the following areas:}
+\begin{itemize}
+\item Inverse interpolation method 
+\item The methods with optimal convergence order within the class of iteration methods 
+\item The efficiency of numerical calculus and the iteration methods with optimal efficiency index 
+\item The monotony of the approximating sequences for the solutions of equations 
+\item Iterative methods (Newton, Newton-Krylov, Newton-type) for numerical solving of nonlinear systems of equations in Rn 
+\item Iterative methods (Newton, Chebyshev, Steffensen, etc) for numerical solving eigenproblems 
+\item Methods of functions approximations 
+\item Iterative methods for solving nonlinear equations in Banach spaces 
+\item The stability of the numerical methods for solving equations and the error evaluation 
+\end{itemize}
+
+\subsection{Research activities:}
+
+ Deputy chief Editor of the journal ''Revue D'Analyse Numérique et de Théorie de L'Approximation''. 
+
+ Member in the Editorial board of the journal ''Mathematica''
+
+\subsubsection{Research areas:}
+\begin{itemize}
+\item Mechanics 
+\item Computer science 
+\item Numerical methods in medicine 
+\end{itemize}
+
+\subsection{Selected Publications (from a list of over 100 published papers)}
+
+ $I. \, P\check{a}v\check{a}loiu$, La résolution des systèmes d'équations oppérationnelles à l'aide des méthodes itératives, Mathematica, 11, (34), (1969), pp.137-141. (M.R. 41 # 4787). 
+
+ $I. \, P\check{a}v\check{a}loiu$, Intérpolation dans des éspaces linéaires normées et applications, Mathematica, 12 (35), 1 (1970), pp.149-158. (M.R. 45 # 9031). 
+
+ $I. \, P\check{a}v\check{a}loiu$, Sur les procedées itérative à un order élevé de convergence, Mathématica, 12(35) 2 (1970), pp.309-324. (M.R. 40 # 4245). 
+
+ $I. \, P\check{a}v\check{a}loiu$, Sur l'approximation des solutions des equations à l'aide des suites à éléments dans un espace de Banach, Mathématica, Revue d'analyse numérique et de la théorie de l'approximation, Tom 5, 1, (1976), pp.63-67. (M.R. 58 # 31821). 
+
+ $I. \, P\check{a}v\check{a}loiu$, Une généralisation de methode de Newton, Mathematica, 20, (43), 1, (1978), pp.45-52. (M.R. 80d: 65073). 
+ 
+ $I. \, P\check{a}v\check{a}loiu$, Une variante de méthode de Newton, Revue d'analyse numérique et de la théorie dé l'approximation, 7, 1, (1978), PP.95-99. (M.R. 80g: 47078). 
+
+ $I. \, P\check{a}v\check{a}loiu$, Sur l'order de convergence des méthodes d'itération, Mathématica, 23, (46), 1, (1981), pp.261-272). (M.R. 83m: 40002). 
+
+ $I. \, P\check{a}v\check{a}loiu$, La résolution des equations par intérpolation, Mathématica, 23, (46), 1, (1981), pp.61-72. (M.R. 83g: 65064b). 
+
+ $I. \, P\check{a}v\check{a}loiu$, I. Sherb, Sur des méthodes itératives de type intérpolatoire à vitèsse de convergence optimale, Revue d'analyse numérique et de la théorie de l'approximation, 12, 1, (1983), pp.83-88. (M.R. 85h: 65107). 
+
+$I. \, P\check{a}v\check{a}loiu$, I. Şerb, Sur des méthodes itératives optimales, Preprint nr.1 (1983), pp.175-182. Seminar on functional analysis and numerical methods. (M.R. 85e: 65029).
+ 
+ C. Iancu, $I. \, P\check{a}v\check{a}loiu$, I. Sherb, Méthodes itératives optimales de type Steffensen obtenues par interpolation invèrse. Preprint nr.1, (1983). Seminar on functional analysis and numerical methods, pp.81-88. 
+ 
+ C. Iancu, $I. \, P\check{a}v\check{a}loiu$, Resolution des equations à l'aide des fonctions splines d'interpolation invèrse. Preprint nr.1, 
+
+ C. Iancu, $I. \, P\check{a}v\check{a}loiu$, La resolution des équations par interpolation inverse de type Hermite, Mathematica (Cluj), 26 (49) (1984), No 2, pp.115-123 (M.R. 86k: 65037). 
+
+ C. Iancu, $I. \, P\check{a}v\check{a}loiu$, Resolution des equations à l'aide des fonctions rationnelles d'interpolation invèrse, Preprint nr.1, (1985), pp.71-78. Seminar on functional analysis and numerical methods. (M.R. 832504). 
+
+ C. Iancu, T. Oproiu, $I. \, P\check{a}v\check{a}loiu$, Inverse interpolation spline with applications to the equation solving, Preprint nr.1 (1986), pp.67-84. Seminar on functional analysis and numerical methods. 
+ 
+ $I. \, P\check{a}v\check{a}loiu$, La convergence de certaines méthodes itératives pour résoudre certaines equations operationnelles, Preprint nr.1, (1986), pp.127-132. Seminar on functional analysis and numerical methods.;</content>
+</record>

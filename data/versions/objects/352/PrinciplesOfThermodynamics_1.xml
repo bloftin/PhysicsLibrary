@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="352">
+ <title>Principles of thermodynamics</title>
+ <name>PrinciplesOfThermodynamics</name>
+ <created>2009-01-07 04:10:36</created>
+ <modified>2009-01-07 04:10:36</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="05.70.-axx"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Principles of thermodynamics" alias="thermodynamic principles"/>
+ </synonyms>
+ <keywords>
+	<term>thermodynamic principles</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>
+\section{Principles of Thermodynamics:}
+
+\subsection{Basic Concepts}
+{Thermodynamic systems}:
+Closed vs. Open.
+
+\textbf{Thermodynamic Processes:}
+Reversible vs. Irreversible := Equilibrium vs. Non-equilibrium
+
+\subsection{The Zeroth Principle}
+
+\textbf{Thermal Equilibria: Temperature as a Measure of the molecular degree of motion.  Absolute Temperature}
+
+
+\subsection{The First Principle}
+\textbf{Total Energy Conservation}
+
+\subsection{The Second Principle}
+
+During any thermodynamic process the entropy of a closed system always increases, [or, equivalently, that perpetual motion machines are impossible].
+
+
+\subsection{The Third Principle}
+The entropy of any crystalline system tends to zero in the limit of absolute zero temperature.
+
+
+\subsection{Discussion}</content>
+</record>

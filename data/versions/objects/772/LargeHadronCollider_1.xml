@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="772">
+ <title>large hadron collider</title>
+ <name>LargeHadronCollider</name>
+ <created>2009-05-22 21:04:54</created>
+ <modified>2009-05-22 21:04:54</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="14.20.Dh"/>
+ </classification>
+ <keywords>
+	<term>large hadron colider</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Largest Particle Accelerators}
+
+The \PMlinkexternal{Large Hadron Collider (LHC)}{http://en.wikipedia.org/wiki/Large_Hadron_Collider}--buily by CERN (the European Organization for Nuclear Research)-- is currently reported as the highest energy particle accelerator; for protons the maximum energy reached at LHC is 7 TeV per proton. Planned experiments are the `hunt' for the Higgs boson(s) and for quantum particles predicted by (quantum) supersymmetry. 
+
+
+{\bf [More to come]}...</content>
+</record>

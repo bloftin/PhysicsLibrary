@@ -1,6 +1,7 @@
 package Noosphere;
 #use strict;
-
+use Apache2::SubProcess ();
+use Noosphere::Util;
 use Noosphere::StatCache;
 
 # get count of unproven theorems
@@ -164,6 +165,8 @@ sub unclassifiedObjects {
 	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from users as u, objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null and u.uid=o.userid order by lower(o.title) limit $offset, $limit")
 		if (getConfig('dbms') eq 'mysql');
 
+	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from users as u, objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null and u.uid=o.userid order by lower(o.title) limit $offset, $limit")
+        if (getConfig('dbms') eq 'MariaDB');
 
 	#my $total = $sth->rows();
 	$template->addText("<unclassifiedlist>");
@@ -250,6 +253,14 @@ sub getSystemStats {
 		['last year',">now() - interval 365 DAY"]
 	] if getConfig('dbms') eq 'mysql';
 	
+	$periods = [
+        ['total',"<= now()"],
+		['last day',">now() - interval 1 DAY"],
+		['last week',">now() - interval 7 DAY"],
+		['last month',">now() - interval 30 DAY"],
+		['last year',">now() - interval 365 DAY"]
+    ] if getConfig('dbms') eq 'MariaDB';
+
 	my $timefields = {
 		'objects'=>'created',
 		'users'=>'joined',
@@ -278,14 +289,28 @@ sub getSystemStats {
 
 	$html .= "<center>";
 
-	my $uptime = `/usr/bin/uptime`;
-	$uptime =~ /up ([0-9]+ [a-z]+),/;
-	$html .= "<br>System uptime : $1<br><br>";
+	# get the global request object (requires PerlOptions +GlobalRequest)
+    my $r = Apache2::RequestUtil->request;
+
+	##my $uptime = system("/usr/bin/uptime");
+	my $updtime = "Feature not working yet";
+
+	my $dir = '/var/www/pp/data/cache/temp';
+	my $program = "/usr/bin/uptime";
+
+	my $command = "$program 2>&1";
+	($in_fh, $out_fh, $err_fh) = $r->spawn_proc_prog($program);
+	my $output = read_data($out_fh);
+ 	my $error  = read_data($err_fh);
+
+	$html .= "<br>System uptime : $output<br><br>";
 
 	$html .= "</center>";
 
 	return paddingTable(clearBox(getConfig('projname').' Stats',$html));
 }
+
+
 
 # getTopUsers - get the top users box that shows top users by score
 #
@@ -351,7 +376,7 @@ sub getTopUsers {
 	$topa .= "</font>";
 	$topw .= "</font>";
 
-	my $template = new Template("topusers.html");
+	my $template = new TemplateNS("topusers.html");
 
 	$template->setKeys('alltime' => $topa, 'twoweeks' => $topw);
 
@@ -380,7 +405,8 @@ sub getTopUsers_callback {
 	my $where;
 	$where = "score.userid=users.uid and occured>(CURRENT_TIMESTAMP+'-2 weeks')" if getConfig('dbms') eq 'pg';
 	$where = "score.userid=users.uid and occured>now()-interval 14 DAY" if getConfig('dbms') eq 'mysql';
-	
+	$where = "score.userid=users.uid and occured>now()-interval 14 DAY" if getConfig('dbms') eq 'MariaDB';
+
 	my ($rv2, $sth2) = dbSelect($dbh,{WHAT => 'sum(score.delta) as sum,users.username,users.uid',
 		FROM => 'score,users',
 		WHERE => $where,
@@ -435,6 +461,9 @@ sub getLatest_data {
 	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid,name,title,dayofweek($datefield)-1 as dow, concat(extract(YEAR from $datefield), '-', extract(MONTH from $datefield), '-', extract(DAY from $datefield)) as ymd", FROM=>getConfig('en_tbl'), 'ORDER BY'=>$datefield, DESC=>'', WHERE=>($type eq 'modifications' ? 'modified > created' : ''), LIMIT=>$limit})
 		if getConfig('dbms') eq 'mysql';
 	
+	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid,name,title,dayofweek($datefield)-1 as dow, concat(extract(YEAR from $datefield), '-', extract(MONTH from $datefield), '-', extract(DAY from $datefield)) as ymd", FROM=>getConfig('en_tbl'), 'ORDER BY'=>$datefield, DESC=>'', WHERE=>($type eq 'modifications' ? 'modified > created' : ''), LIMIT=>$limit})
+        if getConfig('dbms') eq 'MariaDB';
+
 	if (! $rv) {
 		dwarn "latest $type query error\n";
 		return "query error";

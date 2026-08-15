@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="17" id="638">
+ <title>Quantum topological order and extended quantum symmetries</title>
+ <name>QuantumTopologicalOrder</name>
+ <created>2009-04-11 11:09:08</created>
+ <modified>2009-04-11 16:50:29</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>quantum topological order</concept>
+	<concept>Fermi statistics</concept>
+	<concept>T_c</concept>
+	<concept>superconductivity</concept>
+	<concept>Coper pairs (of phonon-coupled electrons)</concept>
+	<concept>many-body system</concept>
+	<concept>long-range correlations</concept>
+	<concept>quantum coherence</concept>
+	<concept>strongly correlated clean systems</concept>
+	<concept>quantum phase transition</concept>
+	<concept>Goldstone bosons</concept>
+	<concept>Goldstone theorem</concept>
+	<concept>high temperature superconductors</concept>
+	<concept>quantum algebroid</concept>
+	<concept>quantum double groupoid</concept>
+	<concept>quantum double groupoid representations</concept>
+	<concept>Anderson localization</concept>
+	<concept>delocalized quantum states</concept>
+	<concept>edge quantum states</concept>
+	<concept>QTO</concept>
+	<concept>QES</concept>
+	<concept>topological order</concept>
+	<concept>spontaneous symmetry breaking</concept>
+	<concept>Mott-Anderson transition</concept>
+	<concept>Mott-Hubbard transition</concept>
+	<concept>glass-transition</concept>
+	<concept>Landau symmetry-breaking</concept>
+	<concept>long-range coupling</concept>
+	<concept>quantum extended symmetry</concept>
+ </defines>
+ <keywords>
+	<term>topology</term>
+	<term>order</term>
+	<term>topolgical order</term>
+	<term>symmetry</term>
+	<term>quantum topological order</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Quantum Topological Order and Extended Quantum Symmetries}
+
+ In noncrystalline systems and certain quantum (Hall) liquids with long-range coupling symmetry-breaking descriptions of phase transitions were suggested to be insufficient and alternative theories in terms of topological
+order were proposed to replace previous Landau symmetry-breaking models.
+Such glassy systems with short-range structural order, but long-range
+correlations in magnetic and/or electrical properties may thus exhibit several topological orders both in hower and higher dimensions. Quantum states with different topological orders can be interchanged only through a (quantum) phase transition-- a result that should be provable by means of quantum algebraic topology means in terms of quantum operator algebras and locally compact quantum groupoid representations \cite{QNAT2k9}. On the other hand, spontaneous
+symmetry-breaking is known to involve the generation of Goldstone bosons according to the well-known Goldstone theorem \cite{Weinberg2k}; thus, low temperature superconductivity is known to occur via the generation of {electron)
+Cooper pairs --that are Goldstone bosons of spin-0-- with long-range correlations and quantum coherence throughout the quantum superconductor.
+Thus, the superconductivity phase transition involves a change from \PMlinkname{Fermi statistics}{FermiDiracDistribution} for electrons in the metal at temperature above $T_c$ to Bose-Einstein statsistics for the Cooper pairs that are responsible for superconductivity at the lower temperatures $T \leq T_c$.
+Despite considerable theoretical and experimental efforts, prior to 2009 the appropriate algebraic topological structures responsible for quantum topological orders have not been either classified or identified. What has become however abundantly clear since the work of Sir Neville F. Mott, P.W. Anderson, Steve Weinberg, Sir Michael Atyiah, E. Witten, Turaev,  K. Porter, L. Vainerman, Isham, M. Levin, X-G. Wen , Y.K. Levin, A. Tijon, and many other quantum theoretical physicists, is that quantum algebraic topology approaches
+are key to understanding long-range order correlations, the effects of partial disorder in solids and the emergence of extended quantum symmetry in many-body systems and quantum field theories (QFT), including quantum gravity (QG).
+
+ A basic concept in topological order theories is that of an ordered, entangled ground state for a many-body system with long-range coupling(s) (as for example magnetic dipole-dipole coupled ferromagnets, high or low temperature superconductors, and so on). Therefore, \emph{quantum topological order (QTO)} can be described as a pattern of {\em long-range quantum entanglement in quantum states}, and it can be classified as an {\em extended quantum symmetry} in terms of categorical representations, categorical groups, locally compact quantum groupoid representations, braided tensor categories/monoidal categories, quantum algebroids or quantum double groupoid representations. 
+
+ Topological order theories and topological quantum computation were also recently reported to be of interest for the design of quantum computers 
+\cite{QNAT2k9}, and thus such fundamental topological order theories might
+conceivably lead to practical applications in developing ultra-fast quantum supercomputers. A related concept is that of ``quantum glassiness'' \cite{CC2k5} which incorporates many concepts from topological order theories. 
+
+
+\begin{thebibliography}{99}
+
+\bibitem{LMWX2k5}
+Levin M. and Wen X-G., Colloquium: Photons and electrons as emergent phenomena, Rev. Mod. Phys. 77, Nu 12:19, 9 April 2009 (UTC)871 (2005), 4 pages; also, Quantum ether: Photons and electrons from a rotor model., 
+$arXiv:hep--th/0507118,2007$. 
+
+\bibitem{YDN93}
+Yetter D.N., TQFTs from homotopy 2-types., {\em J. Knot Theory} 2 (1993), 113--123.
+
+\bibitem{EW89}
+E. Witten, Quantum field theory and the Jones polynomial. 
+{\em Comm. Math. Phys.}, 121, 351 (1989). 
+
+\bibitem{WX89}
+Xiao-Gang Wen., Vacuum Degeneracy of Chiral Spin State in Compactified Spaces.,
+{\em Phys. Rev. B}, 40, 7387 (1989). 
+
+\bibitem{WX90}
+Xiao-Gang Wen.,Topological Orders in Rigid States,  {\em Int. J. Mod. Phys.}, B4, 239 (1990). 
+
+\bibitem{WXQN90}
+Ground state degeneracy of the FQH states in presence of random potential and on high genus Riemann surfaces, Xiao--Gang Wen and Qian Niu, Phys. Rev. B41, 9377 (1990).
+
+\bibitem{LMRB99} 
+Landsman N. P. and Ramazan B., Quantization of Poisson algebras associated to Lie algebroids, in Proc. Conf. on Groupoids in Physics, Analysis and Geometry(Boulder CO, 1999), Editors J. Kaminker et al.,159--192 Contemp. Math. 282, Amer. Math. Soc., Providence RI, 2001,(also math--ph/001005.) 
+
+\bibitem{NAQAT2k8}
+Baianu, I.C.  \PMlinkexternal{Non-Abelian Quantum Algebraic Topology (NAQAT)}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=61} 20 Nov. (2008), 87 pages. 
+
+\bibitem{LO2k3}
+Levin A. and Olshanetsky M., Hamiltonian Algebroids and deformations of complex structures on Riemann curves, hep--th/0301078v1.
+
+\bibitem{LW2k3}
+Levin M. and Wen X-G., Fermions, strings, and gauge fields in lattice spin models., Phys. Rev. B 67, 245316, (2003), 4 pages.
+ 
+\bibitem{LWX2k6}
+Levin M. and Wen X-G., Detecting topological order in a ground state wave function., Phys. Rev. Letts.,96(11), 110405, (2006). 
+
+\bibitem{WXWH94}
+Xiao-Gang Wen, Yong-Shi Wu and Y. Hatsugai., Chiral operator product algebra and edge excitations of a FQH droplet (pdf),Nucl. Phys. B422, 476 (1994): Used chiral operator product algebra to construct the bulk wave function, characterize the topological orders and calculate the edge states for some non-Abelian FQH states. 
+
+\bibitem{WXWu94}
+Xiao-Gang Wen and Yong-Shi Wu., Chiral operator product algebra hidden in certain FQH states (pdf),Nucl. Phys. B419, 455 (1994): Demonstrated that non-Abelian topological orders are closely related to chiral operator product algebra (instead of conformal field theory).
+ 
+\bibitem{NAT2k9}
+The concept:\PMlinkname{Non-Abelian theory}{NonAbelianTheory}.
+
+\bibitem{QNAT2k9}
+Algebraic Topology Foundations of Supersymmetry and Symmetry Breaking in Quantum Field Theory and Quantum Gravity: A Review., Baianu,I.C, Glazebrook, J. F., and Brown, R. In: Symmetry, Integrability and Geometry: Methods and Applications: SIGMA, (2009), 76 pages. 
+
+\bibitem{RBBG2k7}
+R. Brown et al. A Non-Abelian, Categorical Ontology of Spacetimes and Quantum Gravity., Axiomathes, Volume 17, Numbers 3-4 / December, (2007), pages 353--408.,Springer,Netherlands,ISSN 1122-1151 (Print) 1572-8390 (Online). doi:10.1007/s10516-007-9012-1. 
+
+\bibitem{RBHS2k9}
+Ronald Brown, Higgins, P. J. and R. Sivera,:(2009), Nonabelian Algebraic Topology., vols.1 and 2, Ch.U. Press, in press. 
+
+\bibitem{biblioCAT}
+A Bibliography for Categories and Algebraic Topology Applications in Theoretical Physics Quantum Algebraic Topology (QAT)
+
+\bibitem{WX2k4}
+Wen X-G., Quantum Field Theory of Many Body Systems--From the Origin of Sound to an Origin of Light and Electrons, Oxford Univ. Press, Oxford, 2004. 
+
+\bibitem{CC2k5}
+Chamon, C., Phys. Rev. Lett. 94, 040402 (2005),4 pages., Quantum Glassiness in Strongly Correlated Clean Systems: An Example of Topological Overprotection.
+
+\bibitem{Weinberg2k}
+Steve Weinberg., {\em Quantum Theory of Fields.}, vol.3., Cambridge University Press, Cambridge, UK.
+
+\end{thebibliography}</content>
+</record>

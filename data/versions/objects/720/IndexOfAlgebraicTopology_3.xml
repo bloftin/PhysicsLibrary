@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="720">
+ <title>index of algebraic topology</title>
+ <name>IndexOfAlgebraicTopology</name>
+ <created>2009-05-02 15:49:11</created>
+ <modified>2009-05-02 16:03:08</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>HGvkT</concept>
+ </defines>
+ <related>
+	<object name="Category"/>
+	<object name="CategoricalAlgebra"/>
+	<object name="DoubleGroupoidWithConnection"/>
+	<object name="AxiomsOfTopoi"/>
+	<object name="AxiomsOfMetacategoriesAndSupercategories"/>
+	<object name="AlgebraicQuantumFieldTheoriesAQFT"/>
+	<object name="Groupoid"/>
+	<object name="PolishGSpace"/>
+	<object name="LieAlgebra"/>
+	<object name="CategoricalQuantumLMAlgebraicLogic2"/>
+	<object name="ToposAxioms"/>
+ </related>
+ <keywords>
+	<term>index</term>
+	<term>algebraic topology</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Foundations}
+
+\subsection{Basic Definitions}
+\begin{itemize}
+\item open and closed sets
+\item map
+\item arrow
+\item morphism
+\item path
+\item cycle 
+\item boundary
+\item torus, n-tori
+\item sphere, n-sphere
+\item square
+\item cube
+\item dimension
+\item vector space
+\item CW-complex
+\item graph
+\item simplicial complex
+\item spin network
+\item topological dynamics
+\item qualitative dynamics
+\item dense space
+\item spin foam
+\item map
+\item function
+\item analytical space
+\item identity
+\item commutativity
+\item associativity
+\item object space
+\item source space
+\item target space
+\item thin square
+\item topological space
+\item homeomorphism
+\item topological groups
+\item Lie groups and Lie algebras
+\item graded lie algebras/Lie superalgebras
+\item supergroups
+\item groupoid
+\item groupoid homomorphism
+\item groupoid categories
+\item compact space/Hausdorff space
+\item double groupoid
+\item double algebroid
+\item Hamiltonian algebroid
+\item Polish space
+\item Polish group
+\item Polish G-space
+\item homotopy
+\item homotopy groups
+\item homotopy category
+\item homology cycle
+\item cohomology cocycle
+\item fundamental groups
+\item homotopy lemma and corollary
+\item topological groups
+\item fundamental groupoids
+\item fundamental groupoid functor
+\item homotopy double groupoid of a Hausdorff space
+\item homology theory
+\item axiomatic homology theory
+\item cohomology groups
+\item cohomology groupoids
+\item cohomology theory
+\item cohomology theorems
+\item topological categories
+\end{itemize}
+
+\subsection{Category theory concepts in algebraic topology}
+\begin{itemize}
+\item category
+\item topos
+\item subspace
+\item subcategory
+\item automorphism
+\item commutative diagram
+\item concrete category
+\item dual category
+\item duality principle
+\item endomorphism
+\item epimorphism
+\item monic
+\item monomorphism
+\item source
+\item pushout
+\item pullback
+\item cones and cocones
+\item limit and colimit functors
+\item direct sum
+\item open covers
+\item isomorphism-closed subcategory
+\item locally finite category
+\item preimage of category
+\item product of categories
+\item types of morphisms
+\item wellpowered category
+\item null object
+\item zero object
+\item \PMlinkid{$\mathcal{U}$-small}{5658}
+\item equalizer
+\item subobject
+\item quotient object
+\item categorical direct product
+\item categorical direct sum
+\item direct limit
+\item limiting cone
+\item complete category
+\item groupoid (category theoretic)
+\item enriched category
+\item double category
+\item 2-category
+\item n-category
+\end{itemize}
+
+\subsection{Fundamental Theorems}
+\begin{enumerate}
+\item Hurewicz theorem
+\item cohomology theorems
+\item homotopy lemma and corollary
+\item topological space approximation theorem
+\item Yoneda-Grothendieck Lemma
+\item van Kampen theorem
+\item Higher dimensional, generalized van Kampen theorem (HGvKT)
+\item properties of monomorphisms and epimorphisms
+\item properties of regular and extremal monomorphisms
+\item monomorphisms are pullback stable
+\item proof that an equalizer is a monomorphism
+\item categorical direct product is an inverse limit
+\item kernel is an inverse limit
+\item Grothendieck theorem
+\end{enumerate}
+
+\subsection{2-Categories and Supercategories}
+\begin{itemize}
+\item functor
+\item endofunctor
+\item category isomorphism
+\item diagonal functor
+\item representable functors
+\item categorical representations and supergroups
+\item forgetful functor
+\item identity functor
+\item isomorphism
+\item multifunctor
+\item natural transformation
+\item essentially surjective
+\item faithful functor
+\item full functor
+\item adjoint functor
+\item natural equivalence
+\item equivalence of categories
+\item \PMlinkname{isomorphic categories}{CategoryIsomorphism}
+\item universal properties
+\item representable functors
+\item Equivalent definition of a Representable Functor
+\item simplicial objects
+\end{itemize}
+
+\section{Additive Categories and Homology}
+\begin{enumerate}
+\item preadditive category
+\item additive category
+\item Abelian category
+\item Non-Abelian categories and non-Abelian Algebraic Topology
+\item supplemental axioms for an Abelian category
+\item exact sequence
+\item exact functor
+\item Grothendieck spectral sequence
+\item enough projectives
+\item enough injectives
+\item projective object
+\item injective object
+\item derived functor
+\item derived category
+\item Algebraic K-theory
+\item examples of algebraic K-theory groups
+\item Grothendieck group
+\item Grothendieck category
+\item delta functor
+\item horseshoe lemma
+\item syzygy
+\item Ext
+\item Tor
+\item projective dimension
+\item 5-lemma
+\item proof of 5-lemma
+\item 9-lemma
+\item snake lemma
+\item \PMlinkname{proof of snake lemma}{ProofOfSnakeLemma}
+\item chain homotopy
+\item chain homotopy equivalence
+\item chain map
+\item homology of a chain complex
+\item Leray spectral sequence
+\item spectral sequence
+\end{enumerate}
+
+\section{Sheaves, Topoi, Generalizations}
+\begin{enumerate}
+\item presheaf
+\item sheaf
+\item sheafification
+\item presheaf of a topological basis
+\item stalk
+\item \'Etal\'e space
+\item resolution of a sheaf
+\item gerbes
+\item site
+\item small site on a scheme
+\item topos
+\item cosmos
+\item subobject classifier
+\item well-pointed topos
+\item power object
+\item natural numbers object
+\item Cartesian closed category
+\item exponential object
+\end{enumerate}
+
+
+\subsection{Examples of Categories}
+\begin{enumerate}
+\item discrete category
+\item category example (arrow category)
+\item category associated to a partial order
+\item category of matrices
+\item Category of pseudomorphisms
+\item Category of intermorphisms
+\item examples of initial objects and terminal objects and zero objects
+\item category of sets
+\item monomorphisms of category of sets
+\item monoid as a category
+\item comma category
+\item category of pointed topological spaces
+\item simplicial category
+\end{enumerate}
+
+\subsection{Algebraic Categories}
+\begin{enumerate}
+\item algebras formed from a category
+\item monad
+\item comonad
+\item monoidal category
+\item group object
+\item nerve
+\end{enumerate}
+
+\subsection{Generalized Categorical Galois theory}
+\subsubsection{Categorical Galois theory and and Topological greoupoid category}
+\begin{itemize}
+\item category of topological groupoids
+\item Fundamental groupoid functors
+\end{itemize}
+
+\subsection{Nonabelian Algebraic Topology (NAAT)}
+\subsection{Nonabelian Quantum Algebraic Topology (NA-QAT)}
+\begin{itemize}
+\item \emph{Clifford algebras}
+\item \emph{Hopf algebras}
+\item \emph{Weak-Hopf algebras}
+\item \emph{Grasssmann-Hopf algebras}
+\item \end{itemize}
+\item Hamiltonian algebroids
+\item Lie algebroids
+\item Quantum algebroids
+\item Quantum Groups and Quantum Compact Groups (QCGs)
+\item Quantum Groupoids
+\subsubsection{Noncommutative Geometry (non-commutative geometry)}</content>
+</record>

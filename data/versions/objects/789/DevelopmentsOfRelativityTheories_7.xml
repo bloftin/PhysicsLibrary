@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="789">
+ <title>developments of relativity theories</title>
+ <name>DevelopmentsOfRelativityTheories</name>
+ <created>2009-06-02 22:33:30</created>
+ <modified>2009-06-04 14:27:41</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>ECE</concept>
+	<concept>LQG</concept>
+	<concept>QRG</concept>
+	<concept>LC-GR</concept>
+	<concept>GC-GR</concept>
+ </defines>
+ <related>
+	<object name="QuantumRiemannianGeometry"/>
+ </related>
+ <keywords>
+	<term>relativity theories</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic on further developments of relativity theories.
+\section{Recent Developments of Relativity Theories}
+
+\subsection{Loop Quantum Gravity (LQG)}
+
+\subsection{Quantum Riemannian geometry (QRG)}
+\PMlinkname{QRG}{QuantumRiemannianGeometry} represents a new approach to Quantum Gravity in terms of `deformed' Riemannian, quantum geometry.
+
+\subsection{Penrose theories}
+
+
+\subsection{Hawking theories}
+
+\subsection{Globally covariant GR theories (GC-GR)}
+\subsubsection{ECE}
+(\PMlinkexternal{ECE}{http://www.aias.us/index.php?goto=showPageByTitle&amp;pageTitle=Table_of_differences_between_the_standard_model_and_ECE} is presented at the \PMlinkexternal{AIAS website}{http://www.aias.us/}). 
+
+\subsection{Locally covariant GR (LC-GR) and SR theories}</content>
+</record>

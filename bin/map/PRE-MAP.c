@@ -292,7 +292,7 @@ struct href* file_create (char name[], int *p) {
 	// CONVERT PNM TO PNG
 	for (relay = 1; relay < (pages+1); relay++) {
 		if ((child = fork()) == 0) {
-			snprintf(tmp_name, 512, "/usr/bin/pnmcrop < %s-PREMAP%02d.pnm | /usr/bin/pnmpad -white -l20 -r20 -t20 -b20 | /usr/bin/pnmtopng > %s-PREMAP%02d.png", name, relay, name, relay);
+			snprintf(tmp_name, 512, "/usr/bin/pnmcrop < %s-PREMAP%02d.pnm | /usr/bin/pnmpad -white -left=20 -right=20 -top=20 -bottom=20 | /usr/bin/pnmtopng > %s-PREMAP%02d.png", name, relay, name, relay);
 			execl("/bin/sh", "/bin/sh", "-c", tmp_name, NULL);
 			exit(1);
 		}

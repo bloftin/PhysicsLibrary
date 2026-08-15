@@ -38,7 +38,7 @@
 
 			<br />
 
-			Classification (See <a target="noosphere.popup" href="{//globals/main_url}/?op=mscbrowse">MSC</a>):
+			Classification (See <a target="physicslibrary.popup" href="{//globals/main_url}/?op=pacsbrowse">MSC</a>):
 
 			<br />
 		
@@ -122,7 +122,7 @@
 		<table width="0" cellpadding="0" cellspacing="4">
 		<tr> 
 			<td>
-				<textarea name="preamble" cols="60" rows="8"><xsl:value-of select="preamble"/></textarea>
+				<textarea name="preamble" cols="80" rows="8"><xsl:value-of select="preamble"/></textarea>
 			</td>
 
 			<td valign="top">
@@ -141,8 +141,8 @@
 
 		<br /> <br />
 
-		Content (edit your LaTeX here. See <a href="{//globals/main_url}/?op=getobj&amp;from=collab&amp;id=28">planetphysics Content and Style Guide</a>
-			, or <a href="http://aux.planetphysics.org/doc/faq.html#r_tex" target="syntax_win">Syntax Help</a>
+		Content (edit your LaTeX here. See <a href="{//globals/main_url}/?op=getobj&amp;from=collab&amp;id=28">PhysicsLibrary Content and Style Guide</a>
+			, or <a href="https://aux.physicslibrary.org/doc/faq.html#r_tex" target="syntax_win">Syntax Help</a>
 		):
 
 		<br />

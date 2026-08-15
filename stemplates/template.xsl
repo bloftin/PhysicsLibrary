@@ -7,6 +7,7 @@
 <xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
 <xsl:output method="html" version="4.01" encoding="UTF-8" indent="yes"/>
 
+
 <!-- Noosphere root stylesheet template (pass-through) -->
 
 <xsl:template match="NSXSLT">
@@ -21,33 +22,6 @@
  
 	<!-- do nothing -->
 
-</xsl:template>
-
-<!-- pager widget -->
-
-<xsl:template match="pager">
-    <br/><center>
-    <xsl:choose>
-        <xsl:when test="@pages &lt; 2">
-            displaying all <xsl:value-of select="@total"/> items.
-        </xsl:when>
-        <xsl:otherwise>
-            jump to page:
-            <xsl:if test="@prevhref">
-                <a><xsl:attribute name="href"><xsl:value-of select="@prevhref"/></xsl:attribute>&lt;&lt;</a>
-            </xsl:if>
-            <xsl:for-each select="page">
-                <xsl:text> </xsl:text><xsl:choose>
-                    <xsl:when test="@selected"><xsl:value-of select="@number"/></xsl:when>
-                    <xsl:otherwise><a><xsl:attribute name="href"><xsl:value-of select="@href"/></xsl:attribute><xsl:value-of select="@number"/></a></xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each> <xsl:if test="@nexthref">
-                <xsl:text> </xsl:text><a><xsl:attribute name="href"><xsl:value-of select="@nexthref"/></xsl:attribute>&gt;&gt;</a>
-            </xsl:if>
-            (<xsl:value-of select="@total"/> items)
-        </xsl:otherwise>
-    </xsl:choose>
-    </center>
 </xsl:template>
 
 <!-- standard box widget -->
@@ -69,8 +43,6 @@
     </table>
 </xsl:template>
 
-<!-- math box widget -->
-
 <xsl:template name="mathbox">
     <xsl:param name="title"/>
     <xsl:param name="content"/>
@@ -89,7 +61,6 @@
         </td></tr>
     </table>
 </xsl:template>
-
 
 <!-- clear box widget -->
 
@@ -241,5 +212,4 @@
 
 </xsl:template>
 
-</xsl:stylesheet>
-
+</xsl:stylesheet> 

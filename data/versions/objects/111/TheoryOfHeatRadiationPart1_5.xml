@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="111">
+ <title>the theory of heat radiation part 1</title>
+ <name>TheoryOfHeatRadiationPart1</name>
+ <created>2006-02-01 03:26:14</created>
+ <modified>2006-02-01 23:46:31</modified>
+ <type>Definition</type>
+<parent id="110">the theory of heat radiation</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="heat"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Chapter I: General Introduction}
+
+{\bf 1.}  Heat may be propagated in a stationary medium in two entirely different ways, namely, by conduction and by radiation.  Conduction of heat depends on the temperature of the medium in which it takes place, or more strictly speaking, on the non-uniform distriution of the temperature in space, as measured by the temperature gradient.  In a region where the temperature of the medium is the same at all points there is no trace of heat conduction.
+
+Radiation of heat, however, is in itself entirely independent of the temperature of the medium through which it passes.  It is possible, for example, to concentrate the solar rays at a focus by passing them through a converging lens of ice, the latter remaining at a constant temperature of $0^0$, and so to ignite an inflammable body.  Generally speaking, radiation is a far more complicated phenomenon than conduction of heat.  The reason for this is that the state of the radiation at a given instant and at a given point of the medium cannot be represented, as can the flow of heat by conduction, by a single vector (that is, a single directed quantity).  All heat rays which at a given instant pass through the same point of the medium are perfectly independent of one another, and in order to specify completely the state of the radiation the intensity of radiation must be known in all the directions, infinite in number, which pass through the point in question; for this purpose two opposite directions must be considered as distinct, because the radiation in one of them is quite independent of the radiation in the other.
+
+{\bf 2.}  Putting aside for the present any special theory of heat radiation, we shall state for our further use a law supported by a large number of experimental facts.  This law is that, so far as their physical properties are concerned, heat rays are identical with light rays of the same wave length.  The term "heat radiation," then, will be applied to all physical phenomena of the same nature as light rays.  Every light ray is simultaneously a heat ray.  We shall also, for the sake of brevity, occasionally speak of the "color" of a heat ray in order to denote its wave length or period.  As a further consequence of this law we shall apply to the radiation of heat all the well-known laws of experimental optics, especially those of reflection and refraction, as well as those relating to the propagation of light.  Only the phenomena of diffraction, so far at least as they take place in space of considerable dimensions, we shall exclude on account of their rather complicated nature.  We are therefore obliged to introduce right at the start a certain restriction with respect to the size of the parts of space to be considered.  Throughout the following discussion it will be assumed that the linear dimensions of all parts of space considered, as well as the radii of curvature of all surfaces under consideration, are large compared with the wave lengths of the rays considered. With this assumption we may, without appreciable error, entirely neglect the influence of diffraction caused by the bounding surfaces, and everywhere apply the ordinary laws of reflection and refraction of light.  To sum up: We distinguish once for all between two kinds of lengths of entirely different orders of magnitude-dimensions of bodies and wave lengths.  Moreover, even the differentials of the former, i.e., elements of length, area and volume, will be regarded as large compared with the corresponding powers of wave lengths.  The greater, therefore, the wave length of the rays we wish to consider, the larger must be the parts of space considered.  But, inasmuch as there is no other restriction on our choice of size of the parts of space to be considered, this assumption will not give rise to any particular difficulty.
+
+{\bf 3.}  Even more essential for the whole theory of heat radiation than the distinction between large and small lengths, is the distinction between long and short intervals of time.  For the definition of intensity of a heat ray, as being the energy transmitted by the ray per unit time, implies the assumption that the unit of time chosen is large compared with the period of vibration corresponding to the color of the ray.  If this were not so, obviously the value of the intensity of the radiation would, in general, depend upon the particular phase of vibration at which the measurement of the energy of the ray was begun, and the intensity of a ray of constant period and amplitude would not be independent of the initial phase, unless by chance the unit of time were an integral multiple of the period.  To avoid this difficulty, we are obliged to postulate quite generally that the unit of time, or rather that element of time used in defining the intensity, even if it appear in the form of a differential, must be large compared with the period of all colors contained in the ray in question.
+
+
+
+The last statement leads to an important conclusion as to radiation of variable intensity.  If, using an acoustic analogy, we speak of "beats" in the case of intensities undergoing periodic changes, the "unit" of time required for a definition of the instantaneous intensity of radiation must necessarily be small compared with the period of the beats.  Now, since from the previous statement our unit must be large compared with a period of vibration, it follows that the period of the beats must be large compared with that of a vibration.  Without this restriction it would be impossible to distinguish properly between "beets" and simple "vibrations."  Similarly, in the general case of an arbitrarily variable intensity of radiation, the vibrations must take place very rapidly as compared with the relatively slower changes in intensity.  These statements imply, of course, a certain far-reaching restriction as to the generality of the radiation phenomena to be considered.
+
+
+
+It might be added that a very similar and equally essential restriction is made in the kinetic theory of gases by dividing the motions of a chemically simple gas into two classes: visible, coarse, or molar, and invisible, fine, or molecular.  For, since the velocity of a single molecule is a perfectly unambiguous quantity, this distinction cannot be drawn unless the assumption be made that the velocity-components of the molecules contained in sufficiently small volumes have certain mean values, independent of the size of the volumes.  This in general need not by any means be the case.  If such a mean value, including the value zero, does not exist, the distinction between motion of the gas as a whole and random undirected heat motion cannot be made.
+
+
+
+Turning now to the investigation of the laws in accordance with which the phenomena of radiation take place in a medium supposed to be at rest, the problem may be approached in two ways:  We must either select a certain point in space and investigate the different rays passing through this one point as time goes on, or we must select one distinct ray and inquire into its history, that is, into the way in which it was created, propagated, and finally destroyed.  For the following discussion, it will be advisable to start with the second method of treatment and to consider first the three processes just mentioned.
+
+
+
+{\bf 4. Emissions.} --The creation of a heat ray is generally denoted by the word emission.  According to the principle of the conservation of energy, emission always takes place at the expense of other forms of energy (heat, chemical or electric energy, etc.) and hence it follows that only material particles, not geometrical volumes or surfaces, can emit heat rays.  It is true that for the sake of brevity we frequently speak of the surface of a body as radiating heat to the surroundings, but this form of expression does not imply that the surface actually emits rays, but rather it allows part of the rays coming from the interior to pass through.  The other part is reflected inward and according as the fraction transmitted is larger or smaller the surface seems to emit more or less intense radiations.
+
+
+
+We shall now consider the interior of an emitting substance assumed to be physically homogeneous, and in it we shall select any volume-element $d\tau$ of not too small size.  Then the energy which is emitted by radiation in unit time by all particles in this volume-element will be proportional to $d\tau$.  Should we attempt a closer analysis of the process of emission and resolve it into its elements, we should undoubtedly meet very complicated conditions, for then it would be necessary to consider elements of space of such small size that it would no longer be admissible to think of the substance as homogeneous, and we would have to allow for the atomic constitution.  Hence the finite quantity obtained by dividing the radiation emitted by a volume-element $d\tau$ by this element $d\tau$ is to be considered only as a certain mean value.  Nevertheless, we shall as a rule be able to treat the phenomenon of emission as if all points of the volume-element $d\tau$ took part in the emission in a uniform manner, thereby greatly simplifying our calculation.  Every point of $d\tau$ will then be the vertex of a pencil of rays diverging in all directions.  Such a pencil coming from one single point of course does not represent a finite amount of energy, because a finite amount is emitted only by a finite though possibly small volume, not by a single point.
+
+
+
+We shall next assume our substance to be isotropic.  Hence the radiation of the volume-element $d\tau$ is emitted uniformly in all directions of space.  Draw a cone in an arbitrary direction, having any point of the radiating element as vertex, and describe around the vertex as center a sphere of unit radius.  This sphere intersects the cone in what is know as the solid angle of the cone, and from the isotropy of the medium it follows that the radiation in any such conical element will be proportional to its solid angle.  This holds for cones of any size.  If we take the solid angle as infinitely small and of size $d\omega$ we may speak of the radiation emitted in a certain direction, but always in the sense that for the emission of a finite amount of energy an infinite number of directions are necessary and these form a finite solid angle.
+
+
+
+
+
+{\bf 5.}  The distribution of energy in the radiation is in general quite arbitrary; that is, the different colors of a certain radiation may have quite different intensities.  The color of a ray in experimental physics is usually denoted by its wave length, because this quantity is measured directly.  For the theoretical treatment, however, it is usually preferable to use the frequency $\nu$ instead, since the characteristic of color is not so much the wave length, which changes from one medium to another, as the frequency, which remains unchanged in a light or heat ray passing through stationary media.  We shall, therefore, hereafter denote a certain color by the corresponding value of $\nu$, and a certain interval of color by the limits of the interval $\nu$ and $\nu'$, where $\nu' &gt; \nu$.  The radiation lying in a certain interval of color divided by the magnitude $\nu' - \nu$ of the interval, we shall call the mean radiation in the interval $\nu$ to $\nu'$.  We shall then assume that if, keeping $\nu$ constant, we take the interval $\nu' - \nu$ sufficiently small and denote it by $d\nu$ the value of the mean radiation approaches a definite limiting value, independent of the size of $d\nu$, and this we shall briefly call the "radiation of frequency $\nu$."  To produce a finite intensity of radiation, the frequency interval, though perhaps small, must also be finite.
+
+\subsection{References}
+
+This entry is a derivative of [1], a public domain work.
+
+[1] Planck, M. "The Theory of Heat Radiation" Translation by Morton Masius, P. Blakiston's Son \&amp; CO., Philadephia, 1914.</content>
+</record>

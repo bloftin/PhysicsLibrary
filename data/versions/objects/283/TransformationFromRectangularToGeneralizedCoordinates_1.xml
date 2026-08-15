@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="283">
+ <title>transformation from rectangular to generalized coordinates</title>
+ <name>TransformationFromRectangularToGeneralizedCoordinates</name>
+ <created>2008-07-15 10:48:33</created>
+ <modified>2008-07-15 10:48:33</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.Jj"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>We take a system with a total of $3N \equiv n$ Cartesian coordinates of 
+which $\nu$ are independent.  We denote Cartesian coordinates 
+by the same letter $x_i$, understanding by this symbol all the coordinates $x, y, z$; this means that $i$ varies from $1$ to $3N$, that is, from $1$ to $n$.  The generalized coordinates we denote by $q_\alpha$ $(l \le \alpha \le \nu )$. Since the generalized coordinates completely specify the position of their system, $x_i$ are their unique functions: 
+
+$$x_i = x_i (q_1, q_2,\dots q_\alpha,\dots,q_v)$$ 
+
+From this it is easy to obtain an expression for the Cartesian components of velocity. Differentiating the function of many variables 
+$x_i(\dots q_\alpha)$ with respect to time, we have 
+
+\begin{equation}
+\frac{ dx_i}{dt} = \sum_{\alpha=1}^{\nu} \frac{\partial x_i}{\partial q_\alpha} \frac{d q_\alpha}{dt}
+\end{equation}
+
+In the subsequent derivation we shall often have to perform 
+summations with respect to all the generalized coordinates $q_\alpha$, and double and triple sums will be encountered.  In order to save space we will use Einstein summation. 
+
+The total derivative with respect to time is usually denoted by a dot over the corresponding variable:
+
+$$ \frac{d x_i}{dt} = \dot{x_i}; \,\,\, \frac{d q_\alpha}{dt} = \dot{q_\alpha} $$
+
+In this notation, the velocity (1) in abbreviated form becomes:
+
+\begin{equation} \dot{x_i} = \frac{\partial x_i}{\partial q_\alpha} \dot{q_\alpha}
+\end{equation}
+
+Differentiating this with respect to time again, we obtain an expression for the Cartesian components of acceleration:
+
+$$\ddot{x_i}= \frac{d}{dt}\left( \frac{\partial x_i}{\partial q_\alpha} \right ) \dot{q_\alpha} + \frac{\partial x_i}{\partial q_\alpha} \ddot{q_\alpha} $$
+
+The total derivative in the first term is written as usual:
+
+$$ \frac{d}{dt}\left( \frac{\partial x_i}{\partial q_\alpha} \right ) = \frac{\partial^2 x_i}{\partial q_\beta \partial q_\alpha} \dot{q_\beta} $$
+
+The Greek symbol over which the summatino is performed is deonted by the letter $\beta$ to avoid confusion with the symbol $\alpha$, which denotes the summation in the expression for velocity (2).  Thus we obtain the desired expression for $\ddot{x_i}$:
+
+\begin{equation}
+\ddot{x_i} = \frac{\partial^2 x_i}{\partial q_\beta \partial q_\alpha} \dot{q_\beta} \dot{q_\alpha} + \frac{\partial x_i}{\partial q_\alpha} \ddot{q_\alpha}
+\end{equation}
+
+The first term on the right-hand side contains a double summation with respect to $\alpha$ and $\beta$.</content>
+</record>

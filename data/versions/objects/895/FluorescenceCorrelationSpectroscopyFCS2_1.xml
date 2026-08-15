@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="895">
+ <title>Fluorescence correlation spectroscopy (FCS)</title>
+ <name>FluorescenceCorrelationSpectroscopyFCS2</name>
+ <created>2010-11-28 16:41:06</created>
+ <modified>2010-11-28 16:41:06</modified>
+ <type>Definition</type>
+<parent id="894">Fluorescence cross-correlation spectroscopy (FCCS)</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>more to come...</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>FCS</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Fluorescence correlation spectroscopy (FCS)" alias="FCS"/>
+ </synonyms>
+ <related>
+	<object name="FluorescenceCrossCorrelationSpectroscopyFCCS"/>
+ </related>
+ <keywords>
+	<term>FCS</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\textbf{Fluorescence correlation spectroscopy (FCS)} is a {\em laser spectroscopy technique that monitors correlations between molecules or particle motions in solutions or gels}. 
+
+
+$http://planetphysics.org/?op=getobj\&amp;from=papers\&amp;id=126$</content>
+</record>

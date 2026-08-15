@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="143">
+ <title>inertia tensor</title>
+ <name>InertiaTensor</name>
+ <created>2006-03-28 00:25:45</created>
+ <modified>2006-03-28 10:24:35</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The inertia tensor is straight forward to calculate in theory from equation (1).  However, in practice finding the inertia tensor of an object is quite involved and high precision is needed in applications such as spacecraft design.
+
+\begin{equation}
+I =
+\left[ \begin{array}{ccc}
+\displaystyle\sum_i m_i (r^2_i - x^2_i) &amp; -\displaystyle\sum_i m_i x_i y_i &amp; -\displaystyle\sum_i m_i x_i z_i \\
+-\displaystyle\sum_i m_i y_i x_i &amp; \displaystyle\sum_i m_i (r^2_i - y^2_i) &amp; -\displaystyle\sum_i m_i y_i z_i \\
+-\displaystyle\sum_i m_i z_i x_i &amp; -\displaystyle\sum_i m_i z_i y_i &amp; \displaystyle\sum_i m_i (r^2_i - z^2_i) \end{array} \right] \end{equation}
+
+Terminology to reference the elements of the inertia tensor are the moments of inertia, which are the diagonal elements, $I_{11}$, $I_{22}$, and $I_{33}$.
+
+and the products of inertia, which are the off-diagonal elements.  A quick inspection of (1) reveals that the inertia tensor is symmetric, so the the products of inertia are
+
+$$ I_{12} = I_{21} $$
+$$ I_{13} = I_{31} $$
+$$ I_{23} = I_{32} $$
+
+To help build intuition on working with the inertia tensor, a few simple cases are looked at.  For the example of a solid sphere, we found that the moment of inertia of a solid sphere was
+
+$$I = \frac{2}{5} M R^2 $$
+
+This value was just the rotational inertia about a single axis that was a diameter of the sphere.  It is easy to see that the general case about any of the sphere's body axes, x,y or z is taken care of by the inertia tensor with the moments of inertia being
+
+$$ I_{11} = I_{22} = I_{33} = I $$
+
+and the products of inertia equal to 0.  For this case of the body axes being diameters of the sphere, then the body axes are also the principle axes and this says a lot about the symmetry of the chosen axes.  For an axis of rotation that is not a diameter of the sphere, then there will be non-zero products of inertia and no more symmetry, so this axis is not a principle axis.  If you visualize moving the origin of the body axes anywhere other than the orgin, then the set of coordinate body axes are not principle axes of rotation.</content>
+</record>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="519">
+ <title>Heron's principle</title>
+ <name>HeronsPrinciple</name>
+ <created>2009-02-13 13:25:55</created>
+ <modified>2009-02-14 15:44:58</modified>
+ <type>Theorem</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="21" name="pahio"/>
+ <comment>old preamble!</comment>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="02.40.Dr"/>
+	<category scheme="msc" code="42.15.-i"/>
+ </classification>
+ <related>
+	<object name="FermatsPrinciple"/>
+ </related>
+ <keywords>
+	<term>reflection</term>
+ </keywords>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+ \usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+
+\theoremstyle{definition}
+\newtheorem*{thmplain}{Theorem}</preamble>
+ <content>\PMlinkescapeword{side} \PMlinkescapeword{sides}
+
+\textbf{Theorem.}\, Let $A$ and $B$ be two points and $l$ a line of the Euclidean plane.\, If $X$ is a point of $l$ such that the sum $AX\!+\!XB$ is the least possible, then the lines $AX$ and $BX$ form equal angles with the line $l$.
+
+This {\em Heron's principle}, concerning the reflection of light, is a special case of {\em Fermat's principle} in optics.\\
+
+{\em Proof.}\, If $A$ and $B$ are on different sides of $l$, then $X$ must be on the line $AB$, and the assertion is trivial since the vertical angles are equal.\, Thus, let the points $A$ and $B$ be on the same side of $l$.\, Denote by $P$ and $Q$ the points of the line $l$ where the normals of $l$ set through $A$ and $B$ intersect $l$, respectively.\, Let $C$ be the intersection point of the lines $AQ$ and $BP$.\, Then, $X$ is the point of $l$ where the normal line of $l$ set through $C$ intersects $l$.
+
+Justification:\, From two pairs of similar right triangles we get the proportion equations
+$$AP:CX \;=\; PQ:XQ, \quad BQ:CX \;=\; PQ:PX,$$
+which imply the equation
+$$AP:PX \;=\; BQ:XQ.$$
+From this we can infer that also
+$$\Delta AXP \sim \Delta BXQ.$$
+Thus the corresponding angles $AXP$ and $BXQ$ are equal.\\
+...</content>
+</record>

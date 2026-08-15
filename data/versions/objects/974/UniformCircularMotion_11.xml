@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="11" id="974">
+ <title>uniform circular motion</title>
+ <name>UniformCircularMotion</name>
+ <created>2025-03-02 17:23:10</created>
+ <modified>2025-03-02 18:02:36</modified>
+ <type>Topic</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Dd"/>
+	<category scheme="msc" code="45.50.-j"/>
+ </classification>
+ <defines>
+	<concept>centripetal force</concept>
+	<concept>centrifugal force</concept>
+ </defines>
+ <preamble>      % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>When a point moves with uniform speed along the arc of a circle, its velocity is constantly changing in direction, and hence the point has an acceleration even though there is no change in the magnitude of its velocity. \\
+
+Let a point move with uniform speed along the arc \(mn \) of the circle whose center is \( O \) in Figure 1.  
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.2]{UniformMotionFig1.png}
+\caption{1. }
+\end{figure}
+
+
+When the point is at \( m \), its velocity is \( v \), and is perpendicular to the radius \( r \).  When the point has reached \( n \), its velocity is \( v' \), perpendicular to the radius \( r' \). \( v' \) is a vector which is obtained by adding the vector \( u \) to the vector \( v \); hence \( u \) is the change in velocity.  If the points \( m \) and \( n \) are taken very near together, \( v \) and \( v' \) are very nearly parallel and \( u \) is perpendicular to \( v \), i.e., the change of velocity is toward the center of the circle.  If \( t \) units of time are required for the point to move from \( m \) to \( n \), this change of velocity occurs in \( t \) units of time, and \( \frac{u}{t} \)  is the average rate of change of velocity.  In the limiting case under consideration, i.e., when the distance between \( m \) and \( n \) approaches zero, this average rate of change of velocity becomes the acceleration and 
+
+$$ a = \frac{v}{t}. $$
+
+From Figure 1 it is apparent that, for small angles
+
+$$ \frac{u}{v} = \theta$$
+
+or 
+
+$$ u = v \theta. $$
+
+Substituting this value of \(u \) in the equation
+
+$$ a = \frac{u}{t}, $$
+
+we have 
+
+$$ a = \frac{v \theta}{t} = v \omega, $$
+
+\( \omega\) being the angular velocity of the radius.  \( v/r \) may be substituted for \( \omega \), in which case
+
+$$ a = \frac{v^2}{r}. $$
+
+Substituting \( \omega r \) for \( v \) in the same equation, we obtain an express for acceleration \( a \) in terms of angular velocity \( \omega \), thus:
+
+$$ a = \omega^2 r. $$
+
+This is called the centripetal acceleration.  It is always directed toward the center of the circle in whose circumference the point is moving.  If \( v \) is measured in cm per second, \( u \) is also measured in cm per second, and \( u/t \) must be measured in cm per second per second.  When the foot is taken as the unit of length, the acceleration \( a \) is measured in feet per second per second.
+
+If a mass particle \( m \) has a uniform circular motion, it will have an acceleration toward the center, and hence a continuous force,
+
+$$ ma = \frac{m v^2}{r}, $$
+
+must act to pull it toward the center.  This force is called the centripetal force;  and its equal and opposite reaction, called the centrifugal force, is the force that the mass exerts away from the center.  These forces vary as the mass, as the square of the speed, and, for a given speed, inversely as the radius of the curve.
+
+This article is a derivative work of the public domain in [1].
+
+\begin{thebibliography}{9}
+
+[1]  Randall, Harrison, Williams Neil, Colby, Walter, "General College Physics" Harper and Brothers Publishers, New York and London, 1929. \\
+
+
+\end{thebibliography}</content>
+</record>

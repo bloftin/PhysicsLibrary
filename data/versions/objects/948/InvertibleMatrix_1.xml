@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="948">
+ <title>invertible matrix</title>
+ <name>InvertibleMatrix</name>
+ <created>2025-02-24 06:06:35</created>
+ <modified>2025-02-24 06:06:35</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>spelling corrections</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.10.Yn"/>
+	<category scheme="msc" code="02.10.Ud"/>
+ </classification>
+ <preamble>    % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In linear algebra, an invertible matrix is a square matrix that has an inverse. In other words, if some other matrix is multiplied by the invertible matrix, the result can be multiplied by an inverse to undo the operation. An invertible matrix multiplied by its inverse yields the identity matrix. Invertible matrices are the same size as their inverse. \\
+
+An $n$-by-$n$ square matrix $A$ is called invertible (also nonsingular, nondegenerate or rarely regular) if there exists an $n$-by-$n$ square matrix $B$ such that 
+
+\begin{equation}
+\boldsymbol{A} \boldsymbol{ B} =\boldsymbol{ B} \boldsymbol{A} = \boldsymbol{I}_n.
+\end{equation}
+
+where $ \boldsymbol{I}_n $ denotes the $n$-by-$n$ identity matrix and the multiplication used is ordinary matric multiplication[1].  If this is the case, then the matrix $\boldsymbol{ B}$ is uniquely determined by $\boldsymbol{ A}$, and is calle the multiplicative inverse of $\boldsymbol{ A}$, denoted by $\boldsymbol{ A^{-1}}$.  Matrix inversion is the process of finding the matrix which when multipled by the original matrix gives the identity matrix[2].  \\
+
+Over a field, a square matrix that is not invertible is called singular or degenerate. A square matrix with entries in a field is singular if and only if its determinant is zero. Singular matrices are rare in the sense that if a square matrix's entries are randomly selected from any bounded region on the number line or complex plane, the probability that the matrix is singular is $0$, that is, it will "almost never" be singular.  Non-square matrices, i.e. $m$-by-$n$ matrices for which $m \ne  n$, do not have an inverse.  However, in some cases such a matrix may have a left inverse or right inverse. If $\boldsymbol{ A}$ is $m$-by-$n$ and the rank of $\boldsymbol{ A}$  is equal to $n, (n \leq m)$, then $\boldsymbol{ A}$ has a left inverse, an $n$-by-$m$ matrix $\boldsymbol{B}$  such that $\boldsymbol{B} \boldsymbol{A} = \boldsymbol{I}_n$.   If $\boldsymbol{A}$ has rank $m (m \leq n)$, then it has a right inverse, an $n$-by-$m$ matrix  $\boldsymbol{B}$ such that $\boldsymbol{A}\boldsymbol{B} = \boldsymbol{I}_m$.   \\
+
+While the most common case is that of matrices over the real or complex numbers, all of those definitions can be given for matrices over any algebraic structure equipped with addition and multiplication (i.e. rings). However, in the case of a ring being commutative, the condition for a square matrix to be invertible is that its determinant is invertible in the ring, which in general is a stricter requirement than it being nonzero. For a noncommutative ring, the usual determinant is not defined. The conditions for existence of left-inverse or right-inverse are more complicated, since a notion of rank does not exist over rings.  \\
+
+The set of $n \times n$ invertible matrices together with the operation of matrix multiplication and entries from ring $R$ form a group, the general linear group of degree $n$, denoted $GL_n(R)$. \\
+
+This article is a derivative work of the creative commons share alike with attribution in [3]. \\
+
+\begin{thebibliography}{9}
+
+[1]  "Inversion of a matrix", Encyclopedia of Mathematics, EMS Press, 2001 [1994] \\
+
+[2]  Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2001) [1990]. "28.4: Inverting matrices". Introduction to Algorithms (2nd ed.). MIT Press and McGraw-Hill. pp. 755-760. ISBN 0-262-03293-7. \\
+
+[3]  Wikipedia contributors, "Invertible matrix," Wikipedia, The Free Encyclopedia.
+\end{thebibliography}</content>
+</record>

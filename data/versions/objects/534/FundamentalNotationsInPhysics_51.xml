@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="51" id="534">
+ <title>fundamental notations in physics</title>
+ <name>FundamentalNotationsInPhysics</name>
+ <created>2009-02-16 12:54:18</created>
+ <modified>2009-02-16 15:58:48</modified>
+ <type>Topic</type>
+<parent id="414">overview of the Content of PlanetPhysics</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>m</concept>
+	<concept>v</concept>
+	<concept>q</concept>
+	<concept>p</concept>
+	<concept>A</concept>
+	<concept>B</concept>
+	<concept>C</concept>
+	<concept>E</concept>
+	<concept>\E</concept>
+	<concept>c</concept>
+	<concept>light velocity in vacuum</concept>
+	<concept>dielectric constance</concept>
+	<concept>\I</concept>
+	<concept>impedance</concept>
+	<concept>inductance</concept>
+	<concept>dielectric constant</concept>
+	<concept>magnetic inductance</concept>
+	<concept>magnetic field</concept>
+	<concept>electric field</concept>
+	<concept>vector field</concept>
+	<concept>F</concept>
+	<concept>G</concept>
+	<concept>\Delta G</concept>
+	<concept>Q</concept>
+	<concept>I</concept>
+	<concept>J</concept>
+	<concept>K</concept>
+	<concept>H</concept>
+	<concept>L</concept>
+	<concept>M</concept>
+	<concept>S</concept>
+	<concept>T</concept>
+	<concept>l</concept>
+	<concept>t</concept>
+	<concept>r</concept>
+	<concept>U</concept>
+	<concept>V</concept>
+	<concept>K</concept>
+	<concept>\mu</concept>
+	<concept>\nu</concept>
+	<concept>\rho</concept>
+	<concept>rho</concept>
+	<concept>\psi</concept>
+	<concept>\phi</concept>
+	<concept>g</concept>
+	<concept>g~</concept>
+	<concept>\lambda</concept>
+	<concept>\eta</concept>
+ </defines>
+ <keywords>
+	<term>mass</term>
+	<term>reference frame</term>
+	<term>space</term>
+	<term>time</term>
+	<term>length</term>
+	<term>distance</term>
+	<term>spacetime</term>
+	<term>coordinate system</term>
+	<term>reference frame</term>
+	<term>position</term>
+	<term>velocity</term>
+	<term>momentum</term>
+	<term>acceleration</term>
+	<term>gravitational acceleration</term>
+	<term>force</term>
+	<term>charge</term>
+	<term>potential</term>
+	<term>energy</term>
+	<term>electrochemical potential</term>
+	<term>electrical fields</term>
+	<term>magnetic fields</term>
+	<term>emf</term>
+	<term>electromagnetic field</term>
+	<term>magnetic dipole</term>
+	<term>Gibbs free energy</term>
+	<term>speed of light</term>
+	<term>heat exchanged</term>
+	<term>mechanical work</term>
+	<term>entropy</term>
+	<term>Helmholtz free energy</term>
+	<term>kinetic energy</term>
+	<term>potential energy</term>
+	<term>internal energy</term>
+	<term>entropy</term>
+	<term>energy-momentum tensor</term>
+	<term>wave function</term>
+	<term>eigenvalue</term>
+	<term>eigenstate</term>
+	<term>phase</term>
+	<term>Hamiltonian operator</term>
+	<term>cosmological constant</term>
+	<term>Riemannian metric tensor</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>{\bf [Contributed Entry in Progress]}
+
+This is a contributed topic entry listing notations of fundamental quantities and observables in physics, as well as a listing of related notations of mathematical concepts employed in mathematical physics and physical mathematics.
+\subsection{Notations of Fundamental Physical Quantities, Observables and Related Mathematical Concepts}
+
+\subsubsection{A List of Notations for Fundamental Quantities, Observables
+Functions, Operators, Tensors and Matrices in Physics} 
+
+\begin{enumerate}
+\item $m= \, Mass$
+\item $n, \, or \, N = Number \, of \, Particles$ in a System 
+\item $\mathcal{R} = \, System\, of \, Reference$ or (Relative) Reference Frame
+\item $ \vec{r}$ or ${\bf r}= \, position \, in \, space$ (relative to a system of reference $\mathcal{R}$ or coordinate system)
+\item $\mathcal{S} = \, Physical \, Space$
+\item $A = \, Surface \, Area$
+\item $l = \, length$
+\item $ d = r_2 - r_1=  \, the \, distance$ between two points of relative positions $\vec{r}_1$ and $\vec{r}_2$
+\item $V = \, Volume$
+\item $\rho = \, Density$
+\item $\sigma = \, Density \, of \, States$ (for example in a solid)
+\item $ \eta = \, Viscosity$ of a Fluid
+\item $\sigma_S =\, Surface \, Tension$
+\item $ t = \, Time$ (relative to a system of reference $\mathcal{R}$)
+\item {\bf $v$} or $ \vec{v} = Velocity$ in Newtonian mechanics
+\item ${\bf q} =\, Velocity$ observable or, respectively operator in theoretical and quantum physics
+\item $\vec{p}= \, Momentum$ in classical mechanics and relativity theories.
+\item ${\bf p} = \, Momentum \, Operator$ in quantum mechanics, QFT, etc.
+\item $\vec{J} = \, Total, \, Quantized \, Angular \, Momentum$
+\item $ \vec{a} =\, acceleration$
+\item $ \vec{g} =\, gravitational \, acceleration$
+\item $\vec{F} = \, Force$
+\item $\vec{F}_v = \, Vector \, Field$
+\item $T_{ij}, \, T^{ij}, \, g_{\mu \nu}, \, etc.\, = \, Tensor$ quantities
+\item $E = \, Energy$
+\item $E_i = \mathbb{U} = Internal \, Energy$
+\item $U= \, Potential\, Energy$
+\item $E_K =\, Kinetic\, Energy$
+\item $\mathcal(H) = \, Hamiltonian$ or Schr\"odinger operator 
+\item $\vec{E} = \, Electrical\, Field$
+\item $\vec{\mu}_E = \, Electric \, Dipole$
+\item $\vec{m}= \, Magnetic \, Dipole$
+\item $\vec{H}= \, Magnetic \, Field$
+\item $H= Hadron number$
+\item $C_h = Charm \, observable$
+\item $C_{ol} = Color \, observable$ (in QCD)
+\item $\vec{B}= \, Magnetic \, Inductance$
+\item $B = \, Baryon \, number$
+\item $\vec{M}= \, Magnetization$
+\item $ \mathcal{I} = \, Spin$ and \emph{Spin Operator}
+\item $EMF = \, Electromagnetic Field$
+\item $Q = \, Electrical \, Charge$
+\item $P =\, Parity$
+\item $\vec{P} = \, Electrical \, Polarization$
+\item $V_E = \, Electrical \, Potential$
+\item $I = \, Electrical \, current$
+\item $ i = \, Current \,, Density$
+\item $C = \, Capacitance$
+\item $L = \, Inductance$
+\item $\mathbb{I} = \, Impedance$
+\item $ R = \, Electrical \, Resistance$
+\item $\E \, or\, \mu = \, Electrochemical Potential$
+\item $ a = \, activity$
+\item $T = Temperature$
+\item $\Delta H = \, Exchanged \, Heat$
+\item $\L = \, Mechanical \, Work$
+\item $S = \, Entropy$ (Thermodynamic State Function)
+\item $\Delta G =\, Gibbs \, Free\, Energy\, change$ 
+\item $\Delta \mathbb{H} = \, Helmholtz \, Free \, Energy \, change$
+\item ${\sigma}_{ij} =\, Pauli \, matrices$
+\item $CQG = Compact \, Quantum \, Groups$
+\item $QG = \mathcal{G} = \, Quantum Groupoids$
+\item $QCG = \,Quantum \, Compact\, Groupoids$
+\item $ QFG = \, Quantum \, Fundamental \, Groupoid$
+\item $ \A =\, Abelian \, category$
+\item $ \mathcal{C} = \, Category$
+\item $\bf{G} = \, Group$
+\item $ \G = \, Groupoid$
+\item $ {\bf G}_S = \, Symmetry \, Groups$
+\item $ {\bf g} = Lie \, group$
+\item $ \widetilde{\bf g} =\, Lie \, algebra$
+\item $SU =\, Special \, Unitary \, Groups$
+\item K
+\item L
+\item M
+\item N
+\item O
+\item P
+\item Q
+\item R
+
+\end{enumerate}
+
+\subsubsection{Fundamental Constants in Physics}
+
+\begin{itemize}
+\item $c = \, magnitude \, of \, the \, velocity \, of \, light$ in vacuum
+\item ${\epsilon}_0 =\, dielectric\, constant$, or \emph{electrical permitivity} of vacuum
+\item ${\mu}_0 =\, magnetic \, permitivity \, (or \, permeability)$ of vacuum
+\item $h = \, Planck's$ constant
+\item $k =\, Boltzmann$ constant
+\item $n = \, Avogadro's \, number$
+\item Electron mass (at rest), $e$
+\item Proton mass (at rest) $m_P$
+\item \emph{Fine-structure constant}, $ \alpha \, $, is the emf coupling constant (that characterizes the strength of the electromagnetic interaction);
+$$ \alpha \, =  \ 7.297\,352\,570(5) \times 10^{-3}\ =\ \frac{1}{137.035\,999\,070(98)} ,$$ (i.e., approximately $\frac{1}{137}$)
+\item Neutrino masses (at rest), $m_{\nu}$
+\item Electron charge, $m_e$
+\item Electron Magnetic Moment, $\mu_e$
+\item Proton Magnetic Moment, $\mu_p$
+\item Neutron Magnetic Moment, $\mu_n$
+\item Gyromagnetic Ratios of Nucleons or Nuclei, $g_n$
+\item Gyromagnetic Ratio of the Electron, $g_e$
+\item $G = \, Universal\, Gravitational\, Constant$
+\item $ \lambda = \, Cosmological\, Constant$ (introduced by Einstein in Relativity Theory)
+\item C
+\item D
+\item E
+\item F
+\item G
+\item H
+\item I
+\item J
+\item K
+\item L
+\item M
+\item N
+\item O
+\item P
+\item Q
+\item R
+
+\end{itemize}</content>
+</record>

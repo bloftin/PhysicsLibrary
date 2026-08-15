@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="13" id="888">
+ <title>Enriched Category Theory</title>
+ <name>EnrichedCategoryTheory</name>
+ <created>2010-11-01 00:27:13</created>
+ <modified>2010-11-01 01:18:06</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <keywords>
+	<term>Kan adjointness</term>
+	<term>enriched categories</term>
+	<term>weak Yoneda Lemma</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%
+% making logically defined graphics
+\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+
+\newcommand{\sR}[0]{\mathbb{R}}
+\newcommand{\sC}[0]{\mathbb{C}}
+\newcommand{\sN}[0]{\mathbb{N}}
+\newcommand{\sZ}[0]{\mathbb{Z}}
+
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+
+
+%\usepackage{bbm}
+%\newcommand{\N}{\mathbbmss{N}}
+%\newcommand{\Z}{\mathbbmss{Z}}
+%\newcommand{\C}{\mathbbmss{C}}
+%\newcommand{\R}{\mathbbmss{R}}
+%\newcommand{\Q}{\mathbbmss{Q}}
+
+
+
+\newcommand*{\norm}[1]{\lVert #1 \rVert}
+\newcommand*{\abs}[1]{| #1 |}
+
+\newcommand{\Map}[3]{#1:#2\to#3}
+\newcommand{\Emb}[3]{#1:#2\hookrightarrow#3}
+\newcommand{\Mor}[3]{#2\overset{#1}\to#3}
+
+\newcommand{\Cat}[1]{\mathcal{#1}}
+\newcommand{\Kat}[1]{\mathbf{#1}}
+\newcommand{\Func}[3]{\Map{#1}{\Cat{#2}}{\Cat{#3}}}
+\newcommand{\Funk}[3]{\Map{#1}{\Kat{#2}}{\Kat{#3}}}
+
+\newcommand{\intrv}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\vp}{\varphi}
+\newcommand{\ve}{\varepsilon}
+
+\newcommand{\Invimg}[2]{\inv{#1}(#2)}
+\newcommand{\Img}[2]{#1[#2]}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\limti}[1]{\lim\limits_{#1\to\infty}}
+
+\newcommand{\Ra}{\Rightarrow}
+
+%fonts
+\newcommand{\mc}{\mathcal}
+
+%shortcuts
+\newcommand{\Ob}{\mathrm{Ob}}
+\newcommand{\Hom}{\mathrm{hom}}
+\newcommand{\homs}[2]{\mathrm{hom(}{#1},{#2}\mathrm )}
+\newcommand{\Eq}{\mathrm{Eq}}
+\newcommand{\Coeq}{\mathrm{Coeq}}
+
+%theorems
+\newtheorem{THM}{Theorem}
+\newtheorem{DEF}{Definition}
+\newtheorem{PROP}{Proposition}
+\newtheorem{LM}{Lemma}
+\newtheorem{COR}{Corollary}
+\newtheorem{EXA}{Example}
+
+%categories
+\newcommand{\Top}{\Kat{Top}}
+\newcommand{\Haus}{\Kat{Haus}}
+\newcommand{\Set}{\Kat{Set}}
+
+%diagrams
+\newcommand{\UnimorCD}[6]{
+\xymatrix{ {#1} \ar[r]^{#2} \ar[rd]_{#4}&amp; {#3} \ar@{--&gt;}[d]^{#5} \\
+&amp; {#6} } }
+
+\newcommand{\RovnostrCD}[6]{
+\xymatrix@C=10pt@R=17pt{
+&amp; {#1} \ar[ld]_{#2} \ar[rd]^{#3} \\
+{#4} \ar[rr]_{#5} &amp;&amp; {#6} } }
+
+\newcommand{\RovnostrCDii}[6]{
+\xymatrix@C=10pt@R=17pt{
+{#1} \ar[rr]^{#2} \ar[rd]_{#4}&amp;&amp; {#3} \ar[ld]^{#5} \\
+&amp; {#6} } }
+
+\newcommand{\RovnostrCDiiop}[6]{
+\xymatrix@C=10pt@R=17pt{
+{#1} &amp;&amp; {#3} \ar[ll]_{#2} \\
+&amp; {#6} \ar[lu]^{#4} \ar[ru]_{#5} } }
+
+\newcommand{\StvorecCD}[8]{
+\xymatrix{
+{#1} \ar[r]^{#2} \ar[d]_{#4} &amp; {#3} \ar[d]^{#5} \\
+{#6} \ar[r]_{#7} &amp; {#8}
+}
+}
+
+\newcommand{\TriangCD}[6]{
+\xymatrix{ {#1} \ar[r]^{#2} \ar[rd]_{#4}&amp;
+{#3} \ar[d]^{#5} \\
+&amp; {#6} } }</preamble>
+ <content>\section{Enriched Category Theory}
+
+\subsection{Monoidal Categories} 
+
+$2-category$ VCAT for a monoidal V category
+$2-functors$, such as $F: VCAT \to CAT$
+
+Tensor products and duality  
+
+Closed and bi-closed bimonoidal categories 
+
+Representable V functors 
+
+Extraordinary V naturality and the V naturality of the canonical maps 
+
+\subsection{The Weak Yoneda Lemma for VCAT}
+
+
+\subsection{Adjunctions and equivalences in VCAT}
+
+\subsection{$2-Functor$ categories} 
+
+\subsection{The functor category $[A,B]$ for small A} 
+
+
+
+
+\subsection{The (strong) Yoneda lemma for VCAT and the Yoneda embedding} 
+
+\subsection{The free V category on a Set category}
+
+\subsection{Universe enlargement $V \to enV$ : consider $[A,B]$ as an enV category}
+
+The isomorphism $[A \times [B, C]] \cong [A,[B,C]]$
+
+\subsection{Indexed limits and colimits}
+
+Indexing types; limits and colimits; Yoneda isomorphisms 
+
+Preservation of limits and colimits 
+
+\subsection{Limits in functor categories: double limits and iterated limits} 
+ 
+
+The connection with classical conical limits when $V = Set$  
+
+\subsection{Full subcategories and limits: the closure of a full subcategory}
+
+\subsection{Strongly generating functors}
+
+\subsection{Tensor and Cotensor Products} 
+
+\subsection{Kan extensions}
+
+The definition of Kan extensions: their expressibility by limits and colimits 
+
+\subsection{Iterated Kan extensions. Kan adjoints} 
+
+
+\subsection{Filtered categories when $V = Set$}
+
+\subsection{General Representability and Adjoint Functor theorems}
+
+
+\subsection{Representability and adjoint-functor theorems when $V = Set$}
+
+
+\subsection{Functor categories, small Projective Limits and Morita Equivalence}
+
+
+
+
+
+
+
+
+\textbf{more to come}</content>
+</record>

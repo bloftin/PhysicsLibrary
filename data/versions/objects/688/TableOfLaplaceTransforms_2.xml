@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="688">
+ <title>table of Laplace transforms</title>
+ <name>TableOfLaplaceTransforms</name>
+ <created>2009-04-23 11:47:47</created>
+ <modified>2009-04-23 11:56:48</modified>
+ <type>Topic</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="441" name="bci1"/>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="02.30.Uu"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Below are tables of \PMlinkname{Laplace transforms}{LaplaceTransform}; one lists some of the common properties, and the other lists some common examples.   
+
+\subsubsection*{Properties}
+\begin{center}
+\begin{tabular}{|c|c|p{4cm}|c|}
+\hline\hline
+Original &amp; Transformed &amp; comment &amp; derivation \\
+\hline\hline
+$af(t)+bg(t)$ &amp; $a\mathcal{L}\{f(t)\}+b\mathcal{L}\{g(t)\}$ &amp; linearity &amp; \\
+\hline
+$f(t)*g(t)$ &amp; $\mathcal{L}\{f(t)\}\mathcal{L}\{g(t)\}$ &amp; convolution property &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfConvolution}\\
+\hline
+$\displaystyle{\int_a^bf(t,\,x)\,dx}$ &amp; $\displaystyle{\int_a^b\mathcal{L}\{f(t,\,x)\}\,dx}$ 
+&amp; integration with respect to a parametre &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/IntegrationOfLaplaceTransformWithRespectToParameter.html}\\
+\hline
+$\displaystyle{\frac{\partial}{\partial x}f(t,\,x)}$ &amp; $\displaystyle{\frac{\partial}{\partial x}\mathcal{L}\{f(t,\,x)\}}$ &amp; diffentiation with respect to a parameter &amp; \\
+\hline
+$f(\displaystyle{\frac{t}{a}})$ &amp; $aF(as)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$  
+&amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/RulesForLaplaceTransform.html}\\
+\hline
+$e^{at}f(t)$ &amp; $F(s-a)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/RulesForLaplaceTransform.html}\\
+\hline
+$f(t-a)$ &amp; $e^{-as}F(s)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/DelayTheorem.html}\\
+\hline
+$t^nf(t)$ &amp; $(-1)^nF^{(n)}(s)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfTnft.html}\\
+\hline
+$\displaystyle\frac{f(t)}{t}$ &amp; $\displaystyle\int_s^\infty F(u)\,du$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; 
+\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfFracftt.html}\\
+\hline
+$\displaystyle{\int_0^tf(u)\,du}$ &amp; $\displaystyle{\frac{F(s)}{s}}$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegral.html}\\
+\hline
+$f'(t)$ &amp; $sF(s)-\lim_{x\to0+}f(x)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfDerivative.html}\\
+\hline
+$f''(t)$ &amp; $s^2F(s)-s\lim_{x\to0+}f'(x)-\lim_{x\to0+}f(x)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\subsubsection*{Examples}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline\hline
+$f(t)$ &amp; $\mathcal{L}\{f(t)\}$ &amp; conditions &amp; explanation &amp; derivation \\
+\hline\hline
+$e^{at}$ &amp; $\displaystyle{\frac{1}{s-a}}$ &amp; $s&gt;a$ &amp; &amp; trivial\\
+\hline
+$\cos{at}$ &amp; $\displaystyle{\frac{s}{s^{2}+a^{2}}}$ &amp; $s&gt;0$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\sin{at}$ &amp; $\displaystyle{\frac{a}{s^{2}+a^{2}}}$ &amp; $s&gt;0$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\cosh{at}$ &amp; $\displaystyle{\frac{s}{s^{2}-a^{2}}}$ &amp; $s&gt;|a|$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\sinh{at}$ &amp; $\displaystyle{\frac{a}{s^{2}-a^{2}}}$ &amp; $s&gt;|a|$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\displaystyle\frac{\sin{t}}{t}$ &amp; $\displaystyle\arctan\frac{1}{s}$ &amp; $s&gt;0$ &amp; See sinc function &amp; 
+\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegralSine.html}\\
+\hline
+$t^r$ &amp; $\displaystyle{\frac{\Gamma(r+1)}{s^{r+1}}}$ &amp; $r&gt;-1,\;\;s&gt;0$ &amp; gamma function $\Gamma$ &amp; 
+\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfPowerFunction.html}\\
+\hline
+$\displaystyle e^{a^2t}\,{\rm erf}\,a\sqrt{t}$ &amp; $\displaystyle\frac{a}{(s\!-\!a^2)\sqrt{s}}$ &amp; $s&gt;a^2$ &amp; See error function &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/UsingConvolutionToFindLaplaceTransform.html}\\
+\hline
+
+$\displaystyle e^{a^2t}\,{\rm erfc}\,a\sqrt{t}$ &amp; $\displaystyle\frac{1}{(a\!+\!\sqrt{s})\sqrt{s}}$ &amp; $s&gt;0$ &amp; See error function &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/UsingConvolutionToFindLaplaceTransform.html}\\
+\hline
+
+$\displaystyle\frac{1}{\sqrt{t}}$ &amp; $\displaystyle\sqrt{\frac{\pi}{s}}$ &amp; $s&gt;0$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfPowerFunction.html}\\
+\hline
+$J_0(at)$ &amp; $\displaystyle\frac{1}{\sqrt{s^2+a^2}}$ &amp; $s&gt;0$ &amp; Bessel function $J_0$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/InverseLaplaceTransformOfDerivatives.html}\\
+\hline
+$e^{-t^2}$ &amp; $\displaystyle\frac{\sqrt{\pi}}{2}e^\frac{s^2}{4}\mathrm{erfc}\Big(\frac{s}{2}\Big)$ &amp; $s&gt;0$ &amp; See error function &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfAGaussianFunction.html}\\
+\hline
+$\ln{t}$ &amp; $\displaystyle-\frac{\gamma+\ln{s}}{s}$ &amp; $s&gt;0$ &amp; Euler'sconstant $\gamma$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfLogarithm.html}\\
+\hline
+$\delta(t)$ &amp; $1$ &amp; &amp; Dirac delta function &amp; \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Rational Functions}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline\hline
+$f(t)$ &amp; $\mathcal{L}\{f(t)\}$ &amp; conditions &amp; explanation &amp; derivation \\
+\hline\hline
+1 &amp; $\displaystyle{1 \over s}$ &amp; &amp; &amp; \\ 
+\hline
+$t$ &amp; $\displaystyle{1 \over s^2}$ &amp; &amp; &amp;\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegral.html}\\ \hline
+$\displaystyle{t^{n-1} \over (n-1)!}$ &amp; $\displaystyle{1 \over s^n}$ &amp; &amp; &amp;\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegral.html} \\ \hline
+$\displaystyle{1 \over t+a}$ &amp; $e^{as} {\rm E}_1(as)$ &amp; $a &gt; 0$ &amp; exponential integral ${\rm E}_1$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/Ei.html}\\ \hline
+$\displaystyle{1 \over (t+a)^2}$ &amp; $\displaystyle{1 \over a}-se^{as}{\rm E}_1(as)$ &amp; $a &gt; 0$ &amp; &amp;\PMlinkexternal{here}{http://planetmath.org/encyclopedia/Ei.html}\\ 
+\hline
+$\displaystyle{1 \over (t+a)^n}$ &amp; $a^{1-n} e^{as} E_n (as)$ &amp; $a &gt; 0,\;\; n \in \mathbb{N}$ &amp; ? &amp; \\ 
+\hline
+$L_n(t)$ &amp; $\displaystyle\frac{1}{s}\!\left(\!\frac{s-1}{s}\!\right)^n$ &amp; $s &gt; 0$ &amp; Laguerre polynomial $L_n$ &amp; \\ \hline
+\end{tabular}
+\end{center}</content>
+</record>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="58">
+ <title>simple harmonic oscillator</title>
+ <name>SimpleHarmonicOscillator</name>
+ <created>2005-08-14 23:36:10</created>
+ <modified>2005-08-14 23:36:10</modified>
+ <type>Definition</type>
+<parent id="27">Hooke's law</parent>
+ <creator id="15" name="rspuzio"/>
+ <modifier id="15" name="rspuzio"/>
+ <comment>Changes for correction #13 ('A typo').</comment>
+ <author id="15" name="rspuzio"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>A \emph{simple harmonic oscillator} is a mechanical system which consists of a particle under the influence of a Hooke's law force.  The equation of motion of such a system is
+ \[ m {\ddot x} + k x = 0 \]
+It is typical to define the quantity $\omega = \sqrt{k/m}$ and write this equation as 
+ \[ {\ddot x} + \omega^2 x = 0 \]
+
+Note that this equation is linear.  Among other consequences, this means that the period of oscilltions does not depend on amplitude.  It is rather simple to solve this equation in tems of trigonometric functions to obtain a general solution.  This solution is typically written in one of two forms.
+ \[ x = v_0 \sin (\omega t) + x_0 \cos (\omega t) \]
+ \[ x = A \sin (\omega t + \phi) \]
+Either of these solutions shows that the period of oscillation is $\omega$ (independent of the period).  The relation between the two solutions is provided by the angle addition law for the sine.  One finds that the constants appearing in the two solutions are related in the following way:
+ \[ v_0 = A \cos \phi \]
+ \[ x_0 = A \sin \phi \]
+ \[ A = \sqrt{v_0^2 + x_0^2} \]
+ \[ \phi = \arctan (x_0 / v_0) \]
+These constants have the follofing interpretation: $A$ is the amplitude of the oscillation.  $\phi$ is the phase of the oscillation.  $v_0$ is the velocity at time $t = 0$.  $x_0$ is the position at time $t = 0$.</content>
+</record>

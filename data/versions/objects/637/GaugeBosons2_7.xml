@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="637">
+ <title>gauge bosons</title>
+ <name>GaugeBosons2</name>
+ <created>2009-04-10 12:51:22</created>
+ <modified>2009-04-10 13:18:34</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>,</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>boson</concept>
+	<concept>gauge group</concept>
+	<concept>W boson</concept>
+	<concept>Z boson</concept>
+	<concept>graviton</concept>
+	<concept>Bose-Einstein statistics</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="gauge bosons" alias="field carriers"/>
+ </synonyms>
+ <keywords>
+	<term>gauge theory</term>
+	<term>gauge fields</term>
+	<term>gauge bosons</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\em Gauge bosons} are (quantum) particles of zero or integer spin (i.e., bosons or particles that follow the Bose-Einstein statistics) which act as the carriers of the four fundamental forces of nature. Thus, the major gauge boson classes are: photons, W and Z bosons/{\em Higgs bosons}, gluons and {\em gravitons}, that are carriers of, respectively, electromagnetic interactions, (electro)weak interactions (W and Z), strong interactions and gravitational ones. 
+
+Unlike photons and (W,Z) bosons, the Higgs bosons and gravitons are yet to be observed, and are thus considered hypothetical. Therefore, the Standard Model of physics currently includes only photons, W, Z bosons and gluons. 
+
+In quantum gauge theories, gauge bosons are the quanta of gauge fields. There
+are distinct gauge (symmetry) groups associated with each class of gauge bosons.
+Thus, the gauge group of electromagnetic interactions in quantum electrodynamics (QED) is the {\em unitary} symmetry group $U(1)$ as it has only one gauge boson --the photon. On the other hand, in quantum chromodynamics (QCD), the gauge group is the special unitary group $SU(3)$ corresponding to the eight different gluon types (distinguished by their quantum flavors) which are responsible for the strong interactions.
+ 
+
+
+Note also that not all bosons are field carriers, and thus there are many more bosons besides the gauge bosons, such as: the deuteron, all nuclei of either zero or integer spin, Cooper (electron) pairs and all quasi-particles of either zero or integer spin.</content>
+</record>

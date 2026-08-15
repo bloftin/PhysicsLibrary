@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="183">
+ <title>fermion</title>
+ <name>Fermion</name>
+ <created>2006-06-06 15:49:05</created>
+ <modified>2009-01-30 19:23:06</modified>
+ <type>Definition</type>
+ <creator id="475" name="vip6"/>
+ <modifier id="475" name="vip6"/>
+ <author id="475" name="vip6"/>
+ <author id="132" name="metalac"/>
+ <classification>
+	<category scheme="msc" code="05.30.Fk"/>
+ </classification>
+ <related>
+	<object name="Boson"/>
+	<object name="PauliExclusionPrinciple"/>
+	<object name="FermiDiracDistribution"/>
+ </related>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\begin{definition}
+{\em Fermions} are particles with a half-integer spin value, and they are named after the famous Italian--American, Nobel Laureate physicist Enrico Fermi who built the first known operational nuclear reactor in Chicago as part of the Manhattan project during WWII. Several particles like leptons, quarks and baryons are all fermions.  
+\end{definition}
+
+ Since fermions have half-integer spin they obey  a certain type of quantum-mechanical statistics called the {\em Fermi-Dirac statistics}, which also includes the consequences of the Pauli `Exclusion Principle'; the latter principle states that no two fermions can occupy the same quantum mechanical state of a quantum mechanical system.  The exclusion principle is the main reason that fermions are the building blocks of the existing physical world, and for the stability of the electron orbitals in atoms and molecules.
+ 
+ All known `elementary particles': quarks, electrons, protons, etc are fermions with a spin value of 1/2-- and this suggests that the spin 1/2 particle/state is a unique,fundamental state of all stable matter in our physical universe. 
+
+ (One notes however that in superconducting systems that are usually macroscopically coherent quantum systems, the formation of phase-correlated `Cooper pairs' of electrons coupled to the ionic lattice of the superconducting metal does apparently run counter to the Pauli exclusion principle; furthermore, the transition to superconductivity involves necessarily a spontaneous symmetry breaking that gives rise to Goldstone bosons without which the superconductivity phenomenon/superconductivity phase transition would not be possible. Thus, in superconducting materials the electron pairs follow the Bose-Einstein statistics of very low-temperature condensates and behave like coupled boson chains, instead of the Fermi statistics of uncorrelated electrons which is most common to high temperature electrons; then, all such superconducting electron pairs are able to occupy the ground state with the lowest possible energy in certain superconducting materials for temperatures below approximately 110 degree K.)
+
+  Fermions at high temperatures act on each other by exchanging field carrier bosons, just as, for example, in the case of quarks (that are fermions) and gluons (that are bosons) inside a nucleon, such as a proton or a neutron of an atomic nucleus.</content>
+</record>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="441">
+ <title>Einstein's GR field equations</title>
+ <name>EinsteinsGRFieldEquations</name>
+ <created>2009-01-27 11:49:11</created>
+ <modified>2009-01-27 12:13:55</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment> QuantumRiemannianGeometry</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="04.20.-q"/>
+ </classification>
+ <defines>
+	<concept>GR field equations</concept>
+	<concept>General Relativiy field equations</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Einstein's GR field equations" alias="Einstein's GR equations"/>
+ </synonyms>
+ <keywords>
+	<term>GR field equations</term>
+	<term>General Relativiy field equations</term>
+	<term>Albert Einstein's GR equations</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Introduction}
+
+The following is a brief presentation cited from a \PMlinkexternal{PM entry reference on Einstein's Field Equations.}{http://planetmath.org/?op=getobj&amp;from=objects&amp;name=EinsteinFieldEquations}
+The interested reader may click on the above link to see the complete reference
+cited here which provides additional mathematical data/information. 
+
+\subsection{Einstein's Field Equations in General Relativity}
+
+
+``{\em Then the Einstein equations read as follows:
+``
+\footnote{In the physics literature, the coefficient of $T_{\mu \nu}$ is
+written as $\frac{8\pi G}{c^4}$, where $G$ is the gravitational constant, 
+$c$ is the light velocity constant but, since we are interested in the purely
+mathematical properties of these equations, we shall set $G = c = 1$ here,
+which may be accomplished by working in a suitable set of physical units.
+It might also be worth mentioning that, in physics, the tensor $T_{\mu \nu}$ 
+is the stress-energy tensor, which encodes data pertaining to the mass, energy, and momentum densities of the surrounding space.  The number $\Lambda$
+is known as the cosmological constant because it determines large-scale
+properties of the universe, such as whether it collapses, remains stationary, or expands.''}
+ \[G_{\mu \nu} = \Lambda g_{\mu \nu} + 8 \pi T_{\mu \nu}\]
+Here, $G_{\mu\upsilon}=R_{\mu\upsilon}-\frac{1}{2}g_{\mu\upsilon}R$
+is the \emph{Einstein Tensor}, $R_{\mu\upsilon}$ is the Ricci tensor, and 
+$R=g^{\mu\nu}R_{\mu\nu}$ is the Ricci scalar, and $g^{\mu\nu}$ is the 
+inverse metric tensor.}  
+
+ {\em One possibility is that the tensor field $T_{\mu \nu}$ is specified and that these equations are then solved to obtain $g_{\mu \nu}$.  A noteworthy case of this is the \emph{vacuum Einstein equations}, in which 
+$$T_{\mu \nu} = 0.$$
+
+  Another possibility is that $T_{\mu \nu}$ is given in terms of some other fields on the manifold and that the Einstein equations are augmented by differential equations which describe those fields.  In that case, one speaks of Einstein-Maxwell equations, Einstein-Yang-Mills equations, and the like depending on what these other fields may happen to be.  It should be noted that, on account of the Bianchi identity, there is an integrability condition $\nabla_\mu (g) T^{\mu \nu} = 0$.  (Here, $\nabla (g)$ denotes covariant differentiation with respect to the Levi-Civita connection of the metric tensor $g_{\mu \nu}$).  
+
+ When choosing $T_{\mu \nu}$, these conditions must be taken into account in order to guarantee that a solution is possible.}''
+
+\section{Alternative Formulations}
+
+ An alternative, more general formulation would involve a categorical framework
+such as the category of pseudo-Riemannian manifolds, and/or the category of Riemannian manifolds,
+with, or without, a Riemannian metric. Expanding universes and black hole singularities,
+with or without hair, either with an event horizon, or `naked' can be treated within
+such an unified categorical framework of Riemannian/ pseudo-Riemanian manifolds and their 
+transformations represented either as morphisms or by functors and natural transformations
+between functors. Quantized versions in quantum gravity may also be available based on
+spin foams represented by time-dependent/ parameterized functors between spin networks
+including extremely intense, but finite, gravitational fields. A Quantum Riemannian Geometry, that is, a quantized `Riemannian--like' manifold has also been reported in attempts to formulate a Quantum Gravity theory based on a quantized (or deformed)
+non-commutative `Riemannian manifold'.</content>
+</record>

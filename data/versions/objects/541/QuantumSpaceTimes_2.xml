@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="541">
+ <title>quantum space-times</title>
+ <name>QuantumSpaceTimes</name>
+ <created>2009-02-18 15:44:16</created>
+ <modified>2009-02-18 15:44:36</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>quantum space-times</concept>
+	<concept>QST</concept>
+	<concept>QF</concept>
+	<concept>QG</concept>
+	<concept>TQFT</concept>
+	<concept>Heyting logic algebra as a subobject classifier</concept>
+	<concept>SUSY</concept>
+	<concept>AQFT</concept>
+	<concept>categories or spaces of quantized strings</concept>
+ </defines>
+ <related>
+	<object name="OverviewOfTheContentOfPlanetPhysics"/>
+	<object name="NoncommutativeGeometry2"/>
+	<object name="ElementaryParticles2"/>
+	<object name="ElementaryParticles3"/>
+ </related>
+ <keywords>
+	<term>quantum space-times</term>
+	<term>presheaves of local nets of quantum operators in algebraic QFT (AQFT)</term>
+	<term>SUSY</term>
+	<term>categories or spaces of quantized strings</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a fundamental topic on quantum space-times viewed from general relativistic and quantum gravity standpoints, and includes, for example, quantum geometry fundamental notions.
+  
+\section{Quantum Space-Times (QST)}
+
+ The concept of \emph{quantum space-times (QST)} is fundamental to the development of relativistic quantum theories and at this point it can only be broadly defined as a \emph{class of mathematical spaces that allow the construction of quantum physical theories in a manner consistent with both relativistic principles and quantum gravity}.
+There is no universal agreement amongst either theoretical physicists or mathematicians who work on physical mathematics about either a specific definition of such quantum space-times or how to develop a valid classification theory of quantum space-times. However, several specific definitions or models were proposed and a list of such examples is presented next.  
+
+
+\subsection{Specific Definitions for Models of Quantum Space-Times (QSTs) and Quantum Geometry}
+\begin{itemize}
+\item QSTs represented by posets or causal sets
+\item QSTs represented by so-called quantum topoi with Heyting logic algebra as classifier
+\item QSTs represented by Topological Quantum Field Theories (TQFTs) or Homotopy QFTs
+\item QSTs represented as
+\PMlinkname{spin foams of spin networks}{SpinNetworksAndSpinFoams}
+\item QSTs represented as a noncommutative, algebraic-- and/or ``geometrical''--quantized space as in \emph{noncommutative geometry} models for SUSY
+\item QSTs represented as generalized Riemannian manifolds with quantum tangent spaces
+\item QSTs represented as presheaves of local nets of quantum operators in algebraic QFT (AQFT)
+\item QSTs represented as Quantum Fields on a (physical) Lattice of geometric points
+\item QSTs represented as consisting of quantum loops 
+\item QSTs represented as fractal dimension spaces
+\item QSTs represented as categories or spaces of quantized strings as in string theories
+\item Twistor representations in Quantum Gravity (QG) (introduced by Sir Roger Penrose). 
+\end{itemize}</content>
+</record>

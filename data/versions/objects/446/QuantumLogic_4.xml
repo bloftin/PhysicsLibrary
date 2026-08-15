@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="446">
+ <title>quantum logic</title>
+ <name>QuantumLogic</name>
+ <created>2009-01-29 16:41:52</created>
+ <modified>2009-01-29 17:07:30</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>theory of Hilbert lattices</concept>
+ </defines>
+ <preamble></preamble>
+ <content>This is a contributed topic on 
+\PMlinkexternal{quantum logic using tools available on the internet.}{http://us.metamath.org/qlegif/mmql.html}
+
+\section{Quantum Logic description}
+
+ There are several approaches to quantum logic, and it should be therefore more appropriately called `Quantum Logics'. The following is a short list of such 
+approaches to quantum logics.
+
+\begin{itemize}
+ \item A standard approach to quantum logics is to add axioms so that it can be treated as a \emph{theory of Hilbert lattices}. Both Hilbert lattices and Hilbert space are involved in the foundation of quantum mechanics,
+and they are considered to be `dual' to each other. ``Just as Fourier transforms have led to greater insight into the nature of electrical signals, it may be possible that (via Solèr's theorem) quantum logic and Hilbert lattices will lead to new results in quantum mechanics.'' 
+
+ The axioms of this standard version of quantum logic (QL) can be specified as three distinct groups of axioms:
+\begin{enumerate} 
+ \item the ortholattice axioms:
+ax-a1 to ax-a5, and ax-r1, ax-r2, ax-r4, ax-r5 ;  for example: ax-a1 is:  
+$$a= N(Na)= NNa $$, where N stands for the logical negation; ax-a2 and ax-a3 are respectively the commutativity and associativity axioms; the 
+ax-r1 ro ax-r5 axioms are implication axioms, such as:
+          $$[a =b]  \Rightarrow  [b=a] $$ for ax-r1. 
+ 
+\item the orthomodular law, ax-r3, that holds for those ortholattices that are also orthomodular lattices:
+ 
+$$ 1= [a \equiv b] \Rightarrow [a=b];$$
+(interestingly, without ax-r3, the quantum logic becomes decidable), and 
+
+\item stronger axioms than 1. and 2. for orthomodular lattices that are also Hilbert lattices. 
+
+\end{enumerate} 
+
+\item A second approach preferred by logicians is to define quantum logics via
+many-valued (MV) logic algebras such as the \L{}ukasiewicz-Moisil n-valued logic algebras. 
+
+\end{itemize}</content>
+</record>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="24">
+ <title>angular momentum</title>
+ <name>AngularMomentum</name>
+ <created>2004-12-21 19:38:23</created>
+ <modified>2004-12-28 14:38:18</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Angular momentum is a result of Newton's first law of motion applied to a rotating object.  Just as an object in uniform motion tends to stay in motion,    a uniform rotating object tends to stay rotating.  The earth is a good example.  It will keep on rotating at its  'constant' angular velocity unless another object excerts a force on the earth.  Angular momentum lets us quantify this resitance to change in rotation, which is analagous to linear momentum.  Before we deal with the mathematical expression of angular momentum, we must be clear to differentiate the differences between a point mass and a distributed body of mass.  
+For a point mass, angular momentum  \textit{L} is 
+
+\begin{equation}
+\vec{L}
+\end {equation}
+
+For a distributed body, it gets more complicated and we deal with it through the moment of inertia \textit{I}.  Once \textit{I} is known along with angular velocity $\omega$, angular momentum can be  calculated by
+
+\begin{equation}
+\vec{L} = I {\vec \omega }
+\end {equation}</content>
+</record>

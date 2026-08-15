@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="721">
+ <title>index of differential geometry</title>
+ <name>IndexOfDifferentialGeometry</name>
+ <created>2009-05-02 16:07:21</created>
+ <modified>2009-05-09 00:23:44</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>DG</concept>
+	<concept>limit of space-times</concept>
+	<concept>CAD</concept>
+ </defines>
+ <preamble></preamble>
+ <content>This is a contributed entry in progress on differential geometry
+
+\section{Index of Differential Geometry}
+\begin{itemize}
+\item 1.0 Euclidean and analytical geometry
+\item 1.1 Riemannian geometry 
+\item 1.2 Pseudo-Riemannian geometry 
+\item 1.3 Cauchy-Riemannian geometry
+\item 1.4 Finsler geometry 
+\item 1.5 Symplectic geometry 
+\item 1.6 Contact geometry 
+\item 1.7 Complex and K\"ahler geometry 
+\item 1.8 Affine differential geometry 
+\item 1.9 Projective differential geometry 
+\item 2.0 Noncommutative geometry 
+\item 2.1 Synthetic differential geometry 
+\item 2.2 Abstract differential geometry 
+\item 2.3 Discrete differential geometry 
+\end{itemize}
+
+\subsection{Fundamental concepts of differential geometry}
+\begin{itemize}
+\item Bundles   
+\item Connections
+\item xyz
+\item xwz
+\item Tangent spaces
+\end{itemize}
+
+
+\subsection{Differential geometry (DG) applications}
+
+\begin{itemize}
+\item In physics both Electromagnetism and General Relativity (GR) employ extensively DG concepts and tools; our universe was represented in Einstein's GR as a smooth manifold equipped with a pseudo-Riemannian metric, that describes the curvature of space-time; however, refined GR models of space-times in the inflationary universe regard the space-times as a directed sequence of space-times or a {\em limit}. 
+\item Symplectic manifolds are especially useful to the study of Hamiltonian systems.    
+\item In engineering there are numerous applications of differential geometry
+in digital signal processing, architectural design, image enhancement, and so on.
+\item The Fisher information metric is used in information theory and advanced statistics.  
+\item Computer graphics and CAD (\em computer-aided design) are based on differential geometry.
+\item In Geophysics, differential geometry is routinely used to analyze and describe geologic structures, as well as several other applications
+\end{itemize}
+
+Often differential geometry is considered to be one of the more applied areas of mathematics.
+
+\begin{thebibliography}{99}
+
+\bibitem{Bloch96}
+Ethan D. Bloch.  (1996). A First Course in Geometric Topology and Differential Geometry.
+
+\bibitem{Burke}
+William L. Burke.  (1985). Applied Differential Geometry.
+
+\bibitem{CP94} 
+do Carmo, Manfredo Perdigao (1994). Riemannian Geometry.
+
+\bibitem{Frankel2k4}
+Theodore Frankel (2004). The geometry of physics: an introduction.
+
+\bibitem{Gray98} 
+Alfred Gray. (1998). Modern Differential Geometry of Curves and Surfaces with Mathematica.  
+
+\bibitem{Spivak99}
+Michael Spivak. (1999). A Comprehensive Introduction to Differential Geometry (5 Volumes). 
+
+\bibitem{McCleary94} 
+John McCleary.(1994). Geometry from a Differentiable Viewpoint. 
+
+\bibitem{Hicks65}
+Noel. J. Hicks. 1965. Notes on Differential Geometry. Van Nostrand Reinhold:
+New York; \PMlinkexternal{Free download}{http://www.wisdom.weizmann.ac.il/~yakov/scanlib/hicks.pdf} 
+
+\end{thebibliography}</content>
+</record>

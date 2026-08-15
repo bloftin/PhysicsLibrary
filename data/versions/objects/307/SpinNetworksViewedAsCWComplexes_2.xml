@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="307">
+ <title>spin networks viewed as CW-complexes</title>
+ <name>SpinNetworksViewedAsCWComplexes</name>
+ <created>2008-10-16 13:13:18</created>
+ <modified>2008-10-16 13:14:59</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="04.60.Pp"/>
+	<category scheme="msc" code="67.57.Lm"/>
+	<category scheme="msc" code="04.20.Gz"/>
+ </classification>
+ <defines>
+	<concept>spin networks</concept>
+	<concept>spin foam</concept>
+	<concept>simplicial CW-complex</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="spin networks viewed as CW-complexes" alias="spin foams"/>
+ </synonyms>
+ <keywords>
+	<term>spin networks</term>
+	<term>spin foam</term>
+	<term>simplicial CW-complex</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble. % almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+
+\setlength{\textwidth}{6.5in}
+%\setlength{\textwidth}{16cm}
+\setlength{\textheight}{9.0in}
+%\setlength{\textheight}{24cm}
+
+\hoffset=-.75in %%ps format
+%\hoffset=-1.0in %%hp format
+\voffset=-.4in
+
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\med}{\medbreak}
+\newcommand{\medn}{\medbreak \noindent}
+\newcommand{\bign}{\bigbreak \noindent}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\subsection{Physical Background}
+The concepts of {\em spin networks} and {\em spin foams} were recently developed in the context of Mathematical Physics as part of the more general effort of attempting to formulate mathematically a concept of \emph{Quantum State Space} which is also applicable, or relates to \emph{Quantum Gravity} spacetimes. The {\em spin observable}-- which is fundamental in quantum theories-- has no corresponding concept in classical mechanics. (However, classical \emph{momenta} (both linear and angular) have corresponding quantum observable operators that are quite different in form, with their eigenvalues taking on different sets of values in Quantum Mechanics than the ones that might be expected from classical mechanics for the `corresponding' classical observables); the spin is an \emph{intrinsic} observable of all massive quantum `particles', such as electrons, protons, neutrons, atoms, as well as of all field quanta, such as photons, \emph{gravitons}, gluons, and so on; furthermore, every quantum `particle' has also associated with it a de Broglie wave, so that it cannot be realized, or `pictured', as any kind of classical `body'. For massive quantum particles such as electrons, protons, neutrons, atoms, and so on, the spin property has been initially observed for atoms by applying a magnetic field as in the famous Stern-Gerlach experiment, (although the applied field may also be electric or gravitational, (see for example \cite{WH52})). All such spins interact with each other thus giving rise to ``spin networks'', which can be mathematically represented as in the second example above; in the case of electrons, protons and neutrons such interactions are magnetic dipolar ones, and in an over-simplified, but not a physically accurate `picture', these are often thought of as `very tiny magnets--or magnetic dipoles--that line up, or flip up and down together, etc'.
+
+\subsection{Spin Networks are CW-complexes}
+
+\begin{definition}
+A \emph{$CW$ complex}, denoted as $X_c$, is a special type of topological space ($X$) which is the \emph{union} of an expanding sequence of subspaces $X^n$, such that, inductively, the first member of this expansion sequence is $X^0$ -- a discrete set of points called the \emph{vertices} of $X$, and $X^{n+1}$ is the \emph{pushout} obtained from $X^n$ by attaching disks $D^{n+1}$ along ``attaching maps'' $j: S^n \rightarrow X^n$. Each resulting map $D^{n+1} \longrightarrow X$ is called a \emph{cell}. (The subscript ``$c$'' in $X_c$, stands for the fact that this (CW) type of topological space $X$ is called \emph{cellular}, or ``made of cells''). The subspace $X^n$ is called the ``$n$-skeleton'' of $X$.
+Pushouts, expanding sequence and unions are here understood in the topological sense, with the compactly generated
+topologies (\emph{viz.} p.71 in P. J. May, 1999 \cite{MJP1999}).
+\end{definition}
+
+\textbf{Examples of a $CW$ complex}:
+
+\begin{enumerate}
+\item A graph is a one--dimensional $CW$ complex.
+
+\item \emph{Spin networks} are represented as graphs and they are therefore also one--dimensional $CW$ complexes.
+The transitions between \emph{spin networks} lead to \emph{spin foams}, and spin foams may be thus regarded
+as a higher dimensional $CW$ complex (of dimension $d \geq 2$).
+\end{enumerate}
+
+
+\begin{remark}
+An earlier, alternative definition of \PMlinkname{CW complex}{CWComplex} is also in use that may have
+advantages in certain applications where the concept of pushout might not be apparent; on the other hand
+as pointed out in \cite{MJP1999} the \textbf{Definition 0.1} presented here has advantages in proving
+results, including generalized, or extended theorems in
+\PMlinkexternal{Algebraic Topology}{http://planetmath.org/?op=getobj&amp;from=lec&amp;id=73},
+(as for example in \cite{MJP1999}).
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{MJP1999}
+May, J.P. 1999, \emph{A Concise Course in Algebraic Topology.}, The University of Chicago Press: Chicago.
+
+\bibitem{CRFM1980}
+C.R.F. Maunder. 1980, \PMlinkexternal{Algebraic Topology.}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=181},
+Dover Publications, Inc.: Mineola, New York.
+
+\bibitem{JJR1998}
+Joseph J. Rothman. 1998,
+\PMlinkexternal{An Introduction to Algebraic Topology}{http://planetmath.org/?op=getobj&amp;from=books&amp;id=172},
+Springer-Verlag: Berlin
+
+\bibitem{WH52}
+Werner Heisenberg. {\em The Physical Principles of Quantum Theory}. New York: Dover Publications, Inc.(1952), pp.39-47.
+
+\bibitem{BF92}
+F. W. Byron, Jr. and R. W. Fuller. {\em Mathematical Principles of Classical and Quantum Physics.}, New York: Dover Publications, Inc. (1992).
+
+
+\end{thebibliography}</content>
+</record>

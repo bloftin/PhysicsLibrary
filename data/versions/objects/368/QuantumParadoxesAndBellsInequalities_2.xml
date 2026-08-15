@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="368">
+ <title>Quantum Paradoxes and Bell's inequalities</title>
+ <name>QuantumParadoxesAndBellsInequalities</name>
+ <created>2009-01-10 18:35:36</created>
+ <modified>2009-01-10 18:36:48</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The following is a contributed topic on known quantum paradoxes
+(but no `quasi-paradoxes', please!)
+
+\section{Quantum Paradoxes and Bell's inequalities}
+
+There are two major known quantum `paradoxes':
+
+\begin{enumerate}
+\item The Scr\"odinger's cat paradox,
+often expressed as the ``Scr\"odinger's cat is neither dead nor alive'',
+but in fact meaning something quite different;
+
+\item The EPR `Paradox'
+
+
+\end{enumerate}</content>
+</record>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="184">
+ <title>Electromagnetism</title>
+ <name>Electromagnetism2</name>
+ <created>2006-06-07 15:27:05</created>
+ <modified>2006-06-11 22:24:10</modified>
+ <type>Definition</type>
+ <creator id="129" name="asar"/>
+ <modifier id="129" name="asar"/>
+ <author id="129" name="asar"/>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Introduction to Electromagnetism}
+
+Electromagnetism evolved out of the work of Oersted, Faraday, Coulomb and Ampere during the 1800s.  These investigators conducted the basic experiments that led to electromagnetism being the leading science it is today.
+
+A short synopsis of the developments:
+
+1. Oersted observed that electric current produced magnet motion, the motor effect.
+
+2. Faraday developed the generator effect, magnet motion produced electricity.
+
+
+3. William Rowan Hamilton developed Quaternions while trying to rotate a line in three dimensional space.  Hamilton found it took four dimensions, three vectors (i,j and k) and one scalar dimension (1) to do the rotation.  Hamilton's vectors are non-commutative ij=k but ji= -k. Hamilton's Rules for quaternions are:
+
+\begin{equation}
+i^2 = j^2 = k^2 = ijk = - 1
+\end{equation}
+
+Hamilton also developed the Vector Differential Operator, Nabla:
+\begin{equation}
+\nabla = id/dx + jd/dy + kd/dz
+\end{equation}
+
+Nabla allowed for a vector calculus but not a quaternion calculus.  Adding a scalar derivative gives a Quaternion Differential Operator, called Kepera $X$;
+
+\begin{equation}
+X = d/cdt + \nabla = R + \nabla
+\end{equation}
+
+
+4. Maxwell's A TREATISE ON ELECTRICITY AND MAGNETISM, 1873, CHAPTER XX "ELECTROMAGNETIC THEORY OF LIGHT" was a watershed in science. Here Maxwell and Faraday challenged the scientific establishment which since Newton had supported the idea of "Action at a distance". In his Preface, Maxwell says:
+
+"Great Progress has been made in electrical science, chiefly in Germany, by cultivators of the theory of action at a distance.  The valuable electrical measurements of W. Weber are interpreted by him according to this theory, and the elecetomagnetic speculation which was originated by Gauss, and carried on by Weber, Riemann, J. and C. Neumann, Lorenz, etc., is founded on the theory of action at a distance, but depending either directly on the relative velocity of the particles, or on the gradual propagation of something, whether potential or force, from the one particle to the other."
+
+
+\subsection{Electric Fields}
+
+$E_q$ is the quaternion E-field consisting of a scalar and a vector(bolded),
+
+\begin{equation}
+E_q = E + \mathbf{E}
+\end{equation}
+
+E is the force(Newton) per unit electric charge, $E= N/q$.  The other fields are related to the E-field by 'c' the speed of light and 'z' the vacuum impedance. 
+
+\begin{equation}
+E = cB = zH = zcD
+\end{equation}
+
+\subsection{Quantum Constants}
+
+The vacuum impedance, 'z' = W/C is a Quantum Constant related to Planck's Constant 'h' = WC. The Vacuum impedance is the ratio of the Quantum Magnetic Charge W=500 atto Webers (volt seconds)and the Quantum Electric Charge C=4/3 atto Coulombs.  The vacumm impedance has the value 'z'= 375 Ohms.  Planck's Constant is the product of WC = 2000/3 atto atto Joule Seconds:
+
+
+\subsection{Conservation Equation}
+The Laws of Electromagnetism can be summarized in the Quaternion Conservation Equation:
+\begin{equation}
+XE_q = (\frac{1}{c} \frac{\partial } {\partial t} + \nabla )( E + \mathbf{E}) = 0
+\end{equation}
+
+
+\begin{equation}
+XE_q = (\frac{1}{c} \frac{\partial E} {\partial t} - \nabla \cdot \mathbf{E}) + ( \frac{1}{c} \frac{\partial \mathbf{E}} {\partial t} + \nabla \times \mathbf{E} + \nabla E) = 0
+\end{equation}
+
+\subsection{Wave Equation}
+
+The Second Quaternion Derivative is the Curve of the field and is given by the  quaternion multiplication of $X^2E_q$.  
+This results in two wave equations, a scalar longitudinal wave and a vector transverse wave.
+
+\begin{equation}
+X^2E_q =((\frac{1}{c^2} \frac{\partial^2 } {\partial t^2} - \nabla^2 ) + \frac{2}{c} \frac{\partial } {\partial t} \nabla ) ( E + \mathbf{E}).
+\end{equation}
+
+\begin{equation}
+X^2E_q =((\frac{1}{c^2} \frac{\partial^2 } {\partial t^2} - \nabla^2 )E - \frac{2}{c} \frac{\partial } {\partial t} \nabla \cdot \mathbf{E}) + ((\frac{1}{c^2} \frac{\partial^2 } {\partial t^2} - \nabla^2 )\mathbf{E} + \frac{2}{c} \frac{\partial } {\partial t} (\nabla \times \mathbf{E} + \nabla {E})) 
+\end{equation}
+
+\subsection{Summary}
+
+These equations are different, only the Electric field is used.  The magnetic field B can be substituted for $E/c$.  The equations with both E and B reflect the historical development, not an essential difference.  Maxwell's clue that light and electricity were the same came from the relationship $c=E/B$. 
+
+Another difference is the use of Quaternions. It will cause some conflict to oppose the physics establishment.  "Real math" and "Complex math" are subsets of Quaternion math. Science needs to realize that you need four dimensional math for the four dimensional Cosmos, a scalar and three vectors.
+
+Hamilton's quaternions continue to be overlooked , but keep cropping up in reality.</content>
+</record>

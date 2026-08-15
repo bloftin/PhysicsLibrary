@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="967">
+ <title>example of Kepler's second law with Earth's orbit</title>
+ <name>ExampleOfKeplersSecondLawWithEarthsOrbit</name>
+ <created>2025-03-01 05:02:28</created>
+ <modified>2025-03-01 05:08:01</modified>
+ <type>Example</type>
+<parent id="959">Kepler's first two laws of planetary motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.50.Pk"/>
+ </classification>
+ <related>
+	<object name="ExampleOfKeplersFirstLawWithEarthsOrbit"/>
+ </related>
+ <preamble>   % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{geometry}
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Problem Statement}
+Let's dive into an example problem for \textbf{Kepler's Second Law}, the Law of Equal Areas, which states: \textit{A line joining a planet to the Sun sweeps out equal areas in equal intervals of time.} This law reflects a planet's faster motion near the Sun (perihelion) and slower motion farther away (aphelion). We'll use Earth's orbit to solve:
+
+Earth orbits the Sun in an ellipse with a semi-major axis $a = 149.6$ million km (1 AU) and eccentricity \( e = 0.0167 \). The orbital period is 365.25 days (1 year). Calculate the area swept out by Earth's radius vector (the line from the Sun to Earth) in 10 days when Earth is:
+\begin{enumerate}
+    \item At \textbf{perihelion} (closest to the Sun).
+    \item At \textbf{aphelion} (farthest from the Sun).
+\end{enumerate}
+Then, verify Kepler's Second Law by comparing the areas. Assume the Sun is at one focus of the ellipse.
+
+\section{Solution}
+
+\subsection{Step 1: Understand Kepler's Second Law}
+Kepler's Second Law implies the areal velocity (area swept per unit time) is constant:
+\begin{equation}
+    \frac{dA}{dt} = \text{constant}.
+\end{equation}
+For an ellipse, this constant relates to the total area and period. Equal time intervals (e.g., 10 days) should yield equal areas, regardless of position.
+
+\subsection{Step 2: Calculate Orbital Parameters}
+\begin{itemize}
+    \item \textbf{Semi-major axis}: \( a = 149.6 \, million km.
+    \item \textbf{Eccentricity}: \( e = 0.0167 \).
+    \item \textbf{Focal distance}: \( c = a e = 149.6 \times 0.0167 \approx 2.496 \, million km.
+    \item \textbf{Distances}:
+    \begin{itemize}
+        \item Perihelion: \( r_p = a - c = 149.6 - 2.496 = 147.104 \, million km.
+        \item Aphelion: \( r_a = a + c = 149.6 + 2.496 = 152.096 \, million km.
+    \end{itemize}
+    \item \textbf{Semi-minor axis}: \( b = a \sqrt{1 - e^2} \).
+    \begin{align*}
+        b &amp;= 149.6 \times \sqrt{1 - (0.0167)^2} \\
+          &amp;\approx 149.579 \, \text{million km}.
+    \end{align*}
+\end{itemize}
+
+\subsection{Step 3: Total Orbital Area}
+The area of the ellipse is:
+\begin{align*}
+    A &amp;= \pi a b \\
+      &amp;= \pi \times 149.6 \times 149.579 \approx 70,283 \, \text{million km}^2.
+\end{align*}
+Orbital period \( T = 365.25 \, \text{days}, so the areal velocity is:
+\begin{align*}
+    \frac{dA}{dt} &amp;= \frac{A}{T} = \frac{70,283}{365.25} \approx 192.41 \, \text{million km}^2/\text{day}.
+\end{align*}
+
+\subsection{Step 4: Area Swept in 10 Days}
+For any 10-day interval:
+\begin{align*}
+    \Delta A &amp;= \frac{dA}{dt} \times \Delta t \\
+             &amp;= 192.41 \times 10 = 1,924.1 \, \text{million km}^2.
+\end{align*}
+This should hold at both perihelion and aphelion if Kepler's Second Law is true.
+
+\subsection{Step 5: Verify with Angular Momentum (Optional Check)}
+Areal velocity relates to angular momentum \( L = m r^2 \dot{\theta} \):
+\begin{align*}
+    \frac{dA}{dt} &amp;= \frac{1}{2} r^2 \dot{\theta} = \frac{L}{2m} = \text{constant}.
+\end{align*}
+\begin{itemize}
+    \item \textbf{Perihelion speed}: Approximate via vis-viva equation:
+    \begin{equation*}
+        v = \sqrt{GM \left( \frac{2}{r} - \frac{1}{a} \right)},
+    \end{equation*}
+    where \( GM = 1.327 \times 10^{11} \, \text{km}^3/\text{s}^2, \( r_p = 147.104 \, \text{million km} \( v_p \approx 30.29 \, \text{km/s}.
+    \item \textbf{Aphelion speed}: \( v_a \approx 29.29 \, \text{km/s}.
+\end{itemize}
+
+\subsection{Step 6: Compare Areas}
+\begin{itemize}
+    \item \textbf{Perihelion}: \( \Delta A = 1,924.1 \, \text{million km}^2 \).
+    \item \textbf{Aphelion}: \( \Delta A = 1,924.1 \, \text{million km}^2 \).
+\end{itemize}
+The areas match, confirming Kepler's Second Law! Earth moves faster at perihelion and slower at aphelion, but the area swept is identical.
+
+\subsection{Step 7: Real-World Twist}
+On January 3, 2025 (near perihelion), Earth sweeps 1,924.1 million km\(^2\) in 10 days at \(\sim 30.3 \, \text{km/s}\). On July 4, 2025 (near aphelion), the same area is swept at \(\sim 29.3 \, \text{km/s}\) - slower, yet balanced.
+
+\section{Answer Summary}
+\begin{itemize}
+    \item \textbf{Perihelion area}: 1,924.1 million km\(^2\) in 10 days.
+    \item \textbf{Aphelion area}: 1,924.1 million km\(^2\) in 10 days.
+    \item \textbf{Verification}: Equal areas in equal times, as Kepler predicted.
+\end{itemize}
+Earth's varying speed balances its orbit's geometry - a celestial choreography governed by a simple, profound law!
+
+\section*{References}
+\begin{thebibliography}{9}
+\bibitem{murray1999}
+Murray, C. D., \&amp; Dermott, S. F. (1999). \emph{Solar System Dynamics}. Cambridge University Press.
+
+\bibitem{seidelmann1992}
+Seidelmann, P. K. (Ed.). (1992). \emph{Explanatory Supplement to the Astronomical Almanac}. University Science Books.
+
+\bibitem{lang2011}
+Lang, K. R. (2011). \emph{The Cambridge Guide to the Solar System} (2nd ed.). Cambridge University Press.
+
+\bibitem{nasa2025}
+NASA JPL. (2025). "Planetary Fact Sheet." \emph{Solar System Dynamics}. 
+
+\bibitem{kepler1619}
+Kepler, J. (1619). \emph{Harmonices Mundi}. (Trans. Aiton, E. J., et al., 1997). American Philosophical Society.
+\end{thebibliography}</content>
+</record>

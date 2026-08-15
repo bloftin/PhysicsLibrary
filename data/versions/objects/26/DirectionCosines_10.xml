@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="10" id="26">
+ <title>direction cosines</title>
+ <name>DirectionCosines</name>
+ <created>2004-12-28 19:58:41</created>
+ <modified>2005-08-27 12:01:53</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <preamble>\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+\newcommand{\md}{d}
+\newcommand{\mv}[1]{\mathbf{#1}} % matrix or vector
+\newcommand{\mvt}[1]{\mv{#1}^{\mathrm{T}}}
+\newcommand{\mvi}[1]{\mv{#1}^{-1}}
+\newcommand{\mderiv}[1]{\frac{\md}{\md {#1}}} %d/dx
+\newcommand{\mnthderiv}[2]{\frac{\md^{#2}}{\md {#1}^{#2}}} %d^n/dx
+\newcommand{\mpderiv}[1]{\frac{\partial}{\partial {#1}}} %partial d^n/dx
+\newcommand{\mnthpderiv}[2]{\frac{\partial^{#2}}{\partial {#1}^{#2}}} %partial d^n/dx
+\newcommand{\borel}{\mathfrak{B}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\complexes}{\mathbb{C}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\defined}{:=}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\powerset}[1]{\mathcal{P}(#1)}
+\newcommand{\bra}[1]{\langle#1 \vert}
+\newcommand{\ket}[1]{\vert \hspace{1pt}#1\rangle}
+\newcommand{\braket}[2]{\langle #1 \ket{#2}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\newcommand{\esssup}{\mathrm{ess\ sup}}
+\newcommand{\Lspace}[1]{L^{#1}}
+\newcommand{\Lone}{\Lspace{1}}
+\newcommand{\Ltwo}{\Lspace{2}}
+\newcommand{\Lp}{\Lspace{p}}
+\newcommand{\Lq}{\Lspace{q}}
+\newcommand{\Linf}{\Lspace{\infty}}
+
+% character creep scotch tape fix ...........................</preamble>
+ <content>The Direction Cosines define the orientation of a vector with respect to a coordinate reference frame.  Each direction cosine is the cosine of the angle between the vector and its corresponding  coordinate axis.  Let us first look at a  two dimensional example in figure 1:
+\newline
+\begin{figure}[!hhp]
+\begin{center}
+\caption{figure 1: 2D - Direction Cosines}
+\includegraphics[width=\textwidth]{figure1.eps}
+\end{center}
+\end{figure}
+
+The direction cosines of $\vec {v}$ are
+\begin{equation}
+d_1 = cos(\theta)
+\end{equation}
+\begin{equation}
+d_2 = cos(\phi)
+\end{equation}
+
+The x coordinate is given from simple trigonometry by 
+\begin{equation}
+x = v cos(\theta)
+\end{equation}
+
+where v is the magnitude of the vector $ \vec v $ .  Similarily, the y coordinate is given by
+
+\begin{equation}
+y = v sin(\theta)
+\end{equation}
+
+but we can convert this to a cosine through the trigonometric identity that
+\begin{equation}
+cos( 90 - \theta ) = sin( \theta )
+\end{equation}
+From figure 1 we see that 
+\begin{equation}
+\phi = 90^o - \theta
+\end{equation}
+which can be subsitituded into 3 to get
+\begin{equation}
+y = v cos(\phi)
+\end{equation}
+Note that $\phi$ is the angle between the y-axis and $\vec v$, so our vector $\vec v$ can be represented in this 2D coordinate frame by
+\begin{equation}
+\vec v = {v cos(\theta) } \hat{x} + {v cos(\phi) } \hat{y}
+\end{equation}
+Extending this concept to three dimensions is quite easy, from figure 2 we can define $\vec v$ with respect t $\hat{x}, \hat{y}, \hat{z}$ coordinate frame by
+\begin{equation}
+\vec v = {v cos(\alpha)} \hat{x} + {v cos(\beta)} \hat{y} + {v cos(\gamma)} \hat{z}
+\end{equation}
+in a more compact form with 
+\begin{equation}
+v_1 = v cos(\alpha) 
+\end{equation}
+\begin{equation}
+v_2 = v cos(\beta)
+\end{equation}
+\begin{equation}
+v_3 = v cos(\gamma)
+\end{equation}
+we get the relation
+\begin{equation}
+\vec v = {\vec v_1} \hat{x} + {\vec v_2} \hat{y} + {\vec v_3} \hat{z}
+\end{equation}
+
+\begin{figure}[!hp]
+{\centering
+\includegraphics[width=\textwidth]{figure2.eps}
+\caption{3D - Direction Cosines}\label{3Ddircos}
+}%
+\end{figure}
+
+
+The directional cosines for figure 2 are
+\begin{equation}
+d_1 = cos(\alpha)
+\end{equation}
+\begin{equation}
+d_2 = cos(\beta)
+\end{equation}
+\begin{equation}
+d_3 = cos(\gamma)
+\end{equation}
+
+An important property of the direction cosines is that
+\begin{equation}
+{\alpha}^2 + {\beta}^2 + {\gamma}^2 = 1
+\end{equation}
+
+One important application is to use the direction cosines to define a coordinate system with reference to another.  This can be accompished by defining the location of each coordinate axis unit vector with respect to the 'parent'.  Once  these nine direction cosines are determined (3 for each unit vector), than a transformation matrix exists to carry out coordinate transformations between the child frame and the parent frame.</content>
+</record>

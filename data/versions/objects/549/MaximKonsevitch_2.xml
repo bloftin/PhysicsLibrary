@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="549">
+ <title>Maxim Konsevitch</title>
+ <name>MaximKonsevitch</name>
+ <created>2009-02-21 18:59:50</created>
+ <modified>2009-02-21 19:04:41</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>biography</term>
+	<term>Fields medal</term>
+	<term>IHES</term>
+	<term>Crafoord prize</term>
+	<term>quantum mathematical physics</term>
+	<term>quantum foundation mathematics</term>
+ </keywords>
+ <preamble></preamble>
+ <content>{\bf Dr. Maxim Konsevitch} (b. on August 25th, 1964 in Khimki, Russia),
+French mathematician since 1999, currently Permanent Professor at IHES, who received the Fields Medal in 1995 and the Crafoord Proze in 2008. 
+
+His PhD is from the University of Bonn in March 1992.
+
+subsections{Academic and Research Positions:}
+\begin{itemize}
+
+\item 1985--90, Young researcher at the Insitute for Informatics Problems in
+ Moscow
+
+\item December 1988, Visiting the ``Centre de Physique Th\'eorique'', 
+Marseille-Luminy
+
+\item March--June 1990, Visiting the  Max-Planck-Institut f\"ur Mathematik, Bonn
+
+\item January--November 1991, at the Max-Planck-Institut f\"ur Mathematik, Bonn
+
+\item November 1991--January 1992, Visiting Harvard University, USA
+
+\item February--September 1992, Visiting the Max-Planck-Institut f\"ur Mathematik, Bonn
+
+\item octobre 1992-mars 1993, Visiting the Institute for Advanced Study, in Princeton, USA
+
+\item April 1993--August 1994, visiteur au Max-Planck-Institut f\"ur Mathematik, Bonn
+
+\item July 1993-- August 1995, Professor at the University of California at Berkeley
+
+\item Since September 1995, \PMlinkexternal{Permanent Professor at l'Institut des Hautes \'Etudes Scientifiques (IHES)}{http://www.ihes.fr/~maxim/CVFrancais.htm}, 
+\PMlinkexternal{AXA Chair for Mathematics}{http://www.ihes.fr/jsp/site/Portal.jsp?page_id=288#}
+
+\item Since November 1997, Professor of a Special Chair at Rutgers University, New Brunswick, USA, one month each year.
+
+\end{itemize}
+
+\begin{thebibliography}{99}
+
+\bibitem{AMS2k1}
+\emph{* Bulletin (New Series) of the American Mathematical Society}, Volume 38, Number 4, Pages 389--408., S 0273-0979(01)00913-2, Article published electronically on July 12, 2001, (thus anticipating the Crafoord prize award by seven years).
+
+\bibitem{MKYCAS2k5}
+Maxim Kontsevich, Y. Chen, and A. Schwartz. Symmetries of WDVV Equations
+{\em Nucl. Phys. B}, 730 (2005), 352--363.
+
+\bibitem{MKABK2k5}
+Maxim Kontsevich and A. Belov-Kanel. Automorphisms of the Weyl Algebra
+{\em Lett. Math. Phys.} 74 (2005), 181--199.
+
+\bibitem{MK2k8}
+Maxim Kontsevich. 2008. The Jacobian Conjecture is Stably Equivalent to the Dixmier Conjecture., Preprint, $arxiv--math/0512171$.
+
+\bibitem{MKYS2k5}
+Maxim Kontsevich and Y. Soibelman. Integral affine structures
+In: \emph{The Unity of Mathematics in honor of the 90th birthday of I.M. Gelfand}, {\em Progress in Mathematics 244}, Birkha\"user (2005), 321--386.
+
+\bibitem{MKCF2k8}
+Maxim Kontsevich and C. Fronsdal. Quantization on Curves. Preprint
+$arxiv math--ph/0507021$.
+
+\end{thebibliography}</content>
+</record>

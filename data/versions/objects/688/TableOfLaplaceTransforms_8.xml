@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="688">
+ <title>table of Laplace transforms</title>
+ <name>TableOfLaplaceTransforms</name>
+ <created>2009-04-23 11:47:47</created>
+ <modified>2009-04-24 12:22:47</modified>
+ <type>Topic</type>
+ <creator id="21" name="pahio"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="21" name="pahio"/>
+ <classification>
+	<category scheme="msc" code="02.30.Uu"/>
+ </classification>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+% need this for including graphics (\includegraphics)
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+%%Planet physics followed by special preamble
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym, enumerate}
+\usepackage{xypic, xspace}
+\usepackage[mathscr]{eucal}
+\usepackage[dvips]{graphicx}
+\usepackage[curve]{xy}
+
+
+% there are many more packages, add them here 
+
+% define commands here
+\newcommand{\md}{d}
+\newcommand{\mv}[1]{\mathbf{#1}} % matrix or vector
+\newcommand{\mvt}[1]{\mv{#1}^{\mathrm{T}}}
+\newcommand{\mvi}[1]{\mv{#1}^{-1}}
+\newcommand{\mderiv}[1]{\frac{\md}{\md {#1}}} %d/dx
+\newcommand{\mnthderiv}[2]{\frac{\md^{#2}}{\md {#1}^{#2}}} %d^n/dx
+\newcommand{\mpderiv}[1]{\frac{\partial}{\partial {#1}}} %partial d^n/dx
+\newcommand{\mnthpderiv}[2]{\frac{\partial^{#2}}{\partial {#1}^{#2}}} %partial d^n/dx
+\newcommand{\borel}{\mathfrak{B}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\complexes}{\mathbb{C}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\defined}{:=}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\corr}{\mathrm{corr}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\powerset}[1]{\mathcal{P}(#1)}
+\newcommand{\bra}[1]{\langle#1 \vert}
+\newcommand{\ket}[1]{\vert \hspace{1pt}#1\rangle}
+\newcommand{\braket}[2]{\langle #1 \ket{#2}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\newcommand{\esssup}{\mathrm{ess\ sup}}
+\newcommand{\Lspace}[1]{L^{#1}}
+\newcommand{\Lone}{\Lspace{1}}
+\newcommand{\Ltwo}{\Lspace{2}}
+%%\newcommand{\Lp}{\Lspace{p}}
+\newcommand{\Lq}{\Lspace{q}}
+\newcommand{\Linf}{\Lspace{\infty}}
+\newcommand{\sequence}[1]{\{#1\}}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\grpL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\rO}{{\rm O}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\SL}{{\rm Sl}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\Symb}{{\rm Symb}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+%\newcommand{\grp}{\mathcal G}
+\renewcommand{\H}{\mathcal H}
+\renewcommand{\cL}{\mathcal L}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathsf{G}}}
+\newcommand{\dgrp}{{\mathsf{D}}}
+\newcommand{\desp}{{\mathsf{D}^{\rm{es}}}}
+\newcommand{\grpeod}{{\rm Geod}}
+%\newcommand{\grpeod}{{\rm geod}}
+\newcommand{\hgr}{{\mathsf{H}}}
+\newcommand{\mgr}{{\mathsf{M}}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathsf{G)}}}
+\newcommand{\obgp}{{\rm Ob(\mathsf{G}')}}
+\newcommand{\obh}{{\rm Ob(\mathsf{H})}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\grphomotop}{{\rho_2^{\square}}}
+\newcommand{\grpcalp}{{\mathsf{G}(\mathcal P)}}
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\grplob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\grpa}{\grpamma}
+%\newcommand{\grpa}{\grpamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\ovset}[1]{\overset {#1}{\ra}}
+\newcommand{\ovsetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}
+\newcommand{\&lt;}{{\langle}}
+\def\baselinestretch{1.1}
+\hyphenation{prod-ucts}
+\newcommand{\sqdiagram}[9]{$$ \diagram #1 \rto^{#2} \dto_{#4}&amp;
+#3 \dto^{#5} \\ #6 \rto_{#7} &amp; #8 \enddiagram
+\eqno{\mbox{#9}}$$ }
+\def\C{C^{\ast}}
+\newcommand{\labto}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\quadr}[4]
+{\begin{pmatrix} &amp; #1&amp; \\[-1.1ex] #2 &amp; &amp; #3\\[-1.1ex]&amp; #4&amp;
+\end{pmatrix}}
+\def\D{\mathsf{D}}</preamble>
+ <content>Below are tables of \PMlinkname{Laplace transforms}{LaplaceTransform}; one lists some of the common properties, and the other lists some common examples.   
+
+
+\subsubsection*{Properties}
+\begin{center}
+\begin{tabular}{|c|c|p{4cm}|c|}
+\hline\hline
+Original &amp; Transformed &amp; comment &amp; derivation \\
+\hline\hline
+$af(t)+bg(t)$ &amp; $a\mathcal{L}\{f(t)\}+b\mathcal{L}\{g(t)\}$ &amp; linearity &amp; \\
+\hline
+$f(t)*g(t)$ &amp; $\mathcal{L}\{f(t)\}\mathcal{L}\{g(t)\}$ &amp; convolution property &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfConvolution}\\
+\hline
+$\displaystyle{\int_a^bf(t,\,x)\,dx}$ &amp; $\displaystyle{\int_a^b\mathcal{L}\{f(t,\,x)\}\,dx}$ 
+&amp; integration with respect to a parametre &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/IntegrationOfLaplaceTransformWithRespectToParameter.html}\\
+\hline
+$\displaystyle{\frac{\partial}{\partial x}f(t,\,x)}$ &amp; $\displaystyle{\frac{\partial}{\partial x}\mathcal{L}\{f(t,\,x)\}}$ &amp; diffentiation with respect to a parameter &amp; \\
+\hline
+$f(\displaystyle{\frac{t}{a}})$ &amp; $aF(as)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$  
+&amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/RulesForLaplaceTransform.html}\\
+\hline
+$e^{at}f(t)$ &amp; $F(s-a)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/RulesForLaplaceTransform.html}\\
+\hline
+$f(t-a)$ &amp; $e^{-as}F(s)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/DelayTheorem.html}\\
+\hline
+$t^nf(t)$ &amp; $(-1)^nF^{(n)}(s)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfTnft.html}\\
+\hline
+$\displaystyle\frac{f(t)}{t}$ &amp; $\displaystyle\int_s^\infty F(u)\,du$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; 
+\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfFracftt.html}\\
+\hline
+$\displaystyle{\int_0^tf(u)\,du}$ &amp; $\displaystyle{\frac{F(s)}{s}}$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegral.html}\\
+\hline
+$f'(t)$ &amp; $sF(s)-\lim_{x\to0+}f(x)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfDerivative.html}\\
+\hline
+$f''(t)$ &amp; $s^2F(s)-s\lim_{x\to0+}f'(x)-\lim_{x\to0+}f(x)$ &amp; $\mathcal{L}\{f(t)\} = F(s)$ &amp; \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\subsubsection*{Examples}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline\hline
+$f(t)$ &amp; $\mathcal{L}\{f(t)\}$ &amp; conditions &amp; explanation &amp; derivation \\
+\hline\hline
+$e^{at}$ &amp; $\displaystyle{\frac{1}{s-a}}$ &amp; $s&gt;a$ &amp; &amp; trivial\\
+\hline
+$\cos{at}$ &amp; $\displaystyle{\frac{s}{s^{2}+a^{2}}}$ &amp; $s&gt;0$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\sin{at}$ &amp; $\displaystyle{\frac{a}{s^{2}+a^{2}}}$ &amp; $s&gt;0$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\cosh{at}$ &amp; $\displaystyle{\frac{s}{s^{2}-a^{2}}}$ &amp; $s&gt;|a|$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\sinh{at}$ &amp; $\displaystyle{\frac{a}{s^{2}-a^{2}}}$ &amp; $s&gt;|a|$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfCosineAndSine.html}\\
+\hline
+$\displaystyle\frac{\sin{t}}{t}$ &amp; $\displaystyle\arctan\frac{1}{s}$ &amp; $s&gt;0$ &amp; See sinc function &amp; 
+\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegralSine.html}\\
+\hline
+$t^r$ &amp; $\displaystyle{\frac{\Gamma(r+1)}{s^{r+1}}}$ &amp; $r&gt;-1,\;\;s&gt;0$ &amp; gamma function $\Gamma$ &amp; 
+\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfPowerFunction.html}\\
+\hline
+$\displaystyle e^{a^2t}\,{\rm erf}\,a\sqrt{t}$ &amp; $\displaystyle\frac{a}{(s\!-\!a^2)\sqrt{s}}$ &amp; $s&gt;a^2$ &amp; See error function &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/UsingConvolutionToFindLaplaceTransform.html}\\
+\hline
+
+$\displaystyle e^{a^2t}\,{\rm erfc}\,a\sqrt{t}$ &amp; $\displaystyle\frac{1}{(a\!+\!\sqrt{s})\sqrt{s}}$ &amp; $s&gt;0$ &amp; See error function &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/UsingConvolutionToFindLaplaceTransform.html}\\
+\hline
+
+$\displaystyle\frac{1}{\sqrt{t}}$ &amp; $\displaystyle\sqrt{\frac{\pi}{s}}$ &amp; $s&gt;0$ &amp; &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfPowerFunction.html}\\
+\hline
+$J_0(at)$ &amp; $\displaystyle\frac{1}{\sqrt{s^2+a^2}}$ &amp; $s&gt;0$ &amp; Bessel function $J_0$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/InverseLaplaceTransformOfDerivatives.html}\\
+\hline
+$e^{-t^2}$ &amp; $\displaystyle\frac{\sqrt{\pi}}{2}e^\frac{s^2}{4}\mathrm{erfc}\Big(\frac{s}{2}\Big)$ &amp; $s&gt;0$ &amp; See error function &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfAGaussianFunction.html}\\
+\hline
+$\ln{t}$ &amp; $\displaystyle-\frac{\gamma+\ln{s}}{s}$ &amp; $s&gt;0$ &amp; Euler'sconstant $\gamma$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfLogarithm.html}\\
+\hline
+$\delta(t)$ &amp; $1$ &amp; &amp; Dirac delta function &amp; \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Rational Functions}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline\hline
+$f(t)$ &amp; $\mathcal{L}\{f(t)\}$ &amp; conditions &amp; explanation &amp; derivation \\
+\hline\hline
+1 &amp; $\displaystyle{1 \over s}$ &amp; &amp; &amp; \\ 
+\hline
+$t$ &amp; $\displaystyle{1 \over s^2}$ &amp; &amp; &amp;\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegral.html}\\ \hline
+$\displaystyle{t^{n-1} \over (n-1)!}$ &amp; $\displaystyle{1 \over s^n}$ &amp; &amp; &amp;\PMlinkexternal{here}{http://planetmath.org/encyclopedia/LaplaceTransformOfIntegral.html} \\ \hline
+$\displaystyle{1 \over t+a}$ &amp; $e^{as} {\rm E}_1(as)$ &amp; $a &gt; 0$ &amp; exponential integral ${\rm E}_1$ &amp; \PMlinkexternal{here}{http://planetmath.org/encyclopedia/Ei.html}\\ \hline
+$\displaystyle{1 \over (t+a)^2}$ &amp; $\displaystyle{1 \over a}-se^{as}{\rm E}_1(as)$ &amp; $a &gt; 0$ &amp; &amp;\PMlinkexternal{here}{http://planetmath.org/encyclopedia/Ei.html}\\ 
+\hline
+$\displaystyle{1 \over (t+a)^n}$ &amp; $a^{1-n} e^{as} E_n (as)$ &amp; $a &gt; 0,\;\; n \in \mathbb{N}$ &amp; ? &amp; \\ 
+\hline
+$L_n(t)$ &amp; $\displaystyle\frac{1}{s}\!\left(\!\frac{s-1}{s}\!\right)^n$ &amp; $s &gt; 0$ &amp; Laguerre polynomial $L_n$ &amp; \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection{Applications of Laplace transforms in Physics, Engineering and Mathematical Biophysics/Theoretical Biology}
+
+ Although possibly `less popular' with physicists than the Fourier transform,
+the Laplace transform has applications both in Astrophysics, Engineering and Mathematical Biophysics.
+
+ In Astrophysics the Laplace transform is employed to succesfully `sharpen up' images of distant planets obtained by satelite mounted-telescopes of various kinds without having the disadvantage of FT that may lose fine detail through exponential multiplication ``smoothing'' of partially fuzzy images.
+
+ On the other hand, in Engineering applications the Laplace transform is often
+employed to calculate the transfer function of an engineered system such as 
+an electrical network or electronic circuit. 
+
+ In Mathematical Biophysics (and also in Optimal Control theories) both the Laplace and Fourier transforms are employed to model living systems and their components, and also to optimize such models. 
+
+
+
+\begin{remark}
+ This contributed topic entry, in addition to the most used, or useful, laplace transforms (LTs), may also contain information on how the convolution of Laplace transforms work, and also, possibly, higher dimensional generalizations of Laplace transforms, such as 2D Laplace transforms, non-commutative integral generalizations \`a la A. Connes of LTs, etc. 
+\end{remark}
+
+$[more to come...]$</content>
+</record>

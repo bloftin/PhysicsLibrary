@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="419">
+ <title>bibliography for quantum algebraic topology and categories</title>
+ <name>BibliographyForQuantumAlgebraicTopologyAndCategories</name>
+ <created>2009-01-22 04:20:49</created>
+ <modified>2009-01-22 04:20:49</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <preamble></preamble>
+ <content>\subsection{A list of references in algebraic topology, quantum algebraic topology, n-logic algebraic categories, theory of categories, functors, natural transformations, topoi and categorical ontology.}
+
+This is an extensive, but not intended to be comprehensive, list of relevant, selected references for several areas of both abstract and applied Mathematics. A more extensive bibliography on \emph{Category Theory} can be found on the
+web at the
+\PMlinkexternal{Plato, Stanford Encyclopedia of Philosophy web site}{http://plato.stanford.edu/entries/category-theory/}.
+
+
+\begin{thebibliography}{999}
+
+\bibitem{AJ94}
+Ad\'amek, J.. et al., Locally Presentable and Accessible Categories, Cambridge: Cambridge University Press (1994).
+
+\bibitem{AS}
+Alfsen, E.M. and F. W. Schultz: \emph{Geometry of State Spaces of
+Operator Algebras}, Birkh\"auser, Boston--Basel--Berlin (2003).
+
+\bibitem{AMF56}
+Atiyah, M.F. 1956. On the Krull-Schmidt theorem with applications to sheaves.
+\emph{Bull. Soc. Math. France}, \textbf{84}: 307--317.
+
+\bibitem{AMF56}
+Auslander, M. 1965. Coherent Functors. \emph{Proc. Conf. Cat. Algebra, La Jolla},
+189--231.
+
+\bibitem{AS-BC2k}
+Awodey, S. \&amp; Butz, C., 2000, Topological Completeness for Higher Order Logic., Journal of Symbolic Logic, 65, 3, 1168--1182.
+
+\bibitem{AS-RER2k2}
+Awodey, S. \&amp; Reck, E. R., 2002, Completeness and Categoricity I.
+Nineteen-Century Axiomatics to Twentieth-Century Metalogic., History and Philosophy of Logic, 23, 1, 1--30.
+
+\bibitem{AS-RER2k2}
+Awodey, S. \&amp; Reck, E. R., 2002, Completeness and Categoricity II. Twentieth-Century Metalogic to Twenty-first-Century Semantics, {\em History and Philosophy of Logic}, 23, 2, 77-94.
+
+\bibitem{AS96}
+Awodey, S., 1996, Structure in Mathematics and Logic: A Categorical Perspective,
+{\em Philosophia Mathematica}, {\bf 3}, 209-237.
+
+\bibitem{AS2k4}
+Awodey, S., 2004, An Answer to Hellman's Question: Does Category Theory Provide a Framework for Mathematical Structuralism., {\em Philosophia Mathematica}, {\bf 12}, 54-64.
+
+\bibitem{AS2k6}
+Awodey, S., 2006, {\em Category Theory}, Oxford: Clarendon Press.
+
+\bibitem{BAJ-DJ98a}
+Baez, J. and Dolan, J., 1998a, Higher-Dimensional Algebra III. n-Categories and the Algebra of Opetopes.,
+{\em Advances in Mathematics}, {\bf 135}, 145--206.
+
+\bibitem{BAJ-DJ98B}
+Baez, J. and Dolan, J., 1998b, ``Categorification'', Higher Category Theory, Contemporary Mathematics, 230, Providence: AMS, 1-36.
+
+\bibitem{BAJ-DJ2k1}
+Baez, J. and Dolan, J., 2001, ``From Finite Sets to Feynman Diagrams'',
+{\em Mathematics Unlimited -- 2001 and Beyond}, Berlin: Springer, 29-50.
+
+\bibitem{BAJ-DJ97}
+Baez, J., 1997, ``An Introduction to n-Categories'',
+{\em Category Theory and Computer Science}, Lecture Notes in Computer Science, 1290, Berlin: Springer-Verlag, 1--33.
+
+\bibitem{ICBm1}
+Baianu, I.C. and M. Marinescu: 1968, Organismic Supercategories:
+Towards a Unitary Theory of Systems. \emph{Bulletin of Mathematical Biophysics} \textbf{30}, 148-159.
+
+\bibitem{ICB3}
+Baianu, I.C.: 1970, Organismic Supercategories: II. On Multistable Systems. \emph{Bulletin of Mathematical Biophysics}, \textbf{32}: 539-561.
+
+\bibitem{ICB4}
+Baianu, I.C.: 1971a, Organismic Supercategories and Qualitative Dynamics of Systems. \emph{Ibid.}, \textbf{33} (3), 339--354.
+
+\bibitem{ICB4}
+Baianu, I.C.: 1971b, Categories, Functors and Quantum Algebraic
+Computations, in P. Suppes (ed.), \emph{Proceed. Fourth Intl. Congress Logic-Mathematics-Philosophy of Science}, September 1--4, 1971, Bucharest.
+
+\bibitem{ICBs5}
+Baianu, I.C. and D. Scripcariu: 1973, On Adjoint Dynamical Systems. \emph{Bulletin of Mathematical Biophysics}, \textbf{35}(4), 475--486.
+
+\bibitem{ICB5}
+Baianu, I.C.: 1973, Some Algebraic Properties of \emph{\textbf{(M,R)}} -- Systems. \emph{Bulletin of Mathematical Biophysics} \textbf{35}, 213-217.
+
+\bibitem{ICBm2}
+Baianu, I.C. and M. Marinescu: 1974, On A Functorial Construction of \emph{\textbf{(M,R)}}-- Systems. \emph{Revue Roumaine de Mathematiques Pures et Appliquees} \textbf{19}: 388-391.
+
+\bibitem{ICB6}
+Baianu, I.C.: 1977, A Logical Model of Genetic Activities in \L{}ukasiewicz Algebras: The Non-linear Theory. \emph{Bulletin of Mathematical Biology},
+\textbf{39}: 249-258.
+
+\bibitem{ICB2}
+Baianu, I.C.: 1980a, Natural Transformations of Organismic Structures.,
+\emph{Bulletin of Mathematical Biology},\textbf{42}: 431-446.
+
+\bibitem{ICB2}
+Baianu, I. C.: 1983, Natural Transformation Models in Molecular
+Biology., in \emph{Proceedings of the SIAM Natl. Meet}., Denver,CO.;
+\PMlinkexternal{Eprint at cogprints.org/3675}{http://cogprints.org/3675/1/Naturaltransfmolbionu6.pdf}
+
+\bibitem{ICB-HG-EO84}
+Baianu, I.C., H. S. Gutowsky, and E. Oldfield: 1984, {\em Proc. Natl. Acad. Sci. USA}, \textbf{81}(12):
+3713-3717.
+
+\bibitem{ICB2}
+Baianu, I.C.: 1984, A Molecular-Set-Variable Model of Structural and Regulatory Activities in Metabolic and Genetic Networks, \emph{FASEB Proceedings} \textbf{43}, 917.
+
+\bibitem{ICB87a}
+Baianu, I. C.: 1986--1987a, Computer Models and Automata Theory in Biology and Medicine., in M. Witten (ed.),
+\emph{Mathematical Models in Medicine}, vol. 7., Ch.11 Pergamon Press, New York, 1513 -1577; URLs:
+\PMlinkexternal{CERN Preprint No. EXT-2004-072}{http://doe.cern.ch//archive/electronic/other/ext/ext-2004-072.pdf} ,
+and \PMlinkexternal{html Abstract}{http://en.scientificcommons.org/1857371}.
+
+\bibitem{ICB87b}
+Baianu, I. C.: 1987b, Molecular Models of Genetic and Organismic Structures, in \emph{Proceed. Relational Biology Symp.}
+Argentina;
+\PMlinkexternal{CERN Preprint No.EXT-2004-067}{http://doc.cern.ch//archive/electronic/other/ext/ext-2004-067.pdf} .
+
+\bibitem{ICB2004a}
+Baianu, I.C.: 2004a. \L{}ukasiewicz-Topos Models of Neural Networks, Cell Genome and Interactome Nonlinear Dynamic Models (2004). Eprint: w. Cogprints at Sussex Univ.
+
+\bibitem{ICB04b}
+Baianu, I.C.: 2004b \L{}ukasiewicz-Topos Models of Neural Networks, Cell Genome and Interactome Nonlinear Dynamics).
+\PMlinkexternal{CERN EXT-2004-059,Health Physics and Radiation Effects}{http://doc.cern.ch//archive/electronic/other/ext/ext-2004-059.pdf} , (June 29, 2004).
+
+\bibitem{Bgg2}
+Baianu, I. C., Glazebrook, J. F. and G. Georgescu: 2004, Categories of Quantum Automata and N-Valued \L ukasiewicz Algebras in Relation to Dynamic Bionetworks, \textbf{(M,R)}--Systems and Their Higher Dimensional Algebra, \PMlinkexternal{Abstract and Preprint of Report}{http://fs512.fshn.uiuc.edu/QAuto.pdf}.
+
+\bibitem{ICB8}
+Baianu, I.C.: 2004a, Quantum Nano--Automata (QNA): Microphysical Measurements with Microphysical QNA Instruments,
+\emph{CERN Preprint EXT--2004--125}.
+
+\bibitem{ICB9}
+Baianu, I. C.: 2004b, Quantum Interactomics and Cancer Mechanisms,
+\PMlinkexternal{Preprint 00001978}{http://doc.cern.ch//archive/electronic/other/ext/ext-2004-118.pdf} .
+
+\bibitem{ICB10}
+Baianu, I. C.: 2006, Robert Rosen's Work and Complex Systems Biology, \emph{Axiomathes} \textbf{16}(1--2):25--34.
+
+
+\bibitem{Bgb2}
+Baianu, I. C., Brown, R. and J. F. Glazebrook: 2006, Quantum Algebraic Topology and Field Theories.
+\PMlinkexternal{Preprint}{http://fs512.fshn.uiuc.edu/QAT.pdf}
+
+
+\bibitem{ICB2k8}
+Baianu, I.C.: 2008, Translational Genomics and Human Cancer Interactomics, (invited Review, submitted in November 2007 to \emph{Translational Oncogenomics}).
+
+
+\bibitem{BBGG1}
+Baianu I. C., Brown R., Georgescu G. and J. F. Glazebrook: 2006b, Complex Nonlinear Biodynamics in Categories, Higher Dimensional Algebra and \L ukasiewicz--Moisil Topos: Transformations of Neuronal, Genetic and Neoplastic Networks., \emph{Axiomathes}, \textbf{16} Nos. 1--2: 65--122.
+
+\bibitem{Bbg3}
+Baianu, I.C., R. Brown and J.F. Glazebrook. : 2007a, Categorical Ontology of Complex Spacetime Structures: The Emergence of Life and Human Consciousness, \emph{Axiomathes}, \textbf{17}: 35-168.
+
+\bibitem{Bggb4}
+Baianu, I.C., R. Brown and J. F. Glazebrook: 2007b, A Non-Abelian, Categorical Ontology of Spacetimes and Quantum Gravity, Axiomathes, 17: 169-225.
+
+\bibitem{Ba-We2k}
+M.~Barr and C.~Wells. {\em Toposes, Triples and Theories}. Montreal: McGill University, 2000.
+
+\bibitem{Ba-We85}
+Barr, M. \&amp; Wells, C., 1985, Toposes, Triples and Theories, New York: Springer-Verlag.
+
+\bibitem{BM-CW99}
+Barr, M. \&amp; Wells, C., 1999, Category Theory for Computing Science, Montreal: CRM.
+
+\bibitem{BaM98}
+Batanin, M., 1998, Monoidal Globular Categories as a Natural Environment for the Theory of Weak n-Categories", Advances in Mathematics, 136, 39--103.
+
+\bibitem{BJL81}
+Bell, J. L., 1981, Category Theory and the Foundations of Mathematics, British Journal for the Philosophy of Science, 32, 349--358.
+
+\bibitem{BJL82}
+Bell, J. L., 1982, Categories, Toposes and Sets, {\em Synthese},{\bf 51}, 3, 293--337.
+
+\bibitem{BJL86}
+Bell, J. L., 1986, From Absolute to Local Mathematics, {\em Synthese}, {\bf 69}, 3, 409--426.
+
+\bibitem{BJL88}
+Bell, J. L., 1988, {\em Toposes and Local Set Theories: An Introduction}, Oxford: Oxford University Press.
+
+\bibitem{BG-MCLS99}
+Birkoff, G. and Mac Lane, S., 1999, Algebra, 3rd ed., Providence: AMS.
+
+\bibitem{BDK2k3}
+Biss, D.K., 2003, Which Functor is the Projective Line?, {\em American Mathematical Monthly}, {\bf 110}, 7, 574--592.
+
+\bibitem{BA-SA83}
+Blass, A. and Scedrov, A., 1983, Classifying Topoi and Finite Forcing , Journal of Pure and Applied Algebra, 28, 111--140.
+
+\bibitem{BA-SA89}
+Blass, A. and Scedrov, A., 1989, Freyd's Model for the Independence of the Axiom of Choice, Providence: AMS.
+
+\bibitem{BASA92}
+Blass, A. and Scedrov, A., 1992, Complete Topoi Representing Models of Set Theory,
+{\em Annals of Pure and Applied Logic} , {\bf 57}, no. 1, 1-26.
+
+\bibitem{BA84}
+Blass, A., 1984, The Interaction Between Category Theory and Set Theory., Mathematical Applications of Category Theory, 30, Providence: AMS, 5-29.
+
+\bibitem{BR-SP2k4}
+Blute, R. \&amp; Scott, P., 2004, Category Theory for Linear Logicians., in Linear Logic in Computer Science
+
+\bibitem{Borceux94}
+Borceux, F.: 1994, \emph{Handbook of Categorical Algebra}, vols: 1--3,
+in {\em Encyclopedia of Mathematics and its Applications} \textbf{50} to \textbf{52}, Cambridge University Press.
+
+\bibitem{Bourbaki1}
+Bourbaki, N. 1961 and 1964: \emph{Alg\`{e}bre commutative.},
+in \'{E}l\'{e}ments de Math\'{e}matique., Chs. 1--6., Hermann: Paris.
+
+\bibitem{BrownBook1}
+R. Brown: \emph{Topology and Groupoids}, BookSurge LLC (2006).
+
+\bibitem{BJk4}
+Brown, R. and G. Janelidze: 2004, Galois theory and a new homotopy
+double groupoid of a map of spaces, \emph{Applied Categorical
+Structures} \textbf{12}: 63-80.
+
+\bibitem{BHR2}
+Brown, R., Higgins, P. J. and R. Sivera,: 2007a, \emph{Non-Abelian
+Algebraic Topology}, in preparation.\\
+http://www.bangor.ac.uk/~mas010/nonab-a-t.html ; \\
+http://www.bangor.ac.uk/~mas010/nonab-t/partI010604.pdf
+
+\bibitem{BGB2k7b}
+Brown, R., Glazebrook, J. F. and I.C. Baianu.: 2007b, A Conceptual, Categorical and Higher Dimensional Algebra Framework of Universal Ontology and the Theory of Levels for Highly Complex Structures and Dynamics., \emph{Axiomathes} (17): 321--379.
+
+\bibitem{BPP2k4}
+Brown, R., Paton, R. and T. Porter.: 2004, Categorical language and
+hierarchical models for cell systems, in \emph{Computation in
+Cells and Tissues - Perspectives and Tools of Thought}, Paton, R.;
+Bolouri, H.; Holcombe, M.; Parish, J.H.; Tateson, R. (Eds.)
+Natural Computing Series, Springer Verlag, 289-303.
+
+\bibitem{BP2k3}
+Brown R. and T. Porter: 2003, Category theory and higher
+dimensional algebra: potential descriptive tools in neuroscience, In:
+Proceedings of the International Conference on Theoretical
+Neurobiology, Delhi, February 2003, edited by Nandini Singh,
+National Brain Research Centre, Conference Proceedings 1, 80-92.
+
+\bibitem{Br-Har-Ka-Po2k2}
+Brown, R., Hardie, K., Kamps, H. and T. Porter: 2002, The homotopy
+double groupoid of a Hausdorff space., \emph{Theory and
+Applications of Categories} \textbf{10}, 71-93.
+
+\bibitem{Br-Hardy76}
+Brown, R., and Hardy, J.P.L.:1976, Topological groupoids I:
+universal constructions, \emph{Math. Nachr.}, 71: 273-286.
+
+\bibitem{Br-Po-analogy2k6}
+Brown, R. and T. Porter: 2006, Category Theory: an abstract
+setting for analogy and comparison, In: What is Category Theory?,
+\emph{Advanced Studies in Mathematics and Logic, Polimetrica
+Publisher}, Italy, (2006) 257-274.
+
+\bibitem{Br-Sp76}
+Brown, R. and Spencer, C.B.: 1976, Double groupoids and crossed
+modules, \emph{Cah. Top. G\'{e}om. Diff.} \textbf{17}, 343-362.
+
+\bibitem{BRTPT2k6}
+Brown R, and Porter T (2006) Category theory: an abstract setting for analogy and comparison. In: What is
+category theory? {\em Advanced studies in mathematics and logic}. Polimetrica Publisher, Italy, pp.
+257-274.
+
+\bibitem{BR-SCB76}
+Brown R, Razak Salleh A (1999) Free crossed resolutions of groups and presentations of modules of
+identities among relations. {\em LMS J. Comput. Math.}, \textbf{2}: 25--61.
+
+\bibitem{BDA55}
+Buchsbaum, D. A.: 1955, Exact categories and duality., Trans. Amer. Math. Soc. \textbf{80}: 1-34.
+
+\bibitem{BDA55}
+Buchsbaum, D. A.: 1969, A note on homology in categories., Ann. of Math. \textbf{69}: 66-74.
+
+\bibitem{BI65}
+Bucur, I. (1965). {\em Homological Algebra}. (orig. title: ``Algebra Omologica'')
+Ed. Didactica si Pedagogica: Bucharest.
+
+\bibitem{BI-DA68}
+Bucur, I., and Deleanu A. (1968). {\em Introduction to the Theory of Categories and Functors}. J.Wiley and Sons: London
+
+\bibitem{BL2k3}
+Bunge, M. and S. Lack: 2003, Van Kampen theorems for toposes, \emph{Adv. in Math.} \textbf{179}, 291-317.
+
+\bibitem{BM74}
+Bunge, M., 1974, "Topos Theory and Souslin's Hypothesis", Journal of Pure and Applied Algebra, 4, 159-187.
+
+\bibitem{BM84}
+Bunge, M., 1984, "Toposes in Logic and Logic in Toposes", Topoi, 3, no. 1, 13-22.
+
+\bibitem{BM-LS2k3}
+Bunge M, Lack S (2003) Van Kampen theorems for toposes. {\em Adv Math}, \textbf {179}: 291-317.
+
+\bibitem{BJ-ICJ2k1}
+Butterfield J., Isham C.J. (2001) Spacetime and the philosophical challenges of quantum gravity. In:
+Callender C, Hugget N (eds) Physics meets philosophy at the Planck scale. Cambridge University
+Press, pp 33-89.
+
+\bibitem{BJ-ICJ98-2k2}
+Butterfield J., Isham C.J. 1998, 1999, 2000-2002, A topos perspective on the Kochen-Specker theorem
+I-IV, Int J Theor Phys 37(11):2669-2733; 38(3):827-859; 39(6):1413-1436; 41(4): 613-639.
+\end{thebibliography}</content>
+</record>

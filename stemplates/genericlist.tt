@@ -1,0 +1,135 @@
+<!-- a listing of generic objects (papers, expositions, books) -->
+
+<!-- template that handles the "entire" screen for viewing a generic list -->
+
+<!-- clear box -->
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td bgcolor="#000000">
+
+						<!-- title box -->
+						
+						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+							<tr>
+								<td WIDTH="100%" BGCOLOR="#003399">
+									<font color="white" class="box_title">
+										Most Recent [% name %]
+									</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<!-- content box -->
+			<table width="100%" cellpadding="0" cellspacing="2">
+				<tr>
+					<td>
+	
+                        [% pager %]
+
+                        <table>
+
+                            [% FOREACH object IN objects %]
+
+                                <tr>
+
+                                    <!-- record index -->
+                                    <td valign="top">
+                                        [% object.ord %].			
+                                    </td>
+
+                                    <!-- title and uploader -->
+                                    <td>
+
+                                        <a href=/?op=getobj;from=[% table %];id=[% object.id %]>Add to [% object.title %]</a>
+
+                                        added by 
+
+                                        <a href=/?op=getuser;id=[% object.userid %]> [% object.username %]</a>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>&nbsp;</td>
+
+                                    <!-- the rest of the metadata -->
+
+                                    <td> 
+                                        
+                                        Authors: [% object.authors %]
+
+                                        <p></p>
+
+                                        Uploaded on: [% object.date %]
+
+                                        [%IF object.classification %]
+                                        , Classification: [% object.classification %]
+                                        [% END %]
+                                    
+                                    </td>
+
+                                </tr>
+
+                            [% END %]
+
+                        </table>
+
+                        [% pager %]
+
+
+
+					</td>
+				</tr>
+
+                <tr>
+                    <td>
+
+
+                        <!-- standard box -->
+                        <table width="100%">
+                            <tr>
+                                <td bgcolor="#000000">
+                                    <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+
+                                        <!-- title -->
+                                        <tr>
+                                            <td WIDTH="100%" BGCOLOR="#003399">
+                                                <font color="white" class="box_title">
+                                                    Interact
+                                                </font>
+                                            </td>
+                                        </tr>
+                                    
+                                        <!-- content -->
+                                        <tr>
+                                            <td WIDTH="100%" BGCOLOR="dddddd">
+                                                <center>
+                                                    <a href=/?op=addobj;to=[% table %]> Add to  [% name %]</a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- end standard box -->
+
+                    </td>
+                </tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end clear box -->

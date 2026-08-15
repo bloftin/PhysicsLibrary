@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="588">
+ <title>quantum operator concept</title>
+ <name>QuantumOperatorConcept</name>
+ <created>2009-03-11 00:51:18</created>
+ <modified>2009-03-11 00:51:18</modified>
+ <type>Topic</type>
+<parent id="553">Observables and States</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="03.65.Ca"/>
+ </classification>
+ <related>
+	<object name="ObservablesAndStates"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Consider the function $\frac{\partial \Psi}{\partial t}$, the derivative of $\Psi$ with respect to time; one can say that the operator $\frac{\partial}{\partial t}$ acting on the function $\Psi$ yields the function $\frac{\partial \Psi}{\partial t}$.  More generally, if a certain operation allows us to bring into correspondence with each function $\Psi$ of a certain function space, one and only one well-defined function $\Psi^{\prime}$ of that same space, one says the $\Psi^{\prime}$ is obtained through the action of a given \emph{operator} $A$ on the function $\Psi$, and one writes
+
+$$
+\Psi^{\prime} = A \Psi.
+$$
+
+By definition $A$ is a \emph{linear operator} if its action on the function $\lambda_1 \Psi_1 + \lambda_2 \Psi_2$, a linear combination with constant (complex) coefficients, of two functions of this function space, is given by
+
+$$
+A\left( \lambda_1 \Psi_1 + \lambda_2 \Psi_2 \right) = \lambda_1 \left( A \Psi_1 \right ) + \lambda_2 \left ( A \Psi \right ).
+$$
+
+Among the linear operators acting on the wave functions
+
+$$ \Psi \equiv \Psi(\mathbf{r},t) \equiv \Psi(x,y,z,t) $$
+
+associated with a particle, let us mention:
+
+
+\begin{enumerate}
+\item  the differential operators ${\partial} / {\partial} x$,${\partial} / {\partial} y$,${\partial} / {\partial} z$,${\partial} / {\partial} t$, such as the one which was considered above;
+
+\item the operators of the form $f(\mathbf{r},t)$ whose action consists in multiplying the function $\Psi$ by the function $f(\mathbf{r},t)$
+
+\end{enumerate}
+
+(more to come shortly)</content>
+</record>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="284">
+ <title>Lagrange's equations</title>
+ <name>LagrangesEquations</name>
+ <created>2008-07-16 13:50:36</created>
+ <modified>2008-07-16 14:01:25</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.Jj"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>There are certain general principles or theorems in mechanics, such as Lagrange's equations, Hamilton's principle, the principle of least work, and Gauss' principle of least constraint, which afford general solutions of certain types of problems.  Such general principles have therefore the advantage over ordinary methods in that once having found the general solution, any particular problem may be solved by merely routine processes.
+
+The general form of Lagrange's equation for the generalized coordinates $q_i$ is given as
+
+\begin{equation}
+Q_i = \frac{d}{dt} \left ( \frac{ \partial E}{\partial \dot{q_i}} \right ) - \frac{\partial E}{\partial q_i}
+\end{equation}
+
+The more common form that is used is when the forces for the dynamical system can be found from a scalar potential function $V$ is
+
+\begin{equation}
+\frac{d}{dt} \left ( \frac{\partial L}{\partial \dot{q_i}} \right ) - \frac{\partial L}{\partial q_i} = 0
+\end{equation}
+
+where $L$, the Lagrangian function (or, simply, Lagrangian), is the difference between the kinetic energy and the potential function
+
+$$L = T - V$$</content>
+</record>

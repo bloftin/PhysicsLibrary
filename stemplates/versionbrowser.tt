@@ -1,0 +1,104 @@
+<!-- clear box -->
+<table width="100%" cellpadding="2" cellspacing="0">
+	<tr>
+		<td>
+			<table width="100%">
+				<tr>
+					<td bgcolor="#000000">
+
+						<!-- title box -->
+						
+						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+							<tr>
+								<td WIDTH="100%" BGCOLOR="#003399">
+									<font color="white" class="box_title">
+										Revision Browser : [% title %]
+									</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<!-- content box -->
+			<table width="100%" cellpadding="0" cellspacing="2">
+				<tr>
+					<td>
+						<center>
+							<a href= [% title_link %]> view '[% title %]</a>
+						</center>
+
+						<p><p/>
+
+						[% IF items.size > 0 %]
+							[% FOREACH item IN items %]
+								[% IF (item.ord mod 2) == 1 %]
+									<table width="100%" cellpadding="4" bgcolor=#eeeeee>
+								[% ELSE %]
+									<table width="100%" cellpadding="4" bgcolor=#ffffff>
+								[% END  %]
+								
+									[% IF owner %]
+										<td style="border-style: none solid none none; border-width: thin; border-color: #000000">
+											<font size="-1">
+												<a href=[%item.rollback %] title="Unapply changes since this reversion.  Doing this will make version [% version_name %] the current version.">rollback</a>
+											</font>
+										</td>
+									[% END %]
+
+									<td style="border-style: none solid none none; border-width: thin; border-color: #000000">
+										<a href=[% item.viewdiff %] title="View the changes made in this revision.">diff</a>
+									</td>
+									
+									<td width="100%">
+
+									[% item.timestamp %] 
+					
+									- revision [
+					
+									<a href=[% item.version_link %]>Version = [% item.version_name %]</a>
+										<b> --&gt;  </b>
+										
+										[% IF loop.prev %]
+											<a href=[% loop.prev.version_link %]>Version [% loop.prev.version_name %]</a>
+										[% ELSE %]
+											(current)
+										[% END %]
+																		
+									]
+
+									by 	
+
+									<a href=[% item.modifier_link %]>
+										[% item.modifier_name %]
+									</a>
+
+									[%IF item.comment %]
+										<table align="right" cellpadding="0" cellspacing="0" width="95%">
+											<td align="left">
+												[% item.comment %]
+											</td>
+										</table>
+									[% END %]
+
+								</table>
+
+							[% END %]
+						[% ELSE %]
+							<center>
+			   					No history yet! Make some changes first.
+			   				</center>
+						[% END %]
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end clear box -->
+

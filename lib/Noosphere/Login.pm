@@ -7,7 +7,9 @@ use strict;
 #
 sub handleLogin {
 	my ($req, $params, $cookies) = @_;
-	
+	my $param_op = $params->{'op'};
+	dwarn "handleLogin started";
+	dwarn "params->{'op'} = $param_op";
 	my %user_info = ('ticket' => undef, 'time' => time(), 'uid' => -1,
 									 'ip' => $ENV{'REMOTE_ADDR'});
 
@@ -26,9 +28,11 @@ sub handleLogin {
 	# handle logging out: unset ticket
 	#
 	if ($params->{'op'} eq 'logout') {
+		dwarn "logout selected";
 		$user_info{'ticket'} = undef;
 		$user_info{'uid'} = 0;
 
+		
 		clearCookie($req, 'ticket');
 
 		dwarn 'got logout'; 
@@ -37,6 +41,7 @@ sub handleLogin {
 	# handle login op
 	#
 	elsif ($params->{op} eq 'login' && $user && $passwd) {
+		dwarn "handle login op";
 		$user =~ s/^ +//;
 		$user =~ s/ +$//;
 		$user =~ s/ +/ /g;
@@ -78,6 +83,7 @@ sub handleLogin {
 	# check for ticket holding login info for any other op
 	#
 	else {
+		dwarn "Else ticket holding login";
 		$user_info{'uid'} = checkTicket($user_info{'ticket'},
 		$user_info{'ip'},
 		getConfig('cookie_timeout'),
@@ -92,25 +98,28 @@ sub handleLogin {
 	# handle user last request statistics
 	# 
 	if ($user_info{'uid'} > 0) {
+		dwarn "handle user last request statistics before";
 		markUserAccess($user_info{'uid'}, $user_info{'ip'});
+		dwarn "handle user last request statistics after";
 	}
 
 	# handle never logging out
 	# 
 	if ($user_info{'uid'} > 0 && $user_info{'prefs'}->{'neverlogout'} eq 'on') {
+		dwarn "handle never logging out before";
 		my $timeout =	(180*24*60*60);	# 6 months
 			
 		# set a new cookie that pushes expiry time back.
 		#
 		setCookie($req, 'ticket', $user_info{'ticket'}, $timeout); 
 	}
-
+	dwarn "handle never logging out after";
 	return %user_info;
 }
 
 # get the contents of the login/logged-in box displayed on the left
 #
-sub getLoginBox {
+sub getLoginBoxOld {
 	my $params = shift;
 	my $user_info = shift;
 
@@ -122,7 +131,7 @@ sub getLoginBox {
 
 	if (defined $user_info->{'ticket'} && $user_info->{'uid'} > 0) {
 		$boxtitle = $data->{'username'};
-		$login = new Template('userbox.html');
+		$login = new TemplateNS('userbox.html');
 
 		# handle counts 
 		#
@@ -144,7 +153,7 @@ sub getLoginBox {
 	}
 	else {
 		$boxtitle = 'Login';
-		$login = new Template('login.html');
+		$login = new TemplateNS('login.html');
 		my $error = 'login error';
 
 		# handle deactivated account situation
@@ -159,6 +168,162 @@ sub getLoginBox {
 	}
 	
 	return makeBox($boxtitle, $login->expand());
+}
+
+sub getLoginBox {
+	my $params = shift;
+	my $user_info = shift;
+
+	my $data = $user_info->{'data'};
+	
+	my $boxtitle;
+	my $login = '';
+	my $template;
+	
+	
+	
+	if (defined $user_info->{'ticket'} && $user_info->{'uid'} > 0) {
+		my $file = 'loggedin.tt';
+		my $mail = getNewMailCount($user_info);
+		my $corrections = countPendingCorrections($user_info);
+		my $notices = getNoticeCount($user_info);
+		my $loginbox = '';
+		my $username = $data->{'username'};
+		
+		my $vars = {
+        	username       	=> $username,
+			mail			=> $mail,
+			corrections		=> $corrections,
+			notices			=> $notices,
+    	};
+
+		my $tt = Template->new({
+			INCLUDE_PATH => '/var/www/pp/stemplates',
+		});
+
+	
+    	my $ret = $tt->process($file, $vars, \$loginbox) || die "Template process failed: ", $tt->error(), "\n";
+
+		return $loginbox;
+
+	} else {
+		my $error = '';
+		my $loginbox = '';
+		my $file = 'login.tt';
+		
+		my $vars = {
+        error       => $error,
+    	};
+
+		my $tt = Template->new({
+			INCLUDE_PATH => '/var/www/pp/stemplates',
+		});
+
+	
+    	my $ret = $tt->process($file, $vars, \$loginbox) || die "Template process failed: ", $tt->error(), "\n";
+
+		return $loginbox;
+
+	}
+	
+
+}
+
+sub getLoginBoxHybrid {
+	my $params = shift;
+	my $user_info = shift;
+
+	my $data = $user_info->{'data'};
+	
+	my $boxtitle;
+	my $login = '';
+	my $template;
+	
+	
+	if (defined $user_info->{'ticket'} && $user_info->{'uid'} > 0) {
+		my $mail = getNewMailCount($user_info);
+		my $corrections = countPendingCorrections($user_info);
+		my $notices = getNoticeCount($user_info);
+		my $xml = '';
+		my $username = $data->{'username'};
+		my $writer = new XML::Writer(OUTPUT=>\$xml);
+		$writer->startTag("logged_in");
+		# BEN: Roles have not been upgraded to yet
+		#if ( is_editor( $user_info->{'uid'} ) ) {
+		#	$writer->startTag("editor");
+		#	$writer->endTag("editor");	
+		#}
+		$writer->startTag("username");
+		$writer->characters($username);
+		$writer->endTag("username");
+		$writer->startTag('mail');
+		$writer->characters($mail);
+		$writer->endTag('mail');
+		$writer->startTag('notices');
+		$writer->characters($notices);
+		$writer->endTag('notices');
+		$writer->startTag('corrections');
+		$writer->characters($corrections);
+		$writer->endTag('corrections');
+	    $writer->endTag("logged_in");
+
+		my $xslt = getConfig("stemplate_path") . "/loggedin.xsl";
+		my $loginbox = buildStringUsingXSLT( $xml, $xslt );
+
+		return $loginbox;
+		return "ERROR\n";
+		##$login = new TemplateNS('userbox.html');
+
+#		$login->setKey('bullet', getBullet());
+#		$login->setKey('id',$user_info->{uid});
+#		$login->setKey('url', hashToParams($params));
+	} else {
+		my $error = '';
+		my $loginbox = '';
+		my $file = 'login.tt';
+		
+		my $vars = {
+        error       => $error,
+    	};
+
+		my $tt = Template->new({
+			INCLUDE_PATH => '/var/www/pp/stemplates',
+		});
+
+	
+    	my $ret = $tt->process($file, $vars, \$loginbox) || die "Template process failed: ", $tt->error(), "\n";
+
+		return $loginbox;
+
+		##my $xml = '';
+		##my $writer = new XML::Writer(OUTPUT=>\$xml);
+		##$writer->startTag("login");
+		##$writer->startTag("main_url");
+		##$writer->characters(getConfig("main_url"));
+		##$writer->endTag("main_url");
+	    ##    $writer->endTag("login");
+
+		##my $xslt = getConfig("stemplate_path") . "/login.xsl";
+		##my $loginbox = buildStringUsingXSLT( $xml, $xslt );
+		##return $loginbox;
+
+		#$boxtitle = 'Login';
+		#$login = new TemplateNS('login.html');
+		#my $error = 'login error';
+
+		# handle deactivated account situation
+		#
+		#if (user_registered($params->{user}, 'username') &&
+		#	!isUserActive($params->{user})) {
+		
+		#	$error = 'account deactivated';
+		#}
+
+		#$login->setKey('url', hashToParams($params));
+		#$login->setKey('error', $params->{op} eq 'login' ? $error : '');
+	}
+	
+#	return $login->expand();
 }
 
 1;

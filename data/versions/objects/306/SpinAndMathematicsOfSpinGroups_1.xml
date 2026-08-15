@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="306">
+ <title>spin and mathematics of spin groups</title>
+ <name>SpinAndMathematicsOfSpinGroups</name>
+ <created>2008-10-16 12:25:41</created>
+ <modified>2008-10-16 12:25:41</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="04.20.Gz"/>
+	<category scheme="msc" code="75.10.Pq"/>
+	<category scheme="msc" code="75.30.Ds"/>
+	<category scheme="msc" code="75.50.Lk"/>
+	<category scheme="msc" code="76.60.Lz"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Spin Groups}
+Spin groups are an important subject both in Theoretical Physics and Mathematics.
+In Physics, the term {\em spin `groups'} is often used with the broad meaning of a
+collection of coupled, or interacting spins, and thus covers the broad `spectrum' of spin clusters
+ranging from gravitons (as in spin networks and spin foams, for example) to `up' ($u$) and `down' ($d$) quark spins
+(fermions) coupled by gluons in nuclei (as treated in Quantum Chromodynamics or Theoretical Nuclear Physics),
+and electron spin Cooper pairs (regarded as bosons) in low-temperature superconductivity.
+On the other hand, in relation to \emph{quantum symmetry}, \emph{spin groups} are defined in
+Quantum Mechanics and Quantum Field Theories (QFT) in a precise, mathematical (algebraic) sense as properly defined
+groups, as introduced next. (In a semi-classical approach, the related concept of a \emph{spinor} has been introduced and studied in depth by \'E. Cartan, who found that with his definition of spinors the (special) relativistic Lorentz covariance properties were not recovered, or applicable.)
+
+\begin{definition}
+In the mathematical, precise sense of the term, a \emph{spin group}
+--as for example the Lie group $Spin(n)$-- is defined as a \emph{double cover of the special orthogonal (Lie) group $SO(n)$} satisfying the additional condition that there exists the \emph{short exact sequence} of Lie groups:
+
+$$ 1 \to \mathbb{Z}_2 \to Spin(n) \to SO(n) \to 1 $$
+
+Alternatively one can say that the above exact sequence of Lie groups defines the spin group $Spin(n)$.
+Furthermore, \emph{$Spin(n)$} can also be defined as the \emph{proper subgroup (or groupoid) of the invertible elements
+in the \PMlinkname{Clifford algebra}{CliffordAlgebra2}} $\mathbb{C}l(n)$; (when defined as a double cover this should be $Cl_{p, q}(R)$, a \PMlinkname{Clifford algebra}{CliffordAlgebra2} built up from an orthonormal basis of $n = p + q$ mutually orthogonal vectors under addition and multiplication, $p$ of which have norm +1 and $q$ of which have norm $-1$, as further explained in the \PMlinkname{spinor definition}{Spinor}).
+Note also that other spin groups such as \emph{$Spin ~ d$} (ref. \cite{SW1999}) are mathematically defined, and also important, in \PMlinkname{QFT}{QFTOrQuantumFieldTheories}.
+\end{definition}
+
+{\bf Important Examples of $Spin(n)$ and Quantum Symmetries}
+There exist the following isomorphisms:
+
+\begin{enumerate}
+\item $Spin(1) \cong O(1) $
+
+\item $Spin(2) \cong U(1)\cong SO(2) $
+
+\item $Spin(3) \cong Sp(1)\cong SU(2)$
+
+\item $Spin(4) \cong Sp(1) \times Sp(1)$
+
+\item $Spin(5) \cong Sp(2) $
+
+\item $Spin(6) \cong SU(4) $
+
+\end{enumerate}
+
+Thus, the symmetry groups in the Standard Model (SUSY) of current Physics can also be written as :
+$Spin(2) \times Spin(3) \times SU(3)$, where only $SU(3)$ does not have an isomorphic
+$Spin(n)$ group.
+
+{\bf Remarks}
+\begin{itemize}
+\item In modern Physics, non-Abelian spin groups are also defined, as for example, spin quantum groups
+and spin quantum groupoids.
+
+\item An extension of the concepts of spin group and spinor, is the notion of a `twistor',
+a mathematical concept introduced by Sir Roger Penrose, generally with distinct symmetry/mathematical properties
+from those of spin groups, such as those defined above.
+
+\subsection{The Fundamental Groups of $Spin(p,q)$}
+
+With the usual notation, the fundamental groups $\pi_1(Spin(p,q))$ are as follows:
+
+\begin{enumerate}
+
+\item $\left\{0\right\}$ , for $(p,q)= (1,1)$ and $(p,q)= (1,0)$;
+
+\item $\left\{0\right\}$ , if $p &gt; 2$ and $q = 0,1$;
+
+\item $\mathbb{Z}$ for $(p,q)= (2,0)$ and $(p,q)= (2,1)$;
+
+\item $\mathbb{Z} \times \mathbb{Z}$ for $(p,q)= (2,2)$;
+
+\item $\mathbb{Z}$ for $ p&gt;2, q =2 $
+
+\item $\mathbb{Z}_2$ for $ p&gt;2, q &gt;2 $
+
+\end{enumerate}
+
+
+
+
+\end{itemize}
+
+\begin{thebibliography}{9}
+
+\bibitem{AABB1970}
+A. Abragam and B. Bleaney. {\em Electron Paramagnetic Resonance of Transition Ions}. 1970.
+Clarendon Press: Oxford, ({\em dedicated to J. H. Van Vleck}), pp. 911.
+
+\bibitem{PWA-HS1955}
+P.W. Anderson and H. Suhl. 1955. {\em Phys. Rev.}, {\bf 100}:1788-1795.
+
+\bibitem{JFD1956}
+J.F. Dyson., 1956. General Theory of Spin Wave interactions., {\em Phys. Rev.}, {\bf 102}:1217-1228.
+
+\bibitem{SW1999}
+S. Weinberg. 1999. \emph{Quantum Theory of Fields}, vol. 1, Cambridge University Press: Cambridge, UK.
+
+\bibitem{ICB1980}
+I.C. Baianu et al. 1980. Ferromagnetic Resonance and Spin Wave Excitations in Metallic Glasses.,
+{\em J. Phys. Chem. Solids.}, {\bf 40}: 941-950.
+
+\bibitem{ICB1981}
+I.C. Baianu et al. 1981. Nuclear Magnetic Resonance Spin-Echo Responses of Dipolar Coupled Spin -1/2 Triads
+(Groups in Solids.), {\em J. Magn. Resonance.}, {\bf 43}: 101-111.
+
+\end{thebibliography}</content>
+</record>

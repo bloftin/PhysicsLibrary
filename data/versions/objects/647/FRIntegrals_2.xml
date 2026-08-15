@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="647">
+ <title>FR-integrals</title>
+ <name>FRIntegrals</name>
+ <created>2009-04-17 20:22:47</created>
+ <modified>2009-04-17 20:26:25</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble. as your
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+% define commands here
+
+\theoremstyle{definition}
+\newtheorem*{thmplain}{Theorem} 
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\section{Fresnel Integrals and Proof}
+
+  $\int_0^\infty\!\cos{x^2}\,dx \,=\, \int_0^\infty\!\sin{x^2}\,dx \,=\, \frac{\sqrt{2\pi}}{4}$
+
+
+{\em Proof.}
+
+\begin{center}
+\begin{pspicture}(-1,-1)(6.2,4.2)
+\psaxes[Dx=10,Dy=10]{-&gt;}(0,0)(-1,-1)(6,4)
+\rput(-0.2,4.1){$y$}
+\rput(6.1,-0.2){$x$}
+\rput(-0.17,-0.22){0}
+\rput(5,-0.3){$R$}
+\rput(0.7,0.3){$\frac{\pi}{4}$}
+\rput(1.4,1.7){$s$}
+\rput(4.7,2.2){$b$}
+\psline[linecolor=blue,linewidth=0.05]{-&gt;}(0,0)(5,0)
+\psline[linecolor=blue,linewidth=0.04]{-&gt;}(3.55,3.55)(0,0)
+\psarc[linecolor=blue,linewidth=0.04]{-&gt;}(0,0){5}{-1}{45}
+\psarc(0,0){0.5}{0}{45}
+\end{pspicture}
+\end{center}
+
+The function \,$\displaystyle z \mapsto e^{-z^2}$\, is entire, whence by the fundamental theorem of complex analysis we have
+\begin{align}
+\oint_\gamma e^{-z^2}\,dz \;=\; 0
+\end{align}
+where $\gamma$ is the \PMlinkname{perimeter}{BasicPolygon} of the circular sector described in the picture.\, We split this contour integral to three portions:
+\begin{align}
+\underbrace{\int_0^R\!e^{-x^2}\,dx}_{I_1}+\underbrace{\int_b\!e^{-z^2}\,dz}_{I_2}
++\underbrace{\int_s\!e^{-z^2}\,dz}_{I_3} \,=\,0
+\end{align}
+By the entry concerning the Gaussian integral, we know that
+$$\lim_{R\to\infty}I_1 = \frac{\sqrt{\pi}}{2}.$$
+
+For handling $I_2$, we use the substitution
+$$z \,:=\, Re^{i\varphi} = R(\cos\varphi+i\sin\varphi), \quad dz \,=\,iRe^{i\varphi}\,d\varphi \quad
+(0 \leqq \varphi \leqq \frac{\pi}{4}).$$
+Using also de Moivre's formula we can write
+$$|I_2| = \left|iR\int_0^{\frac{\pi}{4}}e^{-R^2(\cos2\varphi+i\sin2\varphi)}e^{i\varphi}d\varphi\right| \leqq 
+R\!\int_0^{\frac{\pi}{4}}\left|e^{-R^2(\cos2\varphi+i\sin2\varphi)}\right|\cdot\left|e^{i\varphi}\right|\cdot|d\varphi|
+= R\!\int_0^{\frac{\pi}{4}}e^{-R^2\cos2\varphi}d\varphi.$$
+Comparing the graph of the function \,$\varphi \mapsto \cos2\varphi$\, with the line through the points \,$(0,\,1)$\, and\, $(\frac{\pi}{4},\,0)$\, allows us to estimate $\cos2\varphi$ downwards:
+$$\cos2\varphi \geqq 1\!-\!\frac{4\varphi}{\pi} \quad\mbox{for}\quad 0 \leqq \varphi \leqq \frac{\pi}{4}$$
+Hence we obtain
+$$|I_2| \leqq R\int_0^{\frac{\pi}{4}}\frac{d\varphi}{e^{R^2\cos2\varphi}} 
+\leqq R\int_0^{\frac{\pi}{4}}\frac{d\varphi}{e^{R^2(1-\frac{4\varphi}{\pi})}} 
+\leqq \frac{R}{e^{R^2}} \int_0^{\frac{\pi}{4}} e^{\frac{4R^2}{\pi}\varphi} d\varphi,$$
+and moreover
+$$|I_2| \leqq \frac{\pi}{4Re^{R^2}}(e^{R^2}-1) &lt; \frac{\pi e^{R^2}}{4Re^{R^2}} = \frac{\pi}{4R} \; \to 0
+\quad \mbox{as} \quad R \to \infty.$$
+Therefore
+$$\lim_{R\to\infty}I_2 = 0.\\$$
+
+Then make to $I_3$ the substitution
+$$z \;:=\; \frac{1\!+\!i}{\sqrt{2}}t, \quad dz \,=\, \frac{1\!+\!i}{\sqrt{2}}dt \quad(R \geqq t \geqq 0).$$
+It yields
+\begin{align*}
+I_3 &amp;\quad = \frac{1\!+\!i}{\sqrt{2}}\int_R^0e^{-it^2}\,dt
+= -\frac{1}{\sqrt{2}}\int_0^R(1+i)(\cos{t^2}-i\sin{t^2})\,dt \\
+&amp;\quad = -\frac{1}{\sqrt{2}}\left(\int_0^R\sin{t^2}\,dt+\int_0^R\cos{t^2}\,dt\right)
++\frac{i}{\sqrt{2}}\left(\int_0^R\sin{t^2}\,dt-\int_0^R\cos{t^2}\,dt\right).
+\end{align*}
+Thus, letting\, $R \to \infty$,\, the equation (2) implies
+\begin{align}
+\frac{\sqrt{\pi}}{2}\!+\!0\!
+-\frac{1}{\sqrt{2}}\left(\int_0^\infty\!\sin{t^2}\,dt+\!\int_0^\infty\!\cos{t^2}\,dt\right)\!
++\!\frac{i}{\sqrt{2}}\left(\int_0^\infty\!\sin{t^2}\,dt-\!\int_0^\infty\!\cos{t^2}\,dt\right) \;=\; 0.
+\end{align}
+Because the imaginary part vanishes, we infer that\, $\int_0^\infty\cos{x^2}\,dx = \int_0^\infty\sin{x^2}\,dx$,\, whence (3) reads
+$$\frac{\sqrt{\pi}}{2}+0-\frac{1}{\sqrt{2}}\!\cdot\!2\!\int_0^\infty\!\sin{t^2}\,dt \,=\, 0.$$
+So we get also the result\, $\int_0^\infty\sin{x^2}\,dx = \frac{\sqrt{2}}{2}\cdot\frac{\sqrt{\pi}}{2} = 
+\frac{\sqrt{2\pi}}{4}$,\, Q.E.D.</content>
+</record>

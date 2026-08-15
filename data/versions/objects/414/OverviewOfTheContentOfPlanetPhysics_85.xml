@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="85" id="414">
+ <title>overview of the content of PlanetPhysics</title>
+ <name>OverviewOfTheContentOfPlanetPhysics</name>
+ <created>2009-01-18 02:45:21</created>
+ <modified>2009-03-02 09:37:04</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <defines>
+	<concept>physics area topics</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="overview of the content of PlanetPhysics" alias="major physics area topics"/>
+	<synonym concept="overview of the content of PlanetPhysics" alias="contents of PlanetPhysics.org website"/>
+ </synonyms>
+ <related>
+	<object name="GREPhysicsStudyGuide"/>
+	<object name="SpecialTheoryOfRelativity"/>
+	<object name="AppliedPhysics"/>
+	<object name="MaxwellsEquations"/>
+	<object name="QED"/>
+	<object name="QFT"/>
+	<object name="AQFT"/>
+	<object name="QCD"/>
+	<object name="CategoricalQuantumLMAlgebraicLogic2"/>
+	<object name="ApplicationsTopicOnMathematicalPhysicsAndPhysicalMathematics"/>
+	<object name="ETAC"/>
+	<object name="TopicOnEquationsInMathematicalPhysics"/>
+ </related>
+ <keywords>
+	<term>content of PlanetPhysics</term>
+	<term>QFT</term>
+	<term>AQFT</term>
+	<term>QED</term>
+	<term>QCD</term>
+	<term>SR</term>
+	<term>GR</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here
+
+\newcommand{\sR}[0]{\mathbb{R}}
+\newcommand{\sC}[0]{\mathbb{C}}
+\newcommand{\sN}[0]{\mathbb{N}}
+\newcommand{\sZ}[0]{\mathbb{Z}}
+
+\usepackage{bbm}
+\newcommand{\Z}{\mathbbmss{Z}}
+\newcommand{\C}{\mathbbmss{C}}
+\newcommand{\R}{\mathbbmss{R}}
+\newcommand{\Q}{\mathbbmss{Q}}
+
+
+
+\newcommand*{\norm}[1]{\lVert #1 \rVert}
+\newcommand*{\abs}[1]{| #1 |}
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}</preamble>
+ <content>\subsection{Overview of the Contents of PlanetPhysics}
+
+\PMlinkescapetext{This topic provides a convenient entry point into the content of the PlanetPhysics.org website. It is organized around the main subject areas of Physics that are addressed in representative area topics. Each of the linked topic entries provides an overview of the content of the specified area of physics.}
+
+\subsection{Main Areas of Physics:}
+
+ \PMlinkname{\Large FOUNDATIONS OF PHYSICS:}{FundamentalFormulasOfPhysics}
+\PMlinkname{FUNDAMENTAL EQUATIONS OF PHYSICS}{TopicOnEquationsInMathematicalPhysics}
+
+ \PMlinkname{\Large THEORETICAL AND MATHEMATICAL PHYSICS; PHYSICAL MATHEMATICS}{ApplicationsTopicOnMathematicalPhysicsAndPhysicalMathematics}
+
+\PMlinkname{\Large CLASSICAL MECHANICS}{ClassicalMechanics} 
+
+\PMlinkname{\Large RELATIVITY THEORIES}{SpecialTheoryOfRelativity}
+
+\PMlinkname{\Large DYNAMIC SYSTEMS THEORY}{GroupoidCDynamicalSystem} 
+
+\PMlinkname{\Large SYSTEMS WITH CHAOTIC DYNAMICS}{Chaos}
+
+\PMlinkname{\Large COMPLEX SYSTEMS AND MATHEMATICAL BIOPHYSICS}{CategoricalDynamics2}
+ 
+\PMlinkname{\Large ACOUSTICS}{ExampleConstantAccelerationAndSpeedOfSound} AND \PMlinkname{HIGH FREQUENCY VIBRATIONS}{WaveEquation2}
+
+\PMlinkname{\Large OPTICS AND ELECTROMAGNETISM}{MaxwellsEquations}  
+
+\PMlinkname{\Large MOLECULAR PHYSICS}{MeanTranslationalKineticEnergy}, 
+
+\PMlinkname{\Large THERMODYNAMICS,}{PrinciplesOfThermodynamics}
+
+\PMlinkname{\Large STATISTICAL MECHANICS AND MOLECULAR DYNAMICS}{StatisticalEntropy}
+
+\PMlinkname{\Large QUANTUM PHYSICS}{PrinciplesOfQuantumPhysics}: QED, QFT, AQFT, QCD, QUANTUM GRAVITY, \PMlinkname{QUANTUM COMPUTING AND Q-LOGIC}{QuantumAutomaton}
+
+\PMlinkname{QUANTUM COHERENT SYSTEMS}{PrinciplesOfNIRSpectroscopy}, FLUID AND SUPERFLUID DYNAMICS
+
+\PMlinkexternal{\Large SOLID STATE PHYSICS}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=55} 
+
+\PMlinkexternal{CRYSTALLOGRAPHY}{http://planetphysics.org/? AND \PMlinkexternal{QUANTUM FIELD THEORY OF CONDENSED MATTER}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=50}
+op=getobj&amp;from=books&amp;id=20} 
+
+\PMlinkexternal{\Large HIGH ENERGY PHYSICS}{http://planetphysics.org/?op=getobj&amp;from=books&amp;id=19}, CHROMODYNAMICS/QCD AND \PMlinkexternal{ELEMENTARY PARTICLES}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=1}
+
+\PMlinkname{\Large APPLIED PHYSICS:}{AppliedPhysics}
+ 
+\PMlinkname{ASTROPHYSICS}{ExpandingUniverse}, GEOPHYSICS, GRAVITATION,
+\PMlinkname{COSMOLOGY AND SPACE EXPLORATION}{CosmologicalDifficultiesOfNewtonsTheory}
+
+\PMlinkname{ENERGY SCIENCE}{ENERGYSCIENCE}, 
+
+\PMlinkname{NUCLEAR PHYSICS}{Neutrino}, FUSION, PLASMA PHYSICS AND ALTERNATIVE
+  ENERGY RESEARCH
+
+\PMlinkname{BIOPHYSICS,COMPLEX SYSTEMS}{ComplexSystemsBiophysics}, 
+
+\PMlinkname{MEDICAL PHYSICS AND NUCLEAR MEDICINE}{2DFTImaging}
+
+\PMlinkname{\Large INTERDISCIPLINARY AND COMPUTATIONAL PHYSICS}{AQFT}
+
+\PMlinkexternal{\Large PHYSICS EDUCATION AND EDUCATORS}{http://planetphysics.org/}
+
+\subsection{Specific topics:}
+
+\begin{itemize}
+\item Crucial Experiments in Physics (in Foundations of Physics)
+\item Topic on the Principles and Laws of Physics
+\item \PMlinkname{Topics on International/major Physics Research Projects}{TopicOnMajorPhysicsResearchProjects}
+\item \PMlinkname{Topics on Axioms}{TopicOnAxioms}
+\item \PMlinkname{Topics on Relativity Theories}{SpecialTheoryOfRelativity}
+\item Thermodynamics and Statistical Mechanics
+\item \PMlinkname{Algebraic Quantum Field Theory (AQFT)}{AlgebraicQuantumFieldTheoriesAQFT}
+\item \PMlinkname{Classical Mechanics}{SpaceAndTimeInClassicalMechanics}
+\item Solid State Physics
+\item Fluid dynamics and Rheology
+\item Topic on Acoustics
+\item Topics on Electromagnetism and Optics
+\item Physical Instrumentation Topic
+\item Optoelectronics and Lasers Topic
+\item Topics on Superconductivity
+\item Molecular Spectroscopy Topics
+\item Topics on Atomic Physics
+\item Topics on Nuclear Physics
+\item Theoretical Nuclear Fusion and Plasma Physics
+\item Topics on Nucleonics
+\item \PMlinkname{Nuclear Medicine}{TopicOnNuclearMedicine} Topic
+\item \PMlinkname{Quantum Electrodynamics (QED) Topic}{QuantumElectrodynamics}
+\item \PMlinkname{Quantum Field Theory (QFT) Topic}{TopicOnQuantumFieldTheory}
+\item \PMlinkname{Quantum Chromodynamics (QCD) Topic}{QuantumChromodynamics}
+\item \PMlinkname{Topics on Elementary Particles}{TopicOnElementaryParticles}
+\item \PMlinkname{Quantum Geometry Topic}{QuantumGeometry}
+\item \PMlinkname{Topological Quantum Field Theory Topics}{TopicEntryOnTQFT}
+\item \PMlinkname{High Energy and Elementary Particle Physics Topics}{HighEnergyPhysics}
+\item \PMlinkname{Dynamic Systems Topic}{DynamicSystems}
+\item \PMlinkname{Chaotic Systems Topic}{TopicOnChaos}
+\item \PMlinkname{Complex Systems Topic}{Complex Systems}
+\item \PMlinkname{Computational Physics Topics}{Computational Physics}
+\item \PMlinkname{Mathematical and Theoretical Physics Topics}{FusionOf TheoreticalPhysicsWithMathematicsAtIHESOrg}
+\item \PMlinkname{Physical Mathematics Topics}{TopicOnPhysicalMathematics}
+\item \PMlinkname{Astrophysics and Cosmology Topics}{Astrophysics and Cosmology}
+\item \PMlinkname{Biophysics and Mathematical Biophysics Topics}{BiophysicsAnd MathematicalBiology}
+\item \PMlinkname{Applied Mathematics--Related to Physics Topics}{TopicEntryOnAppliedMathematics}
+
+\end{itemize}
+
+\subsection{Miscellaneous:}
+\begin{itemize}
+\item High school physics
+\item \PMlinkname{GRE Physics Study Guide}{GREPhysicsStudyGuide}
+\item Major resources and Facilities for Physics Research and Development
+\item Bibliographies and Reference Lists
+\item Index of Fundamental Concepts in Physics
+\end{itemize}</content>
+</record>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="7" id="337">
+ <title>mathematical physics</title>
+ <name>MathematicalPhysics</name>
+ <created>2008-12-17 14:08:59</created>
+ <modified>2009-02-28 22:08:26</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="504" name="smithpith"/>
+ <author id="1" name="bloftin"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="04.20.-q"/>
+	<category scheme="msc" code="03.30.+p"/>
+ </classification>
+ <synonyms>
+	<synonym concept="mathematical physics" alias="theoretical physics"/>
+	<synonym concept="mathematical physics" alias="physical mathematics"/>
+ </synonyms>
+ <keywords>
+	<term>QFT</term>
+	<term>QED</term>
+	<term>QCD</term>
+	<term>QG</term>
+	<term>AQFT</term>
+	<term>TQFT</term>
+	<term>HQFT</term>
+	<term>general and special relativity</term>
+	<term>Einstein</term>
+	<term>Albert Einstein</term>
+	<term>Stephen Hawking</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>This is a contributed topic on major areas in theoretical and mathematical physics.
+
+\subsection{Mathematical and theoretical physics}
+
+Major, suggested areas are:
+\begin{enumerate}
+\item Netwon's theory of Gravitation
+\item Photoelectric effect and Einstein's explanation/ formulae
+\item Einstein's Special Relativity theory
+\item Einstein's General Relativity theory
+\item Quantum Mechanics;
+\item Quantum Field Theories (QFT), TQFT and HQFT
+\item Algebraic and Axiomatic Quantum Field theories (AQFT)
+\item Quantum Electrodynamics (QED)
+\item Quantum Chromodynamics (QCD)
+\item Quantum Gravity (QG)
+\item Quantum Automata and Quantum Computing
+\item Non-Abelian gauge theories
+\item Non-Abelian Quantum Algebraic Topology
+\item Standard Model (SUSY)
+\item Non-commutative geometry in QG and SUSY
+\item Supersymmetry and Supergravity theories
+\item Harmonic oscillator and Coupled oscillator theories;
+\item Fluid Dynamics and Rheology;
+\item Kinetic theory of gases and Classical Statistical Mechanics
+\item Quantum Statistical Mechanics (QS)
+\item Theories in High Energy Physics and Elementary Particles 
+\item Ergodic Systems Information theory and Irreversible Thermodynamics
+\item Complex System Dynamics (CSD)
+\item Chaotic Systems and Chaos
+\item Mathematical and Theoretical Biophysics
+\item Solid-State Theories: Semiconductors, Hall effect,Josephson effect, etc.
+\item Theories of Superconductivity and superconductors
+\item Symmetry and Quantum Group theories
+\item Paracrystals and paracrystal theory
+\item Theories of Noncrystalline materials and Glasses
+\item Theories of Phase Transitions and Symmetry Breaking
+\item Ax
+\item Ay
+\item Az
+
+\end{enumerate}
+
+\section{References/ Bibliography}
+
+\begin{thebibliography}{99}
+\bibitem{SW2000}
+Weinberg, Stephen.: 1995, \emph{The Quantum Theory of Fields}, vols. 1 to 3, Cambridge Univ. Press.  
+\end{thebibliography}</content>
+</record>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="8" id="428">
+ <title>parameter</title>
+ <name>Parameter</name>
+ <created>2009-01-25 11:42:16</created>
+ <modified>2009-01-25 12:02:16</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>parameter</term>
+	<term>parametre and perimeter</term>
+ </keywords>
+ <preamble></preamble>
+ <content> ``{\em The term 
+\PMlinkexternal{parameter}{http://planetmath.org/?op=getobj&amp;from=objects&amp;id=9417}, which originates in mathematics, has a number of specific meanings in fields such as astronomy, electricity, crystallography, and statistics. 
+
+ Perhaps because of its ring of `technical authority', it has been used more generally in recent years to refer to any factor that determines a range of variations and especially to a factor that restricts what can result from a process or policy. In this use it often comes close to meaning "a limit or boundary." Some of these new uses have a clear connection to the technical senses of the word. For example, the provisions of a zoning ordinance that limit the height or density of new construction can be reasonably likened to mathematical parameters that establish the limits of other variables. Therefore one can say :} "The zoning commission announced new planning parameters for the historic district of the city". {\em But other uses go one step further and treat parameter as a high-toned synonym for `characteristic'.}
+
+ There are several difficulties with the nontechnical use of the word `parameter' that may arise from its resemblance to the word `perimeter', with which it shares the sense ``limit,'' though the precise meanings of the two words differ markedly. This confusion probably explains the use of `parameter' in a sentence such as ``U.S. forces report that the parameters of the mine area in the Gulf are fairly well established'', where the word `perimeter' would have expressed the intended sense more exactly. 
+
+ Other, rarer, confusion occurs when the old English spelling of `parametre' (originating from the French word `param\`etre' is employed instead of the now utilized spelling of  `parameter' by non-native English speakers using out-of-date English dictionaries.
+
+ ``In general use, `parameter' refers to a distinguishing characteristic or factor, especially one that can be measured or quantified: the parameters of light are brightness and colour. It has come to be used loosely to mean a limit. This is not incorrect, but it sounds like jargon. 
+Before using it consider whether limit; scope; boundary, or a similar word would be more suitable.'' 
+(\PMlinkexternal{excerpt from the online Dictionary of English}{http://www.tiscali.co.uk/reference/dictionaries/english/data/d0082541.html})</content>
+</record>

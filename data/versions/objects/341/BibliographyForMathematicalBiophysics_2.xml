@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="341">
+ <title>Bibliography for Mathematical Biophysics</title>
+ <name>BibliographyForMathematicalBiophysics</name>
+ <created>2008-12-17 16:57:34</created>
+ <modified>2008-12-17 16:59:01</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <keywords>
+	<term>bibliography for mathematical biophysics</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textbf{Bibliography for Mathematical Biophysics, Mathematical Biology and Theoretical Biology/Biophysics}
+
+This is a partial bibliography for a specific area of Applied Mathematics: in Life Sciences and also Mathematical Medicine.
+
+\begin{thebibliography}{9}
+
+\bibitem{ES45}
+Erwin Schr\"odinger.1945. \emph{What is Life?}. Cambridge University Press: Cambridge (UK).
+
+\bibitem{NR54}
+Nicolas Rashevsky.1954, Topology and life: In search of general mathematical principles in
+biology and sociology, \emph{Bull. Math. Biophys.} 16: 317-348.
+
+\bibitem{NR65}
+Nicolas Rashevsky. 1965. Models and Mathematical Principles in Biology. In: Waterman/Morowitz, \emph{Theoretical and Mathematical Biology}, pp. 36-53.
+
+\bibitem{REF53}
+Rosalind E. Franklin and R.G. Gosling. 1953. Evidence for 2-chain helix in crystalline structure
+of sodium deoxyribonucleate (DNA). \emph{Nature} 177: 928-930.
+
+\bibitem{WM-SW-SR-HRW53}
+Wilkins, M.H.F. et al. 1953. Helical structure of crystalline deoxypentose nucleic acid (DNA).
+\emph{Nature} 172: 759-762.
+
+\bibitem{FHCC53}
+Francis H.C. Crick. 1953. Fourier transform of a coiled coil. \emph{Acta Cryst}. 6: 685-687
+
+\bibitem{HRW68}
+H. R. Wilson. 1966. \emph{Diffraction of X-rays by Proteins, Nucleic Acids and Viruses}.
+London: Arnold.
+
+\bibitem{BBGG06}
+I. C. Baianu, J. F. Glazebrook, R. Brown and G. Georgescu.: Complex Nonlinear Biodynamics in Categories, Higher dimensional Algebra and \L{}ukasiewicz-Moisil Topos: Transformation of Neural, Genetic and Neoplastic Networks, \emph{Axiomathes}, \textbf{16}: 65-122 2006).
+\PMlinkexternal{PDF file of document}{http://www.bangor.ac.uk/~mas010/pdffiles/Axio7complx_Printedk7_v17p223_fulltext.pdf}
+
+\bibitem{ICB78}
+I.C. Baianu. 1978. X-ray Scattering by Partially Disordered Membrane Lattices. {\em Acta Crystall}. A34: 731-753.
+(\emph{paper contributed from The Cavendish Laboratory, Cambridge in 1979}).
+
+\bibitem{ICB80}
+I.C. Baianu. 1980. Structural Order and Partial Disorder in Biological Systems. \emph{Bull. Math. Biol.}
+(\emph{paper contributed from The Cavendish Laboratory, Cambridge in 1979}).
+
+\bibitem{RH-SNB62}
+R. Hosemann and S. N. Bagchi. 1962. \emph{Direct Analysis of Diffraction by Matter}. Amsterdam: North Holland.
+
+\bibitem{VoetD-JG95}
+D. Voet and J.G. Voet. 1995. \emph{Biochemistry}. 2nd Edition, New York, Chichester, Brisbone, Toronto,
+Singapore: J. Wiley and Sons, INC., 1361 pp.. (\emph{an excellently illustrated textbook})
+
+\bibitem{RR97}
+Robert Rosen. 1997 and 2002. \emph{Essays on Life Itself}.
+
+\bibitem{RRosen1}
+Rosen, R.: 1958a, A Relational Theory of Biological Systems
+\emph{Bulletin of Mathematical Biophysics} \textbf{20}: 245-260.
+
+\bibitem{RRosen2}
+Rosen, R.: 1958b, The Representation of Biological Systems from the Standpoint of the Theory of Categories.,
+\emph{Bulletin of Mathematical Biophysics} \textbf{20}: 317-341.
+
+\bibitem{RRosen60}
+Rosen, R. 1960. A quantum-theoretic approach to genetic problems. \emph{Bulletin of Mathematical Biophysics}
+22: 227-255.
+
+\bibitem{RRosen87}
+Rosen, R.: 1987, On Complex Systems, \emph{European Journal of Operational Research}
+\textbf{30}, 129-134.
+
+\bibitem{RR70}
+Rosen,R. 1970, \emph{Dynamical Systems Theory in Biology}. New York: Wiley Interscience.
+
+\bibitem{RR70}
+Rosen,R. 1970, \emph{Optimality Principles in Biology}, New York and London: Academic Press.
+
+\bibitem{RR70}
+Rosen,R. 1978, \emph{Fundamentals of Measurement and Representation of Natural Systems}, Elsevier Science Ltd,
+
+\bibitem{RR70}
+Rosen,R. 1985, \emph{Anticipatory Systems: Philosophical, Mathematical and Methodological Foundations}. Pergamon Press.
+
+\bibitem{RR91}
+Rosen,R. 1991, \emph{Life Itself: A Comprehensive Inquiry into the Nature, Origin, and Fabrication of Life}, Columbia University Press
+
+\bibitem{EC84}
+Ehresmann, C.: 1984, \emph{Oeuvres compl\`etes et comment\'ees: Amiens, 1980-84}, edited and commented
+by Andr\'ee Ehresmann.
+
+\bibitem{EACV2}
+Ehresmann, A. C. and J.-P. Vanbremersch: 2006, The Memory Evolutive Systems as a Model of Rosen's Organisms,
+in \emph{Complex Systems Biology}, I.C. Baianu, Editor, \emph{Axiomathes} \textbf{16} (1--2), pp. 13-50.
+
+\bibitem{EML1}
+Eilenberg, S. and Mac Lane, S.: 1942, Natural Isomorphisms in Group Theory., \emph{American Mathematical Society 43}: 757-831.
+
+\bibitem{EL}
+Eilenberg, S. and Mac Lane, S.: 1945, The General Theory of Natural Equivalences,
+\emph{Transactions of the American Mathematical Society} 58: 231-294.
+
+\bibitem{Elsasser}
+Elsasser, M.W.: 1981, A Form of Logic Suited for Biology., In: Robert, Rosen, ed., \emph{Progress in Theoretical Biology}, Volume 6, Academic Press, New York and London, pp 23-62.
+
+\bibitem{BAF60}
+Bartholomay, A. F.: 1960. Molecular Set Theory. A mathematical representation for chemical reaction mechanisms. \emph{Bull. Math. Biophys.}, \textbf{22}: 285-307.
+
+\bibitem{BAF65}
+Bartholomay, A. F.: 1965. Molecular Set Theory: II. An aspect of biomathematical theory of sets., \emph{Bull. Math. Biophys.} \textbf{27}: 235-251.
+
+\bibitem{BAF71}
+Bartholomay, A.: 1971. Molecular Set Theory: III. The Wide-Sense Kinetics of Molecular Sets ., \emph{Bulletin of Mathematical Biophysics}, \textbf{33}: 355-372.
+
+\end{thebibliography}</content>
+</record>

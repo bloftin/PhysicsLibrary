@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="895">
+ <title>Fluorescence correlation spectroscopy (FCS)</title>
+ <name>FluorescenceCorrelationSpectroscopyFCS2</name>
+ <created>2010-11-28 16:41:06</created>
+ <modified>2010-11-28 16:49:38</modified>
+ <type>Definition</type>
+<parent id="894">Fluorescence cross-correlation spectroscopy (FCCS)</parent>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>See also
+• Fluorescence correlation spectroscopy
+• Dynamic light scattering
+• Fluorescence spectroscopy
+• Diffusion coefficient</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>FCS</concept>
+	<concept>FFT laser spectroscopy</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="Fluorescence correlation spectroscopy (FCS)" alias="FCS"/>
+ </synonyms>
+ <related>
+	<object name="FluorescenceCrossCorrelationSpectroscopyFCCS"/>
+ </related>
+ <keywords>
+	<term>FCS</term>
+	<term>FFT laser spectroscopy</term>
+	<term>confocal laser microscopy</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\textbf{Fluorescence correlation spectroscopy (FCS)} is a {\em laser spectroscopy technique that monitors correlations between molecules or particle motions in solutions or gels}. It has numerous applications in physical chemistry, microscopy, biophysical chemistry, biochemistry and biomedicine, inclusiv detection of virus particles such as those causing HIV, and the papilloma viruses.
+
+\textbf{more to come...}
+$http://planetphysics.org/?op=getobj\&amp;from=papers\&amp;id=126$</content>
+</record>

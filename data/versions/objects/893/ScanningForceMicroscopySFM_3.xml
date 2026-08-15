@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="893">
+ <title>scanning force microscopy (SFM)</title>
+ <name>ScanningForceMicroscopySFM</name>
+ <created>2010-11-27 14:06:31</created>
+ <modified>2010-11-27 14:09:04</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>SFM</concept>
+	<concept>AFM</concept>
+	<concept>scanning microscopy with a cantilever</concept>
+	<concept>micron resolution</concept>
+	<concept>nanometer resolution microscopy</concept>
+	<concept>mechanical contact force</concept>
+	<concept>van der Waals forces</concept>
+	<concept>capillary forces</concept>
+	<concept>chemical bonding</concept>
+	<concept>electrostatic forces</concept>
+	<concept>magnetic force microscope (MFM)</concept>
+	<concept>Casimir forces</concept>
+	<concept>solvation forces</concept>
+	<concept>Wheatstone bridge</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="scanning force microscopy (SFM)" alias="AFM"/>
+	<synonym concept="scanning force microscopy (SFM)" alias="atomic force microscopy"/>
+ </synonyms>
+ <keywords>
+	<term>AFM</term>
+	<term>atomic force microscopy</term>
+	<term>Wheatstone bridge</term>
+	<term>scanning microscopy</term>
+	<term>cantilever</term>
+	<term>micron resolution</term>
+	<term>nanometer resolution microscopy</term>
+	<term>mechanical contact force</term>
+	<term>van der Waals forces</term>
+	<term>capillary forces</term>
+	<term>chemical bonding</term>
+	<term>electrostatic forces</term>
+	<term>magnetic force microscope (MFM)</term>
+	<term>Casimir forces</term>
+	<term>solvation forces</term>
+ </keywords>
+ <preamble></preamble>
+ <content>Scanning force microscopy (SFM) or Atomic Force Microscopy (AFM)  is a very high-resolution type of scanning probe microscopy that uses a very sharp scan tip probe of about 50 microns, with demonstrated resolution in the AFM images of fractions of a nanometer, or at least 1000 times better than the optical diffraction limit. The precursor to the AFM, the scanning tunneling microscope, was developed by Gerd Binnig and Heinrich Rohrer in the early 1980s at IBM Research - Zurich, a development that earned them
+the Nobel Prize for Physics in 1986.</content>
+</record>

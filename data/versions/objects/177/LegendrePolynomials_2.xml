@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="177">
+ <title>Legendre polynomials</title>
+ <name>LegendrePolynomials</name>
+ <created>2006-05-22 23:05:06</created>
+ <modified>2006-05-24 04:46:53</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.30.Mv"/>
+	<category scheme="msc" code="02.30.Hq"/>
+	<category scheme="msc" code="02.30.Gp"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>The Legendre polynomials generate the power series that solves Legendre's differential equation:
+
+$$   \left ( 1 - x^2 \right ) P''(x) - 2x P'(x) + n(n+1)P(x) = 0.$$
+
+This ordinary differential equation with variable coefficients is named in honor of Adrien-Marie Legendre (1752-1833).  While quite literally following in the footsteps of Laplace, he developed the Legendre polynomials in a paper on celestial mechanics.  In a strange tangled web of fate, the Legendre polynomials are heavily used in electrostatics to solve Laplace's equation in spherical coordinates
+
+$$ \nabla^2 \Phi_{sph} = 0 $$
+
+Not yet done.... below is derivative of wiki article
+
+. This ordinary differential equation is frequently encountered in physics and other technical fields. In particular, it occurs when solving Laplace's equation (and related partial differential equations) in spherical coordinates.
+
+The Legendre differential equation may be solved using the standard power series method. The solution is finite (i.e. the series converges) provided $ |x| &lt; 1 $. Furthermore, it is finite at $x = ± 1$ provided n is a non-negative integer, i.e. $n = 0, 1, 2,...$ . In this case, the solutions form a polynomial sequence of orthogonal polynomials called the Legendre polynomials.
+
+Each Legendre polynomial $P_n(x)$ is an nth-degree polynomial. It may be expressed using Rodrigues' formula:
+
+ $$   P_n(x) = (2^n n!)^{-1} {d^n \over dx^n } \left[ (x^2 -1)^n \right]. $$
+
+
+
+\subsection{References}
+
+http://www-groups.dcs.st-and.ac.uk/~history/Biographies/Legendre.html
+http://astrowww.phys.uvic.ca/~tatum/celmechs.html</content>
+</record>

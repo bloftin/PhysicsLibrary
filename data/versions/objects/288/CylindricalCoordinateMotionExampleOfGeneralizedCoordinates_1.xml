@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="288">
+ <title>cylindrical coordinate motion example of generalized coordinates</title>
+ <name>CylindricalCoordinateMotionExampleOfGeneralizedCoordinates</name>
+ <created>2008-07-18 20:25:21</created>
+ <modified>2008-07-18 20:25:21</modified>
+ <type>Example</type>
+<parent id="286">generalized coordinates  for free motion</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.20.-d"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>As an example let us get the equations in cylindrical coordinates
+
+$$
+ x=r\cos\phi, \,\,\,\,\,\, y=r\sin\phi, \,\,\,\,\,\, z=z,
+$$
+
+$$
+T=\frac{m}{2} \left[\dot{r}^{2}+r^2\dot{\phi}^{2}+\dot{z}^{2} \right].
+$$
+
+$$
+\frac{\partial T}{\dot{r}}=m\dot{r},
+$$
+
+$$
+\frac{T}{\partial r}=m r\dot{\phi}^{2},
+$$
+
+$$
+\frac{\partial T}{\partial\dot{\phi}}=mr^{2}\dot{\phi},
+$$
+$$
+\frac{\partial T}{\partial \dot{z}}=m\dot{z}.
+$$
+
+$$
+\delta_{r}W=m \left[\ddot{r} - r\dot{\phi}^{2} \right] \delta r=R\delta r,
+$$
+
+$$
+\delta_{\phi}W=m\frac{d}{dt} \left(r^{2}\dot{\phi}\right)\delta\phi=\Phi r\delta\phi,
+$$
+
+$$
+\delta_z W= m \ddot{z} \delta z = Z \delta z;
+$$
+
+or 
+
+$$m \left[ \frac{d^{2}r}{dt^{2}}-r \left(\frac{d\phi}{dt}\right)^{2}\right]=R,$$
+
+$$
+\frac{m}{r}\frac{d}{dt}\left(r^{2}\frac{d\phi}{dt}\right)=\Phi,
+$$
+$$
+m\frac{d^{2}z}{dt^{2}}=Z.
+$$</content>
+</record>

@@ -1,24 +1,40 @@
 package Noosphere;
 use strict;
+use Noosphere::TemplateNS;
 
 # getObj - main object retrieval point, calls more specialized functions
 #
 sub getObj {
 	my $params = shift;
 	my $userinf = shift;
-	
+	dwarn "getObj Started";
 	my $html = '';
+	my $html_obj = '';
+	my $admin = '';
+	my $watch = '';
+	my $author ='';
+	my $corrections = '';
+	my $messages = '';
+	my $interact = '';
 	my $id = $params->{'id'};
 	my $name = $params->{'name'};
 	my $desc = 0;
 	my $nomsg = 0;
-	
+	my $file = 'getobj.tt';
+	dwarn "name";
+	dwarn $name;
+	dwarn "id";
+	dwarn $id;
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
 	# resolve name query into id so we only have one method to write code for
 	#
 	if (defined($name)) {
 		$id = getidbyname($name);
-	}
-	
+	}		
 	return errorMessage('Could not find object! Contact an admin!') if ($id == -1);
 
 	# query up the object
@@ -67,15 +83,19 @@ sub getObj {
 	# render object type specific stuff
 	#
 	if ($params->{'from'} eq 'news') {
+		dwarn "renderNews";
 		$html = renderNews($rec);
 	} 
 	elsif ($params->{'from'} eq getConfig('en_tbl')) {
+		dwarn "renderEncyclopediaObj";
 		$html = renderEncyclopediaObj($rec, $params, $userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('collab_tbl')) {
+		dwarn "renderCollab";
 		$html = renderCollab($rec, $params, $userinf);
 	}
 	elsif ($params->{'from'} eq 'forums') {
+		dwarn "renderForum";
 		$html = renderForum($rec);
 		# Should newest-first be forced here?	-LBH
 		#$desc=1;
@@ -83,22 +103,27 @@ sub getObj {
 	elsif ($params->{'from'} eq getConfig('papers_tbl') || 
 		$params->{'from'} eq getConfig('exp_tbl') ||
 		$params->{'from'} eq getConfig('books_tbl')) {
-		
+		dwarn "renderGeneric";	
 		$html = renderGeneric($params,$userinf, $rec);
 	} 
 	elsif ($params->{'from'} eq getConfig('polls_tbl')) {
+		dwarn "viewPoll";
 		$html = viewPoll($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('req_tbl')) {
+		dwarn "getReq";
 		$html = getReq($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('user_tbl')) {
+		dwarn "getUser";
 		$html = getUser($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('cor_tbl')) {
+		dwarn "renderCorrection";
 		$html = renderCorrection($params,$userinf);
 	}
 	else {
+		dwarn "object type not supported for viewing yet";
 		return errorMessage('object type not supported for viewing yet.'); 
 	}
  
@@ -107,57 +132,86 @@ sub getObj {
 	# handle messages - this is unified accross object types. we know the object
 	# supports messages based on whether the template contains a $messages flag.
 	#
-	if ($html->requestsKey('messages')) {
+	dwarn "start requestsKeyTT";
+	dwarn "html:\n $html";
+	if (1) {
+		dwarn "OBJECT REQUESTS messages";
 		dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
 		my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
-		my $messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
-	$html->setKey('messages', $messages);
+		dwarn "lastmsg:\n $lastmsg";
+
+		$messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
+		##$html->setKey('messages', $messages);
+		dwarn "messages\n: $messages";
 		my $curlast = get_lastmsg($params->{'from'},$id);
-		update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
+    	update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
 	}
 
-	if ($html->requestsKey('watch')) {
-		$params->{'id'} = $id;
-		my $watchwidget = getWatchWidget($params, $userinf);
-		$html->setKey('watch', $watchwidget);
-	}
+
+	##if (1) {
+	##	$params->{'id'} = $id;
+	##	my $watchwidget = getWatchWidget($params, $userinf);
+	##	$watch = $watchwidget;
+		##$html->setKey('watch', $watchwidget);
+	##}
 
 	# likewise for corrections
 	#
-	if($html->requestsKey('corrections')) {
-		my $corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
-	$html->setKey('corrections', $corrections);
-	} 
+	##if(1) {
+	#	$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+		##$html->setKey('corrections', $corrections);
+	##} 
 
 	# admin metadata editing
 	#
+	
 	if ($params->{'from'} eq getConfig('en_tbl')) {
-		getEncyclopediaAdminControls($html,$userinf,$params->{'from'},$id,$params->{'method'});
+		$admin = getEncyclopediaAdminControls($userinf,$params->{'from'},$id,$params->{'method'});
 	}
 
 	# get owner controls
-	# 
-	my $author = '';
 	if ($userinf->{'uid'} == $rec->{'userid'}) {
 		$author = getOwnerControls($params->{'from'},$rec->{'uid'});
 	}
-	
 	# or author controls
-	#
 	elsif ($userinf->{'uid'} > 0 && hasPermissionTo($params->{'from'},$id,$userinf,'write')) {
 		$author = getAuthorControls($params->{'from'},$rec->{'uid'},$userinf);
 	}
-	
-	$html->setKey('author', $author);
+
+	$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+	$params->{'id'} = $id;
+	$watch = getWatchWidget($params, $userinf);
+
+	##$html->setKey('author', $author);
 
 	
-	return $html->expand();
+	##$html = $html->expand();
+
+	my $vars = {
+        renderObj       => $html,
+		watch           => $watch,
+		admin           => $admin,
+		author          => $author,
+		corrections     => $corrections,
+		messages        => $messages,
+		interact        => $interact,
+    };
+
+    
+
+	
+    my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";
+
+	
+	
+	
+	return $html_obj;
 }
 
 sub renderNews {
 	my $rec = shift;
 
-	my $html = new Template('newsobj.html');
+	my $html = new TemplateNS('newsobj.html');
 
 	my $newsbox = clearBox($rec->{'title'},formatnewsitem_full($rec));
 	my $interact = makeBox('Interact',getNewsInteract($rec));

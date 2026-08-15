@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="879">
+ <title>non--Abelian algebraic topology</title>
+ <name>NonAbelianAlgebraicTopology5</name>
+ <created>2010-09-28 04:01:50</created>
+ <modified>2010-09-28 04:01:50</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>non--Abelian algebraic topology</concept>
+ </defines>
+ <synonyms>
+	<synonym concept="non--Abelian algebraic topology" alias="algebraic topology"/>
+ </synonyms>
+ <keywords>
+	<term>non--Abelian algebraic topology</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{non--Abelian algebraic topology} 
+Algebraic structures in dimensions greater than 1 which develop the non-Abelian character of the fundamental group of a topological space, or a novel approach to higher dimensional, non-Abelian algebraic treatments of topological invariants in Algebraic Topology. 
+
+
+\subsection{Recent reference:} 
+Ronald Brown, Bangor University, UK, Philip J. Higgins, Durham University, UK
+Rafael Sivera, University of Valencia, Spain.2010. \emph{Nonabelian Algebraic Topology: Filtered Spaces, Crossed Complexes, Cubical Homotopy Groupoids.}
+EMS Tracts in Mathematics, Vol.15, an EMS publication: September 2010, approx. 670 pages. ISBN 978-3-13719-083-8.
+
+\subsection{Note}
+The book presents ``the use of filtered spaces rather than just topological spaces allows the development of basic algebraic topology in terms of higher homotopy groupoids; these algebraic structures better reflect the geometry of subdivision and composition than those commonly in use. Exploration of these uses of higher dimensional versions of groupoids has been largely the work of
+the first two authors since the mid 1960s."</content>
+</record>

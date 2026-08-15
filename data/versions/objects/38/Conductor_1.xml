@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="38">
+ <title>Conductor</title>
+ <name>Conductor</name>
+ <created>2005-05-11 16:04:50</created>
+ <modified>2005-05-11 16:04:50</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <comment>removed restriction of negative charges only</comment>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Conductor" alias="Electrical Conductor"/>
+ </synonyms>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>A conductor is a material that lets negative electric charge move with little resistance.  We are surrounded by conductors such as copper, which is in the electronics around us.</content>
+</record>

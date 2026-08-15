@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="12" id="40">
+ <title>Coulomb's law</title>
+ <name>CoulombsLaw</name>
+ <created>2005-05-12 11:21:16</created>
+ <modified>2005-08-15 18:17:47</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Test</content>
+</record>

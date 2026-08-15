@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="21">
+ <title>Planck's radiation law</title>
+ <name>PlancksRadiationLaw</name>
+ <created>2004-11-20 15:11:07</created>
+ <modified>2008-04-10 20:14:46</modified>
+ <type>Law</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="390" name="invisiblerhino"/>
+ <author id="390" name="invisiblerhino"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.Ce"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Planck's radiation law" alias="Planck's law"/>
+ </synonyms>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>The spectral radiance of a black body is given by:
+\begin{equation}
+I(\lambda,T) = \frac{ 2 h c^2}{\lambda^5} \, \frac{1}{e^{hc/ \lambda kT} - 1}
+\end{equation}
+It can also be given as a function of frequency:
+\begin{equation}
+I(\nu,T) = \frac{2 h \nu^3}{c^2} \, \frac{1}{e^{hc/ \lambda kT} - 1}
+\end{equation}</content>
+</record>

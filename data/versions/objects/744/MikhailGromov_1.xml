@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="744">
+ <title>Mikhail Gromov</title>
+ <name>MikhailGromov</name>
+ <created>2009-05-09 17:05:03</created>
+ <modified>2009-05-09 17:05:03</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <keywords>
+	<term>Mikhail Gromov biography</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Mikhail Gromov} (b. December 23, 1943 in Boksitogorsk, Russia)
+
+Currently at IHES, Mikhail Gromov is a French-Russian geometer with major contributions to modern mathematics over the last 25 years, especially in
+the areas of Riemannian metrics, distance in abstract spaces and immersion
+theory.  
+
+\subsection{Education)
+Masters degree in Mathematics in 1965, Doctorate in 1969 and a Post-doctoral Thesis in 1973 at Leningrad University.
+
+\subsection{Academic career}
+ 
+\begin{itemize}
+\item Assistant Professor from 1967 to 1974 at Leningrad University.
+\item Permanent Professor at the Institut des Hautes \'Etudes Scientifiques, Bures-sur-Yvette, France, since 1982. naturalized French citizen since 1992.
+\end{itemize}
+\item Jay Gould Professor of Mathematics at the Courant Institute of Mathematical Sciences, New York University, (in addition to IHES).
+
+\subsection{Major Awards}
+\begin{itemize}
+\item Wolf Prize in 1993
+\item The Balzan Prize in 1999 
+\item Leroy P. Steele Prize in 1997 
+\item Lobatchewski Medal in 1997 
+\item Kyoto Prize in Basic Sciences in 2002
+\item Abel Prize in 2009.
+\end{itemize}</content>
+</record>

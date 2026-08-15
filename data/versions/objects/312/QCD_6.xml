@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="6" id="312">
+ <title>Quantum chromodynamics (QCD)</title>
+ <name>QCD</name>
+ <created>2008-10-16 17:15:04</created>
+ <modified>2009-02-18 05:56:11</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+	<category scheme="msc" code="03.70.+k"/>
+ </classification>
+ <defines>
+	<concept>nuclear forces</concept>
+	<concept>quarks</concept>
+	<concept>gluons</concept>
+	<concept>flavor</concept>
+	<concept>Yukawa mesons</concept>
+	<concept>Yukawa nuclear potential</concept>
+	<concept>QCD</concept>
+	<concept>gluon flux</concept>
+	<concept>quark-gluon plasma</concept>
+	<concept>quark-antiquark pair</concept>
+	<concept>strangeness</concept>
+	<concept>color charges</concept>
+	<concept>extended quantum symmetries</concept>
+ </defines>
+ <related>
+	<object name="OverviewOfTheContentOfPlanetPhysics"/>
+ </related>
+ <keywords>
+	<term>QCD</term>
+	<term>quantum chromodynamics</term>
+	<term>nuclear forces</term>
+	<term>quarks</term>
+	<term>quantum symmetry</term>
+	<term>confinement</term>
+	<term>asymptotic freedom</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\textbf{QCD} or \emph{Quantum chromodynamics} is the advanced, standard mathematical and quantum physics treatment, or theory, of strong force or nuclear interactions such as those among quarks and gluons, partons, `Yukawa' mesons, and so on, with an intrinsic threefold symmetry for RGB quarks (or `eightfold-way' diagrams resulting from representations of the quantum group $SU(3)$ first reported by the US Nobel Laureate Gell-Mann and others. This is not only a rather `colorful' theory (as its name suggests) but also a very highly formalized, mathematical one that affords major simplifications by postulating intrinsic symmetries of magnetic--like `color', `flavor', `strangeness' and top/down {\em quark} (and anti-quark) intrinsic properties, each time involving three color charges. {\em Single quarks}, such as the $u$ or $d$ ones have however never been observed, with the proton and neutron `consisting of' three such quarks with a resulting `white' color, or charge colorless proton and neutron, as well as stable `white' nuclei `consisting of' the latter two quantum particles, dynamically confined by the very short range, nuclear strong interactions. The quark interactions are mediated by {\em gluons}--as well as their exchange-- and the latter also carry charge color--but unlike the photons that mediate the electromagnetic interactions in QED-- gluons have multiple interactions with each other leading to major computational difficulties in QCD, that are not encountered in QED. Major obstacles in QCD computations of observable nuclear (quantum) eigenvalues are therefore encountered in attempting approximate, perturbative approaches that work extremely well for electromagentic interactions (governed by the charge $U(1)$ symmetry group), for example with Richard Feynman's approach in QED.
+Electro-weak (QEW) interactions were successfully approached in QED--like fashion but with quantum field carriers that are--unlike the photon--massive, and therefore the electro-weak interactions have limited range, unlike the photons of zero mass at rest. Thus, QCD and QED are more than just `one pole apart', as $U(1)$ and $SU(3)$ are very different group symmetries. This makes obvious the need for more fundamental, or extended quantum symmetries, such as those afforded by either several larger groups such as $U(1) \times SU(2) \times SU(3)$, or by spontaneously broken, multiple (or localized) symmetries of a less restrictive kind present in quantum groupoids, such as for example in weak Hopf algebra representations, locally compact groupoid {\em $G_{lc}$}, unitary representations, and so on, to the higher dimensional (quantum) symmetries of quantum double groupoids, quantum double algebroids, quantum categories/quantum supercategories and/or quantum supersymmetry superalgebras (or graded `Lie' algebras, see- for example- the QFT books by Weinberg (1995, 2003) superalgebroids in quantum gravity, or in QCD of the extremely hot, very early, physical Universe, extremely close to the time of the `Big Bang'.</content>
+</record>

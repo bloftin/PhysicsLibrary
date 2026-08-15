@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="40">
+ <title>Coulomb's law</title>
+ <name>CoulombsLaw</name>
+ <created>2005-05-12 11:21:16</created>
+ <modified>2005-05-12 11:21:16</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="41.20.Cv"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>Coulomb's law describes the electrostatic force between electric charges.  Coulomb was the first scientist to measure the force using a torsion balance and he discovered that the attraction or repulsion force increases or decreases inversely as the square of the distance between the charges. As an equation Coulomb's law is given as 
+
+$F = k \frac{q_1 q_2}{r^2}$
+
+More to come on how Coulomb used a torsion balance to come up with this relationship...</content>
+</record>

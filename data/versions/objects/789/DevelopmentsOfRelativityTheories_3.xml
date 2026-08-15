@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="3" id="789">
+ <title>developments of relativity theories</title>
+ <name>DevelopmentsOfRelativityTheories</name>
+ <created>2009-06-02 22:33:30</created>
+ <modified>2009-06-02 22:41:58</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>ECE</concept>
+	<concept>LQG</concept>
+ </defines>
+ <keywords>
+	<term>relativity theories</term>
+ </keywords>
+ <preamble></preamble>
+ <content>This is a contributed topic on further developments of relativity theories.
+\section{Recent Developments of Relativity Theories}
+
+\subsection{Loop Quantum Gravity (LQG)}
+
+\subsection{Quantized Riemannian Spaces}
+
+
+\subsection{Penrose theories}
+
+
+\subsection{Hawking theories}
+
+\section{Globally covariant GR theories}
+\subsection{ECE}
+\PMlinkexternal{ECE}{http://www.aias.us/index.php?goto=showPageByTitle&amp;pageTitle=Table_of_differences_between_the_standard_model_and_ECE} is presented at the \PMlinkexternal{AIAS website}{http://www.aias.us/}. 
+
+\section{Locally covariant GR and SR theories}</content>
+</record>

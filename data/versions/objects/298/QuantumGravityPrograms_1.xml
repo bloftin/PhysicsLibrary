@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="298">
+ <title>quantum gravity programs</title>
+ <name>QuantumGravityPrograms</name>
+ <created>2008-09-28 18:00:08</created>
+ <modified>2008-09-28 18:00:08</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="04.60.-m"/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <keywords>
+	<term>quantum gravity research programs</term>
+ </keywords>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Quantum Gravity programs}
+	
+  There are several distinct programs aimed at developing a Quantum Gravity theory. These include--but are not limited to-- the following.
+
+\begin{itemize}
+\item $\bullet$ The Penrose, twistors programme applied to an open curved space-time (ref. \cite{Hawking and Penrose}), (which is presumably a globally hyperbolic, relativistic space-time). This may also include the idea of developing a \emph{`sheaf cohomology'} for twistors (ref. \cite {Hawking and Penrose}) but still needs to justify the assumption in this approach of a charged, fundamental fermion of spin-3/2 of undefined mass and unitary `homogeneity' (which has not been observed so far);
+
+\item $\bullet$  The Weinberg, \emph{supergravity} theory, which is consistent with supersymmetry and superalgebra, and utilizes \emph{graded Lie algebras} and \emph{matter-coupled superfields} in the presence of \emph{weak} gravitational fields;
+
+\item $\bullet$  The programs of Hawking and Penrose \cite {Hawking and Penrose}) in quantum cosmology, concerned with singularities, such as black
+and `white' holes; S. W. Hawking combines, joins, or `glues' an initially flat Euclidean metric with convex Lorentzian metrics in the expanding, and then contracting, space-times with a very small value of Einstein's cosmological `constant'. Such `Hawking', double-pear shaped, space-times also have an initial Weyl tensor value close to zero and, ultimately, a largely fluctuating Weyl tensor during the `final crunch' of our universe, presumed to determine the irreversible arrow of time; furthermore, an observer will always be able to access through measurements only \emph{a limited part} of the global space-times in our universe; 
+
+\item $\bullet$  The TQFT/HQFT approach that aims at finding the `topological' invariants of a manifold embedded in an abstract vector space related to the statistical mechanics problem of defining extensions of the partition function for many-particle quantum systems;
+
+\item $\bullet$ The string and superstring theories/M-theory that `live' in higher dimensional spaces (e.g., $n\geq 6$, preferred $n-dim =11$), and can be considered to be topological representations of physical entities that 
+vibrate, are quantized, interact, and that might also be able to 'predict' fundamental masses relevant to quantum 'particles';
+
+\item $\bullet$ The Baez `categorification' programme (\cite{Baez1}, \cite{Baez2}) that aims to deal with Quantum Field and QG problems at the abstract level of categories and functors in what seems to be mostly a global approach; 
+
+\item $\bullet$  The `monoidal category' and valuation approach initiated by Isham (ref. \cite{Isham1}) to the quantum measurement problem and its possible solution through local-to-global, finite constructions in small categories. 
+
+\end{itemize}</content>
+</record>

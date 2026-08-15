@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="22">
+ <title>temperature</title>
+ <name>Temperature</name>
+ <created>2004-11-20 15:28:00</created>
+ <modified>2009-06-22 04:18:53</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <defines>
+	<concept>zero-point vibration</concept>
+	<concept>Kelvin temperature scale</concept>
+	<concept>absolute temperature scale</concept>
+	<concept>spin temperature</concept>
+	<concept>Third Law of Thermodynamics</concept>
+	<concept>zero limit of entropy</concept>
+	<concept>Boltzmann constant</concept>
+ </defines>
+ <related>
+	<object name="KineticEnergy"/>
+	<object name="Equilibrium"/>
+	<object name="Entropy"/>
+	<object name="Thermodynamics"/>
+	<object name="QED"/>
+	<object name="QuantumHarmonicOscillator"/>
+	<object name="QuantumOperatorAlgebrasInQFT2"/>
+	<object name="QuantumParadoxes2"/>
+ </related>
+ <keywords>
+	<term>thermodynamic variable</term>
+	<term>entropy</term>
+	<term>equilibrium</term>
+	<term>quantum mechanics</term>
+	<term>quantum theory</term>
+ </keywords>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content> Temperature, $T$, is a scalar thermodynamic variable related to the amount of kinetic energy that a system of either atoms/molecules or spins have. The proportionality constant, $k$, beween the kinetic energy and temperature $T$ of the system is called the {\em Boltzmann constant}.
+
+ For an atomic or molecular system, $T$ is usually measured with a calibrated thermometer; in the case of an ensemble or system of spins, $T$ is called the {\em spin temperature} of the system, and is typically measured through magnetization transfer experiments at equilibrium.  The absolute temperature, or Kelvin scale, has only values that are greater than, or equal to, zero. One notes, however, that according to quantum mechanics, even at zero
+degrees Kelvin there are still motions present in any atomic or molecular system--the zero-point vibrations, yielding an absolute minimum zero-point vibration energy $E^v_o &gt; 0$. 
+
+ For crystalline systems, their entropy--which is a measure of the degree of disorder present in any thermodynamic system-- tends to zero when temperature tends to absolute zero (the Third Law of Thermodynamics).</content>
+</record>

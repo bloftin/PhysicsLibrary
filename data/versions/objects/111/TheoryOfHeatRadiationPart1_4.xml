@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="4" id="111">
+ <title>the theory of heat radiation part 1</title>
+ <name>TheoryOfHeatRadiationPart1</name>
+ <created>2006-02-01 03:26:14</created>
+ <modified>2006-02-01 13:43:02</modified>
+ <type>Definition</type>
+<parent id="110">the theory of heat radiation</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="heat"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{Chapter I: General Introduction}
+
+{\bf 1.}  Heat may be propagated in a stationary medium in two entirely different ways, namely, by conduction and by radiation.  Conduction of heat depends on the temperature of the medium in which it takes place, or more strictly speaking, on the non-uniform distriution of the temperature in space, as measured by the temperature gradient.  In a region where the temperature of the medium is the same at all points there is no trace of heat conduction.
+
+Radiation of heat, however, is in itself entirely independent of the temperature of the medium through which it passes.  It is possible, for example, to concentrate the solar rays at a focus by passing them through a converging lens of ice, the latter remaining at a constant temperature of $0^0$, and so to ignite an inflammable body.  Generally speaking, radiation is a far more complicated phenomenon than conduction of heat.  The reason for this is that the state of the radiation at a given instant and at a given point of the medium cannot be represented, as can the flow of heat by conduction, by a single vector (that is, a single directed quantity).  All heat rays which at a given instant pass through the same point of the medium are perfectly independent of one another, and in order to specify completely the state of the radiation the intensity of radiation must be known in all the directions, infinite in number, which pass through the point in question; for this purpose two opposite directions must be considered as distinct, because the radiation in one of them is quite independent of the radiation in the other.
+
+{\bf 2.}  Putting aside for the present any special theory of heat radiation, we shall state for our further use a law supported by a large number of experimental facts.  This law is that, so far as their physical properties are concerned, heat rays are identical with light rays of the same wave length.  The term "heat radiation," then, will be applied to all physical phenomena of the same nature as light rays.  Every light ray is simultaneously a heat ray.  We shall also, for the sake of brevity, occasionally speak of the "color" of a heat ray in order to denote its wave length or period.  As a further consequence of this law we shall apply to the radiation of heat all the well-known laws of experimental optics, especially those of reflection and refraction, as well as those relating to the propagation of light.  Only the phenomena of diffraction, so far at least as they take place in space of considerable dimensions, we shall exclude on account of their rather complicated nature.  We are therefore obliged to introduce right at the start a certain restriction with respect to the size of the parts of space to be considered.  Throughout the following discussion it will be assumed that the linear dimensions of all parts of space considered, as well as the radii of curvature of all surfaces under consideration, are large compared with the wave lengths of the rays considered. With this assumption we may, without appreciable error, entirely neglect the influence of diffraction caused by the bounding surfaces, and everywhere apply the ordinary laws of reflection and refraction of light.  To sum up: We distinguish once for all between two kinds of lengths of entirely different orders of magnitude-dimensions of bodies and wave lengths.  Moreover, even the differentials of the former, i.e., elements of length, area and volume, will be regarded as large compared with the corresponding powers of wave lengths.  The greater, therefore, the wave length of the rays we wish to consider, the larger must be the parts of space considered.  But, inasmuch as there is no other restriction on our choice of size of the parts of space to be considered, this assumption will not give rise to any particular difficulty.
+
+
+\subsection{References}
+
+This entry is a derivative of [1], a public domain work.
+
+[1] Planck, M. "The Theory of Heat Radiation" Translation by Morton Masius, P. Blakiston's Son \&amp; CO., Philadephia, 1914.</content>
+</record>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="693">
+ <title>representations of 4-D  spaces</title>
+ <name>RepresentationsOf4DSpaces</name>
+ <created>2009-04-28 19:02:54</created>
+ <modified>2009-04-28 19:02:54</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>octacube</concept>
+	<concept>4-D</concept>
+	<concept>4D</concept>
+	<concept>higher-dimensional space structures</concept>
+	<concept>4-D space</concept>
+	<concept>4D-space</concept>
+ </defines>
+ <keywords>
+	<term>Representations of 4-D and Higher Dimensional Space Structures</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\subsection{2D and 3D Representations of 4-D and Higher Dimensional Space Structures}
+
+ The ``representation'' of 4-D and higher dimensional space structures
+is a subject of significant interest to both mathematical physicists/mathematicians and abstract art professionals or amateurs. 
+
+ A somewhat artistic rendering and animation of such a representation of a four dimensional ``octacube'' by a mathematical physicist, and also a static representation by a famous mathematician are presented in a \PMlinkexternal{related Exposition}{http://planetphysics.org/?op=getobj&amp;from=lec&amp;id=187}</content>
+</record>

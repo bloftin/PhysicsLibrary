@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="951">
+ <title>ecliptic coordinate system</title>
+ <name>EclipticCoordinateSystem</name>
+ <created>2025-02-25 06:15:11</created>
+ <modified>2025-02-25 06:15:11</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="95.10.-a"/>
+ </classification>
+ <preamble>            % this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>In astronomy, the ecliptic coordinate system is a celestial coordinate system commonly used for representing the apparent positions, orbits, and pole orientations[1] of Solar System objects. Because most planets (except Mercury) and many small Solar System bodies have orbits with only slight inclinations to the ecliptic, using it as the fundamental plane is convenient. The system's origin can be the center of either the Sun or Earth, its primary direction is towards the March equinox, and it has a right-hand convention. It may be implemented in spherical or rectangular coordinates.[2]
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{Ecliptic_grid_globe.png}
+\caption{1.  Earth-centered ecliptic coordinates as seen from outside the celestial sphere. }
+\end{figure}
+
+\subsection{Primary direction} 
+
+The celestial equator and the ecliptic are slowly moving due to perturbing forces on the Earth, therefore the orientation of the primary direction, their intersection at the March equinox, is not quite fixed. A slow motion of Earth's axis, precession, causes a slow, continuous turning of the coordinate system westward about the poles of the ecliptic, completing one circuit in about 26,000 years. Superimposed on this is a smaller motion of the ecliptic, and a small oscillation of the Earth's axis, nutation.[3][4]
+
+In order to reference a coordinate system which can be considered as fixed in space, these motions require specification of the equinox of a particular date, known as an epoch, when giving a position in ecliptic coordinates. The three most commonly used are: 
+
+\paragraph{Mean equinox of a standard epoch}
+(usually the J2000.0 epoch, but may include B1950.0, B1900.0, etc.) is a fixed standard direction, allowing positions established at various dates to be compared directly.
+
+\paragraph{Mean equinox of date}
+is the intersection of the ecliptic of "date" (that is, the ecliptic in its position at "date") with the mean equator (that is, the equator rotated by precession to its position at "date", but free from the small periodic oscillations of nutation). Commonly used in planetary orbit calculation.
+
+\paragraph{True equinox of date}
+is the intersection of the ecliptic of "date" with the true equator (that is, the mean equator plus nutation). This is the actual intersection of the two planes at any particular moment, with all motions accounted for.  
+
+
+A position in the ecliptic coordinate system is thus typically specified true equinox and ecliptic of date, mean equinox and ecliptic of J2000.0, or similar. Note that there is no "mean ecliptic", as the ecliptic is not subject to small periodic oscillations.[5] \\
+
+\subsection{Spherical coordinates} 
+
+\paragraph{Ecliptic longitude}
+
+Ecliptic longitude or celestial longitude (symbols: heliocentric $l$, geocentric $\lambda$) measures the angular distance of an object along the ecliptic from the primary direction. Like right ascension in the equatorial coordinate system, the primary direction ($0^{\circ}$) ecliptic longitude) points from the Earth towards the Sun at the March equinox. Because it is a right-handed system, ecliptic longitude is measured positive eastwards in the fundamental plane (the ecliptic) from $0^{\circ}$ to $360^{\circ}$. Because of axial precession, the ecliptic longitude of most "fixed stars" (referred to the equinox of date) increases by about 50.3 arcseconds per year, or 83.8 arcminutes per century, the speed of general precession.[7][8] However, for stars near the ecliptic poles, the rate of change of ecliptic longitude is dominated by the slight movement of the ecliptic (that is, of the plane of the Earth's orbit), so the rate of change may be anything from minus infinity to plus infinity depending on the exact position of the star.
+
+\paragraph{Ecliptic latitude}
+
+Ecliptic latitude or celestial latitude (symbols: heliocentric $b$, geocentric $\beta$), measures the angular distance of an object from the ecliptic towards the north (positive) or south (negative) ecliptic pole. For example, the north ecliptic pole has a celestial latitude of $+90^{\circ}$. Ecliptic latitude for "fixed stars" is not affected by precession.
+
+\paragraph{Distance}
+
+Distance is also necessary for a complete spherical position (symbols: heliocentric $r$, geocentric $\Delta$). Different distance units are used for different objects. Within the Solar System, astronomical units are used, and for objects near the Earth, Earth radii or kilometers are used.
+
+\subsection{Rectangular coordinates} 
+
+A rectangular variant of ecliptic coordinates is often used in orbital calculations and simulations. It has its origin at the center of the Sun (or at the barycenter of the Solar System), its fundamental plane on the ecliptic plane, and the x-axis toward the March equinox. The coordinates have a right-handed convention, that is, if one extends their right thumb upward, it simulates the z-axis, their extended index finger the x-axis, and the curl of the other fingers points generally in the direction of the y-axis.[10]  \\
+
+These rectangular coordinates are related to the corresponding spherical coordinates by \\
+
+$$x = r \cos b \cos l $$
+$$y = r \cos b \sin l $$
+$$z = r \sin b $$
+
+This article is a derivative work of the creative commons share alike with attribution in [11]. 
+
+\begin{thebibliography}{9}
+
+[1]   Cunningham, Clifford J. (June 1985). "Asteroid Pole Positions: A Survey". The Minor Planet Bulletin. 12: 13-16. \\
+
+[2]   Nautical Almanac Office, U.S. Naval Observatory; H.M. Nautical Almanac Office, Royal Greenwich Observatory (1961). Explanatory Supplement to the Astronomical Ephemeris and the American Ephemeris and Nautical Almanac. H.M. Stationery Office, London (reprint 1974). pp. 24-27.  \\
+
+[3]   Explanatory Supplement (1961), pp. 20, 28 \\
+
+[4]   U.S. Naval Observatory, Nautical Almanac Office (1992). P. Kenneth Seidelmann (ed.). Explanatory Supplement to the Astronomical Almanac. University Science Books, Mill Valley, CA (reprint 2005). pp. 11-13. ISBN 1-891389-45-9.  \\
+
+[5]   Meeus, Jean (1991). Astronomical Algorithms. Willmann-Bell, Inc., Richmond, VA. p. 137. ISBN 0-943396-35-2.  \\
+
+[6]   Explanatory Supplement (1961), sec. 1G  \\
+
+[7]   N. Capitaine; P.T. Wallace; J. Chapront (2003). "Expressions for IAU 2000 precession quantities" (PDF). Astronomy and Astrophysics. 412 (2): 581. \\
+
+[8]  J.H. Lieske et al. (1977), "Expressions for the Precession Quantities Based upon the IAU (1976) System of Astronomical Constants". Astronomy and Astrophysics 58, pp. 1-16  \\
+
+[9]  Leadbetter, Charles (1742). A Compleat System of Astronomy. J. Wilcox, London. p. 94.; numerous examples of this notation appear throughout the book. \\
+
+[10]  Explanatory Supplement (1961), pp. 20, 27 \\
+
+[11]  Wikipedia contributors, "Ecliptic coordinate system," Wikipedia, The Free Encyclopedia \\
+
+\end{thebibliography}</content>
+</record>

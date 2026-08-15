@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 
-use lib '/var/www/noosphere/lib';
+use lib '/var/www/pp/lib';
 
 use Noosphere;
 use Noosphere::DB;

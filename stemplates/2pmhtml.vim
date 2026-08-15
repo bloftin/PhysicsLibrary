@@ -6,7 +6,7 @@
 " Transform a file into HTML, using the current syntax highlighting.
 " APK : modified for planetphysics-specific look and feel.
 
-colorscheme pm
+"colorscheme pp
 
 " Number lines when explicitely requested or when `number' is set
 if exists("html_number_lines")

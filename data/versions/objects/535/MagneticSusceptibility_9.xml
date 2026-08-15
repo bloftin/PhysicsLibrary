@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="535">
+ <title>magnetic susceptibility</title>
+ <name>MagneticSusceptibility</name>
+ <created>2009-02-17 18:49:31</created>
+ <modified>2009-02-17 19:33:57</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+	<category scheme="msc" code="03.65.Fd"/>
+ </classification>
+ <defines>
+	<concept>diamagnetic susceptibility</concept>
+	<concept>magnetic field strength</concept>
+	<concept>volume magnetic susceptibility</concept>
+	<concept>mass magnetic susceptibility</concept>
+	<concept>\chi_g</concept>
+	<concept>\chi_m</concept>
+	<concept>molar magnetic susceptibility</concept>
+	<concept>$\chi_(mol)</concept>
+	<concept>magnetic susceptibility tensor</concept>
+	<concept>\chi</concept>
+	<concept>magnetization</concept>
+	<concept>magnetic induction vector</concept>
+ </defines>
+ <keywords>
+	<term>magnetic moments in solution by nuclear magnetic resonance spectrometry</term>
+	<term>NMR</term>
+ </keywords>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrightarrow}}</preamble>
+ <content>\begin{definition}
+In electromagnetism, the \emph{volume magnetic susceptibility}, represented by the symbol $ \chi_{v} $ is defined by the following equation
+
+$$ \vec{M} = \chi_{v} \vec{H},$$
+where in SI units $\vec{M}$ is the \emph{magnetization} of the material (defined as the magnetic dipole moment per unit volume, measured in amperes per meter), and H is the \emph{strength of the magnetic field} $\vec{H}$, also measured in amperes per meter. 
+\end{definition}
+
+ On the other hand, the magnetic induction $\vec{B}$ is related to $\vec{H}$ by the equation
+
+$$\vec{B} \ = \ \mu_0(\vec{H} + \vec{M}) \ = \ \mu_0(1+\chi_{v}) \vec{H} \ = \ \mu \vec{H},$$ 
+where $\mu_0$ is the magnetic constant, and $ \ (1+\chi_{v}) $ is the relative permeability of the material. 
+
+ Note that the magnetic susceptibility $\chi_v$ and the magnetic permeability 
+$\mu$ of a material are related as follows:
+
+$$ \mu = \mu_0(1+\chi_v) \, .$$  
+
+
+\begin{remark}
+There are two other measures of susceptibility, the \emph{mass magnetic susceptibility}, $\chi_g$ or $\chi_m$, and the 
+\emph{molar magnetic susceptibility}, $\chi_{mol}:$
+
+$$ \chi_{\text{mass}}= \chi_v/\rho ,$$ 
+$$ \chi_{mol} \, = \, M\chi_m = M \chi_v / \rho, $$ 
+
+where $\rho$ is the density and M is the molar mass (in kg·mol−1 (in SI) or g·mol−1 (in cgs))
+\end{remark}
+
+
+
+\subsubsection{Susceptibility Sign convention}
+  If $\chi$ is positive, then $(1+\chi_v)&gt; 1$ (or, in cgs units, 
+$(1+4 \pi \chi_v) &gt; 1)$ and the material can be paramagnetic, ferromagnetic, ferrimagnetic, or  anti-ferromagnetic; then, the magnetic field inside the material is strengthened by the presence of the material, that is, the magnetization value is greater than the external H-value. 
+
+ On the other hand there are certain materials--called \emph{diamagnetic}--  for which $\chi$ negative, and thus $(1+χv) &lt; 1$ (in SI units).
+
+
+\subsection{Magnetic Susceptibility Tensor, $\chi$}
+
+ The magnetic susceptibility of most crystals (that are anisotropic) cannot be represented only by a scalar, but it is instead representable by a tensor \textbf{$\chi$}. Then, the crystal magnetization $\vec{M}$ is dependent upon the orientation of the sample and can have non-zero values along directions other than that of the applied magnetic field $\vec{H}$. Note that even non-crystalline materials may have a residual anisotropy, and thus require a similar treatment.
+
+ In all such magnetically anisotropic materials, the volume magnetic susceptibility tensor is then defined as follows:
+
+$$ M_i=\chi_{ij}H_j , $$ 
+
+where $i$ and $j$ refer to the directions (such as, for example, x, y, z in Cartesian coordinates) of, respectively, the applied magnetic field and the magnetization of the material. This tensor is of rank 2, and dimension (3,3) which relates the component of the magnetization in the i-th direction, $M_i$ to the component $ H_j$ of the external magnetic field applied along the j-th direction.
+
+
+\begin{thebibliography}{99}
+\subsubsection{Magnetic Properties of Materials}
+\bibitem{AMM68}
+G. P. Arrighini, M. Maestro, and R. Moccia (1968). Magnetic Properties of Polyatomic Molecules: Magnetic Susceptibility of $H_2O, NH_3, CH_4, H_2O_2$. 
+{\em J. Chem. Phys.} 49: 882-889. doi:10.1063/1.1670155. 
+
+\bibitem{OMM80}
+S. Otake, M. Momiuchi and N. Matsuno (1980). Temperature Dependence of the Magnetic Susceptibility of Bismuth. J. Phys. Soc. Jap. 49 (5): 1824-1828. doi:10.1143/JPSJ.49.1824.
+ 
+\bibitem{HOM94}
+J. Heremans, C. H. Olk and D. T. Morelli (1994). Magnetic Susceptibility of Carbon Structures. {\em Phys. Rev. B} 49 (21): 15122-15125. doi:10.1103/PhysRevB.49.15122.  
+
+\bibitem{OMM80}
+R. E. Glick (1961). On the Diamagnetic Susceptibility of Gases. 
+{\em J. Phys. Chem.} 65 (9): 1552-1555. doi:10.1021/j100905a020.
+  
+
+\bibitem{DF73}
+R. Dupree and C. J. Ford (1973). Magnetic susceptibility of the noble metals around their melting points. {\em Phys. Rev. B} 8 (4): 1780–1782. doi:10.1103/PhysRevB.8.1780.
+  
+\subsubsection{Magnetic Moments and Nuclear Magnetic Resonance Spectrometry}
+\bibitem{ZF57}
+J. R. Zimmerman, and M. R. Foster (1957). Standardization of NMR high resolution spectra. {\em J. Phys. Chem.} 61: 282-289. $doi:10.1021/j150549a006$. 
+ 
+\bibitem{EHB73}
+Robert Engel, Donald Halpern, and Susan Bienenfeld (1973). Determination of magnetic moments in solution by nuclear magnetic resonance spectrometry. Anal. Chem. 45: 367-369. doi:10.1021/ac60324a054.  
+
+\bibitem{KCBHDH2k3}
+P. W. Kuchel, B. E. Chapman, W. A. Bubb, P. E. Hansen, C. J. Durrant, and M. P. Hertzberg (2003). Magnetic susceptibility: solutions, emulsions, and cells. {\em Concepts Magn. Reson.} A 18: 56-71. $doi:10.1002/cmr.a.10066$.  
+
+\bibitem{KB62}
+K. Frei and H. J. Bernstein (1962). Method for determining magnetic susceptibilities by NMR. J. Chem. Phys. 37: 1891-1892. $doi:10.1063/1.1733393$.
+  
+\bibitem{H2k3}
+R. E. Hoffman (2003). Variations on the chemical shift of TMS. 
+{\em J. Magn. Reson.} 163: 325-331. $doi:10.1016/S1090-7807(03)00142-3$.  
+
+
+\end{thebibliography}</content>
+</record>

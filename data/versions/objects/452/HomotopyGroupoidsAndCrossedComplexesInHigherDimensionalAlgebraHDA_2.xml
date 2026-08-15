@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="452">
+ <title>homotopy groupoids and crossed complexes in higher dimensional algebra (HDA)</title>
+ <name>HomotopyGroupoidsAndCrossedComplexesInHigherDimensionalAlgebraHDA</name>
+ <created>2009-01-31 18:08:23</created>
+ <modified>2009-01-31 18:09:06</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <comment>the title</comment>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <preamble>% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}</preamble>
+ <content>\subsubsection{Homotopy groupoids and crossed complexes as non-commutative structures in \emph{higher dimensional algebra} (HDA): provide tools for solving local-to-global problems} 
+
+  This is a series of papers that were published in 2004 on ``\PMlinkname{Categorical Structures}{CategoricalAlgebras} for Descent and Galois Theory, Hopf Algebras and Semiabelian Categories.'' that appeared
+as part of the \emph{Proceedings of the Fields Institute Workshop on \PMlinkname{Categorical Structures}{Categoricalalgebras} for Descent and Galois Theory, Hopf Algebras and Semiabelian Categories}, \cite{FIC2004}.
+
+Among these remarkable mathematical contributions is an interesting paper on crossed complexes and homotopy groupoids as non-commutative tools for higher dimensional local-to-global problems. In this paper it was pointed out that
+\emph{``the structures which enable the full use of crossed complexes as a tool in algebraic topology are substantial, intricate and interrelated''}. These applications of crossed complexes are also closely connected with the concept of
+\PMlinkname{double groupoid}{HomotopyDoubleGroupoidOfAHausdorffSpace}.
+
+
+\begin{thebibliography}{9}
+
+\bibitem{FIC2004}
+PFIWCS-2004. \emph{Proceedings of the Fields Institute Workshop on \PMlinkname{Categorical Structures}{Categoricalalgebras} for Descent and Galois Theory, Hopf Algebras and Semiabelian Categories}., September 23-28, 2004, published in the \emph{Fields Institute Communications \textbf{43}, (2004)}.
+
+\bibitem{RBetal2k4}
+R. Brown et al. ``Crossed complexes and homotopy groupoids as non-commutative tools for higher dimensional local-to-global problems'', in \emph{Fields Institute Communications \textbf{43}:101-130 (2004)},
+(PDF and ps documents at arXiv/ math.AT/0212274).
+
+\end{thebibliography}</content>
+</record>

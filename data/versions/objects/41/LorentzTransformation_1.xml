@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="41">
+ <title>Lorentz transformation</title>
+ <name>LorentzTransformation</name>
+ <created>2005-07-20 15:52:10</created>
+ <modified>2005-07-20 15:52:10</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="04.20.-q"/>
+ </classification>
+ <preamble>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}</preamble>
+ <content>${x_0}^{'} = \gamma (- \beta x_1 + x_0)$  \newline
+${x_1}^{'} = \gamma (x_1 - \beta x_0)$    \newline
+${x_2}^{'} = x_2$   \newline
+${x_3}^{'} = x_3$   \newline
+
+where
+
+$\gamma = \sqrt[2]{(1 - {\beta}^2)}$</content>
+</record>

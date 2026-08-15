@@ -2,6 +2,8 @@ package Noosphere;
 
 use strict;
 use Socket;
+use Template;
+use Encode;
 
 # a settings "main menu" screen.  enables us to unload things from the userbox.
 #
@@ -50,14 +52,9 @@ sub changeUserScore {
  
 	# TODO - we need a transaction here for updating both rows at the same time
 	#
-	my ($rv,$sth)=dbUpdate($dbh,{WHAT=>'users',
-															 SET=>"score=score+$delta",
-								 WHERE=>"uid=$id"});
+	my ($rv,$sth)=dbUpdate($dbh,{WHAT=>'users',SET=>"score=score+$delta",WHERE=>"uid=$id"});
 	$sth->finish();
-	($rv,$sth)=dbInsert($dbh,{INTO=>'score',
-															 COLS=>'userid,delta',
-								 VALUES=>"$id,$delta"});
-	
+	($rv,$sth)=dbInsert($dbh,{INTO=>'score',COLS=>'userid,delta',VALUES=>"$id,$delta"});
 	$sth->finish();
 
 	# invalidate top user statistics
@@ -68,10 +65,218 @@ sub changeUserScore {
 # user object edit list
 # 
 sub userEditObjectList {
+	
+	my $params = shift;
+	my $userinf = shift;
+
 	dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
+	my $tt_file = 'usereditobjlist.tt'; 
+	my $template = new XSLTemplate("usereditobjlist.xsl");
+	
+	my $html = '';
+	my $html_pager = '';
+	my $offset = $params->{'offset'} || 0;
+	my $total = $params->{'total'} || -1;
+	my $scale = 1;
+	my $limit = $userinf->{'prefs'}->{'pagelength'};
+	my $uid = $userinf->{'uid'};
+	my $table = getConfig('index_tbl');
+	my $en = getConfig('en_tbl');
+	my @objects_array = ();
+
+	# basic object selection filter: object owner
+	#
+	my $filter = "userid = $uid";
+
+	# build object selection filters for "exotic" ACL criterion
+	#
+	if ($params->{'qtype'} eq 'coauthor' || $params->{'qtype'} eq 'world') {
+		my $sth;
+		if ($params->{'qtype'} eq 'coauthor') {
+
+			my $glist = join(', ', getMemberGroupIDs($uid));
+			
+			my $gq = $glist ? "or (subjectid in ($glist) and user_or_group = 'g')" : "";
+
+			# build object id retrieval query
+			#
+			$sth = $dbh->prepare("select tbl, objectid from acl where _write = 1 and default_or_normal = 'n' and ((subjectid = $uid and user_or_group = 'u') $gq)");
+		} 
+		elsif ($params->{'qtype'} eq 'world') {
+
+			# build world-editable object id retrieval query
+			$sth = $dbh->prepare("select tbl, objectid from acl where (_write = 1 and default_or_normal = 'd')");
+		}
+		
+		$sth->execute();
+
+		my %lists;
+
+		while (my $row = $sth->fetchrow_hashref()) {
+			if (exists $lists{$row->{'tbl'}}) {
+				push @{$lists{$row->{'tbl'}}}, $row->{'objectid'};
+			} else {
+				$lists{$row->{'tbl'}} = [$row->{'objectid'}];
+			}
+		}
+
+		$sth->finish();
+
+		# build filter clause of the form 
+		# (
+		#  (tbl = 'foo' and objectid in (1, 2, ...)) or 
+		#  (tbl = 'bar' and objectid in (3, 4, ...)) or
+		#   ...
+		# )
+		#
+		$filter = "(".join(' or ', (map "(tbl = '$_' and objectid in (".join(', ', @{$lists{$_}})."))", keys %lists)).")";
+	}
+
+	# this is kind of a hack for when there are no matching objects
+	$filter = 0 if ($filter eq '()');
+
+	# get total
+	# 
+	my ($rv,$sth) = dbLowLevelSelect($dbh,"select userid from $table where $filter and tbl != 'users' and type = 1");
+	$total = $sth->rows();
+	$sth->finish();
+	
+	# query up the data
+	#
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit")
+		if (getConfig('dbms') eq 'pg');
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+		if (getConfig('dbms') eq 'mysql');
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+        if (getConfig('dbms') eq 'MariaDB');
+
+	if (not defined $rv) {
+		dwarn "error getting objects for user $uid";
+		return errorMessage("Error with object query. contact an admin.");
+	}
+
+	# get the rows
+	# 
+	my @rows = dbGetRows($sth);
+
+	# gather in additional data from the individual tables
+	#
+	dbGather(\@rows, 'tbl', 'objectid', 
+		{
+		 getConfig('exp_tbl') => {'select'=>'created', 'idfield'=>'uid'}, 
+		 getConfig('books_tbl') => {'select'=>'created', 'idfield'=>'uid'},
+		 getConfig('papers_tbl') => {'select'=>'created', 'idfield'=>'uid'}, 
+		 getConfig('en_tbl') => {'select'=>'created, type as etype', 'idfield'=>'uid'}, 
+	});
+	 
+	$template->addText("<usereditobjs qtype=\"$params->{qtype}\">");
+
+	if (scalar @rows > 0) {
+		
+		my $ord = 1;
+
+		foreach my $row (@rows) {
+			my $date = ymd($row->{'created'});
+			
+			$template->addText("<object date=\"$date\"");
+
+			$template->addText(" ord=\"$ord\"");
+			$template->addText(" id=\"$row->{objectid}\"");
+			$template->addText(" table=\"$row->{tbl}\"");
+
+			$template->addText(" edithref=\"".getConfig("main_url")."/?op=edit;from=$row->{tbl};id=$row->{objectid}\""); 
+			$template->addText(" aclhref=\"".getConfig("main_url")."/?op=acledit;from=$row->{tbl};id=$row->{objectid}\""); 
+
+			if ($row->{'tbl'} eq $en) {
+				$template->addText(" historyhref=\"".getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}\""); 
+				$template->addText(" linkhref=\"".getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}\""); 
+		 	}
+
+			$template->addText(" href=\"".getConfig("main_url")."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}\""); 
+
+			# There must be some bigger UTF8 issue going on, so temp fix
+			my $title = encode("UTF-8",$row->{'title'});
+			dwarn "tile: $title";
+			$template->addText(" title=\"$title\""); 
+			#$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
+
+			# 	# find flags
+		 	#
+			my $flags = '';
+			my $unclassified = (isclassified($row->{'tbl'},$row->{'objectid'}) ? '' : 'u');
+			my $messages = (count_unseen($row->{'tbl'}, $row->{'objectid'}, $userinf->{'uid'}) > 0 ? 'm' : '');
+			my $corrections = 0;
+
+		 	if ($row->{'tbl'} eq $en) {
+		 		$corrections = (hascorrections($row->{'tbl'},$row->{'objectid'}) ? 'c' : '');
+		 	}
+
+			$template->addText(" unclassified=\"1\"") if ($unclassified);
+			$template->addText(" hasmessages=\"1\"") if ($messages);
+			$template->addText(" hascorrections=\"1\"") if ($corrections);
+			$template->addText(" isowner=\"1\"") if ($row->{'userid'} == $uid);
+
+			$template->addText("/>\n");
+			my $obj_url = getConfig("main_url")."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}";
+			my $edithref = getConfig("main_url")."/?op=edit;from=$row->{tbl};id=$row->{objectid}";
+			my $aclhref = getConfig("main_url")."/?op=acledit;from=$row->{tbl};id=$row->{objectid}";
+			my $linkhref = getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}";
+			my $historyhref = getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}";
+
+			push(@objects_array,{ 
+				title 		=> $title, 
+				obj_url 	=> $obj_url, 
+				date 		=> $date, 
+				ord 		=> $ord, 
+				id 			=> $row->{objectid}, 
+				table 		=> $row->{tbl},
+				edithref 	=> $edithref,
+				aclhref  	=> $aclhref,
+				linkhref    => $linkhref,
+				historyhref	=> $historyhref,	
+				 });
+
+			$ord++;
+
+
+		}
+		
+		$params->{'offset'} = $offset;
+		$params->{'total'} = $total;
+
+		#getPageWidgetXSLT($template, $params, $userinf);
+		$html_pager = getPager($params, $userinf, $scale);
+	}
+
+	$template->addText("</usereditobjs>");
+
+	dwarn "userEditObjectList end";
+	my $template_txt = $template->{'TEXT'};
+	dwarn "userEditObjectList template:\n $template_txt";
+
+	my $vars = {
+        	total       				=> $params->{'total'},
+			objects						=> \@objects_array,
+			pager						=> $html_pager,
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return paddingTable(clearBox('Your Objects',$html));
+}
+
+sub userEditObjectListOld {
+	
 	my $params = shift;
 	my $userinf = shift;
 	
+	dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
+
 	my $template = new XSLTemplate("usereditobjlist.xsl");
 	
 	my $offset = $params->{'offset'} || 0;
@@ -144,7 +349,9 @@ sub userEditObjectList {
 		if (getConfig('dbms') eq 'pg');
 	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
 		if (getConfig('dbms') eq 'mysql');
-	
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+        if (getConfig('dbms') eq 'MariaDB');
+
 	if (not defined $rv) {
 		dwarn "error getting objects for user $uid";
 		return errorMessage("Error with object query. contact an admin.");
@@ -172,9 +379,8 @@ sub userEditObjectList {
 
 		foreach my $row (@rows) {
 			my $date = ymd($row->{'created'});
-
 			$template->addText("<object date=\"$date\"");
-			
+
 			$template->addText(" ord=\"$ord\"");
 			$template->addText(" id=\"$row->{objectid}\"");
 			$template->addText(" table=\"$row->{tbl}\"");
@@ -185,20 +391,26 @@ sub userEditObjectList {
 			if ($row->{'tbl'} eq $en) {
 				$template->addText(" historyhref=\"".getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}\""); 
 				$template->addText(" linkhref=\"".getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}\""); 
-			}
+		 	}
 
 			$template->addText(" href=\"".getConfig("main_url")."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}\""); 
-			$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
-			
-			# find flags
-			#
+
+			# There must be some bigger UTF8 issue going on, so temp fix
+			my $title = encode("UTF-8",$row->{'title'});
+			dwarn "tile: $title";
+			$template->addText(" title=\"$title\""); 
+			#$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
+
+			# 	# find flags
+		 	#
 			my $flags = '';
 			my $unclassified = (isclassified($row->{'tbl'},$row->{'objectid'}) ? '' : 'u');
 			my $messages = (count_unseen($row->{'tbl'}, $row->{'objectid'}, $userinf->{'uid'}) > 0 ? 'm' : '');
 			my $corrections = 0;
-			if ($row->{'tbl'} eq $en) {
-				$corrections = (hascorrections($row->{'tbl'},$row->{'objectid'}) ? 'c' : '');
-			}
+
+		 	if ($row->{'tbl'} eq $en) {
+		 		$corrections = (hascorrections($row->{'tbl'},$row->{'objectid'}) ? 'c' : '');
+		 	}
 
 			$template->addText(" unclassified=\"1\"") if ($unclassified);
 			$template->addText(" hasmessages=\"1\"") if ($messages);
@@ -206,8 +418,9 @@ sub userEditObjectList {
 			$template->addText(" isowner=\"1\"") if ($row->{'userid'} == $uid);
 
 			$template->addText("/>\n");
-
+			
 			$ord++;
+
 		}
 		
 		$params->{'offset'} = $offset;
@@ -217,6 +430,10 @@ sub userEditObjectList {
 	}
 
 	$template->addText("</usereditobjs>");
+
+	dwarn "userEditObjectList end";
+	my $template_txt = $template->{'TEXT'};
+	dwarn "userEditObjectList template:\n $template_txt";
 
 	return paddingTable(clearBox('Your Objects',$template->expand()));
 }
@@ -336,28 +553,39 @@ sub userGenericList {
 	my $params = shift;
 	my $userinf = shift;
 
+	my $html_out = '';
+	my @objects_array = ();
+	my @msgs_array = ();
+	my @corrs_array = ();
+	my @corrsR_array = ();
 	my $op = $params->{op};
 	my $offset = $params->{offset}||0;
 	my $total = $params->{total}||-1;
 	my $limit = $userinf->{'prefs'}->{'pagelength'};	
 	my $uid = $params->{id};
-	my $template = new XSLTemplate("usergeneric.xsl");
+	my $title = '';
+	my $tt_file = 'usergeneric.tt';
+ 	my $template = new XSLTemplate("usergeneric.xsl");
 
-	# database invariance (jesus christ this is ugly)
+	# database invariance (this is ugly)
 	#
 	my ($q_usermsgs, $q_userobjs, $q_usercorsf, $q_usercorsr);
 
 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
-	
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
+
 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit"  if getConfig('dbms') eq 'pg';
 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'mysql';
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'MariaDB';
 
 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
 	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
 	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usercorsr = "select distinct corrections.objectid, corrections.title, corrections.uid, corrections.userid, corrections.filed from objindex, corrections where objindex.userid=$uid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid order by corrections.filed desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
 	# structure holding the specifics
 	#
@@ -391,8 +619,8 @@ sub userGenericList {
 	#
 	if ($total < 0) {
 		my ($rv,$sth) = dbLowLevelSelect($dbh,$specifics->{$op}->[0]);
-	$total = $sth->rows();
-	$sth->finish();
+		$total = $sth->rows();
+		$sth->finish();
 	}
 	
 	# actual retrieve the info
@@ -401,7 +629,7 @@ sub userGenericList {
 	
 	if (! $rv) {
 		dwarn "error with query for user $uid";
-	return errorMessage("error with query. contact an admin.");
+		return errorMessage("error with query. contact an admin.");
 	}
 
 	my @rows = dbGetRows($sth);
@@ -413,24 +641,103 @@ sub userGenericList {
 	#
 	$template->addText("<$op>");
 	if ($#rows >= 0 ) {
-	my $num = $offset+1;
-	
-		foreach my $row (@rows) {
-		$template->addText("	<item_$op>");
-		my $xml=&{$specifics->{$op}->[2]}($row,$num);
-		$template->addText($xml);
-#		dwarn "adding [$xml] to template";
-		#$template->addText(&{$specifics->{$op}->[2]}($row,$num));
-		$template->addText("	</item_$op>");
+		my $num = $offset+1;
 		
-		$num++;
+		foreach my $row (@rows) {
+			$template->addText("	<item_$op>");
+			my $xml=&{$specifics->{$op}->[2]}($row,$num);
+			$template->addText($xml);
+			#my $var = join "\n", keys &{$specifics->{$op}->[2]}($row,$num);
+			for (keys %$row)
+			{
+				dwarn "$_ : $row->{$_}";
+			}
+			dwarn "adding [$xml] to template";
+			#$template->addText(&{$specifics->{$op}->[2]}($row,$num));
+			$template->addText("	</item_$op>");
+
+			dwarn "op: $op";
+			if ($op eq "userobjs") {
+				dwarn "userobjs";
+				push(@objects_array,{ 
+					title 		=> $row->{title}, 
+					date		=> ymd($row->{'created'}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					href		=> getConfig("main_url")."/?op=getobj;from=$row->{tbl};id=$row->{objectid}", 
+				});
+			}
+			elsif($op eq "usermsgs") {
+				dwarn "usermsgs";
+				push(@msgs_array,{ 
+					obj_title 	=> lookupfield($row->{tbl},'title',"uid=$row->{objectid}"), 
+					msg_title 	=> $row->{subject},
+					date		=> ymd($row->{'created'}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					obj_href	=> getConfig("main_url")."/?op=getobj;from=$row->{tbl};id=$row->{objectid}", 
+					msg_href	=> getConfig("main_url")."/?op=getmsg;id=$row->{uid}", 
+				});
+			}
+			elsif($op eq "usercorsf") {
+				dwarn "usercorsf";
+				push(@corrs_array,{ 
+					obj_title 	=> lookupfield(getConfig('en_tbl'),'title',"uid=$row->{objectid}"),
+					corr_title 	=> $row->{title},
+					date		=> ymd($row->{filed}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					obj_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{objectid}", 
+					corr_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('cor_tbl').";id=$row->{uid}", 
+				});
+
+			}
+			elsif($op eq "usercorsr") {
+				dwarn "usercorsr";
+				push(@corrsR_array,{ 
+					obj_title 	=> lookupfield(getConfig('en_tbl'),'title',"uid=$row->{objectid}"),
+					username 	=> lookupfield(getConfig('user_tbl'),'username',"uid=$row->{userid}"),
+					corr_title 	=> $row->{title},
+					date		=> ymd($row->{filed}),
+					ord 		=> $num, 
+					table 		=> $row->{tbl},	
+					obj_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{objectid}", 
+					corr_href	=> getConfig("main_url")."/?op=getobj;from=".getConfig('cor_tbl').";id=$row->{uid}",
+					user_href	=> getConfig("main_url")."/?op=getuser;id=$row->{userid}",
+				});
+
+			}
+			
+			$num++;
 		}
 	}
 	$template->addText("</$op>");
 
-	getPageWidgetXSLT($template, $params, $userinf);
+	#getPageWidgetXSLT($template, $params, $userinf);
+	my $factor = 1;
+	my $html_pager = getPager($params, $userinf, $factor);
 
-	return paddingTable($template->expand());
+	# return $template->expand();
+	my $vars = {
+        	name       				=> 'name',
+			objects					=> \@objects_array,
+			msgs					=> \@msgs_array,
+			corrs					=> \@corrs_array,
+			corrsR					=> \@corrsR_array,
+			pager					=> $html_pager,
+			item_userobjs			=> "item_$op",
+			op						=> $op,
+    };
+
+	my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+	my $ret = $tt->process($tt_file, $vars, \$html_out) || die "Template process failed: ", $tt->error(), "\n";
+
+	#return paddingTable($template->expand());
+	return $html_out;
 }
 
 
@@ -439,7 +746,7 @@ sub userGenericList {
 sub editUserPrefs {
 	my ($params, $user_info) = @_;
  
-	my $content = new Template('editprefs.html');
+	my $content = new TemplateNS('editprefs.html');
 	my $prefs = $user_info->{'prefs'};
 	my $groupings = getConfig('prefs_groupings');
 	my $inputs = '';
@@ -482,7 +789,7 @@ sub editUserPrefs {
 sub editUserData {
  my ($params, $user_info) = @_;
  
- my $content = new Template('edituser.html');
+ my $content = new TemplateNS('edituser.html');
  my $data = $user_info->{'data'};
  my $html = '';
 
@@ -624,12 +931,74 @@ sub getUser_wrapper {
 
 	my $template = getUser($params, $userinf);
 
-	return $template->expand();
+	return $template;
 }
 
 # getUser - get/display a user's info
 #
 sub getUser {
+	my $params = shift;
+	my $userinf = shift;
+
+	dwarn "getUser start";
+	my $id = $params->{id};
+	my $htmlout = '';
+
+	my $isadmin = ($userinf->{data}->{access} >= getConfig('access_admin'));
+	my $loggedin = ($userinf->{uid} > 0);
+	my $loggedinvalue = $userinf->{uid};
+	dwarn "logged in: $loggedinvalue";
+
+	# extract info
+	#
+	(my $rv, my $sth) = dbSelect($dbh,{WHAT => '*', 
+									FROM => 'users',
+									WHERE => "users.uid=$id"});
+
+	my $rec = $sth->fetchrow_hashref();	
+
+	my $mc = getrowcount('messages',"userid=$rec->{uid}");
+	my $msg_link = "".getConfig("main_url")."/?op=usermsgs;id=$rec->{uid}";
+	my $oc = getrowcount(getConfig('index_tbl'),"userid=$rec->{uid} and type = 1 and tbl != 'users'");
+	my $obj_link = "".getConfig("main_url")."/?op=userobjs;id=$rec->{uid}";
+	my $crc = getCorrectionsReceivedCount($rec->{uid});
+	my $crc_link = "".getConfig("main_url")."/?op=usercorsr;id=$rec->{uid}";
+	my $cfc = getCorrectionsFiledCount($rec->{uid});
+	my $cfc_link = "".getConfig("main_url")."/?op=usercorsf;id=$rec->{uid}";
+	my $uname = urlescape($rec->{'username'});
+	my $pmail = getConfig("main_url")."/?op=sendmail&amp;sendto=$uname";
+	
+	my $file = 'dispuser.tt';
+
+	my $vars = {
+        userID        => $id,
+		isadmin       => $isadmin,
+		loggedin      => $loggedin,
+		parsePrefs    => \&parsePrefs,
+		mc            => $mc,
+		oc            => $oc,
+		crc           => $crc,
+		cfc           => $cfc,
+		pmail         => $pmail,
+		msg_link      => $msg_link,
+		obj_link      => $obj_link,
+		crc_link      => $crc_link,
+		cfc_link      => $cfc_link,
+		my_dbh_ref    => $dbh,
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
+	dwarn "template html:\n$htmlout\nreturn value:\n$ret";
+	dwarn "getUser end";
+    return $htmlout;
+
+}
+sub getUserOld {
 	my $params = shift;
 	my $userinf = shift;
 	
@@ -657,7 +1026,7 @@ sub getUser {
 	my %basicinfo;
 	foreach my $key (keys %$rec) {
 		my $val = $rec->{$key};
-		if ($key eq "homepage" && nb($val)) { $val=~/^http:\/\// or $val="http://$val"; }
+		if ($key eq "homepage" && nb($val)) { $val=~/^https:\/\// or $val="https://$val"; }
 		if ($key eq "email" && 
 			$prefs->{hideemail} eq 'on' && 
 			$userinf->{uid} != $id &&

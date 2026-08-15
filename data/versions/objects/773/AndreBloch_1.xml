@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="773">
+ <title>Andr\'e Bloch</title>
+ <name>AndreBloch</name>
+ <created>2009-05-24 11:09:17</created>
+ <modified>2009-05-24 11:09:17</modified>
+ <type>Biography</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <preamble></preamble>
+ <content>\emph{Andr\'e Bloch} (1893 - 1948) French mathematician perhaps best known for Bloch's theorem on holomorphic disks (not to be confused with Felix Bloch's theorem on eigenfunctions of periodic particle wavefunctions).
+
+In 1914, Andr\'e Bloch briefly served in the French Army during World War I. Three years later, Bloch killed three relatives and was confined to a mental institution. From there he collaborated by mail with important mathematicians such as Jacques Hadamard and George P\'olya. In 1948, Bloch was awarded the Becquerel Prize.</content>
+</record>

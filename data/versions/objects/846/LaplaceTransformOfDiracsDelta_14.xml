@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="14" id="846">
+ <title>Laplace transform of Dirac's delta distribution</title>
+ <name>LaplaceTransformOfDiracsDelta</name>
+ <created>2010-03-05 12:23:20</created>
+ <modified>2010-03-05 13:32:27</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <defines>
+	<concept>Dirac's delta Laplace transform</concept>
+ </defines>
+ <related>
+	<object name="LaplaceTransform"/>
+ </related>
+ <keywords>
+	<term>Laplace transforms</term>
+	<term>Dirac delta</term>
+ </keywords>
+ <preamble>% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>One can introduce a \emph{Dirac delta} concept, for example by considering:
+\begin{align*}
+\eta_\varepsilon(t) \;:=\;
+\begin{cases}
+\frac{1}{\varepsilon} \quad \mbox{for}\;\; 0 \le t \le \varepsilon,\\
+0 \quad \mbox{for} \qquad t &gt; \varepsilon,
+\end{cases}
+\end{align*}
+as an ``approximation'' of Dirac delta, we obtain the Laplace transform
+$$\mathcal{L}\{\eta_\varepsilon(t)\} \;=\; \int_0^\infty\!e^{-st}\eta_\varepsilon(t)\,dt
+\;=\; \int_0^\varepsilon\frac{e^{-st}}{\varepsilon}\,dt+\int_\varepsilon^\infty\!e^{-st}\cdot0\,dt
+\;=\; \frac{1}{\varepsilon}\int_0^\varepsilon\!e^{-st}\,dt \;=\; \frac{1\!-\!e^{-\varepsilon s}}{\varepsilon s}.$$
+As the Taylor expansion shows, we then have
+$$\lim_{\varepsilon\to0+}\mathcal{L}\{\eta_\varepsilon(t)\} \;=\; 1,$$
+according to ref.(2).
+
+
+\subsection{Laplace transform of Dirac delta}
+The \emph{Dirac delta}, $\delta$, can be correctly defined as a linear functional, i.e. a linear mapping from a function space, consisting e.g. of certain real functions, to $\mathbb{R}$ (or $\mathbb{C}$), having the property
+$$\delta[f] \;=\; f(0).$$
+One may think of this as an inner product
+$$\langle f,\,\delta\rangle \;=\; \int_0^\infty\!f(t)\delta(t)\,dt$$
+of a function $f$ and another ``function'' $\delta$, when the well-known \PMlinkescapetext{formula}
+$$\int_0^\infty\!f(t)\delta(t)\,dt \;=\; f(0)$$
+is true.\, Applying this to\, $f(t) := e^{-st}$,\, one gets
+$$\int_0^\infty\!e^{-st}\delta(t)\,dt \;=\; e^{-0},$$
+i.e. the Laplace transform
+\begin{align}
+\mathcal{L}\{\delta(t)\} \;=\; 1.
+\end{align}
+By the delay theorem, this result may be generalised to
+$$\mathcal{L}\{\delta(t\!-\!a))\} \;=\; e^{-as}.$$\\
+
+\begin{thebibliography}{9}
+\bibitem{SL51}
+Schwartz, L. (1950--1951), Théorie des distributions, vols. 1--2, Hermann: Paris.
+\bibitem{WR73}
+W. Rudin, {\em Functional Analysis},
+McGraw-Hill Book Company, 1973.
+\bibitem{hormander}
+L. H\"ormander, {\em The Analysis of Linear Partial Differential Operators I,
+(Distribution theory and Fourier Analysis)}, 2nd ed, Springer-Verlag, 1990.
+
+\end{thebibliography}</content>
+</record>

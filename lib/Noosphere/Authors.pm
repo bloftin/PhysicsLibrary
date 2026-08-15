@@ -95,7 +95,10 @@ sub getAuthorListNoOwner {
 sub showAuthorList {
 	my $params = shift;
 
+	my $htmlout = '';
+	my @author_list = ();
 	my $template = new XSLTemplate('authorlist.xsl');
+	my $file = 'authorlist.tt';
 
 	my @list = getAuthorList($params->{'from'},$params->{'id'});
 
@@ -110,11 +113,37 @@ sub showAuthorList {
 		$template->setKey('username', $author->{'username'});
 		$template->setKey('date', $author->{'ts'});
 		$template->addText("</author>");
+
+		my $userid = $author->{'userid'};
+		my $username = $author->{'username'};
+		my $date = $author->{'ts'};
+
+		push(@author_list,{ 
+				userid 		=> $userid, 
+				username 	=> $username, 
+				date 		=> $date, 	
+		});
 	}
 
 	$template->addText('</authorlist>');
 
-	return $template->expand();
+	#return $template->expand();
+	my $vars = {
+        title        	=> $title,
+		author_list  	=> \@author_list,
+		objectid		=> $params->{id},
+		table			=> $params->{from},
+    };
+
+    my $tt = Template->new({
+		INCLUDE_PATH => '/var/www/pp/stemplates',
+	});
+
+	
+    my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
+	dwarn "template html:\n$htmlout\nreturn value:\n$ret";
+	dwarn "getUser end";
+    return $htmlout;
 }
 
 # add (or update) an author entry for an object and user

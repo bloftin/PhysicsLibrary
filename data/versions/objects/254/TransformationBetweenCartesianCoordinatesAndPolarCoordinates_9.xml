@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="254">
+ <title>transformation between cartesian coordinates and polar coordinates</title>
+ <name>TransformationBetweenCartesianCoordinatesAndPolarCoordinates</name>
+ <created>2007-07-02 21:59:30</created>
+ <modified>2007-07-04 22:48:11</modified>
+ <type>Example</type>
+<parent id="249">tensor</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="02.40.Hw"/>
+	<category scheme="msc" code="04.20.Cv"/>
+ </classification>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>From the definition of a contravariant vector
+
+\begin{equation}
+\bar{T}^{i} = T^{j}\frac{\partial \bar{x}^{i}}{\partial x^{j}} 
+\end{equation}
+
+
+we get the transformation matrix from the partial derivatives
+
+\begin{equation}
+A_{ij} = \frac{\partial \bar{x}^{i}}{\partial x^{j}} 
+\end{equation}
+
+In order to calculate the transformation matrix, we need the equations relating the two coordinates systems.  For cartesian to polar, we have
+
+$$ r = \sqrt{ x^2 + y^2 } $$
+$$ \theta = tan^{-1}\left( \frac{y}{x} \right) $$
+
+and for polar to cartesian
+
+$$ x = r \cos \theta $$
+$$ y = r \sin \theta $$
+
+So if we designate $(x,y)$ as the bar coordinates, then the transformation components from polar coordinates $(r,\theta)$ to cartesian coordinates $(x,y)$ is calculted as
+
+$$ A_{11} = \frac{\partial \bar{x}^{1}}{\partial x^{1}} = \frac{\partial x}{\partial r} = \cos \theta$$
+
+$$ A_{12} = \frac{\partial \bar{x}^{1}}{\partial x^{2}} = \frac{\partial x}{\partial \theta} = -r \sin \theta$$
+
+$$ A_{21} = \frac{\partial \bar{x}^{2}}{\partial x^{1}} = \frac{\partial y}{\partial r} = \sin \theta$$
+
+$$ A_{22} = \frac{\partial \bar{x}^{2}}{\partial x^{2}} = \frac{\partial y}{\partial \theta} = r \cos \theta$$
+
+The components from cartesian coordinates to polar coordinates transform the same way, but now the polar coordinates have the bar
+
+$$ B_{11} = \frac{\partial {x}^{1}}{\partial \bar{x}^{1}} = \frac{\partial r}{\partial x} = \frac{x}{\sqrt{x^2 + y^2}}$$
+
+$$ B_{12} = \frac{\partial {x}^{1}}{\partial \bar{x}^{2}} = \frac{\partial r}{\partial y} = \frac{y}{\sqrt{x^2 + y^2}}$$
+
+$$ B_{21} = \frac{\partial {x}^{2}}{\partial \bar{x}^{1}} = \frac{\partial \theta}{\partial x} = -\frac{y}{x^2 + y^2}$$
+
+$$ B_{22} = \frac{\partial {x}^{2}}{\partial \bar{x}^{2}} = \frac{\partial \theta}{\partial y} = \frac{x}{x^2 + y^2}$$
+
+In summary, the {\bf components of contravariant vectors} in cartesian coordinates and polar coordinates transform between each other according to
+
+$$ \left[ \begin{array}{c}
+x \\
+y \end{array} \right] = \left[ \begin{array}{cc}
+\cos \theta &amp; -r \sin \theta \\
+\sin \theta &amp; r \cos \theta \end{array} \right]  \left[ \begin{array}{c}
+r \\
+\theta \end{array} \right]$$
+
+$$ \left[ \begin{array}{c}
+r \\
+\theta \end{array} \right] = \left[ \begin{array}{cc}
+\frac{x}{\sqrt{x^2 + y^2}} &amp; \frac{y}{\sqrt{x^2 + y^2}} \\
+-\frac{y}{x^2 + y^2} &amp; \frac{x}{x^2 + y^2} \end{array} \right]  \left[ \begin{array}{c}
+x \\
+y \end{array} \right]$$</content>
+</record>

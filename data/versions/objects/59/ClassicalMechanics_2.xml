@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="59">
+ <title>classical mechanics history</title>
+ <name>ClassicalMechanics</name>
+ <created>2005-08-15 00:47:37</created>
+ <modified>2010-08-01 03:55:24</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <author id="15" name="rspuzio"/>
+ <classification>
+	<category scheme="msc" code="45.05.+x"/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\section{Introduction and Historical Background}
+
+\emph{Classical mechanics} may be defined as that branch of mechanics which deals with the deterministic motion of bodies.  This is in contradistinction to quantum mechanics, which deals with indeterminate motion and with statistical mechanics which deals with the average properties of ensembles of systems.  Depending on the author, relativistic mechanics may or may not be called classical mechanics.  For the purpose of this entry, the term ``classical mechanics'' shall be understood to inclure relativistic mechanics.  When a distinction needs to be drawn, the terms ``relativistic classical mechanics'' and ``non-relativistic classical mechanics'' will be employed.
+
+The name ``classical mechanics'' arises from the fact that this is the oldest branch of mechanics.  In its modern form, it dates back to the scientific revolution and may be said to have originated in Galileo's \emph{Dialogue on Two New Sciences} although some of the ideas may be found in the earlier works of Oresme, Stevin, da Vinci, and others.  Indeed, the subject of statics was already well understood by Archimedes in ancient times.  However, what separates the moden phase of the subject from the ancient is the understanding of the relativity of motion and the fact that it is the acceleration, not the velocity, which enters into the equations of motion.
+
+Historically, the origin of classical mechanics goes back to Kopernik's theory of the solar system.  By removing the Earth from its priveledged position at the centre of the universe, this theory opened up the possibility that celestial and terrestrial matter might be of the same nature, hence governed by the same laws of mechanics.  In order to explain why the motion of the Earth is not directly perceived by its inhabitants, Kopernik introduced the princpile of relativity of motion, which was to become a cornerstone of the new mechanics.  Nearly a century later, Galileo advanced to progress of mechanics not only by providing verification of the heliocentric theory by means of the telescope, but also by laying the foundations for dynamics in his study of falling bodies.  To be sure, the motion of a uniformly accelerated body had already been studied by Oresme and the law of inertia was already known to da Vinci, but it was Galileo who introduced the experimental technique and started the modern phase of the subject.  By studying the orbit of Mars contemporary Kepler discovered several laws of planetary motion.  Although Kepler believed that he was simply rediscovering facts which were well-known but kept secret by Pythagoras and other ancient philosophers, his discoveries, in fact, would lead directly to the replacement of ancient mechanics with modern mechanics.  Once it became possible to think of heavanly bodies as being acted on by forces just as terrestrial bodies, it was only natural to inquire as to the nature of the force which holds planets in their orbits.  Using Huygen's results on centrepital acceleration, Hooke and Wren realized that this force must diminish as the inverse square of the distance.  Newton identified this mystery force as one and the same force which makes objects fall near the surface of the earth and succeeded in computing the orbits of celestial bodies based on the known acceleration due to gravity at the surface of the Earth and the inverse square law.  He published these results in his monumental work ``The Mathematical Principles of Natural Philosophy'' and the subject of mechanics has progressed rapidly since.
+
+(role of calculus)
+
+(statics, kinematics, and dynamics)
+
+(vectorial vs. analytical mechanics)
+
+(continuum mechanics, including fields)
+
+(conservation laws)
+
+(relativity)</content>
+</record>

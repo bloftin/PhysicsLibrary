@@ -1,0 +1,86 @@
+<!-- clear box -->
+<table width="100%" cellpadding="2" cellspacing="0">
+	<tr>
+		<td>
+			<table WIDTH="100%">
+
+				<!-- title -->
+				<tr>
+                    <td bgcolor="#000000">
+
+						<!-- title box -->
+						
+						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+							<tr>
+								<td WIDTH="100%" BGCOLOR="#003399">
+									<font color="white" class="box_title">
+										Viewing Owner History for '[% title %]'
+									</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+
+				</tr>
+			
+				<!-- content -->
+				<tr>
+                    <td>
+                        <center>
+                            [ <a href=/?op=getobj&amp;from=[% table %]&amp;id=[% objectid %]>back to '[% title %]'</a> ]
+            
+                            <p><p/>
+                        
+
+                            <table cellpadding="4">
+
+                                <tr>
+                            
+                                    <td align="center">User</td> 
+                                    <td align="center">Why</td> 
+                                    <td align="center">When</td>
+
+                                </tr>
+
+                                [% FOREACH owner IN owners %]                         
+                                    <tr>
+
+                                        <td>
+
+                                            <a href=/?op=getuser&amp;id=[% owner.userid %]>[% owner.username %]</a>
+
+                                        </td>
+
+                                        <td>
+                                            [% IF owner.action == "o" %]
+                                                Orphan
+                                            [% ELSIF owner.action == "a" %]
+                                                Abandon
+                                            [% ELSIF owner.action == "t" %]
+                                                Transfer
+                                            [% END %]    
+
+                                        </td>
+
+                                        <td> [% owner.date %] </td>
+
+                                    </tr>
+
+                                [% END %]
+
+                            </table>
+
+                        </center>
+
+                        	<p><p/>
+
+		                    <i>Note: the owner history is a list of past owners and the reason ownership changed from them, since July 6, 2003.  Owners earlier than this time will not appear, but they may appear in the author list.</i>
+
+
+                    </td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- end standard box -->

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="39" id="892">
+ <title>physical laws</title>
+ <name>PhysicalLaws</name>
+ <created>2010-11-07 14:53:01</created>
+ <modified>2010-11-07 16:44:23</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+ </classification>
+ <defines>
+	<concept>physical law</concept>
+	<concept>internal energy</concept>
+	<concept>energy-momentum tensor</concept>
+	<concept>Huygen's principle of diffraction</concept>
+	<concept>Bragg's law</concept>
+	<concept>Heisenberg Principle</concept>
+	<concept>energy-mass equivalence</concept>
+	<concept>principle of constancy of light speed</concept>
+	<concept>Maxwell's laws</concept>
+	<concept>Netwon's laws</concept>
+	<concept>Newton's law of gravitation</concept>
+	<concept>correspondence principle</concept>
+	<concept>Maupertuis's principle</concept>
+	<concept>Hamilton's principle</concept>
+	<concept>variational principles</concept>
+	<concept>wavge-particle duality principle</concept>
+	<concept>quantization laws</concept>
+ </defines>
+ <keywords>
+	<term>law</term>
+	<term>physical law</term>
+	<term>physical principle</term>
+	<term>Huygen's principle of diffraction</term>
+	<term>Bragg's law</term>
+	<term>Heisenberg Principle</term>
+	<term>energy-mass equivalence</term>
+	<term>principle of constancy of light speed</term>
+	<term>Maxwell's laws</term>
+	<term>Netwon's laws</term>
+	<term>Newton's law of gravitation</term>
+	<term>correspondence principle</term>
+	<term>Maupertuis's principle</term>
+	<term>Hamilton's principle</term>
+	<term>variational principles</term>
+	<term>wavge-particle duality principle</term>
+	<term>quantization laws</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{The Laws of Physics}
+
+This is a new contributed topic summarizing the laws of Physics.
+
+\textbf{more to come...}
+
+\subsection{Conservation Laws and Symmetry}
+
+\subsection{Laws of Classical, Newtonian Mechanics}
+ 
+\begin{itemize}
+
+\item Newton's first, second and third laws of motion
+\item Euler--Lagrange equation
+\item Conservation of Momentum
+\item Conservation of mass and energy
+\item Newton's Law of Gravitation
+\item Hook's law
+
+\end{itemize}
+
+\subsection{Principles and Laws of Relativistic Mechanics}
+
+\begin{itemize}
+\item Equivalence of reference systems or coordination frames
+
+\item Constancy of the speed of light, $c$
+
+\item Einstein's Equivalence of gravitational and inertial mass
+
+\item Einstein's Law of Mass-Energy Equivalence
+\item Einstein–Hilbert action
+\item Einstein's field equations (EFEs)
+\item Einstein-Maxwell equations
+\item Correspondence principle: Newton's law of gravitation derived from EFEs
+\item Mach's 'principle', or conjecture
+\end{itemize}
+
+\subsection{Principle and Laws of Optics}
+
+
+\begin{itemize}
+\item Maupertuis' Principle; Principle of Minimum Action
+\item Hamilton's Principle
+
+\item Snell's Laws
+
+\item Huygens's Principle of Diffraction 
+\end{itemize}
+
+
+\subsection{Laws of Electromagnetism and Electrodynamics}
+
+\begin{itemize}
+
+\item Charge Conservation
+\item Coulomb's Law
+\item Amp\'ere's Law
+\item Faraday's Law
+\item Kirchhoff law for electrical circuits
+\item Maxwell's Equations 
+\item Bragg's Law
+\item Clausius-Mossotti Law
+\item xxxx
+\end{itemize}
+
+
+\subsection{Laws of Thermodynamics and Molecular Physics}
+
+\begin{itemize}
+\item Energy Conservation 
+\item First, second and third Principles of Thermodynamics:
+\bigbreak
+\textbf{First Law:} \emph{The change in a system's internal energy is equal to the difference between heat added to the system from its surroundings and work done by the system on its surroundings};
+\bigbreak
+\textbf{Second Law:} \emph{In any process occurring in a closed system the entropy can only increase};
+\bigbreak
+\textbf{Third Law:} \emph{the entropy of any pure crystalline system tends to zero in the limit of temperature approaching zero absolute (i.e., in deg Kelvin)}; also Nernst's law or theorem.
+
+
+\item Onsager's Principle
+\item Stefan--Boltzmann's Law
+\item xxxx
+\end{itemize}
+
+First, second and third Principles of Thermodynamics
+
+\subsection{Statistical Mechanics}
+
+
+\subsection{Laws of Quantum Mechanics}
+
+\begin{itemize}
+\item Planck's Law and Universal constant, $h$
+\item Einstein's Laws of Light Absorption and Emission; Einstein's coefficients
+\item Law of Photoelectric effect
+\item Quantization Laws
+\item First and Second Quantization Principles
+\item Correspondence Principle 
+\item Wave-Particle Duality (de Broglie)
+\item Superposition Principle and the quantum Wavefunction
+\item Uncertainty Principle (Heisenberg)
+\item Schr"/odinger's Equations
+\item Hamilton's Principle
+\item Einstein--Maxwell--Dirac equations (EMD)
+\item Klein--Fock--Gordon equation 
+\item Rarita--Schwinger equation for spin--3/2 fermions
+\item Conservation Laws in Spontaneous and Quantum Measurement Processes
+\item Pauli's Principle for fermions
+\item Goldstone Theorem
+\item Kirchhoff's Laws of spectroscopic analysis:
+Kirchhoff showed that there are three types of spectra emitted by objects:
+1) Continuous spectrum -- a solid or liquid body radiates an uninterrupted, smooth spectrum (called a Planck curve);
+2) Emission spectrum-- a radiating gas produces a spectrum of discrete spectral lines
+3) Absorption spectrum -- a continuous spectrum that passes through a cool gas has specific spectral lines removed (inverse of an emission spectrum)
+
+\item Dispersion laws
+\item Superconductivity principle and Meissner effect
+
+\end{itemize}
+
+\emph{Principles of Quantum Field Theory (QFT) and Quantum Electrodynamics (QED)}
+\begin{itemize}
+\item Particle Indistinguishability
+\item Second Quantization
+\item Mass---enormalization laws
+\item Schwinger–Dyson equation
+\end{itemize}
+
+
+\subsection{Laws of Atomic and Nuclear Physics}
+
+\begin{itemize}
+
+\item Lepton conservation laws in electroweak theory
+
+\item The Standard Model
+\item Supersymmetry
+\item Equivalence of String theories 
+\item Symmetry Breaking and the Higgs theory
+\item Dispersion laws for Goldstone bosons
+\end{itemize}
+
+
+\textbf{more to come}...</content>
+</record>

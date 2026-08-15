@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="2" id="266">
+ <title>Maxwell's equations</title>
+ <name>MaxwellsEquations</name>
+ <created>2008-03-08 19:14:02</created>
+ <modified>2008-03-08 19:30:30</modified>
+ <type>Definition</type>
+ <creator id="390" name="invisiblerhino"/>
+ <modifier id="390" name="invisiblerhino"/>
+ <author id="390" name="invisiblerhino"/>
+ <classification>
+	<category scheme="msc" code="40."/>
+ </classification>
+ <preamble>% this is the default PlanetPhysics preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>Maxwell's equations are a set of four partial differential equations first combined by James Clerk Maxwell. Together, they completely describe classical electromagnetic phenomena, just as Newton's laws completely describe classical mechanical phenomena. All four are named after persons other than Maxwell, but Maxwell was the first to add the displacement current term to Amp\`ere's Law, which led to the association of electromagnetic waves with light and paved the way for the discovery of special relativity. All four equations can be written in both integral and differential forms, with both forms convenient for specific problems. Note that strictly speaking these are Maxwell's equation in vacuo, with different forms for interaction with matter.
+\subsection{Notation}
+Throughout this article SI units are adopted for clarity, but the interesting mathematical aspects of the equations are independent of the constants $\mu_0$ and $\epsilon_0$, and indeed of the physical meaning of the equations.
+\[
+\mathbf{E} = \mbox{Electrical field strength, SI units Volt m}^{-1}
+\]
+\[
+\mathbf{B} = \mbox{Magnetic flux density, SI units Tesla}
+\]
+\[
+\mathbf{J} = \mbox{Current density, SI units Amp\`ere m}^{-3}
+\]
+\[
+\mathbf{\epsilon_0} = \mbox{Permittivity of free space} \approx 8.85 \times 10^{-12} \mbox{m}^{-1}
+\]
+\[
+\mathbf{\mu_0} = \mbox{Permeability of free space} = 4\pi \times 10^7 \mbox{Henry m}^{-1}
+\]
+\subsection{Gauss' Law of Electrostatics}
+Differential form
+\[
+\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0}
+\]
+Integral form
+\[
+\oint_S  \mathbf{E} \cdot \mathrm{d}\mathbf{A} = \frac {q}{\epsilon_0}
+\]
+where $q$ is the charge enclosed in the volume bounded by the surface $S$.
+\subsection{Gauss' Law of Magnetostatics}
+\[
+\nabla \cdot \mathbf{B} = 0
+\]
+\[
+\oint_S \mathbf{B} \cdot \mathrm{d}\mathbf{S} = 0
+\]
+This law can be interpreted as a statement of the non-existence of magnetic monopoles, a fact confirmed by all experiments to date.
+\subsection{Faraday's Law}
+Differential form
+\[
+\nabla \times \mathbf{E} = -\frac{ \partial \mathbf{B}}{\partial t}
+\]
+\subsection{Amp\`ere's Law}
+Differential form
+\[
+\nabla \times \mathbf{B} = - \mu_0 \epsilon_0 \frac{ \partial \mathbf{E}}{\partial t}
+\]
+Integral form
+
+\subsection{Properties of Maxwell's Equations}
+These four equations together have several interesting properties:
+\begin{itemize}
+\item Lorentz invariance
+\item Gauge invariance
+\item Invariance under the transformation $B \rightarrow \frac{E}{c}$ , $E \rightarrow B c$
+\end{itemize}</content>
+</record>

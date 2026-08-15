@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="9" id="56">
+ <title>Euler angle sequences</title>
+ <name>EulerAngleSequences</name>
+ <created>2005-08-14 16:36:29</created>
+ <modified>2005-08-19 14:20:00</modified>
+ <type>Definition</type>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="45.40.-f"/>
+ </classification>
+ <synonyms>
+	<synonym concept="Euler angle sequences" alias="Euler angles"/>
+ </synonyms>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>An Euler sequence is a rotation matrix that is completely determined by three parameters, called Euler angles.  These Euler angles are represented by the $\phi$
+,
+$\theta$ 
+and 
+$\psi$ 
+variables with each corresponding to a rotation about an axis.  There are several different conventions.  Only one will be shown here, since it is more important to understand the underlying math thoroughly.
+
+
+A list of the Euler angle rotation matrices for different sequences
+
+Euler 123 sequence \\
+
+$ R_3(\psi)R_2(\theta)R_1(\phi) = \left[  \begin{array}{ccc}
+c_{\psi} c_{\theta} &amp; c_{\psi} s_{\theta} s_{\phi} + s_{\psi} c_{\phi} &amp; -c_{\psi} s_{\theta} c_{\phi} + s_{\psi}  s_{\phi} \\
+-s_{\psi} c_{\theta} &amp; -s_{\psi} s_{\theta} s_{\phi} + c_{\psi} c_{\phi} &amp; s_{\psi} s_{\theta} c_{\phi} + c_{\psi} s_{\phi} \\
+s_{\theta} &amp; -c_{\theta} s_{\phi} &amp; c_{\theta} c_{\phi} \end{array} \right] $
+
+Euler 132 sequence \\
+
+$ R_2(\psi)R_3(\theta)R_1(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} &amp; c_{\psi} s_{\theta} c_{\phi} + s_{\psi} s_{\phi} &amp; c_{\psi} s_{\theta} s_{\phi} - s_{\psi} c_{\phi} \\
+-s_{\theta} &amp; c_{\theta} c_{\phi} &amp; c_{\theta} s_{\phi} \\
+s_{\psi} c_{\theta} &amp; s_{\psi} s_{\theta} c_{\phi} - c_{\psi} s_{\phi} &amp; s_{\psi} s_{\theta} s_{\phi} + c_{\psi} c_{\phi} \end{array} \right] $
+
+Euler 121 sequence \\
+
+$ R_1(\psi)R_2(\theta)R_1(\phi) = \left[ \begin{array}{ccc}
+c_{\theta} &amp; -s_{\theta}  s_{\phi}  &amp; s_{\theta} c_{\phi}  \\
+-s_{\psi} s_{\theta} &amp; c_{\psi} c_{\phi} - s_{\psi} c_{\theta} s_{\phi} &amp; c_{\psi} s_{\phi} + s_{\psi} c_{\theta} c_{\phi} \\
+-s_{\theta} c_{\psi} &amp; -s_{\psi} c_{\phi} - c_{\psi} c_{\theta} s_{\phi}  &amp; -s_{\psi} s_{\phi} + c_{\psi} c_{\theta} c_{\phi} \end{array} \right] $
+
+Euler 131 sequence  \\
+
+$ R_1(\psi)R_3(\theta)R_1(\phi) = \left[ \begin{array}{ccc}
+c_{\theta}  &amp; s_{\theta} c_{\phi}   &amp; s_{\theta} s_{\phi}   \\
+-c_{\psi} s_{\theta}  &amp; c_{\psi} c_{\theta} c_{\phi} - s_{\psi} s_{\phi} &amp; c_{\psi} c_{\theta} s_{\phi} + s_{\psi} c_{\phi} \\
+s_{\psi} s_{\theta}  &amp; -s_{\psi} c_{\theta} c_{\phi} - c_{\psi} s_{\phi} &amp;  - s_{\psi} c_{\theta} s_{\phi} +  c_{\psi} c_{\phi}  \end{array} \right] $
+
+Euler 213 sequence \\
+
+$ R_3(\psi)R_1(\theta)R_2(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\phi} + s_{\psi} s_{\theta} s_{\phi} &amp; s_{\psi} c_{\theta} &amp; -c_{\psi} s_{\phi} +  s_{\psi} s_{\theta} c_{\phi} \\
+-s_{\psi} c_{\phi} + c_{\psi} s_{\theta} s_{\phi} &amp; c_{\psi} c_{\theta}  &amp; s_{\psi} s_{\phi} + c_{\psi} s_{\theta} c_{\phi} \\
+c_{\theta} s_{\phi} &amp; -s_{\theta} &amp; c_{\theta} c_{\phi} \end{array} \right] $
+
+Euler 231 sequence \\
+
+$ R_1(\psi)R_3(\theta)R_2(\phi) = \left[ \begin{array}{ccc}
+c_{\theta} c_{\phi} &amp; s_{\theta}  &amp; -c_{\theta} s_{\phi}  \\
+-c_{\psi} s_{\theta} c_{\phi} + s_{\psi} s_{\phi} &amp; c_{\psi} c_{\theta} &amp; c_{\psi} s_{\theta} s_{\phi} + s_{\psi} s_{\theta} s_{\phi} \\
+s_{\psi} s_{\theta} c_{\phi} + c_{\psi} s_{\phi} &amp; -s_{\psi} c_{\theta} &amp; -s_{\psi} s_{\theta} s_{\phi} +c_{\psi} c_{\phi} \end{array} \right] $
+
+Euler 212 sequence \\
+
+$ R_2(\psi)R_1(\theta)R_2(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\phi} - s_{\psi} c_{\theta} s_{\phi} &amp; s_{\psi} s_{\theta} &amp; -c_{\psi} s_{\phi} - s_{\psi} c_{\theta} c_{\phi} \\
+s_{\theta} s_{\phi} &amp; c_{\theta} &amp; s_{\theta} c_{\phi} \\
+s_{\psi} c_{\phi} + c_{\psi} c_{\theta} s_{\phi} &amp; -c_{\psi} s_{\theta} &amp; -s_{\psi} s_{\phi} + c_{\psi} c_{\theta} c_{\phi} \end{array} \right] $
+
+Euler 232 sequence \\
+
+$ R_2(\psi)R_3(\theta)R_2(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} c_{\phi}  - s_{\psi} s_{\phi} &amp; c_{\psi} s_{\theta}  &amp; c_{\psi} c_{\theta} s_{\phi} + s_{\psi} c_{\phi}   \\
+-s_{\theta} c_{\phi}  &amp; c_{\theta} &amp; -s_{\theta} s_{\phi} \\
+-s_{\psi} c_{\theta} c_{\phi}  &amp; -s_{\psi} s_{\theta} &amp;  - s_{\psi} c_{\theta} s_{\phi} +  c_{\psi} c_{\phi}  \end{array} \right] $
+
+Euler 312 sequence  \\
+
+$ R_2(\psi)R_1(\theta)R_3(\phi) = \left[  \begin{array}{ccc}
+c_{\psi} c_{\phi} - s_{\psi} s_{\theta} s_{\phi} &amp; c_{\psi} s_{\phi} + s_{\psi} s_{\theta} c_{\phi} &amp; -s_{\psi} c_{\theta}  \\
+-s_{\phi} c_{\theta} &amp; c_{\theta} c_{\phi}  &amp; s_{\theta} \\
+s_{\psi} c_{\phi} + c_{\psi} s_{\theta} s_{\phi} &amp; s_{\psi} s_{\phi} - c_{\psi} s_{\theta} c_{\phi} &amp; c_{\psi} c_{\theta} \end{array} \right] $
+
+Euler 321 sequence  \\
+
+$ R_1(\psi)R_2(\theta)R_3(\phi) = \left[ \begin{array}{ccc}
+c_{\theta} c_{\phi} &amp; c_{\theta} s_{\phi}  &amp; s_{\theta}  \\
+- c_{\psi} s_{\phi} -  s_{\psi} s_{\theta} c_{\phi} &amp; c_{\psi} c_{\phi} - s_{\psi} s_{\theta} s_{\phi} &amp; s_{\psi} c_{\theta} \\
+s_{\psi} c_{\phi} - c_{\psi} s_{\theta} s_{\phi}  &amp; -s_{\psi} c_{\phi} - c_{\psi} s_{\theta} s_{\phi} &amp; c_{\psi} c_{\theta}  \end{array} \right] $
+
+Euler 313 sequence \\
+
+$ R_3(\psi)R_1(\theta)R_3(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\phi} - s_{\psi} s_{\phi} c_{\theta} &amp; c_{\psi} s_{\phi} + s_{\psi} c_{\theta} c_{\phi} &amp; s_{\psi} s_{\theta} \\
+-s_{\psi} c_{\phi} - c_{\psi} s_{\phi} c_{\theta} &amp; -s_{\psi} s_{\phi} + c_{\psi} c_{\theta} c_{\phi} &amp; c_{\psi} s_{\theta} \\
+s_{\theta} s_{\phi} &amp; -s_{\theta} c_{\phi} &amp; c_{\theta} \end{array} \right] $
+
+Euler 323 sequence \\
+
+$ R_3(\psi)R_2(\theta)R_3(\phi) = \left[ \begin{array}{ccc}
+c_{\psi} c_{\theta} c_{\phi} - s_{\psi} s_{\phi} &amp; c_{\psi} c_{\theta} s_{\phi} + s_{\psi} c_{\phi} &amp; c_{\psi} \\
+- s_{\psi} c_{\theta} c_{\phi} - c_{\psi} s_{\phi} &amp; -s_{\psi} c_{\theta} s_{\phi} + c_{\psi} c_{\phi} &amp; -s_{\psi} s_{\theta} \\
+-s_{\theta} c_{\phi} &amp; -s_{\theta} s_{\phi} &amp; c_{\theta} \end{array} \right] $</content>
+</record>

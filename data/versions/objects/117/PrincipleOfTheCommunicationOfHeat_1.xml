@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="117">
+ <title>Principle of the communication of heat</title>
+ <name>PrincipleOfTheCommunicationOfHeat</name>
+ <created>2006-02-16 19:56:30</created>
+ <modified>2006-02-16 19:56:30</modified>
+ <type>Topic</type>
+<parent id="113">The Analytical Theory of Heat</parent>
+ <creator id="1" name="bloftin"/>
+ <modifier id="1" name="bloftin"/>
+ <author id="1" name="bloftin"/>
+ <classification>
+	<category scheme="msc" code="05.70.-a"/>
+ </classification>
+ <related>
+	<object name="AnalyticalTheoryOfHeat"/>
+ </related>
+ <preamble>% this is the default PlanetMath preamble.  as your knowledge
+% of TeX increases, you will probably want to edit this, but
+% it should be fine as is for beginners.
+
+% almost certainly you want these
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% used for TeXing text within eps files
+%\usepackage{psfrag}
+% need this for including graphics (\includegraphics)
+%\usepackage{graphicx}
+% for neatly defining theorems and propositions
+%\usepackage{amsthm}
+% making logically defined graphics
+%\usepackage{xypic}
+
+% there are many more packages, add them here as you need them
+
+% define commands here</preamble>
+ <content>\subsection{SECTION III}
+\subsection{Principle of the communication of heat.}
+From The Analytical Theory of Heat by Joseph Fourier
+
+{\bf 57.}  We now proceed to examine what experiments teach us concerning the communication of heat.
+
+If two equal molecules are formed of the same substance and have the same temperature, each of them receives from the other as much heat as it gives up to it; their mutual action may then be regarded as null, since the result of this action can bring about no change in the state of the molecules.  If, on the contrary, the first is hotter than the second, it sends to it more heat than it receives from it; the result of the mutual action is the difference of these two quantities of heat.  In all cases we make abstraction of the two equal quantities of heat which any two material points reciprocally give up; we conceive that the point most heated acts only on the other, and that, in virtue of this action, the first loses a certain quantity of heat which is acquired by the second.  Thus the action of two molecules, or the quantity of heat which the hottest communicates to the other, is the difference of the two quantities which they give up to each other.
+
+{\bf 58.}  Suppose that we place in air a solid homogeneous body, whose different points have unequal actual temperatures; each of the molecules of which the body is composed will begin to receive heat from those which are at extremely small distances, or will communicate it to them.  This action exerted during the same instant between all points of the mass, will produce an infinitesimal resultant change in all the temperatures: the solid will experience at each instant similar effects, so that the variations of temperature will become more and more sensible.
+
+Consider only the system of tqo molecules, $m$ and $n$, equal and extremely near, and let us ascertain what quantity of heat the first can receive from the second during one instant: we may then apply the same reasoning to all the other points which are near enough to the point $m$, to act directly on it during the first instant.
+
+\subsection{References}
+
+This chapter is a derivative from the public domain work in [1].
+
+[1] Fourier, Joseph. "The Analytcal Theory of Heat" Translation by Alexander Freeman, Cambridge: At the University Press, London, 1878.</content>
+</record>

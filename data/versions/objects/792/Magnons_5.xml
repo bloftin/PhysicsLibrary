@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="5" id="792">
+ <title>magnons</title>
+ <name>Magnons</name>
+ <created>2009-06-08 01:49:55</created>
+ <modified>2009-06-08 02:04:24</modified>
+ <type>Definition</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+	<category scheme="msc" code="03."/>
+ </classification>
+ <defines>
+	<concept>magnon excitation</concept>
+	<concept>magnon dispersion relation</concept>
+	<concept>two-magnon dispersion</concept>
+	<concept>SWR</concept>
+	<concept>FMR</concept>
+	<concept>ferromagnetic resonance</concept>
+	<concept>spin-wave excitations</concept>
+	<concept>Cu $K_\alpha$ edge resonant inelastic X-ray scattering spectra</concept>
+	<concept>RIXS</concept>
+	<concept>neutron inelastic scattering</concept>
+	<concept>short range antiferromagnetic fluctuations and symmetry breaking</concept>
+ </defines>
+ <keywords>
+	<term>magnons</term>
+	<term>magnon dispersion</term>
+	<term>magnon dispersion relation</term>
+	<term>two-magnon dispersion</term>
+	<term>SWR</term>
+	<term>FMR</term>
+	<term>ferromagnetic resonance</term>
+	<term>spin-wave excitations</term>
+	<term>Cu $K_\alpha$ edge resonant inelastic X-ray scattering spectra</term>
+	<term>RIXS</term>
+	<term>neutron inelastic scattering</term>
+	<term>short range antiferromagnetic fluctuations and symmetry breaking</term>
+ </keywords>
+ <preamble></preamble>
+ <content>\section{Magnons}
+{\em Magnons} are defined as collective excitations of a magnetic lattice that possesses long range magnetic order; more specifically, a single 
+{\em magnon} excitation corresponds to the change by one unit of the magnetic moment of the lattice or system. This non-local nature of magnons is the cause of the experimentally observed dispersive behavior, that is a non-linear or non-constant relation between the transferred momentum and the transferred energy of the magnetic lattice upon its excitation. A typical value for the peak of the transferred energy is on the order of 0.5 eV. 
+
+Two- and mutiple- magnon dispersion phenomena have been reported, and were recently employed to explain the nonlinear dispersion behavior of both crystalline and non-crystalline systems with long range ordering compared with the atomic scale. 
+
+\subsection{Experimental observation of non-linear magnon dispersion}
+ Experimentally, magnon dispersions have been detected by resonant microwave absorption in external magnetic fields (that is, by Spin-Wave Resonance excitation (SWR) and ferromagnetic resonance (FMR)) for ferromagnetic metallic glasses at ambient temperatures. Several neutron inelastic, as well as Cu $K_\alpha$ edge resonant inelastic X-ray scattering (RIXS), spectra were also reported for crystaline materials such as the undoped antiferromagnetic cuprates below 20 K.  
+
+\subsection{Applications}
+ Such measurements and corresponding theories are of significant interest for an improved understanding of high temperature superconductivity; upon doping ( for example with Ytrium or Lanthanum, and Barium) the long-range ordering antiferromagnetic lattice-- that was present in certain undoped copper oxide insulators-- becomes frustrated, thus leading to short range antiferromagnetic fluctuations, symmetry breaking and high temperature superconductivity.</content>
+</record>

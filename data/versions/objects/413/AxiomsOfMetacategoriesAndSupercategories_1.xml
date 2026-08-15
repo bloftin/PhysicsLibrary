@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<record version="1" id="413">
+ <title>axioms of metacategories and supercategories</title>
+ <name>AxiomsOfMetacategoriesAndSupercategories</name>
+ <created>2009-01-18 01:45:00</created>
+ <modified>2009-01-18 01:45:00</modified>
+ <type>Topic</type>
+ <creator id="441" name="bci1"/>
+ <modifier id="441" name="bci1"/>
+ <author id="441" name="bci1"/>
+ <classification>
+	<category scheme="msc" code="00."/>
+	<category scheme="msc" code="02."/>
+ </classification>
+ <keywords>
+	<term>axioms for metacategories and supercategories</term>
+ </keywords>
+ <preamble>% there are many more packages, add them here as you need them
+
+% define commands here
+\usepackage{amsmath, amssymb, amsfonts, amsthm, amscd, latexsym}
+\usepackage{xypic}
+\usepackage[mathscr]{eucal}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+%\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\renewcommand{\thefootnote}{\ensuremath{\fnsymbol{footnote%%@
+}}}
+\numberwithin{equation}{section}
+\newcommand{\Ad}{{\rm Ad}}
+\newcommand{\Aut}{{\rm Aut}}
+\newcommand{\Cl}{{\rm Cl}}
+\newcommand{\Co}{{\rm Co}}
+\newcommand{\DES}{{\rm DES}}
+\newcommand{\Diff}{{\rm Diff}}
+\newcommand{\Dom}{{\rm Dom}}
+\newcommand{\Hol}{{\rm Hol}}
+\newcommand{\Mon}{{\rm Mon}}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\Ker}{{\rm Ker}}
+\newcommand{\Ind}{{\rm Ind}}
+\newcommand{\IM}{{\rm Im}}
+\newcommand{\Is}{{\rm Is}}
+\newcommand{\ID}{{\rm id}}
+\newcommand{\GL}{{\rm GL}}
+\newcommand{\Iso}{{\rm Iso}}
+\newcommand{\Sem}{{\rm Sem}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\Sym}{{\rm Sym}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tor}{{\rm Tor}}
+\newcommand{\U}{{\rm U}}
+
+\newcommand{\A}{\mathcal A}
+\newcommand{\Ce}{\mathcal C}
+\newcommand{\D}{\mathcal D}
+\newcommand{\E}{\mathcal E}
+\newcommand{\F}{\mathcal F}
+\newcommand{\G}{\mathcal G}
+\newcommand{\Q}{\mathcal Q}
+\newcommand{\R}{\mathcal R}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\W}{\mathcal W}
+
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bK}{\mathbb{K}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bO}{\mathbb{O}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfX}{\mathbf{X}}
+\newcommand{\bfY}{\mathbf{Y}}
+\newcommand{\bfZ}{\mathbf{Z}}
+
+\renewcommand{\O}{\Omega}
+\renewcommand{\o}{\omega}
+\newcommand{\vp}{\varphi}
+\newcommand{\vep}{\varepsilon}
+
+\newcommand{\diag}{{\rm diag}}
+\newcommand{\grp}{{\mathbb G}}
+\newcommand{\dgrp}{{\mathbb D}}
+\newcommand{\desp}{{\mathbb D^{\rm{es}}}}
+\newcommand{\Geod}{{\rm Geod}}
+\newcommand{\geod}{{\rm geod}}
+\newcommand{\hgr}{{\mathbb H}}
+\newcommand{\mgr}{{\mathbb M}}
+\newcommand{\ob}{{\rm Ob}}
+\newcommand{\obg}{{\rm Ob(\mathbb G)}}
+\newcommand{\obgp}{{\rm Ob(\mathbb G')}}
+\newcommand{\obh}{{\rm Ob(\mathbb H)}}
+\newcommand{\Osmooth}{{\Omega^{\infty}(X,*)}}
+\newcommand{\ghomotop}{{\rho_2^{\square}}}
+\newcommand{\gcalp}{{\mathbb G(\mathcal P)}}
+
+\newcommand{\rf}{{R_{\mathcal F}}}
+\newcommand{\glob}{{\rm glob}}
+\newcommand{\loc}{{\rm loc}}
+\newcommand{\TOP}{{\rm TOP}}
+
+\newcommand{\wti}{\widetilde}
+\newcommand{\what}{\widehat}
+
+\renewcommand{\a}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\del}{\partial}
+\newcommand{\ka}{\kappa}
+\newcommand{\si}{\sigma}
+\newcommand{\ta}{\tau}
+\newcommand{\lra}{{\longrightarrow}}
+\newcommand{\ra}{{\rightarrow}}
+\newcommand{\rat}{{\rightarrowtail}}
+\newcommand{\oset}[1]{\overset {#1}{\ra}}
+\newcommand{\osetl}[1]{\overset {#1}{\lra}}
+\newcommand{\hr}{{\hookrighta</preamble>
+ <content>\section{Topic on axioms for metacategories and supercategories }
+Let us recall that \PMlinkname{supercategories}{Supercategories3} were defined as mathematical interpretations of ETAS axioms (\cite{ICB3}). As ETAS is a natural extension of Lawvere's Elementary Theory of Abstract Categories (ETAC),
+(\cite{LW1,LW2}) that expands ETAC (\cite{ICB3,ICB1}) to higher dimensions (\cite{BGB2}), one can generalize the theory of categories to higher dimensions-- as in Higher Dimensional Algebra (HDA)-- and also allow multiple composition laws and higher dimensional, functorial morphisms of several variables to be employed in supercategories.
+
+
+\textbf{Remarks} Related concepts to the general supercategory notion recalled above can be also rendered graphically on a computer as \PMlinkname{multigraphs}{Multigraph} or a hypergraph.
+
+
+
+\begin{definition}
+A more recent version of Lawvere's axioms was presented by MacLane (2000) in which a
+\emph{metagraph} is first defined as a structure consisting of \emph{objects} $a,b,c,...x,y,z$,
+\emph{arrows} $f, g, h, ...$, and two \emph{operations}-- the Domain (which assigns to each arrow $f$ an object
+$a=dom~ f$), and a Codomain (which assigns to each arrow $f$ an object $b= cod~ f$. Such
+operations can be readily represented by displaying $f$ as an actual arrow $. \to.$
+starting at the $dom ~ f$ and ending at $cod ~ f$, $f: a \to b$. With this pictorial, or `geometric'
+representation, a finite number of arrows is depicted as a \emph{finite graph}.
+Then, one defines a \emph{metacategory} as a \emph{metagraph} with two additional operations, \emph{Identity}
+and \emph{Composition}(viz. \cite{SML2k}). \emph{Identity} assigns to each object $a$ an arrow $id_a =
+1_a: a \to a$. A $composition$ operation assigns to each pair of arrows $(f,g)$ with $dom ~g = cod~ f$ an arrow
+called their composite, $g \circ f : dom~ f \to cod~ g$. \\
+(See also the Remark and Example following this definition).
+
+A metacategory is also subject to two additional axioms specified as the \emph{Associativity} and
+\emph{Unit law}. \emph{Associativity} requires that one always has the equality:
+$k \circ (g \circ f) = (k \circ g) \circ f$ for any given objects and arrows in the sequence:
+$ f:a \to b, g: b \to c, k: c \to d$, whenever the compositions involved are defined.
+The \emph{Unit (law) axiom} asserts that the identity arrow $1_b$
+yields: $1_b \circ f = f$ and $ g \circ 1_b = g$, for any $f: a \to b$ and $g: b \to c$. \\
+
+Then, an extension of a metagraph to a `super-metagraph' with $(n+1)$ operations, $n$ of which are compositions
+$ \circ, *, \bullet, ...$ (or $\Gamma_1, \Gamma_2,...\Gamma_n$), and an additional operation being the \emph{Identity},
+defines a \emph{supercategory} if the \emph{Unit law} is also satisfied for all identity arrows.
+\end{definition}
+
+\textbf{Remark and a Graphic Example of a Supercategory.} A pictorial representation of a particular class of metagraphs --the class of multigraphs, $M_g$-- is also useful as a visual or `geometric' (or topological) representation of a specific example of a supercategory defined over the topological space of the multigraph with the composition operations of the supercategory heteromorphisms defined, in this case of the multigraph, by the concatenations of the multigraph vertices in $n$ dimensions for a finite , $n$-dimensional multigraph that can be graphically rendered on a computer.
+
+\textbf{Note:} \emph{A Supercomputer and its Operating Systems (\textbf{$OS_s$}) can be considered also as a practical realization of the concept of $n$-dimensional multigraph, and therefore as a specific example of a supercategory}
+(but not of a super-category).
+
+
+Let us recall here Lawvere's ETAC axioms that are similar to the more concise version of MacLane's
+metacategory axioms (MacLane, 2000).
+
+\begin{definition} \emph{ETAC Axioms}, (\cite{LW2}):
+
+0. For any letters $x, y, u, A, B$, and \emph{unary function} symbols $\Delta_0$ and $\Delta_1$,
+and \emph{composition law} $\Gamma$, the following are defined as \emph{formulas}: $\Delta_0 (x) = A$,
+$\Delta_1 (x) = B$, $\Gamma (x,y;u)$, and $ x = y$; These formulas are to be, respectively, interpreted as
+``$A$ is the domain of $x$", ``$B$ is the codomain, or range, of $x$", ``$u$ is the composition of $x$ followed by $y$",
+and ``$x$ equals $y$".
+
+1. If $\Phi$ and $\Psi$ are formulas, then ``$[\Phi]$ and $[\Psi]$'' , ``$[\Phi]$ or$[\Psi]$'', ``$[\Phi] \Rightarrow [\Psi]$'', and ``$[not \Phi]$'' are also formulas.
+
+2. If $\Phi$ is a formula and $x$ is a letter, then ``$ \forall x[\Phi]$'',
+``$ \exists x[\Phi]$'' are also formulas.
+
+3. A string of symbols is a formula in ETAC iff it follows from the above axioms 0 to 2.
+
+A \emph{sentence} is then defined as any formula in which every occurrence of each letter $x$ is within the scope of a quantifier, such as $\forall x$ or $\exists x $. The \emph{theorems} of ETAC are defined as all those sentences which can be derived through logical inference from the following ETAC axioms:
+
+4. $\Delta_i(\Delta_j(x))=\Delta_j(x)$ for $i,j = 0, 1$.
+
+5a. $\Gamma(x,y;u)$ and $\Gamma(x,y;u')\Rightarrow u = u'$.
+
+5b. $ \exists u [\Gamma(x,y;u)] \Rightarrow \Delta_1(x) = \Delta_0(y)$;
+
+5c. $\Gamma(x,y;u) \Rightarrow \Delta_0(u) = \Delta_0(x)$ and $\Delta_1(u) = \Delta_1(y)$.
+
+6. Identity axiom:
+$ \Gamma(\Delta_0 (x), x;x)$ and $ \Gamma(x, \Delta_1 (x);x)$ yield always the same result.
+
+7. Associativity axiom: $\Gamma(x,y;u)$ and $\Gamma(y,z;w)$ and $\Gamma(x,w;f)$ and $\Gamma(u,z;g)\Rightarrow f = g $.
+With these axioms in mind, one can see that commutative diagrams can be now regarded as certain
+\textit{abbreviated} formulas corresponding to systems of equations such as:
+$\Delta_0(f) = \Delta_0(h) = A$, $\Delta_1(f) = \Delta_0(g) = B$, $\Delta_1(g) = \Delta_1(h) = C$
+and $\Gamma(f,g;h)$, instead of $g\circ f = h$ for the arrows f, g, and h, drawn respectively between the
+`objects' A, B and C, thus forming a `triangular commutative diagram' in the usual sense of category theory. Compared with the ETAC formulas such diagrams have the advantage of a geometric--intuitive image of their equivalent underlying equations. The common property of A of being an object is written in shorthand as the abbreviated formula Obj(A) standing for the following three equations:
+
+8a. $A = \Delta_0(A) = \Delta_1(A)$,
+
+8b. $ \exists x[A = \Delta_0 (x)] \exists y[A = \Delta_1 (y)]$,
+
+and
+
+8c. $\forall x \forall u [\Gamma (x,A; u)\Rightarrow x = u]$ and
+$ \forall y \forall v [\Gamma (A,y; v)] \Rightarrow y = v$ .
+
+With this terminology and axioms, a \textit{category} is meant to be any structure which is a direct interpretation of ETAC. A \textit{functor} is then understood to be a \textit{triple} consisting of two such categories and of a rule F (`the functor') which assigns to each arrow or morphism $x$ of the first category,
+a unique morphism, written as `$F(x)$' of the second category, in such a way that the usual two conditions on both objects and arrows in the standard functor definition are fulfilled --the functor is well behaved, it carries object identities to image object identities, and commutative diagrams to image commmutative diagrams of the corresponding image objects and image morphisms. At the next level, one then defines \emph{natural transformations} or \emph{functorial morphisms} between functors as metalevel abbreviated formulas and equations pertaining to commutative diagrams of the distinct images of two functors acting on both objects and morphisms. As the name indicates natural transformations are also well--behaved in terms of the ETAC equations satisfied.
+\end{definition}
+
+\section{ETAS Axioms:}
+\begin{enumerate}
+\item \textbf{(S1)}. All symbols, formulas and the eight axioms defined in ETAC are, respectively, also ETAS symbols, formulas and axioms; thus, for any letters $x, y, i, u, A, B$, and \emph{unary function} symbols $\Delta_0$ and $\Delta_1$, and \emph{composition laws} $\Gamma_i$, the following are defined as \emph{formulas}: $\Delta_0 (x) = A$,$\Delta_1 (x) = B$, $\Gamma (x,y;u)$, and $ x = y$.
+
+The above formulas are to be, respectively, interpreted as ``$A$ is the domain of $x$", ``$B$ is the codomain, or range, of $x$", ``$u$ is the composition $x$ followed by $y$", and ``$x$ equals $y$"; letters $i, j, k, l, m, ...$ are to be interpreted as ``either element, set or class ($ C$ ) indices". An example of valid ETAC and ETAS formula is a couple or pair of two letters written as ``$(x,y)$"; a more general related example is that of Cartesian or direct products ${\Pi}_{i ~ in ~ C}$.
+
+\item \textbf{(S2)}. There are several composition laws defined in ETAS (as distinct from ETAC where there is only one composition law for each interpretation in any specific type of category ); such multiple composition laws $\Gamma_i$, with $i ~in~ C$ are interpreted as ``definitions of multiple (specific) mathematical structures, within the same supercategory $\mathcal{\S}$" .
+\end{enumerate}
+
+In the case of general algebras, the multiple composition laws are interpreted as \emph{``definitions of algebraic structures"}, (whereas \emph{Categorical Algebra} is interpreted as being ``defined by a single composition law
+${\Gamma}_1 = \circ $ (or ``*" for -involution or $C^*$ -algebras )". An ETAC structure is thus identified by the singleton $\left\{1 \right\}$ index set.
+
+\textbf{Examples of Supercategories} are: pseudographs, hypergraphs, any 1-category, any categorical algebra,
+$n$-categories, functor categories, super-categories, super-diagrams, functor supercatgeories, double groupoids, double categories, organismic supercategories, self-replicating quantum automata, standard Heyting topos, generalized $LM_n$-logic algebra topoi, double algebroids, super-categories of double algebroids, and any higher dimensional algebra (HDA).
+
+
+\begin{thebibliography}{9}
+\bibitem{ICB3}
+I.C. Baianu: 1970, Organismic Supercategories: II. On Multistable Systems. \emph{Bulletin of Mathematical Biophysics}, \textbf{32}: 539-561.
+
+\bibitem{ICB1}
+I.C. Baianu : 1971a, Organismic Supercategories and Qualitative Dynamics of Systems. \emph{Bulletin of Mathematical Biophysics}, \textbf{33} (3), 339--354.
+
+\bibitem{ICB6}
+I.C. Baianu: 1977, A Logical Model of Genetic Activities in \L ukasiewicz Algebras: The Non-linear Theory. \emph{Bulletin of Mathematical Biophysics}, \textbf{39}: 249-258.
+
+\bibitem{ICB7}
+I.C. Baianu: 1980, Natural Transformations of Organismic Structures. \emph{Bulletin of Mathematical Biophysics}
+\textbf{42}: 431-446.
+
+\bibitem{BBGG1}
+I.C. Baianu, Brown R., J. F. Glazebrook, and Georgescu G.: 2006, Complex Nonlinear Biodynamics in
+Categories, Higher Dimensional Algebra and \L ukasiewicz--Moisil Topos: Transformations of
+Neuronal, Genetic and Neoplastic networks, \emph{Axiomathes} \textbf{16} Nos. 1--2, 65--122.
+
+\bibitem{BHS2}
+R. Brown R, P.J. Higgins, and R. Sivera.: \emph{``Non-Abelian Algebraic Topology''},{\em (vol. 2. in preparation)}.
+(2008).
+
+\bibitem{BGB2}
+R. Brown, J. F. Glazebrook and I. C. Baianu: A categorical and higher dimensional algebra framework for complex systems and spacetime structures, \emph{Axiomathes} \textbf{17}:409--493.
+(2007).
+
+\bibitem{BS}
+R. Brown and C.B. Spencer: Double groupoids and crossed modules,
+\emph{Cahiers Top. G\'eom.Diff.} \textbf{17} (1976), 343--362.
+
+\bibitem{LW1}
+W.F. Lawvere: 1963. Functorial Semantics of Algebraic Theories. \emph{Proc. Natl. Acad. Sci. USA}, 50: 869--872
+
+\bibitem{LW2}
+W. F. Lawvere: 1966. The Category of Categories as a Foundation for Mathematics. , In {\em Proc. Conf. Categorical Algebra--La Jolla}, 1965, Eilenberg, S et al., eds. Springer --Verlag: Berlin, Heidelberg and New York, pp. 1--20.
+
+\bibitem{LO68}
+L. L\"ofgren: 1968. On Axiomatic Explanation of Complete Self--Reproduction. \emph{Bull. Math. Biophysics},
+\textbf{30}: 317--348.
+
+\bibitem{SML2k}
+S. Mac Lane. 2000. Ch.1: Axioms for Categories, in \emph{Categories for the Working Mathematician}. Springer: Berlin, 2nd Edition.
+\end{thebibliography}</content>
+</record>
