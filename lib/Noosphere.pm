@@ -166,8 +166,13 @@ sub getMainMenu {
 	my $request_count = '';
 	$request_count = "($count)" if ($count);
 
+	$count = orphanCount();
+	my $orphan_count = '';
+	$orphan_count = "($count)" if ($count);
+
 	my $vars = {
 		requests => $request_count,
+		orphans => $orphan_count,
 	};
 
     my $tt = Template->new({
