@@ -162,7 +162,13 @@ sub getMainMenu {
 	my $html = '';
 
 
-	my $vars;
+	my $count = getUnfilledReqCount();
+	my $request_count = '';
+	$request_count = "($count)" if ($count);
+
+	my $vars = {
+		requests => $request_count,
+	};
 
     my $tt = Template->new({
 		INCLUDE_PATH => '/var/www/pp/stemplates',

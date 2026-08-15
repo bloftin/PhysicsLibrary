@@ -40,6 +40,9 @@
                                     </center>
 
                                     <div style="height: 20px; display: block; font-size: 16px">
+                                        <a href="/?op=reqlist">Requests [% requests %]</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
                                         <a href="/browse/categories/">Classification</a>
                                     </div>
 
