@@ -36,7 +36,7 @@
             </center>
         </xsl:with-param>
     </xsl:call-template>
-    <xsl:if test="$admin">
+    <xsl:if test="admin">
         <xsl:call-template name="adminbox">
             <xsl:with-param name="title">Admin</xsl:with-param>
             <xsl:with-param name="content">
@@ -50,23 +50,23 @@
 </xsl:template>
 
 <xsl:template match="request">
-    <xsl:if test="@fillhref">
-        [ <a><xsl:attribute name="href"><xsl:value-of select="@fillhref"/></xsl:attribute><b>fill</b></a>
-        | <a><xsl:attribute name="href"><xsl:value-of select="@updatehref"/></xsl:attribute>update</a>
+    <xsl:if test="fillhref">
+        [ <a><xsl:attribute name="href"><xsl:value-of select="fillhref"/></xsl:attribute><b>fill</b></a>
+        | <a><xsl:attribute name="href"><xsl:value-of select="updatehref"/></xsl:attribute>update</a>
         ]<xsl:text> </xsl:text>
     </xsl:if>
     <xsl:value-of select="date"/><xsl:text> </xsl:text>
     <a>
-        <xsl:attribute name="href"><xsl:value-of select="title/@href"/></xsl:attribute><xsl:value-of select="title"/>
+        <xsl:attribute name="href"><xsl:value-of select="title/href"/></xsl:attribute><xsl:value-of select="title/text"/>
     </a>
     <font size="-1"> requested by </font>
     <a>
-        <xsl:attribute name="href"><xsl:value-of select="requester/@href"/></xsl:attribute><xsl:value-of select="requester"/>
+        <xsl:attribute name="href"><xsl:value-of select="requester/href"/></xsl:attribute><xsl:value-of select="requester/text"/>
     </a>
     <xsl:if test="filler">
         <xsl:text> </xsl:text><font size="-1"><b>filled</b> by </font>
         <a>
-            <xsl:attribute name="href"><xsl:value-of select="filler/@href"/></xsl:attribute><xsl:value-of select="filler"/>
+            <xsl:attribute name="href"><xsl:value-of select="filler/href"/></xsl:attribute><xsl:value-of select="filler/text"/>
         </a>
     </xsl:if>
     <xsl:apply-templates select="messages"/>

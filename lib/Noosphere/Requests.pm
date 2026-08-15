@@ -11,7 +11,7 @@ sub getReqInteract {
 
 	my $title=urlescape($rec->{title});
 
-	return makeBox('Interact',"<center><a href=\"".getConfig("main_url")."/?op=addreq\">add</a> | <a href=\"".getConfig("main_url")."/?op=adden&request=$rec->{uid}&title=$title\">fill</a> | <a href=\"".getConfig("main_url")."/?op=updatereq&reqest=$rec->{uid}\">update</a> | <a href=\"".getConfig("main_url")."/?op=postmsg&from=$table&id=$rec->{uid}\">post</a></center>");
+	return makeBox('Interact',"<center><a href=\"".getConfig("main_url")."/?op=addreq\">add</a> | <a href=\"".getConfig("main_url")."/?op=adden&request=$rec->{uid}&title=$title\">fill</a> | <a href=\"".getConfig("main_url")."/?op=updatereq&request=$rec->{uid}\">update</a> | <a href=\"".getConfig("main_url")."/?op=postmsg&from=$table&id=$rec->{uid}\">post</a></center>");
 }
 
 # get a count of unfilled requests
@@ -548,24 +548,31 @@ sub reqList {
 		foreach my $row (@rowsa, @rowsb) {
 				my $date = ymd($row->{created});
 
-				# <request [fillhref="..." updatehref="..."]>
+				# <request>
+				#		 [<fillhref>...</fillhref>]
+				#		 [<updatehref>...</updatehref>]
 				#		 <date>YYYY-MM-DD</date>
 				#		 <title href="...">...</title>
 				#		 <requester href="...">...</requester>
 				#		 [<filler href="...">...</filler>]
 				#		 [<messages [unseen="n"] total="n"/>]
 				# </request>
-				$template->addText("<request");
+				$template->addText("<request>\n");
 				if(not defined($row->{fulfilled})) {
 						my $title = urlescape($row->{title});
 
-						$template->addText(" fillhref=\"".getConfig("main_url")."/?op=adden;request=$row->{uid};title=$title\"\n");
-						$template->addText(" updatehref=\"".getConfig("main_url")."/?op=updatereq;request=$row->{uid}\"\n");
+						$template->setKey('fillhref', getConfig("main_url")."/?op=adden;request=$row->{uid};title=$title");
+						$template->setKey('updatehref', getConfig("main_url")."/?op=updatereq;request=$row->{uid}");
 		}
-				$template->addText(">\n");
 				$template->addText("<date>$date</date>\n");
-				$template->addText("<title href=\"".getConfig("main_url")."/?op=getobj;from=$table;id=$row->{uid}\">".htmlescape($row->{title})."</title>\n");
-				$template->addText("<requester href=\"".getConfig("main_url")."/?op=getuser;id=$row->{creatorid}\">$row->{username}</requester>\n");
+				$template->addText("<title>\n");
+				$template->setKey('href', getConfig("main_url")."/?op=getobj;from=$table;id=$row->{uid}");
+				$template->setKey('text', $row->{title});
+				$template->addText("</title>\n");
+				$template->addText("<requester>\n");
+				$template->setKey('href', getConfig("main_url")."/?op=getuser;id=$row->{creatorid}");
+				$template->setKey('text', $row->{username});
+				$template->addText("</requester>\n");
 				$template->addText(msgCountWithNewXML($table, $row->{uid}, $userinf->{uid}));
 				if(defined($row->{fulfilled})) {
 						($rv, $sth) = dbSelect($dbh, { WHAT => 'username',
@@ -574,12 +581,15 @@ sub reqList {
 						my $urec = $sth->fetchrow_hashref();
 
 						$sth->finish();
-						$template->addText("<filler href=\"".getConfig("main_url")."/?op=getuser;id=$row->{fulfillerid}\">$urec->{username}</filler>\n");
+						$template->addText("<filler>\n");
+						$template->setKey('href', getConfig("main_url")."/?op=getuser;id=$row->{fulfillerid}");
+						$template->setKey('text', $urec->{username});
+						$template->addText("</filler>\n");
 				}
 				$template->addText("</request>\n");
 		}
+		$template->setKey('admin', '1') unless $userinf->{data}->{access} < getConfig('access_admin');
 		$template->addText("</requests>\n");
-		$template->setParam('admin', '1') unless $userinf->{data}->{access} < getConfig('access_admin');
 		return $template->expand();
 }
 
