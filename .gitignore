@@ -1,5 +1,12 @@
 data/cache
 db/11Apr2011.sql
 bin/testlatex2html
-data/stats
 lib/Noosphere/baseconf.pm
+
+# Runtime/generated site data. Existing tracked files remain tracked.
+data/versions/
+data/files/objects/
+data/files/books/
+data/files/papers/
+data/files/lec/
+data/stats/
