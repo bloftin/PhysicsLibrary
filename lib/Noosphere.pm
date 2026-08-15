@@ -170,9 +170,16 @@ sub getMainMenu {
 	my $orphan_count = '';
 	$orphan_count = "($count)" if ($count);
 
+	my $uc_count = '';
+	if (getConfig('classification_supported')) {
+		$count = $stats->get('unclassified_objects');
+		$uc_count = "($count)" if ($count);
+	}
+
 	my $vars = {
-		requests => $request_count,
-		orphans => $orphan_count,
+		requests     => $request_count,
+		orphans      => $orphan_count,
+		unclassified => $uc_count,
 	};
 
     my $tt = Template->new({
