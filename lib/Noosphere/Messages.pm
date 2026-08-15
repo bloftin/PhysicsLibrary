@@ -160,6 +160,49 @@ sub getLatestMessagesXML {
 	return $xml;
 }
 
+# get HTML for most recent visible messages
+#
+sub getLatestMessages {
+	my $mtbl = getConfig('message_tbl');
+	my $utbl = getConfig('user_tbl');
+	my ($rv, $sth) = dbSelect($dbh, {
+		WHAT => "$mtbl.*, username",
+		FROM => "$mtbl, $utbl",
+		WHERE => "$mtbl.userid = $utbl.uid and $mtbl.visible = 1",
+		'ORDER BY' => "$mtbl.created",
+		DESC => 1,
+		LIMIT => getConfig('latest_messages')
+	});
+
+	return clearBox('Latest Messages', 'query error') unless $rv;
+
+	my $html = '';
+	while (my $row = $sth->fetchrow_hashref()) {
+		my $date = htmlescape(mdhm($row->{'created'}));
+		my $title = htmlescape($row->{'subject'});
+		my $username = htmlescape($row->{'username'});
+		my $href = getConfig('main_url')."/?op=getmsg&amp;id=$row->{uid}";
+		my $thref = getConfig('main_url')."/?op=getmsg&amp;id=$row->{threadid}";
+		my $ohref = getConfig('main_url')."/?op=getobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}";
+		my $uhref = getConfig('main_url')."/?op=getuser&amp;id=$row->{userid}";
+
+		$html .= "$date - ";
+		$html .= "<a href=\"$ohref\" title=\"go to the parent object or forum containing this message\"><img alt=\"parent\" src=\"".getConfig('image_url')."/object.png\" border=\"0\" /></a> ";
+
+		if ($href ne $thref) {
+			$html .= "<a href=\"$thref\" title=\"go to the top of the thread containing this message\"><img alt=\"thread top\" src=\"".getConfig('image_url')."/uparrow.png\" border=\"0\" /></a> ";
+		}
+
+		$html .= "<a href=\"$href\">$title</a> by <a href=\"$uhref\">$username</a><br />";
+	}
+	$sth->finish();
+
+	$html ||= '<font size="-1">No messages.</font>';
+	$html .= '<p /><center><a href="'.getConfig('main_url').'/?op=messageschrono">(see more)</a></center>';
+
+	return clearBox('Latest Messages', $html);
+}
+
 # get some html which shows the count of messages posted to an object, and 
 # the number which are new
 #

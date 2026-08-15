@@ -924,6 +924,8 @@ sub buildMainPageTT {
 	my $mainMenubox = getMainMenu();
 
 	my $la = getLatestAdditions();
+	my $lm = getLatestModifications();
+	my $latest_messages = getLatestMessages();
 
 	my $top_users = getTopUsers();
 	my $poll = getCurrentPoll();
@@ -936,6 +938,8 @@ sub buildMainPageTT {
 		login           => $loginbox,
 		mainmenu        => $mainMenubox,
 		latestadditions => $la,
+		latestmessages  => $latest_messages,
+		latestrevisions => $lm,
 		poll            => $poll,
 		search_results	=> $search_results,
 		top_users       => $top_users,
