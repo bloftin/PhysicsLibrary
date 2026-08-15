@@ -752,12 +752,16 @@ sub handler {
 			my $headert = new TemplateNS( 'header.html' );
 			my $header = $headert->expand();
 			my $sidebar_html = '';
-			my $no_index = 0;
-			my $title = $params->{name};
-
-			if ( ($params->{op} eq 'vbrowser') or ($params->{op} eq 'viewdiff') or ($params->{op} eq 'viewver')) {
-				$no_index = 1;
-			}
+			my %noindex_ops = map { $_ => 1 } qw(
+				vbrowser
+				viewdiff
+				viewver
+				oldreqs
+				showwatchers
+				getcors
+			);
+			my $no_index = $noindex_ops{$params->{op}} ? 1 : 0;
+			my $title = $NoosphereTitle || $params->{name} || getConfig('projname');
 
 			$sidebar_html = fillInLeftBar($sidebar_html,$params,\%user_info);
 
@@ -767,6 +771,7 @@ sub handler {
 				sidebar       => $sidebar_html,
 				content       => $content,
 				title		  => $title,
+				site_name	  => getConfig('projname'),
  			};
 
 			my $tt = Template->new({
