@@ -305,24 +305,34 @@ sub globalViewCorrections {
 	$order = "DESC" if $params->{desc};
 
 	if($total == -1) {
-		($rv,$sth)=dbSelect($dbh,{
-			WHAT=>"count(*) as cnt",
-			FROM=>"corrections,$table,users as u1, users as u2",
-			WHERE=>"corrections.closed is null and $table.uid=corrections.objectid and corrections.userid=u1.uid and abs($table.userid)=u2.uid",
-		});
+		($rv,$sth)=dbLowLevelSelect($dbh,
+			"select count(c.uid) as cnt ".
+			"from $cor as c ".
+			"join $table as o on o.uid=c.objectid ".
+			"left outer join users as u1 on u1.uid=c.userid ".
+			"left outer join users as u2 on u2.uid=abs(o.userid) ".
+			"where c.closed is null");
 		my $row = $sth->fetchrow_hashref();
 		$total = $row->{cnt};
 		$sth->finish();
 	}
 
-	($rv,$sth) = dbSelect($dbh,{WHAT=>"corrections.*,$table.title as objtitle,u1.username as userfrom, u2.username as userto, u2.uid as usertoid, corrections.userid as userfromid",
-		 FROM=>"corrections,$table,users as u1, users as u2",
-		 WHERE=>"corrections.closed is null and $table.uid=corrections.objectid and corrections.userid=u1.uid and abs($table.userid)=u2.uid",
-		 'ORDER BY'=>'filed',
-		 $order=>'',
-		 OFFSET=>$offset,
-		 LIMIT=>$limit,
-		});
+	my $query =
+		"select c.*, o.title as objtitle, o.userid as objectuserid, ".
+		"u1.username as userfrom, u2.username as userto, ".
+		"u2.uid as usertoid, c.userid as userfromid ".
+		"from $cor as c ".
+		"join $table as o on o.uid=c.objectid ".
+		"left outer join users as u1 on u1.uid=c.userid ".
+		"left outer join users as u2 on u2.uid=abs(o.userid) ".
+		"where c.closed is null ".
+		"order by filed $order";
+
+	$query .= " offset $offset limit $limit" if getConfig('dbms') eq 'pg';
+	$query .= " limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$query .= " limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
+
+	($rv,$sth) = dbLowLevelSelect($dbh, $query);
 	
 	if (! $rv) {
 		return errorMessage("Error with query. Contact admin (unless you are an admin-- then panic.)");
@@ -341,8 +351,16 @@ sub globalViewCorrections {
 			my $date = ymd($row->{filed});
 			$html .= "<td valign=\"top\">$date</td>";
 			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$cor&amp;id=$row->{uid}\">$row->{title}</a><br>to: <a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$table&amp;id=$row->{objectid}\">$row->{objtitle}</a></td>";
- 			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{usertoid}\">$row->{userto}</a></td>";
-			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{userfromid}\">$row->{userfrom}</a></td>";
+			if (defined $row->{usertoid}) {
+				$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{usertoid}\">$row->{userto}</a></td>";
+			} else {
+				$html .= "<td valign=\"top\">nobody</td>";
+			}
+			if (defined $row->{userfrom}) {
+				$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{userfromid}\">$row->{userfrom}</a></td>";
+			} else {
+				$html .= "<td valign=\"top\">user #$row->{userfromid}</td>";
+			}
 			$html .= "</tr>\n";
 			$i++;
 		}

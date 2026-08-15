@@ -180,11 +180,16 @@ sub getMainMenu {
 	my $up_count = '';
 	$up_count = "($count)" if ($count);
 
+	$count = countGlobalPendingCorrections();
+	my $cor_count = '';
+	$cor_count = "($count)" if ($count);
+
 	my $vars = {
 		requests     => $request_count,
 		orphans      => $orphan_count,
 		unclassified => $uc_count,
 		unproven     => $up_count,
+		corrections  => $cor_count,
 	};
 
     my $tt = Template->new({
