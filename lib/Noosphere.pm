@@ -176,10 +176,15 @@ sub getMainMenu {
 		$uc_count = "($count)" if ($count);
 	}
 
+	$count = $stats->get('unproven_theorems');
+	my $up_count = '';
+	$up_count = "($count)" if ($count);
+
 	my $vars = {
 		requests     => $request_count,
 		orphans      => $orphan_count,
 		unclassified => $uc_count,
+		unproven     => $up_count,
 	};
 
     my $tt = Template->new({
