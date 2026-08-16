@@ -110,7 +110,7 @@
 		
 			<br /> <br />
 
-			Classification (See <a target="physicslibrary.popup" href="{//globals/main_url}/?op=pacsbrowse">MSC</a>):
+			Classification (See <a target="physicslibrary.popup" href="{//globals/main_url}/?op=pacsbrowse">PACS</a>):
 
 			<br />
 		
@@ -123,7 +123,7 @@
 		
 			<br />
 
-			<font size="-2">(examples: "msc:11F02", "msc:11F02, msc:11F03, msc:05R16". "msc:" can be ommitted, assumed by default.)</font>
+			<font size="-2">(examples: "01.65.+g", "00., 45.20.Jj, 04.25.Dm". "pacs:" can be omitted, assumed by default.)</font>
 
 		</xsl:if>
 
