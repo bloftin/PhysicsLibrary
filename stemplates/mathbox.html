@@ -1,4 +1,38 @@
 <!-- math box -->
+<style>
+	.pl-rendered-content table.BORDER,
+	.pl-rendered-content table.tabular {
+		border-collapse: collapse;
+	}
+
+	.pl-rendered-content table.BORDER th,
+	.pl-rendered-content table.BORDER td {
+		border: 1px solid #333333;
+		padding: 2px 4px;
+	}
+
+	.pl-rendered-content table.tabular td.td11,
+	.pl-rendered-content table.tabular th.td11 {
+		border-left: 1px solid #333333;
+		border-right: 1px solid #333333;
+		padding: 2px 4px;
+	}
+
+	.pl-rendered-content table.tabular tr.hline td {
+		border-left: 1px solid #333333;
+		border-right: 1px solid #333333;
+		height: 0;
+		line-height: 0;
+		padding: 0;
+	}
+
+	.pl-rendered-content table.tabular tr.hline hr {
+		border: 0;
+		border-top: 1px solid #333333;
+		height: 0;
+		margin: 0;
+	}
+</style>
 <table width="100%" style="table-layout: fixed;">
 	<tr>
 		<td bgcolor="#000000">
@@ -15,7 +49,7 @@
 				<!-- content -->
 				<tr>
 					<td WIDTH="100%" BGCOLOR="#ffffff" align="center">
-						<div style="width: 100%; overflow-x: auto; text-align: left;">
+						<div class="pl-rendered-content" style="width: 100%; overflow-x: auto; text-align: left;">
 							<NS:template content raw/>
 						</div>
 					</td>
