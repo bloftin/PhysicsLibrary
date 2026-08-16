@@ -280,6 +280,8 @@ sub reviseEncyclopedia {
 	my $rec = shift;
 	my $params = shift;
 	my $userinf = shift;
+
+	normalizeEncyclopediaSourceParams($params);
 	
 	my $parentid;
 	my $pq = '';

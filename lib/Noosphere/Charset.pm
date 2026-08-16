@@ -346,6 +346,69 @@ foreach my $key (keys %TEX_TO_UTF8) {
    if ($key =~ /^\\(?:\w+|.\\i|.\\j)\z/) {$UTF8_TEXSP{$code} = ''};
 };
 
+# Common Unicode punctuation pasted from browsers/editors. These do not have
+# useful reverse mappings in TeX source, but they should not reach TeX engines
+# as raw UTF-8 in legacy render modes.
+$UTF8_TO_TEX{0x00A0} = '~';        # non-breaking space
+$UTF8_TO_TEX{0x2018} = '`';        # left single quotation mark
+$UTF8_TO_TEX{0x2019} = "'";        # right single quotation mark/apostrophe
+$UTF8_TO_TEX{0x201C} = '``';       # left double quotation mark
+$UTF8_TO_TEX{0x201D} = "''";       # right double quotation mark
+$UTF8_TO_TEX{0x2013} = '--';       # en dash
+$UTF8_TO_TEX{0x2014} = '---';      # em dash
+$UTF8_TO_TEX{0x2026} = '\ldots{}'; # ellipsis
+$UTF8_TO_TEX{0x2212} = '-';        # minus sign
+
+# Common Greek letters pasted directly into TeX source.
+$UTF8_TO_TEX{0x0391} = 'A';
+$UTF8_TO_TEX{0x0392} = 'B';
+$UTF8_TO_TEX{0x0393} = '\ensuremath{\Gamma}';
+$UTF8_TO_TEX{0x0394} = '\ensuremath{\Delta}';
+$UTF8_TO_TEX{0x0395} = 'E';
+$UTF8_TO_TEX{0x0396} = 'Z';
+$UTF8_TO_TEX{0x0397} = 'H';
+$UTF8_TO_TEX{0x0398} = '\ensuremath{\Theta}';
+$UTF8_TO_TEX{0x0399} = 'I';
+$UTF8_TO_TEX{0x039A} = 'K';
+$UTF8_TO_TEX{0x039B} = '\ensuremath{\Lambda}';
+$UTF8_TO_TEX{0x039C} = 'M';
+$UTF8_TO_TEX{0x039D} = 'N';
+$UTF8_TO_TEX{0x039E} = '\ensuremath{\Xi}';
+$UTF8_TO_TEX{0x039F} = 'O';
+$UTF8_TO_TEX{0x03A0} = '\ensuremath{\Pi}';
+$UTF8_TO_TEX{0x03A1} = 'P';
+$UTF8_TO_TEX{0x03A3} = '\ensuremath{\Sigma}';
+$UTF8_TO_TEX{0x03A4} = 'T';
+$UTF8_TO_TEX{0x03A5} = '\ensuremath{\Upsilon}';
+$UTF8_TO_TEX{0x03A6} = '\ensuremath{\Phi}';
+$UTF8_TO_TEX{0x03A7} = 'X';
+$UTF8_TO_TEX{0x03A8} = '\ensuremath{\Psi}';
+$UTF8_TO_TEX{0x03A9} = '\ensuremath{\Omega}';
+$UTF8_TO_TEX{0x03B1} = '\ensuremath{\alpha}';
+$UTF8_TO_TEX{0x03B2} = '\ensuremath{\beta}';
+$UTF8_TO_TEX{0x03B3} = '\ensuremath{\gamma}';
+$UTF8_TO_TEX{0x03B4} = '\ensuremath{\delta}';
+$UTF8_TO_TEX{0x03B5} = '\ensuremath{\epsilon}';
+$UTF8_TO_TEX{0x03B6} = '\ensuremath{\zeta}';
+$UTF8_TO_TEX{0x03B7} = '\ensuremath{\eta}';
+$UTF8_TO_TEX{0x03B8} = '\ensuremath{\theta}';
+$UTF8_TO_TEX{0x03B9} = '\ensuremath{\iota}';
+$UTF8_TO_TEX{0x03BA} = '\ensuremath{\kappa}';
+$UTF8_TO_TEX{0x03BB} = '\ensuremath{\lambda}';
+$UTF8_TO_TEX{0x03BC} = '\ensuremath{\mu}';
+$UTF8_TO_TEX{0x03BD} = '\ensuremath{\nu}';
+$UTF8_TO_TEX{0x03BE} = '\ensuremath{\xi}';
+$UTF8_TO_TEX{0x03BF} = 'o';
+$UTF8_TO_TEX{0x03C0} = '\ensuremath{\pi}';
+$UTF8_TO_TEX{0x03C1} = '\ensuremath{\rho}';
+$UTF8_TO_TEX{0x03C2} = '\ensuremath{\varsigma}';
+$UTF8_TO_TEX{0x03C3} = '\ensuremath{\sigma}';
+$UTF8_TO_TEX{0x03C4} = '\ensuremath{\tau}';
+$UTF8_TO_TEX{0x03C5} = '\ensuremath{\upsilon}';
+$UTF8_TO_TEX{0x03C6} = '\ensuremath{\phi}';
+$UTF8_TO_TEX{0x03C7} = '\ensuremath{\chi}';
+$UTF8_TO_TEX{0x03C8} = '\ensuremath{\psi}';
+$UTF8_TO_TEX{0x03C9} = '\ensuremath{\omega}';
 # convert TeX trigraphs and character-producing commands to UTF8
 sub TeXtoUTF8 {
 	my $string = shift;

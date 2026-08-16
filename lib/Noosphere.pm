@@ -902,9 +902,7 @@ sub handler {
 			dwarn "frontpage started req content type: $content_type";
 			$content = buildMainPageTT($params, \%user_info);
 			#warn "content = $content";
-			# Test html page 
 			
-			#my $html = "<html><body><h1>Hello World! <p> Testing some escape charachters for html category with a generator has an injective cogenerator” now escape ” with &quot; </p> </h1></body></html>";
 			#my $status = 200;
 			#my $len = bytes::length($html);
 

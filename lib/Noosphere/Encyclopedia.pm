@@ -11,7 +11,9 @@ use Noosphere::ACL;
 use Noosphere::IR;
 use Noosphere::Crossref;
 use Noosphere::Authors;
+use Noosphere::Charset;
 use URI::Escape;
+use Encode qw(decode FB_CROAK is_utf8);
 use File::chdir;
 use File::Path qw(make_path remove_tree);
 use File::Copy qw( copy );
@@ -1120,6 +1122,7 @@ sub createSynonyms {
 sub insertEncyclopedia {
 	my ($params,$userinf) = @_;
 
+	normalizeEncyclopediaSourceParams($params);
 	$params->{title} = htmlToLatin1($params->{title}); 
 	$params->{title} =~ s/^\s*//;
 	$params->{title} =~ s/\s*$//;
@@ -1245,6 +1248,7 @@ sub insertEncyclopedia {
 sub publishEncyclopedia {
 	my ($params, $userid, $source) = @_;
 
+	normalizeEncyclopediaSourceParams($params);
 	my $userinf = {userInfoById($userid)};
 
 	$params->{title} = htmlToLatin1($params->{title}); 
@@ -1402,6 +1406,7 @@ sub checkEncyclopediaEntry {
 	my $params = shift;
 	my $checktitle = shift;
 
+	normalizeEncyclopediaSourceParams($params);
 	$params->{title} = htmlToLatin1($params->{title});
 
 	my $name = uniquename(swaptitle($params->{title}));
@@ -1478,6 +1483,26 @@ sub checkEncyclopediaEntry {
 	}
 
 	return ($error,$warn);
+}
+
+sub normalizeEncyclopediaSourceParams {
+	my $params = shift;
+
+	foreach my $key ('preamble', 'data') {
+		next unless defined $params->{$key};
+		$params->{$key} = normalizeSubmittedTeXSource($params->{$key});
+	}
+}
+
+sub normalizeSubmittedTeXSource {
+	my $source = shift;
+
+	if (!is_utf8($source)) {
+		my $decoded = eval { decode('UTF-8', $source, FB_CROAK) };
+		$source = $decoded if defined $decoded;
+	}
+
+	return UTF8toTeX($source);
 }
 
 # rendering wrapper - returns an error message if rendering fails.
