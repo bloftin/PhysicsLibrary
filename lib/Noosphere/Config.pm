@@ -464,7 +464,7 @@ Disallow: /?*",
 	# packages needed to support each command
 	#
 	"latex_packages" => {#psfrag=>'psfrag', 
-		#includegraphics=>'graphicx', 
+		includegraphics=>'graphicx',
 		#theorem=>'amsthm', 
 		htmladdnormallink => 'html', 
 		#xymatrix=>'xypic' 

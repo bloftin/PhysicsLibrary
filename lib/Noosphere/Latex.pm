@@ -664,6 +664,12 @@ sub render_png {
 
 	dwarn "render_png dir: $dir";
 
+	if (latexHasBitmapGraphics($latex)) {
+		dwarn "render_png using pdflatex for bitmap graphics";
+		render_png_from_pdf($fname, $latex, $url, $dir);
+		return;
+	}
+
 	# run mapper to produce image map data and highlighted TeX.  this 
 	# will be filename-HI.tex, which further processing will occur on.
 	# 
@@ -810,6 +816,67 @@ sub render_png {
 	
 	pathrm("$fullname.aux");
 	pathrm("$fullname.pnm");
+	pathrm("$fullname.log");
+
+	close HTMLFILE;
+}
+
+sub latexHasBitmapGraphics {
+	my $latex = shift;
+
+	return ($latex =~ /\\includegraphics(?:\s*\[[^\]]*\])?\s*\{[^}]+\.(?:png|jpe?g)\}/i);
+}
+
+sub render_png_from_pdf {
+	my $fname = shift;
+	my $latex = shift;
+	my $url = shift;
+	my $dir = shift;
+
+	local $CWD = "$dir";
+
+	my $latexprog = '/usr/bin/pdflatex';
+	my $gsprog = '/usr/bin/gs';
+	my $error = "";
+
+	# The MAP highlighter is tied to the latex/dvips path.  Bitmap graphics
+	# require pdflatex, so page images render without image-map links here.
+	my $fullname = $fname;
+
+	if ($latex =~ /\\($reruns)\W/) {
+		$error = system("$latexprog -interaction=batchmode $dir/$fullname.tex");
+		dwarn "pdflatex rerun error: $error";
+	}
+
+	$error = system("$latexprog -interaction=batchmode $dir/$fullname.tex");
+	dwarn "pdflatex page image error: $error";
+
+	$error = system("$gsprog -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pngalpha -r100 -sOutputFile=$dir/$fullname%03d.png $dir/$fullname.pdf");
+	dwarn "gs pdf to png error: $error";
+
+	dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
+	open HTMLFILE,">".getConfig('rendering_output_file');
+
+	print HTMLFILE "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+
+	my @pngs = sort grep { /\Q$fullname\E\d+\.png\z/ } <*.png>;
+	if (@pngs) {
+		foreach my $png (@pngs) {
+			my $alttext = $latex;
+			if (length($latex) > 1024) {
+				$alttext = "[too big for ALT]";
+			}
+			print HTMLFILE "<tr><td>";
+			print HTMLFILE "<img src=\"".htmlescape($url."/$png")."\" alt=\"".qhtmlescape($alttext)."\" />\n";
+			print HTMLFILE "\n\n</td></tr>\n";
+		}
+	} else {
+		print HTMLFILE "<tr><td><font color=\"#ff0000\">Rendering failed. No page images were produced.</font></td></tr>\n";
+	}
+
+	print HTMLFILE "</table>\n";
+
+	pathrm("$fullname.aux");
 	pathrm("$fullname.log");
 
 	close HTMLFILE;
