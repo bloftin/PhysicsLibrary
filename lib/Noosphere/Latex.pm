@@ -681,9 +681,9 @@ sub auto_size_large_includegraphics {
 
 		if (defined($width) && $width > $min_width) {
 			dwarn "auto-sized large includegraphics image $image width=$width";
-			"\\includegraphics[width=$target_width]$space\{$image\}";
+			"\\includegraphics[width=$target_width]" . $space . "{" . $image . "}";
 		} else {
-			"\\includegraphics$space\{$image\}";
+			"\\includegraphics" . $space . "{" . $image . "}";
 		}
 	}ge;
 
