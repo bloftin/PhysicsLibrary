@@ -4,11 +4,12 @@
 # are older than 1 day.
 #
 
-CACHEDIR=/var/www/pp/noosphere/data/cache/temp/
+CACHEDIR="$(cd "$(dirname "$0")/.." && pwd)/data/cache/temp"
 
-cd $CACHEDIR
+if [ ! -d "$CACHEDIR" ]; then
+	exit 0
+fi
 
 # the `find' command basically does all the work for us.
 #
-find . -type d -not -ctime 0 -exec rm -r '{}' ';' 2>/dev/null >/dev/null
-
+find "$CACHEDIR" -mindepth 1 -maxdepth 1 -type d -mtime +1 -exec rm -rf -- '{}' '+' 2>/dev/null >/dev/null

@@ -9,7 +9,10 @@
 ###############################################################################
 
 use DBI;
-use lib '/var/www/pp/lib';
+use Fcntl qw(:flock);
+use File::Path qw(make_path);
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 
 use Noosphere qw($dbh $DEBUG);
 use Noosphere::DB;
@@ -18,22 +21,39 @@ use Noosphere::Config;
 use Noosphere::Cache;
 use Noosphere::Util;
 
-my @methods = ('l2h', 'png','src');
-#my @methods = ('l2h');
+my $nsroot = "$FindBin::Bin/..";
+
+# Keep png/page-image rendering out of cron for now. The png pipeline can run
+# heavyweight LaTeX/Ghostscript jobs and has recently pegged the web server.
+my @methods = ('l2h','src');
 my $table = Noosphere::getConfig('en_tbl');
-my $runfile = "/var/www/pp/bin/run/renderall.running";
+my $rundir = "$nsroot/bin/run";
+my $runfile = "$rundir/renderall.running";
+my $remove_runfile = 0;
+my $max_per_method = $ENV{'RENDERALL_MAX_PER_METHOD'} || 10;
 
 $|=1;
 
-if ( -e $runfile ) {
+make_path($rundir) unless -d $rundir;
+open(my $lockfh, '+>>', $runfile) or die "could not open $runfile: $!";
+if (!flock($lockfh, LOCK_EX | LOCK_NB)) {
 	exit 1;
 }
-
-`echo 1 > $runfile`;
+seek($lockfh, 0, 0);
+truncate($lockfh, 0);
+print $lockfh "$$\n";
+$remove_runfile = 1;
+END {
+	unlink $runfile if $remove_runfile && defined $runfile;
+}
+$SIG{'INT'} = $SIG{'TERM'} = sub {
+	unlink $runfile if $remove_runfile && defined $runfile;
+	exit 124;
+};
 
 $DEBUG = 2;	 # dont need debugging of database access
 
-open STDERR, ">../log/error-renderall";
+open STDERR, ">", "$nsroot/log/error-renderall";
 
 # connect to the database
 #
@@ -54,7 +74,9 @@ $sth->finish();
 print "checking for invalid objects and rendering\n";
 
 foreach my $method (@methods) {
-	while (my $row = getNextRow($method)) {
+	my $rendered = 0;
+	while ($rendered < $max_per_method && (my $row = getNextRow($method))) {
+		$rendered++;
 	
 		# message, and fix timed out build
 		#
@@ -72,7 +94,7 @@ foreach my $method (@methods) {
 		$sth->finish();
 
 		print "got rec $rec->{title} $rec->{uid}\n";
-		my ($build,$valid)=Noosphere::getcacheflags($table,$rec->{uid},$method);
+		my ($valid,$build)=Noosphere::getcacheflags($table,$rec->{uid},$method);
 		print "cache flags build=$build, valid=$valid\n";
 
 		# render the object to cache
@@ -80,20 +102,22 @@ foreach my $method (@methods) {
 		print "[$method]";
 	
 		open(OLDOUT, ">&STDOUT");
-		open STDOUT, ">>/var/www/pp/log/stdout-renderall";
+		open STDOUT, ">>$nsroot/log/stdout-renderall";
 		print "\ncacheObject: table:\n $table";	
-		print "rec:\n @{[%rec]}\n";
+		print "rec: $rec->{title} ($rec->{uid})\n";
 		Noosphere::cacheObject($table, $rec, $method);
 		open(STDOUT, ">&OLDOUT");
 
 		print "\n";
 	}
+	print "rendered $rendered $method objects\n";
 
 }
 
 close STDERR;
 
-`rm $runfile`;
+unlink $runfile;
+$remove_runfile = 0;
 
 ###############################################################################
 

@@ -4,7 +4,8 @@
 #
 
 use DBI;
-use lib '/var/www/pp/noosphere/lib';
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 use Noosphere qw($dbh $DEBUG);
 use Noosphere::Corrections;
 use Noosphere::Orphan;

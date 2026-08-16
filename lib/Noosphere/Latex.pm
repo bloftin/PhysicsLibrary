@@ -11,6 +11,9 @@ use File::chdir;
 use File::Copy qw( copy );
 use File::Path qw(make_path); 
 use File::Copy::Recursive qw(pathrm);
+use IO::Select;
+use IPC::Open3;
+use Symbol qw(gensym);
 
 # needed for when we require images.pl
 #
@@ -19,6 +22,52 @@ use vars qw{%cached_env_img $reruns};
 # a regexp string which will match any command that indicates we need to run
 # LaTeX twice.
 $reruns = "ref|eqref|cite";
+
+sub runExternalCommand {
+	my $program = shift;
+	my $args = shift || [];
+
+	my $r = eval {
+		require Apache2::RequestUtil;
+		Apache2::RequestUtil->request;
+	};
+
+	if ($r && $r->can('spawn_proc_prog')) {
+		my ($in_fh, $out_fh, $err_fh) = $r->spawn_proc_prog($program, $args);
+		my $output = read_data($out_fh);
+		my $error = read_data($err_fh);
+		return (0, $output, $error);
+	}
+
+	my $err_fh = gensym;
+	my ($in_fh, $out_fh);
+	my $pid = open3($in_fh, $out_fh, $err_fh, $program, @$args);
+	close $in_fh;
+
+	my $output = '';
+	my $error = '';
+	my $selector = IO::Select->new($out_fh, $err_fh);
+	my %stream = (
+		fileno($out_fh) => \$output,
+		fileno($err_fh) => \$error,
+	);
+
+	while (my @ready = $selector->can_read) {
+		foreach my $fh (@ready) {
+			my $buffer = '';
+			my $bytes = sysread($fh, $buffer, 4096);
+			if ($bytes) {
+				${ $stream{fileno($fh)} } .= $buffer;
+			} else {
+				$selector->remove($fh);
+				close $fh;
+			}
+		}
+	}
+
+	waitpid($pid, 0);
+	return ($?, $output, $error);
+}
 
 # mangle a given title into a index-form title 
 # ("proof of blah" => "blah, proof of")
@@ -430,12 +479,6 @@ sub latex_error_check {
 	my $latex = shift;
 	my $dir = shift;
 
-	# get the global request object (requires PerlOptions +GlobalRequest)
-	my $in_fh = "";
-	my $out_fh = "";
-	my $err_fh = "";
-    my $r = Apache2::RequestUtil->request;
-
 	my $latexprog = "/usr/bin/latex";
 
 	# add in syntax-only package and enactment directive
@@ -457,9 +500,7 @@ sub latex_error_check {
 	#my @run_args = qw("-interaction=batchmode" "$dir/$fname.tex");
 	dwarn "EXECING $latexprog -interaction=batchmode -interaction=nonstopmode $dir/$fname.tex\n";
 	#dwarn "dir: $dir";
-	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
-	my $output = read_data($out_fh);
- 	my $error  = read_data($err_fh);
+	my ($retval, $output, $error) = runExternalCommand($latexprog,\@run_args);
 	dwarn "latex_error_check output: $output";
 	dwarn "latex_error_check  error: $error";
 	#my $error = system("/usr/bin/latex -file-line-error-style -interaction=nonstopmode $dir/$fname.tex");
@@ -488,11 +529,6 @@ sub render_l2h {
 	dwarn "render_l2h after cp .latex2tml-init";
 	dwarn "dir: $dir";
 
-	my $r = Apache2::RequestUtil->request;
-	my $in_fh = "";
-	my $out_fh = "";
-	my $err_fh = "";
-
 	# run latex to get an aux file for refs
 	#
 	if ($latex =~ /\\($reruns)\W/) { 
@@ -502,9 +538,7 @@ sub render_l2h {
 		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
 		my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
 		dwarn "EXECING $latexprog -init_file $tpath/.latex2html-init $fname.tex \n";
-		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
-		my $output = read_data($out_fh);
- 		my $error  = read_data($err_fh);
+		my ($retval, $output, $error) = runExternalCommand($latexprog,\@run_args);
 		dwarn "latex reruns output: $output";
 		dwarn "latex reruns  error: $error";
 	}
@@ -527,10 +561,7 @@ sub render_l2h {
 	# get the global request object (requires PerlOptions +GlobalRequest)
     
 	my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
-	($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($run,\@run_args);
-	my $output = read_data($out_fh);
- 	my $error  = read_data($err_fh);
-	dwarn "latex2html input: " . scalar($in_fh);
+	my ($retval, $output, $error) = runExternalCommand($run,\@run_args);
 	dwarn "latex2html output: $output";
 	dwarn "latex2html error: $error";
 
