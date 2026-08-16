@@ -11,6 +11,7 @@ use File::chdir;
 use File::Copy qw( copy );
 use File::Path qw(make_path); 
 use File::Copy::Recursive qw(pathrm);
+use Fcntl qw(:flock);
 use IO::Select;
 use IPC::Open3;
 use Symbol qw(gensym);
@@ -26,6 +27,12 @@ $reruns = "ref|eqref|cite";
 sub runExternalCommand {
 	my $program = shift;
 	my $args = shift || [];
+	my $timeout = shift || 60;
+
+	if (-x '/usr/bin/timeout') {
+		$args = ["${timeout}s", $program, @$args];
+		$program = '/usr/bin/timeout';
+	}
 
 	my $r = eval {
 		require Apache2::RequestUtil;
@@ -34,8 +41,8 @@ sub runExternalCommand {
 
 	if ($r && $r->can('spawn_proc_prog')) {
 		my ($in_fh, $out_fh, $err_fh) = $r->spawn_proc_prog($program, $args);
-		my $output = read_data($out_fh);
-		my $error = read_data($err_fh);
+		close $in_fh if $in_fh;
+		my ($output, $error) = read_command_pipes($out_fh, $err_fh);
 		return (0, $output, $error);
 	}
 
@@ -43,6 +50,16 @@ sub runExternalCommand {
 	my ($in_fh, $out_fh);
 	my $pid = open3($in_fh, $out_fh, $err_fh, $program, @$args);
 	close $in_fh;
+
+	my ($output, $error) = read_command_pipes($out_fh, $err_fh);
+
+	waitpid($pid, 0);
+	return ($?, $output, $error);
+}
+
+sub read_command_pipes {
+	my $out_fh = shift;
+	my $err_fh = shift;
 
 	my $output = '';
 	my $error = '';
@@ -65,8 +82,7 @@ sub runExternalCommand {
 		}
 	}
 
-	waitpid($pid, 0);
-	return ($?, $output, $error);
+	return ($output, $error);
 }
 
 # mangle a given title into a index-form title 
@@ -344,6 +360,16 @@ sub renderLaTeX {
 	##chdir $dir;
 	##chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
 	local $CWD = "$dir"; 
+	my $render_lock_fh;
+	if (open($render_lock_fh, "+>>", "$dir/render.lock")) {
+		if (!flock($render_lock_fh, LOCK_EX | LOCK_NB)) {
+			dwarn "renderLaTeX already running for $table/$id/$method";
+			write_render_message('Rendering is already in progress.  Please reload shortly.');
+			return;
+		}
+	} else {
+		dwarn "renderLaTeX could not open lock file $dir/render.lock: $!";
+	}
 	# get web URL for rendered images
 	#
 	my $url = getConfig('cache_url')."/$table/$id/$method";
@@ -357,7 +383,7 @@ sub renderLaTeX {
 		dwarn "renderLaTeX png started\n";
 		$latex = png_preprocess($latex);
 	
-		my $retval = latex_error_check($fname, $latex, $dir);
+		my $retval = 0;
 		dwarn "latex_error_check retval: $retval";
 		if (!$retval) {
 			dwarn "write_out_latex before";
@@ -426,7 +452,7 @@ sub renderLaTeX {
 	elsif ( $method eq "pdf" ) {
 		dwarn "renderLaTeX pdf started\n";
 	
-		my $retval = latex_error_check($fname, $latex, $dir);  # consider using special case for pdflatex
+		my $retval = 0;
 		dwarn "latex_error_check retval: $retval";
 		if (!$retval) {
 			dwarn "write_out_latex before";
@@ -605,18 +631,12 @@ sub render_make4ht {
 	#my $cwd = getcwd();
 	local $CWD = "$dir";
 	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
-	my $latexprog = getConfig('latex2htmlcmd');
 	dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
 	## BEN TODO system("cp $tpath/.latex2html-init .");
 	##copy("$tpath/.latex2html-init","$dir"); # maybe add a make4ht config file
 	
 	dwarn "render_l2h after cp .latex2tml-init";
 	dwarn "dir: $dir";
-
-	my $r = Apache2::RequestUtil->request;
-	my $in_fh = "";
-	my $out_fh = "";
-	my $err_fh = "";
 
 	# run latex to get an aux file for refs
 	#
@@ -625,13 +645,16 @@ sub render_make4ht {
 		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
 		dwarn "latex reruns: $latex";
 		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
-		my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
 		dwarn "EXECING rerun make4ht -d $dir $dir/$fname.tex";
-		system("make4ht -d $dir $dir/$fname.tex");
+		my ($retval, $output, $error) = runExternalCommand('/usr/bin/make4ht', ['-d', $dir, "$dir/$fname.tex"], 60);
+		dwarn "make4ht rerun output: $output";
+		dwarn "make4ht rerun error: $error";
 	}
 
 	dwarn "EXECING make4ht -d $dir $dir/$fname.tex";
-	system("make4ht -d $dir $dir/$fname.tex");
+	my ($retval, $output, $error) = runExternalCommand('/usr/bin/make4ht', ['-d', $dir, "$dir/$fname.tex"], 60);
+	dwarn "make4ht output: $output";
+	dwarn "make4ht error: $error";
 
 	# post process HTML output
 	postProcess_make4htIndex($url,$dir,"$fname.html");
@@ -662,116 +685,43 @@ sub render_png {
 	my $url = shift;
 	my $dir = shift;
 
-	
-
 	# change directory to the objects dir
 	local $CWD = "$dir";
 
-	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
-	copy("$tpath/.latex2html-init","$dir");
-
 	dwarn "render_png started";
-	
-	my $mapprog = getConfig('base_dir')."/bin/map/MAP";
-	my $latexprog = '/usr/bin/latex';
-	my $dvipsprog = '/usr/bin/dvips';
-	my $gsprog ='/usr/bin/gs';
-	my $pnmcrop = '/usr/bin/pnmcrop';
-
-	# get the global request object (requires PerlOptions +GlobalRequest)
-    my $r = Apache2::RequestUtil->request;
-
-	my $in_fh = "";
-	my $out_fh = "";
-	my $err_fh = "";
-	my $error = "";
-	
-	# see if there are any hyperlinks.
-	#
-	my $haslinks = ($latex =~ /\\htmladdnormallink/);
-
-
-	
-
 	dwarn "render_png dir: $dir";
 
-	# run mapper to produce image map data and highlighted TeX.  this 
-	# will be filename-HI.tex, which further processing will occur on.
-	# 
-	dwarn "haslinks: $haslinks";
-	if ($haslinks) {
-		
-		##system("$mapprog $fname");
-		my @run_args = ("$dir/$fname");
-		dwarn "EXECING $mapprog $fname\n";
-		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($mapprog,\@run_args);
-		my $output = read_data($out_fh);
- 		$error  = read_data($err_fh);
-		dwarn "haslinks output: $output";
-		dwarn "haslinks  error: $error";
-
-
+	my $pdfname = render_pdf_file($fname, $latex, $dir);
+	if (!defined $pdfname) {
+		write_render_message('Rendering failed.  pdflatex did not create a PDF for page image output.');
+		return;
 	}
 
-	my $fullname = $fname;
-	dwarn "fullname: $fullname";
-	if ($haslinks) {
-		$fullname = "$fname-HI";
-		dwarn "haslinks fullname: $fullname";
+	my $gsprog = '/usr/bin/gs';
+	my $png_pattern = "$dir/$fname%03d.png";
+	foreach my $old_png (glob("$fname*.png")) {
+		pathrm($old_png);
 	}
 
-	# make a dvi (run latex twice to get numberings for refs)
-	if ($latex =~ /\\($reruns)\W/) { 
-		dwarn "latex reruns: $latex";
-		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
-		my @run_args = ("-interaction","=batchmode","$dir/$fullname.tex");
-		dwarn "EXECING $latexprog -interaction=batchmode $dir/$fullname.tex \n";
-		($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
-		my $output = read_data($out_fh);
- 		$error  = read_data($err_fh);
-		dwarn "latex reruns output: $output";
-		dwarn "latex reruns  error: $error";
+	my @run_args = (
+		'-q',
+		'-dBATCH',
+		'-dNOPAUSE',
+		'-dSAFER',
+		'-dGraphicsAlphaBits=4',
+		'-dTextAlphaBits=4',
+		'-sDEVICE=png16m',
+		'-r120',
+		"-sOutputFile=$png_pattern",
+		"$dir/$pdfname"
+	);
+	dwarn "EXECING $gsprog @run_args";
+	my ($retval, $output, $error) = runExternalCommand($gsprog, \@run_args, 60);
+	dwarn "gs output: $output";
+	dwarn "gs error: $error";
+	if ($retval) {
+		dwarn "gs retval: $retval";
 	}
-	# final rendering runi
-	#system("/usr/bin/latex -interaction=batchmode $fullname.tex");
-	##my @run_args = ("-interaction","=batchmode","$dir/$fullname.tex");
-	##dwarn "EXECING $latexprog -interaction=batchmode $dir/$fullname.tex \n";
-	##($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($latexprog,\@run_args);
-	##my $output = read_data($out_fh);
-	##my $error  = read_data($err_fh);
-	##dwarn "final rendering output: $output";
-	##dwarn "final rendering  error: $error";
-
-	$error = system("/usr/bin/latex -interaction=batchmode $dir/$fullname.tex");
-	dwarn "latex error: $error";
-
-	#print "dvips cmd: /usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps";
-	# make a postscript file
-	#system("/usr/bin/dvips -t letter -f $fullname.dvi > $fullname.ps");
-	##my @run_args = ("-t", "letter","-f","$dir/$fullname.dvi","-o","$dir/$fullname.ps");
-	##dwarn "EXECING $dvipsprog -t letter -f $fullname.dvi > $fullname.ps\n";
-	##($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($dvipsprog,\@run_args);
-	##my $output = read_data($out_fh);
-	##$error  = read_data($err_fh);
-	##dwarn "postscript file output: $output";
-	##dwarn "postscript file  error: $error";
-
-	$error = system("/usr/bin/dvips -t letter -f $dir/$fullname.dvi > $dir/$fullname.ps");
-	dwarn "postscript file  error: $error";
-
-	# make a pnm 
-	#system("/usr/bin/gs -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pnmraw -r100 -sOutputFile=$fullname%03d.pnm $fullname.ps");
-
-	##my @run_args = ("-q", "-dBATCH","-dGraphicsAlphaBits=4","-dTextAlphaBits=4","-dNOPAUSE","-sDEVICE=pnmraw","-r100","-sOutputFile=$dir/$fullname%03d.pnm","$dir/$fullname.ps");
-	##dwarn "EXECING $gsprog -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pnmraw -r100 -sOutputFile=$dir/$fullname%03d.pnm  $dir/$fullname.ps\n";
-	##($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($gsprog,\@run_args);
-	##my $output = read_data($out_fh);
-	##$error  = read_data($err_fh);
-	##dwarn "gsprog output: $output";
-	##dwarn "gsprog  error: $error";
-
-	$error = system("/usr/bin/gs -q -dBATCH -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -dNOPAUSE -sDEVICE=pnmraw -r100 -sOutputFile=$dir/$fullname%03d.pnm $dir/$fullname.ps");
-	dwarn "gsprog  error: $error";
 
 	# make the output file
 	#
@@ -780,69 +730,75 @@ sub render_png {
 
 	print HTMLFILE "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 
-	# loop through pnm output (pages)
+	# loop through png output (pages)
 	#
-	my @pnms = <*.pnm>;
-	foreach my $pnm (@pnms) {
-		my $png = $pnm;
-		dwarn "png: $png";
-		$png =~ s/pnm$/png/;
-		dwarn "png: $png";
-
-		# get the series number
-		$pnm =~ /\d(\d\d)\.pnm/;
-		dwarn "png: $png";
-
-		# TODO: MAP should use 3 digits here.
-		#
-		my $ord = "$1";
-
-		# make a png 
-		#
-		#system("/usr/bin/pnmcrop < $pnm | /usr/bin/pnmpad -white -l20 -r20 -t20 -b20 | /usr/bin/pnmtopng > $png");
-		##my @run_args = ("< $dir/$pnm | /usr/bin/pnmpad -white -left=20 -right=20 -top=20 -bottom=20 | /usr/bin/pnmtopng > $dir/$png");
-		##dwarn "EXECING $pnmcrop @run_args\n";
-		##($in_fh, $out_fh, $err_fh) =  $r->spawn_proc_prog($pnmcrop,\@run_args);
-		##my $output = read_data($out_fh);
-		##$error  = read_data($err_fh);
-		##dwarn "pnmpad output: $output";
-		##dwarn "pnmpad  error: $error";
-
-		$error  = system("/usr/bin/pnmcrop < $dir/$pnm | /usr/bin/pnmpad -white -left=20 -right=20 -top=20 -bottom=20 | /usr/bin/pnmtopng > $dir/$png");
-		dwarn "pnmpad  error: $error";
-		# add image to the output html file 
-		#
+	my @pngs = sort <$fname*.png>;
+	if (!@pngs) {
+		print HTMLFILE "<tr><td><font size=\"+1\" color=\"#ff0000\">Rendering failed.  Ghostscript did not create page images.</font></td></tr>\n";
+	}
+	foreach my $png (@pngs) {
 		print HTMLFILE "<tr><td>";
-
-		if ($haslinks) {
-			dwarn "haslinks htmlfile";
-			print HTMLFILE "<img src=\"".htmlescape($url."/$png")."\" border=\"0\" usemap=\"#ImageMap".int($ord)."\"/>\n\n";
-			# read in the image map and output it to the HTML file
-			#
-			my $map = readFile($fname."$ord.map");
-
-			print HTMLFILE $map;
-
-		} else { 
-			my $alttext = $latex;
-			if (length($latex) > 1024) {
-				$alttext = "[too big for ALT]";
-			}
-			print HTMLFILE "<img src=\"".htmlescape($url."/$png")."\" alt=\"".qhtmlescape($alttext)."\" />\n";
+		my $alttext = $latex;
+		if (length($latex) > 1024) {
+			$alttext = "[too big for ALT]";
 		}
-
+		print HTMLFILE "<img src=\"".htmlescape($url."/$png")."\" alt=\"".qhtmlescape($alttext)."\" style=\"max-width:100%; height:auto;\" />\n";
 		print HTMLFILE "\n\n</td></tr>\n";
-
-		# remove the pnm
-		pathrm($pnm);
 	}
 
 	print HTMLFILE "</table>\n";
 	
-	pathrm("$fullname.aux");
-	pathrm("$fullname.pnm");
-	pathrm("$fullname.log");
+	pathrm("$fname.aux");
+	pathrm("$fname.log");
+	pathrm("$fname.out");
+	pathrm("$fname.pdf");
 
+	close HTMLFILE;
+}
+
+sub render_pdf_file {
+	my $fname = shift;
+	my $latex = shift;
+	my $dir = shift;
+	my $timeout = shift || 60;
+
+	my $latexprog = '/usr/bin/pdflatex';
+	pathrm("$fname.aux");
+	pathrm("$fname.log");
+	pathrm("$fname.out");
+	pathrm("$fname.pdf");
+
+	my @run_args = (
+		'-interaction=batchmode',
+		'-halt-on-error',
+		"-output-directory=$dir",
+		"$dir/$fname.tex"
+	);
+
+	if ($latex =~ /\\($reruns)\W/) {
+		dwarn "pdflatex rerun for refs: $latex";
+		my ($retval, $output, $error) = runExternalCommand($latexprog, \@run_args, $timeout);
+		dwarn "pdflatex rerun output: $output";
+		dwarn "pdflatex rerun error: $error";
+	}
+
+	dwarn "EXECING $latexprog @run_args";
+	my ($retval, $output, $error) = runExternalCommand($latexprog, \@run_args, $timeout);
+	dwarn "pdflatex output: $output";
+	dwarn "pdflatex error: $error";
+
+	my $pdfname = "$fname.pdf";
+	return $pdfname if (-e "$dir/$pdfname");
+	return undef;
+}
+
+sub write_render_message {
+	my $message = shift;
+
+	open HTMLFILE,">".getConfig('rendering_output_file');
+	print HTMLFILE "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
+	print HTMLFILE "<tr><td><font size=\"+1\" color=\"#ff0000\">".htmlescape($message)."</font></td></tr>\n";
+	print HTMLFILE "</table>\n";
 	close HTMLFILE;
 }
 
@@ -852,49 +808,23 @@ sub render_pdf {
 	my $url = shift;
 	my $dir = shift;
 
-	my $error = "";
-
 	# change directory to the objects dir
 	local $CWD = "$dir";
 
-	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
-	copy("$tpath/.latex2html-init","$dir");
+	dwarn "render_pdf started";
 
-	dwarn "render_png started";
-	
-	my $mapprog = getConfig('base_dir')."/bin/map/MAP";
-	my $latexprog = '/usr/bin/pdflatex';
-
-	# get the global request object (requires PerlOptions +GlobalRequest)
-    my $r = Apache2::RequestUtil->request;
-
-	# see if there are any hyperlinks.
-	#
-	my $haslinks = ($latex =~ /\\htmladdnormallink/);
-
-	if ($haslinks) {
-		$error = system("$mapprog $dir/$fname");
-		dwarn "haslinks  error: $error";
+	my $pdfname = render_pdf_file($fname, $latex, $dir);
+	if (!defined $pdfname) {
+		write_render_message('Rendering failed.  pdflatex did not create a PDF.');
+		return;
 	}
-
-	my $fullname = $fname;
-	dwarn "fullname: $fullname";
-	if ($haslinks) {
-		$fullname = "$fname-HI";
-		dwarn "haslinks fullname: $fullname";
-	}
-
-	# make a pdf using pdflatex
-	$error = system("$latexprog $dir/$fullname");
-	dwarn "pdflatex  error: $error";
 
 	dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
 	open HTMLFILE,">".getConfig('rendering_output_file');
 
 	print HTMLFILE "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 
-	#print HTMLFILE "<img src=\"".htmlescape($url."/$png")."\" border=\"0\" usemap=\"#ImageMap".int($ord)."\"/>\n\n";
-	print HTMLFILE "<iframe src=\"".htmlescape($url."/$fullname.pdf")."\" width=\"100%\" height=\"800\"></iframe>\n";
+	print HTMLFILE "<iframe src=\"".htmlescape($url."/$pdfname")."\" width=\"100%\" height=\"800\"></iframe>\n";
 
 	print HTMLFILE "</table>\n";
 
