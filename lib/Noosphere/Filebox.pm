@@ -150,6 +150,11 @@ sub moveTempFilesToBox {
 	
 	my $dest = "$fileroot/$table/$id";
 	my $source = "$cacheroot/$params->{tempdir}";
+
+	if (not -d $source) {
+		dwarn "*** moveTempFilesToBox: temp source does not exist: $source";
+		return 0;
+	}
 	
 	# make sure file box directory exists and is clear
 	dwarn "source:\n$source\ndest:\n$dest";
@@ -196,6 +201,8 @@ sub moveTempFilesToBox {
 	#dwarn "curernt directory $CWD";
 	removeTempCacheDir($params->{'tempdir'});
 	#dwarn "curernt directory after removeTempCacheDir: $CWD";
+
+	return 1;
 }
 
 # handleFileManager - get files, display manager, uses new template system
@@ -206,7 +213,7 @@ sub handleFileManager {
 	my $upload = shift;
 	
 	my $ftemplate = new TemplateNS('filemanagerform.html');
-	my $table = $params->{'from'};
+	my $table = $params->{'from'} || $params->{'to'};
 	my $dest = '';
 	my $ferror = '';
 	my $changes = 0;
@@ -218,8 +225,16 @@ sub handleFileManager {
 	dwarn "handleFileManager started";
 	if (nb($params->{'tempdir'})) {
 		dwarn "params->{tempdir} was not empty";
-		$ftemplate->setKey('tempdir', $params->{'tempdir'});
 		$dest = getConfig('cache_root')."/$params->{tempdir}";
+		if (not -d $dest) {
+			dwarn "fileManager tempdir missing, making new cache dir: $dest";
+			$params->{'tempdir'} = makeTempCacheDir();
+			$params->{'filelist'} = '';
+			$params->{'filechanges'} = '';
+			$ferror .= "The temporary file area expired. Please attach or grab the files again.<br/>";
+			$dest = getConfig('cache_root')."/$params->{tempdir}";
+		}
+		$ftemplate->setKey('tempdir', $params->{'tempdir'});
 		dwarn "fileManager tempdir: $ftemplate, $dest";
 	} elsif (nb($params->{'id'})) {
 		$dest = getConfig('file_root')."/$table/$params->{id}";
@@ -240,6 +255,7 @@ sub handleFileManager {
 		dwarn "fileManager grab urls: $params->{filebox}, nb($params->{fb_urls})";
 		my @urls = split(/\s*\n\s*/,$params->{fb_urls});
 		foreach my $url (@urls) {
+			next if blank($url);
 			my $downloaded = wget($url,$dest);
 			if (not $downloaded) {
 				$ferror .= "Problem getting $url<br/>";
@@ -260,8 +276,12 @@ sub handleFileManager {
 	if (defined $upload and $upload->{'filename'}) {
 		dwarn "moving uploaded file $upload->{tempfile} to $dest/$upload->{filename}";
 		$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
-		rmove($upload->{tempfile},"$dest/$upload->{filename}") or dwarn "Failed to move uploaded file: $!";
-		$changes = 1;
+		if (rmove($upload->{tempfile},"$dest/$upload->{filename}")) {
+			$changes = 1;
+		} else {
+			$ferror .= "Problem saving uploaded file $upload->{filename}<br/>";
+			dwarn "Failed to move uploaded file: $!";
+		}
 	}
 
 	# handle file removal request

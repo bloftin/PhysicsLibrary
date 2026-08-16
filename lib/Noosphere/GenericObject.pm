@@ -113,11 +113,38 @@ sub checkAddGeneric {
 	if ($params->{'rights'} =~ /^\s*$/ ) { 
 		$error .= 'Need a rights statement.<br />'; 
 	} 
-	if ($params->{'filelist'} =~ /^\s*$/ && $params->{'urls'} !~ /^(http|ftp):\/\/$/) { 
+	if ($params->{'filelist'} !~ /^\s*$/ && !genericTempFileBoxHasFiles($params)) {
+		$params->{'filelist'} = '';
+		$error .= 'The uploaded files could not be found. Please attach or grab the files again.<br />';
+	}
+	if ($params->{'filelist'} =~ /^\s*$/ && $params->{'urls'} !~ /^\s*(?:https?|ftp):\/\//m) {
 		$error .= 'Need some files to be uploaded or URLs given.<br />';
 	}
 
 	return $error;
+}
+
+sub genericTempFileBoxHasFiles {
+	my $params = shift;
+
+	return 0 if (!nb($params->{'tempdir'}));
+
+	my $root = getConfig('cache_root');
+	my $dir = "$root/$params->{tempdir}";
+
+	return 0 if (!-d $dir);
+
+	opendir(my $dh, $dir) or return 0;
+	my @methoddirs = getMethods();
+	while (my $file = readdir($dh)) {
+		next if ($file eq '.' || $file eq '..');
+		next if inset($file, @methoddirs);
+		closedir($dh);
+		return 1;
+	}
+	closedir($dh);
+
+	return 0;
 }
 
 # populate all of the sundry database tables for a new entry
