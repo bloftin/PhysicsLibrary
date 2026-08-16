@@ -16,13 +16,13 @@
 			</ul>
 		</xsl:when>
 		
-		<xsl:when test="@section='Expositions'">
-			 <b>Exposition guidelines</b>:
+		<xsl:when test="@section='Lectures'">
+			 <b>Lecture guidelines</b>:
 
 			 <p />
 
 			 <ul>
-			 	<li>This section is for expositions which are <b>not books</b>. They will generally be for educational purposes, but it is most important that they are not considered papers or books for them to appear here. Lecture notes for a course are a good example of what should go here.</li>
+			 	<li>This section is for lectures which are <b>not books</b>. They will generally be for educational purposes, but it is most important that they are not considered papers or books for them to appear here. Lecture notes for a course are a good example of what should go here.</li>
 				<li><b>"Rights" are required for every item</b>! If you dont know what the rights are, please check before doing anything (including asking the author of the work if need be). If you are the author, please formulate a rights statement ("Public domain" is a nice one).</li>
 				<li>You must either upload the exposition or provide URLs linking to it. <b>Uploads are preferable to linking</b>, but require rights to redistribute. Try to get permission to upload if possible.</li>
 				<li>Starred (<font color="#ff0000">*</font>) fields are required. </li>
@@ -175,7 +175,7 @@
 
 		<br /> <br />
 
-		<xsl:if test="@section='Books' or @section='Expositions'">
+		<xsl:if test="@section='Books' or @section='Lectures'">
 			
 			URLs for any remote content (one per line):
 			<textarea name="urls" cols="75" rows="4"><xsl:value-of select="urls"/></textarea>

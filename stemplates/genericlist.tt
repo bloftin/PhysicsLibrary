@@ -1,4 +1,4 @@
-<!-- a listing of generic objects (papers, expositions, books) -->
+<!-- a listing of generic objects (papers, lectures, books) -->
 
 <!-- template that handles the "entire" screen for viewing a generic list -->
 

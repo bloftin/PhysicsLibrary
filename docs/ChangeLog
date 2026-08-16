@@ -486,7 +486,7 @@ Wed May 22 08:54:40 UTC 2002  Aaron Krowne <akrowne@vt.edu> Note 0056
 	 In addition, linking is done between properly internationalized titles
      in iso-8859-1 to raw ASCII strings which are "approximations" of the 
      internationalized versions.  So for example, "adele group" will link to
-     an entry called "adèle group".
+     an entry called "adï¿½le group".
 
 Tue May 21 08:22:12 UTC 2002  Aaron Krowne <akrowne@vt.edu> Note 0055
 

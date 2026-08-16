@@ -930,7 +930,7 @@ create table inv_phrases (
 --
 -- ****************************************************************************
 
-INSERT INTO tdesc VALUES ('lec','Expositions',0);
+INSERT INTO tdesc VALUES ('lec','Lectures',0);
 INSERT INTO tdesc VALUES ('papers','Papers',1);
 INSERT INTO tdesc VALUES ('books','Books',2);
 INSERT INTO tdesc VALUES ('objects','Encyclopedia',3);
