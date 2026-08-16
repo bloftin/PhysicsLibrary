@@ -6,6 +6,7 @@ use Noosphere::Charset;
 use HTML::Entities;
 use HTML::Tidy;
 use Apache2::SubProcess ();
+use Encode qw(decode FB_CROAK);
 use File::chdir;
 use File::Copy qw( copy );
 use File::Path qw(make_path); 
@@ -145,6 +146,7 @@ sub singleRenderLaTeX {
 	my $math = shift;
 	my $variants = shift || getConfig('single_render_variants');
 	dwarn "singleRenderLaTeX started";
+	$math = UTF8toTeX($math);
 	# make a rendering directory in /tmp
 	# 
 	my $suffix = 0;
@@ -1106,19 +1108,33 @@ sub postProcessL2hIndex {
 		dwarn "File did not appear within the wait time, $max_wait_time.";
 	}
 
-	open(FILEIN, $file_path) or dwarn "postProcessL2hIndex could not open $file_path";
-	$file_in = do {local $/; <FILEIN> };
-	# pull out just the body, clean some stuff up
-	#
-	dwarn "postProcessL2hIndex before tidy:\n $file_in";
-	my $tidy = HTML::Tidy->new({output_xhtml => 1, wrap => 1024 });
+	if (open(my $filein, '<:raw', $file_path)) {
+		$file_in = do { local $/; <$filein> };
+		close $filein;
+		$file_in = decodeRenderedHTML($file_in);
+	} else {
+		dwarn "postProcessL2hIndex could not open $file_path";
+	}
 
+	dwarn "postProcessL2hIndex raw html:\n $file_in";
+	my $tidy = HTML::Tidy->new({
+		output_xhtml => 1,
+		wrap => 1024,
+		char_encoding => 'utf8',
+		numeric_entities => 1,
+	});
 	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
-	$file = $tidy->clean( $file_in );
+	$file = $tidy->clean($file_in);
 	dwarn "postProcessL2hIndex after tidy:\n $file";
 
-	$file =~ /<body.*?>(.*?)<hr\s*?\/>\s*?<\/body>/sio;
-	$file = $1;
+	if ($file =~ /<body.*?>(.*?)<hr\s*?\/>\s*?<\/body>/sio) {
+		$file = $1;
+	} elsif ($file =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
+		$file = $1;
+	} else {
+		$file = normalizeKnownHTMLEntities($file_in);
+		dwarn "postProcessL2hIndex could not find body element";
+	}
 	dwarn "postProcessL2hIndex 1st regular expression:\n $file";
 	$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$1\"/igso;
 	dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
@@ -1126,6 +1142,9 @@ sub postProcessL2hIndex {
 	# add title tooltips
 	$file =~ s/(alt="(.+?)")/$1 title="$2" /igso;
 	dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
+
+	$file = escapeNonAsciiAsHTMLEntities(normalizeKnownHTMLEntities($file));
+
 	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
 	dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
@@ -1197,20 +1216,23 @@ sub postProcess_make4htIndex {
 		dwarn "File did not appear within the wait time, $max_wait_time.";
 	}
 
-	open(FILEIN, $file_path) or dwarn "postProcess_make4htIndex could not open $file_path";
-	$file_in = do {local $/; <FILEIN> };
-	# pull out just the body, clean some stuff up
-	#
-	dwarn "postProcessL2hIndex before tidy:\n $file_in";
-	my $tidy = HTML::Tidy->new({output_xhtml => 1, wrap => 1024 });
+	if (open(my $filein, '<:raw', $file_path)) {
+		$file_in = do { local $/; <$filein> };
+		close $filein;
+		$file_in = decodeRenderedHTML($file_in);
+	} else {
+		dwarn "postProcess_make4htIndex could not open $file_path";
+	}
 
-	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
-	$file = $tidy->clean( $file_in );
-	dwarn "postProcessL2hIndex after tidy:\n $file";
-
-	$file =~ m{<body>[\s\S]*?</body>}s;
-	
-	$file = $&;
+	# make4ht already emits UTF-8 HTML, so avoid HTML::Tidy here; it can
+	# reinterpret Unicode text as Latin-1 and produce mojibake.
+	dwarn "postProcess_makehtIndex raw html:\n $file_in";
+	if ($file_in =~ m{<body\b[^>]*>[\s\S]*?</body>}si) {
+		$file = $&;
+	} else {
+		$file = $file_in;
+		dwarn "postProcess_makehtIndex could not find body element";
+	}
 	dwarn "postProcess_makehtIndex return 1st regular expression:\n $file";
 	#$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$&\"/igso;
 	$file =~ s{\bsrc=(["'])([^"']+?)\1}{src=$1$url/$2$1}g;
@@ -1219,12 +1241,15 @@ sub postProcess_make4htIndex {
 	# add title tooltips
 	$file =~ s/(alt="(.+?)")/$1 title="$2" /igso;
 	dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
+
+	$file = escapeNonAsciiAsHTMLEntities($file);
+
 	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
 	dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
 	open OUTFILE,">", "$dir/".getConfig('rendering_output_file');
-	print OUTFILE "$file";
+	print OUTFILE $file;
 	close OUTFILE;
 	
 
@@ -1248,6 +1273,41 @@ sub postProcess_make4htIndex {
 	# 	$file = "<table border=\"0\" width=\"100%\"><tr><td><font color=\"#ff0000\"><b>$file</b></font></td></tr></table>";
 	# }
 
+}
+
+# Decode rendered HTML from external TeX tools. Prefer UTF-8, but accept legacy
+# Latin-1 output from older latex2html installations.
+sub decodeRenderedHTML {
+	my $bytes = shift;
+	my $decoded = eval { decode('UTF-8', $bytes, FB_CROAK) };
+
+	return defined $decoded ? $decoded : decode('ISO-8859-1', $bytes);
+}
+
+sub normalizeKnownHTMLEntities {
+	my $html = shift;
+
+	$html =~ s/&ldquo;/&#8220;/g;
+	$html =~ s/&rdquo;/&#8221;/g;
+	$html =~ s/&lsquo;/&#8216;/g;
+	$html =~ s/&rsquo;/&#8217;/g;
+	$html =~ s/&ndash;/&#8211;/g;
+	$html =~ s/&mdash;/&#8212;/g;
+	$html =~ s/&hellip;/&#8230;/g;
+	$html =~ s/&minus;/&#8722;/g;
+	$html =~ s/&nbsp;/&#160;/g;
+
+	return $html;
+}
+
+# Keep cached fragments safe for legacy raw file reads and prints. Browsers
+# render these entities as Unicode, while the stored HTML remains ASCII.
+sub escapeNonAsciiAsHTMLEntities {
+	my $html = shift;
+
+	$html =~ s/([^\x00-\x7F])/sprintf("&#%d;", ord($1))/eg;
+
+	return $html;
 }
 
 
