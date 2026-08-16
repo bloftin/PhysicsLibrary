@@ -111,6 +111,7 @@ sub renderEncyclopediaObj {
 			$content = $ftemplate->expand();
 		}
 		dwarn "failed ended";
+		$content .= "<br /><center><font size=\"-1\">(<a href=\"".getConfig("main_url")."/?op=preamble&amp;id=$rec->{uid}\">view preamble</a>)</font></center>";
 		$contentbox = mathBox($btitle, $content);
 		dwarn "mathBox ended";
 	} else	{
