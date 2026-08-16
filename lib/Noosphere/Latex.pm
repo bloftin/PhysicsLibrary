@@ -34,18 +34,6 @@ sub runExternalCommand {
 		$program = '/usr/bin/timeout';
 	}
 
-	my $r = eval {
-		require Apache2::RequestUtil;
-		Apache2::RequestUtil->request;
-	};
-
-	if ($r && $r->can('spawn_proc_prog')) {
-		my ($in_fh, $out_fh, $err_fh) = $r->spawn_proc_prog($program, $args);
-		close $in_fh if $in_fh;
-		my ($output, $error) = read_command_pipes($out_fh, $err_fh);
-		return (0, $output, $error);
-	}
-
 	my $err_fh = gensym;
 	my ($in_fh, $out_fh);
 	my $pid = open3($in_fh, $out_fh, $err_fh, $program, @$args);
