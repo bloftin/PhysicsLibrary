@@ -13,7 +13,7 @@ use Noosphere::Crossref;
 use Noosphere::Authors;
 use URI::Escape;
 use File::chdir;
-use File::Path qw(make_path); 
+use File::Path qw(make_path remove_tree);
 use File::Copy qw( copy );
 use File::Remove 'remove';
 
@@ -1502,7 +1502,7 @@ sub renderEnPreview {
 	# figure out cache dir. it really should already exist for us.
 	#
 	dwarn "defined before tempdir";
-	if (defined $params->{'tempdir'}) {
+	if (nb($params->{'tempdir'}) && $params->{'tempdir'} =~ m{\Atemp/\d+\z}) {
 		
 		$dir = $params->{'tempdir'};
 		dwarn "tempdir: $dir";
@@ -1516,12 +1516,17 @@ sub renderEnPreview {
  
 	# copy files from main dir to method subdir
 	#
-	dwarn "preview files go in $root/$dir/$method";
-	if (not -e "$root/$dir/$method") {
-		dwarn "preview files something odd here had to make_path: $root/$dir/$method";
-		make_path("$root/$dir/$method", {verbose => 1, mode => 0771})
+	my @methoddirs = getMethods();
+	$method = 'l2h' unless inset($method, @methoddirs);
+	my $method_dir = "$root/$dir/$method";
 
+	dwarn "preview files go in $method_dir";
+	if (-e $method_dir) {
+		dwarn "removing old preview render directory: $method_dir";
+		remove_tree($method_dir);
 	}
+	dwarn "making preview render directory: $method_dir";
+	make_path($method_dir, {verbose => 1, mode => 0771});
 	dwarn "renderEnPreview before chdr cwd: $CWD";
 	dwarn "changing dir to $root/$dir";
 	##chdir "$root/$dir";
@@ -1529,7 +1534,6 @@ sub renderEnPreview {
 	local $CWD = "$root/$dir";  # chdir seems to be crashing mod_perl, looking for worarounds
 	dwarn "renderEnPreview after chdr cwd: $CWD";
 	my @files = <*>;
-	my @methoddirs = getMethods();
 	foreach my $file (@files) {
 		if (not inset($file,@methoddirs)) {
 			copy($file, $method);
