@@ -91,8 +91,8 @@
 			&#160;
 			<xsl:choose>
 				<xsl:when test="@table = 'lec'">
-					<!-- (in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=lec">Expositions</a>)-->
-					(in&#160;Expositions)
+					<!-- (in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=lec">Lectures</a>)-->
+					(in&#160;Lectures)
 				</xsl:when>
 			  	<xsl:when test="@table = 'papers'">
 					<!--(in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=papers">Papers</a>)-->

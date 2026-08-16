@@ -34,8 +34,8 @@
                         <font size="-1">
                         &#160;
                         [% IF object.table == "lec" %]
-                                <!-- (in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=lec">Expositions</a>)-->
-                                (in&#160;Expositions)
+                                <!-- (in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=lec">Lectures</a>)-->
+                                (in&#160;Lectures)
                         [% ELSIF object.table == "papers" %]        
                                 <!--(in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=papers">Papers</a>)-->
                                 (in&#160;Papers)

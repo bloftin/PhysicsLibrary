@@ -6,7 +6,7 @@ package Noosphere;
 #
 # This module is for handling of "generic" objects, the details of the metadata
 # handling for each being only a slight variant of the other.  Currently books,
-# papers, and expositions are handled here, since there is very little 
+# papers, and expositions (lectures) are handled here, since there is very little 
 # difference in their metadata or the workflow surrounding them.
 #
 ###############################################################################
@@ -253,7 +253,7 @@ sub browseGenericNew {
 	# link to the msc browser for encylcopedia
 	#
 	# Need to switch on section type to give different intros
-	my $intro = "<p>Papers are research-calibre (though not necessarily published) expositions of some topic. You can browse papers</p>";
+	my $intro = "<p>Papers are research-calibre (though not necessarily published) lectures of some topic. You can browse papers</p>";
 
 	$content .=$intro;
 
@@ -571,7 +571,7 @@ sub getIsA {
 
 	my $s = $plural ? 's' : '';
 
-	return "Exposition$s" if ($table eq getConfig('exp_tbl'));
+	return "Lecture$s" if ($table eq getConfig('exp_tbl'));
 	return "Book$s" if ($table eq getConfig('books_tbl'));
 	return "Paper$s" if ($table eq getConfig('papers_tbl'));
 }

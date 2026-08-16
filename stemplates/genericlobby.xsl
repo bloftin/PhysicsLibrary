@@ -19,10 +19,10 @@
 						<!-- get introduction blurb -->	
 						<xsl:choose>
 							<xsl:when test="@name='Papers'">
-							Papers are research-calibre (though not necessarily published) expositions of some topic. You can browse papers
+							Papers are research-calibre (though not necessarily published) lectures of some topic. You can browse papers
 							</xsl:when>
-							<xsl:when test="@name='Expositions'">
-							 Expositions are lectures, lecture notes, or written lessons which have as their focus education rather than research. You can browse expositions
+							<xsl:when test="@name='Lectures'">
+							 Lectures are lectures, lecture notes, or written lessons which have as their focus education rather than research. You can browse lectures
 							</xsl:when>
 							<xsl:when test="@name='Books'">
 							 This section is for books which are available for free in electronic form. You can browse books

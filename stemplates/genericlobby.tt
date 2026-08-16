@@ -31,9 +31,9 @@
 					<td>
 	
                         [% IF section == "Papers" %]
-                            Papers are research-calibre (though not necessarily published) expositions of some topic. You can browse papers
-                        [% ELSIF section == "Expositions" %]
-                            Expositions are lectures, lecture notes, or written lessons which have as their focus education rather than research. You can browse expositions
+                            Papers are research-calibre (though not necessarily published) lectures of some topic. You can browse papers
+                        [% ELSIF section == "Lectures" %]
+                            Lectures are lectures, lecture notes, or written lessons which have as their focus education rather than research. You can browse lectures
                         [% ELSIF section == "Books" %]
                             This section is for books which are available for free in electronic form. You can browse books
                         [% END %]
