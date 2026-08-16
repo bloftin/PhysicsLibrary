@@ -130,7 +130,10 @@ sub getHitInfo {
 # get a count of unclassified objects
 #
 sub unclassifiedCount {
-	my ($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.uid from objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null");
+	my $en = getConfig('en_tbl');
+	my $index = getConfig('index_tbl');
+	my $class = getConfig('class_tbl');
+	my ($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.uid from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) left outer join $class as c on (c.tbl='$en' and c.objectid=o.uid) where c.objectid is null");
 	my $total = $sth->rows();
 	
 	$sth->finish();
@@ -150,6 +153,9 @@ sub unclassifiedObjects {
 	my $total = $params->{'total'} || -1;
 	my $offset = $params->{'offset'} || 0;		
 	my $limit = $userinf->{'prefs'}->{'pagelength'};
+	my $en = getConfig('en_tbl');
+	my $index = getConfig('index_tbl');
+	my $class = getConfig('class_tbl');
 
 	# get total
 	#
@@ -160,12 +166,12 @@ sub unclassifiedObjects {
 	# grab the data
 	#
 	my ($rv, $sth);
-	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from users as u, objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null and u.uid=o.userid order by lower(o.title) limit $limit offset $offset")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) left outer join $class as c on (c.tbl='$en' and c.objectid=o.uid) left outer join users as u on (u.uid=o.userid) where c.objectid is null order by lower(o.title) limit $limit offset $offset")
 		if (getConfig('dbms') eq 'pg');
-	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from users as u, objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null and u.uid=o.userid order by lower(o.title) limit $offset, $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) left outer join $class as c on (c.tbl='$en' and c.objectid=o.uid) left outer join users as u on (u.uid=o.userid) where c.objectid is null order by lower(o.title) limit $offset, $limit")
 		if (getConfig('dbms') eq 'mysql');
 
-	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from users as u, objects as o left outer join classification as c on (o.uid=c.objectid) where c.objectid is null and u.uid=o.userid order by lower(o.title) limit $offset, $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) left outer join $class as c on (c.tbl='$en' and c.objectid=o.uid) left outer join users as u on (u.uid=o.userid) where c.objectid is null order by lower(o.title) limit $offset, $limit")
         if (getConfig('dbms') eq 'MariaDB');
 
 	#my $total = $sth->rows();
@@ -174,13 +180,14 @@ sub unclassifiedObjects {
 	my $ord = $offset + 1;
 	while (my $row = $sth->fetchrow_hashref()) {
 		my $mathtitle = mathTitleXSL($row->{'title'}, 'highlight');
+		my $username = $row->{'username'} || 'unknown';
 
 		$template->addText("	<item>");
 		$template->addText("		<series ord=\"$ord\"/>");
 		#$template->addText("		<object title=\"".qhtmlescape($row->{'title'})."\" href=\"".getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{uid}\"/>");
 		$template->addText("		<object href=\"".getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{uid}\"/>");
 		$template->addText("		<title>$mathtitle</title>");
-		$template->addText("		<user name=\"".qhtmlescape($row->{'username'})."\" href=\"".getConfig("main_url")."/?op=getuser;id=$row->{userid}\"/>");
+		$template->addText("		<user name=\"".qhtmlescape($username)."\" href=\"".getConfig("main_url")."/?op=getuser;id=$row->{userid}\"/>");
 		$template->addText("	</item>");
 
 		$ord++;
