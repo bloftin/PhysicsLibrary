@@ -458,18 +458,52 @@ sub getLatest_data {
 	}
 	my $html = '';
 
-	my $datefield = ($type eq 'additions') ? 'created' : 'modified';
-
 	my ($rv, $sth);
-	
-	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid,name,title,date_part('dow',$datefield) as dow, date_part('year',$datefield)||'-'||date_part('month',$datefield)||'-'||date_part('day', $datefield) as ymd", FROM=>getConfig('en_tbl'), 'ORDER BY'=>$datefield, DESC=>'', WHERE=>($type eq 'modifications' ? 'modified > created' : ''), LIMIT=>$limit})
-		if getConfig('dbms') eq 'pg';
 
-	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid,name,title,dayofweek($datefield)-1 as dow, concat(extract(YEAR from $datefield), '-', extract(MONTH from $datefield), '-', extract(DAY from $datefield)) as ymd", FROM=>getConfig('en_tbl'), 'ORDER BY'=>$datefield, DESC=>'', WHERE=>($type eq 'modifications' ? 'modified > created' : ''), LIMIT=>$limit})
-		if getConfig('dbms') eq 'mysql';
-	
-	($rv, $sth) = dbSelect($dbh,{WHAT=>"uid,name,title,dayofweek($datefield)-1 as dow, concat(extract(YEAR from $datefield), '-', extract(MONTH from $datefield), '-', extract(DAY from $datefield)) as ymd", FROM=>getConfig('en_tbl'), 'ORDER BY'=>$datefield, DESC=>'', WHERE=>($type eq 'modifications' ? 'modified > created' : ''), LIMIT=>$limit})
-        if getConfig('dbms') eq 'MariaDB';
+	if ($type eq 'additions') {
+		my $en = getConfig('en_tbl');
+		my $papers = getConfig('papers_tbl');
+		my $books = getConfig('books_tbl');
+		my $lec = getConfig('exp_tbl');
+		my $index = getConfig('index_tbl');
+
+		if (getConfig('dbms') eq 'pg') {
+			($rv, $sth) = dbLowLevelSelect($dbh, "
+				select title, dow, ymd, url from (
+					select o.created as sortdate, o.title, date_part('dow',o.created) as dow, date_part('year',o.created)||'-'||date_part('month',o.created)||'-'||date_part('day',o.created) as ymd, '/encyclopedia/'||o.name||'.html' as url from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1)
+					union all
+					select p.created as sortdate, p.title, date_part('dow',p.created) as dow, date_part('year',p.created)||'-'||date_part('month',p.created)||'-'||date_part('day',p.created) as ymd, '/?op=getobj&from=$papers&id='||cast(p.uid as text) as url from $index as i inner join $papers as p on (i.tbl='$papers' and i.objectid=p.uid and i.type=1)
+					union all
+					select b.created as sortdate, b.title, date_part('dow',b.created) as dow, date_part('year',b.created)||'-'||date_part('month',b.created)||'-'||date_part('day',b.created) as ymd, '/?op=getobj&from=$books&id='||cast(b.uid as text) as url from $index as i inner join $books as b on (i.tbl='$books' and i.objectid=b.uid and i.type=1)
+					union all
+					select l.created as sortdate, l.title, date_part('dow',l.created) as dow, date_part('year',l.created)||'-'||date_part('month',l.created)||'-'||date_part('day',l.created) as ymd, '/?op=getobj&from=$lec&id='||cast(l.uid as text) as url from $index as i inner join $lec as l on (i.tbl='$lec' and i.objectid=l.uid and i.type=1)
+				) as latest order by sortdate desc limit $limit");
+		}
+		if ((getConfig('dbms') eq 'mysql') or (getConfig('dbms') eq 'MariaDB')) {
+			($rv, $sth) = dbLowLevelSelect($dbh, "
+				select title, dow, ymd, url from (
+					select o.created as sortdate, o.title, dayofweek(o.created)-1 as dow, concat(extract(YEAR from o.created), '-', extract(MONTH from o.created), '-', extract(DAY from o.created)) as ymd, concat('/encyclopedia/', o.name, '.html') as url from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1)
+					union all
+					select p.created as sortdate, p.title, dayofweek(p.created)-1 as dow, concat(extract(YEAR from p.created), '-', extract(MONTH from p.created), '-', extract(DAY from p.created)) as ymd, concat('/?op=getobj&from=$papers&id=', p.uid) as url from $index as i inner join $papers as p on (i.tbl='$papers' and i.objectid=p.uid and i.type=1)
+					union all
+					select b.created as sortdate, b.title, dayofweek(b.created)-1 as dow, concat(extract(YEAR from b.created), '-', extract(MONTH from b.created), '-', extract(DAY from b.created)) as ymd, concat('/?op=getobj&from=$books&id=', b.uid) as url from $index as i inner join $books as b on (i.tbl='$books' and i.objectid=b.uid and i.type=1)
+					union all
+					select l.created as sortdate, l.title, dayofweek(l.created)-1 as dow, concat(extract(YEAR from l.created), '-', extract(MONTH from l.created), '-', extract(DAY from l.created)) as ymd, concat('/?op=getobj&from=$lec&id=', l.uid) as url from $index as i inner join $lec as l on (i.tbl='$lec' and i.objectid=l.uid and i.type=1)
+				) as latest order by sortdate desc limit $limit");
+		}
+	} else {
+		my $en = getConfig('en_tbl');
+		my $index = getConfig('index_tbl');
+
+		($rv, $sth) = dbLowLevelSelect($dbh, "select o.title, date_part('dow',o.modified) as dow, date_part('year',o.modified)||'-'||date_part('month',o.modified)||'-'||date_part('day',o.modified) as ymd, '/encyclopedia/'||o.name||'.html' as url from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) where o.modified > o.created order by o.modified desc limit $limit")
+			if getConfig('dbms') eq 'pg';
+
+		($rv, $sth) = dbLowLevelSelect($dbh, "select o.title, dayofweek(o.modified)-1 as dow, concat(extract(YEAR from o.modified), '-', extract(MONTH from o.modified), '-', extract(DAY from o.modified)) as ymd, concat('/encyclopedia/', o.name, '.html') as url from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) where o.modified > o.created order by o.modified desc limit $limit")
+			if getConfig('dbms') eq 'mysql';
+
+		($rv, $sth) = dbLowLevelSelect($dbh, "select o.title, dayofweek(o.modified)-1 as dow, concat(extract(YEAR from o.modified), '-', extract(MONTH from o.modified), '-', extract(DAY from o.modified)) as ymd, concat('/encyclopedia/', o.name, '.html') as url from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) where o.modified > o.created order by o.modified desc limit $limit")
+			if getConfig('dbms') eq 'MariaDB';
+	}
 
 	if (! $rv) {
 		dwarn "latest $type query error\n";
@@ -497,7 +531,7 @@ sub getLatest_data {
 
 		# create the new object entry and add to list for this day
 		# 
-		my $url = "/encyclopedia/$row->{name}.html";
+		my $url = $row->{url};
 		my $title = $row->{title};
 
 		push @$daylist, {$title => $url};
