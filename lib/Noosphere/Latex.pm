@@ -375,6 +375,7 @@ sub renderLaTeX {
 		dwarn "latex_error_check retval: $retval";
 		if (!$retval) {
 			dwarn "write_out_latex before";
+			$latex = auto_size_large_includegraphics($latex, $dir);
 			write_out_latex($fname, $latex);
 			dwarn "write_out_latex before";
 			# main meat of rendering
@@ -444,6 +445,7 @@ sub renderLaTeX {
 		dwarn "latex_error_check retval: $retval";
 		if (!$retval) {
 			dwarn "write_out_latex before";
+			$latex = auto_size_large_includegraphics($latex, $dir);
 			write_out_latex($fname, $latex);
 			dwarn "write_out_latex before";
 			# main meat of rendering
@@ -663,6 +665,63 @@ sub png_preprocess {
 	}
 
 	return $latex;
+}
+
+sub auto_size_large_includegraphics {
+	my $latex = shift;
+	my $dir = shift;
+	my $min_width = 500;
+	my $target_width = '0.9\textwidth';
+
+	$latex =~ s{\\includegraphics(\s*)\{([^{}]+)\}}{
+		my $space = $1;
+		my $image = $2;
+		my $path = find_graphic_file($dir, $image);
+		my $width = defined($path) ? image_width_px($path) : undef;
+
+		if (defined($width) && $width > $min_width) {
+			dwarn "auto-sized large includegraphics image $image width=$width";
+			"\\includegraphics[width=$target_width]$space\{$image\}";
+		} else {
+			"\\includegraphics$space\{$image\}";
+		}
+	}ge;
+
+	return $latex;
+}
+
+sub find_graphic_file {
+	my $dir = shift;
+	my $image = shift;
+
+	return undef if (!defined($image) || $image eq '');
+	return undef if ($image =~ m{(^/|(?:^|/)\.\.(?:/|$))});
+
+	my @candidates = ("$dir/$image");
+	if ($image !~ /\.[A-Za-z0-9]+$/) {
+		push @candidates, map { "$dir/$image.$_" } qw(png jpg jpeg pdf eps);
+	}
+
+	foreach my $candidate (@candidates) {
+		return $candidate if (-f $candidate);
+	}
+
+	return undef;
+}
+
+sub image_width_px {
+	my $path = shift;
+
+	return undef if (!-x '/usr/bin/identify');
+
+	my ($retval, $output, $error) = runExternalCommand('/usr/bin/identify', ['-format', '%w', $path], 10);
+	if ($retval) {
+		dwarn "identify error for $path: $error";
+		return undef;
+	}
+
+	$output =~ s/\s+//g;
+	return ($output =~ /^(\d+)$/) ? $1 : undef;
 }
 
 # do rendering for PNG method
