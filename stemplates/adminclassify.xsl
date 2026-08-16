@@ -17,7 +17,7 @@
   
 	<br />
   
-	  Enter a classification string (See <a target="physicslibrary.popup" href="{//globals/main_url}/?op=pacsbrowse">MSC</a>):
+	  Enter a classification string (See <a target="physicslibrary.popup" href="{//globals/main_url}/?op=pacsbrowse">PACS</a>):
 	<br />
 	
 	<input type="text" name="class" size="75">
@@ -29,7 +29,7 @@
 	<br />
 
 	<font size="-2">
-    (examples: "msc:11F02", "msc:11F02, msc:11F03, msc:05R16". "msc:" can be ommitted, assumed by default.)
+    (examples: "01.65.+g", "00., 45.20.Jj, 04.25.Dm". "pacs:" can be omitted, assumed by default.)
 	</font>
 
 	<br />

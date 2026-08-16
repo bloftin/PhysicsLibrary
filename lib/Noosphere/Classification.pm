@@ -40,7 +40,7 @@ sub classstring {
 
 	my @output;
 	foreach my $c (@class) {
-		push @output, "$c->{ns}:$c->{cat}";
+		push @output, displayclassns($c->{ns}).":$c->{cat}";
 	}
 
 	return join(', ',@output);
@@ -185,6 +185,7 @@ sub getclass {
 sub getcatname {
 	my $ns=shift;
 	my $catid=shift;
+	$ns = storageclassns($ns);
 
 	my ($rv,$sth)=dbSelect($dbh,{WHAT=>'id', FROM=>$ns, WHERE=>"uid=$catid"});
 	if (!$rv || !$sth->rows()) {
@@ -303,17 +304,30 @@ sub normalizecat {
 	} else {
 		($ns,$catstring) = split(/\s*:\s*/,$cat);
 	}
+	$ns = storageclassns($ns);
 
 	# handle special things, per scheme
 	#
 	if ($ns eq 'msc') {
 		if ($catstring =~ /^([0-9]{2})$/) {
-			$catstring = "$1-00";
+			$catstring = "$1.";
 		}
-		$catstring = uc($catstring);
 	}
 
 	return "${ns}:$catstring";
+}
+
+sub storageclassns {
+	my $ns = shift || '';
+	$ns = lc($ns);
+	return 'msc' if ($ns eq 'pacs');
+	return $ns;
+}
+
+sub displayclassns {
+	my $ns = shift || '';
+	return 'pacs' if ($ns eq 'msc');
+	return $ns;
 }
 
 # put in an individual classification link
