@@ -2,6 +2,8 @@ package Noosphere;
 
 use strict;
 use Noosphere::TemplateNS;
+use File::Spec;
+use HTTP::Tiny;
 
 # take a table and object ID and return the path fragment leading to that 
 # object's cache directory
@@ -253,8 +255,9 @@ sub handleFileManager {
 	if (defined $params->{filebox} && $params->{filebox} eq "upload" && nb($params->{fb_urls})) {
 		my @urls = split(/\s*\n\s*/,$params->{fb_urls});
 		foreach my $url (@urls) {
-			if (not wget($url,$dest)) {
-				$ferror .= "Problem getting $url<br/>" if (not wget($url,$dest));
+			my $downloaded = wget($url,$dest);
+			if (not $downloaded) {
+				$ferror .= "Problem getting $url<br/>";
 			} else {
 				$changes = 1;
 			}
@@ -341,30 +344,57 @@ sub handleFileManager {
 	return @filelist;
 }
 
-# wget - low level interface to wget method. return 1 success, 0 fail.
+# wget - low level interface to URL grab method. return 1 success, 0 fail.
 #
 sub wget { 
 	my $source = shift;	 # source url to download from
 	my $dest = shift;		# local location (directory) to place file in
-	my $cmd = getConfig('wgetcmd');
+	dwarn "wget started for $source";
 
-	$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
-	my $cwd = `pwd`;
-	
+	if ($source !~ m{\Ahttps?://}i) {
+		dwarn "wget refusing unsupported URL scheme: $source";
+		return 0;
+	}
+
 	if (not -d $dest) {
 		return 0;
 	}
 
-	chdir $dest;
-	
-	my @args = split(/\s+/,$cmd);
-	push @args,$source;
-	system(@args);
+	my $filename = _wget_filename($source);
+	if (blank($filename)) {
+		dwarn "wget could not determine filename for $source";
+		return 0;
+	}
 
-	my $ret = (($?>>8)==0)?1:0;
-	chdir $cwd;
+	my $target = File::Spec->catfile($dest, $filename);
+	my $response = HTTP::Tiny->new(
+		agent => 'PhysicsLibrary/1.0',
+		max_redirect => 5,
+		timeout => 30,
+	)->mirror($source, $target);
 
-	return $ret;
+	if ($response->{success}) {
+		return 1;
+	}
+
+	dwarn "wget failed for $source: $response->{status} $response->{reason}";
+	unlink $target if -e $target && !-s $target;
+	return 0;
+}
+
+sub _wget_filename {
+	my $source = shift;
+	my $path = $source;
+
+	$path =~ s/[?#].*\z//;
+	$path =~ s{/+\z}{};
+	my ($filename) = ($path =~ m{/([^/]+)\z});
+	$filename ||= 'index.html';
+	$filename =~ s/[^A-Za-z0-9._-]+/_/g;
+	$filename =~ s/\A\.+/_/;
+	$filename =~ s/\.+\z/_/;
+
+	return $filename;
 }
 
 sub httpUpload { 
