@@ -67,7 +67,7 @@ Notes and caveats for adding encyclopedia entries:
         Classification (See <a target="planetphysics.popup" href="/?op=pacsbrowse">PACS</a>):
         <input TYPE="text" NAME="class" SIZE="75" value="[% params.class %]">
         <div style="height: 20px; display: block;">
-            <font size="-2">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be ommitted, assumed by default.)</font>
+            <font size="-2">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be omitted, assumed by default.)</font>
         </div>
 
     [%- END -%]
@@ -201,4 +201,3 @@ Notes and caveats for adding encyclopedia entries:
 
 </form>
 
-    

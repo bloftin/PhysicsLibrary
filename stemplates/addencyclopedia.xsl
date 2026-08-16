@@ -80,7 +80,7 @@
 		
 			<br />
 
-			<font size="-2">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be ommitted, assumed by default.)</font>
+			<font size="-2">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be omitted, assumed by default.)</font>
 		</xsl:if>
 
 		<br /> <br />
