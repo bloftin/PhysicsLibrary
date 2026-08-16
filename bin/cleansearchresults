@@ -3,7 +3,8 @@
 # this script deletes 
 
 use DBI;
-use lib '/var/www/pl/lib';
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 
 use Noosphere qw($dbh $DEBUG);
 use Noosphere::Config;
@@ -16,9 +17,10 @@ my $keep = Noosphere::getConfig('keep_search_results');
 
 my $dbms = Noosphere::getConfig('dbms');
 
-my ($rv,$sth) = Noosphere::dbDelete($dbh,{FROM=>$table,WHERE=>"now()-ts > interval '$keep'"}) if $dbms eq 'pg';
-my ($rv,$sth) = Noosphere::dbDelete($dbh,{FROM=>$table,WHERE=>"ts + interval $keep < now()"}) if $dbms eq 'mysql';
-my ($rv,$sth) = Noosphere::dbDelete($dbh,{FROM=>$table,WHERE=>"ts + interval $keep < now()"}) if $dbms eq 'MarianDB';
+my ($rv,$sth);
+($rv,$sth) = Noosphere::dbDelete($dbh,{FROM=>$table,WHERE=>"now()-ts > interval '$keep'"}) if $dbms eq 'pg';
+($rv,$sth) = Noosphere::dbDelete($dbh,{FROM=>$table,WHERE=>"ts + interval $keep < now()"}) if $dbms eq 'mysql';
+($rv,$sth) = Noosphere::dbDelete($dbh,{FROM=>$table,WHERE=>"ts + interval $keep < now()"}) if $dbms eq 'MariaDB';
 
-$sth->finish();
+$sth->finish() if $sth;
 
