@@ -22,6 +22,7 @@ use Noosphere::IR;
 use Noosphere::Crossref;
 use Noosphere::Authors;
 use Noosphere::Notices;
+use Noosphere::Cache;
 
 # main delete entry point
 #
@@ -117,6 +118,10 @@ sub _delObject {
 	# delete messages
 	#
 	delrows(getConfig('msg_tbl'),"objectid=$params->{id} and tbl='$params->{from}'");
+
+	# delete cache flags
+	#
+	deletecacheflags($params->{'from'}, $params->{'id'});
 
 	# update object tickers
 	# 
