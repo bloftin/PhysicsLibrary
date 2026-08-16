@@ -121,7 +121,6 @@
                             <div id="latest_padding">
                                 <div id="latest">
                                     [% latestadditions %]
-                                    <center><font size="-2"><a href="/?op=enchrono&amp;mode=created">(more)</a></font></center>
                                 </div>
                             </div>
 
