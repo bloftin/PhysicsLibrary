@@ -303,8 +303,11 @@ sub orphanCount {
 	
 	my $count = 0;
 	
-	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'objectid',FROM=>getConfig('index_tbl'),WHERE=>'type=1 and userid<=0'});
-	$count += $sth->rows();
+	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'objectid,tbl',FROM=>getConfig('index_tbl'),WHERE=>'type=1 and userid<=0'});
+	my @abandoned = dbGetRows($sth);
+	foreach my $row (@abandoned) {
+		$count++ if objectExistsByUid($row->{'objectid'}, $row->{'tbl'});
+	}
 	$sth->finish();
 
 	my $cor = getConfig('cor_tbl');
@@ -345,14 +348,13 @@ sub orphanCount {
 #
 sub orphanage {
 
-        # Ben for debugging
-        print "Start orphanage";
 	my $html = "";
 
 	# get abandoned objects
 	#
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'title,objectid,tbl',FROM=>getConfig('index_tbl'),WHERE=>'type=1 and userid<=0'});
 	my @abandoned = dbGetRows($sth);
+	@abandoned = grep { objectExistsByUid($_->{'objectid'}, $_->{'tbl'}) } @abandoned;
 
 	# get owned, but adoptable objects
 	#
@@ -380,9 +382,13 @@ sub orphanage {
 		$html .= "<center><b>Orphaned objects:</b></center><br>";
 
 		foreach my $row (@abandoned) {
-			my ($lastid, $lastname) = getLastData($en, $row->{'objectid'});
+			my ($lastid, $lastname) = getLastData($row->{'tbl'}, $row->{'objectid'});
+			my $lastowner = "unknown";
+			if ($lastid && $lastname) {
+				$lastowner = "<a href=\"".getConfig("main_url")."/?op=getuser&id=$lastid\">$lastname</a>";
+			}
 
-			$html .= "[ <a href=\"".getConfig("main_url")."/?op=adopt&from=$row->{tbl}&id=$row->{objectid}&ask=yes\">adopt</a> ] <a href=\"".getConfig("main_url")."/?op=getobj&from=$row->{tbl}&id=$row->{objectid}\">$row->{title}</a> (was owned by <a href=\"".getConfig("main_url")."/?op=getuser&id=$lastid\">$lastname</a>)<br>";
+			$html .= "[ <a href=\"".getConfig("main_url")."/?op=adopt&from=$row->{tbl}&id=$row->{objectid}&ask=yes\">adopt</a> ] <a href=\"".getConfig("main_url")."/?op=getobj&from=$row->{tbl}&id=$row->{objectid}\">$row->{title}</a> (was owned by $lastowner)<br>";
 		}
 
 		$html .= "<br>";
