@@ -1,6 +1,7 @@
 package Noosphere;
 use strict;
 use Noosphere::TemplateNS;
+use vars qw($NoosphereTitle);
 
 # getObj - main object retrieval point, calls more specialized functions
 #
@@ -21,6 +22,11 @@ sub getObj {
 	my $desc = 0;
 	my $nomsg = 0;
 	my $file = 'getobj.tt';
+	my $is_generic_library_item = (
+		$params->{'from'} eq getConfig('papers_tbl') ||
+		$params->{'from'} eq getConfig('exp_tbl') ||
+		$params->{'from'} eq getConfig('books_tbl')
+	);
 	dwarn "name";
 	dwarn $name;
 	dwarn "id";
@@ -134,7 +140,7 @@ sub getObj {
 	#
 	dwarn "start requestsKeyTT";
 	dwarn "html:\n $html";
-	if (1) {
+	if (!$is_generic_library_item) {
 		dwarn "OBJECT REQUESTS messages";
 		dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
 		my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
@@ -173,7 +179,6 @@ sub getObj {
 		$params->{'from'} eq getConfig('exp_tbl') ||
 		$params->{'from'} eq getConfig('books_tbl')) {
 		$admin = getGenericAdmin($params, $userinf, $rec);
-		$interact = makeBox('Interact',getGenericInteract($params->{'from'},$rec));
 	}
 
 	# get owner controls
@@ -185,7 +190,9 @@ sub getObj {
 		$author = getAuthorControls($params->{'from'},$rec->{'uid'},$userinf);
 	}
 
-	$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+	if ($params->{'from'} eq getConfig('en_tbl')) {
+		$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+	}
 	$params->{'id'} = $id;
 	$watch = getWatchWidget($params, $userinf);
 
