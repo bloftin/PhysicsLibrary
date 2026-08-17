@@ -392,6 +392,13 @@ sub renderLaTeX {
 	#
 	elsif ( $method eq "l2h" ) {
 		dwarn "renderLaTeX l2h started\n";
+		if (uses_tikz($latex)) {
+			dwarn "renderLaTeX l2h detected TikZ source";
+			write_tikz_l2h_message($table, $id);
+			dwarn "renderLaTeX l2h ended\n";
+			return;
+		}
+
 		my $retval = latex_error_check($fname, $latex, $dir);
 		dwarn "latex_error_check ended \n";
 		if (!$retval) {
@@ -847,6 +854,48 @@ sub write_render_message {
 	print HTMLFILE "<tr><td><font size=\"+1\" color=\"#ff0000\">".htmlescape($message)."</font></td></tr>\n";
 	print HTMLFILE "</table>\n";
 	close HTMLFILE;
+}
+
+sub write_render_html_message {
+	my $html = shift;
+
+	open HTMLFILE,">".getConfig('rendering_output_file');
+	print HTMLFILE "<table width=\"100%\" border=\"0\" cellpadding=\"8\" cellspacing=\"0\">\n";
+	print HTMLFILE "<tr><td>$html</td></tr>\n";
+	print HTMLFILE "</table>\n";
+	close HTMLFILE;
+}
+
+sub uses_tikz {
+	my $latex = shift || '';
+
+	return 1 if ($latex =~ /\\usepackage(?:\[[^\]]*\])?\{[^}]*\b(?:tikz|pgfplots)\b[^}]*\}/);
+	return 1 if ($latex =~ /\\usetikzlibrary\b/);
+	return 1 if ($latex =~ /\\pgfplotsset\b/);
+	return 1 if ($latex =~ /\\begin\{tikzpicture\}/);
+	return 1 if ($latex =~ /\\begin\{axis\}/);
+	return 1 if ($latex =~ /\\begin\{pgfpicture\}/);
+	return 1 if ($latex =~ /\\tikz\b/);
+
+	return 0;
+}
+
+sub write_tikz_l2h_message {
+	my $table = shift;
+	my $id = shift;
+
+	my $base = getConfig('main_url')."/?op=getobj&amp;from=".urlescape($table)."&amp;id=".urlescape($id);
+	my $html = ''
+		. '<p><font size="+1" color="#cc0000">This entry uses TikZ/PGF, which is not supported by the HTML with images renderer.</font></p>'
+		. '<p>Please try another rendering style:</p>'
+		. '<ul>'
+		. '<li><a href="'.$base.'&amp;method=make4ht">HTML with make4ht</a></li>'
+		. '<li><a href="'.$base.'&amp;method=png">page images</a></li>'
+		. '<li><a href="'.$base.'&amp;method=pdf">PDF</a></li>'
+		. '<li><a href="'.$base.'&amp;method=src">TeX source</a></li>'
+		. '</ul>';
+
+	write_render_html_message($html);
 }
 
 sub render_pdf {
