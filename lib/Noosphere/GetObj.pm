@@ -1,6 +1,7 @@
 package Noosphere;
 use strict;
 use Noosphere::TemplateNS;
+use vars qw($NoosphereTitle);
 
 # getObj - main object retrieval point, calls more specialized functions
 #
