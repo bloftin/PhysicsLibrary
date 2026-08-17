@@ -185,7 +185,9 @@ sub getObj {
 		$author = getAuthorControls($params->{'from'},$rec->{'uid'},$userinf);
 	}
 
-	$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+	if ($params->{'from'} eq getConfig('en_tbl')) {
+		$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+	}
 	$params->{'id'} = $id;
 	$watch = getWatchWidget($params, $userinf);
 

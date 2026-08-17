@@ -735,6 +735,11 @@ sub getCorrections {
 	my $html = '';
 	my $table = getConfig('en_tbl');
 	my $cor = getConfig('cor_tbl');
+	my $from = $params->{from} || $table;
+
+	if ($from ne $table) {
+		return errorMessage('Corrections are only supported for encyclopedia entries.');
+	}
  
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'corrections.*,users.username', FROM=>'corrections,users', WHERE=>"corrections.userid=users.uid and objectid=$id", 'ORDER BY'=>'filed', DESC=>''});
 
@@ -894,6 +899,8 @@ sub hascorrections {
 	my $tbl = shift;
 	my $id = shift;
 
+	return 0 if ($tbl ne getConfig('en_tbl'));
+
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'count(uid) as cnt',FROM=>'corrections',WHERE=>"objectid=$id and closed is null"});
 
 	if (!$rv) {
@@ -1005,8 +1012,10 @@ sub postCorrection {
 	my $error = '';
 	my $table = getConfig('en_tbl');
 	my %obj;
+	my $from = $params->{from} || $table;
 	
 	return errorMessage('You must be logged in to file a correction.') if ($userinf->{uid} <= 0);
+	return errorMessage('Corrections are only supported for encyclopedia entries.') if ($from ne $table);
 	
 	%obj = getfieldsbyid($params->{id},getConfig('en_tbl'),'userid');
 	return errorMessage("You can't file corrections to objects you own.	You must <a href=\"".getConfig("main_url")."/?op=edit&amp;from=$table&amp;id=$params->{id}\">edit</a> them directly.") if ($userinf->{uid} == $obj{userid});
