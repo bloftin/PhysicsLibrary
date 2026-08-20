@@ -287,7 +287,7 @@ sub getPager {
 #
 sub getPageWidgetXSLT {
 	my ($template, $params, $userinf, $scale) = @_;
-	dwarn "getPageWidgetXSLT start";
+	#dwarn "getPageWidgetXSLT start";
 	my $slicesize = $userinf->{'prefs'}->{'pagelength'} || '020';
 
 	$scale = 1 unless $scale;

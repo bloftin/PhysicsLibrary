@@ -68,7 +68,7 @@ sub getNoTemplateContent {
 	if ($params->{'op'} eq 'robotstxt') {
 		return getConfig('robotstxt');
 	}
-	dwarn "getNoTemplateContent params: $params";
+	#dwarn "getNoTemplateContent params: $params";
 	my $content = dispatch(\%NONTEMPLATE, $params, $user_info, $upload); 
 	
 	return $content;
@@ -82,7 +82,7 @@ sub getViewTemplateContent {
 	#dwarn "headerAndCSS started req content type: $content_type";
 	# find function call in handler table and execute it with standard params
 	#
-	dwarn "getViewTemplateContent params: $params\n";
+	#dwarn "getViewTemplateContent params: $params\n";
 	my $content = dispatch(\%HANDLERS,$params, $user_info, $upload); 
 	
 	return $content;
@@ -99,7 +99,7 @@ sub getMainTemplateContent {
 	# op=news or op=main
 	#$content = paddingTable(getTopNews($userinf));
 	$content = paddingTable(getFrontPage({}, $userinf));
-	dwarn "getFrontPage Finished"; 
+	#dwarn "getFrontPage Finished"; 
 	return $content;
 }
 
@@ -128,7 +128,7 @@ sub getMainTemplateContent {
 sub getFrontPage {
 	my $params = shift;
 	my $userinf = shift;
-	dwarn "getFrontPage started";
+	#dwarn "getFrontPage started";
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
 #	my $template = new XSLTemplate('frontpage.xsl');
@@ -151,7 +151,7 @@ sub getFrontPage {
 
 	
 	my $xslt = getConfig("stemplate_path") . "/frontpage.xsl";
-	dwarn "Before buildStringUsingXSLT";
+	#dwarn "Before buildStringUsingXSLT";
 	my $page = buildStringUsingXSLT( $xmlstring, $xslt );
 	return $page;
 }
@@ -240,7 +240,7 @@ sub getMainMenuHybrid {
 
 sub getMainMenuOld {
 	my $template = new XSLTemplate("mainmenu.xsl");
-	dwarn("MainMenu Started");
+	#dwarn("MainMenu Started");
 	$template->addText('<mainmenu>');
 
 	my $count = getUnfilledReqCount();
@@ -270,7 +270,7 @@ sub getMainMenuOld {
 	$template->setKeys('unproven' => $up_count, 'unclassified' => $uc_count, 'orphans' => $orphan_count, 'corrections' => $cor_count, 'requests' => $request_count, 'bullet' => $bullet);
 	
 	$template->addText('</mainmenu>');
-	dwarn("MainMenu Before Expand");
+	#dwarn("MainMenu Before Expand");
 	return makeBox("Main Menu",$template->expand());
 }
 
@@ -280,7 +280,7 @@ sub fillInSideBars {
 	my $html = shift;
 	my $params = shift;
 	my $userinf = shift;
-	dwarn("fillInSideBars Started");
+	#dwarn("fillInSideBars Started");
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
 	my $sidebar = new TemplateNS("sidebar.html");
@@ -297,7 +297,7 @@ sub fillInSideBars {
 	$sidebar->setKeys('search' => $search, 'admin' => $admin, 'features' => $features);
 	$rightbar->setKeys('topusers' => $topusers, 'latesta' => $latesta, 'latestm' => $latestm, 'poll' => $poll);
 	$html->setKeys('sidebar' => $sidebar->expand(), 'rightbar' => $rightbar->expand());
-	dwarn("fillInSideBars Ended");
+	#dwarn("fillInSideBars Ended");
 }
 
 # fill left bar (sidebar) into a template
@@ -336,22 +336,22 @@ sub fillInLeftBarOld {
 	my $html = shift;
 	my $params = shift;
 	my $userinf = shift;
-	dwarn("fillInLeftBar Started");
+	#dwarn("fillInLeftBar Started");
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
 	my $sidebar = new TemplateNS("sidebar.html");
 	
 	my $login = getLoginBox($params,$userinf);
-	dwarn("Before getMainMenu Started");
+	#dwarn("Before getMainMenu Started");
 	my $features = getMainMenu();
-	dwarn("After getMainMenu Started");
-	dwarn("Before getAdminMenu Started");
+	#dwarn("After getMainMenu Started");
+	#dwarn("Before getAdminMenu Started");
 	my $admin = getAdminMenu($userinf->{data}->{access});
-	dwarn("After getAdminMenu Started");
+	#dwarn("After getAdminMenu Started");
 	$sidebar->setKeys('login' => $login, 'admin' => $admin, 'features' => $features);
 	#$sidebar->setKeys('login' => $login, 'features' => $features);
 	$html= $sidebar->expand();
-	dwarn("fillInLeftBar End");
+	#dwarn("fillInLeftBar End");
 	return $html;
 }
 
@@ -361,7 +361,7 @@ sub headerAndCSS {
 	my $template = shift;
 	my $params = shift;
 	
-	dwarn "headerAndCSS started";
+	#dwarn "headerAndCSS started";
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
 	#my $search = getSearchBox($params);
@@ -370,7 +370,7 @@ sub headerAndCSS {
 
 	#$header->setKey('search', $search);
 
-	dwarn "headerAndCSS ended";
+	#dwarn "headerAndCSS ended";
 	$template->setKey('header', $header->expand());
 	#$template->setKey('style', $style->expand());
 }
@@ -389,7 +389,7 @@ sub sendOutput {
 	$req->headers_out->add('content-length' => $len);
 #	$req->send_http_header;
 	my $content_type = $req->content_type;
-	dwarn "sendOutput req content type: $content_type";
+	#dwarn "sendOutput req content type: $content_type";
 	open( OUT, ">/tmp/sendOutput.html");
 	print OUT $html;
 	close(OUT);
@@ -401,7 +401,7 @@ sub sendOutputOld {
 	my $req = shift;
 	my $html = shift;
 	my $status = shift || 200;
-	dwarn "sendOutput started";
+	#dwarn "sendOutput started";
 	my $len = length($html);
 
 	#$req->status($status);
@@ -409,10 +409,10 @@ sub sendOutputOld {
 #    $req->content_language('en');
 	#$req->headers_out->add('content-length' => $len);
 	my $content_type = $req->content_type;
-	dwarn "sendOutput req content type: $content_type";
+	#dwarn "sendOutput req content type: $content_type";
 #	$req->send_http_header;
 	$req->print($html);
-	dwarn "sendOutput ended";
+	#dwarn "sendOutput ended";
 	$req->rflush();  
 }
 
@@ -594,7 +594,7 @@ sub cgi_handler {
 # main noosphere mod_perl entry point
 #
 sub handler {
-	dwarn "Noosphere Entry Point";
+	#dwarn "Noosphere Entry Point";
 		#my $req = shift;
 	#Ben, latest noosphere getting request this way
 	#my $req = Apache2::Request->new(shift);
@@ -614,18 +614,18 @@ sub handler {
         #my $PPreq = Apache2::RequestUtil->request();
 	#dwarn $PPreq->param();
 	my $content_type = $req->content_type;
-	dwarn "Before parseParams started req content type: $content_type";
+	#dwarn "Before parseParams started req content type: $content_type";
 	my ($params,$upload) = parseParams($req);
-	dwarn "Params";
-    dwarn $params;
-    dwarn "Upload";
-    dwarn $upload;
-	dwarn "After parseParams";
+	#dwarn "Params";
+    #dwarn $params;
+    #dwarn "Upload";
+    #dwarn $upload;
+	#dwarn "After parseParams";
 	$content_type = $req->content_type;
-	dwarn "After parseParams started req content type: $content_type";
+	#dwarn "After parseParams started req content type: $content_type";
 	my %cookies = parseCookies($req);
-	dwarn "After parseCookies";
-	dwarn "cookies:\n @{[%cookies]}\n";
+	#dwarn "After parseCookies";
+	#dwarn "cookies:\n @{[%cookies]}\n";
 	my $html = '';
 
 	$AllowCache = 1;	# default to allow client caching
@@ -634,14 +634,14 @@ sub handler {
 	# we use this instead of a mod_rewrite-ish thing
 	#
 	my $uri = $req->uri();
-	dwarn "req->uri:\n$uri";
+	#dwarn "req->uri:\n$uri";
 	# deny IIS virii requests
 	#
 	if ($uri =~ /[aA]dmin\.dll/o || 
 		$uri =~ /root\.exe/o ||
 		$uri =~ /winnt/o ||
 		$uri =~ /cmd\.exe/o ) {
-		dwarn "URI: IIS Virii request";		
+		#dwarn "URI: IIS Virii request";		
 		$html .= "No IIS here, sorry.";
 		my $len = length($html);
 		$req->header_out("Content-Length"=>"$len");
@@ -680,14 +680,14 @@ sub handler {
 	} 
 	# BB: cached files serving
 	if ($uri =~ /\/files\/(.+)$/o) { 
-		dwarn "URI: Cached files serving";
+		#dwarn "URI: Cached files serving";
 		return serveFile($req,$1);
 	}
 	# remapping
 	#
 	if ($uri =~ /\/[Ee]ncyclopedia\/(.+)\.htm[l]{0,1}(#.+)?$/o ||
 			$uri =~ /^\/([^\/]+)\.htm[l]{0,1}(#.+)?$/) {
-		dwarn "URI: remapping";
+		#dwarn "URI: remapping";
 		$params->{'op'} = 'getobj';
 		$params->{'from'} = getConfig('en_tbl');
 		my $basename = $1;
@@ -697,20 +697,20 @@ sub handler {
 			$params->{'name'} = $basename;
 		}
 	} elsif ($uri =~ /\/[Ee]ncyclopedia\/([0-9A-Z])[\/]{0,1}$/o) {
-		dwarn "URI: remapping idx";
+		#dwarn "URI: remapping idx";
 		my $ord = ord($1);
 		$params->{'op'} = 'en';
 		$params->{'idx'} = "$ord";
 	
 	} elsif ($uri =~ /\/[Ee]ncyclopedia[\/]{0,1}$/o) {
-		dwarn "URI: remapping En";
+		#dwarn "URI: remapping En";
 		$params->{'op'} = 'en';
 	}
 	elsif ($uri =~ /\/browse\/([^\/]+)\/([^\/]+)\/$/o) {
 
 		my $from = $1;
 		my $id = $2;
-		dwarn "URI: remapping op from id";
+		#dwarn "URI: remapping op from id";
 		$params->{'op'} = 'pacsbrowse';
 		$params->{'from'} = $from;
 		$params->{'id'} = $id;
@@ -719,7 +719,7 @@ sub handler {
 	elsif ($uri =~ /\/browse\/([^\/]+)\/$/o) {
 
 		my $from = $1;
-		dwarn "URI: remapping op from";
+		#dwarn "URI: remapping op from";
 		$params->{'op'} = 'pacsbrowse';
 		$params->{'from'} = $from;
 	}
@@ -733,7 +733,7 @@ sub handler {
 	# remap to display robots.txt directives
 	#
 	if ($uri =~ /\/robots\.txt$/o) {
-		dwarn "URI: robotstxt";
+		#dwarn "URI: robotstxt";
 		$params->{'op'} = 'robotstxt';
 	}
 
@@ -750,7 +750,7 @@ sub handler {
 	#      $params->{key} = $val;
 	#    }
        	#}
-	dwarn "Request URI: \n $uri";
+	#dwarn "Request URI: \n $uri";
 
 	# debug print request headers
 	# 
@@ -782,7 +782,7 @@ sub handler {
 	# handle serving of images
 	#
 	if ($params->{op} eq 'getimage') {
-		dwarn "servImage before";
+		#dwarn "servImage before";
 		serveImage($req, $params->{id});
 		return;	
 	}
@@ -810,27 +810,27 @@ sub handler {
 	# check for any content that isn't meant for any template
 	#
 	$content_type = $req->content_type;
-	dwarn "getNoTemplateContent started req content type: $content_type";
+	#dwarn "getNoTemplateContent started req content type: $content_type";
 	$html = getNoTemplateContent($params, \%user_info, $upload);
 	# if none, process template stuff
 	#
 	if ($html eq '') {
-		dwarn "No params process template stuff";
+		#dwarn "No params process template stuff";
 		$content_type = $req->content_type;
-		dwarn "No params process template stuff started req content type: $content_type";
+		#dwarn "No params process template stuff started req content type: $content_type";
 		my $content;
 		my $template;
 		$NoosphereTitle = '';
-		dwarn "Process Template inputs, params:\n$params";
-		dwarn "hash params:\n @{[$params]}\n";
+		#dwarn "Process Template inputs, params:\n$params";
+		#dwarn "hash params:\n @{[$params]}\n";
 		$content = getViewTemplateContent($params,\%user_info,$upload);
 		#dwarn "getViewTemplateContent: content:\n$content";
 		if ($content ne '' ) {
 			
 			
-			dwarn "view.html template"; 
+			#dwarn "view.html template"; 
 			$content_type = $req->content_type;
-			dwarn "view.html started req content type: $content_type";
+			#dwarn "view.html started req content type: $content_type";
 			##$template = new TemplateNS('view.html');
 			##fillInLeftBar($template,$params,\%user_info);
 			##$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
@@ -899,7 +899,7 @@ sub handler {
 		else {
 
 			$content_type = $req->content_type;
-			dwarn "frontpage started req content type: $content_type";
+			#dwarn "frontpage started req content type: $content_type";
 			$content = buildMainPageTT($params, \%user_info);
 			#warn "content = $content";
 			
@@ -1012,7 +1012,7 @@ sub buildMainPageTT {
 	my $poll = getCurrentPoll();
 
 	my $search_results = $params->{sa};
-	dwarn "Searching: $search_results";
+	#dwarn "Searching: $search_results";
 	my $vars = {
         head      		=> $head,
 		header          => $header,
@@ -1046,9 +1046,9 @@ sub buildMainPage {
 	my $headert = new TemplateNS( 'header.html' );
 	my $header = $headert->expand();
 
-	dwarn "loginbox before";
+	#dwarn "loginbox before";
 	my $loginbox = getLoginBox($params,$userinf);
-	dwarn "loginbox: \n$loginbox";
+	#dwarn "loginbox: \n$loginbox";
 	#my $xslt = getConfig("stemplate_path") . "/logos.xsl";
 	#my $logosbox = buildStringUsingXSLT( '<temp></temp>', $xslt );
 
@@ -1169,7 +1169,7 @@ sub buildViewPage {
 
 	$template->setKey('metacache', ($AllowCache ? '' : $nocache));
 	my $html = '';
-	dwarn "buildViewPage before expand";
+	#dwarn "buildViewPage before expand";
 	$html = $template->expand();
 	#dwarn "buildViewPage after  expand, html: \n$html";
 	

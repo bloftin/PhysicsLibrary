@@ -322,7 +322,7 @@ sub getSystemStats {
 # getTopUsers - get the top users box that shows top users by score
 #
 sub getTopUsers {
-        #dwarn "getTopUsers!!!!!!!!!!!!!!!!!!!!!";
+    #dwarn "getTopUsers!!!!!!!!!!!!!!!!!!!!!";
 	# grab the cached statistics
 	#
 	#my $topusers = $stats->get('topusers');
@@ -406,7 +406,7 @@ sub getTopUsers_callback {
 
 	if (! $rv) {
 		dwarn "no users found for top users statistics!\n";
-	return [];
+		return [];
 	}
 
 	my $where;

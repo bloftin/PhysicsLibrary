@@ -33,8 +33,8 @@ sub getNewUser {
 			my $hostname = $addrs->{'main'};
 			my $hash = makeHash($params->{"user"},$params->{"email"});
 			#$hash =~ s/ /%20/;
-			dwarn "Before sendmail hash = $hash";
-			dwarn "hostname is $hostname";
+			#dwarn "Before sendmail hash = $hash";
+			#dwarn "hostname is $hostname";
 			$body->setKeys('hash' => $hash, 'hostname' => $hostname);
 			
 			sendMail($params->{email},$body->expand());
@@ -161,10 +161,10 @@ sub makeHash {
 	my $user = shift;
 	my $email = shift;
 	
-	dwarn "user is $user, email is $email";
+	#dwarn "user is $user, email is $email";
 	my $hash = sha1_hex(join(':',$user,$email),SECRET);
 	$hash = "$user:$email:$hash";
-	dwarn "hash is $hash";
+	#dwarn "hash is $hash";
 	return $hash; 
 }
 
@@ -172,19 +172,19 @@ sub checkHash {
 	my $hash_str = shift;
 	
 	my $error = "invalid hash";
-	dwarn "hash_str is $hash_str";
+	#dwarn "hash_str is $hash_str";
 	my @hash_data = split(/:/,$hash_str);
 	
-	dwarn "hash data is @hash_data";
-	dwarn "Before unless equal $#hash_data";
+	#dwarn "hash data is @hash_data";
+	#dwarn "Before unless equal $#hash_data";
 	return $error unless ($#hash_data eq 2);
-	dwarn "After unless hash eq";
+	#dwarn "After unless hash eq";
 	my %ticket = ('user'=>$hash_data[0],'email'=>$hash_data[1],'hash'=>$hash_data[2]);
-# dwarn "user is $ticket{'user'} email is $ticket{'email'}";
+	# dwarn "user is $ticket{'user'} email is $ticket{'email'}";
  
 	my $hash = sha1_hex(join(':',@ticket{qw(user email)}),SECRET);
- 	dwarn "checking, hash is $hash";
- 	dwarn "ticket hash is $ticket{'hash'}";
+ 	#dwarn "checking, hash is $hash";
+ 	#dwarn "ticket hash is $ticket{'hash'}";
 	return $error unless ($ticket{"hash"} eq $hash);
 	return ''; 
 }
@@ -212,7 +212,7 @@ sub activateAccount {
 	return("empty password, please reenter"); }
 
 	my ($user,$email) = split(/:/,$hash);
-	dwarn "adding $user at $email to database";
+	#dwarn "adding $user at $email to database";
 
 	# silently fail if the user exists (probably the client submitted the same
 	# command twice in rapid succession)
@@ -220,7 +220,7 @@ sub activateAccount {
 	if (user_registered($user, 'username')) {
 	
 		dwarn "not adding $user at $email, already exists!";
-	return '';
+		return '';
 	}
 
 	# create the record in the user table

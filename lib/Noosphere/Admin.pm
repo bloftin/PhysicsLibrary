@@ -44,9 +44,9 @@ sub addSiteDoc {
 	# get the intersection of the above list of IDs and the collaborations
 	# that are site docs
 	#
-	dwarn "getCollabObjList before";
+	#dwarn "getCollabObjList before";
 	my $xml = getCollabObjList($userinf, "sitedoc = 0 and published = 1");
-	dwarn "getCollabObjList after";
+	#dwarn "getCollabObjList after";
 	$template->addText($xml);
 
 	$template->addText('</addsitedoc>');

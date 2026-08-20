@@ -605,11 +605,11 @@ sub getfilelist {
 	my %index;
 	my $count = 0;
 
-	dwarn "fileurl: $filedir";
+	#dwarn "fileurl: $filedir";
 
 	# change to directory
 	if (-e $filedir) { 
-		dwarn "Changing directory to $filedir";
+		#dwarn "Changing directory to $filedir";
 		$CWD = $filedir;  # just like chdir($dir)!		
 	} else { 
 		return ''; 
@@ -618,7 +618,7 @@ sub getfilelist {
 	# process index, if present 
 	#
 	if ( -e '00index.txt' ) {
-		dwarn "00index.txt exists";
+		#dwarn "00index.txt exists";
 		open INDEX,"00index.txt";
 		my $line = '';
 		while ($line = <INDEX>) {
@@ -632,7 +632,7 @@ sub getfilelist {
 	$html .= "<table>";
 	my @files = <*>;
 	foreach my $file (@files) {
-		dwarn "file: $file";
+		#dwarn "file: $file";
 		next if ( $file eq "00index.txt" );
 	next if ( $file =~ /^coverimage/ );
 	$html .= "<tr>";
@@ -927,7 +927,7 @@ sub removeTempCacheDir {
 	my $root=getConfig('cache_root');
 	#dwarn "curernt directory in removeTempCacheDir $CWD";
 	return if ((not defined($cachedir)) or $cachedir eq "");
-	dwarn "removeTempCacheDir: $root/$cachedir";
+	#dwarn "removeTempCacheDir: $root/$cachedir";
 	remove_tree("$root/$cachedir");
 }
 
@@ -1615,9 +1615,9 @@ sub sendMail {
 	-------------------------------------
 	If you do not want to receive these messages any more, unset 'receive email boxes' in your preferences. ".getConfig("main_url")."/?op=editprefs";
 	
-	dwarn "sending mail: [$body]";
-	dwarn "sending email to: $email";
-	dwarn "sending email subject: $subject";
+	#dwarn "sending mail: [$body]";
+	#dwarn "sending email to: $email";
+	#dwarn "sending email subject: $subject";
 	# Someday add to global config 
 	my $obj_email = Paws->service('SESv2', region => 'us-east-2');
 
@@ -1646,7 +1646,7 @@ sub sendMail {
 
     # Results:
     my $MessageId = $SendEmailResponse->MessageId;
-	dwarn "Email response: $MessageId";
+	#dwarn "Email response: $MessageId";
 	#dwarn "sending mail: $body";
 	#dwarn "sending mail: [$body]";
 
@@ -1729,8 +1729,8 @@ sub requestsKeyTT {
 	my $key = shift;
 
 	my $prefix = getConfig('template_cmd_prefix');
-	dwarn "prefix: $prefix";
-	dwarn "key: $key";
+	#dwarn "prefix: $prefix";
+	#dwarn "key: $key";
 	##my $txt = $tobj->{"TEXT"};
 	##dwarn "tobj->{TEXT}: $txt";
 	

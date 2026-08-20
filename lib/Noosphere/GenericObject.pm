@@ -21,7 +21,7 @@ sub addGeneric {
 	my $userinf = shift;
 	my $upload = shift;
 
-	dwarn "Start addGeneric";
+	#dwarn "Start addGeneric";
 	return errorMessage('Must be logged in to add to the collection!') if ($userinf->{uid} < 1);
 
 	my $html_out = '';
@@ -35,8 +35,8 @@ sub addGeneric {
 	my $isa = getIsA($table);
 	my $section = getIsA($table, 1);
 
-	dwarn "isa: $isa";
-	dwarn "section: $section";
+	#dwarn "isa: $isa";
+	#dwarn "section: $section";
 
 	$template->addText("<addgeneric section=\"$section\">");
 
@@ -234,7 +234,7 @@ sub browseGenericNew {
 
 	my $params = shift;
 
-	dwarn "browseGeneric start";	
+	#dwarn "browseGeneric start";	
 	# get plural section descriptor
 	#
 	
@@ -281,7 +281,7 @@ sub browseGenericNew {
 	<tr>
 		<td>$interact</td>
 	</tr></table>";
-	dwarn "browseGeneric end";
+	#dwarn "browseGeneric end";
 	return $html;
 }
 
@@ -289,7 +289,7 @@ sub browseGeneric {
 	my $params = shift;
 	my $userinf = shift;
 
-	dwarn "Start browseGeneric";
+	#dwarn "Start browseGeneric";
 	my $html_out = '';
 	my $tt_file = 'genericlobby.tt';
 	#my $template = new XSLTemplate('genericlobby.xsl');
@@ -297,7 +297,7 @@ sub browseGeneric {
 	# get plural section descriptor
 	#
 	my $section = getIsA($params->{from}, 1);
-	dwarn "section: $section";
+	#dwarn "section: $section";
 	#$template->addText("<genericlobby name=\"$section\" table=\"$params->{from}\">");
 	
 	# output data needed for "interact"

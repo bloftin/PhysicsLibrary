@@ -49,12 +49,12 @@ sub renderForum {
 
 	my $file = 'forumobj.tt';
 	my $html_obj = '';
-	dwarn "renderForum start";
+	#dwarn "renderForum start";
 	my $table = getConfig('forum_tbl');
 	my $title = $rec->{title};
-	dwarn "rec title:\n $title";
+	#dwarn "rec title:\n $title";
 	my $rec_data = $rec->{data};
-	dwarn "rec data:\n $rec_data";
+	#dwarn "rec data:\n $rec_data";
 
 	##my $template = new TemplateNS('forumobj.html');
 
@@ -65,11 +65,11 @@ sub renderForum {
 	
 	my $forumobj = clearBox("Forum: $rec->{title}","<center>Welcome to the $rec->{title} forum!</center><hr width=\"100%\" size=1 noshade>".$rec->{data}."<p><center>[ <a href=\"".getConfig("main_url")."/?op=forums\">back to forums top</a> ]</center>");
 	
-	dwarn "forumobj:\n $forumobj";
+	#dwarn "forumobj:\n $forumobj";
 
 	my $interact = makeBox("Interact","<center><a href=\"".getConfig("main_url")."/?op=postmsg&from=$table&id=$rec->{uid}\">post</a></center>");
 	
-	dwarn "interact:\n $interact";
+	#dwarn "interact:\n $interact";
 
 	##$template->setKeys('forumobj' => $forumobj, 'commands' => $interact);
 	my $vars = {
@@ -79,7 +79,7 @@ sub renderForum {
 
 	my $ret = $tt->process($file, $vars, \$html_obj) || die "Template process failed: ", $tt->error(), "\n";
 
-	dwarn "renderForum end";
+	#dwarn "renderForum end";
 	return $html_obj;
 }
 

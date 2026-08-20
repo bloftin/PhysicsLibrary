@@ -115,7 +115,7 @@ sub getLatestMessages_data {
 # get XML data for most recent messages
 #
 sub getLatestMessagesXML {
-	dwarn "Latest Messages ^^^^^";
+	#dwarn "Latest Messages ^^^^^";
 	my $params = shift;
 	my $userinf = shift;
 
@@ -156,7 +156,7 @@ sub getLatestMessagesXML {
 	$sth->finish();
 
 	$xml .= "	</messages>";
-    dwarn "XML latest messages are : $xml";	
+    #dwarn "XML latest messages are : $xml";	
 	return $xml;
 }
 
@@ -267,7 +267,7 @@ sub getMessage {
 
 	if (! $rv ) { 
 		dwarn "uh oh... couldn't find any message $uid";
-	return "Couldn't find that message!";
+		return "Couldn't find that message!";
 	}
 
 	# handle watch toggling
@@ -850,9 +850,9 @@ sub postMessage {
 		my $text = $params->{body};
 		$text =~ s/>.*?\n//gs;
 		$text =~ s/^\s*//s;
-#	dwarn "*** spell: submitting to spellcheck : [$text]";
+		#	dwarn "*** spell: submitting to spellcheck : [$text]";
 		my $spell = checkdoc($text);
-#	dwarn "*** spell: got back [$spell]";
+		#	dwarn "*** spell: got back [$spell]";
 		$post->setKey('spell', "Spell check (broken words in red, clickable):<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$spell</td></tr></table><hr>");
 		$template->setKey('post', makeBox($boxtitle, $post->expand()));
 		$html = $template->expand();

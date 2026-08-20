@@ -12,7 +12,7 @@ require Noosphere::Util;
 sub templateTestPerl
 {
 	my $params = shift;
-	dwarn "templateTestPerl start";
+	#dwarn "templateTestPerl start";
 	my @pacs_ids;
 
 	my ($rv,$sth)=Noosphere::dbSelect($dbh,{WHAT=>'*',FROM=>'msc'});
@@ -39,7 +39,7 @@ sub templateTestPerl
 	
     my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
 	#dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
-	dwarn "templateTestPerl end";
+	#dwarn "templateTestPerl end";
     return $htmlout;
 }
 
@@ -66,18 +66,18 @@ sub siteDoc {
 	my @uids = (-1);	# so the "in ($list)" statement is always valid 
 
 	while (my $row = $sth->fetchrow_arrayref()) {
-		dwarn "found  collab that are public";
+		#dwarn "found  collab that are public";
 		push @uids, $row->[0];
 	}
 	$sth->finish();
 
 	my $uidlist = join(', ', @uids);
-	dwarn "list of collabs that are public (uids):\n $uidlist";
+	#dwarn "list of collabs that are public (uids):\n $uidlist";
 	# get the intersection of the above list of IDs and the collaborations
 	# that are site docs
 	#
 	my $xml = getCollabObjList($userinf, "sitedoc = 1");
-	dwarn "After getCollabObjList, xml:\n $xml";
+	#dwarn "After getCollabObjList, xml:\n $xml";
 	##$template->addText($xml);
 
 	##$template->addText('</sitedoc>');
@@ -215,7 +215,7 @@ sub getCollabObjList {
 	$sth->execute();
 
 	while (my $row = $sth->fetchrow_hashref()) {
-		dwarn "found item int getCollabObjList, where = $where";
+		#dwarn "found item int getCollabObjList, where = $where";
 		$xml .= '	<docitem>';
 
 		$xml .= "		<uid>$row->{uid}</uid>";
@@ -752,17 +752,17 @@ sub renderCollabPreview {
  
 	# figure out cache dir. it really should already exist for us.
 	#
-	dwarn "renderCollabPreview start";
+	#dwarn "renderCollabPreview start";
 	if (defined $params->{'tempdir'}) {
 		
 		$dir = $params->{'tempdir'};
-		dwarn "renderCollabPreview tempdir defined:\n $dir";
+		#dwarn "renderCollabPreview tempdir defined:\n $dir";
 	} else {
 		$dir = makeTempCacheDir();
 		$params->{'tempdir'} = $dir;
-		dwarn "renderCollabPreview tempdir not defined, define now:\n $dir";
+		#dwarn "renderCollabPreview tempdir not defined, define now:\n $dir";
 	}
-	dwarn "renderCollabPreview ended";
+	#dwarn "renderCollabPreview ended";
  
 	# copy files from main dir to method subdir
 	#

@@ -69,7 +69,7 @@ sub getRenderedContentHtml {
 	my ($valid,$build) = getcacheflags($table, $rec->{'uid'}, $method);
 	
 	if ($valid == 0) {
-		dwarn "object not valid, rerender/build";
+		#dwarn "object not valid, rerender/build";
 		if (! cacheObject($table, $rec, $method)) {
 			$html .= "<br />Timed out waiting for render.	Please wait a few seconds and try again (for longer documents, give more time.)<br />";
 			return $html;
@@ -95,7 +95,7 @@ sub cacheObject {
 	
 	my ($valid,$build) = getcacheflags($table,$id,$method);
 
-	dwarn "cacheObject started";
+	#dwarn "cacheObject started";
 	# not valid, but building, so wait
 	#
 	if ($build == 1)	{
@@ -169,7 +169,7 @@ sub prepareEntryForRendering {
 	my $id = shift;
 	my $class = shift;
 	
-	dwarn "prepareEntryForRendering start cwd: $CWD";
+	#dwarn "prepareEntryForRendering start cwd: $CWD";
 	my $file = getConfig('entry_template');
 	my $template = new TemplateNS($file);	
  
@@ -212,14 +212,14 @@ sub prepareEntryForRendering {
 	$template->setKeys('preamble' => $preamble, 'math' => $latex);
 	if (nb($packages)) { $template->setKey('packages', $packages) if (nb($packages)); }
 
-	dwarn "prepareEntryForRendering end cwd: $CWD";
+	#dwarn "prepareEntryForRendering end cwd: $CWD";
 
 	if ( $method eq "src" ) {
 		return ($latex,$links);
 	} else {
 		my $returnTemplate = $template->expand();
-		dwarn "links:\n $links";
-		dwarn "prepareEntryForRendering template:\n$returnTemplate";
+		#dwarn "links:\n $links";
+		#dwarn "prepareEntryForRendering template:\n$returnTemplate";
 		return ($returnTemplate,$links);
 	}
 }

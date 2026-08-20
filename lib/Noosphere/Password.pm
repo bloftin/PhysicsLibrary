@@ -48,8 +48,8 @@ sub changePassword {
   my $hash = shift;
   my $password = shift;
 
-  dwarn "INCOMING HASH is\n";
-  dwarn $hash;
+  #dwarn "INCOMING HASH is\n";
+  #dwarn $hash;
   # extract username from the hash
   my ($username) = split(/:/,$hash);
 
@@ -78,8 +78,8 @@ sub pwChangeRequest {
      if (!$error) {
 	   # make the hash
 	   my $hash=sha1_hex(join(':',$params->{username},$email),SECRET);
-	   dwarn "HASH for a pwchange is\n";
-	   dwarn $hash;
+	   #dwarn "HASH for a pwchange is\n";
+	   #dwarn $hash;
        # send out the message
 	   return sendPwChangeMail($params->{username},$email, $hash);
 	 }
@@ -101,8 +101,8 @@ sub sendPwChangeMail {
   my $hash = shift;
 
   $hash = urlescape($username.':'.$email.':'.$hash);
-  dwarn "HASH FOR PW CHANGE IS\n";
-  dwarn $hash; 
+  #dwarn "HASH FOR PW CHANGE IS\n";
+  #dwarn $hash; 
   # send the mail
   sendMail($email, "
   

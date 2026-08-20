@@ -349,7 +349,7 @@ sub handleFileManager {
 sub wget { 
 	my $source = shift;	 # source url to download from
 	my $dest = shift;		# local location (directory) to place file in
-	dwarn "wget started for $source";
+	#dwarn "wget started for $source";
 
 	if ($source !~ m{\Ahttps?://}i) {
 		dwarn "wget refusing unsupported URL scheme: $source";

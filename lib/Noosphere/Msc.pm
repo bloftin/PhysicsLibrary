@@ -116,7 +116,7 @@ sub pacsSearch {
 
 sub pacsBrowse {
 	my $params = shift;
-	dwarn "pacsBrowse start";
+	#dwarn "pacsBrowse start";
 	my $types = $params->{'types'};
 	my $id = $params->{'id'};
 	my $domain = $params->{'from'} || 'categories';
@@ -145,10 +145,10 @@ sub pacsBrowse {
 	#
 	# change -XX to .
 	if(not(defined($id))) {
-		dwarn "not defined id";
+		#dwarn "not defined id";
 		$idSwitch = 0;
 		if ($domain ne 'categories') {
-			dwarn "$domain ne categories";
+			#dwarn "$domain ne categories";
 			$domainSwitch = 0;
 			my $q = "select $scheme.id, $scheme.comment, count(distinct $class.objectid) as cnt " .
 			"from $clinks, $class, $scheme ".
@@ -160,7 +160,7 @@ sub pacsBrowse {
 		}
 		else
 		{
-			dwarn "$domain equals categories";
+			#dwarn "$domain equals categories";
 			$domainSwitch = 1;
 			($rv, $sth) = dbLowLevelSelect($dbh, "select $scheme.id, $scheme.comment from $scheme where ($scheme.id like '%-XX') order by $scheme.id");
 		}
@@ -171,7 +171,7 @@ sub pacsBrowse {
 			
 			
 			my $child = lookupfield($scheme, 'id', "parent='$row->{id}'");
-			dwarn "row child:  $child";
+			#dwarn "row child:  $child";
 			##$template->addText('<mscnode>');
 		
 			##$template->addText("<haschild />") if ($child);
@@ -184,9 +184,9 @@ sub pacsBrowse {
 			my $count = 0;
 			if ($domain ne 'categories') {
 				$count = $row->{cnt};
-				dwarn "row count:  $count";
+				#dwarn "row count:  $count";
 			}
-			dwarn "comment: $comment";
+			#dwarn "comment: $comment";
 			push(@pacs_nodes,{ 
 				child 			=> $child,
 				domain 			=> $domain,
@@ -200,8 +200,8 @@ sub pacsBrowse {
 	# ##-XX level / ##Cxx level
 	# Ben changed XX to .
 	elsif ($id =~ /XX$/io) {
-		dwarn "-XX level";
-		dwarn "domain: $domain ";
+		#dwarn "-XX level";
+		#dwarn "domain: $domain ";
 		if ($domain ne 'categories') {
 			($rv, $sth) = dbLowLevelSelect($dbh, 
 			
@@ -238,9 +238,9 @@ sub pacsBrowse {
 			my $comment = latin1ToUTF8(htmlToLatin1($row->{comment}));
 			##$template->addText("<comment>$comment</comment>");
 			##$template->addText('</mscnode>');
-			dwarn "child count: $count";
-			dwarn "domain: $domain";
-			dwarn "id: $id";
+			#dwarn "child count: $count";
+			#dwarn "domain: $domain";
+			#dwarn "id: $id";
 			push(@pacs_nodes,{ 
 				child 			=> $child,
 				domain 			=> $domain,
@@ -254,15 +254,15 @@ sub pacsBrowse {
 	# leaf level
 	#
 	else {
-		dwarn "leaf level";
-		dwarn "select:";
-		dwarn "domain: $domain";
+		#dwarn "leaf level";
+		#dwarn "select:";
+		#dwarn "domain: $domain";
 		# need to make sure domain is valid else sql will crash things
 		if( $domain eq 'objects' or $domain eq 'papers' or $domain eq 'lec' or $domain eq 'books' ) {
 			# So pacs leaves can have a + symbol in their id which apache request converts to space
 			# so we just need to replace spaces which seems to be only in this case with + and we should be good
 			$id =~ s/\s/+/g;
-			dwarn "select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid from $scheme, $class, $domain, users where $scheme.id = '$id' and $class.tbl = '$domain' and $class.catid = $scheme.uid and $domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)";
+			#dwarn "select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid from $scheme, $class, $domain, users where $scheme.id = '$id' and $class.tbl = '$domain' and $class.catid = $scheme.uid and $domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)";
 
 			($rv, $sth) = dbLowLevelSelect($dbh, 
 			"select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid " .
@@ -321,7 +321,7 @@ sub pacsBrowse {
 	
     my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
 	#dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
-	dwarn "pacsBrowse end";
+	#dwarn "pacsBrowse end";
     return $htmlout;
 }
 
@@ -331,7 +331,7 @@ sub pacsBrowse {
 sub mscBrowseOld {
 	my $params = shift;
 
-	dwarn "mscBrowse start";
+	#dwarn "mscBrowse start";
 	my $types = $params->{'types'};
 	my $id = $params->{'id'};
 	my $domain = $params->{'from'} || 'categories';
@@ -451,7 +451,7 @@ sub mscBrowseOld {
 	}
 
 	$template->addText('</mscset>');
-	dwarn "mscBrowse end";
+	#dwarn "mscBrowse end";
 	return paddingTable($template->expand());
 }
 

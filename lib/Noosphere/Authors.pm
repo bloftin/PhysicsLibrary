@@ -141,8 +141,8 @@ sub showAuthorList {
 
 	
     my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
-	dwarn "template html:\n$htmlout\nreturn value:\n$ret";
-	dwarn "getUser end";
+	#dwarn "template html:\n$htmlout\nreturn value:\n$ret";
+	#dwarn "getUser end";
     return $htmlout;
 }
 

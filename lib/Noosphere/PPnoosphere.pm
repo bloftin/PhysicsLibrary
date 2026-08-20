@@ -17,8 +17,8 @@ sub inMaintenance {
 	my $ip = shift;	# client IP for whitelist check
 
 	my $root = getConfig('base_dir');
-	dwarn "THE PP BASE_DIR is ";
-	dwarn $root;
+	#dwarn "THE PP BASE_DIR is ";
+	#dwarn $root;
 	if (-e "$root/maintenance") {
 
 		# if IP list is present, build and check whitelist
@@ -100,25 +100,25 @@ sub getMainTemplateContent {
 sub getFrontPage { 
 	my $params = shift;
 	my $userinf = shift;
-        dwarn "PP XSLTemplate for frontpage\n";
+        #dwarn "PP XSLTemplate for frontpage\n";
 	my $template = XSLTemplate->new('frontpage.xsl');
-        dwarn "PP Frontpage add Text\n";
+        #dwarn "PP Frontpage add Text\n";
 	$template->addText("<frontpage>");
 
 	# get the data and add it to be transformed by the stylesheet
 	#
-	dwarn "PP TOP NEWS\n";
+	#dwarn "PP TOP NEWS\n";
 	my $newsxml = $stats->get('top_news');
-	dwarn "PP Latest MEssages\n";
+	#dwarn "PP Latest MEssages\n";
 	my $messagexml = $stats->get('latest_messages');
 
 	#my $messages = getLatestMessagesXML($params, $userinf);
-	dwarn "PP News XML\n";
+	#dwarn "PP News XML\n";
 	$template->addText($newsxml);
-	dwarn "PP message XML\n";
+	#dwarn "PP message XML\n";
 	$template->addText($messagexml);
 	$template->addText("</frontpage>");
-	dwarn "PP Expand template\n";
+	#dwarn "PP Expand template\n";
 	return $template->expand();
 }
 
@@ -304,7 +304,7 @@ sub cgi_handler {
 #
 sub handler {
 	my $req = shift;
-	dwarn "Start of PP handler\n";
+	#dwarn "Start of PP handler\n";
 	#my $req = Apache->request();
 	my ($params,$upload) = parseParams($req);
 	my %cookies = parseCookies($req);
@@ -357,16 +357,16 @@ sub handler {
 		$req->print($html);
 		$req->rflush(); 
 
-		dwarn "*** host $ENV{REMOTE_ADDR} with client $ENV{HTTP_USER_AGENT} was rejected!";
+		#dwarn "*** host $ENV{REMOTE_ADDR} with client $ENV{HTTP_USER_AGENT} was rejected!";
 
 		exit;	
 	} 
-        dwarn "Start of PP cached files serving\n";
+        #dwarn "Start of PP cached files serving\n";
 	# BB: cached files serving
 	if ($uri =~ /\/files\/(.+)$/o) { 
 		return serveFile($req,$1);
 	}
-	dwarn "Start of PP remapping\n";
+	#dwarn "Start of PP remapping\n";
 	# remapping
 	#
 	if ($uri =~ /\/[Ee]ncyclopedia\/(.+)\.htm[l]{0,1}(#.+)?$/o ||
@@ -441,25 +441,25 @@ sub handler {
 	#}
 	#}
 	#END {}
- 	dwarn "PP stemplate_path is ";
+ 	#dwarn "PP stemplate_path is ";
 	my $tsting = getConfig("stemplate_path");
-	dwarn $tsting;
-	dwarn "Start of PP serving of images\n";
+	#dwarn $tsting;
+	#dwarn "Start of PP serving of images\n";
 	# handle serving of images
 	#
 	if ($params->{op} eq 'getimage') {
 		serveImage($req, $params->{id});
 		return;	
 	}
-	dwarn "Start of PP initializing stat cache\n";	
+	#dwarn "Start of PP initializing stat cache\n";	
 	# initialize stat cache
 	#
 	if (not defined $stats) {
 		initStats();
 	}
         $tsting = getConfig("stemplate_path");
-	dwarn $tsting;	
- 	dwarn "Start of PP user info and cookies\n";
+	#dwarn $tsting;	
+ 	#dwarn "Start of PP user info and cookies\n";
 	# user info and cookies
 	#
 	my %user_info = handleLogin($req, $params, \%cookies);
@@ -468,35 +468,35 @@ sub handler {
 	#
 	$html = getNoTemplateContent($params, \%user_info, $upload);
   	$tsting = getConfig("stemplate_path");
-	dwarn $tsting;
-	dwarn "Start of PP template stuff\n"; 
+	#dwarn $tsting;
+	#dwarn "Start of PP template stuff\n"; 
 	# if none, process template stuff
 	#
 	if ($html eq '') {
-		dwarn "PP Epty html\n";
+		#dwarn "PP Epty html\n";
 		my $content;
 		my $template;
 		$NoosphereTitle = '';
 		$content = getViewTemplateContent($params,\%user_info,$upload);
 		$tsting = getConfig("stemplate_path");
-		dwarn $tsting;
+		#dwarn $tsting;
 		if ($content ne '' ) { 
-			dwarn "Content is not empty\n";
+			#dwarn "Content is not empty\n";
 			$template = new TemplateNS('view.html');
 			fillInLeftBar($template,$params,\%user_info);
 			$template->setKeys('content' => $content, 'NoosphereTitle' => $NoosphereTitle);
 		} else {
-			dwarn "Content is empty\n";
+			#dwarn "Content is empty\n";
 			$content = getMainTemplateContent(\%user_info); 
-			dwarn "Get new TemplateNS\n";
+			#dwarn "Get new TemplateNS\n";
 			$template = new TemplateNS('main.html');
-			dwarn "Fill in Side Bars\n";
+			#dwarn "Fill in Side Bars\n";
 			fillInSideBars($template,$params,\%user_info);
-			dwarn "Set Key\n";
+			#dwarn "Set Key\n";
 			$template->setKey('content', $content);
 		}
 		$tsting = getConfig("stemplate_path");
-		dwarn $tsting;	
+		#dwarn $tsting;	
 		headerAndCSS($template, $params);
 	
 		# handle caching
@@ -509,7 +509,7 @@ sub handler {
 		$template->setKey('metacache', ($AllowCache ? '' : $nocache));
 		$html = $template->expand();
 	} 
-        dwarn "PP Finish and send output\n"; 
+        #dwarn "PP Finish and send output\n"; 
 	# finish and send output
 	#
 	sendOutput($req, $html);
