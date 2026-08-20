@@ -8,7 +8,7 @@ use vars qw($NoosphereTitle);
 sub getObj {
 	my $params = shift;
 	my $userinf = shift;
-	dwarn "getObj Started";
+	#dwarn "getObj Started";
 	my $html = '';
 	my $html_obj = '';
 	my $admin = '';
@@ -27,10 +27,10 @@ sub getObj {
 		$params->{'from'} eq getConfig('exp_tbl') ||
 		$params->{'from'} eq getConfig('books_tbl')
 	);
-	dwarn "name";
-	dwarn $name;
-	dwarn "id";
-	dwarn $id;
+	#dwarn "name";
+	#dwarn $name;
+	#dwarn "id";
+	#dwarn $id;
 
 	my $tt = Template->new({
 		INCLUDE_PATH => '/var/www/pp/stemplates',
@@ -49,7 +49,7 @@ sub getObj {
 									 FROM => $params->{from},
 									 WHERE => "uid=$id"});
 	if (! $rv || $sth->rows()<1) {
-		dwarn "object not found!";
+		#dwarn "object not found!";
 		return errorMessage("Object not found! Please <a href=\"".getConfig('bug_url')."\">report this</a> to us!");
 	}
 
@@ -89,19 +89,19 @@ sub getObj {
 	# render object type specific stuff
 	#
 	if ($params->{'from'} eq 'news') {
-		dwarn "renderNews";
+		#dwarn "renderNews";
 		$html = renderNews($rec);
 	} 
 	elsif ($params->{'from'} eq getConfig('en_tbl')) {
-		dwarn "renderEncyclopediaObj";
+		#dwarn "renderEncyclopediaObj";
 		$html = renderEncyclopediaObj($rec, $params, $userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('collab_tbl')) {
-		dwarn "renderCollab";
+		#dwarn "renderCollab";
 		$html = renderCollab($rec, $params, $userinf);
 	}
 	elsif ($params->{'from'} eq 'forums') {
-		dwarn "renderForum";
+		#dwarn "renderForum";
 		$html = renderForum($rec);
 		# Should newest-first be forced here?	-LBH
 		#$desc=1;
@@ -109,27 +109,27 @@ sub getObj {
 	elsif ($params->{'from'} eq getConfig('papers_tbl') || 
 		$params->{'from'} eq getConfig('exp_tbl') ||
 		$params->{'from'} eq getConfig('books_tbl')) {
-		dwarn "renderGeneric";	
+		#dwarn "renderGeneric";	
 		$html = renderGeneric($params,$userinf, $rec);
 	} 
 	elsif ($params->{'from'} eq getConfig('polls_tbl')) {
-		dwarn "viewPoll";
+		#dwarn "viewPoll";
 		$html = viewPoll($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('req_tbl')) {
-		dwarn "getReq";
+		#dwarn "getReq";
 		$html = getReq($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('user_tbl')) {
-		dwarn "getUser";
+		#dwarn "getUser";
 		$html = getUser($params,$userinf);
 	}
 	elsif ($params->{'from'} eq getConfig('cor_tbl')) {
-		dwarn "renderCorrection";
+		#dwarn "renderCorrection";
 		$html = renderCorrection($params,$userinf);
 	}
 	else {
-		dwarn "object type not supported for viewing yet";
+		#dwarn "object type not supported for viewing yet";
 		return errorMessage('object type not supported for viewing yet.'); 
 	}
  
@@ -138,17 +138,17 @@ sub getObj {
 	# handle messages - this is unified accross object types. we know the object
 	# supports messages based on whether the template contains a $messages flag.
 	#
-	dwarn "start requestsKeyTT";
-	dwarn "html:\n $html";
+	#dwarn "start requestsKeyTT";
+	#dwarn "html:\n $html";
 	if (!$is_generic_library_item) {
-		dwarn "OBJECT REQUESTS messages";
-		dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
+		#dwarn "OBJECT REQUESTS messages";
+		#dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
 		my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
-		dwarn "lastmsg:\n $lastmsg";
+		#dwarn "lastmsg:\n $lastmsg";
 
 		$messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
 		##$html->setKey('messages', $messages);
-		dwarn "messages\n: $messages";
+		#dwarn "messages\n: $messages";
 		my $curlast = get_lastmsg($params->{'from'},$id);
     	update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
 	}

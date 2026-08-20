@@ -370,17 +370,17 @@ sub getVersionList {
 
 		foreach my $file (@files) {
 			warn "*** vlist : processing file $file";
-			dwarn "getFileDOM before";
+			#dwarn "getFileDOM before";
 			my $dom = getFileDOM($file);			
-			dwarn "domGetVersion before";
+			#dwarn "domGetVersion before";
 			my $version = domGetVersion($dom, 'version');
-			dwarn "version: $version";
+			#dwarn "version: $version";
 			my $modifier = domGetAttrs($dom, 'modifier');
-			dwarn "modifier: $modifier";
+			#dwarn "modifier: $modifier";
 			my $modified = domGetVal($dom, 'modified');
-			dwarn "modified: $modified";
+			#dwarn "modified: $modified";
 			my $comment = domGetVal($dom, 'comment');
-			dwarn "comment: $comment";
+			#dwarn "comment: $comment";
 			$versions{$version} = {version=>$version, 
 				 modifier=>$modifier->{'id'},
 				 comment=>$comment}; 
@@ -394,7 +394,7 @@ sub getVersionList {
 		#
 		foreach my $version (keys %mlist) {
 			if (exists $versions{$version}) {
-				dwarn "mlist version";
+				#dwarn "mlist version";
 				$versions{$version}->{'modified'} = $mlist{$version + 1};
 			} 
 		}
@@ -424,7 +424,7 @@ sub getVersionBrowser {
 	my $owner = 0;
 	$owner = 1 if (lookupfield($params->{'from'},'userid', "uid=$params->{id}") == $userinf->{'uid'});
 
-	dwarn "Owner: $owner";
+	#dwarn "Owner: $owner";
 
 	my $versions = getVersionList($params->{from}, $params->{id});
 	
@@ -498,7 +498,7 @@ sub getVersionBrowser {
 	#getPageWidgetXSLT($template, $params, $userinf);
 	$html_pager = getPager($params, $userinf, $scale);
 
-	dwarn "items: ",scalar @item_array,"\n";
+	#dwarn "items: ",scalar @item_array,"\n";
 
 	my $vars = {
         title        	=> $title,
@@ -557,7 +557,7 @@ sub readVersions {
 							   FROM => $params->{from},
 							   WHERE => "uid=$params->{id}"});
 			if (! $rv || $sth->rows()<1) {
-				dwarn "**** readVersions : object `$params->{id}' not found!";
+				#dwarn "**** readVersions : object `$params->{id}' not found!";
 				$vers[$i] = 'Object not found.';
 			} else {
 				my $rec = $sth->fetchrow_hashref();
@@ -627,15 +627,15 @@ sub getVersionDiff {
 	#dwarn("After getVersionDif unlink");
 	remove($oldfile);
 	remove($newfile);
-	dwarn "diff:\n $ftext";
+	#dwarn "diff:\n $ftext";
 	my @diff = split(/\n/,$ftext);
 	##dwarn "after split";
 	my $difflen = (scalar @diff)-5; # number of lines in diff except `x' and `y' 
-	dwarn "after difflen: $difflen";
+	#dwarn "after difflen: $difflen";
 	my $title = qhtmlescape(lookupfield($params->{from},'title',"uid=$params->{id}"));
-	dwarn "after title";
+	#dwarn "after title";
 	##$template->addText("<ver_diff title=\"$title\" changed=\"$difflen\" oldvernum=\"$params->{old}\" newvernum=\"$params->{new}\"> href=\"".getConfig("main_url")."/?op=viewdiff&amp;old=$params->{old};new=$params->{new}\"");
-	dwarn "after template";
+	#dwarn "after template";
 	my $newvernum = $params->{new};
 	my $oldvernum = $params->{old};
 	my $diff_link = getConfig("main_url")."/?op=viewdiff&amp;old=$params->{old};new=$params->{new}";

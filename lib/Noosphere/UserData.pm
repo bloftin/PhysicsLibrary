@@ -69,7 +69,7 @@ sub userEditObjectList {
 	my $params = shift;
 	my $userinf = shift;
 
-	dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
+	#dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
 	my $tt_file = 'usereditobjlist.tt'; 
 	my $template = new XSLTemplate("usereditobjlist.xsl");
 	
@@ -196,7 +196,7 @@ sub userEditObjectList {
 
 			# There must be some bigger UTF8 issue going on, so temp fix
 			my $title = encode("UTF-8",$row->{'title'});
-			dwarn "tile: $title";
+			#dwarn "tile: $title";
 			$template->addText(" title=\"$title\""); 
 			#$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
 
@@ -250,9 +250,9 @@ sub userEditObjectList {
 
 	$template->addText("</usereditobjs>");
 
-	dwarn "userEditObjectList end";
+	#dwarn "userEditObjectList end";
 	my $template_txt = $template->{'TEXT'};
-	dwarn "userEditObjectList template:\n $template_txt";
+	#dwarn "userEditObjectList template:\n $template_txt";
 
 	my $vars = {
         	total       				=> $params->{'total'},
@@ -275,7 +275,7 @@ sub userEditObjectListOld {
 	my $params = shift;
 	my $userinf = shift;
 	
-	dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
+	#dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
 
 	my $template = new XSLTemplate("usereditobjlist.xsl");
 	
@@ -397,7 +397,7 @@ sub userEditObjectListOld {
 
 			# There must be some bigger UTF8 issue going on, so temp fix
 			my $title = encode("UTF-8",$row->{'title'});
-			dwarn "tile: $title";
+			#dwarn "tile: $title";
 			$template->addText(" title=\"$title\""); 
 			#$template->addText(" title=\"".qhtmlescape($row->{'title'})."\""); 
 
@@ -431,9 +431,9 @@ sub userEditObjectListOld {
 
 	$template->addText("</usereditobjs>");
 
-	dwarn "userEditObjectList end";
+	#dwarn "userEditObjectList end";
 	my $template_txt = $template->{'TEXT'};
-	dwarn "userEditObjectList template:\n $template_txt";
+	#dwarn "userEditObjectList template:\n $template_txt";
 
 	return paddingTable(clearBox('Your Objects',$template->expand()));
 }
@@ -648,17 +648,17 @@ sub userGenericList {
 			my $xml=&{$specifics->{$op}->[2]}($row,$num);
 			$template->addText($xml);
 			#my $var = join "\n", keys &{$specifics->{$op}->[2]}($row,$num);
-			for (keys %$row)
-			{
-				dwarn "$_ : $row->{$_}";
-			}
-			dwarn "adding [$xml] to template";
+			#for (keys %$row)
+			#{
+			#	dwarn "$_ : $row->{$_}";
+			#}
+			#dwarn "adding [$xml] to template";
 			#$template->addText(&{$specifics->{$op}->[2]}($row,$num));
 			$template->addText("	</item_$op>");
 
-			dwarn "op: $op";
+			#dwarn "op: $op";
 			if ($op eq "userobjs") {
-				dwarn "userobjs";
+				#dwarn "userobjs";
 				push(@objects_array,{ 
 					title 		=> $row->{title}, 
 					date		=> ymd($row->{'created'}),
@@ -668,7 +668,7 @@ sub userGenericList {
 				});
 			}
 			elsif($op eq "usermsgs") {
-				dwarn "usermsgs";
+				#dwarn "usermsgs";
 				push(@msgs_array,{ 
 					obj_title 	=> lookupfield($row->{tbl},'title',"uid=$row->{objectid}"), 
 					msg_title 	=> $row->{subject},
@@ -680,7 +680,7 @@ sub userGenericList {
 				});
 			}
 			elsif($op eq "usercorsf") {
-				dwarn "usercorsf";
+				#dwarn "usercorsf";
 				push(@corrs_array,{ 
 					obj_title 	=> lookupfield(getConfig('en_tbl'),'title',"uid=$row->{objectid}"),
 					corr_title 	=> $row->{title},
@@ -693,7 +693,7 @@ sub userGenericList {
 
 			}
 			elsif($op eq "usercorsr") {
-				dwarn "usercorsr";
+				#dwarn "usercorsr";
 				push(@corrsR_array,{ 
 					obj_title 	=> lookupfield(getConfig('en_tbl'),'title',"uid=$row->{objectid}"),
 					username 	=> lookupfield(getConfig('user_tbl'),'username',"uid=$row->{userid}"),
@@ -940,14 +940,14 @@ sub getUser {
 	my $params = shift;
 	my $userinf = shift;
 
-	dwarn "getUser start";
+	#dwarn "getUser start";
 	my $id = $params->{id};
 	my $htmlout = '';
 
 	my $isadmin = ($userinf->{data}->{access} >= getConfig('access_admin'));
 	my $loggedin = ($userinf->{uid} > 0);
 	my $loggedinvalue = $userinf->{uid};
-	dwarn "logged in: $loggedinvalue";
+	#dwarn "logged in: $loggedinvalue";
 
 	# extract info
 	#
@@ -993,8 +993,8 @@ sub getUser {
 
 	
     my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
-	dwarn "template html:\n$htmlout\nreturn value:\n$ret";
-	dwarn "getUser end";
+	#dwarn "template html:\n$htmlout\nreturn value:\n$ret";
+	#dwarn "getUser end";
     return $htmlout;
 
 }

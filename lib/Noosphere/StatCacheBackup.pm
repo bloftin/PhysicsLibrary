@@ -82,7 +82,7 @@ sub StatCache::add {
 		
 		my $sth = $dbh->prepare('insert into '.getConfig('storage_tbl').' (_key, valid, timeout, callback) values (?, ?, ?, ?)');
 
-		dwarn "*** statCache: adding to storage key = $key valid = 0 timeout = $spec->{timeout} callback = $spec->{callback}", 2;
+		#dwarn "*** statCache: adding to storage key = $key valid = 0 timeout = $spec->{timeout} callback = $spec->{callback}", 2;
 
 		$sth->execute($key, 0, $spec->{timeout}, $spec->{callback});
 		$sth->finish();
@@ -174,7 +174,7 @@ sub StatCache::get {
 	#
 	if (not $self->getField($key, 'valid')) {
 		
-		dwarn "*** statCache : generating stats for $key", 2;
+		#dwarn "*** statCache : generating stats for $key", 2;
 
 		# use the callback to generate the statistic. this eval is kind of 
 		# cheesy, but none of the persistant storage modules will store 
@@ -195,7 +195,7 @@ sub StatCache::get {
 	#
 	else {
 
-		dwarn "*** statCache: using cached statistic for $key", 2;
+		#dwarn "*** statCache: using cached statistic for $key", 2;
 
 		$statistic = Undent($self->getField($key, '_val'));
 	}

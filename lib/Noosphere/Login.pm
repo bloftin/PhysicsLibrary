@@ -8,8 +8,8 @@ use strict;
 sub handleLogin {
 	my ($req, $params, $cookies) = @_;
 	my $param_op = $params->{'op'};
-	dwarn "handleLogin started";
-	dwarn "params->{'op'} = $param_op";
+	#dwarn "handleLogin started";
+	#dwarn "params->{'op'} = $param_op";
 	my %user_info = ('ticket' => undef, 'time' => time(), 'uid' => -1,
 									 'ip' => $ENV{'REMOTE_ADDR'});
 
@@ -28,20 +28,20 @@ sub handleLogin {
 	# handle logging out: unset ticket
 	#
 	if ($params->{'op'} eq 'logout') {
-		dwarn "logout selected";
+		#dwarn "logout selected";
 		$user_info{'ticket'} = undef;
 		$user_info{'uid'} = 0;
 
 		
 		clearCookie($req, 'ticket');
 
-		dwarn 'got logout'; 
+		#dwarn 'got logout'; 
 	}
  
 	# handle login op
 	#
 	elsif ($params->{op} eq 'login' && $user && $passwd) {
-		dwarn "handle login op";
+		#dwarn "handle login op";
 		$user =~ s/^ +//;
 		$user =~ s/ +$//;
 		$user =~ s/ +/ /g;
@@ -83,7 +83,7 @@ sub handleLogin {
 	# check for ticket holding login info for any other op
 	#
 	else {
-		dwarn "Else ticket holding login";
+		#dwarn "Else ticket holding login";
 		$user_info{'uid'} = checkTicket($user_info{'ticket'},
 		$user_info{'ip'},
 		getConfig('cookie_timeout'),
@@ -98,22 +98,22 @@ sub handleLogin {
 	# handle user last request statistics
 	# 
 	if ($user_info{'uid'} > 0) {
-		dwarn "handle user last request statistics before";
+		#dwarn "handle user last request statistics before";
 		markUserAccess($user_info{'uid'}, $user_info{'ip'});
-		dwarn "handle user last request statistics after";
+		#dwarn "handle user last request statistics after";
 	}
 
 	# handle never logging out
 	# 
 	if ($user_info{'uid'} > 0 && $user_info{'prefs'}->{'neverlogout'} eq 'on') {
-		dwarn "handle never logging out before";
+		#dwarn "handle never logging out before";
 		my $timeout =	(180*24*60*60);	# 6 months
 			
 		# set a new cookie that pushes expiry time back.
 		#
 		setCookie($req, 'ticket', $user_info{'ticket'}, $timeout); 
 	}
-	dwarn "handle never logging out after";
+	#dwarn "handle never logging out after";
 	return %user_info;
 }
 

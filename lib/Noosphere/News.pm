@@ -5,20 +5,20 @@ use strict;
 #
 sub getTopNews_data {
 	my $xml = '';
-    dwarn "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
-	dwarn "Function : getTopNews_data from News.pm";
+    #dwarn "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%";
+	#dwarn "Function : getTopNews_data from News.pm";
 	my ($rv, $sth) = dbSelect($dbh, {WHAT=>'*', FROM=>getConfig('news_tbl'), 'ORDER BY'=>'created', DESC=>'1', LIMIT=>'5'});
 
 	$xml .= "	<news>";
 	my $newsTable =getConfig('news_tbl');
-	dwarn "\nnewsTable = $newsTable\n";
-	dwarn "sth:\n";
-	dwarn $sth;
+	#dwarn "\nnewsTable = $newsTable\n";
+	#dwarn "sth:\n";
+	#dwarn $sth;
 	while (my $row = $sth->fetchrow_hashref()) {
 		my $href = getConfig('main_url')."/?op=getobj&amp;from=news&amp;id=$row->{uid}";
 		my $date = md($row->{'created'});
 		my $title = htmlescape($row->{'title'});
-		dwarn "News title: $title\n";
+		#dwarn "News title: $title\n";
 		$xml .= "		<item>";
 		$xml .= "			<date>$date</date>";
 		$xml .= "			<title>$title</title>";
@@ -28,8 +28,8 @@ sub getTopNews_data {
 	$sth->finish();
 
 	$xml .= "	</news>";
-	dwarn "news xml:\n";
-	dwarn $xml;
+	#dwarn "news xml:\n";
+	#dwarn $xml;
 	return $xml;
 }
 
@@ -127,7 +127,7 @@ sub getTopNews {
 									DESC => ''});
  # object does not exist
  if (!$sth->rows()) {
-	 dwarn "No news found!\n";
+	 #dwarn "No news found!\n";
 	 return clearBox("News", "No news yet.");
  }
  #dwarn "NEWS was found\n";

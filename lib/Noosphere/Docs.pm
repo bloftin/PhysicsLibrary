@@ -14,7 +14,7 @@ sub getLicense {
 #
 sub getAbout {
   my $params = shift;
-	dwarn "getAbout start";
+	#dwarn "getAbout start";
 
   my $file = 'about.tt';
 	my $htmlout = "";
@@ -27,7 +27,7 @@ sub getAbout {
 	
   my $ret = $tt->process($file, $vars, \$htmlout) || die "Template process failed: ", $tt->error(), "\n";
 	#dwarn "templat html:\n$htmlout\nreturn value:\n$ret";
-	dwarn "templateTestPerl end";
+	#dwarn "templateTestPerl end";
   return $htmlout;
 
 }

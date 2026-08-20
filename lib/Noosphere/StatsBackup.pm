@@ -377,7 +377,7 @@ sub getTopUsers_callback {
 
 	if (! $rv) {
 		dwarn "no users found for top users statistics!\n";
-	return [];
+		return [];
 	}
 
 	my $where;

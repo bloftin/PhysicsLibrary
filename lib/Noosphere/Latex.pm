@@ -198,7 +198,7 @@ sub variant_exists {
 sub singleRenderLaTeX {
 	my $math = shift;
 	my $variants = shift || getConfig('single_render_variants');
-	dwarn "singleRenderLaTeX started";
+	#dwarn "singleRenderLaTeX started";
 	$math = UTF8toTeX($math);
 	# make a rendering directory in /tmp
 	# 
@@ -208,9 +208,9 @@ sub singleRenderLaTeX {
 		$suffix++;
 	}
 	my $dir = $root . $suffix;
-	dwarn "singleRenderLaTeX dir to make: $dir";
+	#dwarn "singleRenderLaTeX dir to make: $dir";
 	make_path("$dir", {verbose => 1, mode => 0771});
-	dwarn "after make_path $dir;";
+	#dwarn "after make_path $dir;";
 
 	# copy over templates we need
 	#
@@ -258,7 +258,7 @@ sub singleRenderLaTeX {
 	my $output = read_data($out_fh);
  	my $error  = read_data($err_fh);
 
-	dwarn "Error from single_render.tex: \n $error"; 
+	#dwarn "Error from single_render.tex: \n $error"; 
 	# abort if a render failed	
 	# hmm need better way to exit
 	if ($error > 0) {
@@ -296,7 +296,7 @@ sub singleRenderLaTeX {
 	# Ben, testing this since what happens is that the dir created in tmp
 	# cannot be deleted if the latex2html process does not finish
 	# this is a horrible way to solve this problem so expect this to be temprorary
-	dwarn "singleRenderLaTeX ended";
+	#dwarn "singleRenderLaTeX ended";
 	return 0;	# return success
 }
 
@@ -309,7 +309,7 @@ sub renderLaTeX {
 	my $method = shift;
 	my $fname = shift;
 
-	dwarn "renderLaTeX started";
+	#dwarn "renderLaTeX started";
 	if (not defined($table) or $table eq '.') {
 		$table = "temp";
 		$id =~ /\/(.*)$/;
@@ -317,9 +317,9 @@ sub renderLaTeX {
 	}
 	
 	my $path = getConfig('cache_root');
-	dwarn "renderLaTeX path: $path";
+	#dwarn "renderLaTeX path: $path";
 	my $dir = "$path/$table/$id";
-	dwarn "renderLaTeX dir: $dir";
+	#dwarn "renderLaTeX dir: $dir";
 
 	if (not defined($fname)) {
 		dwarn "had to use default name when rendering object $id!\n";
@@ -331,7 +331,7 @@ sub renderLaTeX {
 	# make sure the object directory is there & clean
 	#
 	if ( ! -e $dir ) {
-		dwarn "renderLaTeX object not there, make_path $dir";
+		#dwarn "renderLaTeX object not there, make_path $dir";
 		make_path("$dir", {verbose => 1, mode => 0771});
 	}
 	##chdir $dir;
@@ -340,9 +340,9 @@ sub renderLaTeX {
 	# make sure output method dir is there
 	#
 	$dir = "$dir/$method";
-	dwarn "renderLaTeX dir method: $dir";
+	#dwarn "renderLaTeX dir method: $dir";
 	if ( ! -e $dir ) {
-		dwarn "renderLaTeX object not there, make_path for dir method $dir";
+		#dwarn "renderLaTeX object not there, make_path for dir method $dir";
 		make_path("$dir", {verbose => 1, mode => 0771});
 	}
 	##chdir $dir;
@@ -351,7 +351,7 @@ sub renderLaTeX {
 	my $render_lock_fh;
 	if (open($render_lock_fh, "+>>", "$dir/render.lock")) {
 		if (!flock($render_lock_fh, LOCK_EX | LOCK_NB)) {
-			dwarn "renderLaTeX already running for $table/$id/$method";
+			#dwarn "renderLaTeX already running for $table/$id/$method";
 			write_render_message('Rendering is already in progress.  Please reload shortly.');
 			return;
 		}
@@ -361,23 +361,23 @@ sub renderLaTeX {
 	# get web URL for rendered images
 	#
 	my $url = getConfig('cache_url')."/$table/$id/$method";
-	dwarn "renderLaTeX url: $url";
+	#dwarn "renderLaTeX url: $url";
 	# BB: convert UTF8 international characters to TeX
 	$latex = UTF8toTeX($latex);
 
 	# flat png image output (nicest looking)
 	#
 	if ( $method eq "png" ) {
-		dwarn "renderLaTeX png started\n";
+		#dwarn "renderLaTeX png started\n";
 		$latex = png_preprocess($latex);
 	
 		my $retval = 0;
-		dwarn "latex_error_check retval: $retval";
+		#dwarn "latex_error_check retval: $retval";
 		if (!$retval) {
-			dwarn "write_out_latex before";
+			#dwarn "write_out_latex before";
 			$latex = auto_size_large_includegraphics($latex, $dir);
 			write_out_latex($fname, $latex);
-			dwarn "write_out_latex before";
+			#dwarn "write_out_latex before";
 			# main meat of rendering
 			render_png($fname, $latex, $url, $dir);
 		}
@@ -385,29 +385,29 @@ sub renderLaTeX {
 		else {
 			write_error_output($fname, $table, $id, $method);
 		}
-		dwarn "renderLaTeX png ended\n";
+		#dwarn "renderLaTeX png ended\n";
 	}
 	
 	# latex2html output (best-looking for the [download] speed)
 	#
 	elsif ( $method eq "l2h" ) {
-		dwarn "renderLaTeX l2h started\n";
+		#dwarn "renderLaTeX l2h started\n";
 		if (uses_tikz($latex)) {
-			dwarn "renderLaTeX l2h detected TikZ source";
+			#dwarn "renderLaTeX l2h detected TikZ source";
 			write_tikz_l2h_message($table, $id);
-			dwarn "renderLaTeX l2h ended\n";
+			#dwarn "renderLaTeX l2h ended\n";
 			return;
 		}
 
 		my $retval = latex_error_check($fname, $latex, $dir);
-		dwarn "latex_error_check ended \n";
+		#dwarn "latex_error_check ended \n";
 		if (!$retval) {
-			dwarn "no errors\n";
+			#dwarn "no errors\n";
 			write_out_latex($fname, $latex);
-			dwarn "write_out_latex ended\n";
+			#dwarn "write_out_latex ended\n";
 			# l2h rendering core
 			render_l2h($fname, $latex, $url, $dir);
-			dwarn "render_l2h ended\n";
+			#dwarn "render_l2h ended\n";
 		} 
 		
 		else {
@@ -415,7 +415,7 @@ sub renderLaTeX {
 			dwarn "retval: $retval";
 			write_error_output($fname, $table, $id, $method);
 		}
-		dwarn "renderLaTeX l2h ended\n";
+		#dwarn "renderLaTeX l2h ended\n";
 	}
 
 	# source output ... just make HTML presentable and print to output file
@@ -446,15 +446,15 @@ sub renderLaTeX {
 	}
 	# experimental to see if we can have some print formated downloads and things like png/jpg
 	elsif ( $method eq "pdf" ) {
-		dwarn "renderLaTeX pdf started\n";
+		#dwarn "renderLaTeX pdf started\n";
 	
 		my $retval = 0;
-		dwarn "latex_error_check retval: $retval";
+		#dwarn "latex_error_check retval: $retval";
 		if (!$retval) {
-			dwarn "write_out_latex before";
+			#dwarn "write_out_latex before";
 			$latex = auto_size_large_includegraphics($latex, $dir);
 			write_out_latex($fname, $latex);
-			dwarn "write_out_latex before";
+			#dwarn "write_out_latex before";
 			# main meat of rendering
 			render_pdf($fname, $latex, $url, $dir);
 		}
@@ -462,22 +462,22 @@ sub renderLaTeX {
 		else {
 			write_error_output($fname, $table, $id, $method);
 		}
-		dwarn "renderLaTeX png ended\n";
+		#dwarn "renderLaTeX png ended\n";
 
 	}
 	# experimental to see if we use make4ht instead of latex2html
 	elsif ( $method eq "make4ht" ) {
-		dwarn "renderLaTeX make4ht started\n";
+		#dwarn "renderLaTeX make4ht started\n";
 	
 		my $retval = latex_error_check($fname, $latex, $dir);
-		dwarn "latex_error_check ended \n";
+		#dwarn "latex_error_check ended \n";
 		if (!$retval) {
-			dwarn "no errors\n";
+			#dwarn "no errors\n";
 			write_out_latex($fname, $latex);
-			dwarn "write_out_latex ended\n";
+			#dwarn "write_out_latex ended\n";
 			# l2h rendering core
 			render_make4ht($fname, $latex, $url, $dir);
-			dwarn "render_make4ht ended\n";
+			#dwarn "render_make4ht ended\n";
 		} 
 		
 		else {
@@ -485,10 +485,10 @@ sub renderLaTeX {
 			dwarn "retval: $retval";
 			write_error_output($fname, $table, $id, $method);
 		}
-		dwarn "renderLaTeX l2h ended\n";
+		#dwarn "renderLaTeX l2h ended\n";
 
 	}
-	dwarn "renderLaTeX end";
+	#dwarn "renderLaTeX end";
 	##chdir $cwd;
 	#chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
 	#local $CWD = "$cwd"; # we should not have to do this, the local $CWD should go back once scope leaves but need to test first
@@ -521,13 +521,13 @@ sub latex_error_check {
 
 	my @run_args = ("-file-line-error-style","-interaction=nonstopmode","$dir/$fname.tex");
 	#my @run_args = qw("-interaction=batchmode" "$dir/$fname.tex");
-	dwarn "EXECING $latexprog -interaction=batchmode -interaction=nonstopmode $dir/$fname.tex\n";
+	#dwarn "EXECING $latexprog -interaction=batchmode -interaction=nonstopmode $dir/$fname.tex\n";
 	#dwarn "dir: $dir";
 	my ($retval, $output, $error) = runExternalCommand($latexprog,\@run_args);
-	dwarn "latex_error_check output: $output";
-	dwarn "latex_error_check  error: $error";
+	#dwarn "latex_error_check output: $output";
+	#dwarn "latex_error_check  error: $error";
 	#my $error = system("/usr/bin/latex -file-line-error-style -interaction=nonstopmode $dir/$fname.tex");
-	dwarn "latex_error_check  error: $error";
+	#dwarn "latex_error_check  error: $error";
 	# for now let all errors go by until this is more robust, as it is not letting png/jpg through as example
 	$error = 0;
 	return $error;
@@ -545,25 +545,25 @@ sub render_l2h {
 	local $CWD = "$dir";
 	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
 	my $latexprog = getConfig('latex2htmlcmd');
-	dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
+	#dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
 	## BEN TODO system("cp $tpath/.latex2html-init .");
 	copy("$tpath/.latex2html-init","$dir");
 	
-	dwarn "render_l2h after cp .latex2tml-init";
-	dwarn "dir: $dir";
+	#dwarn "render_l2h after cp .latex2tml-init";
+	#dwarn "dir: $dir";
 
 	# run latex to get an aux file for refs
 	#
 	if ($latex =~ /\\($reruns)\W/) { 
-		dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
+		#dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
 		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
-		dwarn "latex reruns: $latex";
+		#dwarn "latex reruns: $latex";
 		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
 		my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
-		dwarn "EXECING $latexprog -init_file $tpath/.latex2html-init $fname.tex \n";
+		#dwarn "EXECING $latexprog -init_file $tpath/.latex2html-init $fname.tex \n";
 		my ($retval, $output, $error) = runExternalCommand($latexprog,\@run_args);
-		dwarn "latex reruns output: $output";
-		dwarn "latex reruns  error: $error";
+		#dwarn "latex reruns output: $output";
+		#dwarn "latex reruns  error: $error";
 	}
 
 	# init graphics AA flag
@@ -585,8 +585,8 @@ sub render_l2h {
     
 	my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
 	my ($retval, $output, $error) = runExternalCommand($run,\@run_args);
-	dwarn "latex2html output: $output";
-	dwarn "latex2html error: $error";
+	#dwarn "latex2html output: $output";
+	#dwarn "latex2html error: $error";
 
 	# run latex2html again after deleting some image files if these images 
 	# need to be antialiased
@@ -628,30 +628,30 @@ sub render_make4ht {
 	#my $cwd = getcwd();
 	local $CWD = "$dir";
 	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
-	dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
+	#dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
 	## BEN TODO system("cp $tpath/.latex2html-init .");
 	##copy("$tpath/.latex2html-init","$dir"); # maybe add a make4ht config file
 	
-	dwarn "render_l2h after cp .latex2tml-init";
-	dwarn "dir: $dir";
+	#dwarn "render_l2h after cp .latex2tml-init";
+	#dwarn "dir: $dir";
 
 	# run latex to get an aux file for refs
 	#
 	if ($latex =~ /\\($reruns)\W/) { 
-		dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
+		#dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
 		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
-		dwarn "latex reruns: $latex";
+		#dwarn "latex reruns: $latex";
 		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
-		dwarn "EXECING rerun make4ht -d $dir $dir/$fname.tex";
+		#dwarn "EXECING rerun make4ht -d $dir $dir/$fname.tex";
 		my ($retval, $output, $error) = runExternalCommand('/usr/bin/make4ht', ['-d', $dir, "$dir/$fname.tex"], 60);
-		dwarn "make4ht rerun output: $output";
-		dwarn "make4ht rerun error: $error";
+		#dwarn "make4ht rerun output: $output";
+		#dwarn "make4ht rerun error: $error";
 	}
 
-	dwarn "EXECING make4ht -d $dir $dir/$fname.tex";
+	#dwarn "EXECING make4ht -d $dir $dir/$fname.tex";
 	my ($retval, $output, $error) = runExternalCommand('/usr/bin/make4ht', ['-d', $dir, "$dir/$fname.tex"], 60);
-	dwarn "make4ht output: $output";
-	dwarn "make4ht error: $error";
+	#dwarn "make4ht output: $output";
+	#dwarn "make4ht error: $error";
 
 	# post process HTML output
 	postProcess_make4htIndex($url,$dir,"$fname.html");
@@ -687,7 +687,7 @@ sub auto_size_large_includegraphics {
 		my $width = defined($path) ? image_width_px($path) : undef;
 
 		if (defined($width) && $width > $min_width) {
-			dwarn "auto-sized large includegraphics image $image width=$width";
+			#dwarn "auto-sized large includegraphics image $image width=$width";
 			"\\includegraphics[width=$target_width]" . $space . "{" . $image . "}";
 		} else {
 			"\\includegraphics" . $space . "{" . $image . "}";
@@ -742,8 +742,8 @@ sub render_png {
 	# change directory to the objects dir
 	local $CWD = "$dir";
 
-	dwarn "render_png started";
-	dwarn "render_png dir: $dir";
+	#dwarn "render_png started";
+	#dwarn "render_png dir: $dir";
 
 	my $pdfname = render_pdf_file($fname, $latex, $dir);
 	if (!defined $pdfname) {
@@ -769,17 +769,17 @@ sub render_png {
 		"-sOutputFile=$png_pattern",
 		"$dir/$pdfname"
 	);
-	dwarn "EXECING $gsprog @run_args";
+	#dwarn "EXECING $gsprog @run_args";
 	my ($retval, $output, $error) = runExternalCommand($gsprog, \@run_args, 60);
-	dwarn "gs output: $output";
-	dwarn "gs error: $error";
-	if ($retval) {
-		dwarn "gs retval: $retval";
-	}
+	#dwarn "gs output: $output";
+	#dwarn "gs error: $error";
+	#if ($retval) {
+	#	dwarn "gs retval: $retval";
+	#}
 
 	# make the output file
 	#
-	dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
+	#dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
 	open HTMLFILE,">".getConfig('rendering_output_file');
 
 	print HTMLFILE "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
@@ -830,16 +830,16 @@ sub render_pdf_file {
 	);
 
 	if ($latex =~ /\\($reruns)\W/) {
-		dwarn "pdflatex rerun for refs: $latex";
+		#dwarn "pdflatex rerun for refs: $latex";
 		my ($retval, $output, $error) = runExternalCommand($latexprog, \@run_args, $timeout);
-		dwarn "pdflatex rerun output: $output";
-		dwarn "pdflatex rerun error: $error";
+		#dwarn "pdflatex rerun output: $output";
+		#dwarn "pdflatex rerun error: $error";
 	}
 
-	dwarn "EXECING $latexprog @run_args";
+	#dwarn "EXECING $latexprog @run_args";
 	my ($retval, $output, $error) = runExternalCommand($latexprog, \@run_args, $timeout);
-	dwarn "pdflatex output: $output";
-	dwarn "pdflatex error: $error";
+	#dwarn "pdflatex output: $output";
+	#dwarn "pdflatex error: $error";
 
 	my $pdfname = "$fname.pdf";
 	return $pdfname if (-e "$dir/$pdfname");
@@ -907,7 +907,7 @@ sub render_pdf {
 	# change directory to the objects dir
 	local $CWD = "$dir";
 
-	dwarn "render_pdf started";
+	#dwarn "render_pdf started";
 
 	my $pdfname = render_pdf_file($fname, $latex, $dir);
 	if (!defined $pdfname) {
@@ -915,7 +915,7 @@ sub render_pdf {
 		return;
 	}
 
-	dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
+	#dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
 	open HTMLFILE,">".getConfig('rendering_output_file');
 
 	print HTMLFILE "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
@@ -1103,7 +1103,7 @@ sub renderError {
 sub getAAImages {
 	
 	my @imgfiles = ();
-	dwarn " getAAImages Started";
+	#dwarn " getAAImages Started";
 	# we use the images.pl file l2h produces (should be in the current dir.)
 	do "images.pl";
 
@@ -1115,14 +1115,14 @@ sub getAAImages {
 			$val =~ /SRC="(.+)?"/;
 			my $imgfile = $1;
 			
-			dwarn "*** getAAImages : graphics-antialiasing $imgfile";
+			#dwarn "*** getAAImages : graphics-antialiasing $imgfile";
 			
 			push @imgfiles, $imgfile;
 		}
 
 		delete $cached_env_img{$key};	# clear all entries
 	}
-	dwarn " getAAImages Ended";
+	#dwarn " getAAImages Ended";
 	return @imgfiles;
 }
 
@@ -1145,7 +1145,7 @@ sub postProcessL2hIndex {
 	# read output of l2h, running it through tidy to get XHTML
 	# tidycmd causing apahce crash - need sub process?
 	## BEN TODO $file = readFile(getConfig('tidycmd')." -wrap 1024 -asxml index.html 2>/dev/null |");
-	dwarn "opening file $file_path";
+	#dwarn "opening file $file_path";
 	#sleep 1;  #need a better way to check for when file is ready to open ugh
 	# Tyring a simple poll method with timeout
 	my $max_wait_time = 30; # in seconds
@@ -1154,7 +1154,7 @@ sub postProcessL2hIndex {
 
 	while ($elapsed_time < $max_wait_time) {
 		if (-e $file_path) {
-			dwarn "File found: $file_path in $elapsed_time seconds";
+			#dwarn "File found: $file_path in $elapsed_time seconds";
 			last;
 		}
 		sleep($poll_interval);
@@ -1173,7 +1173,7 @@ sub postProcessL2hIndex {
 		dwarn "postProcessL2hIndex could not open $file_path";
 	}
 
-	dwarn "postProcessL2hIndex raw html:\n $file_in";
+	#dwarn "postProcessL2hIndex raw html:\n $file_in";
 	my $tidy = HTML::Tidy->new({
 		output_xhtml => 1,
 		wrap => 1024,
@@ -1182,7 +1182,7 @@ sub postProcessL2hIndex {
 	});
 	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
 	$file = $tidy->clean($file_in);
-	dwarn "postProcessL2hIndex after tidy:\n $file";
+	#dwarn "postProcessL2hIndex after tidy:\n $file";
 
 	if ($file =~ /<body.*?>(.*?)<hr\s*?\/>\s*?<\/body>/sio) {
 		$file = $1;
@@ -1192,18 +1192,18 @@ sub postProcessL2hIndex {
 		$file = normalizeKnownHTMLEntities($file_in);
 		dwarn "postProcessL2hIndex could not find body element";
 	}
-	dwarn "postProcessL2hIndex 1st regular expression:\n $file";
+	#dwarn "postProcessL2hIndex 1st regular expression:\n $file";
 	$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$1\"/igso;
-	dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
+	#dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
 	
 	# add title tooltips
 	$file =~ s/(alt="(.+?)")/$1 title="$2" /igso;
-	dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
+	#dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
 
 	$file = escapeNonAsciiAsHTMLEntities(normalizeKnownHTMLEntities($file));
 
 	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
-	dwarn "postProcessL2hIndex final html:\n $file";
+	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
 	open OUTFILE,">", "$dir/".getConfig('rendering_output_file');
@@ -1253,7 +1253,7 @@ sub postProcess_make4htIndex {
 	# read output of l2h, running it through tidy to get XHTML
 	# tidycmd causing apahce crash - need sub process?
 	## BEN TODO $file = readFile(getConfig('tidycmd')." -wrap 1024 -asxml index.html 2>/dev/null |");
-	dwarn "opening file $file_path";
+	#dwarn "opening file $file_path";
 	#sleep 1;  #need a better way to check for when file is ready to open ugh
 	# Tyring a simple poll method with timeout
 	my $max_wait_time = 30; # in seconds
@@ -1262,7 +1262,7 @@ sub postProcess_make4htIndex {
 
 	while ($elapsed_time < $max_wait_time) {
 		if (-e $file_path) {
-			dwarn "File found: $file_path in $elapsed_time seconds";
+			#dwarn "File found: $file_path in $elapsed_time seconds";
 			last;
 		}
 		sleep($poll_interval);
@@ -1283,26 +1283,26 @@ sub postProcess_make4htIndex {
 
 	# make4ht already emits UTF-8 HTML, so avoid HTML::Tidy here; it can
 	# reinterpret Unicode text as Latin-1 and produce mojibake.
-	dwarn "postProcess_makehtIndex raw html:\n $file_in";
+	#dwarn "postProcess_makehtIndex raw html:\n $file_in";
 	if ($file_in =~ m{<body\b[^>]*>[\s\S]*?</body>}si) {
 		$file = $&;
 	} else {
 		$file = $file_in;
 		dwarn "postProcess_makehtIndex could not find body element";
 	}
-	dwarn "postProcess_makehtIndex return 1st regular expression:\n $file";
+	#dwarn "postProcess_makehtIndex return 1st regular expression:\n $file";
 	#$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$&\"/igso;
 	$file =~ s{\bsrc=(["'])([^"']+?)\1}{src=$1$url/$2$1}g;
-	dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
+	#dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
 	
 	# add title tooltips
 	$file =~ s/(alt="(.+?)")/$1 title="$2" /igso;
-	dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
+	#dwarn "postProcessL2hIndex 3rd regular expression:\n $file";
 
 	$file = escapeNonAsciiAsHTMLEntities($file);
 
 	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
-	dwarn "postProcessL2hIndex final html:\n $file";
+	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
 	open OUTFILE,">", "$dir/".getConfig('rendering_output_file');
@@ -1403,7 +1403,7 @@ sub getRenderedObjectHtml {
 	my $dir = "$path/$table/$id/$method";
  	 	
 	my $html = readFile("$dir/".getConfig('rendering_output_file'));
-        #dwarn "PATH to object is $path $dir";
+    #dwarn "PATH to object is $path $dir";
 	#dwarn "The html is : $html";
 
 

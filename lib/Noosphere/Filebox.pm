@@ -40,10 +40,10 @@ sub cleanCache {
 
 
 	my $dir = "$cacheroot/$table/$id/$method";
-	dwarn "*** filebox : cleancache in [$dir]";
+	#dwarn "*** filebox : cleancache in [$dir]";
 
 	return if (baddir($dir));
-	dwarn "removing remove $dir/* ";
+	#dwarn "removing remove $dir/* ";
 	remove("$dir/*");
 }
 
@@ -59,12 +59,12 @@ sub cacheFileBox {
  
 	return if (not -e "$fileroot/$table/$id");
 	
-	dwarn "$fileroot/$table/$id exists, make ";
+	#dwarn "$fileroot/$table/$id exists, make ";
 
-	if (not -e "$cacheroot/$table/$id/$method")
-	{
-		dwarn "$cacheroot/$table/$id/$method does not exist, make";
-	}
+	#if (not -e "$cacheroot/$table/$id/$method")
+	#{
+	#	dwarn "$cacheroot/$table/$id/$method does not exist, make";
+	#}
 
 	make_path("$cacheroot/$table/$id", {verbose => 1, mode => 0771}) if (not -e "$cacheroot/$table/$id");
 	make_path("$cacheroot/$table/$id/$method", {verbose => 1, mode => 0771}) if (not -e "$cacheroot/$table/$id/$method");
@@ -72,7 +72,7 @@ sub cacheFileBox {
 	my @files = <$fileroot/$table/$id/*>;
 	for my $file (@files) {
 		copy($file,"$cacheroot/$table/$id/$method");
-		dwarn "copy $file to $cacheroot/$table/$id/$method";
+		#dwarn "copy $file to $cacheroot/$table/$id/$method";
 	}
 }
 
@@ -112,7 +112,7 @@ sub copyBoxFilesToTemp {
 	my $table = shift;
 	my $params = shift;
 
-	dwarn "copyBoxFilesToTemp  start cwd: $CWD";
+	#dwarn "copyBoxFilesToTemp  start cwd: $CWD";
 	my $id = $params->{'id'};
 	my $fileroot = getConfig('file_root');
 	my $cacheroot = getConfig('cache_root');
@@ -126,7 +126,7 @@ sub copyBoxFilesToTemp {
 
 	#system("cp -r $source/* $dest");
 	File::Copy::Recursive::rcopy_glob("$source/*", $dest) or dwarn "Problem copying Box Files to Temp: $!";
-	dwarn "copyBoxFilesToTemp  end cwd: $CWD";
+	#dwarn "copyBoxFilesToTemp  end cwd: $CWD";
 }
 
 # moveTempFilesToBox - move temporary cache dir files to file box.
@@ -139,7 +139,7 @@ sub moveTempFilesToBox {
 	# we need a temp dir
 	#
 	if (!nb($params->{'tempdir'})) {
-		dwarn "*** moveTempFilesToBox: no tempdir is set!";
+		#dwarn "*** moveTempFilesToBox: no tempdir is set!";
 		return;
 	}
 	
@@ -152,23 +152,23 @@ sub moveTempFilesToBox {
 	my $source = "$cacheroot/$params->{tempdir}";
 
 	if (not -d $source) {
-		dwarn "*** moveTempFilesToBox: temp source does not exist: $source";
+		#dwarn "*** moveTempFilesToBox: temp source does not exist: $source";
 		return 0;
 	}
 	
 	# make sure file box directory exists and is clear
-	dwarn "source:\n$source\ndest:\n$dest";
+	#dwarn "source:\n$source\ndest:\n$dest";
 	if (-e $dest) {
-		dwarn "destination exists, remove all files in $dest";
+		#dwarn "destination exists, remove all files in $dest";
 		remove("$dest/*");
 	} else {
-		dwarn "destination does not exist, make";
+		#dwarn "destination does not exist, make";
 		make_path("$dest", {verbose => 1, mode => 0771});
 	}
 
 	# move non-rendering dir files over.
 	#
-	dwarn "*** move temp files to box: changing to dir $source";
+	#dwarn "*** move temp files to box: changing to dir $source";
 	##chdir "$source";
 	##chdir("$source");# or dwarn "ERROR chdir: cannot change: $!\n";
 	# brackets used here to localize the chdir
@@ -176,7 +176,7 @@ sub moveTempFilesToBox {
 		local $CWD = "$source";
 		my $dir = getcwd();
 		$dir =~ s/\s*$//;
-		dwarn "temp dir to remove: $dir";
+		#dwarn "temp dir to remove: $dir";
 		if (baddir($dir)) {
 			dwarn "*** move temp files to box: failed to change to dir $source, ended up in root! aborting.";
 		return;
@@ -185,7 +185,7 @@ sub moveTempFilesToBox {
 		my @methoddirs = getMethods();
 		foreach my $file (@files) {
 			if (not inset($file,@methoddirs)) {
-				dwarn "attempt to move $file,$dest";
+				#dwarn "attempt to move $file,$dest";
 				rmove($file, $dest);
 			} else {
 				dwarn "attempt to remove $file, all is removed in removeTempCacheDir";
@@ -222,12 +222,12 @@ sub handleFileManager {
 	# copyBoxFilesToTemp should already have been called to make a temp dir 
 	# and set $params->{tempdir}
 	#
-	dwarn "handleFileManager started";
+	#dwarn "handleFileManager started";
 	if (nb($params->{'tempdir'})) {
-		dwarn "params->{tempdir} was not empty";
+		#dwarn "params->{tempdir} was not empty";
 		$dest = getConfig('cache_root')."/$params->{tempdir}";
 		if (not -d $dest) {
-			dwarn "fileManager tempdir missing, making new cache dir: $dest";
+			#dwarn "fileManager tempdir missing, making new cache dir: $dest";
 			$params->{'tempdir'} = makeTempCacheDir();
 			$params->{'filelist'} = '';
 			$params->{'filechanges'} = '';
@@ -235,16 +235,16 @@ sub handleFileManager {
 			$dest = getConfig('cache_root')."/$params->{tempdir}";
 		}
 		$ftemplate->setKey('tempdir', $params->{'tempdir'});
-		dwarn "fileManager tempdir: $ftemplate, $dest";
+		#dwarn "fileManager tempdir: $ftemplate, $dest";
 	} elsif (nb($params->{'id'})) {
 		$dest = getConfig('file_root')."/$table/$params->{id}";
-		dwarn "fileManager id: $ftemplate, $dest";
+		#dwarn "fileManager id: $ftemplate, $dest";
 	} else {	# make a new cache dir if we have no info
 		$params->{'tempdir'} = makeTempCacheDir();
 		
 		$ftemplate->setKey('tempdir', $params->{'tempdir'});
 		$dest = getConfig('cache_root')."/$params->{tempdir}";
-		dwarn "fileManager new cache dir: $params->{'tempdir'}, $ftemplate, $dest";
+		#dwarn "fileManager new cache dir: $params->{'tempdir'}, $ftemplate, $dest";
 	}
 
 	#dwarn "managing files in box at $dest";
@@ -252,7 +252,7 @@ sub handleFileManager {
 	# grab URLs 
 	#
 	if (defined $params->{filebox} && $params->{filebox} eq "upload" && nb($params->{fb_urls})) {
-		dwarn "fileManager grab urls: $params->{filebox}, nb($params->{fb_urls})";
+		#dwarn "fileManager grab urls: $params->{filebox}, nb($params->{fb_urls})";
 		my @urls = split(/\s*\n\s*/,$params->{fb_urls});
 		foreach my $url (@urls) {
 			next if blank($url);
@@ -267,14 +267,14 @@ sub handleFileManager {
 		$ftemplate->setKey('fb_urls', $params->{fb_urls});
 		}
 	} else {
-		dwarn "fileManager grab urls else set key";
+		#dwarn "fileManager grab urls else set key";
 		$ftemplate->setKey('fb_urls', $params->{fb_urls});
 	}
 	
 	# move an uploaded file
 	#
 	if (defined $upload and $upload->{'filename'}) {
-		dwarn "moving uploaded file $upload->{tempfile} to $dest/$upload->{filename}";
+		#dwarn "moving uploaded file $upload->{tempfile} to $dest/$upload->{filename}";
 		$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
 		if (rmove($upload->{tempfile},"$dest/$upload->{filename}")) {
 			$changes = 1;
@@ -287,7 +287,7 @@ sub handleFileManager {
 	# handle file removal request
 	# 
 	if (nb($params->{'remove'})) {
-		dwarn "fileManager handle file removal request";
+		#dwarn "fileManager handle file removal request";
 		my @files = map("$dest/$_",split(',',$params->{'remove'}));
 		my $cnt = unlink @files; 
 	if ($cnt > 0 ) { $changes = 1; }
@@ -300,12 +300,12 @@ sub handleFileManager {
 	my $rmlist = '';
 	my $returnValue;
 	if ( -e $dest ) {
-		dwarn "file removal chooser and file list";
+		#dwarn "file removal chooser and file list";
 		$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
 		local $CWD = "$dest";  # chdir seems to be crashing mod_perl, looking for worarounds
 		my @files = <*>;
 		if ($#files < 0) {
-	 		dwarn "files < 0, [no files]";
+	 		#dwarn "files < 0, [no files]";
 	 		$rmlist = "[no files]"; 
 	 	}
 		else {
@@ -313,7 +313,7 @@ sub handleFileManager {
 	 		my $count = 0; 
 		
 	 		foreach my $file (@files) {
-	 			dwarn "file: $file";	
+	 			#dwarn "file: $file";	
 				
 				if (not inset($file,@methoddirs)) {
 					my $ftext;
@@ -349,7 +349,7 @@ sub handleFileManager {
 		#dwarn "chdir return cwd: $cwddes";
 	}
 	else {
-	 	dwarn "rmlist is [no files]";
+	 	#dwarn "rmlist is [no files]";
 	 	$rmlist = "[no files]";
 	}
 	# if ( -e $dest ) {
@@ -409,7 +409,7 @@ sub handleFileManager {
 	$ftemplate->setKeys('rmlist' => $rmlist, 'ferror' => $ferror, 'filelist' => $filelist);
 	$params->{'filechanges'} = "yes" if ($changes == 1);
 	if (nb($params->{'filechanges'})) {
-		dwarn "filemanager template set key";
+		#dwarn "filemanager template set key";
 		$ftemplate->setKey('filechanges', $params->{'filechanges'});
 	}
 	
@@ -417,7 +417,7 @@ sub handleFileManager {
 	#
 	my $html_fmanager = $ftemplate->expand();
 	$template->setKey('fmanager', $html_fmanager);
-	dwarn "handleFileManager ended";
+	#dwarn "handleFileManager ended";
 	return ($template, $html_fmanager);
 }
 
@@ -426,7 +426,7 @@ sub handleFileManager {
 sub wget { 
 	my $source = shift;	 # source url to download from
 	my $dest = shift;		# local location (directory) to place file in
-	dwarn "wget started for $source";
+	#dwarn "wget started for $source";
 
 	if ($source !~ m{\Ahttps?://}i) {
 		dwarn "wget refusing unsupported URL scheme: $source";

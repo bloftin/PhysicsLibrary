@@ -547,7 +547,7 @@ sub installDefaultACL {
 	
 	# query up the user's default ACL spec
 	#
-	dwarn "insta llDefaultACLdefualt ACL spec: dcal:\n$dacl\nuserid:\n$userid";
+	#dwarn "insta llDefaultACLdefualt ACL spec: dcal:\n$dacl\nuserid:\n$userid";
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>$dacl,WHERE=>"userid=$userid"});
 	my @defaults = dbGetRows($sth);
 
@@ -555,7 +555,7 @@ sub installDefaultACL {
 	
 		# insert each rule for the given object 
 		#
-		dwarn "installDefaultACL  insert a rule";
+		#dwarn "installDefaultACL  insert a rule";
 		addACL($table,$objectid,
 			{subjectid=>$default->{subjectid},
 			 user_or_group=>$default->{user_or_group},
@@ -689,7 +689,7 @@ sub addACL {
 	my $table = shift;
 	my $objectid = shift;
 	my $aclspec = shift;
-	dwarn "addACL start";
+	#dwarn "addACL start";
 	my $acltbl = getConfig("acl_tbl");
 	
 	# fill in faux subjectid
@@ -715,7 +715,7 @@ sub addACL {
 
 		my ($rv,$sth) = dbInsert($dbh,{INTO=>$acltbl,COLS=>"uid, tbl, objectid, subjectid, _read, _write, _acl, user_or_group, default_or_normal",VALUES=>"$nextid, '$table', $objectid, $aclspec->{subjectid}, $aclspec->{perms}->{read}, $aclspec->{perms}->{write}, $aclspec->{perms}->{acl}, '$aclspec->{user_or_group}', '$aclspec->{default_or_normal}'"});
 	} 
-	dwarn "addACL end";
+	#dwarn "addACL end";
 	$sth->finish();
 }
 

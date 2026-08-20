@@ -54,7 +54,7 @@ sub crossReferenceLaTeX {
 	
 	push @$syns,$title;
 
-	dwarn "Cross-referencing $title";
+	#dwarn "Cross-referencing $title";
 
 	# delete old outgoing links
 	#
@@ -306,7 +306,7 @@ sub disambiguate {
 	my $class = normalizeclass(shift); 
 	my $fromid = shift;
 
-	dwarn "*** link disambiguation : find best match for '$title'", 2;
+	#dwarn "*** link disambiguation : find best match for '$title'", 2;
 		
 	# get array of ids of qualifying entries
 	#
@@ -347,7 +347,7 @@ sub disambiguate_graph {
 		
 		# do the BFS traversal
 		my $winner = getBestByBFS($table, $fromid, [map { $concepts->{$_} } @toplist], 2);
-		dwarn "*** link score: winner (for $fromid) by graph walking is $toplist[$winner]\n", 2;
+		#dwarn "*** link score: winner (for $fromid) by graph walking is $toplist[$winner]\n", 2;
 		return $toplist[$winner];
 	}
 
@@ -406,7 +406,7 @@ sub disambiguate_classification {
 				[map { catlevel($_, 1) } @compare]);
 				
 			my $score = (100 * $score1) + (10 * $score2) + $score3;
-			dwarn "*** link score: $id = $score , [$class] vs. [$cstrings[$i]]", 2; 
+			#dwarn "*** link score: $id = $score , [$class] vs. [$cstrings[$i]]", 2; 
 			if ($score > $topscore) {
 				$topscore = $score;
 				@toplist = ();		# reset the top list, we found a new winner
@@ -423,7 +423,7 @@ sub disambiguate_classification {
 		}
 
 		if ($#toplist > 0) {
-			dwarn "*** link score: tie", 2;
+			#dwarn "*** link score: tie", 2;
 		}
 	}
 
@@ -477,7 +477,7 @@ sub getscore {
 	my @base = @$b_;
 	my @compare = @$c_;
 
-	dwarn "*** getscore: base [@base], compare [@compare]", 3;
+	#dwarn "*** getscore: base [@base], compare [@compare]", 3;
 
 	return 0 if ($#compare<0);
 	return 0 if ($#base<0);
@@ -749,7 +749,7 @@ sub findmatches {
 	my $fail = 1;
 	if (defined $terms->{$word}) {
 		$fail = 0;
-		dwarn "*** xref: found $word for $tlist[$i] in hash" if $COND;
+		#dwarn "*** xref: found $word for $tlist[$i] in hash" if $COND;
 		$rv = matchrest(\%matches,
 					$word,$terms->{$word},
 					\@tlist,$tlen,$i,
@@ -821,7 +821,7 @@ sub matchrest {
 	foreach my $title (sort {lc($b) cmp lc($a)} keys %$subhash) {
 		my $COND=0;	 # debug printing condition
 		#my $COND=($word=~/^banach/i);		# debug printing condition
-		dwarn " *** xref: comparing $word to $title" if $COND;
+		#dwarn " *** xref: comparing $word to $title" if $COND;
 
 		@mtags = ();				 # reset match tags
 		my @words = split(/\s+/,$title);	 # split into words
@@ -833,31 +833,31 @@ sub matchrest {
 		# see how many words we can match against this title
 		#
 		$skip++ if skipword($tlist->[$i+1]);
-		dwarn "*** xref: skip starts out as $skip" if $COND;
-		dwarn "*** xref: text word is $tlist->[$i+1]" if $COND;
+		#dwarn "*** xref: skip starts out as $skip" if $COND;
+		#dwarn "*** xref: text word is $tlist->[$i+1]" if $COND;
 		while (($i+$midx+$skip+1 < $tlen) && 
 				 ($midx<$widx ) && 
 			 (bareword($tlist->[$i+$midx+$skip+1]) eq lc($words[$midx+1]))) {
 
-			dwarn " *** xref: matched word $tlist->[$i+$midx+$skip+1]" if $COND;
+			#dwarn " *** xref: matched word $tlist->[$i+$midx+$skip+1]" if $COND;
 
 			push @mtags,getstarttag($tlist->[$i+$midx+$skip+1]); # keep tags
 			push @mtags,getendtag($tlist->[$i+$midx+$skip+1]);
 		
 			$midx++;			# update indexes
 			$skip++ if skipword($tlist->[$i+$midx+$skip+1]);
-			dwarn "*** xref: skip is now $skip" if $COND;
+			#dwarn "*** xref: skip is now $skip" if $COND;
 		}
 
-		dwarn " *** xref: skip is $skip" if $COND;
+		#dwarn " *** xref: skip is $skip" if $COND;
 
 		# if we matched all words, store match info
 		#
 		if ($midx == $widx) {	 
-			dwarn " *** xref: matched all words, $midx = $widx" if $COND;
+			#dwarn " *** xref: matched all words, $midx = $widx" if $COND;
 			$matchterm = $title;
 			$matchlen = $widx + $skip + 1;
-			dwarn " *** xref: matchterm is [$matchterm]" if $COND;
+			#dwarn " *** xref: matchterm is [$matchterm]" if $COND;
 			last;
 		}
 
@@ -868,7 +868,7 @@ sub matchrest {
 			#
 			$skip++ if skipword($tlist->[$i+$midx+$skip+1]);
 			my $nextword = $tlist->[$i+$midx+$skip+1];
-			dwarn " *** xref: nextword is '$nextword'" if $COND;
+			#dwarn " *** xref: nextword is '$nextword'" if $COND;
 			my $istagged = istagged($nextword);
 			my $isplural = isplural(bareword($nextword));
 			if ($isplural || $istagged) {
@@ -876,12 +876,12 @@ sub matchrest {
 				$clean = bareword($nextword) if ($istagged);
 				$clean = depluralize($clean) if ($isplural);
 				if ($clean eq lc($words[$widx])) {
-				dwarn " *** xref: we have a match" if $COND;
+				#dwarn " *** xref: we have a match" if $COND;
 					
 				$plural=$isplural;
 				$matchterm=$title;
 				$matchlen=$widx+$skip+1;
-				dwarn " *** xref: match length is $matchlen" if $COND;
+				#dwarn " *** xref: match length is $matchlen" if $COND;
 
 				push @mtags,getstarttag($nextword);	
 				push @mtags,getendtag($nextword);
@@ -1352,14 +1352,14 @@ sub xrefTitleInvalidate {
 
 	my $wid = getwid($words[0]);
  
-	dwarn "*** xref: invalidating for new title $title" if ($DEBUG);
-	dwarn "*** xref: first word is $wid";
+	#dwarn "*** xref: invalidating for new title $title" if ($DEBUG);
+	#dwarn "*** xref: first word is $wid";
 	
 	return if (not $wid);
 
 	# select objects that contain the first significant word
 	#
-	dwarn "xrefTitleInvalidate select objects that contain the first sig word: widx:\n$widx\nwid:\n$wid\ntbl:\n$table";
+	#dwarn "xrefTitleInvalidate select objects that contain the first sig word: widx:\n$widx\nwid:\n$wid\ntbl:\n$table";
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'distinct objectid',FROM=>$widx,WHERE=>"wid=$wid and tbl='$table'"});
 	
 	# go through and invalidate them all
@@ -1367,7 +1367,7 @@ sub xrefTitleInvalidate {
 	while (my $row = $sth->fetchrow_hashref()) {
 		# TODO: somehow we need to be able to kill a process which might 
 		# be building this object (the build flag would be on but valid off)
-		dwarn "xrefTitleInvalidate invalidate";
+		#dwarn "xrefTitleInvalidate invalidate";
 		setbuildflag_off($table,$row->{objectid});
 		setvalidflag_off($table,$row->{objectid});
 	}

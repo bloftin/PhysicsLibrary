@@ -8,43 +8,43 @@ sub XSLTemplate::new
 {
 	my ($class, $file) = @_;
 	my $tpath = getConfig("stemplate_path");
-	dwarn "PP stemplate_path is\n";
-   	dwarn $tpath;
-    dwarn "PP stemplate file is\n";
-	dwarn $file;
+	#dwarn "PP stemplate_path is\n";
+   	#dwarn $tpath;
+    #dwarn "PP stemplate file is\n";
+	#dwarn $file;
  	my $tobj = {};
 # This document parsing needs to be cached!
 	my $template = new TemplateNS("template.xsl", warnings => 1);
 	my $fcache = new FileCache("$tpath/$file");
-	dwarn "fcache text: \n";
+	#dwarn "fcache text: \n";
 	#dwarn $fcache->{"TEXT"};
-	dwarn "\nAfter fcache text\n";
+	#dwarn "\nAfter fcache text\n";
 	$template->setKey('content', $fcache->{"TEXT"});
-	dwarn "After setKey";
+	#dwarn "After setKey";
 	my $parser = XML::LibXML->new();
-	dwarn "After LimbXML->new";
+	#dwarn "After LimbXML->new";
 	my $doc = $parser->parse_string($template->expand());
-	dwarn "After parse_string";
+	#dwarn "After parse_string";
 	bless $tobj, $class;
-	dwarn "After bless";
+	#dwarn "After bless";
 	$tobj->{'KEY_MAP'} = getXSLKeyMap($fcache->{'TEXT'});
-	dwarn "After getXSLKeyMap";
+	#dwarn "After getXSLKeyMap";
 	$tobj->{'SET_KEYS'} = {};
-	dwarn "AFter SET_KEYS";
+	#dwarn "AFter SET_KEYS";
 	$tobj->{'NAME'} = $file;
-	dwarn "After NAME";
+	#dwarn "After NAME";
 	$tobj->{'XSLT'} = XML::LibXSLT->new();
-	dwarn "After LibXSLT->new";
+	#dwarn "After LibXSLT->new";
 	#dwarn "doc: $doc\n";
 	eval {
 	$tobj->{'STYLESHEET'} = $tobj->{'XSLT'}->parse_stylesheet($doc);
 	};
 	warn $@ if $@;
-	dwarn "parse_stylesheet";
+	#dwarn "parse_stylesheet";
 	$tobj->{'TEXT'} = "";
-	dwarn "After text empty";
+	#dwarn "After text empty";
 	$tobj->{'PARAMS'} = {'admin' => 0};
-	dwarn "After PARAMS admin";
+	#dwarn "After PARAMS admin";
 	return $tobj;
 }
 

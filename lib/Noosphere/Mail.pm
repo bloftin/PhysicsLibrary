@@ -52,7 +52,7 @@ sub replyMail	{
 		my $text = $params->{body};
 		$text =~ s/>.*?\n//gs;
 		$text =~ s/^\s*//s;
-		dwarn "submitting to spell : $text";
+		#dwarn "submitting to spell : $text";
 		my $spell = checkdoc($text);
 		$template->setKey('spell', "Spell check (broken words in red, clickable):<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$spell</td></tr></table><hr>");
 		getOriginalMailValues($template,$params);
@@ -418,7 +418,7 @@ sub sendMailForm {
 		my $text = $params->{body};
 		$text =~ s/>.*?\n//gs;
 		$text =~ s/^\s*//s;
-		dwarn "submitting to spell : $text";
+		#dwarn "submitting to spell : $text";
 		my $spell = checkdoc($text);
 		$template->setKey('spell', "Spell check (broken words in red, clickable):<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$spell</td></tr></table><hr>");
 		$template->setKeysIfUnset(%$params);

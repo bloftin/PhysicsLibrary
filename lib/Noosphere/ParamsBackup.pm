@@ -67,7 +67,7 @@ sub parseMime {
 	  } else {
 	    $formdata{$name}=$mimedata;
 	  }
-      dwarn "\t$name=>$mimedata\n";
+      #dwarn "\t$name=>$mimedata\n";
 	} 
 	# uploaded file
 	#
@@ -86,7 +86,7 @@ sub parseMime {
 	  syswrite OUT,$mimedata;
 	  close OUT;
 	  $upload{tempfile}=$tempfile;
-      dwarn "\tfile=>[$filename,$type,$tempfile]\n";
+      #dwarn "\tfile=>[$filename,$type,$tempfile]\n";
 	}
   }
 
@@ -166,13 +166,13 @@ sub parseParams {
   # parse GET params
   #
   if (scalar keys %get_params) {
-    dwarn "get params\n" if (keys %get_params);
+    #dwarn "get params\n" if (keys %get_params);
     foreach my $key (keys %get_params) {
       if ($key) {
 	  my $k=lc($key);
 	  $params{$k}=$get_params{$key};
 	  $params{$k}=~s/\r//sg;   # kill ^M's
-	  dwarn "\t$key=>$params{$k}\n";
+	  #dwarn "\t$key=>$params{$k}\n";
       } 
     }
   }
@@ -180,13 +180,13 @@ sub parseParams {
   # conventionally parse POST params
   #
   if (not $ismime) {
-    dwarn "post params\n" if (keys %post_params);
+    #dwarn "post params\n" if (keys %post_params);
     foreach my $key (keys %post_params) {
       if ($key) { #BB: Apache 2 seems to send an empty $key on GET request
 	  my $k=lc($key);
 	  $params{$k}=$post_params{$key};
 	  $params{$k}=~s/\r//sg;   # kill ^M's
-	  dwarn "\t$key=>$params{$k}\n";
+	  #dwarn "\t$key=>$params{$k}\n";
       }
     }
   } 
@@ -194,7 +194,7 @@ sub parseParams {
   # parse MIME POST params
   #
   else {
-    dwarn "mime/multipart params\n";
+    #dwarn "mime/multipart params\n";
 	  $upload=readMime($req,\%params);
   }
   return({%params},$upload); 

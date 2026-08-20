@@ -23,7 +23,7 @@ sub parseMime {
   my %upload;
   my %formdata;
 
-  dwarn "parseMime Started";
+  #dwarn "parseMime Started";
   $upload{filename} = '';
   
   my @parts=split(/--$boundary[\r\-][\n\-]/,$body);
@@ -33,7 +33,7 @@ sub parseMime {
 	
 	# grab header info for part
 	#
-  dwarn "grab header info for part";
+  	#dwarn "grab header info for part";
 	my $name="";
 	my $filename="";
 	my $type="";
@@ -58,26 +58,26 @@ sub parseMime {
 	
 	# grab actual data of part
 	#
-  dwarn "grab actual data of part";
+  	#dwarn "grab actual data of part";
 	$part=~/\r\n\r\n(.+?)\s*$/s;
 	my $mimedata=$1;
     
 	# regular form variable
 	#
 	if ($filename eq "") {
-    dwarn "regular form variable";
+      #dwarn "regular form variable";
 	  $mimedata=~s/\r//gs;    # kill ^M
 	  if (defined $formdata{$name}) {
 	    $formdata{$name}.=",$mimedata";   # collapse same keys into CSV list
 	  } else {
 	    $formdata{$name}=$mimedata;
 	  }
-    dwarn "\t$name=>$mimedata\n";
+      #dwarn "\t$name=>$mimedata\n";
 	} 
 	# uploaded file
 	#
 	else {
-	  dwarn "uploaded file name $filename";
+	  #dwarn "uploaded file name $filename";
 	  #dwarn "upload data [$mimedata]";
 
 	  $upload{formname}=$name;
@@ -107,7 +107,7 @@ sub readMime {
   my $formdata;
   my $upload;
 
-  dwarn "readMime Started";
+  #dwarn "readMime Started";
   #my $content=$req->content;
   #my $debug=$req->as_string;
   #dwarn "request is [$debug]";
@@ -124,10 +124,10 @@ sub readMime {
   # maybe we should just read in the entire multipart data to a temp file, 
   # then pass the file name
   #
-  dwarn "readMime Ended";
+  #dwarn "readMime Ended";
   ($formdata,$upload)=parseMime($boundary,$buff);
   foreach my $key (keys %$formdata) { $params->{$key}=$formdata->{$key} }
-  dwarn "parseMime Ended";
+  #dwarn "parseMime Ended";
   return $upload;
 }
 
@@ -144,7 +144,7 @@ sub parseGetArgs {
   #dwarn "Before return of not defined args";
   return if (not(defined $args or $args));
   #dwarn "Args are defined";
-#Ben
+
   my @keyvals=split(/[&;]/,$args);
   foreach my $keyval (@keyvals) {
     my ($key,$val)=split(/=/,$keyval);
@@ -219,7 +219,7 @@ sub parseParamsNew {
 #               into a hash of key/value
 #
 sub parseParams {
-  dwarn "Enter parseParams";
+  #dwarn "Enter parseParams";
   my $req=shift;
   my $ismime=ismime($req);
   #dwarn "After ismine";
@@ -234,18 +234,18 @@ sub parseParams {
   my %params;
   my $upload;
  
-  dwarn "get_params:\n @{[%get_params]}\n";
-  dwarn "post_params:\n @{[%post_params]}\n";	
+  #dwarn "get_params:\n @{[%get_params]}\n";
+  #dwarn "post_params:\n @{[%post_params]}\n";	
   # parse GET params
   #
   if (scalar keys %get_params) {
-    dwarn "get params\n" if (keys %get_params);
+    #dwarn "get params\n" if (keys %get_params);
     foreach my $key (keys %get_params) {
       if ($key) {
 	  my $k=lc($key);
 	  $params{$k}=$get_params{$key};
 	  $params{$k}=~s/\r//sg;   # kill ^M's
-	  dwarn "\t$key=>$params{$k}\n";
+	  #dwarn "\t$key=>$params{$k}\n";
       } 
     }
   }
@@ -253,13 +253,13 @@ sub parseParams {
   # conventionally parse POST params
   #
   if (not $ismime) {
-    dwarn "post params\n" if (keys %post_params);
+    #dwarn "post params\n" if (keys %post_params);
     foreach my $key (keys %post_params) {
       if ($key) { #BB: Apache 2 seems to send an empty $key on GET request
 	  my $k=lc($key);
 	  $params{$k}=$post_params{$key};
 	  $params{$k}=~s/\r//sg;   # kill ^M's
-	  dwarn "\t$key=>$params{$k}\n";
+	  #dwarn "\t$key=>$params{$k}\n";
       }
     }
   } 
@@ -267,7 +267,7 @@ sub parseParams {
   # parse MIME POST params
   #
   else {
-    dwarn "mime/multipart params\n";
+    #dwarn "mime/multipart params\n";
 	  $upload=readMime($req,\%params);
   }
   return({%params},$upload); 
