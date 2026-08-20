@@ -94,7 +94,7 @@ sub mangleTitle {
 	return unescapeMathSimple($title, $math);
 }
 
-# simple "escape" of math.. take $.?$ sections and replace them with 
+# simple "escape" of math.. take $.?$ sections and replace them with
 # unambiguous, single-word tags that are relatively inert to other processing.
 #
 sub escapeMathSimple {
@@ -128,7 +128,7 @@ sub unescapeMathSimple {
 }
 
 # supplementaryPackages - determine what additional packages must be included
-# based on a command=>package hash and some text. 
+# based on a command=>package hash and some text.
 # returns a bunch of \usepackage{}'s as one chunk
 # of text
 #
@@ -201,7 +201,7 @@ sub singleRenderLaTeX {
 	dwarn "singleRenderLaTeX started";
 	$math = UTF8toTeX($math);
 	# make a rendering directory in /tmp
-	# 
+	#
 	my $suffix = 0;
 	my $root = getConfig('single_render_root');
 	while (-e "$root$suffix") {
@@ -221,9 +221,9 @@ sub singleRenderLaTeX {
 
 	my $prefix = getConfig('single_render_template_prefix');
 
-	# loop through each variant, render the math and load the image into the 
+	# loop through each variant, render the math and load the image into the
 	# database (if its not there already, this is a last line of defens failsafe)
-	# 
+	#
 	foreach my $variant (@$variants) {
 	next if (variant_exists($math, $variant));
 
@@ -258,8 +258,8 @@ sub singleRenderLaTeX {
 	my $output = read_data($out_fh);
  	my $error  = read_data($err_fh);
 
-	dwarn "Error from single_render.tex: \n $error"; 
-	# abort if a render failed	
+	dwarn "Error from single_render.tex: \n $error";
+	# abort if a render failed
 	# hmm need better way to exit
 	if ($error > 0) {
 			dwarn "GOT ERRROR: abort, rm $dir";
@@ -267,7 +267,7 @@ sub singleRenderLaTeX {
 			return $error;
 	}
 
-	# read in the resulting image, convert binary data to octal 
+	# read in the resulting image, convert binary data to octal
 	#
 	my $image;
 	$image = octify(readFile($dir . '/img1.png')) if getConfig('dbms') eq 'pg';
@@ -336,7 +336,7 @@ sub renderLaTeX {
 	}
 	##chdir $dir;
 	##chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
-	local $CWD = "$dir"; 
+	local $CWD = "$dir";
 	# make sure output method dir is there
 	#
 	$dir = "$dir/$method";
@@ -347,7 +347,7 @@ sub renderLaTeX {
 	}
 	##chdir $dir;
 	##chdir("$dir");# or dwarn "ERROR chdir: cannot change: $!\n";
-	local $CWD = "$dir"; 
+	local $CWD = "$dir";
 	my $render_lock_fh;
 	if (open($render_lock_fh, "+>>", "$dir/render.lock")) {
 		if (!flock($render_lock_fh, LOCK_EX | LOCK_NB)) {
@@ -357,6 +357,8 @@ sub renderLaTeX {
 		}
 	} else {
 		dwarn "renderLaTeX could not open lock file $dir/render.lock: $!";
+		write_render_message('Rendering could not start because the render lock could not be created.');
+		return;
 	}
 	# get web URL for rendered images
 	#
@@ -408,7 +410,7 @@ sub renderLaTeX {
 			# l2h rendering core
 			render_l2h($fname, $latex, $url, $dir);
 			dwarn "render_l2h ended\n";
-		} 
+		}
 		
 		else {
 			dwarn "error with latex_error_check\n";
@@ -478,7 +480,7 @@ sub renderLaTeX {
 			# l2h rendering core
 			render_make4ht($fname, $latex, $url, $dir);
 			dwarn "render_make4ht ended\n";
-		} 
+		}
 		
 		else {
 			dwarn "error with latex_error_check\n";
@@ -492,7 +494,7 @@ sub renderLaTeX {
 	##chdir $cwd;
 	#chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
 	#local $CWD = "$cwd"; # we should not have to do this, the local $CWD should go back once scope leaves but need to test first
-	#local $CWD = "$path"; 
+	#local $CWD = "$path";
 }
 
 # do a non-fonts render just to check syntax of LaTeX
@@ -554,11 +556,11 @@ sub render_l2h {
 
 	# run latex to get an aux file for refs
 	#
-	if ($latex =~ /\\($reruns)\W/) { 
+	if ($latex =~ /\\($reruns)\W/) {
 		dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
-		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
+		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex");
 		dwarn "latex reruns: $latex";
-		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
+		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex");
 		my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
 		dwarn "EXECING $latexprog -init_file $tpath/.latex2html-init $fname.tex \n";
 		my ($retval, $output, $error) = runExternalCommand($latexprog,\@run_args);
@@ -588,7 +590,7 @@ sub render_l2h {
 	dwarn "latex2html output: $output";
 	dwarn "latex2html error: $error";
 
-	# run latex2html again after deleting some image files if these images 
+	# run latex2html again after deleting some image files if these images
 	# need to be antialiased
 	#
 	##if ($retval == 0) {
@@ -611,7 +613,7 @@ sub render_l2h {
 
 	##	}
 	##}
- 
+
 	# post process l2h's HTML output
 	#
 	postProcessL2hIndex($url,$dir);
@@ -637,11 +639,11 @@ sub render_make4ht {
 
 	# run latex to get an aux file for refs
 	#
-	if ($latex =~ /\\($reruns)\W/) { 
+	if ($latex =~ /\\($reruns)\W/) {
 		dwarn "running system /usr/bin/latex -interaction=batchmode $fname.tex";
-		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex"); 
+		## BEN system("/usr/bin/latex -interaction=batchmode $fname.tex");
 		dwarn "latex reruns: $latex";
-		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
+		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex");
 		dwarn "EXECING rerun make4ht -d $dir $dir/$fname.tex";
 		my ($retval, $output, $error) = runExternalCommand('/usr/bin/make4ht', ['-d', $dir, "$dir/$fname.tex"], 60);
 		dwarn "make4ht rerun output: $output";
@@ -956,7 +958,7 @@ sub get_latex_error_data {
 	# change to working dir
 	#
 	#chdir(getConfig('cache_root')."/$table/$id/$method");
-	local $CWD = getConfig('cache_root')."/$table/$id/$method"; 
+	local $CWD = getConfig('cache_root')."/$table/$id/$method";
 
 	# open and read log
 	#
@@ -1098,7 +1100,7 @@ sub renderError {
 	return 0;
 }
 
-# get file names of (included graphics) images to be anti-aliased. 
+# get file names of (included graphics) images to be anti-aliased.
 #
 sub getAAImages {
 	
@@ -1126,17 +1128,17 @@ sub getAAImages {
 	return @imgfiles;
 }
 
-# process latex2html generated index.html file to produce just the html 
+# process latex2html generated index.html file to produce just the html
 # Noosphere needs to include in pages.	Writes this output to the rendering
 # output file.
-# 
+#
 sub postProcessL2hIndex {
 	my $url = shift;
 	my $dir = shift;
 
 	my $path = getConfig('cache_root');
 
-	# just write the latex2html to the rendering output 
+	# just write the latex2html to the rendering output
 	# file, with some minor post-processing
 	#
 	my $file = '';
@@ -1211,7 +1213,7 @@ sub postProcessL2hIndex {
 	close OUTFILE;
 	
 
-	# something went wrong, replace rendering output file with the contents of 
+	# something went wrong, replace rendering output file with the contents of
 	# error.out, with some minor post-processing (pull out just error section)
 	#
 	# else {
@@ -1233,10 +1235,10 @@ sub postProcessL2hIndex {
 
 }
 
-# process latex2html generated index.html file to produce just the html 
+# process latex2html generated index.html file to produce just the html
 # Noosphere needs to include in pages.	Writes this output to the rendering
 # output file.
-# 
+#
 sub postProcess_make4htIndex {
 	my $url = shift;
 	my $dir = shift;
@@ -1244,7 +1246,7 @@ sub postProcess_make4htIndex {
 
 	my $path = getConfig('cache_root');
 
-	# just write the latex2html to the rendering output 
+	# just write the latex2html to the rendering output
 	# file, with some minor post-processing
 	#
 	my $file = '';
@@ -1310,7 +1312,7 @@ sub postProcess_make4htIndex {
 	close OUTFILE;
 	
 
-	# something went wrong, replace rendering output file with the contents of 
+	# something went wrong, replace rendering output file with the contents of
 	# error.out, with some minor post-processing (pull out just error section)
 	#
 	# else {
