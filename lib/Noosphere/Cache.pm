@@ -363,7 +363,7 @@ sub setvalidflag_off {
 	my $methodq = '';
 	$methodq = " and (".join(' or ',map("method='$_'",@methods)).")" if (@methods);
 	
-	(my $rv,$sth) = dbUpdate($dbh,{WHAT => $ctbl, SET => 'valid=0, touched=CURRENT_TIMESTAMP',
+	(my $rv, my $sth) = dbUpdate($dbh,{WHAT => $ctbl, SET => 'valid=0, touched=CURRENT_TIMESTAMP',
 		 WHERE => "tbl='$table' and objectid=$id $methodq"}	); 
 	$sth->finish();
 }
@@ -400,7 +400,7 @@ sub getcacheflags {
 	$row = $sth->fetchrow_hashref();
 	$sth->finish();
 	
-	# if we got back nothing, create a new cache entry for the method and object
+	# if we got back nothing, create a new cache entry for the method
 	#
 	if (not defined $row->{valid}) {
 		($rv,$sth) = dbInsert($dbh,{INTO=>$ctbl,COLS=>'tbl,objectid,method,touched',
