@@ -400,7 +400,7 @@ sub getcacheflags {
 	$row = $sth->fetchrow_hashref();
 	$sth->finish();
 	
-	# if we got back nothing, create a new cache entry for the method
+	# if we got back nothing, create a new cache entry for the method and object
 	#
 	if (not defined $row->{valid}) {
 		($rv,$sth) = dbInsert($dbh,{INTO=>$ctbl,COLS=>'tbl,objectid,method,touched',
