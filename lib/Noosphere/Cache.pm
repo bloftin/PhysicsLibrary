@@ -403,7 +403,7 @@ sub setvalidflag_off {
 	my $methodq = '';
 	$methodq = " and (".join(' or ',map("method='$_'",@methods)).")" if (@methods);
 	
-	(my $rv,$sth) = dbUpdate($dbh,{WHAT => $ctbl, SET => 'valid=0, touched=CURRENT_TIMESTAMP',
+	(my $rv, my $sth) = dbUpdate($dbh,{WHAT => $ctbl, SET => 'valid=0, touched=CURRENT_TIMESTAMP',
 		 WHERE => "tbl='$table' and objectid=$id $methodq"}	); 
 	$sth->finish();
 }
