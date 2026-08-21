@@ -153,6 +153,122 @@ sub cacheObject {
 	return 1;
 }
 
+# Read one brace-delimited LaTeX argument, preserving nested groups.  This is
+# used when native renderers transform Noosphere's HTML-only link commands.
+#
+sub readBracedLaTeXArgument {
+	my $text = shift;
+	my $start = shift;
+
+	return (undef, undef)
+		if (!defined($start) || substr($text, $start, 1) ne '{');
+
+	my $depth = 1;
+	my $content_start = $start + 1;
+	my $i = $content_start;
+	my $length = length($text);
+
+	while ($i < $length) {
+		my $char = substr($text, $i, 1);
+
+		# Skip an escaped character so \{ and \} do not affect brace depth.
+		if ($char eq '\\') {
+			$i += 2;
+			next;
+		}
+
+		if ($char eq '{') {
+			$depth++;
+		} elsif ($char eq '}') {
+			$depth--;
+			if ($depth == 0) {
+				return (
+					substr($text, $content_start, $i - $content_start),
+					$i + 1
+				);
+			}
+		}
+
+		$i++;
+	}
+
+	return (undef, undef);
+}
+
+# Page-image PNGs cannot preserve hyperlinks, so flatten Noosphere's
+# \htmladdnormallink commands to their visible anchor text.
+#
+sub stripNativeRenderLinks {
+	my $latex = shift;
+	my $command = '\\htmladdnormallink';
+	my $offset = 0;
+
+	while ((my $start = index($latex, $command, $offset)) >= 0) {
+		my $pos = $start + length($command);
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my ($anchor, $after_anchor) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_anchor)) {
+			$offset = $pos;
+			next;
+		}
+
+		$pos = $after_anchor;
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my (undef, $after_url) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_url)) {
+			$offset = $pos;
+			next;
+		}
+
+		substr($latex, $start, $after_url - $start, $anchor);
+		$offset = $start + length($anchor);
+	}
+
+	return $latex;
+}
+
+# PDF output can preserve links natively.  Convert Noosphere's intermediate
+# HTML link representation into hyperref's \href command.  protectURL() and
+# protectAnchor() HTML-escape ampersands for non-l2h methods, so translate them
+# back to the appropriate LaTeX/PDF forms here.
+#
+sub convertPdfRenderLinks {
+	my $latex = shift;
+	my $command = '\\htmladdnormallink';
+	my $offset = 0;
+
+	while ((my $start = index($latex, $command, $offset)) >= 0) {
+		my $pos = $start + length($command);
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my ($anchor, $after_anchor) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_anchor)) {
+			$offset = $pos;
+			next;
+		}
+
+		$pos = $after_anchor;
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my ($url, $after_url) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_url)) {
+			$offset = $pos;
+			next;
+		}
+
+		$anchor =~ s/&amp;/\\&/g;
+		$url =~ s/&amp;/&/g;
+
+		my $replacement = "\\href{$url}{$anchor}";
+		substr($latex, $start, $after_url - $start, $replacement);
+		$offset = $start + length($replacement);
+	}
+
+	return $latex;
+}
+
 # prepares an entry for rendering :
 #	- combine with template
 #	- get supplementary packages
@@ -178,10 +294,11 @@ sub prepareEntryForRendering {
 	my ($linked,$links) = crossReferenceLaTeX($newent,$latex,$title,$method,$syns,$id,$class);
 	$linked = dolinktofile($linked,$table,$id);	# handle \PMlinktofile
 	
-	# png uses the pre-processed output; that is, link directives are removed.
+	# png uses the pre-processed output; hyperlink directives are flattened to
+	# their visible text because page images do not preserve clickable links.
 	#
 	if ($method eq "png") {
-		$latex = $linked;
+		$latex = stripNativeRenderLinks($linked);
 	}
 	
 	# l2h uses the cross-referenced text as primary output
@@ -190,13 +307,18 @@ sub prepareEntryForRendering {
 		$latex = $linked;
 	}
 
-	# pdf uses the pre-processed output; that is, link directives are removed.
+	# PDF uses native hyperref links rather than the old MAP/image-map path.
 	#
 	if ($method eq "pdf") {
-		$latex = $linked;
+		$latex = convertPdfRenderLinks($linked);
+		if ($latex =~ /\\href\s*\{/ &&
+			(!defined($preamble) || $preamble !~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/)) {
+			$preamble = '' if (!defined($preamble));
+			$preamble .= "\n\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
+		}
 	}
 
-	# pdf uses the pre-processed output; that is, link directives are removed.
+	# make4ht uses the cross-referenced text as primary output so links remain.
 	#
 	if ($method eq "make4ht") {
 		$latex = $linked;
