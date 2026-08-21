@@ -357,6 +357,8 @@ sub renderLaTeX {
 		}
 	} else {
 		dwarn "renderLaTeX could not open lock file $dir/render.lock: $!";
+		write_render_message('Rendering could not start because the render lock could not be created.');
+		return;
 	}
 	# get web URL for rendered images
 	#

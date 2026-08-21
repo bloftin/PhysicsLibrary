@@ -888,12 +888,12 @@ sub addEncyclopediaHybrid {
  
 	# handle post - done editing
 	#
-	#if (defined $params->{'post'}) {
-		dwarn "Add ency - params - post";
+	if (defined $params->{'post'}) {
+		#dwarn "Add ency - params - post";
 		#dwarn "insertEncyclopedia before";
-		#return insertEncyclopedia($params, $user_info);
+		return insertEncyclopedia($params, $user_info);
 		#dwarn "insertEncyclopedia before";
-	#}
+	}
  
 	# handle preview 
 	#
