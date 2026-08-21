@@ -154,8 +154,7 @@ sub cacheObject {
 }
 
 # Read one brace-delimited LaTeX argument, preserving nested groups.  This is
-# used when native page/PDF renderers flatten Noosphere's HTML-only link
-# commands back to their visible anchor text.
+# used when native renderers transform Noosphere's HTML-only link commands.
 #
 sub readBracedLaTeXArgument {
 	my $text = shift;
@@ -196,11 +195,8 @@ sub readBracedLaTeXArgument {
 	return (undef, undef);
 }
 
-# The old PNG/PDF pipeline ran bin/map/MAP whenever cross-referencing produced
-# \htmladdnormallink.  MAP stripped the link command before LaTeX compilation
-# (and separately built clickable image maps).  The modern pdflatex pipeline
-# intentionally dropped those image maps, so native renders only need the
-# visible anchor text.
+# Page-image PNGs cannot preserve hyperlinks, so flatten Noosphere's
+# \htmladdnormallink commands to their visible anchor text.
 #
 sub stripNativeRenderLinks {
 	my $latex = shift;
@@ -228,6 +224,46 @@ sub stripNativeRenderLinks {
 
 		substr($latex, $start, $after_url - $start, $anchor);
 		$offset = $start + length($anchor);
+	}
+
+	return $latex;
+}
+
+# PDF output can preserve links natively.  Convert Noosphere's intermediate
+# HTML link representation into hyperref's \href command.  protectURL() and
+# protectAnchor() HTML-escape ampersands for non-l2h methods, so translate them
+# back to the appropriate LaTeX/PDF forms here.
+#
+sub convertPdfRenderLinks {
+	my $latex = shift;
+	my $command = '\\htmladdnormallink';
+	my $offset = 0;
+
+	while ((my $start = index($latex, $command, $offset)) >= 0) {
+		my $pos = $start + length($command);
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my ($anchor, $after_anchor) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_anchor)) {
+			$offset = $pos;
+			next;
+		}
+
+		$pos = $after_anchor;
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my ($url, $after_url) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_url)) {
+			$offset = $pos;
+			next;
+		}
+
+		$anchor =~ s/&amp;/\\&/g;
+		$url =~ s/&amp;/&/g;
+
+		my $replacement = "\\href{$url}{$anchor}";
+		substr($latex, $start, $after_url - $start, $replacement);
+		$offset = $start + length($replacement);
 	}
 
 	return $latex;
@@ -271,11 +307,15 @@ sub prepareEntryForRendering {
 		$latex = $linked;
 	}
 
-	# pdf uses the pre-processed output.  Keep the legacy behavior of removing
-	# Noosphere's HTML link directives before native pdflatex compilation.
+	# PDF uses native hyperref links rather than the old MAP/image-map path.
 	#
 	if ($method eq "pdf") {
-		$latex = stripNativeRenderLinks($linked);
+		$latex = convertPdfRenderLinks($linked);
+		if ($latex =~ /\\href\s*\{/ &&
+			(!defined($preamble) || $preamble !~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/)) {
+			$preamble = '' if (!defined($preamble));
+			$preamble .= "\n\\usepackage[hidelinks]{hyperref}\n";
+		}
 	}
 
 	# make4ht uses the cross-referenced text as primary output so links remain.
