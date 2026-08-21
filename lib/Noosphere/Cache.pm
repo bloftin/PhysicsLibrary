@@ -153,6 +153,86 @@ sub cacheObject {
 	return 1;
 }
 
+# Read one brace-delimited LaTeX argument, preserving nested groups.  This is
+# used when native page/PDF renderers flatten Noosphere's HTML-only link
+# commands back to their visible anchor text.
+#
+sub readBracedLaTeXArgument {
+	my $text = shift;
+	my $start = shift;
+
+	return (undef, undef)
+		if (!defined($start) || substr($text, $start, 1) ne '{');
+
+	my $depth = 1;
+	my $content_start = $start + 1;
+	my $i = $content_start;
+	my $length = length($text);
+
+	while ($i < $length) {
+		my $char = substr($text, $i, 1);
+
+		# Skip an escaped character so \{ and \} do not affect brace depth.
+		if ($char eq '\\') {
+			$i += 2;
+			next;
+		}
+
+		if ($char eq '{') {
+			$depth++;
+		} elsif ($char eq '}') {
+			$depth--;
+			if ($depth == 0) {
+				return (
+					substr($text, $content_start, $i - $content_start),
+					$i + 1
+				);
+			}
+		}
+
+		$i++;
+	}
+
+	return (undef, undef);
+}
+
+# The old PNG/PDF pipeline ran bin/map/MAP whenever cross-referencing produced
+# \htmladdnormallink.  MAP stripped the link command before LaTeX compilation
+# (and separately built clickable image maps).  The modern pdflatex pipeline
+# intentionally dropped those image maps, so native renders only need the
+# visible anchor text.
+#
+sub stripNativeRenderLinks {
+	my $latex = shift;
+	my $command = '\\htmladdnormallink';
+	my $offset = 0;
+
+	while ((my $start = index($latex, $command, $offset)) >= 0) {
+		my $pos = $start + length($command);
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my ($anchor, $after_anchor) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_anchor)) {
+			$offset = $pos;
+			next;
+		}
+
+		$pos = $after_anchor;
+		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
+
+		my (undef, $after_url) = readBracedLaTeXArgument($latex, $pos);
+		if (!defined($after_url)) {
+			$offset = $pos;
+			next;
+		}
+
+		substr($latex, $start, $after_url - $start, $anchor);
+		$offset = $start + length($anchor);
+	}
+
+	return $latex;
+}
+
 # prepares an entry for rendering :
 #	- combine with template
 #	- get supplementary packages
@@ -178,10 +258,11 @@ sub prepareEntryForRendering {
 	my ($linked,$links) = crossReferenceLaTeX($newent,$latex,$title,$method,$syns,$id,$class);
 	$linked = dolinktofile($linked,$table,$id);	# handle \PMlinktofile
 	
-	# png uses the pre-processed output; that is, link directives are removed.
+	# png uses the pre-processed output; hyperlink directives are flattened to
+	# their visible text because page images do not preserve clickable links.
 	#
 	if ($method eq "png") {
-		$latex = $linked;
+		$latex = stripNativeRenderLinks($linked);
 	}
 	
 	# l2h uses the cross-referenced text as primary output
@@ -190,13 +271,14 @@ sub prepareEntryForRendering {
 		$latex = $linked;
 	}
 
-	# pdf uses the pre-processed output; that is, link directives are removed.
+	# pdf uses the pre-processed output.  Keep the legacy behavior of removing
+	# Noosphere's HTML link directives before native pdflatex compilation.
 	#
 	if ($method eq "pdf") {
-		$latex = $linked;
+		$latex = stripNativeRenderLinks($linked);
 	}
 
-	# pdf uses the pre-processed output; that is, link directives are removed.
+	# make4ht uses the cross-referenced text as primary output so links remain.
 	#
 	if ($method eq "make4ht") {
 		$latex = $linked;
@@ -281,7 +363,7 @@ sub setvalidflag_off {
 	my $methodq = '';
 	$methodq = " and (".join(' or ',map("method='$_'",@methods)).")" if (@methods);
 	
-	(my $rv, my $sth) = dbUpdate($dbh,{WHAT => $ctbl, SET => 'valid=0, touched=CURRENT_TIMESTAMP',
+	(my $rv,$sth) = dbUpdate($dbh,{WHAT => $ctbl, SET => 'valid=0, touched=CURRENT_TIMESTAMP',
 		 WHERE => "tbl='$table' and objectid=$id $methodq"}	); 
 	$sth->finish();
 }
