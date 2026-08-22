@@ -87,7 +87,26 @@ sub deleteFileBox {
 	
 	return if (baddir($dir));
 
-	pathrm("$dir");
+	if (!$id || $id !~ /^\d+$/ || !$table || $table !~ /^\w+$/) {
+		dwarn "*** filebox : refused to delete unsafe filebox path [$dir]";
+		return;
+	}
+
+	my $realroot = Cwd::abs_path($fileroot);
+	my $realdir = Cwd::abs_path($dir);
+	if (!$realroot || !$realdir || index($realdir, "$realroot/") != 0) {
+		dwarn "*** filebox : refused to delete filebox outside file root [$dir]";
+		return;
+	}
+
+	my $errors;
+	remove_tree($realdir, {error => \$errors});
+	if ($errors && @$errors) {
+		for my $diag (@$errors) {
+			my ($file, $message) = %$diag;
+			dwarn "*** filebox : failed to delete [$file]: $message";
+		}
+	}
 }
 
 # cloneFileBox - copy filebox to a new one

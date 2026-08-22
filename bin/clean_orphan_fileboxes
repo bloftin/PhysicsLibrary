@@ -1,0 +1,113 @@
+#!/usr/bin/perl
+
+###############################################################################
+#
+# Find filebox directories for objects that no longer exist in the database.
+# Run without arguments to audit.  Pass --delete to remove the orphaned dirs.
+#
+###############################################################################
+
+package Noosphere;
+
+use strict;
+
+use Cwd ();
+use File::Path qw(remove_tree);
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use vars qw($dbh);
+
+use Noosphere::Config;
+use Noosphere::DB;
+
+my $delete = 0;
+for my $arg (@ARGV) {
+	if ($arg eq '--delete') {
+		$delete = 1;
+	} else {
+		die "usage: $0 [--delete]\n";
+	}
+}
+
+$dbh = dbConnect();
+
+my $fileroot = getConfig('file_root');
+my $realroot = Cwd::abs_path($fileroot) or die "cannot resolve file_root $fileroot\n";
+my @tables = qw(objects books papers lec collab);
+my $orphan_count = 0;
+my $removed_count = 0;
+
+for my $table (@tables) {
+	my $table_dir = "$fileroot/$table";
+	next if !-d $table_dir;
+
+	opendir(my $dh, $table_dir) or do {
+		warn "cannot open $table_dir: $!\n";
+		next;
+	};
+
+	while (defined(my $entry = readdir($dh))) {
+		next if $entry =~ /^\.\.?$/;
+		next if $entry !~ /^\d+$/;
+
+		my $dir = "$table_dir/$entry";
+		next if !-d $dir;
+		next if object_exists($table, $entry);
+
+		$orphan_count++;
+		print "$table/$entry has no database row";
+
+		if ($delete) {
+			if (remove_filebox_dir($dir)) {
+				$removed_count++;
+				print " - removed";
+			} else {
+				print " - remove failed";
+			}
+		}
+		print "\n";
+	}
+
+	closedir($dh);
+}
+
+print "\n$orphan_count orphan filebox directories found";
+print ", $removed_count removed" if $delete;
+print ".\n";
+
+$dbh->disconnect();
+
+sub object_exists {
+	my $table = shift;
+	my $id = shift;
+
+	my $sth = $dbh->prepare("select uid from $table where uid = ?");
+	$sth->execute($id);
+	my ($uid) = $sth->fetchrow_array();
+	$sth->finish();
+
+	return defined $uid;
+}
+
+sub remove_filebox_dir {
+	my $dir = shift;
+
+	my $realdir = Cwd::abs_path($dir);
+	if (!$realdir || index($realdir, "$realroot/") != 0) {
+		warn "refusing to remove unsafe path $dir\n";
+		return 0;
+	}
+
+	my $errors;
+	remove_tree($realdir, {error => \$errors});
+	if ($errors && @$errors) {
+		for my $diag (@$errors) {
+			my ($file, $message) = %$diag;
+			warn "failed to remove $file: $message\n";
+		}
+		return 0;
+	}
+
+	return !-e $realdir;
+}
