@@ -1286,8 +1286,8 @@ sub postProcess_make4htIndex {
 	# make4ht already emits UTF-8 HTML, so avoid HTML::Tidy here; it can
 	# reinterpret Unicode text as Latin-1 and produce mojibake.
 	#dwarn "postProcess_makehtIndex raw html:\n $file_in";
-	if ($file_in =~ m{<body\b[^>]*>[\s\S]*?</body>}si) {
-		$file = $&;
+	if ($file_in =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
+		$file = $1;
 	} else {
 		$file = $file_in;
 		dwarn "postProcess_makehtIndex could not find body element";
@@ -1303,7 +1303,7 @@ sub postProcess_make4htIndex {
 
 	$file = escapeNonAsciiAsHTMLEntities($file);
 
-	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
+	$file = "<div class=\"pl-make4ht-content\">$file</div>";
 	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
