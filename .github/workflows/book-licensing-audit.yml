@@ -8,6 +8,9 @@ on:
       - '.github/workflows/book-licensing-audit.yml'
       - 'tools/book_licensing_audit.py'
       - 'data/snapshots/PlanetPhysics-snapshot_2011-04-01.tar.gz'
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -19,7 +22,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run audit
         run: python3 tools/book_licensing_audit.py
-      - name: Commit generated reports
+      - name: Upload generated reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-licensing-audit
+          path: Reports/Book_Licensing_Audit*
+      - name: Commit generated reports on branch pushes
+        if: github.event_name == 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
