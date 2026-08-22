@@ -1,0 +1,30 @@
+name: Book licensing audit
+
+on:
+  push:
+    branches:
+      - agent/book-licensing-audit
+    paths:
+      - '.github/workflows/book-licensing-audit.yml'
+      - 'tools/book_licensing_audit.py'
+      - 'data/snapshots/PlanetPhysics-snapshot_2011-04-01.tar.gz'
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run audit
+        run: python3 tools/book_licensing_audit.py
+      - name: Commit generated reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Reports/Book_Licensing_Audit*
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate PhysicsLibrary book licensing audit"
+            git push
+          fi
