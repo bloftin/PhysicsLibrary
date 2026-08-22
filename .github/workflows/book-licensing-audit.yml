@@ -8,6 +8,7 @@ on:
       - '.github/workflows/book-licensing-audit.yml'
       - 'tools/book_licensing_audit.py'
       - 'tools/live_book_licensing_audit.py'
+      - 'tools/final_book_licensing_audit.py'
       - 'data/snapshots/PlanetPhysics-snapshot_2011-04-01.tar.gz'
   pull_request:
     branches:
@@ -25,6 +26,8 @@ jobs:
         run: python3 tools/book_licensing_audit.py
       - name: Scan live book catalog
         run: python3 tools/live_book_licensing_audit.py
+      - name: Build final licensing report
+        run: python3 tools/final_book_licensing_audit.py
       - name: Upload generated reports
         uses: actions/upload-artifact@v4
         with:
