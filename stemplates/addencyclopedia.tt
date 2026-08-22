@@ -56,7 +56,7 @@ Notes and caveats for adding encyclopedia entries:
     <select name="request">
          [% FOREACH item IN fillreq.keys.sort %]
              <option
-                 value="[% item %]" >[%- fillreq.$item -%]
+                 value="[% item %]" [% 'selected="selected"' IF item == params.request %]>[%- fillreq.$item -%]
              </option>
          [% END %]
     </select>
