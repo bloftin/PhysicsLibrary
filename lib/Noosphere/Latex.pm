@@ -1327,6 +1327,29 @@ sub postProcess_make4htIndex {
 	max-width: 100%;
 	overflow-x: auto;
 }
+.pl-make4ht-content table.align-star {
+	border-collapse: separate;
+	border-spacing: 0.45em 0.35em;
+	margin: 0.35em 0 0.55em 1em;
+	width: auto;
+}
+.pl-make4ht-content table.align-star td {
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.pl-make4ht-content table.align-star td.align-odd {
+	padding-right: 0.35em;
+}
+.pl-make4ht-content table.align-star td.align-even {
+	padding-left: 0.35em;
+}
+.pl-make4ht-content table.align-star td.align-label {
+	padding-left: 0.5em;
+}
+.pl-make4ht-content table.align-star img {
+	max-width: none;
+	vertical-align: middle;
+}
 .pl-make4ht-content pre,
 .pl-make4ht-content .verbatim,
 .pl-make4ht-content .lstlisting {
