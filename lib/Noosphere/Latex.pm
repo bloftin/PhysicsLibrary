@@ -1286,8 +1286,8 @@ sub postProcess_make4htIndex {
 	# make4ht already emits UTF-8 HTML, so avoid HTML::Tidy here; it can
 	# reinterpret Unicode text as Latin-1 and produce mojibake.
 	#dwarn "postProcess_makehtIndex raw html:\n $file_in";
-	if ($file_in =~ m{<body\b[^>]*>[\s\S]*?</body>}si) {
-		$file = $&;
+	if ($file_in =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
+		$file = $1;
 	} else {
 		$file = $file_in;
 		dwarn "postProcess_makehtIndex could not find body element";
@@ -1303,7 +1303,57 @@ sub postProcess_make4htIndex {
 
 	$file = escapeNonAsciiAsHTMLEntities($file);
 
-	$file = "<table border=\"0\" width=\"100%\"><td>$file</td></table>";
+	my $make4ht_style = <<'EOF';
+<style type="text/css">
+.pl-make4ht-content {
+	max-width: 78em;
+	margin: 0 auto;
+	padding: 0.35em 0.75em 0.75em 0.75em;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 108%;
+	line-height: 1.45;
+	overflow-x: auto;
+	overflow-wrap: break-word;
+}
+.pl-make4ht-content p {
+	margin-top: 0.65em;
+	margin-bottom: 0.65em;
+}
+.pl-make4ht-content img {
+	max-width: 100%;
+	height: auto;
+}
+.pl-make4ht-content table {
+	max-width: 100%;
+	overflow-x: auto;
+}
+.pl-make4ht-content pre,
+.pl-make4ht-content .verbatim,
+.pl-make4ht-content .lstlisting {
+	max-width: 100%;
+	overflow-x: auto;
+	white-space: pre-wrap;
+}
+.pl-make4ht-content math,
+.pl-make4ht-content .math-display,
+.pl-make4ht-content .equation,
+.pl-make4ht-content .equation-star {
+	max-width: 100%;
+	overflow-x: auto;
+}
+.pl-make4ht-content math {
+	font-family: "STIX Two Math", "Cambria Math", "Times New Roman", serif;
+}
+.pl-make4ht-content .math-display,
+.pl-make4ht-content .equation,
+.pl-make4ht-content .equation-star {
+	display: block;
+	padding: 0.25em 0;
+}
+</style>
+EOF
+
+	$file = "$make4ht_style<div class=\"pl-make4ht-content\">$file</div>";
 	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
