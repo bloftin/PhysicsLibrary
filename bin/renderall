@@ -29,12 +29,18 @@ my @methods = ('l2h','src');
 my $table = Noosphere::getConfig('en_tbl');
 my $rundir = "$nsroot/bin/run";
 my $runfile = "$rundir/renderall.running";
+my $logdir = "$nsroot/log";
 my $remove_runfile = 0;
-my $max_per_method = $ENV{'RENDERALL_MAX_PER_METHOD'} || 10;
+my $max_total = $ENV{'RENDERALL_MAX_TOTAL'} || 2;
+my $max_per_method = $ENV{'RENDERALL_MAX_PER_METHOD'} || 1;
+my $max_skips_per_method = $ENV{'RENDERALL_MAX_SKIPS_PER_METHOD'} || 25;
+my $stale_lock_seconds = $ENV{'RENDERALL_STALE_LOCK_SECONDS'} || 3600;
 
 $|=1;
 
+require_apache_user();
 make_path($rundir) unless -d $rundir;
+make_path($logdir) unless -d $logdir;
 open(my $lockfh, '+>>', $runfile) or die "could not open $runfile: $!";
 if (!flock($lockfh, LOCK_EX | LOCK_NB)) {
 	exit 1;
@@ -53,17 +59,17 @@ $SIG{'INT'} = $SIG{'TERM'} = sub {
 
 $DEBUG = 2;	 # dont need debugging of database access
 
-open STDERR, ">", "$nsroot/log/error-renderall";
+open STDERR, ">", "$logdir/error-renderall";
 
 # connect to the database
 #
 $dbh = Noosphere::dbConnect;
 
-print "removing dead objects";
+print "removing dead objects\n";
 
 # remove dead objects
 #
-my ($rv,$sth) = Noosphere::dbLowLevelSelect($dbh,"select cache.objectid from cache left outer join objects on cache.objectid = objects.uid where objects.uid is null");
+my ($rv,$sth) = Noosphere::dbLowLevelSelect($dbh,"select distinct cache.objectid from cache left outer join objects on cache.objectid = objects.uid where cache.tbl='$table' and objects.uid is null");
 while (my $row = $sth->fetchrow_hashref()) {
 	print "dangling cacheref ($row->{objectid}), deleting\n";
 	Noosphere::deletecacheflags($table,$row->{objectid});
@@ -73,10 +79,21 @@ $sth->finish();
 
 print "checking for invalid objects and rendering\n";
 
+my $rendered_total = 0;
 foreach my $method (@methods) {
 	my $rendered = 0;
-	while ($rendered < $max_per_method && (my $row = getNextRow($method))) {
+	my $skipped = 0;
+	my %skip_objectid;
+	while ($rendered < $max_per_method && $rendered_total < $max_total && $skipped < $max_skips_per_method && (my $row = getNextRow($method, \%skip_objectid))) {
+		if (!prepareRenderLock($table, $row->{'objectid'}, $method)) {
+			print "skipping $row->{title} ($row->{objectid}) [$method]; render lock is active or unavailable\n";
+			$skip_objectid{$row->{'objectid'}} = 1;
+			$skipped++;
+			next;
+		}
+
 		$rendered++;
+		$rendered_total++;
 	
 		# message, and fix timed out build
 		#
@@ -102,7 +119,7 @@ foreach my $method (@methods) {
 		print "[$method]";
 	
 		open(OLDOUT, ">&STDOUT");
-		open STDOUT, ">>$nsroot/log/stdout-renderall";
+		open STDOUT, ">>$logdir/stdout-renderall";
 		print "\ncacheObject: table:\n $table";	
 		print "rec: $rec->{title} ($rec->{uid})\n";
 		Noosphere::cacheObject($table, $rec, $method);
@@ -110,9 +127,12 @@ foreach my $method (@methods) {
 
 		print "\n";
 	}
-	print "rendered $rendered $method objects\n";
+	print "rendered $rendered $method objects";
+	print ", skipped $skipped locked objects" if ($skipped);
+	print "\n";
 
 }
+print "rendered $rendered_total total objects\n";
 
 close STDERR;
 
@@ -123,6 +143,7 @@ $remove_runfile = 0;
 
 sub getNextRow {
 	my $method = shift;
+	my $skip_objectid = shift || {};
 
 	my $table = Noosphere::getConfig('en_tbl');
 	
@@ -130,11 +151,17 @@ sub getNextRow {
 	$int = "interval '10 minutes'" if Noosphere::getConfig('dbms') eq 'pg';
 	$int = "interval 10 MINUTE" if Noosphere::getConfig('dbms') eq 'mysql';
 	$int = "interval 10 MINUTE" if Noosphere::getConfig('dbms') eq 'MariaDB';
+
+	my $skip = '';
+	if (%$skip_objectid) {
+		my @ids = grep { /^\d+$/ } keys %$skip_objectid;
+		$skip = " and cache.objectid not in (".join(',', @ids).")" if (@ids);
+	}
 	
 	my ($rv,$sth) = Noosphere::dbSelect($dbh,{
 		 WHAT => "cache.objectid,cache.build,cache.touched,$table.title",
 		 FROM => "cache,$table",
-		 WHERE => "cache.valid=0 and (cache.build=0 or cache.touched <= now() - $int) and $table.uid=cache.objectid and method='$method'",
+		 WHERE => "cache.valid=0 and (cache.build=0 or cache.touched <= now() - $int) and $table.uid=cache.objectid and method='$method'$skip",
 		 LIMIT => 1});
 
 	return undef if ($sth->rows()<1);
@@ -143,5 +170,47 @@ sub getNextRow {
 	$sth->finish();
 
 	return $row;
+}
+
+sub require_apache_user {
+	return if ($ENV{'RENDERALL_ALLOW_ANY_USER'});
+
+	my $user = getpwuid($>) || '';
+	return if ($user eq 'apache');
+
+	die "renderall must run as apache; use: sudo -u apache $0\n";
+}
+
+sub prepareRenderLock {
+	my $table = shift;
+	my $id = shift;
+	my $method = shift;
+
+	my $lockfile = Noosphere::getConfig('cache_root')."/$table/$id/$method/render.lock";
+	return 1 if (!-e $lockfile);
+
+	if (open(my $fh, '+>>', $lockfile)) {
+		if (flock($fh, LOCK_EX | LOCK_NB)) {
+			close($fh);
+			return 1;
+		}
+
+		my $age = time - (stat($lockfile))[9];
+		close($fh);
+		if ($age > $stale_lock_seconds) {
+			print "removing stale render lock $lockfile age=${age}s\n";
+			unlink $lockfile or do {
+				print "could not remove stale render lock $lockfile: $!\n";
+				return 0;
+			};
+			return 1;
+		}
+
+		print "render lock active for $lockfile age=${age}s\n";
+		return 0;
+	}
+
+	print "could not open render lock $lockfile: $!\n";
+	return 0;
 }
 
