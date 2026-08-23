@@ -1307,7 +1307,7 @@ sub postProcess_make4htIndex {
 <style type="text/css">
 .pl-make4ht-content {
 	max-width: 78em;
-	margin: 0 auto;
+	margin: 0;
 	padding: 0.35em 0.75em 0.75em 0.75em;
 	font-family: Georgia, "Times New Roman", serif;
 	font-size: 108%;
@@ -1359,6 +1359,21 @@ sub postProcess_make4htIndex {
 .pl-make4ht-content table.align-star img {
 	max-width: none;
 	vertical-align: middle;
+}
+.pl-make4ht-content table.equation,
+.pl-make4ht-content table.equation-star {
+	border-collapse: separate;
+	border-spacing: 1.25em 0.35em;
+	margin: 0.35em 0 0.55em 0;
+	width: auto;
+}
+.pl-make4ht-content table.equation td.equation-label,
+.pl-make4ht-content table.equation-star td.equation-label {
+	min-width: 3.25em;
+	padding-left: 1.75em;
+	text-align: left;
+	vertical-align: middle;
+	white-space: nowrap;
 }
 .pl-make4ht-content pre,
 .pl-make4ht-content .verbatim,
