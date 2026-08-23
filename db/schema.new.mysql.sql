@@ -155,7 +155,7 @@ CREATE TABLE books_uid_seq (
 
 CREATE TABLE cache (
   objectid int(11) NOT NULL default '0',
-  method char(3) default NULL,
+  method varchar(16) default NULL,
   valid int(11) default '0',
   build int(11) default '0',
   rrequests int(11) default '0',
