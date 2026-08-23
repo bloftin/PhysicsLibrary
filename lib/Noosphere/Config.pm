@@ -129,7 +129,27 @@ use constant CONFIG=>(
 	# robots.txt "file" contents.
 	#
 	'robotstxt' => "User-agent: *
-Disallow: /?*",
+Disallow: /?op=viewver
+Disallow: /?*op=viewver
+Disallow: /?op=viewdiff
+Disallow: /?*op=viewdiff
+Disallow: /?op=vbrowser
+Disallow: /?*op=vbrowser
+Disallow: /?op=adden
+Disallow: /?*op=adden
+Disallow: /?op=edit
+Disallow: /?*op=edit
+Disallow: /?op=rerender
+Disallow: /?*op=rerender
+Disallow: /?op=preamble
+Disallow: /?*op=preamble
+Disallow: /?op=downloadfile
+Disallow: /?*op=downloadfile
+Disallow: /versions/
+Disallow: /cache/
+Disallow: /files/
+Crawl-delay: 10
+",
 
 	#BB: the list of additional files to serve from (these are cached)
 	#    they are served from `files' virtual directory

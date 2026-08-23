@@ -467,6 +467,16 @@ sub handler {
 	# check for any content that isn't meant for any template
 	#
 	$html = getNoTemplateContent($params, \%user_info, $upload);
+	if ($params->{'op'} eq 'robotstxt') {
+		my $len = length($html);
+		$req->status(200);
+		$req->content_type('text/plain;charset=UTF-8');
+		$req->header_out('Content-Length'=>$len);
+		$req->send_http_header;
+		$req->print($html);
+		$req->rflush();
+		return;
+	}
   	$tsting = getConfig("stemplate_path");
 	#dwarn $tsting;
 	#dwarn "Start of PP template stuff\n"; 

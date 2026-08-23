@@ -812,6 +812,14 @@ sub handler {
 	$content_type = $req->content_type;
 	#dwarn "getNoTemplateContent started req content type: $content_type";
 	$html = getNoTemplateContent($params, \%user_info, $upload);
+	if ($params->{'op'} eq 'robotstxt') {
+		my $len = bytes::length($html);
+		$req->status(200);
+		$req->content_type('text/plain;charset=UTF-8');
+		$req->headers_out->add('content-length' => $len);
+		$req->print($html);
+		return;
+	}
 	# if none, process template stuff
 	#
 	if ($html eq '') {
