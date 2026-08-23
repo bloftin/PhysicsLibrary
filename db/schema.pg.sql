@@ -656,7 +656,7 @@ create table cache (
  tbl varchar(16) not null,                              /* table object is in */
  valid int default 0,                /* 1 if the object is valid, 0 otherwise */
  build int default 0,             /* 1 if the object is building, 0 otherwise */
- method varchar(3),                   /* rendering method this info refers to */
+ method varchar(16),                  /* rendering method this info refers to */
  touched timestamp default CURRENT_TIMESTAMP
 );
 
