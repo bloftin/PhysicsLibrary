@@ -66,7 +66,7 @@
 
 											[% IF object.table == "lec" %]
 												(from&#160;<a href="/?op=browse&amp;from=lec">Lectures</a>)
-											[% ELSIF object.table == "lec" %]
+											[% ELSIF object.table == "papers" %]
 												(from&#160;<a href="/?op=browse&amp;from=papers">Papers</a>)
 											[% ELSIF object.table == "books" %]	
 												(from&#160;<a href="/?op=browse&amp;from=books">Books</a>)

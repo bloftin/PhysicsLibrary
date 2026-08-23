@@ -5,6 +5,24 @@ use Socket;
 use Template;
 use Encode;
 
+sub indexedObjectExistsWhere {
+	my $index_table = shift;
+	my @tables = (
+		getConfig('en_tbl'),
+		getConfig('exp_tbl'),
+		getConfig('books_tbl'),
+		getConfig('papers_tbl'),
+		getConfig('news_tbl'),
+	);
+
+	my %seen;
+	@tables = grep { $_ && !$seen{$_}++ } @tables;
+
+	return '(' . join(' or ', map {
+		"(tbl = '$_' and exists (select 1 from $_ where $_.uid = $index_table.objectid))"
+	} @tables) . ')';
+}
+
 # a settings "main menu" screen.  enables us to unload things from the userbox.
 #
 sub getSettings {
@@ -134,20 +152,21 @@ sub userEditObjectList {
 
 	# this is kind of a hack for when there are no matching objects
 	$filter = 0 if ($filter eq '()');
+	my $live_filter = indexedObjectExistsWhere($table);
 
 	# get total
 	# 
-	my ($rv,$sth) = dbLowLevelSelect($dbh,"select userid from $table where $filter and tbl != 'users' and type = 1");
+	my ($rv,$sth) = dbLowLevelSelect($dbh,"select userid from $table where $filter and $live_filter and tbl != 'users' and type = 1");
 	$total = $sth->rows();
 	$sth->finish();
 	
 	# query up the data
 	#
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit")
 		if (getConfig('dbms') eq 'pg');
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
 		if (getConfig('dbms') eq 'mysql');
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
         if (getConfig('dbms') eq 'MariaDB');
 
 	if (not defined $rv) {
@@ -336,20 +355,21 @@ sub userEditObjectListOld {
 
 	# this is kind of a hack for when there are no matching objects
 	$filter = 0 if ($filter eq '()');
+	my $live_filter = indexedObjectExistsWhere($table);
 
 	# get total
 	# 
-	my ($rv,$sth) = dbLowLevelSelect($dbh,"select userid from $table where $filter and tbl != 'users' and type = 1");
+	my ($rv,$sth) = dbLowLevelSelect($dbh,"select userid from $table where $filter and $live_filter and tbl != 'users' and type = 1");
 	$total = $sth->rows();
 	$sth->finish();
 	
 	# query up the data
 	#
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit")
 		if (getConfig('dbms') eq 'pg');
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
 		if (getConfig('dbms') eq 'mysql');
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
+	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
         if (getConfig('dbms') eq 'MariaDB');
 
 	if (not defined $rv) {
@@ -575,9 +595,10 @@ sub userGenericList {
 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
 	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
-	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit"  if getConfig('dbms') eq 'pg';
-	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'mysql';
-	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'MariaDB';
+	my $live_userobj_filter = indexedObjectExistsWhere(getConfig('index_tbl'));
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and $live_userobj_filter and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit"  if getConfig('dbms') eq 'pg';
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and $live_userobj_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'mysql';
+	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and $live_userobj_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit"  if getConfig('dbms') eq 'MariaDB';
 
 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
 	$q_usercorsf = "select uid, objectid, filed, title from corrections where userid=$uid order by filed desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
@@ -597,7 +618,7 @@ sub userGenericList {
 	 ],
 
 	 'userobjs'=>[
-		"select userid from objindex where userid=$uid and tbl != 'users' and type = 1",
+		"select userid from objindex where userid=$uid and $live_userobj_filter and tbl != 'users' and type = 1",
 		$q_userobjs,
 		\&formatUserObjectRec
 	 ],
