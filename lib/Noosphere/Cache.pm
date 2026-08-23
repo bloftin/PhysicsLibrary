@@ -233,12 +233,12 @@ sub stripNativeRenderLinks {
 	return $latex;
 }
 
-# PDF output can preserve links natively.  Convert Noosphere's intermediate
-# HTML link representation into hyperref's \href command.  protectURL() and
-# protectAnchor() HTML-escape ampersands for non-l2h methods, so translate them
-# back to the appropriate LaTeX/PDF forms here.
+# PDF and make4ht output can preserve links natively.  Convert Noosphere's
+# intermediate HTML link representation into hyperref's \href command.
+# protectURL() and protectAnchor() HTML-escape ampersands for non-l2h methods,
+# so translate them back to the appropriate LaTeX forms here.
 #
-sub convertPdfRenderLinks {
+sub convertHyperrefRenderLinks {
 	my $latex = shift;
 	my $command = '\\htmladdnormallink';
 	my $offset = 0;
@@ -271,6 +271,17 @@ sub convertPdfRenderLinks {
 	}
 
 	return $latex;
+}
+
+sub addHyperrefPackage {
+	my $preamble = shift;
+
+	if (!defined($preamble) || $preamble !~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/) {
+		$preamble = '' if (!defined($preamble));
+		$preamble .= "\n\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
+	}
+
+	return $preamble;
 }
 
 # prepares an entry for rendering :
@@ -314,18 +325,16 @@ sub prepareEntryForRendering {
 	# PDF uses native hyperref links rather than the old MAP/image-map path.
 	#
 	if ($method eq "pdf") {
-		$latex = convertPdfRenderLinks($linked);
-		if ($latex =~ /\\href\s*\{/ &&
-			(!defined($preamble) || $preamble !~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/)) {
-			$preamble = '' if (!defined($preamble));
-			$preamble .= "\n\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
-		}
+		$latex = convertHyperrefRenderLinks($linked);
+		$preamble = addHyperrefPackage($preamble) if ($latex =~ /\\href\s*\{/);
 	}
 
-	# make4ht uses the cross-referenced text as primary output so links remain.
+	# make4ht handles hyperref links cleanly; the old html package command is
+	# latex2html-specific and can render as plain text.
 	#
 	if ($method eq "make4ht") {
-		$latex = $linked;
+		$latex = convertHyperrefRenderLinks($linked);
+		$preamble = addHyperrefPackage($preamble) if ($latex =~ /\\href\s*\{/);
 	}
 
 	# calculate supplementary packages to add (this now only includes
