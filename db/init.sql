@@ -8,7 +8,9 @@ insert into users (uid,username, email, password, access, preamble) values (
  500,
  '\\usepackage{amsmath}
 \\usepackage{amsfonts}
-\\usepackage{amssymb}');
+\\usepackage{amssymb}
+\\usepackage{graphicx}
+\\DeclareGraphicsExtensions{.png,.jpg,.jpeg,.pdf,.eps}');
 
 
 /* default ACL setting for the above user -- world-readable */

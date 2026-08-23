@@ -103,6 +103,8 @@
                                     <p>
                                         Avoid TeX math in captions when possible. Plain-text captions behave better
                                         in older renderers.
+                                        The default preamble includes <code>graphicx</code> and searches PNG/JPG/PDF
+                                        before EPS when an image file extension is omitted.
                                     </p>
                                 </xsl:with-param>
                             </xsl:call-template>

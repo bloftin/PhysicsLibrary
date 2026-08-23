@@ -9,8 +9,11 @@
 
 % used for TeXing text within eps files
 %\usepackage{psfrag}
-% need this for including graphics (\includegraphics)
-%\usepackage{graphicx}
+% need this for including graphics (\includegraphics).
+% If you use \includegraphics{figure} with no file extension, PhysicsLibrary
+% will prefer figure.png before falling back to figure.eps.
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.png,.jpg,.jpeg,.pdf,.eps}
 % for neatly defining theorems and propositions
 %\usepackage{amsthm}
 % making logically defined graphics
