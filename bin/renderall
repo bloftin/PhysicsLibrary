@@ -23,9 +23,9 @@ use Noosphere::Util;
 
 my $nsroot = "$FindBin::Bin/..";
 
-# Keep png/page-image rendering out of cron for now. The png pipeline can run
-# heavyweight LaTeX/Ghostscript jobs and has recently pegged the web server.
-my @methods = ('l2h','src');
+# Render a small batch of every supported object cache method. Production cron
+# should keep RENDERALL_MAX_TOTAL low so the heavier PDF/PNG jobs cannot pile up.
+my @methods = split(/\s*,\s*/, $ENV{'RENDERALL_METHODS'} || 'l2h,src,make4ht,pdf,png');
 my $table = Noosphere::getConfig('en_tbl');
 my $rundir = "$nsroot/bin/run";
 my $runfile = "$rundir/renderall.running";
