@@ -69,6 +69,10 @@ sub getRenderedContentHtml {
 	my ($valid,$build) = getcacheflags($table, $rec->{'uid'}, $method);
 	
 	if ($valid == 0) {
+		if (!getConfig('on_demand_rendering_enabled')) {
+			return "<br />This entry needs to be rendered, but on-demand rendering is temporarily disabled while Physics Library is under heavy load. Please try again later.<br />";
+		}
+
 		#dwarn "object not valid, rerender/build";
 		if (! cacheObject($table, $rec, $method)) {
 			$html .= "<br />Timed out waiting for render.	Please wait a few seconds and try again (for longer documents, give more time.)<br />";
