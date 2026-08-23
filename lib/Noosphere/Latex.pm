@@ -1344,7 +1344,17 @@ sub postProcess_make4htIndex {
 	padding-left: 0.35em;
 }
 .pl-make4ht-content table.align-star td.align-label {
-	padding-left: 0.5em;
+	min-width: 3.25em;
+	padding-left: 1.75em;
+	text-align: left;
+	white-space: nowrap;
+}
+.pl-make4ht-content table.equation td.eq-no,
+.pl-make4ht-content table.equation-star td.eq-no {
+	min-width: 3.25em;
+	padding-left: 1.75em;
+	text-align: left;
+	white-space: nowrap;
 }
 .pl-make4ht-content table.align-star img {
 	max-width: none;
