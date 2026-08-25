@@ -247,6 +247,7 @@ Crawl-delay: 10
 	#
 	"cookie_timeout"=>14*24*60,     # minutes... 2 weeks
 	"build_timeout"=>10,            # seconds
+	"latex2html_timeout"=>300,      # seconds
 	"on_demand_rendering_enabled"=>0, # emergency load guard: render from cron/admin, not web requests
 	"keep_search_results"=>'30 MINUTE',
                       
