@@ -211,6 +211,7 @@ sub hitObject {
 	my $objectid = shift;# uid of object
 	my $table = shift;	 # table object is in
 	my $field = shift;	 # field to increment in object (optional)
+	my %tables_with_hit_counts = map { $_ => 1 } qw(objects papers books lec collab);
 
 	#TODO: we need a transaction to both increment field and add to 
 	# hits table at the same time
@@ -228,7 +229,7 @@ sub hitObject {
 	# increment hit count in the object (we dont *really* need this, but it
 	# saves us from doing a possibly huge summation over a huge table later)
 	# 
-	if (defined $field) {
+	if (defined $field && $tables_with_hit_counts{$table}) {
 		($rv,$sth) = dbUpdate($dbh,{
 		 WHAT=>$table,
 		 SET=>'hits=hits+1',
