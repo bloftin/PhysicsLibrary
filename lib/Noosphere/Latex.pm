@@ -825,7 +825,8 @@ sub render_pdf_file {
 	pathrm("$fname.pdf");
 
 	my @run_args = (
-		'-interaction=batchmode',
+		'-file-line-error',
+		'-interaction=nonstopmode',
 		'-halt-on-error',
 		"-output-directory=$dir",
 		"$dir/$fname.tex"
@@ -845,7 +846,46 @@ sub render_pdf_file {
 
 	my $pdfname = "$fname.pdf";
 	return $pdfname if (-e "$dir/$pdfname");
+	log_pdf_render_failure($fname, $dir, $retval, $output, $error);
 	return undef;
+}
+
+sub log_pdf_render_failure {
+	my $fname = shift;
+	my $dir = shift;
+	my $retval = shift;
+	my $output = shift || '';
+	my $error = shift || '';
+	my $logfile = "$dir/$fname.log";
+	my $log = (-e $logfile) ? readFile($logfile) : '';
+
+	dwarn(
+		"pdflatex failed for $fname\n" .
+		"retval=$retval\n" .
+		"STDOUT:\n$output\n" .
+		"STDERR:\n$error\n" .
+		"LOG:\n" . latex_error_excerpt($log) . "\n"
+	);
+}
+
+sub latex_error_excerpt {
+	my $log = shift || '';
+	my @lines = split(/\n/, $log);
+	my @excerpt;
+
+	for (my $i = 0; $i < scalar @lines; $i++) {
+		if ($lines[$i] =~ /^! / || $lines[$i] =~ /^[^:]+\.tex:\d+:/) {
+			push @excerpt, @lines[$i .. (($i + 6 < $#lines) ? $i + 6 : $#lines)];
+			last;
+		}
+	}
+
+	if (!@excerpt && @lines) {
+		my $start = scalar(@lines) > 40 ? scalar(@lines) - 40 : 0;
+		@excerpt = @lines[$start .. $#lines];
+	}
+
+	return join("\n", @excerpt);
 }
 
 sub write_render_message {
