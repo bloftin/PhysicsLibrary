@@ -284,6 +284,19 @@ sub addHyperrefPackage {
 	return $preamble;
 }
 
+sub addPDFLinkSupport {
+	my $preamble = shift;
+
+	$preamble = addHyperrefPackage($preamble);
+	if ($preamble !~ /\\(?:providecommand|newcommand|renewcommand)\s*\{\\PMlinkexternal\}/) {
+		$preamble .= "\n\\providecommand{\\PMlinkexternal}[2]{%\n";
+		$preamble .= "  \\href{#2}{#1}%\n";
+		$preamble .= "}\n";
+	}
+
+	return $preamble;
+}
+
 # prepares an entry for rendering :
 #	- combine with template
 #	- get supplementary packages
@@ -326,7 +339,7 @@ sub prepareEntryForRendering {
 	#
 	if ($method eq "pdf") {
 		$latex = convertHyperrefRenderLinks($linked);
-		$preamble = addHyperrefPackage($preamble) if ($latex =~ /\\href\s*\{/);
+		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 	}
 
 	# make4ht handles hyperref links cleanly; the old html package command is
@@ -334,7 +347,7 @@ sub prepareEntryForRendering {
 	#
 	if ($method eq "make4ht") {
 		$latex = convertHyperrefRenderLinks($linked);
-		$preamble = addHyperrefPackage($preamble) if ($latex =~ /\\href\s*\{/);
+		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 	}
 
 	# calculate supplementary packages to add (this now only includes

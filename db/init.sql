@@ -8,7 +8,13 @@ insert into users (uid,username, email, password, access, preamble) values (
  500,
  '\\usepackage{amsmath}
 \\usepackage{amsfonts}
-\\usepackage{amssymb}');
+\\usepackage{amssymb}
+
+% hyperlinks and PhysicsLibrary external-link command
+\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\\providecommand{\\PMlinkexternal}[2]{%
+  \\href{#2}{#1}%
+}');
 
 
 /* default ACL setting for the above user -- world-readable */
