@@ -8,11 +8,45 @@ use File::Path qw(make_path);
 use Text::Diff;
 use File::Remove 'remove';
 
+sub _supportedVersionTable {
+	my $table = shift;
+
+	return 1 if (defined $table && $table eq getConfig('en_tbl'));
+	return 1 if (defined $table && $table eq getConfig('collab_tbl'));
+
+	return 0;
+}
+
+sub _validVersionRequest {
+	my $params = shift;
+
+	return 'Unsupported version history type.' if (!_supportedVersionTable($params->{'from'}));
+	return 'Invalid object id.' if (!defined $params->{'id'} || $params->{'id'} !~ /^\d+$/);
+
+	return '';
+}
+
+sub _validVersionNumber {
+	my $version = shift;
+
+	return (defined $version && $version =~ /^\d+$/);
+}
+
+sub _validVersionSelector {
+	my $version = shift;
+
+	return (defined $version && ($version eq 'current' || $version =~ /^\d+$/));
+}
+
 # roll back an object to a particular version.  must be owner!
 #
 sub rollBack {
 	my $params = shift;
 	my $userinf = shift;
+
+	my $error = _validVersionRequest($params);
+	return errorMessage($error) if ($error);
+	return errorMessage('Invalid version.') if (!_validVersionNumber($params->{'ver'}));
 
 	my ($ownerid, $title) = lookupfields($params->{'from'}, 'userid, title', "uid=$params->{id}");
 
@@ -369,7 +403,6 @@ sub getVersionList {
 		my @files = <*>;
 
 		foreach my $file (@files) {
-			warn "*** vlist : processing file $file";
 			#dwarn "getFileDOM before";
 			my $dom = getFileDOM($file);			
 			#dwarn "domGetVersion before";
@@ -410,6 +443,9 @@ sub getVersionList {
 sub getVersionBrowser {
 	my $params = shift;
 	my $userinf = shift;
+
+	my $error = _validVersionRequest($params);
+	return errorMessage($error) if ($error);
 
 	my $file = 'versionbrowser.tt';
 	my $html = '';
@@ -524,10 +560,15 @@ sub getVersion {
 	my $params = shift;
 	my $userinf = shift;
 
+	my $error = _validVersionRequest($params);
+	return errorMessage($error) if ($error);
+	return errorMessage('Invalid version.') if (!_validVersionNumber($params->{'ver'}));
+
 	my $template;
 
 	$template = new XSLTemplate("en_version.xsl") if $params->{'from'} eq getConfig('en_tbl');
 	$template = new XSLTemplate("collab_version.xsl") if $params->{'from'} eq getConfig('collab_tbl');
+	return errorMessage('Unsupported version history type.') if (!defined $template);
 	
 	# read in the XML for this version
 	#
@@ -536,6 +577,8 @@ sub getVersion {
 	$name = "Collab$params->{id}" if $params->{'from'} eq getConfig('collab_tbl');
 
 	my $file = getConfig('version_root').'/'."$params->{from}/$params->{id}/$name"."_$params->{ver}.xml";
+
+	return errorMessage('Version not found.') if (! -e $file);
 
 	return $template->expandFile($file);
 }
@@ -600,6 +643,11 @@ sub getVersionDiff {
 	my $params = shift;
 	my $userinf = shift;
 
+	my $error = _validVersionRequest($params);
+	return errorMessage($error) if ($error);
+	return errorMessage('Invalid old version.') if (!_validVersionSelector($params->{'old'}));
+	return errorMessage('Invalid new version.') if (!_validVersionSelector($params->{'new'}));
+
 	my $file = 'ver_diff.tt';
 	my $html = '';
 	my @line_array = ();
@@ -608,6 +656,8 @@ sub getVersionDiff {
 	my $template = new XSLTemplate("ver_diff.xsl");
 
 	my @vers=readVersions($params,$params->{old},$params->{new});
+
+	return errorMessage('Version not found.') if (!defined $vers[0] || !defined $vers[1]);
 
 	my $oldfile = getTempFileName();
 	my $newfile = getTempFileName();
