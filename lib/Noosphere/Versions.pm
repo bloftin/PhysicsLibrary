@@ -403,7 +403,6 @@ sub getVersionList {
 		my @files = <*>;
 
 		foreach my $file (@files) {
-			warn "*** vlist : processing file $file";
 			#dwarn "getFileDOM before";
 			my $dom = getFileDOM($file);			
 			#dwarn "domGetVersion before";
@@ -569,6 +568,7 @@ sub getVersion {
 
 	$template = new XSLTemplate("en_version.xsl") if $params->{'from'} eq getConfig('en_tbl');
 	$template = new XSLTemplate("collab_version.xsl") if $params->{'from'} eq getConfig('collab_tbl');
+	return errorMessage('Unsupported version history type.') if (!defined $template);
 	
 	# read in the XML for this version
 	#
