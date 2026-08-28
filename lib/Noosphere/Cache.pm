@@ -251,6 +251,20 @@ sub stripNativeRenderLinks {
 	return $latex;
 }
 
+# LaTeX2HTML understands \htmladdnormallink but not PhysicsLibrary's
+# \PMlinkexternal command unless an entry preamble happens to define it.
+#
+sub convertL2HRenderLinks {
+	my $latex = shift;
+
+	$latex = replaceTwoArgRenderCommand($latex, '\\PMlinkexternal', sub {
+		my ($anchor, $url) = @_;
+		return "\\htmladdnormallink{$anchor}{$url}";
+	});
+
+	return $latex;
+}
+
 # PDF and make4ht output can preserve links natively.  Convert Noosphere's
 # link commands into hyperref's \href command.
 # protectURL() and protectAnchor() HTML-escape ampersands for non-l2h methods,
@@ -332,7 +346,7 @@ sub prepareEntryForRendering {
 	# l2h uses the cross-referenced text as primary output
 	#
 	if ($method eq "l2h") {
-		$latex = $linked;
+		$latex = convertL2HRenderLinks($linked);
 	}
 
 	# PDF uses native hyperref links rather than the old MAP/image-map path.
