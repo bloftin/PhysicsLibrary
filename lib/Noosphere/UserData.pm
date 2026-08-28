@@ -80,6 +80,114 @@ sub changeUserScore {
 	$stats->invalidate('topusers');
 }
 
+sub userObjectNavigationParams {
+	my $params = shift;
+
+	my %sorts = (
+		'title' => 1,
+		'created_asc' => 1,
+		'created_desc' => 1,
+		'modified_desc' => 1,
+		'modified_asc' => 1,
+	);
+	my %types = (
+		'all' => 1,
+		getConfig('en_tbl') => 1,
+		getConfig('papers_tbl') => 1,
+		getConfig('books_tbl') => 1,
+		getConfig('exp_tbl') => 1,
+	);
+
+	my $sort = $params->{'sort'} || 'title';
+	$sort = 'title' unless $sorts{$sort};
+
+	my $type = $params->{'type'} || 'all';
+	$type = 'all' unless $types{$type};
+
+	my $group = $params->{'group'} || '';
+	$group = ($group eq 'type') ? 'type' : '';
+
+	my $q = $params->{'q'} || '';
+	$q =~ s/^\s+//;
+	$q =~ s/\s+$//;
+
+	return ($sort, $type, $group, $q);
+}
+
+sub userObjectTypeLabel {
+	my $table = shift;
+
+	return 'Encyclopedia' if ($table eq getConfig('en_tbl'));
+	return 'Papers' if ($table eq getConfig('papers_tbl'));
+	return 'Books' if ($table eq getConfig('books_tbl'));
+	return 'Lectures' if ($table eq getConfig('exp_tbl'));
+	return 'News' if ($table eq getConfig('news_tbl'));
+
+	return $table;
+}
+
+sub userObjectTypeOrder {
+	my $table = shift;
+
+	return 1 if ($table eq getConfig('en_tbl'));
+	return 2 if ($table eq getConfig('papers_tbl'));
+	return 3 if ($table eq getConfig('books_tbl'));
+	return 4 if ($table eq getConfig('exp_tbl'));
+	return 5 if ($table eq getConfig('news_tbl'));
+
+	return 99;
+}
+
+sub sortUserObjectRows {
+	my $rows = shift;
+	my $sort = shift;
+	my $group = shift;
+
+	my $datecmp = sub {
+		my ($a, $b, $field, $desc) = @_;
+		my $av = $a->{$field} || '';
+		my $bv = $b->{$field} || '';
+		return $desc ? ($bv cmp $av) : ($av cmp $bv);
+	};
+
+	my $titlecmp = sub {
+		my ($a, $b) = @_;
+		return lc($a->{'title'} || '') cmp lc($b->{'title'} || '')
+			|| ($a->{'objectid'} || 0) <=> ($b->{'objectid'} || 0);
+	};
+
+	@$rows = sort {
+		my $group_cmp = 0;
+		$group_cmp = userObjectTypeOrder($a->{'tbl'}) <=> userObjectTypeOrder($b->{'tbl'})
+			if ($group eq 'type');
+
+		$group_cmp
+			|| ($sort eq 'created_asc' ? $datecmp->($a, $b, 'created', 0) : 0)
+			|| ($sort eq 'created_desc' ? $datecmp->($a, $b, 'created', 1) : 0)
+			|| ($sort eq 'modified_desc' ? $datecmp->($a, $b, 'modified', 1) : 0)
+			|| ($sort eq 'modified_asc' ? $datecmp->($a, $b, 'modified', 0) : 0)
+			|| $titlecmp->($a, $b)
+	} @$rows;
+}
+
+sub filterUserObjectRows {
+	my $rows = shift;
+	my $type = shift;
+	my $q = shift;
+
+	if ($type ne 'all') {
+		@$rows = grep { $_->{'tbl'} eq $type } @$rows;
+	}
+
+	if ($q ne '') {
+		my $needle = lc($q);
+		@$rows = grep {
+			index(lc($_->{'title'} || ''), $needle) >= 0
+				|| index(lc($_->{'cname'} || ''), $needle) >= 0
+		} @$rows;
+	}
+}
+
 # user object edit list
 # 
 sub userEditObjectList {
@@ -101,6 +209,7 @@ sub userEditObjectList {
 	my $table = getConfig('index_tbl');
 	my $en = getConfig('en_tbl');
 	my @objects_array = ();
+	my ($sort, $object_type, $group, $search) = userObjectNavigationParams($params);
 
 	# basic object selection filter: object owner
 	#
@@ -154,20 +263,9 @@ sub userEditObjectList {
 	$filter = 0 if ($filter eq '()');
 	my $live_filter = indexedObjectExistsWhere($table);
 
-	# get total
-	# 
-	my ($rv,$sth) = dbLowLevelSelect($dbh,"select userid from $table where $filter and $live_filter and tbl != 'users' and type = 1");
-	$total = $sth->rows();
-	$sth->finish();
-	
 	# query up the data
 	#
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit")
-		if (getConfig('dbms') eq 'pg');
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
-		if (getConfig('dbms') eq 'mysql');
-	($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title) limit $offset, $limit")
-        if (getConfig('dbms') eq 'MariaDB');
+	my ($rv,$sth) = dbLowLevelSelect($dbh,"select title, objectid, tbl, userid, cname from $table where $filter and $live_filter and tbl != 'users' and type = 1 order by lower(title)");
 
 	if (not defined $rv) {
 		dwarn "error getting objects for user $uid";
@@ -182,20 +280,44 @@ sub userEditObjectList {
 	#
 	dbGather(\@rows, 'tbl', 'objectid', 
 		{
-		 getConfig('exp_tbl') => {'select'=>'created', 'idfield'=>'uid'}, 
-		 getConfig('books_tbl') => {'select'=>'created', 'idfield'=>'uid'},
-		 getConfig('papers_tbl') => {'select'=>'created', 'idfield'=>'uid'}, 
-		 getConfig('en_tbl') => {'select'=>'created, type as etype', 'idfield'=>'uid'}, 
+		 getConfig('exp_tbl') => {'select'=>'created, modified', 'idfield'=>'uid'},
+		 getConfig('books_tbl') => {'select'=>'created, modified', 'idfield'=>'uid'},
+		 getConfig('papers_tbl') => {'select'=>'created, modified', 'idfield'=>'uid'},
+		 getConfig('en_tbl') => {'select'=>'created, modified, type as etype', 'idfield'=>'uid'},
+		 getConfig('news_tbl') => {'select'=>'created, modified', 'idfield'=>'uid'},
 	});
+
+	filterUserObjectRows(\@rows, $object_type, $search);
+	sortUserObjectRows(\@rows, $sort, $group);
+
+	$params->{'sort'} = $sort;
+	$params->{'type'} = $object_type;
+	$params->{'q'} = $search;
+	if ($group eq 'type') {
+		$params->{'group'} = $group;
+	} else {
+		delete $params->{'group'};
+	}
+
+	$total = scalar @rows;
+	$offset = 0 if ($offset >= $total);
+	my $end = $offset + $limit - 1;
+	$end = $#rows if ($end > $#rows);
+	@rows = ($total > 0) ? @rows[$offset .. $end] : ();
 	 
 	$template->addText("<usereditobjs qtype=\"$params->{qtype}\">");
 
+	$params->{'offset'} = $offset;
+	$params->{'total'} = $total;
+
 	if (scalar @rows > 0) {
 		
-		my $ord = 1;
+		my $ord = $offset + 1;
 
 		foreach my $row (@rows) {
-			my $date = ymd($row->{'created'});
+			my $date_field = ($sort =~ /^modified/) ? 'modified' : 'created';
+			my $date = ymd($row->{$date_field});
+			my $date_label = ($date_field eq 'modified') ? 'modified' : 'created';
 			
 			$template->addText("<object date=\"$date\"");
 
@@ -241,14 +363,17 @@ sub userEditObjectList {
 			my $aclhref = getConfig("main_url")."/?op=acledit;from=$row->{tbl};id=$row->{objectid}";
 			my $linkhref = getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}";
 			my $historyhref = getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}";
+			my $type_label = userObjectTypeLabel($row->{'tbl'});
 
 			push(@objects_array,{ 
 				title 		=> $title, 
 				obj_url 	=> $obj_url, 
 				date 		=> $date, 
+				date_label 	=> $date_label,
 				ord 		=> $ord, 
 				id 			=> $row->{objectid}, 
 				table 		=> $row->{tbl},
+				type_label	=> $type_label,
 				edithref 	=> $edithref,
 				aclhref  	=> $aclhref,
 				linkhref    => $linkhref,
@@ -260,9 +385,6 @@ sub userEditObjectList {
 
 		}
 		
-		$params->{'offset'} = $offset;
-		$params->{'total'} = $total;
-
 		#getPageWidgetXSLT($template, $params, $userinf);
 		$html_pager = getPager($params, $userinf, $scale);
 	}
@@ -277,6 +399,12 @@ sub userEditObjectList {
         	total       				=> $params->{'total'},
 			objects						=> \@objects_array,
 			pager						=> $html_pager,
+			sort						=> $sort,
+			object_type					=> $object_type,
+			group						=> $group,
+			search						=> qhtmlescape($search),
+			qtype						=> qhtmlescape($params->{'qtype'} || ''),
+			active_filters				=> ($sort ne 'title' || $object_type ne 'all' || $group ne '' || $search ne ''),
     };
 
 	my $tt = Template->new({

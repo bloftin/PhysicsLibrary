@@ -1,12 +1,69 @@
 
 <!-- this template handles the user object editor listing page -->
 
+<form method="get" action="/">
+    <input type="hidden" name="op" value="edituserobjs">
+    [% IF qtype %]
+        <input type="hidden" name="qtype" value="[% qtype %]">
+    [% END %]
+
+    <table cellspacing="0" cellpadding="2" width="100%">
+        <tr>
+            <td>
+                Search title/name:
+                <input type="text" name="q" value="[% search %]" size="24">
+                <input type="submit" value="search">
+            </td>
+            <td>
+                Sort:
+                <select name="sort" onchange="this.form.submit()">
+                    <option value="title" [% IF sort == "title" %]selected[% END %]>name</option>
+                    <option value="created_asc" [% IF sort == "created_asc" %]selected[% END %]>oldest additions first</option>
+                    <option value="created_desc" [% IF sort == "created_desc" %]selected[% END %]>latest additions first</option>
+                    <option value="modified_desc" [% IF sort == "modified_desc" %]selected[% END %]>latest edits first</option>
+                    <option value="modified_asc" [% IF sort == "modified_asc" %]selected[% END %]>oldest edits first</option>
+                </select>
+            </td>
+            <td>
+                Type:
+                <select name="type" onchange="this.form.submit()">
+                    <option value="all" [% IF object_type == "all" %]selected[% END %]>all</option>
+                    <option value="objects" [% IF object_type == "objects" %]selected[% END %]>encyclopedia</option>
+                    <option value="papers" [% IF object_type == "papers" %]selected[% END %]>papers</option>
+                    <option value="books" [% IF object_type == "books" %]selected[% END %]>books</option>
+                    <option value="lec" [% IF object_type == "lec" %]selected[% END %]>lectures</option>
+                </select>
+            </td>
+            <td>
+                <label>
+                    <input type="checkbox" name="group" value="type" onchange="this.form.submit()" [% IF group == "type" %]checked[% END %]>
+                    group by type
+                </label>
+            </td>
+            <td align="right">
+                [% IF active_filters %]
+                    <a href="/?op=edituserobjs">clear</a>
+                [% END %]
+            </td>
+        </tr>
+    </table>
+</form>
+
 [% IF objects.size %]
 
     [% pager %]
 
     <table cellspacing="0" cellpadding="2" width="100%">
+        [% SET last_type = "" %]
         [% FOREACH object IN objects %]
+            [% IF group == "type" AND object.type_label != last_type %]
+                <tr>
+                    <td colspan="4" bgcolor="#dddddd">
+                        <b>[% object.type_label %]</b>
+                    </td>
+                </tr>
+                [% SET last_type = object.type_label %]
+            [% END %]
             [% IF (object.ord mod 2) == 1 %]
                 <tr bgcolor=#eeeeee>
             [% ELSE %]
@@ -19,6 +76,8 @@
                 <!-- date -->
                 <td valign="top" align="right">
                     [% object.date %]
+                    <br>
+                    <font size="-2">[% object.date_label %]</font>
                 </td>
 
                 <!-- the editing controls -->
@@ -35,16 +94,18 @@
                         &#160;
                         [% IF object.table == "lec" %]
                                 <!-- (in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=lec">Lectures</a>)-->
-                                (in&#160;Lectures)
+                                (in&#160;[% object.type_label %])
                         [% ELSIF object.table == "papers" %]        
                                 <!--(in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=papers">Papers</a>)-->
-                                (in&#160;Papers)
+                                (in&#160;[% object.type_label %])
                         [% ELSIF object.table == "books" %]   
                                 <!--(in&#160;<a href="{//globals/main_url}/?op=browse&amp;from=books">Books</a>)-->
-                                (in&#160;Books)
+                                (in&#160;[% object.type_label %])
                         [% ELSIF object.table == "objects" %]   
                                 <!--(in&#160;<a href="/encyclopedia">Encyclopedia</a>)-->
-                                (in&#160;Encyclopedia)
+                                (in&#160;[% object.type_label %])
+                        [% ELSE %]
+                                (in&#160;[% object.type_label %])
                         [% END %]
                         </font>
                     </td>
