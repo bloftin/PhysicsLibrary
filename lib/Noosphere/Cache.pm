@@ -199,48 +199,13 @@ sub readBracedLaTeXArgument {
 	return (undef, undef);
 }
 
-# Page-image PNGs cannot preserve hyperlinks, so flatten Noosphere's
-# \htmladdnormallink commands to their visible anchor text.
+# Replace a two-argument LaTeX command while respecting nested braces in each
+# argument.  The replacer receives the visible anchor and URL arguments.
 #
-sub stripNativeRenderLinks {
+sub replaceTwoArgRenderCommand {
 	my $latex = shift;
-	my $command = '\\htmladdnormallink';
-	my $offset = 0;
-
-	while ((my $start = index($latex, $command, $offset)) >= 0) {
-		my $pos = $start + length($command);
-		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
-
-		my ($anchor, $after_anchor) = readBracedLaTeXArgument($latex, $pos);
-		if (!defined($after_anchor)) {
-			$offset = $pos;
-			next;
-		}
-
-		$pos = $after_anchor;
-		$pos++ while ($pos < length($latex) && substr($latex, $pos, 1) =~ /\s/);
-
-		my (undef, $after_url) = readBracedLaTeXArgument($latex, $pos);
-		if (!defined($after_url)) {
-			$offset = $pos;
-			next;
-		}
-
-		substr($latex, $start, $after_url - $start, $anchor);
-		$offset = $start + length($anchor);
-	}
-
-	return $latex;
-}
-
-# PDF and make4ht output can preserve links natively.  Convert Noosphere's
-# intermediate HTML link representation into hyperref's \href command.
-# protectURL() and protectAnchor() HTML-escape ampersands for non-l2h methods,
-# so translate them back to the appropriate LaTeX forms here.
-#
-sub convertHyperrefRenderLinks {
-	my $latex = shift;
-	my $command = '\\htmladdnormallink';
+	my $command = shift;
+	my $replacer = shift;
 	my $offset = 0;
 
 	while ((my $start = index($latex, $command, $offset)) >= 0) {
@@ -262,12 +227,60 @@ sub convertHyperrefRenderLinks {
 			next;
 		}
 
-		$anchor =~ s/&amp;/\\&/g;
-		$url =~ s/&amp;/&/g;
-
-		my $replacement = "\\href{$url}{$anchor}";
+		my $replacement = $replacer->($anchor, $url);
 		substr($latex, $start, $after_url - $start, $replacement);
 		$offset = $start + length($replacement);
+	}
+
+	return $latex;
+}
+
+# Page-image PNGs cannot preserve hyperlinks, so flatten Noosphere's link
+# commands to their visible anchor text.
+#
+sub stripNativeRenderLinks {
+	my $latex = shift;
+
+	foreach my $command ('\\htmladdnormallink', '\\PMlinkexternal') {
+		$latex = replaceTwoArgRenderCommand($latex, $command, sub {
+			my ($anchor, $url) = @_;
+			return $anchor;
+		});
+	}
+
+	return $latex;
+}
+
+# LaTeX2HTML understands \htmladdnormallink but not PhysicsLibrary's
+# \PMlinkexternal command unless an entry preamble happens to define it.
+#
+sub convertL2HRenderLinks {
+	my $latex = shift;
+
+	$latex = replaceTwoArgRenderCommand($latex, '\\PMlinkexternal', sub {
+		my ($anchor, $url) = @_;
+		return "\\htmladdnormallink{$anchor}{$url}";
+	});
+
+	return $latex;
+}
+
+# PDF and make4ht output can preserve links natively.  Convert Noosphere's
+# link commands into hyperref's \href command.
+# protectURL() and protectAnchor() HTML-escape ampersands for non-l2h methods,
+# so translate them back to the appropriate LaTeX forms here.
+#
+sub convertHyperrefRenderLinks {
+	my $latex = shift;
+
+	foreach my $command ('\\htmladdnormallink', '\\PMlinkexternal') {
+		$latex = replaceTwoArgRenderCommand($latex, $command, sub {
+			my ($anchor, $url) = @_;
+			$anchor =~ s/&amp;/\\&/g;
+			$url =~ s/&amp;/&/g;
+
+			return "\\href{$url}{$anchor}";
+		});
 	}
 
 	return $latex;
@@ -327,12 +340,13 @@ sub prepareEntryForRendering {
 	#
 	if ($method eq "png") {
 		$latex = stripNativeRenderLinks($linked);
+		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 	}
 	
 	# l2h uses the cross-referenced text as primary output
 	#
 	if ($method eq "l2h") {
-		$latex = $linked;
+		$latex = convertL2HRenderLinks($linked);
 	}
 
 	# PDF uses native hyperref links rather than the old MAP/image-map path.
