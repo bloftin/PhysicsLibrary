@@ -210,6 +210,7 @@ sub headerAndCSS {
 	my $style = new TemplateNS('style.css');
 
 	$header->setKey('search', $search);
+	$header->setKey('q', $params->{'q'} || '');
 
 	$template->setKey('header', $header->expand());
 	$template->setKey('style', $style->expand());
