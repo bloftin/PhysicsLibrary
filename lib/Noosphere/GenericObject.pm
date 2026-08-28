@@ -326,38 +326,96 @@ sub browseGeneric {
 	return $html_out;
 }
 
+sub genericListTableIsAllowed {
+	my $table = shift;
+	my $schemas = getConfig('generic_schema');
+
+	return (defined($table) && defined($schemas->{$table}));
+}
+
+sub genericListSortOptions {
+	return [
+		{ value => 'created_desc', label => 'latest additions first' },
+		{ value => 'created_asc', label => 'oldest additions first' },
+		{ value => 'title', label => 'title' },
+		{ value => 'modified_desc', label => 'latest edits first' },
+		{ value => 'modified_asc', label => 'oldest edits first' },
+		{ value => 'authors', label => 'authors' },
+	];
+}
+
+sub genericListSortSql {
+	my $sort = shift || 'created_desc';
+	my %sort_sql = (
+		created_desc => 'created DESC, uid DESC',
+		created_asc => 'created ASC, uid ASC',
+		title => 'LOWER(title) ASC, uid ASC',
+		modified_desc => 'modified DESC, uid DESC',
+		modified_asc => 'modified ASC, uid ASC',
+		authors => 'LOWER(authors) ASC, LOWER(title) ASC, uid ASC',
+	);
+
+	return $sort_sql{$sort} || $sort_sql{'created_desc'};
+}
+
+sub genericListWhereSql {
+	my $search = shift || '';
+
+	return '' if ($search =~ /^\s*$/);
+
+	$search =~ s/^\s+//;
+	$search =~ s/\s+$//;
+	my $like = sq('%'.$search.'%');
+
+	return "(title LIKE '$like' OR authors LIKE '$like' OR keywords LIKE '$like' OR data LIKE '$like' OR comments LIKE '$like')";
+}
+
+sub genericListGroupLabel {
+	my $title = shift || '';
+
+	$title =~ s/^\s+//;
+	my $initial = uc(substr($title, 0, 1));
+	return ($initial =~ /^[A-Z]$/) ? $initial : '#';
+}
+
 # listing of any generic object (chronologically)
 # 
 sub listGeneric {
 	my $params = shift;
 	my $userinf = shift;
 
+	return errorMessage('Unknown object type.') if (!genericListTableIsAllowed($params->{from}));
+
 	my @objects_array = ();
 	my $factor = 4;  # scale factor for the list size
 
-	my $offset = $params->{offset} || 0;
+	my $offset = int($params->{offset} || 0);
+	$offset = 0 if ($offset < 0);
 	my $limit = int($userinf->{'prefs'}->{'pagelength'} / $factor);
+	$limit = 1 if ($limit < 1);
 	my $total = 0;
 	my $html_out = '';
+	my $sort = $params->{sort} || 'created_desc';
+	my %allowed_sorts = map { $_->{value} => 1 } @{genericListSortOptions()};
+	$sort = 'created_desc' if (!$allowed_sorts{$sort});
+	my $group = ($params->{group} || '') eq 'letter' ? 'letter' : '';
+	$sort = 'title' if ($group eq 'letter' && $sort ne 'title');
+	my $search = $params->{q} || '';
+	$search =~ s/^\s+//;
+	$search =~ s/\s+$//;
+	my $where = genericListWhereSql($search);
+	my $order = genericListSortSql($sort);
 
 	my $tt_file = 'genericlist.tt';
 
 	my $template = new XSLTemplate('genericlist.xsl');
 
-	# get total if we don't have it
-	# 
-	if (!$params->{total}) {
-	    my ($rv,$sth) = dbLowLevelSelect($dbh,"select uid from $params->{from}");
-    	$total = $sth->rows();
-    	$sth->finish();
-	} else {
-		$total = $params->{total};
-	}
+	$total = dbRowCount($params->{from}, $where);
 
 	# query up the objects
 	#
 	my ($rv, $sth) = dbSelect($dbh, {WHAT=>'*', FROM=>$params->{from},
-			'ORDER BY'=>'created', DESC=>'', LIMIT=>$limit, OFFSET=>$offset});
+			WHERE=>$where, 'ORDER BY'=>$order, LIMIT=>$limit, OFFSET=>$offset});
 	
 	my @rows = dbGetRows($sth);
 		
@@ -383,6 +441,7 @@ sub listGeneric {
 		my $date = ymd($row->{created});
 		my $username = lookupfield(getConfig('user_tbl'), 'username', "uid=$row->{userid}");
 		my $class = classstring($params->{from}, $row->{uid});
+		my $group_label = ($group eq 'letter') ? genericListGroupLabel($row->{title}) : '';
 
 		$template->addText('<object>');
 
@@ -406,6 +465,7 @@ sub listGeneric {
 				title 			=> $row->{title}, 
 				id				=> $row->{uid},
 				classification 	=> $class,  		 	
+				group_label		=> $group_label,
 		});
 
 		$ord++;
@@ -415,6 +475,17 @@ sub listGeneric {
 	#
 	$params->{offset} = $offset;
 	$params->{total} = $total;
+	$params->{sort} = $sort;
+	if ($group ne '') {
+		$params->{group} = $group;
+	} else {
+		delete $params->{group};
+	}
+	if ($search ne '') {
+		$params->{q} = $search;
+	} else {
+		delete $params->{q};
+	}
 
 	#getPageWidgetXSLT($template, $params, $userinf, $factor);
 	my $html_pager = getPager($params, $userinf, $factor);
@@ -438,6 +509,11 @@ sub listGeneric {
 			objects					=> \@objects_array,
 			pager					=> $html_pager,
 			table					=> $params->{from},
+			search					=> $search,
+			sort					=> $sort,
+			group					=> $group,
+			sort_options			=> genericListSortOptions(),
+			active_filters			=> ($search ne '' || $sort ne 'created_desc' || $group ne ''),
     };
 
 	my $tt = Template->new({

@@ -39,9 +39,12 @@
                         [% END %]
 
                         <!-- list of browse methods -->
-                        <ul>
+						<ul>
 							<li>
-								<a href=/?op=listobj&amp;from=[% table %]> Chronologically</a>
+								<a href=/?op=listobj&amp;from=[% table %]> Browse and search</a>
+							</li>
+							<li>
+								<a href=/?op=listobj&amp;from=[% table %]&amp;sort=created_desc> Latest additions</a>
 							</li>
 							[% IF class %]
                                 <li>
