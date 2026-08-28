@@ -252,7 +252,7 @@ sub serveImage {
 sub serveFile {
 	my ($req, $name) = @_;
 	my $html = '';
-	unless (defined %CACHEDFILES) {
+	unless (keys %CACHEDFILES) {
 		my $cachelist = getConfig('cachedfiles');
 		%CACHEDFILES = %$cachelist;
 		foreach my $key (keys %CACHEDFILES) {
