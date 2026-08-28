@@ -16,7 +16,7 @@
 							<tr>
 								<td WIDTH="100%" BGCOLOR="#003399">
 									<font color="white" class="box_title">
-										Most Recent [% name %]
+										Browse [% name %]
 									</font>
 								</td>
 							</tr>
@@ -34,11 +34,48 @@
 				<tr>
 					<td>
 	
+                        <form method="get" action="/">
+                            <input type="hidden" name="op" value="listobj">
+                            <input type="hidden" name="from" value="[% table %]">
+
+                            Search title/author:
+                            <input type="text" name="q" value="[% search | html %]" size="24">
+                            <input type="submit" value="search">
+
+                            Sort:
+                            <select name="sort" onchange="this.form.submit()">
+                                [% FOREACH option IN sort_options %]
+                                    <option value="[% option.value %]"[% IF sort == option.value %] selected[% END %]>[% option.label %]</option>
+                                [% END %]
+                            </select>
+
+                            Group:
+                            <select name="group" onchange="this.form.submit()">
+                                <option value=""[% IF group == "" %] selected[% END %]>none</option>
+                                <option value="letter"[% IF group == "letter" %] selected[% END %]>first letter</option>
+                            </select>
+
+                            [% IF active_filters %]
+                                <a href="/?op=listobj&amp;from=[% table %]">clear</a>
+                            [% END %]
+                        </form>
+
                         [% pager %]
 
-                        <table>
+                        [% IF objects.size %]
+                        <table width="100%" cellpadding="2" cellspacing="0">
 
+                            [% last_group = "" %]
                             [% FOREACH object IN objects %]
+
+                                [% IF group == "letter" AND object.group_label != last_group %]
+                                    <tr>
+                                        <td colspan="3" bgcolor="#dddddd">
+                                            <b>[% object.group_label %]</b>
+                                        </td>
+                                    </tr>
+                                    [% last_group = object.group_label %]
+                                [% END %]
 
                                 <tr>
 
@@ -50,7 +87,7 @@
                                     <!-- title and uploader -->
                                     <td>
 
-                                        <a href=/?op=getobj;from=[% table %];id=[% object.id %]>Add to [% object.title %]</a>
+                                        <a href=/?op=getobj;from=[% table %];id=[% object.id %]>[% object.title %]</a>
 
                                         added by 
 
@@ -85,6 +122,9 @@
                             [% END %]
 
                         </table>
+                        [% ELSE %]
+                            <p>Nothing to show.</p>
+                        [% END %]
 
                         [% pager %]
 
