@@ -12,10 +12,11 @@
             <td>
                 Search title/name:
                 <input type="text" name="q" value="[% search %]" size="24">
+                <input type="submit" value="search">
             </td>
             <td>
                 Sort:
-                <select name="sort">
+                <select name="sort" onchange="this.form.submit()">
                     <option value="title" [% IF sort == "title" %]selected[% END %]>name</option>
                     <option value="created_asc" [% IF sort == "created_asc" %]selected[% END %]>oldest additions first</option>
                     <option value="created_desc" [% IF sort == "created_desc" %]selected[% END %]>latest additions first</option>
@@ -25,7 +26,7 @@
             </td>
             <td>
                 Type:
-                <select name="type">
+                <select name="type" onchange="this.form.submit()">
                     <option value="all" [% IF object_type == "all" %]selected[% END %]>all</option>
                     <option value="objects" [% IF object_type == "objects" %]selected[% END %]>encyclopedia</option>
                     <option value="papers" [% IF object_type == "papers" %]selected[% END %]>papers</option>
@@ -35,12 +36,11 @@
             </td>
             <td>
                 <label>
-                    <input type="checkbox" name="group" value="type" [% IF group == "type" %]checked[% END %]>
+                    <input type="checkbox" name="group" value="type" onchange="this.form.submit()" [% IF group == "type" %]checked[% END %]>
                     group by type
                 </label>
             </td>
             <td align="right">
-                <input type="submit" value="update">
                 [% IF active_filters %]
                     <a href="/?op=edituserobjs">clear</a>
                 [% END %]
