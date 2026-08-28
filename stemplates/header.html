@@ -29,11 +29,30 @@
 				  <input type="hidden" name="cx" value="d7c37e2bb0d444808" />
 				  <input type="hidden" name="cof" value="FORID:10" />
 				  <input type="hidden" name="ie" value="UTF-8" />
-				  <input type="text" name="q" size="31" />
+				  <input type="text" name="q" id="pl-header-search-q" size="31" value="<NS:template q qhtml/>" />
 				  <input type="submit" name="sa" value="Search" />
 				</div>
 			</form>
 			<script type="text/javascript" src="https://cse.google.com/cse.js?cx=d7c37e2bb0d444808"></script>
+			<script type="text/javascript">
+				(function() {
+					function restoreHeaderSearchQuery() {
+						var field = document.getElementById('pl-header-search-q');
+						if (!field || field.value) {
+							return;
+						}
+						var match = window.location.search.match(/[?&]q=([^&]*)/);
+						if (match) {
+							field.value = decodeURIComponent(match[1].replace(/\+/g, ' '));
+						}
+					}
+					restoreHeaderSearchQuery();
+					if (window.addEventListener) {
+						window.addEventListener('load', restoreHeaderSearchQuery, false);
+					}
+					window.setTimeout(restoreHeaderSearchQuery, 500);
+				})();
+			</script>
 
 		</td>
 		<!-- donate button -->
