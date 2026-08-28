@@ -3,6 +3,28 @@ use strict;
 use Noosphere::TemplateNS;
 use vars qw($NoosphereTitle);
 
+sub getObjTableIsAllowed {
+	my $table = shift;
+
+	return 0 if (!defined($table) || $table eq '');
+
+	my %allowed = map { $_ => 1 } grep { defined($_) && $_ ne '' } (
+		getConfig('news_tbl'),
+		getConfig('en_tbl'),
+		getConfig('collab_tbl'),
+		getConfig('forum_tbl'),
+		getConfig('papers_tbl'),
+		getConfig('exp_tbl'),
+		getConfig('books_tbl'),
+		getConfig('polls_tbl'),
+		getConfig('req_tbl'),
+		getConfig('user_tbl'),
+		getConfig('cor_tbl'),
+	);
+
+	return $allowed{$table};
+}
+
 # getObj - main object retrieval point, calls more specialized functions
 #
 sub getObj {
@@ -19,13 +41,17 @@ sub getObj {
 	my $interact = '';
 	my $id = $params->{'id'};
 	my $name = $params->{'name'};
+	my $from = $params->{'from'};
 	my $desc = 0;
 	my $nomsg = 0;
 	my $file = 'getobj.tt';
+
+	return errorMessage('Unknown object type.') if (!getObjTableIsAllowed($from));
+
 	my $is_generic_library_item = (
-		$params->{'from'} eq getConfig('papers_tbl') ||
-		$params->{'from'} eq getConfig('exp_tbl') ||
-		$params->{'from'} eq getConfig('books_tbl')
+		$from eq getConfig('papers_tbl') ||
+		$from eq getConfig('exp_tbl') ||
+		$from eq getConfig('books_tbl')
 	);
 	#dwarn "name";
 	#dwarn $name;
@@ -46,7 +72,7 @@ sub getObj {
 	# query up the object
 	#
 	(my $rv, my $sth) = dbSelect($dbh,{WHAT =>'*', 
-									 FROM => $params->{from},
+									 FROM => $from,
 									 WHERE => "uid=$id"});
 	if (! $rv || $sth->rows()<1) {
 		#dwarn "object not found!";
@@ -57,7 +83,7 @@ sub getObj {
 
 	# handle access to the object
 	#
-	if (!hasPermissionTo($params->{'from'},$id,$userinf,'read')) {
+	if (!hasPermissionTo($from,$id,$userinf,'read')) {
 
 		my $msg = "You don't have permission to view that object.<p>";
 		$msg .= "This may be a mistake.  Try contacting the <a href=\"".getConfig('main_url')."/?op=getuser&id=$rec->{userid}\">object owner</a> (preferably) or <a href=\"mailto:".getAddr('feedback')."\">administration</a> (if the owner is unresponsive).";
@@ -66,11 +92,11 @@ sub getObj {
 
 	# handle watch changing
 	#
-	changeWatch($params, $userinf, $params->{'from'}, $id);
+	changeWatch($params, $userinf, $from, $id);
 	
 	# hit the object
 	#
-	hitObject($id,$params->{'from'},'hits');
+	hitObject($id,$from,'hits');
 
 	# get user name (handle negative user id)
 	#
@@ -88,43 +114,43 @@ sub getObj {
 	
 	# render object type specific stuff
 	#
-	if ($params->{'from'} eq 'news') {
+	if ($from eq getConfig('news_tbl')) {
 		#dwarn "renderNews";
 		$html = renderNews($rec);
 	} 
-	elsif ($params->{'from'} eq getConfig('en_tbl')) {
+	elsif ($from eq getConfig('en_tbl')) {
 		#dwarn "renderEncyclopediaObj";
 		$html = renderEncyclopediaObj($rec, $params, $userinf);
 	}
-	elsif ($params->{'from'} eq getConfig('collab_tbl')) {
+	elsif ($from eq getConfig('collab_tbl')) {
 		#dwarn "renderCollab";
 		$html = renderCollab($rec, $params, $userinf);
 	}
-	elsif ($params->{'from'} eq 'forums') {
+	elsif ($from eq getConfig('forum_tbl')) {
 		#dwarn "renderForum";
 		$html = renderForum($rec);
 		# Should newest-first be forced here?	-LBH
 		#$desc=1;
 	} 
-	elsif ($params->{'from'} eq getConfig('papers_tbl') || 
-		$params->{'from'} eq getConfig('exp_tbl') ||
-		$params->{'from'} eq getConfig('books_tbl')) {
+	elsif ($from eq getConfig('papers_tbl') ||
+		$from eq getConfig('exp_tbl') ||
+		$from eq getConfig('books_tbl')) {
 		#dwarn "renderGeneric";	
 		$html = renderGeneric($params,$userinf, $rec);
 	} 
-	elsif ($params->{'from'} eq getConfig('polls_tbl')) {
+	elsif ($from eq getConfig('polls_tbl')) {
 		#dwarn "viewPoll";
 		$html = viewPoll($params,$userinf);
 	}
-	elsif ($params->{'from'} eq getConfig('req_tbl')) {
+	elsif ($from eq getConfig('req_tbl')) {
 		#dwarn "getReq";
 		$html = getReq($params,$userinf);
 	}
-	elsif ($params->{'from'} eq getConfig('user_tbl')) {
+	elsif ($from eq getConfig('user_tbl')) {
 		#dwarn "getUser";
 		$html = getUser($params,$userinf);
 	}
-	elsif ($params->{'from'} eq getConfig('cor_tbl')) {
+	elsif ($from eq getConfig('cor_tbl')) {
 		#dwarn "renderCorrection";
 		$html = renderCorrection($params,$userinf);
 	}
@@ -143,14 +169,14 @@ sub getObj {
 	if (!$is_generic_library_item) {
 		#dwarn "OBJECT REQUESTS messages";
 		#dwarn "**** OBJECT REQUESTS messages; $id\n", 3;
-		my $lastmsg = get_lastseen($params->{'from'},$id,$userinf->{'uid'});
+		my $lastmsg = get_lastseen($from,$id,$userinf->{'uid'});
 		#dwarn "lastmsg:\n $lastmsg";
 
-		$messages = clearBox('Discussion',getMessages($params->{'from'},$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
+		$messages = clearBox('Discussion',getMessages($from,$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
 		##$html->setKey('messages', $messages);
 		#dwarn "messages\n: $messages";
-		my $curlast = get_lastmsg($params->{'from'},$id);
-    	update_lastseen($params->{'from'},$id,$userinf->{'uid'},$curlast);
+		my $curlast = get_lastmsg($from,$id);
+		update_lastseen($from,$id,$userinf->{'uid'},$curlast);
 	}
 
 
@@ -171,26 +197,26 @@ sub getObj {
 	# admin metadata editing
 	#
 	
-	if ($params->{'from'} eq getConfig('en_tbl')) {
-		$admin = getEncyclopediaAdminControls($userinf,$params->{'from'},$id,$params->{'method'});
+	if ($from eq getConfig('en_tbl')) {
+		$admin = getEncyclopediaAdminControls($userinf,$from,$id,$params->{'method'});
 		$interact = makeBox('Interact',getEncyclopediaInteract($rec));
 	}
-	elsif ($params->{'from'} eq getConfig('papers_tbl') ||
-		$params->{'from'} eq getConfig('exp_tbl') ||
-		$params->{'from'} eq getConfig('books_tbl')) {
+	elsif ($from eq getConfig('papers_tbl') ||
+		$from eq getConfig('exp_tbl') ||
+		$from eq getConfig('books_tbl')) {
 		$admin = getGenericAdmin($params, $userinf, $rec);
 	}
 
 	# get owner controls
 	if ($userinf->{'uid'} == $rec->{'userid'}) {
-		$author = getOwnerControls($params->{'from'},$rec->{'uid'});
+		$author = getOwnerControls($from,$rec->{'uid'});
 	}
 	# or author controls
-	elsif ($userinf->{'uid'} > 0 && hasPermissionTo($params->{'from'},$id,$userinf,'write')) {
-		$author = getAuthorControls($params->{'from'},$rec->{'uid'},$userinf);
+	elsif ($userinf->{'uid'} > 0 && hasPermissionTo($from,$id,$userinf,'write')) {
+		$author = getAuthorControls($from,$rec->{'uid'},$userinf);
 	}
 
-	if ($params->{'from'} eq getConfig('en_tbl')) {
+	if ($from eq getConfig('en_tbl')) {
 		$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
 	}
 	$params->{'id'} = $id;
