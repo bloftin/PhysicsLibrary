@@ -497,6 +497,8 @@ sub lookuptitle {
 	my $table = shift;
 	my $id = shift;
 
+	return undef if (!nb($table) || !defined $id || $id !~ /^\d+$/);
+
 	my $title = lookupfield($table,'title',"uid=$id");
 	if (!$title) {	 # maybe the field is named "subject"
 		$title = lookupfield($table,'subject',"uid=$id");
@@ -1412,6 +1414,8 @@ sub lookupfield {
 	my $field = shift;
 	my $where = shift;
 
+	return undef if (!nb($table) || !nb($field) || !nb($where));
+
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>$field,FROM=>$table,WHERE=>$where,LIMIT=>1});
 
 	$sth->execute();
@@ -1427,6 +1431,8 @@ sub lookupfields {
 	my $table = shift;
 	my $fields = shift;
 	my $where = shift;
+
+	return () if (!nb($table) || !nb($fields) || !nb($where));
 
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>$fields, FROM=>$table, WHERE=>$where, LIMIT=>1});
 

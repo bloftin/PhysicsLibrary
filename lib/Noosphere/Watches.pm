@@ -2,6 +2,22 @@ package Noosphere;
 
 use strict;
 
+sub validWatchObjectArgs {
+	my ($table, $objectid) = @_;
+
+	return 0 if (!nb($table) || !defined $objectid);
+	return 0 if ($table !~ /^[A-Za-z_][A-Za-z0-9_]*$/);
+	return 0 if ($objectid !~ /^\d+$/);
+
+	return 1;
+}
+
+sub validWatchUserId {
+	my $userid = shift;
+
+	return (defined $userid && $userid =~ /^\d+$/);
+}
+
 # toggle watch on an object, for a user
 #
 sub changeWatch {
@@ -10,6 +26,9 @@ sub changeWatch {
 	my $table = shift;
 	my $id = shift;
 	
+	return if (!validWatchObjectArgs($table, $id));
+	return if (!defined $userinf || !validWatchUserId($userinf->{uid}));
+
 	if (defined $params->{watch} && $userinf->{uid} > 0) {
 			if ($params->{watch} eq "add") {
 			addWatch($table, $id, $userinf->{uid});
@@ -27,6 +46,8 @@ sub showWatchers {
 	
 	my $table = $params->{from};
 	my $id = $params->{id};
+
+	return errorMessage('Unknown object type.') if (!validWatchObjectArgs($table, $id));
 
 	my $template = new XSLTemplate('showwatchers.xsl');
 
@@ -60,7 +81,12 @@ sub getWatchWidget {
 
 	my $table = $params->{'from'};
 	my $objectid = $params->{'id'};
+	return '' if (!defined $userinf);
+
 	my $userid = $userinf->{'uid'};
+
+	return '' if (!validWatchObjectArgs($table, $objectid));
+	return '' if (!validWatchUserId($userid));
 
 	my $formvars = hashToFormVars($params,['watch']) || '';
 
@@ -248,6 +274,9 @@ sub hasWatch {
 	my $objectid=shift;
 	my $userid=shift;
 
+	return 0 if (!validWatchObjectArgs($table, $objectid));
+	return 0 if (!validWatchUserId($userid));
+
 	my $wtbl=getConfig('watch_tbl');
 
 	my ($rv,$sth)=dbSelect($dbh,{WHAT=>'uid',FROM=>$wtbl,WHERE=>"tbl='$table' and objectid=$objectid and userid=$userid"});
@@ -263,6 +292,8 @@ sub hasWatch {
 sub getWatches {
 	my $table=shift;
 	my $objectid=shift;
+
+	return () if (!validWatchObjectArgs($table, $objectid));
 
 	my $wtbl=getConfig('watch_tbl');
 	my @wlist=();
@@ -285,6 +316,10 @@ sub addWatchIfAllowed {
 	my $userinf = shift;
 	my $type = shift;
 
+	return if (!validWatchObjectArgs($table, $objectid));
+	return if (!defined $userinf || !validWatchUserId($userinf->{uid}));
+	return if (!defined $userinf->{prefs});
+
 	addWatch($table,$objectid,$userinf->{uid}) if ($userinf->{prefs}->{$type} eq "on");
 }
 
@@ -294,6 +329,9 @@ sub toggleWatch {
 	my $table=shift;
 	my $objectid=shift;
 	my $userid=shift;
+
+	return if (!validWatchObjectArgs($table, $objectid));
+	return if (!validWatchUserId($userid));
 
 	if (hasWatch($table,$objectid,$userid)) {
 		delWatchByInfo($table,$objectid,$userid);
@@ -309,6 +347,9 @@ sub addWatch {
 	my $objectid=shift;
 	my $userid=shift;
 
+	return if (!validWatchObjectArgs($table, $objectid));
+	return if (!validWatchUserId($userid));
+
 	my $wtbl=getConfig('watch_tbl');
 
 	my ($rv,$sth)=dbInsert($dbh,{INTO=>$wtbl,COLS=>"objectid,tbl,userid",VALUES=>"$objectid,'$table',$userid"});
@@ -321,11 +362,16 @@ sub delWatchByInfo {
 	my $objectid = shift;
 	my $userid = shift;
 
+	return if (!validWatchObjectArgs($table, $objectid));
+	return if (!validWatchUserId($userid));
+
 	my $wtbl = getConfig('watch_tbl');
 
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>"uid",FROM=>$wtbl,WHERE=>"objectid=$objectid and userid=$userid and tbl='$table'"});
 	my $row=$sth->fetchrow_hashref();
 	$sth->finish();
+
+	return if (!defined $row);
 
 	delWatch($row->{uid});
 }
