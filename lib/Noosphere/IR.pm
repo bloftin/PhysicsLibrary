@@ -10,6 +10,18 @@ use Noosphere::Util;
 use Noosphere::Indexing;
 use Noosphere::Latex;
 
+sub legacySearchClient {
+	my $mode = shift || 'normal';
+	my $sock = $mode eq 'test' ? getConfig('searchd_test_sock') : getConfig('searchd_sock');
+
+	return undef if (!defined $sock || !-S $sock);
+
+	my $se = SearchClient->new(Sock => $sock);
+	warn "couldn't start search client at $sock\n" if (!defined $se);
+
+	return $se;
+}
+
 sub irSearch {
 	my $query = shift;
 	my $mode = shift;   # if this is "searchrelated", allow one extra result.
@@ -25,9 +37,8 @@ sub irSearch {
 
 	# have the search engine do the dirty (searching) work
 	#
-	my $se = SearchClient->new(Sock => getConfig('searchd_sock'));
+	my $se = legacySearchClient();
 	if (not defined $se) {
-	    warn "Could not contact search daemon!!!!";
 	    return (undef, undef);
 	}
 
@@ -165,10 +176,9 @@ sub irUnindex {
 	
 	# start searchclient connection
 	#
-	my $se = SearchClient->new(Sock => getConfig('searchd_sock'));
+	my $se = legacySearchClient();
 
 	if (not defined $se) {
-		warn "couldn't start search client";
 		return;
 	}
 

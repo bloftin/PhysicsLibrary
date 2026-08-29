@@ -110,7 +110,7 @@ sub vsSearch {
 	#
 	if (not defined $token) {
 		($token, $nmatches) = irSearch($query);
-		exactMatches($token, $query);
+		exactMatches($token, $query) if (defined $token);
 	}
 
 	if (defined $token && $nmatches == 0) {
