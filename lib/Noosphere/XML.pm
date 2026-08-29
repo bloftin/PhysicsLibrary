@@ -236,7 +236,16 @@ sub getFileDOM {
 	my $filename = shift;
 
 	my $parser = new XML::DOM::Parser;
-	my $dom = $parser->parsefile ($filename);
+	my $dom;
+	eval {
+		$dom = $parser->parsefile($filename);
+	};
+	if ($@ || !defined $dom) {
+		my $error = $@ || 'parser returned no DOM';
+		chomp $error;
+		warn "XML parse failed for version file $filename: $error\n";
+		return undef;
+	}
 	
 	return $dom;
 }

@@ -71,6 +71,7 @@ sub rollBack {
 			foreach my $file (@files) {
 
 				my $dom = getFileDOM($file);			
+				next if (!defined $dom);
 
 				my $ver = domGetVersion($dom, 'version');
 			
@@ -84,6 +85,7 @@ sub rollBack {
 					#warn "*** rollBack : i'd normally apply snapshot in $file to database";
 
 					my $dom = getFileDOM($file);
+					return errorMessage('Version XML could not be parsed.') if (!defined $dom);
 
 					applyEncyclopediaSnapshot($dom) if getConfig('en_tbl') eq $params->{'from'};
 					applyCollabSnapshot($dom) if getConfig('collab_tbl') eq $params->{'from'};
@@ -405,6 +407,7 @@ sub getVersionList {
 		foreach my $file (@files) {
 			#dwarn "getFileDOM before";
 			my $dom = getFileDOM($file);			
+			next if (!defined $dom);
 			#dwarn "domGetVersion before";
 			my $version = domGetVersion($dom, 'version');
 			#dwarn "version: $version";
@@ -580,7 +583,10 @@ sub getVersion {
 
 	return errorMessage('Version not found.') if (! -e $file);
 
-	return $template->expandFile($file);
+	my $html = $template->expandFile($file);
+	return errorMessage('Version XML could not be parsed.') if (!defined $html);
+
+	return $html;
 }
 
 # BB: read several version; each is specified by either version number or word ``current'' 
@@ -621,6 +627,7 @@ sub readVersions {
 		foreach my $file (@files) {
 
 			my $dom = getFileDOM($file);
+			next if (!defined $dom);
 
 			my $ver = domGetVersion($dom, 'version');
 
