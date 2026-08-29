@@ -28,10 +28,13 @@ sub runExternalCommand {
 	my $program = shift;
 	my $args = shift || [];
 	my $timeout = shift || 60;
+	my $command = join(' ', $program, @$args);
+	my $using_timeout = 0;
 
 	if (-x '/usr/bin/timeout') {
 		$args = ["${timeout}s", $program, @$args];
 		$program = '/usr/bin/timeout';
+		$using_timeout = 1;
 	}
 
 	my $err_fh = gensym;
@@ -42,7 +45,45 @@ sub runExternalCommand {
 	my ($output, $error) = read_command_pipes($out_fh, $err_fh);
 
 	waitpid($pid, 0);
-	return ($?, $output, $error);
+	my $status = $?;
+	my $exit_code = $status >> 8;
+	my $signal = $status & 127;
+
+	if ($using_timeout && $exit_code == 124) {
+		$error .= "\nCommand timed out after $timeout seconds: $command\n";
+	} elsif ($signal) {
+		$error .= "\nCommand killed by signal $signal: $command\n";
+	} elsif ($exit_code) {
+		$error .= "\nCommand exited with status $exit_code: $command\n";
+	}
+
+	return ($status, $output, $error);
+}
+
+sub command_timed_out_or_was_killed {
+	my $retval = shift;
+	my $exit_code = $retval >> 8;
+	my $signal = $retval & 127;
+
+	return ($exit_code == 124 || $signal);
+}
+
+sub write_command_error_output {
+	my $title = shift;
+	my $dir = shift;
+	my $retval = shift;
+	my $output = shift || '';
+	my $error = shift || '';
+
+	my $exit_code = $retval >> 8;
+	my $signal = $retval & 127;
+	my $status = $signal ? "killed by signal $signal" : "exit status $exit_code";
+	my $details = "Rendering failed ($status).\n\n$error\n$output";
+	$details = encode_entities($details);
+
+	open OUTFILE, ">", "$dir/".getConfig('rendering_output_file');
+	print OUTFILE "<table border=\"0\" width=\"100%\"><tr><td><font color=\"#ff0000\"><b>$title</b></font><br /><br /><pre>$details</pre></td></tr></table>";
+	close OUTFILE;
 }
 
 sub read_command_pipes {
@@ -547,6 +588,7 @@ sub render_l2h {
 	local $CWD = "$dir";
 	my $tpath = getConfig("stemplate_path");	# grab latex2html init file
 	my $latexprog = getConfig('latex2htmlcmd');
+	my $l2h_timeout = getConfig('latex2html_timeout') || 300;
 	#dwarn "render_l2h before cp .latex2tml-init, tpath $tpath";
 	## BEN TODO system("cp $tpath/.latex2html-init .");
 	copy("$tpath/.latex2html-init","$dir");
@@ -563,9 +605,12 @@ sub render_l2h {
 		 #system("/usr/bin/latex -interaction=batchmode $fullname.tex"); 
 		my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
 		#dwarn "EXECING $latexprog -init_file $tpath/.latex2html-init $fname.tex \n";
-		my ($retval, $output, $error) = runExternalCommand($latexprog,\@run_args);
+		my ($retval, $output, $error) = runExternalCommand($latexprog,\@run_args,$l2h_timeout);
 		#dwarn "latex reruns output: $output";
 		#dwarn "latex reruns  error: $error";
+		if ($retval) {
+			dwarn "latex2html prepass failed: $error";
+		}
 	}
 
 	# init graphics AA flag
@@ -586,9 +631,16 @@ sub render_l2h {
 	# get the global request object (requires PerlOptions +GlobalRequest)
     
 	my @run_args = ("-dir",$dir,"-init_file", "$dir/.latex2html-init","$dir/$fname.tex");
-	my ($retval, $output, $error) = runExternalCommand($run,\@run_args);
+	my ($retval, $output, $error) = runExternalCommand($run,\@run_args,$l2h_timeout);
 	#dwarn "latex2html output: $output";
 	#dwarn "latex2html error: $error";
+	if ($retval) {
+		dwarn "latex2html failed: $error";
+		if (command_timed_out_or_was_killed($retval) || !-e "$dir/index.html") {
+			write_command_error_output('LaTeX2HTML rendering failed', $dir, $retval, $output, $error);
+			return;
+		}
+	}
 
 	# run latex2html again after deleting some image files if these images 
 	# need to be antialiased
