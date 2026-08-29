@@ -255,7 +255,16 @@ sub XSLTemplate::expandFile
 {
 	my ($obj, $filename) = @_;
 	my $parser = XML::LibXML->new();
-	my $doc = $parser->parse_file($filename);
+	my $doc;
+	eval {
+		$doc = $parser->parse_file($filename);
+	};
+	if ($@ || !defined $doc) {
+		my $error = $@ || 'parser returned no document';
+		chomp $error;
+		warn "XSLTemplate expandFile XML parse failed for $filename using $obj->{NAME}: $error\n";
+		return undef;
+	}
 
 	my $results = $obj->{"STYLESHEET"}->transform($doc, %{$obj->{"PARAMS"}});
 
