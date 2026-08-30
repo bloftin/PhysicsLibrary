@@ -5,6 +5,12 @@ use Socket;
 use Template;
 use Encode;
 
+sub validUserId {
+	my $uid = shift;
+
+	return (defined($uid) && $uid =~ /^\d+$/);
+}
+
 sub indexedObjectExistsWhere {
 	my $index_table = shift;
 	my @tables = (
@@ -57,6 +63,8 @@ sub markUserAccess {
 	my $uid = shift;
 	my $ip = shift;
 
+	return if (!validUserId($uid));
+
 	my $sth = $dbh->prepare("update users set last = CURRENT_TIMESTAMP, lastip=? where uid=$uid");
 	$sth->execute($ip);
 	$sth->finish();
@@ -68,6 +76,8 @@ sub changeUserScore {
 	my $id = shift;
 	my $delta = shift;
  
+	return if (!validUserId($id));
+
 	# TODO - we need a transaction here for updating both rows at the same time
 	#
 	my ($rv,$sth)=dbUpdate($dbh,{WHAT=>'users',SET=>"score=score+$delta",WHERE=>"uid=$id"});
@@ -210,6 +220,8 @@ sub userEditObjectList {
 	my $en = getConfig('en_tbl');
 	my @objects_array = ();
 	my ($sort, $object_type, $group, $search) = userObjectNavigationParams($params);
+
+	return errorMessage('Invalid user id.') if (!validUserId($uid));
 
 	# basic object selection filter: object owner
 	#
@@ -433,6 +445,8 @@ sub userEditObjectListOld {
 	my $table = getConfig('index_tbl');
 	my $en = getConfig('en_tbl');
 
+	return errorMessage('Invalid user id.') if (!validUserId($uid));
+
 	# basic object selection filter: object owner
 	#
 	my $filter = "userid = $uid";
@@ -651,6 +665,8 @@ sub formatUserCorrectionReceivedRec {
 sub getCorrectionsReceivedCount {
 	my $userid = shift;
 
+	return 0 if (!validUserId($userid));
+
 	my ($rv,$sth) = dbLowLevelSelect($dbh,"select distinct corrections.uid from objindex, corrections where objindex.userid=$userid and objindex.tbl='".getConfig('en_tbl')."' and corrections.objectid=objindex.objectid");
 	my $count = $sth->rows();
 	$sth->finish();
@@ -660,6 +676,8 @@ sub getCorrectionsReceivedCount {
 
 sub getCorrectionsFiledCount {
 	my $userid = shift;
+
+	return 0 if (!validUserId($userid));
 
 	my ($rv,$sth) = dbLowLevelSelect($dbh, "select uid from corrections where userid=$userid");
 	my $count = $sth->rows();
@@ -672,6 +690,8 @@ sub getCorrectionsFiledCount {
 #
 sub userCreatedObjects {
 	my $userid = shift;
+
+	return 0 if (!validUserId($userid));
 
 	my @statements = (
 		# count messages
@@ -714,6 +734,8 @@ sub userGenericList {
 	my $title = '';
 	my $tt_file = 'usergeneric.tt';
  	my $template = new XSLTemplate("usergeneric.xsl");
+
+	return errorMessage('Invalid user id.') if (!validUserId($uid));
 
 	# database invariance (this is ugly)
 	#
@@ -1098,6 +1120,8 @@ sub getUser {
 	my $loggedinvalue = $userinf->{uid};
 	#dwarn "logged in: $loggedinvalue";
 
+	return errorMessage('Invalid user id.') if (!validUserId($id));
+
 	# extract info
 	#
 	(my $rv, my $sth) = dbSelect($dbh,{WHAT => '*', 
@@ -1105,6 +1129,8 @@ sub getUser {
 									WHERE => "users.uid=$id"});
 
 	my $rec = $sth->fetchrow_hashref();	
+
+	return errorMessage('User not found.') if (!defined $rec);
 
 	my $mc = getrowcount('messages',"userid=$rec->{uid}");
 	my $msg_link = "".getConfig("main_url")."/?op=usermsgs;id=$rec->{uid}";
@@ -1235,6 +1261,8 @@ sub getUserOld {
 sub getUserData {
 	my $uid = shift;
  
+	return undef if (!validUserId($uid));
+
 	#dwarn "uid is $uid!!!";
 	
 	my ($rv,$dbq) = dbSelect($dbh,{
@@ -1268,6 +1296,8 @@ sub userPref {
 	my $userid = shift;
 	my $key = shift;
 
+	return undef if (!validUserId($userid));
+
 	my %userinf = userInfoById($userid);
 
 	return $userinf{'prefs'}->{$key};
@@ -1279,6 +1309,8 @@ sub _userfields_by_id {
 	my $uid = shift;
 	my @fields = shift;
 	
+	return undef if (!validUserId($uid));
+
 	(my $rv, my $sth) = dbSelect($dbh,
 		{WHAT => join(',',@fields), 
 		 FROM => 'users', 
