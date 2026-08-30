@@ -143,7 +143,8 @@ sub cacheObject {
 		elsif ($table eq getConfig('collab_tbl')) {
 			print "renderLaTeX coolab_tbl start\n";
 			my $name = normalize($rec->{'title'});
-			renderLaTeX($table, $rec->{'uid'}, $rec->{'data'}, $method, $name);
+			my $output = prepareCollabForRendering($rec->{'data'}, $method);
+			renderLaTeX($table, $rec->{'uid'}, $output, $method, $name);
 			print "renderLaTeX coolab_tbl end\n";
 		}
 		print "setbuildflag_off start\n";
@@ -308,6 +309,40 @@ sub addPDFLinkSupport {
 	}
 
 	return $preamble;
+}
+
+sub addHyperrefToLaTeXDocument {
+	my $latex = shift;
+
+	return $latex if ($latex =~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/);
+
+	my $package = "\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
+	if ($latex =~ s/(\\begin\{document\})/$package$1/) {
+		return $latex;
+	}
+
+	return $package.$latex;
+}
+
+sub prepareCollabForRendering {
+	my $latex = shift;
+	my $method = shift;
+
+	if ($method eq "png") {
+		return stripNativeRenderLinks($latex);
+	}
+
+	if ($method eq "l2h") {
+		return convertL2HRenderLinks($latex);
+	}
+
+	if ($method eq "pdf" || $method eq "make4ht") {
+		$latex = convertHyperrefRenderLinks($latex);
+		$latex = addHyperrefToLaTeXDocument($latex) if ($latex =~ /\\href\s*\{/);
+		return $latex;
+	}
+
+	return $latex;
 }
 
 # prepares an entry for rendering :
