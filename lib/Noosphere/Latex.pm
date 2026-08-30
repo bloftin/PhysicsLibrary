@@ -1240,20 +1240,9 @@ sub postProcessL2hIndex {
 	}
 
 	#dwarn "postProcessL2hIndex raw html:\n $file_in";
-	my $tidy = HTML::Tidy->new({
-		output_xhtml => 1,
-		wrap => 1024,
-		char_encoding => 'utf8',
-		numeric_entities => 1,
-	});
-	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
-	$file = $tidy->clean($file_in);
-	#dwarn "postProcessL2hIndex after tidy:\n $file";
-
-	if ($file =~ /<body.*?>(.*?)<hr\s*?\/>\s*?<\/body>/sio) {
+	if ($file_in =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
 		$file = $1;
-	} elsif ($file =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
-		$file = $1;
+		$file =~ s{<hr\b[^>]*>\s*(?:<address\b[\s\S]*?</address>\s*)?$}{}si;
 	} else {
 		$file = normalizeKnownHTMLEntities($file_in);
 		dwarn "postProcessL2hIndex could not find body element";
