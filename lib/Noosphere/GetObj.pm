@@ -25,6 +25,12 @@ sub getObjTableIsAllowed {
 	return $allowed{$table};
 }
 
+sub getObjIdIsValid {
+	my $id = shift;
+
+	return (defined($id) && $id =~ /^\d+$/);
+}
+
 # getObj - main object retrieval point, calls more specialized functions
 #
 sub getObj {
@@ -68,6 +74,7 @@ sub getObj {
 		$id = getidbyname($name);
 	}		
 	return errorMessage('Could not find object! Contact an admin!') if ($id == -1);
+	return errorMessage('Invalid object id.') if (!getObjIdIsValid($id));
 
 	# query up the object
 	#
