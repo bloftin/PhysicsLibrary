@@ -911,6 +911,8 @@ sub write_render_html_message {
 sub uses_tikz {
 	my $latex = shift || '';
 
+	$latex = remove_literal_latex_blocks($latex);
+
 	return 1 if ($latex =~ /\\usepackage(?:\[[^\]]*\])?\{[^}]*\b(?:tikz|pgfplots)\b[^}]*\}/);
 	return 1 if ($latex =~ /\\usetikzlibrary\b/);
 	return 1 if ($latex =~ /\\pgfplotsset\b/);
@@ -920,6 +922,16 @@ sub uses_tikz {
 	return 1 if ($latex =~ /\\tikz\b/);
 
 	return 0;
+}
+
+sub remove_literal_latex_blocks {
+	my $latex = shift || '';
+
+	foreach my $environment ('verbatim', 'Verbatim', 'lstlisting') {
+		$latex =~ s/\\begin\{$environment\}.*?\\end\{$environment\}//sg;
+	}
+
+	return $latex;
 }
 
 sub write_tikz_l2h_message {
