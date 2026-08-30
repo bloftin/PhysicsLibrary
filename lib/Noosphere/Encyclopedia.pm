@@ -330,7 +330,8 @@ sub getEncyclopediaMetadata {
 		next if (blank($related));
 		my $title = objectTitleByName($related);
 		if (blank($title)) {
-			dwarn "*** encyclopedia metadata: couldn't resolve title for $related";
+			# Old records can contain stale related-object names; hide them instead
+			# of filling the error log on every object render.
 			next;
 		}
 		push @rels,"<a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$table&amp;name=$related\">".mathTitle($title, 'highlight')."</a>";
