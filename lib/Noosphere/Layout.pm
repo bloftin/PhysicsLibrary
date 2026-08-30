@@ -10,7 +10,7 @@ sub getViewStyleWidget {
 	my $prefsinf = getConfig('prefs_schema');
 	my $methodinfo = $prefsinf->{'method'};
 
-	my $viewstylesel = getSelectBox('method', $methodinfo->[3], $method, 'onchange="methodform.submit()" class="small"');
+	my $viewstylesel = getSelectBoxOrdered('method', $methodinfo->[3], [getMethods()], $method, 'onchange="methodform.submit()" class="small"');
 	my $formvars = hashToFormVars(hashExcept($params,'method'));
 
 	my $xhtml = "<form method=\"get\" action=\"/\" name=\"methodform\">

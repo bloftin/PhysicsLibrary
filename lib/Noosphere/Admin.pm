@@ -494,7 +494,8 @@ sub cacheControl {
 
 		my $scale = 1/2;	 # pager scale
 
-		my $method = $params->{method} || 'l2h';
+		my $method = $params->{method} || getDefaultRenderMethod();
+		$method = getDefaultRenderMethod() unless inset($method, getMethods());
 		my $offset = $params->{offset} || 0;
 		my $limit = int($userinf->{'prefs'}->{'pagelength'} / $scale);
 
@@ -526,11 +527,11 @@ sub cacheControl {
 		my $cache = getConfig('cache_tbl');
 		my $en = getConfig('en_tbl');
 		my ($rv, $sth);
-		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='l2h' order by lower(e.title) offset $offset limit $limit")
+		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='$method' order by lower(e.title) offset $offset limit $limit")
 			if (getConfig('dbms') eq 'pg');
-		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='l2h' order by lower(e.title) limit $offset, $limit")
+		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='$method' order by lower(e.title) limit $offset, $limit")
 			if (getConfig('dbms') eq 'mysql');
-		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='l2h' order by lower(e.title) limit $offset, $limit")
+		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='$method' order by lower(e.title) limit $offset, $limit")
             if (getConfig('dbms') eq 'MariaDB');
 
 		my @rows = dbGetRows($sth);
@@ -543,8 +544,9 @@ sub cacheControl {
 		# get the method selector
 		#
 		$html .= "<center>";
-		my $methodsel = getSelectBox('method',
+		my $methodsel = getSelectBoxOrdered('method',
 			getConfig('prefs_schema')->{method}->[3],
+			[getMethods()],
 			$method,
 			'onchange="methodform.submit()"');
 		my $formvars = hashToFormVars(hashExcept($params,'method','offset'));		
@@ -1334,8 +1336,8 @@ sub adminDBStats
 	my $template = shift;
 	my @countstats = (
 			[ 'Objects', '*', getConfig('en_tbl'), '' ],
-			[ 'Invalid Objects', 'distinct objectid', getConfig('cache_tbl'), 'valid = 0 and method=\'l2h\'' ],
-			[ 'Objects in Build', 'distinct objectid', getConfig('cache_tbl'), 'not build = 0 and method=\'l2h\'' ],
+			[ 'Invalid Objects', 'distinct objectid', getConfig('cache_tbl'), 'valid = 0 and method=\'make4ht\'' ],
+			[ 'Objects in Build', 'distinct objectid', getConfig('cache_tbl'), 'not build = 0 and method=\'make4ht\'' ],
 			[ 'Cross References', '*', getConfig('xref_tbl'), '' ],
 			[ 'Users', '*', 'users', '' ],
 		);

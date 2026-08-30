@@ -26,7 +26,7 @@ sub renderEncyclopediaObj {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $method = $params->{'method'} || $userinf->{'prefs'}->{'method'};
+	my $method = defined($params->{'method'}) ? $params->{'method'} : getPreferredRenderMethod($userinf->{'prefs'}->{'method'});
 	my $html = '';
 	my $en = getConfig('en_tbl');
 	my $content = getRenderedContentHtml($en,$rec,$method);
@@ -169,7 +169,7 @@ sub renderEncyclopediaObjOld {
 	my $params = shift;
 	my $userinf = shift;
  
-	my $method = $params->{'method'} || $userinf->{'prefs'}->{'method'};
+	my $method = defined($params->{'method'}) ? $params->{'method'} : getPreferredRenderMethod($userinf->{'prefs'}->{'method'});
 	my $html = new TemplateNS('encyclopediaobject.html');
 	my $en = getConfig('en_tbl');
 	my $content = getRenderedContentHtml($en,$rec,$method);
@@ -1364,7 +1364,7 @@ sub previewEncyclopedia {
 	my $error = '';
 	my $warn = '';
 	#dwarn "previewEncyclopedia start cwd: $CWD";
-	my $method = $userinf->{'prefs'}->{'method'} || 'l2h';
+	my $method = getPreferredRenderMethod($userinf->{'prefs'}->{'method'});
 	my $preview = '';
 	# check for errors in entered data
 	#
@@ -1544,7 +1544,7 @@ sub renderEnPreview {
 	# copy files from main dir to method subdir
 	#
 	my @methoddirs = getMethods();
-	$method = 'l2h' unless inset($method, @methoddirs);
+	$method = getDefaultRenderMethod() unless inset($method, @methoddirs);
 	my $method_dir = "$root/$dir/$method";
 
 	#dwarn "preview files go in $method_dir";

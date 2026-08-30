@@ -407,7 +407,7 @@ sub renderCollab {
 	my $params = shift;
 	my $userinf = shift;
  
-	my $method = $params->{'method'} || $userinf->{'prefs'}->{'cmethod'};
+	my $method = defined($params->{'method'}) ? $params->{'method'} : getPreferredRenderMethod($userinf->{'prefs'}->{'cmethod'});
 	my $template = new XSLTemplate('collab.xsl');
 
 	my $table = getConfig('collab_tbl');
@@ -604,7 +604,7 @@ sub editCollab {
 		my @errors = checkCollab($params, $userinf);
 
 		if (!@errors) {
-			my $pcontent = renderCollabPreview($params, $userinf->{'prefs'}->{'cmethod'} || 'png') || '';
+			my $pcontent = renderCollabPreview($params, getPreferredRenderMethod($userinf->{'prefs'}->{'cmethod'})) || '';
 			$template->addText('	<preview>');
 			$template->addText("		<content>$pcontent</content>");
 			$template->addText('	</preview>');

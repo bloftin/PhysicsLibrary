@@ -931,7 +931,7 @@ sub write_tikz_l2h_message {
 		. '<p><font size="+1" color="#cc0000">This entry uses TikZ/PGF, which is not supported by the HTML with images renderer.</font></p>'
 		. '<p>Please try another rendering style:</p>'
 		. '<ul>'
-		. '<li><a href="'.$base.'&amp;method=make4ht">HTML with make4ht</a></li>'
+		. '<li><a href="'.$base.'&amp;method=make4ht">HTML</a></li>'
 		. '<li><a href="'.$base.'&amp;method=png">page images</a></li>'
 		. '<li><a href="'.$base.'&amp;method=pdf">PDF</a></li>'
 		. '<li><a href="'.$base.'&amp;method=src">TeX source</a></li>'
