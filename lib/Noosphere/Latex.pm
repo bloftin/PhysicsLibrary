@@ -614,9 +614,10 @@ sub render_l2h {
 	##	}
 	##}
  
-	# post process l2h's HTML output
+	# post process l2h's HTML output.  Some inputs produce index.html, while
+	# full-document renders can produce a document-named HTML file.
 	#
-	postProcessL2hIndex($url,$dir);
+	postProcessL2hIndex($url,$dir,"$fname.html");
 }
 
 # latex2html rendering core
@@ -1187,6 +1188,7 @@ sub getAAImages {
 sub postProcessL2hIndex {
 	my $url = shift;
 	my $dir = shift;
+	my $output_filename = shift || 'index.html';
 
 	my $path = getConfig('cache_root');
 
@@ -1196,6 +1198,10 @@ sub postProcessL2hIndex {
 	my $file = '';
 	my $file_in = '';
 	my $file_path = "$dir/index.html";
+	my @file_paths = ($file_path);
+	if ($output_filename ne 'index.html') {
+		push @file_paths, "$dir/$output_filename";
+	}
 	# read output of l2h, running it through tidy to get XHTML
 	# tidycmd causing apahce crash - need sub process?
 	## BEN TODO $file = readFile(getConfig('tidycmd')." -wrap 1024 -asxml index.html 2>/dev/null |");
@@ -1207,8 +1213,14 @@ sub postProcessL2hIndex {
 	my $elapsed_time = 0;
 
 	while ($elapsed_time < $max_wait_time) {
+		foreach my $candidate (@file_paths) {
+			if (-e $candidate) {
+				$file_path = $candidate;
+				#dwarn "File found: $file_path in $elapsed_time seconds";
+				last;
+			}
+		}
 		if (-e $file_path) {
-			#dwarn "File found: $file_path in $elapsed_time seconds";
 			last;
 		}
 		sleep($poll_interval);
@@ -1216,7 +1228,7 @@ sub postProcessL2hIndex {
 	}
 
 	if ($elapsed_time >= $max_wait_time) {
-		dwarn "File did not appear within the wait time, $max_wait_time.";
+		dwarn "l2h output file did not appear within the wait time, $max_wait_time. Tried: ".join(', ', @file_paths);
 	}
 
 	if (open(my $filein, '<:raw', $file_path)) {

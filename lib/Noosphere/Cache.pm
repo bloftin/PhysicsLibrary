@@ -324,6 +324,20 @@ sub addHyperrefToLaTeXDocument {
 	return $package.$latex;
 }
 
+sub addLatexPackageToDocument {
+	my $latex = shift;
+	my $package = shift;
+
+	return $latex if ($latex =~ /\\usepackage(?:\[[^\]]*\])?\{$package\}/);
+
+	my $include = "\\usepackage{$package}\n";
+	if ($latex =~ s/(\\begin\{document\})/$include$1/) {
+		return $latex;
+	}
+
+	return $include.$latex;
+}
+
 sub prepareCollabForRendering {
 	my $latex = shift;
 	my $method = shift;
@@ -333,7 +347,9 @@ sub prepareCollabForRendering {
 	}
 
 	if ($method eq "l2h") {
-		return convertL2HRenderLinks($latex);
+		$latex = convertL2HRenderLinks($latex);
+		$latex = addLatexPackageToDocument($latex, 'html') if ($latex =~ /\\htmladdnormallink\s*\{/);
+		return $latex;
 	}
 
 	if ($method eq "pdf" || $method eq "make4ht") {
