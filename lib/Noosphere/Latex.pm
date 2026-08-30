@@ -928,7 +928,7 @@ sub uses_tikz {
 sub remove_literal_latex_blocks {
 	my $latex = shift || '';
 
-	foreach my $environment ('verbatim', 'Verbatim', 'lstlisting') {
+	foreach my $environment ('verbatim', 'Verbatim', 'lstlisting', 'rawhtml', 'htmlonly') {
 		$latex =~ s/\\begin\{$environment\}.*?\\end\{$environment\}//sg;
 	}
 
