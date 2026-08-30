@@ -4,6 +4,7 @@ use Cwd qw(chdir);
 use File::Path qw(make_path remove_tree); 
 use File::Copy::Recursive qw(pathrm);
 use Unicode::String qw(latin1 utf8 utf16);
+use Encode ();
 use Config;
 use constant PERLIO_IS_ENABLED => $Config{useperlio};
 use vars qw{%ICHAR_TO_ASCII %ICHAR_TO_HTML $DEBUG $dbh};
@@ -1591,9 +1592,7 @@ sub buildStringUsingXSLT {
         $src = $parser->parse_string( $xml );
 	};
 	if ( $@ ) {
-		open(OUT, '>/tmp/jerror.xml');
-		print OUT $xml;
-		close(OUT);
+		writeFile('/tmp/jerror.xml', $xml);
 		return "This site is currently under development. Debug message for developer: Error rendering $xslfile.\n$@";
 	}
         $style_doc = $parser->parse_file( $xslfile );
@@ -1709,13 +1708,15 @@ sub readFile {
 sub writeFile {
 	my $filename = shift;
 	my $data = shift;
+	$data = '' if (!defined($data));
 
 	unless (open(OUTFILE, ">$filename")) {
 		dwarn "failed to open file $filename for writing!";
 		return;
 	}
 
-	print OUTFILE $data;
+	binmode(OUTFILE);
+	print OUTFILE utf8::is_utf8($data) ? Encode::encode('UTF-8', $data) : $data;
 
 	close OUTFILE;
 }

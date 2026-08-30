@@ -9,6 +9,7 @@ use XML::Writer;
 use File::chdir;
 use Cwd qw(abs_path);
 use Template;
+use Encode ();
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
 
@@ -381,7 +382,8 @@ sub sendOutput {
 	my $req = shift;
 	my $html = shift;
 	my $status = shift || 200;
-	my $len = bytes::length($html);
+	my $body = utf8::is_utf8($html) ? Encode::encode('UTF-8', $html) : $html;
+	my $len = bytes::length($body);
 
 	$req->status($status);
 	$req->content_type('text/html;charset=UTF-8');
@@ -390,10 +392,8 @@ sub sendOutput {
 #	$req->send_http_header;
 	my $content_type = $req->content_type;
 	#dwarn "sendOutput req content type: $content_type";
-	open( OUT, ">/tmp/sendOutput.html");
-	print OUT $html;
-	close(OUT);
-	$req->print($html);
+	writeFile("/tmp/sendOutput.html", $html);
+	$req->print($body);
 	$req->rflush(); 
 }
 
@@ -402,7 +402,8 @@ sub sendOutputOld {
 	my $html = shift;
 	my $status = shift || 200;
 	#dwarn "sendOutput started";
-	my $len = length($html);
+	my $body = utf8::is_utf8($html) ? Encode::encode('UTF-8', $html) : $html;
+	my $len = bytes::length($body);
 
 	#$req->status($status);
 	$req->content_type('text/html;charset=UTF-8');
@@ -411,7 +412,7 @@ sub sendOutputOld {
 	my $content_type = $req->content_type;
 	#dwarn "sendOutput req content type: $content_type";
 #	$req->send_http_header;
-	$req->print($html);
+	$req->print($body);
 	#dwarn "sendOutput ended";
 	$req->rflush();  
 }
@@ -887,9 +888,7 @@ sub handler {
 	
     		my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
 			
-			open( OUT, ">/tmp/view.xml");
-			print OUT $html;
-			close(OUT);
+			writeFile("/tmp/view.xml", $html);
 			# handle caching
 		
 		
@@ -1092,16 +1091,12 @@ sub buildMainPage {
 	my $xslt = getConfig("stemplate_path") . "/mainpage.xsl";
 
 	#warn "building with:\n\n\n\n\n\n\n\n$xmlstring\n\n\n\n\n\n\n";
-	open( OUT, ">/tmp/xmlstring.xml");
-	print OUT $xmlstring;
-	close(OUT);
+	writeFile("/tmp/xmlstring.xml", $xmlstring);
 	
 	my $mainpage = buildStringUsingXSLT( $xmlstring, $xslt );
 
 	#warn "building with:\n\n\n\n\n\n\n\n$mainpage\n\n\n\n\n\n\n";
-	open( OUT, ">/tmp/mainpage.xml");
-	print OUT $mainpage;
-	close(OUT);
+	writeFile("/tmp/mainpage.xml", $mainpage);
 
 	
 
