@@ -1240,16 +1240,26 @@ sub postProcessL2hIndex {
 	}
 
 	#dwarn "postProcessL2hIndex raw html:\n $file_in";
-	if ($file_in =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
+	my $tidy = HTML::Tidy->new({
+		output_xhtml => 1,
+		wrap => 1024,
+		char_encoding => 'utf8',
+		numeric_entities => 1,
+	});
+	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
+	$file = $tidy->clean($file_in);
+	#dwarn "postProcessL2hIndex after tidy:\n $file";
+
+	if ($file =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
 		$file = $1;
 		$file =~ s{<hr\b[^>]*>\s*(?:<address\b[\s\S]*?</address>\s*)?$}{}si;
 	} else {
-		$file = normalizeKnownHTMLEntities($file_in);
+		$file = normalizeKnownHTMLEntities($file);
 		$file =~ s{^.*?</head>\s*}{}si;
 		$file =~ s{^\s*<html\b[^>]*>\s*}{}si;
 		$file =~ s{</html>\s*$}{}si;
 		$file =~ s{<hr\b[^>]*>\s*(?:<address\b[\s\S]*?</address>\s*)?$}{}si;
-		dwarn "postProcessL2hIndex could not find body element; using sanitized full output";
+		dwarn "postProcessL2hIndex could not find body element after tidy; using sanitized tidy output";
 	}
 	#dwarn "postProcessL2hIndex 1st regular expression:\n $file";
 	$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$1\"/igso;
