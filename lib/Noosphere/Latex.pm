@@ -1245,7 +1245,11 @@ sub postProcessL2hIndex {
 		$file =~ s{<hr\b[^>]*>\s*(?:<address\b[\s\S]*?</address>\s*)?$}{}si;
 	} else {
 		$file = normalizeKnownHTMLEntities($file_in);
-		dwarn "postProcessL2hIndex could not find body element";
+		$file =~ s{^.*?</head>\s*}{}si;
+		$file =~ s{^\s*<html\b[^>]*>\s*}{}si;
+		$file =~ s{</html>\s*$}{}si;
+		$file =~ s{<hr\b[^>]*>\s*(?:<address\b[\s\S]*?</address>\s*)?$}{}si;
+		dwarn "postProcessL2hIndex could not find body element; using sanitized full output";
 	}
 	#dwarn "postProcessL2hIndex 1st regular expression:\n $file";
 	$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$1\"/igso;
