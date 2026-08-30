@@ -359,6 +359,33 @@ sub convertL2HVerbatimBlocks {
 	return $latex;
 }
 
+sub hasLiveL2HTikzContent {
+	my $latex = shift || '';
+
+	$latex = remove_literal_latex_blocks($latex);
+	$latex =~ s/^.*?\\begin\{document\}//s;
+	$latex =~ s/\\end\{document\}.*$//s;
+
+	return 1 if ($latex =~ /\\begin\{tikzpicture\}/);
+	return 1 if ($latex =~ /\\begin\{axis\}/);
+	return 1 if ($latex =~ /\\begin\{pgfpicture\}/);
+	return 1 if ($latex =~ /\\tikz\b/);
+
+	return 0;
+}
+
+sub stripL2HTikzPreambleOnly {
+	my $latex = shift;
+
+	return $latex if (hasLiveL2HTikzContent($latex));
+
+	$latex =~ s/^[ \t]*\\usepackage(?:\[[^\]]*\])?\{[^}]*\b(?:tikz|pgfplots)\b[^}]*\}[ \t]*(?:\r?\n)?//mg;
+	$latex =~ s/^[ \t]*\\usetikzlibrary\b[ \t]*(?:\[[^\]]*\])?\{[^}]*\}[ \t]*(?:\r?\n)?//mg;
+	$latex =~ s/^[ \t]*\\pgfplotsset\b[ \t]*\{[^}]*\}[ \t]*(?:\r?\n)?//mg;
+
+	return $latex;
+}
+
 sub prepareCollabForRendering {
 	my $latex = shift;
 	my $method = shift;
@@ -368,6 +395,7 @@ sub prepareCollabForRendering {
 	}
 
 	if ($method eq "l2h") {
+		$latex = stripL2HTikzPreambleOnly($latex);
 		$latex = convertL2HVerbatimBlocks($latex);
 		$latex = convertL2HRenderLinks($latex);
 		$latex = addLatexPackageToDocument($latex, 'html') if ($latex =~ /\\(?:htmladdnormallink|begin\{rawhtml\})/);
