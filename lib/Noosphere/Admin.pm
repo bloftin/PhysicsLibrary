@@ -1043,7 +1043,7 @@ sub getAdminMenu {
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=dbadmin\">DB admin</a><br>";
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=cachecont\">cache control</a><br>";
 	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=blacklist\">blacklist</a><br>";
-	$menu .= "$bullet&nbsp;<a href=https://aux.physicslibrary.org/stats/awstats.physicslibrary.org.html>web stats</a><br>";
+	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=webstats\">web stats</a><br>";
 	$html = adminBox('Admin Menu',$menu);
 	$html = "<tr><td>$html</td></tr>";
 	}
@@ -1313,6 +1313,20 @@ sub adminStats
 		adminDBStats($template);
 
 	return paddingTable(clearBox("Administrative Statistics", $template->expand()));
+}
+
+sub webStats
+{
+	my $params = shift;
+	my $userinf = shift;
+
+	return noAccess() if ($userinf->{data}->{access} < getConfig('access_admin'));
+
+	my $statsurl = 'https://aux.physicslibrary.org/stats/awstats.physicslibrary.org.html';
+	my $html = "<p><a href=\"$statsurl\">Open web stats in a separate page</a></p>";
+	$html .= "<iframe src=\"$statsurl\" width=\"100%\" height=\"900\" style=\"border: 1px solid #cccccc; background: #ffffff;\" title=\"PhysicsLibrary web stats\"></iframe>";
+
+	return paddingTable(clearBox("Web Statistics", $html));
 }
 
 sub adminDBStats

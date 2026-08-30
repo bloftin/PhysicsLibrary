@@ -55,6 +55,7 @@ sub dispatch {
   'adminedit' => \&adminObjectEditor,
   'adminclassify' => \&adminClassify,
   'adminstats' => \&adminStats,
+  'webstats' => \&webStats,
   'confirmreq' => \&confirmReq,
   'denyreq' => \&denyReqForm,
   'deletereq' => \&deleteReqForm,
