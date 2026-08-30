@@ -338,6 +338,27 @@ sub addLatexPackageToDocument {
 	return $include.$latex;
 }
 
+sub escapeRawHTML {
+	my $text = shift;
+
+	$text =~ s/&/&amp;/g;
+	$text =~ s/</&lt;/g;
+	$text =~ s/>/&gt;/g;
+
+	return $text;
+}
+
+sub convertL2HVerbatimBlocks {
+	my $latex = shift;
+
+	$latex =~ s{\\begin\{(verbatim\*?|Verbatim|lstlisting)\}(.*?)\\end\{\1\}}{
+		my $body = escapeRawHTML($2);
+		"\\begin{rawhtml}<pre>$body</pre>\\end{rawhtml}";
+	}egs;
+
+	return $latex;
+}
+
 sub prepareCollabForRendering {
 	my $latex = shift;
 	my $method = shift;
@@ -347,8 +368,9 @@ sub prepareCollabForRendering {
 	}
 
 	if ($method eq "l2h") {
+		$latex = convertL2HVerbatimBlocks($latex);
 		$latex = convertL2HRenderLinks($latex);
-		$latex = addLatexPackageToDocument($latex, 'html') if ($latex =~ /\\htmladdnormallink\s*\{/);
+		$latex = addLatexPackageToDocument($latex, 'html') if ($latex =~ /\\(?:htmladdnormallink|begin\{rawhtml\})/);
 		return $latex;
 	}
 
