@@ -365,16 +365,18 @@ Crawl-delay: 10
 			{flat=>'Flat',threaded=>'Threaded'}],
 		msgorder=>['Default message order','select','desc',
 			{desc=>'Newest first',asc=>'Oldest First'}],
-		cmethod=>['Collaboration rendering style','select','png',
-			{l2h=>'HTML with images',
-			 png=>'page images',
-			 src=>'TeX source'}],
-		method=>['Encyclopedia rendering style','select','l2h',
-			{l2h=>'HTML with images',
-			 make4ht=>'HTML with make4ht',
+		cmethod=>['Collaboration rendering style','select','make4ht',
+			{make4ht=>'HTML',
 			 png=>'page images',
 			 src=>'TeX source',
-			 pdf=>'PDF'}],
+			 pdf=>'PDF',
+			 l2h=>'Legacy HTML with images'}],
+		method=>['Encyclopedia rendering style','select','make4ht',
+			{make4ht=>'HTML',
+			 png=>'page images',
+			 src=>'TeX source',
+			 pdf=>'PDF',
+			 l2h=>'Legacy HTML with images'}],
 		objwatch=>['Automatically watch your objects','check','on'],
 		corwatch=>['Automatically watch corrections to your objects','check','on'],
 		reqfwatch=>['Automatically watch requests you\'ve filled','check','on'],
@@ -479,7 +481,7 @@ Crawl-delay: 10
 	},
                       
 	# flat list of method strings
-	"methods" => ["l2h","make4ht","png","src",'pdf'],
+	"methods" => ["make4ht",'pdf',"png","src","l2h"],
 					  
 	# this hash contains commands and additional LaTeX
 	# packages needed to support each command
@@ -675,6 +677,17 @@ sub getMethods {
  my %config = CONFIG;
  
  return @{ $config{methods} };
+}
+
+sub getDefaultRenderMethod {
+ return 'make4ht';
+}
+
+sub getPreferredRenderMethod {
+ my $method = shift;
+
+ return getDefaultRenderMethod() if (!defined($method) || $method eq '' || $method eq 'l2h');
+ return $method;
 }
 
 sub getHelpText {

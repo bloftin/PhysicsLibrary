@@ -1161,6 +1161,39 @@ sub getSelectBox {
 	return $sel;
 }
 
+# make a HTML select box in caller-specified option order
+#
+sub getSelectBoxOrdered {
+	my $name = shift;
+	my $opthash = shift;
+	my $optorder = shift;
+	my $selected = shift;
+	my $attrs = shift;
+
+	my $sel = '';
+	my %seen = ();
+
+	$attrs = defined $attrs ? ' ' . $attrs : '';
+
+	$sel = "<select name=\"$name\"$attrs>";
+	foreach my $val (@$optorder, sort { humanReadableCmp $a, $b } keys %$opthash) {
+		next if $seen{$val}++;
+		next unless exists $opthash->{$val};
+
+		my $enc = $val;
+		my $show = htmlescape($opthash->{$val});
+
+		if ((defined $selected) && ($selected eq $val)) {
+			$sel .= "<option value=\"$enc\" selected=\"selected\">$show</option>";
+		} else {
+			$sel .= "<option value=\"$enc\">$show</option>";
+		}
+	}
+	$sel.="</select>";
+
+	return $sel;
+}
+
 # make a HTML select box with entries sorted by value
 #
 sub getSelectBoxSortByValue {

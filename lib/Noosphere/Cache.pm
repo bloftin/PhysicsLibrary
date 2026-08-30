@@ -62,7 +62,7 @@ sub getImage {
 sub getRenderedContentHtml {
 	my $table = shift;
 	my $rec = shift;
-	my $method = shift || 'l2h';	 # default default
+	my $method = shift || getDefaultRenderMethod();	 # default default
 
 	my $html = '';
 	

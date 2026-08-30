@@ -25,7 +25,7 @@ my $nsroot = "$FindBin::Bin/..";
 
 # Render a small batch of every supported object cache method. Production cron
 # should keep RENDERALL_MAX_TOTAL low so the heavier PDF/PNG jobs cannot pile up.
-my @methods = split(/\s*,\s*/, $ENV{'RENDERALL_METHODS'} || 'l2h,src,make4ht,pdf,png');
+my @methods = split(/\s*,\s*/, $ENV{'RENDERALL_METHODS'} || 'make4ht,src,pdf,png');
 my $table = Noosphere::getConfig('en_tbl');
 my $rundir = "$nsroot/bin/run";
 my $runfile = "$rundir/renderall.running";
