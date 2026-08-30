@@ -1211,6 +1211,8 @@ sub postProcessL2hIndex {
 	my $max_wait_time = 30; # in seconds
 	my $poll_interval = 1;  # in seconds
 	my $elapsed_time = 0;
+	my $stable_seen = 0;
+	my $last_size = -1;
 
 	while ($elapsed_time < $max_wait_time) {
 		foreach my $candidate (@file_paths) {
@@ -1221,7 +1223,14 @@ sub postProcessL2hIndex {
 			}
 		}
 		if (-e $file_path) {
-			last;
+			my $size = -s $file_path;
+			if ($size > 0 && $size == $last_size) {
+				$stable_seen++;
+				last if ($stable_seen >= 2);
+			} else {
+				$stable_seen = 0;
+				$last_size = $size;
+			}
 		}
 		sleep($poll_interval);
 		$elapsed_time += $poll_interval;
