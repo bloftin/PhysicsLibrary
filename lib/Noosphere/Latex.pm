@@ -1346,18 +1346,35 @@ sub postProcess_make4htIndex {
 	my $make4ht_style = <<'EOF';
 <style type="text/css">
 .pl-make4ht-content {
-	max-width: 78em;
-	margin: 0;
-	padding: 0.35em 0.75em 0.75em 0.75em;
+	max-width: 52em;
+	margin: 0 auto 0 0;
+	padding: 0.75em 1.25em 1em 1.25em;
 	font-family: Georgia, "Times New Roman", serif;
-	font-size: 108%;
-	line-height: 1.45;
+	font-size: 112%;
+	line-height: 1.5;
 	overflow-x: auto;
 	overflow-wrap: break-word;
 }
 .pl-make4ht-content p {
-	margin-top: 0.65em;
-	margin-bottom: 0.65em;
+	margin-top: 0.8em;
+	margin-bottom: 0.8em;
+}
+.pl-make4ht-content h1,
+.pl-make4ht-content h2,
+.pl-make4ht-content h3,
+.pl-make4ht-content .sectionHead,
+.pl-make4ht-content .subsectionHead {
+	margin-top: 1.45em;
+	margin-bottom: 0.7em;
+	line-height: 1.2;
+}
+.pl-make4ht-content ol,
+.pl-make4ht-content ul {
+	margin-top: 0.7em;
+	margin-bottom: 0.9em;
+}
+.pl-make4ht-content li {
+	margin: 0.25em 0;
 }
 .pl-make4ht-content img {
 	max-width: 100%;
@@ -1370,7 +1387,7 @@ sub postProcess_make4htIndex {
 .pl-make4ht-content table.align-star {
 	border-collapse: separate;
 	border-spacing: 0.45em 0.35em;
-	margin: 0.35em 0 0.55em 1em;
+	margin: 0.75em auto 0.9em auto;
 	width: auto;
 }
 .pl-make4ht-content table.align-star td {
@@ -1393,7 +1410,7 @@ sub postProcess_make4htIndex {
 .pl-make4ht-content table.equation-star td.eq-no {
 	min-width: 3.25em;
 	padding-left: 1.75em;
-	text-align: left;
+	text-align: right;
 	white-space: nowrap;
 }
 .pl-make4ht-content table.align-star img {
@@ -1404,14 +1421,19 @@ sub postProcess_make4htIndex {
 .pl-make4ht-content table.equation-star {
 	border-collapse: separate;
 	border-spacing: 1.25em 0.35em;
-	margin: 0.35em 0 0.55em 0;
-	width: auto;
+	margin: 0.75em 0 0.9em 0;
+	width: 100%;
+}
+.pl-make4ht-content table.equation td,
+.pl-make4ht-content table.equation-star td {
+	text-align: center;
+	vertical-align: middle;
 }
 .pl-make4ht-content table.equation td.equation-label,
 .pl-make4ht-content table.equation-star td.equation-label {
 	min-width: 3.25em;
 	padding-left: 1.75em;
-	text-align: left;
+	text-align: right;
 	vertical-align: middle;
 	white-space: nowrap;
 }
@@ -1436,7 +1458,8 @@ sub postProcess_make4htIndex {
 .pl-make4ht-content .equation,
 .pl-make4ht-content .equation-star {
 	display: block;
-	padding: 0.25em 0;
+	padding: 0.35em 0;
+	text-align: center;
 }
 </style>
 EOF
