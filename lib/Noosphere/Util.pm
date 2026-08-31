@@ -1252,7 +1252,11 @@ sub getFormWidget {
 		$input = "<textarea name=\"$key\" rows=\"$sarray->[3]\" cols=\"$sarray->[4]\">$val</textarea>";
 	}
 	elsif ($sarray->[1] eq 'select') {
+		if ($key eq 'method' || $key eq 'cmethod') {
+			$input = getSelectBoxOrdered($key,$sarray->[3],[getMethods()],$val);
+		} else {
 			$input = getSelectBox($key,$sarray->[3],$val);
+		}
 	}
 	return ($input,$sarray->[0]);	# return widget and description
 	} else {
