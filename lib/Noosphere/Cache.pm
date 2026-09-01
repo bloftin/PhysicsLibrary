@@ -144,10 +144,21 @@ sub cacheObject {
 		}
 
 		elsif ($table eq getConfig('collab_tbl')) {
+			print "prepareCollabForRendering start\n";
+			my ($output, $links) = prepareCollabForRendering(
+				$rec->{'data'},
+				$method,
+				$rec->{'title'},
+				$table,
+				$rec->{'uid'});
+			print "prepareCollabForRendering end\n";
 			print "renderLaTeX coolab_tbl start\n";
 			my $name = normalize($rec->{'title'});
-			$render_ok = renderLaTeX($table, $rec->{'uid'}, $rec->{'data'}, $method, $name);
+			$render_ok = renderLaTeX($table, $rec->{'uid'}, $output, $method, $name);
 			print "renderLaTeX coolab_tbl end\n";
+			print "writeLinksToFile start\n";
+			writeLinksToFile($table, $id, $method, $links);
+			print "writeLinksToFile end\n";
 		}
 		print "setbuildflag_off start\n";
 		setbuildflag_off($table, $id, $method);
@@ -319,6 +330,56 @@ sub addPDFLinkSupport {
 	}
 
 	return $preamble;
+}
+
+sub addPDFLinkSupportToDocument {
+	my $latex = shift;
+
+	return $latex if (!defined($latex));
+
+	if ($latex !~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/) {
+		my $package = "\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
+		if ($latex =~ /\\begin\{document\}/) {
+			$latex =~ s/(\\begin\{document\})/$package$1/s;
+		} else {
+			$latex = $package . $latex;
+		}
+	}
+
+	return $latex;
+}
+
+sub prepareCollabForRendering {
+	my $latex = shift;
+	my $method = shift;
+	my $title = shift;
+	my $table = shift;
+	my $id = shift;
+
+	return ($latex, '') if ($method eq 'src');
+
+	my ($linked, $links) = crossReferenceLaTeX(
+		0,
+		$latex,
+		$title,
+		$method,
+		[],
+		-1,
+		'');
+	$linked = dolinktofile($linked, $table, $id);
+
+	if ($method eq 'png') {
+		$latex = stripNativeRenderLinks($linked);
+	} elsif ($method eq 'l2h') {
+		$latex = convertL2HRenderLinks($linked);
+	} elsif ($method eq 'pdf' || $method eq 'make4ht') {
+		$latex = convertHyperrefRenderLinks($linked);
+		$latex = addPDFLinkSupportToDocument($latex) if ($latex =~ /\\href\s*\{/);
+	} else {
+		$latex = $linked;
+	}
+
+	return ($latex, $links);
 }
 
 # prepares an entry for rendering :
