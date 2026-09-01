@@ -110,6 +110,8 @@ sub cacheObject {
 				($valid,$build) = getcacheflags($table,$id,$method);
 			$count++;
 		} while ($valid == 0 && $build == 1);
+
+		return $valid ? 1 : 0;
 	}
 	# not valid, and not building, so build it
 	#
@@ -118,6 +120,7 @@ sub cacheObject {
 		setbuildflag_on($table, $id, $method);
 		cleanCache($table, $id, $method);
 		cacheFileBox($table, $id, $method);
+		my $render_ok = 0;
 
 		if ($table eq getConfig('en_tbl')) {
 			print "prepareEntryForRendering start\n";
@@ -133,7 +136,7 @@ sub cacheObject {
 				classstring($table,$rec->{'uid'}));
 			print "prepareEntryForRendering end\n";
 			print "renderLaTeX start\n";
-			renderLaTeX($table, $rec->{'uid'}, $output, $method, $rec->{'name'});
+			$render_ok = renderLaTeX($table, $rec->{'uid'}, $output, $method, $rec->{'name'});
 			print "renderLaTeX end\n";
 			print "writeLinksToFile start\n";
 			writeLinksToFile($table, $id, $method, $links);
@@ -143,15 +146,23 @@ sub cacheObject {
 		elsif ($table eq getConfig('collab_tbl')) {
 			print "renderLaTeX coolab_tbl start\n";
 			my $name = normalize($rec->{'title'});
-			renderLaTeX($table, $rec->{'uid'}, $rec->{'data'}, $method, $name);
+			$render_ok = renderLaTeX($table, $rec->{'uid'}, $rec->{'data'}, $method, $name);
 			print "renderLaTeX coolab_tbl end\n";
 		}
 		print "setbuildflag_off start\n";
 		setbuildflag_off($table, $id, $method);
 		print "setbuildflag_off end\n";
-		print "setbuildflag_on start\n";
-		setvalidflag_on($table, $id, $method);
-		print "setbuildflag_on end\n";
+		if ($render_ok) {
+			print "setvalidflag_on start\n";
+			setvalidflag_on($table, $id, $method);
+			print "setvalidflag_on end\n";
+		} else {
+			dwarn("render failed for $table/$id/$method; leaving cache invalid");
+			print "setvalidflag_off start\n";
+			setvalidflag_off($table, $id, $method);
+			print "setvalidflag_off end\n";
+			return 0;
+		}
 	}
 
 	return 1;

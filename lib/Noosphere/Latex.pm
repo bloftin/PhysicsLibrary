@@ -353,12 +353,12 @@ sub renderLaTeX {
 		if (!flock($render_lock_fh, LOCK_EX | LOCK_NB)) {
 			#dwarn "renderLaTeX already running for $table/$id/$method";
 			write_render_message('Rendering is already in progress.  Please reload shortly.');
-			return;
+			return 0;
 		}
 	} else {
 		dwarn "renderLaTeX could not open lock file $dir/render.lock: $!";
 		write_render_message('Rendering could not start because the render lock could not be created.');
-		return;
+		return 0;
 	}
 	# get web URL for rendered images
 	#
@@ -381,13 +381,13 @@ sub renderLaTeX {
 			write_out_latex($fname, $latex);
 			#dwarn "write_out_latex before";
 			# main meat of rendering
-			render_png($fname, $latex, $url, $dir);
+			return render_png($fname, $latex, $url, $dir);
 		}
 
 		else {
 			write_error_output($fname, $table, $id, $method);
+			return 0;
 		}
-		#dwarn "renderLaTeX png ended\n";
 	}
 	
 	# latex2html output (best-looking for the [download] speed)
@@ -398,7 +398,7 @@ sub renderLaTeX {
 			#dwarn "renderLaTeX l2h detected TikZ source";
 			write_tikz_l2h_message($table, $id);
 			#dwarn "renderLaTeX l2h ended\n";
-			return;
+			return 0;
 		}
 
 		my $retval = latex_error_check($fname, $latex, $dir);
@@ -408,7 +408,7 @@ sub renderLaTeX {
 			write_out_latex($fname, $latex);
 			#dwarn "write_out_latex ended\n";
 			# l2h rendering core
-			render_l2h($fname, $latex, $url, $dir);
+			return render_l2h($fname, $latex, $url, $dir);
 			#dwarn "render_l2h ended\n";
 		} 
 		
@@ -416,8 +416,8 @@ sub renderLaTeX {
 			dwarn "error with latex_error_check\n";
 			dwarn "retval: $retval";
 			write_error_output($fname, $table, $id, $method);
+			return 0;
 		}
-		#dwarn "renderLaTeX l2h ended\n";
 	}
 
 	# source output ... just make HTML presentable and print to output file
@@ -437,9 +437,13 @@ sub renderLaTeX {
 		my $cleaned =  join("\n<br/>", @lines);
 		#write to file
 		my $outfilename = getConfig('rendering_output_file');
-		open( OUT, ">$outfilename" );
+		open( OUT, ">$outfilename" ) or do {
+			dwarn("renderLaTeX src could not open $outfilename: $!");
+			return 0;
+		};
 		print OUT $cleaned;
 		close(OUT);
+		return 1;
 
 		#$ENV{TERM} = "xterm";
 		## commented out as it was popping up during renderall for things like no newline at EOF
@@ -458,13 +462,13 @@ sub renderLaTeX {
 			write_out_latex($fname, $latex);
 			#dwarn "write_out_latex before";
 			# main meat of rendering
-			render_pdf($fname, $latex, $url, $dir);
+			return render_pdf($fname, $latex, $url, $dir);
 		}
 
 		else {
 			write_error_output($fname, $table, $id, $method);
+			return 0;
 		}
-		#dwarn "renderLaTeX png ended\n";
 
 	}
 	# experimental to see if we use make4ht instead of latex2html
@@ -478,7 +482,7 @@ sub renderLaTeX {
 			write_out_latex($fname, $latex);
 			#dwarn "write_out_latex ended\n";
 			# l2h rendering core
-			render_make4ht($fname, $latex, $url, $dir);
+			return render_make4ht($fname, $latex, $url, $dir);
 			#dwarn "render_make4ht ended\n";
 		} 
 		
@@ -486,8 +490,8 @@ sub renderLaTeX {
 			dwarn "error with latex_error_check\n";
 			dwarn "retval: $retval";
 			write_error_output($fname, $table, $id, $method);
+			return 0;
 		}
-		#dwarn "renderLaTeX l2h ended\n";
 
 	}
 	#dwarn "renderLaTeX end";
@@ -495,6 +499,7 @@ sub renderLaTeX {
 	#chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
 	#local $CWD = "$cwd"; # we should not have to do this, the local $CWD should go back once scope leaves but need to test first
 	#local $CWD = "$path"; 
+	return 0;
 }
 
 # do a non-fonts render just to check syntax of LaTeX
@@ -589,6 +594,11 @@ sub render_l2h {
 	my ($retval, $output, $error) = runExternalCommand($run,\@run_args);
 	#dwarn "latex2html output: $output";
 	#dwarn "latex2html error: $error";
+	if ($retval != 0) {
+		dwarn("latex2html failed for $fname with status $retval\nSTDOUT:\n$output\nSTDERR:\n$error");
+		write_render_message("Rendering failed.  latex2html exited with status $retval.");
+		return 0;
+	}
 
 	# run latex2html again after deleting some image files if these images 
 	# need to be antialiased
@@ -616,7 +626,7 @@ sub render_l2h {
  
 	# post process l2h's HTML output
 	#
-	postProcessL2hIndex($url,$dir);
+	return postProcessL2hIndex($url,$dir);
 }
 
 # latex2html rendering core
@@ -654,9 +664,14 @@ sub render_make4ht {
 	my ($retval, $output, $error) = runExternalCommand('/usr/bin/make4ht', ['-d', $dir, "$dir/$fname.tex"], 60);
 	#dwarn "make4ht output: $output";
 	#dwarn "make4ht error: $error";
+	if ($retval != 0) {
+		dwarn("make4ht failed for $fname with status $retval\nSTDOUT:\n$output\nSTDERR:\n$error");
+		write_render_message("Rendering failed.  make4ht exited with status $retval.");
+		return 0;
+	}
 
 	# post process HTML output
-	postProcess_make4htIndex($url,$dir,"$fname.html");
+	return postProcess_make4htIndex($url,$dir,"$fname.html");
 }
 
 
@@ -750,7 +765,7 @@ sub render_png {
 	my $pdfname = render_pdf_file($fname, $latex, $dir);
 	if (!defined $pdfname) {
 		write_render_message('Rendering failed.  pdflatex did not create a PDF for page image output.');
-		return;
+		return 0;
 	}
 
 	my $gsprog = '/usr/bin/gs';
@@ -775,9 +790,9 @@ sub render_png {
 	my ($retval, $output, $error) = runExternalCommand($gsprog, \@run_args, 60);
 	#dwarn "gs output: $output";
 	#dwarn "gs error: $error";
-	#if ($retval) {
-	#	dwarn "gs retval: $retval";
-	#}
+	if ($retval != 0) {
+		dwarn("Ghostscript failed for $fname with status $retval\nSTDOUT:\n$output\nSTDERR:\n$error");
+	}
 
 	# make the output file
 	#
@@ -810,6 +825,8 @@ sub render_png {
 	pathrm("$fname.pdf");
 
 	close HTMLFILE;
+
+	return @pngs ? 1 : 0;
 }
 
 sub render_pdf_file {
@@ -954,11 +971,14 @@ sub render_pdf {
 	my $pdfname = render_pdf_file($fname, $latex, $dir);
 	if (!defined $pdfname) {
 		write_render_message('Rendering failed.  pdflatex did not create a PDF.');
-		return;
+		return 0;
 	}
 
 	#dwarn "Writing to HTMLFILE: ".getConfig('rendering_output_file');
-	open HTMLFILE,">".getConfig('rendering_output_file');
+	open HTMLFILE,">".getConfig('rendering_output_file') or do {
+		dwarn("render_pdf could not open ".getConfig('rendering_output_file').": $!");
+		return 0;
+	};
 
 	print HTMLFILE "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 
@@ -973,7 +993,7 @@ sub render_pdf {
 
 	close HTMLFILE;
 
-
+	return 1;
 }
 
 # write latex out to a file for rendering
@@ -1205,6 +1225,7 @@ sub postProcessL2hIndex {
 
 	if ($elapsed_time >= $max_wait_time) {
 		dwarn "File did not appear within the wait time, $max_wait_time.";
+		return 0;
 	}
 
 	if (open(my $filein, '<:raw', $file_path)) {
@@ -1213,6 +1234,7 @@ sub postProcessL2hIndex {
 		$file_in = decodeRenderedHTML($file_in);
 	} else {
 		dwarn "postProcessL2hIndex could not open $file_path";
+		return 0;
 	}
 
 	#dwarn "postProcessL2hIndex raw html:\n $file_in";
@@ -1248,9 +1270,13 @@ sub postProcessL2hIndex {
 	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
-	open OUTFILE,">", "$dir/".getConfig('rendering_output_file');
+	open OUTFILE,">", "$dir/".getConfig('rendering_output_file') or do {
+		dwarn("postProcessL2hIndex could not write $dir/".getConfig('rendering_output_file').": $!");
+		return 0;
+	};
 	print OUTFILE "$file";
 	close OUTFILE;
+	return 1;
 	
 
 	# something went wrong, replace rendering output file with the contents of 
@@ -1313,6 +1339,7 @@ sub postProcess_make4htIndex {
 
 	if ($elapsed_time >= $max_wait_time) {
 		dwarn "File did not appear within the wait time, $max_wait_time.";
+		return 0;
 	}
 
 	if (open(my $filein, '<:raw', $file_path)) {
@@ -1321,6 +1348,7 @@ sub postProcess_make4htIndex {
 		$file_in = decodeRenderedHTML($file_in);
 	} else {
 		dwarn "postProcess_make4htIndex could not open $file_path";
+		return 0;
 	}
 
 	# make4ht already emits UTF-8 HTML, so avoid HTML::Tidy here; it can
@@ -1468,9 +1496,13 @@ EOF
 	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
-	open OUTFILE,">", "$dir/".getConfig('rendering_output_file');
+	open OUTFILE,">", "$dir/".getConfig('rendering_output_file') or do {
+		dwarn("postProcess_make4htIndex could not write $dir/".getConfig('rendering_output_file').": $!");
+		return 0;
+	};
 	print OUTFILE $file;
 	close OUTFILE;
+	return 1;
 	
 
 	# something went wrong, replace rendering output file with the contents of 
