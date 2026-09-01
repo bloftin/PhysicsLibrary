@@ -143,7 +143,8 @@ sub cacheObject {
 		elsif ($table eq getConfig('collab_tbl')) {
 			print "renderLaTeX coolab_tbl start\n";
 			my $name = normalize($rec->{'title'});
-			renderLaTeX($table, $rec->{'uid'}, $rec->{'data'}, $method, $name);
+			my $output = prepareCollabForRendering($rec->{'data'}, $method);
+			renderLaTeX($table, $rec->{'uid'}, $output, $method, $name);
 			print "renderLaTeX coolab_tbl end\n";
 		}
 		print "setbuildflag_off start\n";
@@ -308,6 +309,106 @@ sub addPDFLinkSupport {
 	}
 
 	return $preamble;
+}
+
+sub addHyperrefToLaTeXDocument {
+	my $latex = shift;
+
+	return $latex if ($latex =~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/);
+
+	my $package = "\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
+	if ($latex =~ s/(\\begin\{document\})/$package$1/) {
+		return $latex;
+	}
+
+	return $package.$latex;
+}
+
+sub addLatexPackageToDocument {
+	my $latex = shift;
+	my $package = shift;
+
+	return $latex if ($latex =~ /\\usepackage(?:\[[^\]]*\])?\{$package\}/);
+
+	my $include = "\\usepackage{$package}\n";
+	if ($latex =~ s/(\\begin\{document\})/$include$1/) {
+		return $latex;
+	}
+
+	return $include.$latex;
+}
+
+sub escapeRawHTML {
+	my $text = shift;
+
+	$text =~ s/&/&amp;/g;
+	$text =~ s/</&lt;/g;
+	$text =~ s/>/&gt;/g;
+
+	return $text;
+}
+
+sub convertL2HVerbatimBlocks {
+	my $latex = shift;
+
+	$latex =~ s{\\begin\{(verbatim\*?|Verbatim|lstlisting)\}(.*?)\\end\{\1\}}{
+		my $body = escapeRawHTML($2);
+		"\\begin{rawhtml}<pre>$body</pre>\\end{rawhtml}";
+	}egs;
+
+	return $latex;
+}
+
+sub hasLiveL2HTikzContent {
+	my $latex = shift || '';
+
+	$latex = remove_literal_latex_blocks($latex);
+	$latex =~ s/^.*?\\begin\{document\}//s;
+	$latex =~ s/\\end\{document\}.*$//s;
+
+	return 1 if ($latex =~ /\\begin\{tikzpicture\}/);
+	return 1 if ($latex =~ /\\begin\{axis\}/);
+	return 1 if ($latex =~ /\\begin\{pgfpicture\}/);
+	return 1 if ($latex =~ /\\tikz\b/);
+
+	return 0;
+}
+
+sub stripL2HTikzPreambleOnly {
+	my $latex = shift;
+
+	return $latex if (hasLiveL2HTikzContent($latex));
+
+	$latex =~ s/^[ \t]*\\usepackage(?:\[[^\]]*\])?\{[^}]*\b(?:tikz|pgfplots)\b[^}]*\}[ \t]*(?:\r?\n)?//mg;
+	$latex =~ s/^[ \t]*\\usetikzlibrary\b[ \t]*(?:\[[^\]]*\])?\{[^}]*\}[ \t]*(?:\r?\n)?//mg;
+	$latex =~ s/^[ \t]*\\pgfplotsset\b[ \t]*\{[^}]*\}[ \t]*(?:\r?\n)?//mg;
+
+	return $latex;
+}
+
+sub prepareCollabForRendering {
+	my $latex = shift;
+	my $method = shift;
+
+	if ($method eq "png") {
+		return stripNativeRenderLinks($latex);
+	}
+
+	if ($method eq "l2h") {
+		$latex = stripL2HTikzPreambleOnly($latex);
+		$latex = convertL2HVerbatimBlocks($latex);
+		$latex = convertL2HRenderLinks($latex);
+		$latex = addLatexPackageToDocument($latex, 'html') if ($latex =~ /\\(?:htmladdnormallink|begin\{rawhtml\})/);
+		return $latex;
+	}
+
+	if ($method eq "pdf" || $method eq "make4ht") {
+		$latex = convertHyperrefRenderLinks($latex);
+		$latex = addHyperrefToLaTeXDocument($latex) if ($latex =~ /\\href\s*\{/);
+		return $latex;
+	}
+
+	return $latex;
 }
 
 # prepares an entry for rendering :

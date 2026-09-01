@@ -614,9 +614,10 @@ sub render_l2h {
 	##	}
 	##}
  
-	# post process l2h's HTML output
+	# post process l2h's HTML output.  Some inputs produce index.html, while
+	# full-document renders can produce a document-named HTML file.
 	#
-	postProcessL2hIndex($url,$dir);
+	postProcessL2hIndex($url,$dir,"$fname.html");
 }
 
 # latex2html rendering core
@@ -911,6 +912,8 @@ sub write_render_html_message {
 sub uses_tikz {
 	my $latex = shift || '';
 
+	$latex = remove_literal_latex_blocks($latex);
+
 	return 1 if ($latex =~ /\\usepackage(?:\[[^\]]*\])?\{[^}]*\b(?:tikz|pgfplots)\b[^}]*\}/);
 	return 1 if ($latex =~ /\\usetikzlibrary\b/);
 	return 1 if ($latex =~ /\\pgfplotsset\b/);
@@ -920,6 +923,16 @@ sub uses_tikz {
 	return 1 if ($latex =~ /\\tikz\b/);
 
 	return 0;
+}
+
+sub remove_literal_latex_blocks {
+	my $latex = shift || '';
+
+	foreach my $environment ('verbatim', 'Verbatim', 'lstlisting', 'rawhtml', 'htmlonly') {
+		$latex =~ s/\\begin\{$environment\}.*?\\end\{$environment\}//sg;
+	}
+
+	return $latex;
 }
 
 sub write_tikz_l2h_message {
@@ -1175,6 +1188,7 @@ sub getAAImages {
 sub postProcessL2hIndex {
 	my $url = shift;
 	my $dir = shift;
+	my $output_filename = shift || 'index.html';
 
 	my $path = getConfig('cache_root');
 
@@ -1184,6 +1198,10 @@ sub postProcessL2hIndex {
 	my $file = '';
 	my $file_in = '';
 	my $file_path = "$dir/index.html";
+	my @file_paths = ($file_path);
+	if ($output_filename ne 'index.html') {
+		push @file_paths, "$dir/$output_filename";
+	}
 	# read output of l2h, running it through tidy to get XHTML
 	# tidycmd causing apahce crash - need sub process?
 	## BEN TODO $file = readFile(getConfig('tidycmd')." -wrap 1024 -asxml index.html 2>/dev/null |");
@@ -1193,18 +1211,33 @@ sub postProcessL2hIndex {
 	my $max_wait_time = 30; # in seconds
 	my $poll_interval = 1;  # in seconds
 	my $elapsed_time = 0;
+	my $stable_seen = 0;
+	my $last_size = -1;
 
 	while ($elapsed_time < $max_wait_time) {
+		foreach my $candidate (@file_paths) {
+			if (-e $candidate) {
+				$file_path = $candidate;
+				#dwarn "File found: $file_path in $elapsed_time seconds";
+				last;
+			}
+		}
 		if (-e $file_path) {
-			#dwarn "File found: $file_path in $elapsed_time seconds";
-			last;
+			my $size = -s $file_path;
+			if ($size > 0 && $size == $last_size) {
+				$stable_seen++;
+				last if ($stable_seen >= 2);
+			} else {
+				$stable_seen = 0;
+				$last_size = $size;
+			}
 		}
 		sleep($poll_interval);
 		$elapsed_time += $poll_interval;
 	}
 
 	if ($elapsed_time >= $max_wait_time) {
-		dwarn "File did not appear within the wait time, $max_wait_time.";
+		dwarn "l2h output file did not appear within the wait time, $max_wait_time. Tried: ".join(', ', @file_paths);
 	}
 
 	if (open(my $filein, '<:raw', $file_path)) {
@@ -1226,13 +1259,16 @@ sub postProcessL2hIndex {
 	$file = $tidy->clean($file_in);
 	#dwarn "postProcessL2hIndex after tidy:\n $file";
 
-	if ($file =~ /<body.*?>(.*?)<hr\s*?\/>\s*?<\/body>/sio) {
+	if ($file =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
 		$file = $1;
-	} elsif ($file =~ m{<body\b[^>]*>([\s\S]*?)</body>}si) {
-		$file = $1;
+		$file =~ s{<hr\b[^>]*>\s*(?:<address\b[\s\S]*?</address>\s*)?$}{}si;
 	} else {
-		$file = normalizeKnownHTMLEntities($file_in);
-		dwarn "postProcessL2hIndex could not find body element";
+		$file = normalizeKnownHTMLEntities($file);
+		$file =~ s{^.*?</head>\s*}{}si;
+		$file =~ s{^\s*<html\b[^>]*>\s*}{}si;
+		$file =~ s{</html>\s*$}{}si;
+		$file =~ s{<hr\b[^>]*>\s*(?:<address\b[\s\S]*?</address>\s*)?$}{}si;
+		dwarn "postProcessL2hIndex could not find body element after tidy; using sanitized tidy output";
 	}
 	#dwarn "postProcessL2hIndex 1st regular expression:\n $file";
 	$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$1\"/igso;

@@ -791,7 +791,8 @@ sub renderCollabPreview {
 	}
 	
 	my $table = getConfig('collab_tbl');
-	renderLaTeX('.', $dir, $params->{'data'}, $method, $name);
+	my $output = prepareCollabForRendering($params->{'data'}, $method);
+	renderLaTeX('.', $dir, $output, $method, $name);
 	
 	# if we succeeded, get preview output preview
 	#
