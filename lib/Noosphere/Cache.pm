@@ -311,12 +311,32 @@ sub convertHyperrefRenderLinks {
 sub addHyperrefPackage {
 	my $preamble = shift;
 
-	if (!defined($preamble) || $preamble !~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/) {
+	if (!defined($preamble) || $preamble !~ /\\usepackage(?:\[[^\]]*\])?\{(?:html|hyperref)\}/) {
 		$preamble = '' if (!defined($preamble));
 		$preamble .= "\n\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
 	}
 
 	return $preamble;
+}
+
+sub stripHtmlPackage {
+	my $latex = shift;
+
+	return $latex if (!defined($latex));
+
+	my $strip = sub {
+		$_[0] =~ s/^[^\S\r\n]*\\(?:usepackage|RequirePackage)(?:\[[^\]\r\n]*\])?\{html\}[^\S\r\n]*(?:%[^\r\n]*)?(?:\r?\n|$)//mg;
+	};
+
+	if ($latex =~ /\A(.*?\\begin\{document\})(.*)\z/s) {
+		my ($preamble, $body) = ($1, $2);
+		$strip->($preamble);
+		return $preamble . $body;
+	}
+
+	$strip->($latex);
+
+	return $latex;
 }
 
 sub addPDFLinkSupport {
@@ -337,7 +357,9 @@ sub addPDFLinkSupportToDocument {
 
 	return $latex if (!defined($latex));
 
-	if ($latex !~ /\\usepackage(?:\[[^\]]*\])?\{hyperref\}/) {
+	$latex = stripHtmlPackage($latex);
+
+	if ($latex !~ /\\usepackage(?:\[[^\]]*\])?\{(?:html|hyperref)\}/) {
 		my $package = "\\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}\n";
 		if ($latex =~ /\\begin\{document\}/) {
 			$latex =~ s/(\\begin\{document\})/$package$1/s;
@@ -412,6 +434,7 @@ sub prepareEntryForRendering {
 	#
 	if ($method eq "png") {
 		$latex = stripNativeRenderLinks($linked);
+		$preamble = stripHtmlPackage($preamble);
 		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 	}
 	
@@ -425,6 +448,7 @@ sub prepareEntryForRendering {
 	#
 	if ($method eq "pdf") {
 		$latex = convertHyperrefRenderLinks($linked);
+		$preamble = stripHtmlPackage($preamble);
 		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 	}
 
@@ -433,13 +457,15 @@ sub prepareEntryForRendering {
 	#
 	if ($method eq "make4ht") {
 		$latex = convertHyperrefRenderLinks($linked);
+		$preamble = stripHtmlPackage($preamble);
 		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 	}
 
-	# calculate supplementary packages to add (this now only includes
-	# the html package, for linking)
+	# calculate supplementary packages to add. This currently only includes
+	# the legacy latex2html html package, so keep it out of native renderers.
 	#
-	my $packages = supplementaryPackages($latex,getConfig('latex_packages'),getConfig('latex_params'));
+	my $packages = '';
+	$packages = supplementaryPackages($latex,getConfig('latex_packages'),getConfig('latex_params')) if ($method eq "l2h");
 	
 	# combine with template
 	#
@@ -452,6 +478,7 @@ sub prepareEntryForRendering {
 		return ($latex,$links);
 	} else {
 		my $returnTemplate = $template->expand();
+		$returnTemplate = stripHtmlPackage($returnTemplate) if ($method eq "pdf" || $method eq "png" || $method eq "make4ht");
 		#dwarn "links:\n $links";
 		#dwarn "prepareEntryForRendering template:\n$returnTemplate";
 		return ($returnTemplate,$links);
