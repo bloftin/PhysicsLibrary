@@ -680,6 +680,12 @@ sub render_make4ht {
 sub png_preprocess {
 	my $latex = shift;
 
+	# Nested automatic links can survive anchor flattening. Page images only
+	# need their text; provide fallbacks after any author package definitions.
+	my $links = "\\providecommand{\\htmladdnormallink}[2]{#1}\n"
+		. "\\providecommand{\\htmladdnormallinkfoot}[2]{#1}\n";
+	$latex =~ s/^([ \t]*\\begin\{document\})/$links$1/m;
+
 	# make colours work right in png view
 	#
 	# APK - 2003-06-24: this is going to need fixing.
