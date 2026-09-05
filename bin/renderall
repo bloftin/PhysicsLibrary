@@ -44,6 +44,8 @@ my $max_total = $ENV{'RENDERALL_MAX_TOTAL'} || 2;
 my $max_per_method = $ENV{'RENDERALL_MAX_PER_METHOD'} || 1;
 my $max_skips_per_method = $ENV{'RENDERALL_MAX_SKIPS_PER_METHOD'} || 25;
 my $stale_lock_seconds = $ENV{'RENDERALL_STALE_LOCK_SECONDS'} || 3600;
+my $failure_cooldown_seconds = $ENV{'RENDERALL_FAILURE_COOLDOWN_SECONDS'} || 3600;
+$failure_cooldown_seconds = 0 if ($failure_cooldown_seconds !~ /^\d+$/);
 
 $|=1;
 
@@ -91,6 +93,7 @@ print "checking for invalid objects and rendering\n";
 my $rendered_total = 0;
 foreach my $method (@methods) {
 	my $rendered = 0;
+	my $failed = 0;
 	my $skipped = 0;
 	my %skip_objectid;
 	while ($rendered < $max_per_method && $rendered_total < $max_total && $skipped < $max_skips_per_method && (my $row = getNextRow($table, $method, \%skip_objectid))) {
@@ -131,12 +134,17 @@ foreach my $method (@methods) {
 		open STDOUT, ">>$logdir/stdout-renderall";
 		print "\ncacheObject: table:\n $table";	
 		print "rec: $rec->{title} ($rec->{uid})\n";
-		Noosphere::cacheObject($table, $rec, $method);
+		my $render_ok = Noosphere::cacheObject($table, $rec, $method);
 		open(STDOUT, ">&OLDOUT");
+		if (!$render_ok) {
+			$skip_objectid{$row->{'objectid'}} = 1;
+			$failed++;
+		}
 
 		print "\n";
 	}
 	print "rendered $rendered $method objects";
+	print ", failed $failed" if ($failed);
 	print ", skipped $skipped locked objects" if ($skipped);
 	print "\n";
 
@@ -160,6 +168,11 @@ sub getNextRow {
 	$int = "interval 10 MINUTE" if Noosphere::getConfig('dbms') eq 'mysql';
 	$int = "interval 10 MINUTE" if Noosphere::getConfig('dbms') eq 'MariaDB';
 
+	my $failure_int;
+	$failure_int = "interval '$failure_cooldown_seconds seconds'" if Noosphere::getConfig('dbms') eq 'pg';
+	$failure_int = "interval $failure_cooldown_seconds SECOND" if Noosphere::getConfig('dbms') eq 'mysql';
+	$failure_int = "interval $failure_cooldown_seconds SECOND" if Noosphere::getConfig('dbms') eq 'MariaDB';
+
 	my $skip = '';
 	if (%$skip_objectid) {
 		my @ids = grep { /^\d+$/ } keys %$skip_objectid;
@@ -169,7 +182,7 @@ sub getNextRow {
 	my ($rv,$sth) = Noosphere::dbSelect($dbh,{
 		 WHAT => "cache.objectid,cache.build,cache.touched,$table.title",
 		 FROM => "cache,$table",
-		 WHERE => "cache.tbl='$table' and cache.valid=0 and (cache.build=0 or cache.touched <= now() - $int) and $table.uid=cache.objectid and cache.method='$method'$skip",
+		 WHERE => "cache.tbl='$table' and cache.valid=0 and ((cache.build=0 and cache.touched <= now() - $failure_int) or (cache.build=1 and cache.touched <= now() - $int)) and $table.uid=cache.objectid and cache.method='$method'$skip",
 		 LIMIT => 1});
 
 	return undef if ($sth->rows()<1);
