@@ -371,6 +371,16 @@ sub addPDFLinkSupportToDocument {
 	return $latex;
 }
 
+sub stripCommentEnvironments {
+	my $latex = shift;
+
+	return $latex if (!defined($latex));
+
+	$latex =~ s/^[^\S\r\n]*\\begin\{comment\}.*?\\end\{comment\}[^\S\r\n]*(?:\r?\n|$)//msg;
+
+	return $latex;
+}
+
 sub prepareCollabForRendering {
 	my $latex = shift;
 	my $method = shift;
@@ -400,6 +410,8 @@ sub prepareCollabForRendering {
 	} else {
 		$latex = $linked;
 	}
+
+	$latex = stripCommentEnvironments($latex);
 
 	return ($latex, $links);
 }
@@ -466,6 +478,7 @@ sub prepareEntryForRendering {
 	#
 	my $packages = '';
 	$packages = supplementaryPackages($latex,getConfig('latex_packages'),getConfig('latex_params')) if ($method eq "l2h");
+	$latex = stripCommentEnvironments($latex) if ($method ne "src");
 	
 	# combine with template
 	#
