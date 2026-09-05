@@ -12,6 +12,7 @@ use DBI;
 use Fcntl qw(:flock);
 use File::Path qw(make_path);
 use FindBin;
+use Getopt::Long qw(GetOptions);
 use lib "$FindBin::Bin/../lib";
 
 use Noosphere qw($dbh $DEBUG);
@@ -23,10 +24,18 @@ use Noosphere::Util;
 
 my $nsroot = "$FindBin::Bin/..";
 
+my $opt_table = '';
+GetOptions('table=s' => \$opt_table) or die "usage: $0 [--table TABLE]\n";
+
 # Render a small batch of every supported object cache method. Production cron
 # should keep RENDERALL_MAX_TOTAL low so the heavier PDF/PNG jobs cannot pile up.
 my @methods = split(/\s*,\s*/, $ENV{'RENDERALL_METHODS'} || 'make4ht,src,pdf,png');
-my $table = Noosphere::getConfig('en_tbl');
+my $table = $opt_table || $ENV{'RENDERALL_TABLE'} || Noosphere::getConfig('en_tbl');
+my %supported_tables = map { $_ => 1 } (
+	Noosphere::getConfig('en_tbl'),
+	Noosphere::getConfig('collab_tbl'),
+);
+die "unsupported render table '$table'\n" unless $supported_tables{$table};
 my $rundir = "$nsroot/bin/run";
 my $runfile = "$rundir/renderall.running";
 my $logdir = "$nsroot/log";
@@ -65,11 +74,11 @@ open STDERR, ">", "$logdir/error-renderall";
 #
 $dbh = Noosphere::dbConnect;
 
-print "removing dead objects\n";
+print "removing dead $table cache rows\n";
 
-# remove dead objects
+# remove dead cache rows
 #
-my ($rv,$sth) = Noosphere::dbLowLevelSelect($dbh,"select distinct cache.objectid from cache left outer join objects on cache.objectid = objects.uid where cache.tbl='$table' and objects.uid is null");
+my ($rv,$sth) = Noosphere::dbLowLevelSelect($dbh,"select distinct cache.objectid from cache left outer join $table on cache.objectid = $table.uid where cache.tbl='$table' and $table.uid is null");
 while (my $row = $sth->fetchrow_hashref()) {
 	print "dangling cacheref ($row->{objectid}), deleting\n";
 	Noosphere::deletecacheflags($table,$row->{objectid});
@@ -84,7 +93,7 @@ foreach my $method (@methods) {
 	my $rendered = 0;
 	my $skipped = 0;
 	my %skip_objectid;
-	while ($rendered < $max_per_method && $rendered_total < $max_total && $skipped < $max_skips_per_method && (my $row = getNextRow($method, \%skip_objectid))) {
+	while ($rendered < $max_per_method && $rendered_total < $max_total && $skipped < $max_skips_per_method && (my $row = getNextRow($table, $method, \%skip_objectid))) {
 		if (!prepareRenderLock($table, $row->{'objectid'}, $method)) {
 			print "skipping $row->{title} ($row->{objectid}) [$method]; render lock is active or unavailable\n";
 			$skip_objectid{$row->{'objectid'}} = 1;
@@ -142,10 +151,9 @@ $remove_runfile = 0;
 ###############################################################################
 
 sub getNextRow {
+	my $table = shift;
 	my $method = shift;
 	my $skip_objectid = shift || {};
-
-	my $table = Noosphere::getConfig('en_tbl');
 	
 	my $int;
 	$int = "interval '10 minutes'" if Noosphere::getConfig('dbms') eq 'pg';
@@ -161,7 +169,7 @@ sub getNextRow {
 	my ($rv,$sth) = Noosphere::dbSelect($dbh,{
 		 WHAT => "cache.objectid,cache.build,cache.touched,$table.title",
 		 FROM => "cache,$table",
-		 WHERE => "cache.valid=0 and (cache.build=0 or cache.touched <= now() - $int) and $table.uid=cache.objectid and method='$method'$skip",
+		 WHERE => "cache.tbl='$table' and cache.valid=0 and (cache.build=0 or cache.touched <= now() - $int) and $table.uid=cache.objectid and cache.method='$method'$skip",
 		 LIMIT => 1});
 
 	return undef if ($sth->rows()<1);
