@@ -1498,7 +1498,8 @@ sub postProcess_make4htIndex {
 </style>
 EOF
 
-	$file = "$make4ht_style<div class=\"pl-make4ht-content\">$file</div>";
+	my $document_style = make4ht_document_style($dir, $filename);
+	$file = "$make4ht_style<div class=\"pl-make4ht-content\">$document_style$file</div>";
 	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location
 	#
@@ -1531,6 +1532,31 @@ EOF
 	# 	$file = "<table border=\"0\" width=\"100%\"><tr><td><font color=\"#ff0000\"><b>$file</b></font></td></tr></table>";
 	# }
 
+}
+
+sub make4ht_document_style {
+	my ($dir, $filename) = @_;
+	my $cssname = $filename;
+	return '' unless $cssname =~ s/\.html?\z/.css/i;
+	my $csspath = "$dir/$cssname";
+	return '' unless -e $csspath;
+	open my $cssfile, '<:raw', $csspath or do {
+		dwarn "make4ht_document_style could not open $csspath: $!";
+		return '';
+	};
+	my $css = do { local $/; <$cssfile> };
+	close $cssfile;
+	return '' unless defined($css) && $css =~ /\S/;
+	$css = decodeRenderedHTML($css);
+
+	# CSS escapes keep cached fragments ASCII without HTML-encoding CSS text.
+	$css =~ s/([^\x00-\x7F])/sprintf('\\%x ', ord($1))/eg;
+	$css =~ s{</}{\\3c /}g;
+	$css =~ s/\]\]>/]]\\3e /g;
+	# An inline scope belongs to this wrapper, including when multiple rendered
+	# documents share a page. CDATA also permits CSS in collaboration XML/XSL.
+	return "<style type=\"text/css\" class=\"pl-make4ht-generated-css\">\n"
+		. "/*<![CDATA[*/\n\@scope {\n$css\n}\n/*]]>*/\n</style>\n";
 }
 
 # Decode rendered HTML from external TeX tools. Prefer UTF-8, but accept legacy
