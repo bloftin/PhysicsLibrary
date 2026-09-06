@@ -482,7 +482,7 @@ sub renderLaTeX {
 			write_out_latex($fname, $latex);
 			#dwarn "write_out_latex ended\n";
 			# l2h rendering core
-			return render_make4ht($fname, $latex, $url, $dir);
+			return render_make4ht($fname, $latex, $url, $dir, $table eq 'temp');
 			#dwarn "render_make4ht ended\n";
 		} 
 		
@@ -636,6 +636,7 @@ sub render_make4ht {
 	my $latex = shift;
 	my $url = shift;
 	my $dir = shift;
+	my $preview = shift;
 
 	#my $cwd = getcwd();
 	local $CWD = "$dir";
@@ -666,12 +667,31 @@ sub render_make4ht {
 	#dwarn "make4ht error: $error";
 	if ($retval != 0) {
 		dwarn("make4ht failed for $fname with status $retval\nSTDOUT:\n$output\nSTDERR:\n$error");
-		write_render_message("Rendering failed.  make4ht exited with status $retval.");
+		my $details = $preview ? make4ht_error_details($output, $error, $dir) : undef;
+		write_render_message("Rendering failed.  make4ht exited with status $retval.", $details);
 		return 0;
 	}
 
 	# post process HTML output
 	return postProcess_make4htIndex($url,$dir,"$fname.html");
+}
+
+sub make4ht_error_details {
+	my ($output, $error, $dir) = @_;
+	my @details;
+	foreach my $stream (['STDOUT', $output], ['STDERR', $error]) {
+		my ($label, $text) = @$stream;
+		next unless defined($text) && $text =~ /\S/;
+		# Remove terminal formatting and characters forbidden in the preview XML.
+		$text =~ s/\e\[[0-?]*[ -\/]*[@-~]//g;
+		$text =~ s/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]//g;
+		$text =~ s{\Q$dir/\E}{}g if defined($dir) && length($dir);
+		if (length($text) > 8192) {
+			$text = substr($text, 0, 8192) . "\n[Output truncated.]\n";
+		}
+		push @details, "$label:\n$text";
+	}
+	return @details ? join("\n", @details) : 'make4ht did not return diagnostic output.';
 }
 
 
@@ -913,10 +933,16 @@ sub latex_error_excerpt {
 
 sub write_render_message {
 	my $message = shift;
+	my $details = shift;
 
 	open HTMLFILE,">".getConfig('rendering_output_file');
 	print HTMLFILE "<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 	print HTMLFILE "<tr><td><font size=\"+1\" color=\"#ff0000\">".htmlescape($message)."</font></td></tr>\n";
+	if (defined($details) && length($details)) {
+		print HTMLFILE "<tr><td><p>Compiler details (line numbers refer to the generated TeX file):</p>";
+		print HTMLFILE '<pre style="white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word;">'
+			. encode_entities($details, '<>&"') . "</pre></td></tr>\n";
+	}
 	print HTMLFILE "</table>\n";
 	close HTMLFILE;
 }
