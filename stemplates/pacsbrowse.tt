@@ -82,7 +82,7 @@
                 [% IF pacs_nodes.size > 0 %]
                   [% FOREACH pacsnode IN pacs_nodes %]
                     <tr valign="top">
-                      <td style="min-width:50px;>
+                      <td style="min-width:50px;">
                         
                         <font face="monospace" size="+1">
                           [% IF pacsnode.child or pacsnode.count > 0 %]
@@ -98,15 +98,13 @@
                       <td>
                         [% pacsnode.comment %] 
                       </td>
-                      [% IF count %]
+                      [% IF pacsnode.count %]
                         <td>-</td>
                         <td align="right">
                           [% pacsnode.count %]
                         </td>
                         <td>
-                          [% IF count > 1%]
-                            s
-                          [% END %]
+                          item[% IF pacsnode.count > 1%]s[% END %]
                         </td>
                       [% END %]
                     </tr>
@@ -141,11 +139,11 @@
                       [% END %]
 
                       [% IF pacs_leaves.size > 0 %]
-                        <a href=/browse/[% pacs_leaves.first %]/domain/>top</a>
+                        <a href=/browse/[% pacs_leaves.0.domain %]/>top</a>
                       [% END %]
 
                       [% IF pacs_nodes.size > 0 %]
-                        <a href=/browse/categories/>top</a>
+                        <a href=/browse/[% pacs_nodes.0.domain %]/>top</a>
                       [% END %]
                         
                     ] 
