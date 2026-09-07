@@ -114,6 +114,36 @@ sub pacsSearch {
 	return paddingTable(clearBox('PACS Search',$html));
 }
 
+sub pacsBrowseLeaves {
+	my ($scheme, $class, $domain, $id) = @_;
+
+	return () unless ($domain eq 'objects' or $domain eq 'papers' or $domain eq 'lec' or $domain eq 'books');
+
+	# PACS leaves can have a + symbol in their id, which Apache request handling converts to a space.
+	$id =~ s/\s/+/g;
+	my $safe_id = sq($id);
+
+	my ($rv, $sth) = dbLowLevelSelect($dbh,
+		"select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid " .
+		"from $scheme, $class, $domain, users where $scheme.id = '$safe_id' and " .
+		"$class.tbl = '$domain' and $class.catid = $scheme.uid and " .
+		"$domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)");
+
+	my @rows = dbGetRows($sth);
+	my @leaves;
+	foreach my $row (@rows) {
+		push(@leaves,{
+			domain 		=> $domain,
+			uid		=> $row->{uid},
+			userid		=> $row->{userid},
+			username	=> $row->{username},
+			title		=> mathTitleXSL($row->{'title'}, 'highlight'),
+		});
+	}
+
+	return @leaves;
+}
+
 sub pacsBrowse {
 	my $params = shift;
 	#dwarn "pacsBrowse start";
@@ -249,6 +279,7 @@ sub pacsBrowse {
 				comment			=> $comment, 		 	
 			});
 		}
+		push(@pacs_leaves, pacsBrowseLeaves($scheme, $class, $domain, $id));
 	}
 	
 	# leaf level
@@ -259,16 +290,7 @@ sub pacsBrowse {
 		#dwarn "domain: $domain";
 		# need to make sure domain is valid else sql will crash things
 		if( $domain eq 'objects' or $domain eq 'papers' or $domain eq 'lec' or $domain eq 'books' ) {
-			# So pacs leaves can have a + symbol in their id which apache request converts to space
-			# so we just need to replace spaces which seems to be only in this case with + and we should be good
 			$id =~ s/\s/+/g;
-			#dwarn "select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid from $scheme, $class, $domain, users where $scheme.id = '$id' and $class.tbl = '$domain' and $class.catid = $scheme.uid and $domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)";
-
-			($rv, $sth) = dbLowLevelSelect($dbh, 
-			"select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid " .
-			"from $scheme, $class, $domain, users where $scheme.id = '$id' and " .	"$class.tbl = '$domain' and $class.catid = $scheme.uid and " .
-			"$domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)");
-			my @rows = dbGetRows($sth);
 			$desc = getHierarchicalMscComment($params->{id});
 
 			my $upid = lookupfield($scheme, 'parent', "id='$id'");
@@ -276,26 +298,7 @@ sub pacsBrowse {
 			##$template->addText("<parent href=\"".getConfig("main_url")."/browse/$domain/$upid/\">");
 			##$template->addText("<id>$params->{id}</id><desc>$desc</desc>");
 			##$template->addText('</parent>');
-			foreach my $row (@rows) {
-				##$template->addText('<mscleaf>');
-				##$template->addText("<domain>$domain</domain>");
-				##$template->addText("<id>$row->{uid}</id>");
-				
-				my $title = mathTitleXSL($row->{'title'}, 'highlight');
-				##$template->addText("<title>$title</title>");
-				
-				##$template->addText("<owner href=\"".getConfig("main_url")."/?op=getuser;id=$row->{userid}\">$row->{username}</owner>");
-				##$template->addText('</mscleaf>');
-				push(@pacs_leaves,{ 
-					domain 			=> $domain,
-					upid			=> $upid,
-					desc			=> $desc,
-					uid				=> $row->{uid}, 
-					userid			=> $row->{userid}, 		
-					username		=> $row->{username},
-					title			=> $title,	
-				});
-			}
+			push(@pacs_leaves, pacsBrowseLeaves($scheme, $class, $domain, $id));
 		}
 	}
 
