@@ -23,10 +23,45 @@ sub pdfText {
 	return encode('UTF-8', UTF8toTeX(encode('UTF-8', $text)));
 }
 
+my %PDF_TITLE_MINOR_WORD = map { $_ => 1 } qw(
+	a an the and but or nor for as at by in of on to via per from with
+	without over under into onto upon
+);
+
+sub pdfTitleCaseText {
+	my $text = shift // '';
+	return $text if $text =~ /\\/;
+
+	my @parts = split /(\s+)/, $text;
+	my @word_indexes = grep { $parts[$_] !~ /^\s*$/ } 0..$#parts;
+	my $last_word = $#word_indexes;
+	for my $position (0..$last_word) {
+		my $index = $word_indexes[$position];
+		my $part = $parts[$index];
+		my ($leading, $word, $trailing) = $part =~ /^([^\p{L}]*)([\p{L}][\p{L}'\x{2019}-]*)([^\p{L}]*)$/u;
+		next unless defined($word);
+
+		my @segments = split /(-)/, $word;
+		for my $segment_index (grep { $segments[$_] ne '-' } 0..$#segments) {
+			my $segment = lc($segments[$segment_index]);
+			my $at_title_edge =
+				($position == 0 && $segment_index == 0) ||
+				($position == $last_word && $segment_index == $#segments);
+			if (!$PDF_TITLE_MINOR_WORD{$segment} || $at_title_edge) {
+				$segment =~ s/^(\p{L})/uc($1)/ue;
+			}
+			$segments[$segment_index] = $segment;
+		}
+		$parts[$index] = $leading . join('', @segments) . $trailing;
+	}
+
+	return join('', @parts);
+}
+
 sub pdfTitle {
 	my $title = shift // '';
-	# Keep the math convention used by titles elsewhere on the site.
-	return join('', map { /^\$/ ? $_ : pdfText(TeXtoUTF8($_)) }
+	# Keep math untouched while applying conventional title case to prose.
+	return join('', map { /^\$/ ? $_ : pdfText(pdfTitleCaseText(TeXtoUTF8($_))) }
 		split(/(\$[^\$]+\$)/, $title));
 }
 

@@ -31,8 +31,8 @@ my $public = Noosphere::pdfDocumentPresentation($original, $meta);
 like($public, qr/\\includegraphics.*physicslibrarylogotransparent\.png/, 'uses the existing PL logo');
 like($public, qr/An open source physics library/, 'includes the tagline');
 like($public, qr/\\parskip=0pt.*An open source physics library/s, 'logo and tagline ignore article paragraph spacing');
-is(scalar(() = $public =~ /First variation/g), 1, 'does not duplicate the existing article title');
-like($public, qr/First variation.*Maintained by Ada Example.*First page body/s,
+is(scalar(() = $public =~ /First Variation/g), 1, 'does not duplicate the existing article title');
+like($public, qr/First Variation.*Maintained by Ada Example.*First page body/s,
     'public profile name appears beneath the title');
 like($public, qr/\\pagestyle\{plpdf\}\\thispagestyle\{plpdf\}/, 'enables first and subsequent page numbers');
 like($public, qr/Second page body.*Source:.*from=objects&id=1142.*Version 3.*Updated 2026-09-07/s,
@@ -66,7 +66,7 @@ my $math_title = 'The $L^{2}$ norm';
 my $nested = $original;
 $nested =~ s/First variation/$math_title/;
 my $math = Noosphere::pdfDocumentPresentation($nested, {%$meta, title => $math_title});
-is(scalar(() = $math =~ /\Q$math_title\E/g), 1, 'nested math braces in a title are preserved without duplication');
+like($math, qr/The \$L\^\{2\}\$ Norm/, 'nested math braces in a title are preserved without duplication');
 my $other_heading = $original;
 $other_heading =~ s/First variation/Introduction/;
 like(Noosphere::pdfDocumentPresentation($other_heading, $meta), qr/\\section\*\{Introduction\}/,
@@ -87,12 +87,24 @@ TEX
 my $collab_pdf = Noosphere::pdfDocumentPresentation($collab, $meta);
 like($collab_pdf, qr/\\author\{Explicit document author\}/, 'collaboration author-supplied title metadata is preserved');
 like($collab_pdf, qr/\\maketitle\s*\{\\small Maintained by Ada Example/, 'public maintainer follows a native title');
-unlike($collab_pdf, qr/First variation/, 'does not add a second title to a maketitle document');
+unlike($collab_pdf, qr/First Variation/, 'does not add a second title to a maketitle document');
 
 like($public, qr/Article authors.*contributor \(user 2\)/s, 'includes the recorded contributor list');
 like($public, qr/copyrighted by its respective authors/, 'includes the site copyright notice');
 like($public, qr{\\href\{https://creativecommons.org/licenses/by-sa/4.0/\}}, 'links CC BY-SA 4.0');
 like($public, qr{License notice: \\url\{https://physicslibrary.org/\?op=license\}}, 'links the PL license notice');
+my $case_title = 'an example of the calculus of variations';
+my $case_document = $original;
+$case_document =~ s/First variation/$case_title/;
+my $case_pdf = Noosphere::pdfDocumentPresentation($case_document, {%$meta, title => $case_title});
+like($case_pdf, qr/An Example of the Calculus of Variations/, 'capitalizes major title words');
+unlike($case_pdf, qr/An Example Of The Calculus Of Variations/, 'keeps minor title words lowercase');
+my $math_case = Noosphere::pdfDocumentPresentation($original,
+    {%$meta, title => 'the $L^{2}$ norm of functions'});
+like($math_case, qr/The \$L\^\{2\}\$ Norm of Functions/, 'preserves math while casing surrounding prose');
+like(Noosphere::pdfDocumentPresentation($original,
+    {%$meta, title => 'state-of-the-art methods'}),
+    qr/State-of-the-Art Methods/, 'capitalizes hyphenated major words');
 my $escaped_authors = Noosphere::pdfDocumentPresentation($original, {%$meta, authors => [
     {userid => 5, username => 'A&B_50%', forename => 'Hidden personal name'},
     {userid => 5, username => 'A&B_50%'}, {userid => 6},
