@@ -7,6 +7,7 @@ require Noosphere::Encyclopedia;
 require Noosphere::Crossref;
 require Noosphere::Layout;
 require Noosphere::Latex;
+require Noosphere::PDF;
 require Noosphere::TemplateNS;
 
 # entry point for getting an image which is a single TeX math object.
@@ -135,6 +136,7 @@ sub cacheObject {
 				$rec->{'uid'},
 				classstring($table,$rec->{'uid'}));
 			print "prepareEntryForRendering end\n";
+			$output = prepareCachedPDF($output, $table, $rec) if ($method eq 'pdf');
 			print "renderLaTeX start\n";
 			$render_ok = renderLaTeX($table, $rec->{'uid'}, $output, $method, $rec->{'name'});
 			print "renderLaTeX end\n";
@@ -152,6 +154,7 @@ sub cacheObject {
 				$table,
 				$rec->{'uid'});
 			print "prepareCollabForRendering end\n";
+			$output = prepareCachedPDF($output, $table, $rec) if ($method eq 'pdf');
 			print "renderLaTeX coolab_tbl start\n";
 			my $name = normalize($rec->{'title'});
 			$render_ok = renderLaTeX($table, $rec->{'uid'}, $output, $method, $name);
@@ -306,6 +309,25 @@ sub convertHyperrefRenderLinks {
 	}
 
 	return $latex;
+}
+
+sub prepareCachedPDF {
+	my ($latex, $table, $rec) = @_;
+	my $owner = {};
+	if (defined($rec->{userid}) && $rec->{userid} =~ /^\d+$/ && $rec->{userid} > 0) {
+		my ($rv, $sth) = dbSelect($dbh, {
+			WHAT => 'username, forename, surname, active',
+			FROM => getConfig('user_tbl'),
+			WHERE => "uid=$rec->{userid}",
+		});
+		$owner = $sth->fetchrow_hashref() || {};
+		$sth->finish();
+	}
+	return pdfDocumentPresentation($latex, {
+		%$rec, owner => $owner,
+		url => getConfig('main_url') . "/?op=getobj&from=$table&id=$rec->{uid}",
+		logo => getConfig('base_dir') . '/data/images/physicslibrarylogotransparent.png',
+	});
 }
 
 sub addHyperrefPackage {
