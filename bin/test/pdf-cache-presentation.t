@@ -9,6 +9,7 @@ require Noosphere::PDF;
 our $dbh;
 my $owner = {active => 1, username => 'maintainer', forename => 'Public', surname => 'Name'};
 my @queries;
+my @author_requests;
 my $rendered;
 my $finished = 0;
 my $document = "\\documentclass{article}\n\\begin{document}\nBody.\n\\end{document}\n";
@@ -37,6 +38,10 @@ sub normalize { return 'Title'; }
 sub prepareEntryForRendering { return ($document, ''); }
 sub prepareCollabForRendering { return ($document, ''); }
 sub renderLaTeX { $rendered = $_[2]; return 1; }
+sub getAuthorList {
+    push @author_requests, [@_];
+    return ({userid => 2, username => 'contributor'});
+}
 
 # Exercise both real cache branches; only the database and converter are stubbed.
 open my $in, '<', "$FindBin::Bin/../../lib/Noosphere/Cache.pm" or die $!;
@@ -52,6 +57,7 @@ my $rec = {uid => 1142, userid => 1, title => 'Article', name => 'Article', vers
 for my $table (qw(objects collab)) {
     for my $method (qw(pdf png make4ht l2h src)) {
         @queries = ();
+        @author_requests = ();
         my $debug = '';
         my $ok;
         {
@@ -65,9 +71,13 @@ for my $table (qw(objects collab)) {
             like($rendered, qr/\Qfrom=$table&id=1142\E/, "$table PDF links to the correct object type");
             is_deeply(\@queries, [{WHAT => 'username, forename, surname, active', FROM => 'users', WHERE => 'uid=1'}],
                 'fetches only attribution fields for the recorded owner');
+            is_deeply(\@author_requests, [[$table, 1142]], 'uses the existing object author history');
+            like($rendered, qr/Article authors.*contributor \(user 2\)/s, 'records contributors separately from the maintainer');
+            like($rendered, qr/License notice:.*physicslibrary\.org\/\?op=license/, 'links the site license notice');
         } else {
             is($rendered, $document, "$table/$method source is unchanged");
             is(scalar(@queries), 0, "$table/$method does not query profile data");
+            is(scalar(@author_requests), 0, "$table/$method does not query contributor history");
         }
     }
 }

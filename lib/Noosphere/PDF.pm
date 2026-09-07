@@ -67,8 +67,8 @@ sub pdfDocumentPresentation {
 	}
 	my $header = "\n% PhysicsLibrary PDF presentation\n"
 		. "\\pagestyle{plpdf}\\thispagestyle{plpdf}\n"
-		. "{\\parindent=0pt\n$brand\n"
-		. "{\\small\\itshape An open source physics library\\par}\n\\medskip\n";
+		. "{\\parindent=0pt\n{\\parskip=0pt\n$brand\n"
+		. "{\\small\\itshape An open source physics library\\par}\n}\n\\medskip\n";
 	# Full collaboration documents may have their own title/author machinery.
 	if ($body =~ /\A(?:\s|%[^\n]*\n)*\\maketitle\b/) {
 		$header .= "}\n";
@@ -93,6 +93,27 @@ sub pdfDocumentPresentation {
 		. "\\noindent\\begin{minipage}{\\linewidth}\n\\small\\raggedright\n"
 		. "\\hrule\\smallskip\nSource: \\url{$url}\\par\n"
 		. join(' \quad ', @details) . "\n\\end{minipage}\\par\n";
+	my @authors;
+	my %seen;
+	for my $author (@{$meta->{authors} || []}) {
+		my $id = $author->{userid};
+		next unless defined($id) && $id =~ /^\d+$/ && $id > 0;
+		next if $seen{$id}++;
+		my $username = $author->{username} // '';
+		push @authors, (length($username) ? pdfText($username) . ' ' : '') . "(user $id)";
+	}
+	my $authors = @authors ? join('; ', @authors) : 'No author history is recorded; see the source article.';
+	my $license_url = $meta->{license_url} || 'https://physicslibrary.org/?op=license';
+	$license_url =~ s/([%#{}])/\\$1/g;
+	# Keep the source block together, but allow long contributor lists to paginate.
+	$footer .= "{\\small\\raggedright\\parskip=3pt\\parindent=0pt\n"
+		. "\\medskip\\noindent\\textbf{Article authors:} $authors\\par\n"
+		. "\\smallskip\\noindent\\textbf{Copyright and license}\\par\\nobreak\n"
+		. "This article is copyrighted by its respective authors. "
+		. "Permission is granted to copy, distribute and/or modify this document "
+		. "under the terms of the "
+		. '\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License}.'
+		. "\\par\nLicense notice: \\url{$license_url}\\par\n}\n";
 	my $support = <<'TEX';
 % PhysicsLibrary PDF support; do not reload author packages with new options.
 \makeatletter

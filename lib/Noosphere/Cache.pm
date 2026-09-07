@@ -325,6 +325,8 @@ sub prepareCachedPDF {
 	}
 	return pdfDocumentPresentation($latex, {
 		%$rec, owner => $owner,
+		authors => [getAuthorList($table, $rec->{uid})],
+		license_url => getConfig('main_url') . '/?op=license',
 		url => getConfig('main_url') . "/?op=getobj&from=$table&id=$rec->{uid}",
 		logo => getConfig('base_dir') . '/data/images/physicslibrarylogotransparent.png',
 	});

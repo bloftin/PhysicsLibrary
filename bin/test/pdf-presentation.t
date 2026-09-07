@@ -14,6 +14,7 @@ my $meta = {
     modified => '2026-09-07 12:00:00', logo => $logo,
     url => 'https://physicslibrary.org/?op=getobj&from=objects&id=1142',
     owner => {active => 1, username => 'example_user', forename => 'Ada', surname => 'Example'},
+    authors => [{userid => 2, username => 'contributor'}],
 };
 my $original = <<'TEX';
 \documentclass[12pt]{article}
@@ -29,6 +30,7 @@ TEX
 my $public = Noosphere::pdfDocumentPresentation($original, $meta);
 like($public, qr/\\includegraphics.*physicslibrarylogotransparent\.png/, 'uses the existing PL logo');
 like($public, qr/An open source physics library/, 'includes the tagline');
+like($public, qr/\\parskip=0pt.*An open source physics library/s, 'logo and tagline ignore article paragraph spacing');
 is(scalar(() = $public =~ /First variation/g), 1, 'does not duplicate the existing article title');
 like($public, qr/First variation.*Maintained by Ada Example.*First page body/s,
     'public profile name appears beneath the title');
@@ -87,14 +89,31 @@ like($collab_pdf, qr/\\author\{Explicit document author\}/, 'collaboration autho
 like($collab_pdf, qr/\\maketitle\s*\{\\small Maintained by Ada Example/, 'public maintainer follows a native title');
 unlike($collab_pdf, qr/First variation/, 'does not add a second title to a maketitle document');
 
+like($public, qr/Article authors.*contributor \(user 2\)/s, 'includes the recorded contributor list');
+like($public, qr/copyrighted by its respective authors/, 'includes the site copyright notice');
+like($public, qr{\\href\{https://creativecommons.org/licenses/by-sa/4.0/\}}, 'links CC BY-SA 4.0');
+like($public, qr{License notice: \\url\{https://physicslibrary.org/\?op=license\}}, 'links the PL license notice');
+my $escaped_authors = Noosphere::pdfDocumentPresentation($original, {%$meta, authors => [
+    {userid => 5, username => 'A&B_50%', forename => 'Hidden personal name'},
+    {userid => 5, username => 'A&B_50%'}, {userid => 6},
+]});
+is(scalar(() = $escaped_authors =~ /\(user 5\)/g), 1, 'duplicate author records are listed once');
+like($escaped_authors, qr/A\\&B\\_50\\%/, 'contributor usernames are TeX escaped');
+unlike($escaped_authors, qr/Hidden personal name/, 'author list uses public account identities only');
+like($escaped_authors, qr/\(user 6\)/, 'missing username retains the recorded author id');
+like(Noosphere::pdfDocumentPresentation($original, {%$meta, authors => []}),
+    qr/No author history is recorded/, 'missing history does not invent a list of authors');
+my @many_authors = map { {userid => $_, username => sprintf('contributor%03d', $_)} } 1..200;
+my $long = Noosphere::pdfDocumentPresentation($original, {%$meta, authors => \@many_authors});
+
 SKIP: {
-    skip 'pdflatex and pdftotext required for PDF checks', 14
+    skip 'pdflatex and pdftotext required for PDF checks', 21
         unless -x '/usr/bin/pdflatex' && -x '/usr/bin/pdftotext';
     my $dir = tempdir(CLEANUP => 1);
     my $cwd = getcwd();
     chdir $dir or die $!;
     for my $case (['public', $public], ['private', $private], ['fallback', $no_logo],
-        ['math', $math], ['collab', $collab_pdf]) {
+        ['math', $math], ['collab', $collab_pdf], ['long', $long]) {
         my ($name, $tex) = @$case;
         open my $out, '>', "$name.tex" or die $!;
         print {$out} $tex;
@@ -114,6 +133,9 @@ SKIP: {
     like($pages[0], qr/Maintained by Ada Example/, 'public byline is visible in the compiled PDF');
     like($pages[1], qr/Source:.*https:\/\/physicslibrary\.org/s, 'source URL is visible in the compiled PDF');
     like($pages[1], qr/Version 3/, 'revision is visible in the compiled PDF');
+    like($pages[1], qr/contributor \(user 2\)/, 'author list prints in the PDF');
+    like($pages[1], qr/CC BY-SA 4.0/, 'license notice prints in the PDF');
+    like($pages[1], qr/physicslibrary.org\/\?op=license/, 'license notice URL prints in the PDF');
     system('/usr/bin/pdftotext', '-layout', 'private.pdf', 'private.txt');
     open $in, '<', 'private.txt' or die $!;
     my $private_text = do { local $/; <$in> };
@@ -125,6 +147,16 @@ SKIP: {
     my $log = do { local $/; <$in> };
     close $in;
     unlike($log, qr/Overfull \\[hv]box/, 'fixture has no overflowing boxes');
+    system('/usr/bin/pdftotext', '-layout', 'long.pdf', 'long.txt');
+    open $in, '<', 'long.txt' or die $!;
+    my $long_text = do { local $/; <$in> };
+    close $in;
+    cmp_ok(scalar(split /\f/, $long_text), '>', 2, 'long author history can flow onto additional pages');
+    like($long_text, qr/contributor200 \(user 200\)/, 'last contributor is retained in the PDF');
+    open $in, '<', 'long.log' or die $!;
+    my $long_log = do { local $/; <$in> };
+    close $in;
+    unlike($long_log, qr/Overfull \\[hv]box/, 'long author list does not overflow an unbreakable box');
     chdir $cwd or die $!;
 }
 done_testing();
