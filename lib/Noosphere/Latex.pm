@@ -1625,6 +1625,9 @@ sub escapeNonAsciiAsHTMLEntities {
 #
 sub writeLinksToFile {
 	my ($table,$id,$method,$links) = @_;
+	# mathTitle returns characters, but older callers may still supply bytes.
+	$links = decodeRenderedHTML($links) unless utf8::is_utf8($links);
+	$links = escapeNonAsciiAsHTMLEntities($links);
 	
 	my $path = getConfig('cache_root');
 	my $dir = "$path/$table/$id/$method";
@@ -1642,7 +1645,9 @@ sub getRenderedObjectLinks {
 	my $path = getConfig('cache_root');
 	my $dir = "$path/$table/$id/$method";
 	
-	return readFile("$dir/pmlinks.html");
+	# Accept existing UTF-8 and Latin-1 caches without requiring a rerender.
+	return escapeNonAsciiAsHTMLEntities(
+		decodeRenderedHTML(readFile("$dir/pmlinks.html")));
 }
 
 # this sub grabs the contents of the cacheroot/objid/method/output.html file
