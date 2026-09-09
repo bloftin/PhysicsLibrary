@@ -4,23 +4,12 @@
   </head>
   <body>
     <!-- title box -->
-		[% USE DBI( dbh = my_dbh_ref ) %]
-    [% prefs = parsePrefs(user.perfs) %]
        
     <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
       <tr>
         <td align="left" WIDTH="100%" BGCOLOR="#003399">
           <font color="white" class="box_title">
-            [% user = DBI.query("select * from users where users.uid=$userID") %]
-    		    [% IF user.size == 1 %]
-              [% FOREACH entry IN user %]
-                  User Info for [% entry.username %]
-              [% END %]
-            [% ELSIF user.size == 0 %]  
-              User not found!
-            [% ELSE %] 
-              User Info bad more than 1 user returned, size [% user.size %], uid = $userID
-            [% END %]
+            User Info for [% user.username %]
                 
           </font>
         </td>
@@ -28,7 +17,6 @@
     </table>
 
     <div>
-        [% FOREACH user = DBI.query("select * from users where users.uid=$userID") %]
             [% IF user.active == 1 %]
               <table cellpadding="2">
                 <tr>
@@ -47,10 +35,10 @@
                   <tr>
                     <td bgcolor="#dddddd">E-mail Address:</td>
                     <td>
-                      [% IF prefs.hideemail.search('on') %]
-                        Email hidden by user preferences.
+                      [% IF show_email %]
+                        [% user.email | html %]
                       [% ELSE %]
-                        Email hidden until working preferences working right
+                        Email hidden by user preferences.
                       [% END %]
                     </td>
                   </tr>
@@ -140,7 +128,6 @@
             [% ELSE %] 
               <font color="#ff0000" size="+1">(This account has been deactivated)</font>
             [% END %]
-        [% END %]
         
     </div>
   </body>

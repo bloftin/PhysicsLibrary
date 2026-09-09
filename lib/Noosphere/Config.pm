@@ -350,7 +350,7 @@ Crawl-delay: 10
 			{'010'=>'10', '020'=>'20', '030'=>'30', '040'=>'40',
 			 '050'=>'50', '075'=>'75', '100'=>'100', '150'=>'150'}],
 		usesig=>['Use sig in messages','check','off'],
-		hideemail=>['Hide email address (NOTE: still shows for you)','check','off'],
+		hideemail=>['Hide email address (NOTE: still shows for you)','check','on'],
 		coremail=>['Receive email when you get corrections','check','on'],
 		sysemail=>['Receive email when you get system mail','check','on'],
 		noticeemail=>['Also send email for each system notice?','check','on'],
