@@ -1132,6 +1132,17 @@ sub getUser {
 
 	return errorMessage('User not found.') if (!defined $rec);
 
+	my $prefs = parsePrefs($rec->{prefs} // '');
+	my $show_email = $loggedin && $rec->{active} == 1 && (
+		$prefs->{hideemail} eq 'off' ||
+		$userinf->{uid} == $rec->{uid} ||
+		($userinf->{data}->{access} // 0) >= getConfig('access_seehiddenemail')
+	);
+	# Pass only profile fields to the template, omitting email unless authorized.
+	my $profile = { map { $_ => $rec->{$_} }
+		qw(username forename surname active state city country joined last homepage access score bio) };
+	$profile->{email} = $rec->{email} if $show_email;
+
 	my $mc = getrowcount('messages',"userid=$rec->{uid}");
 	my $msg_link = "".getConfig("main_url")."/?op=usermsgs;id=$rec->{uid}";
 	my $oc = getrowcount(getConfig('index_tbl'),"userid=$rec->{uid} and type = 1 and tbl != 'users'");
@@ -1147,9 +1158,10 @@ sub getUser {
 
 	my $vars = {
         userID        => $id,
+		user          => $profile,
 		isadmin       => $isadmin,
 		loggedin      => $loggedin,
-		parsePrefs    => \&parsePrefs,
+		show_email    => $show_email,
 		mc            => $mc,
 		oc            => $oc,
 		crc           => $crc,
@@ -1159,11 +1171,10 @@ sub getUser {
 		obj_link      => $obj_link,
 		crc_link      => $crc_link,
 		cfc_link      => $cfc_link,
-		my_dbh_ref    => $dbh,
     };
 
     my $tt = Template->new({
-		INCLUDE_PATH => '/var/www/pp/stemplates',
+		INCLUDE_PATH => getConfig('template_path'),
 	});
 
 	
