@@ -22,7 +22,7 @@ sub getConfig {
         main_url => 'https://physicslibrary.org', index_tbl => 'objectindex',
         access_admin => 50, access_seehiddenemail => 100,
         template_path => "$FindBin::Bin/../../stemplates",
-        prefs_schema => {hideemail => ['Hide email', 'check', 'off']},
+        prefs_schema => {hideemail => ['Hide email', 'check', 'on']},
     }->{$_[0]};
 }
 sub dbSelect { $queries++; return (1, bless({}, 'ProfileStatement')); }
@@ -78,7 +78,7 @@ for my $case (
     ['admin at email permission', 'hideemail=on', 7, 100, 1],
     ['admin above email permission', 'hideemail=on', 7, 101, 1],
     ['guest cannot use admin exception', 'hideemail=on', -1, 100, 0],
-    ['missing preference uses existing default', '', 7, 0, 1],
+    ['missing preference defaults to hidden', '', 7, 0, 0],
     ['malformed preference stays hidden', 'hideemail=unexpected', 7, 0, 0],
 ) {
     my ($label, $prefs, $uid, $access, $visible) = @$case;
