@@ -803,6 +803,11 @@ sub handler {
 	#
 	my %user_info = handleLogin($req, $params, \%cookies);
 
+	if ($params->{'op'} eq 'randomentry') {
+		serveRandomEntry($req, $params);
+		return;
+	}
+
 	if ($params->{'op'} eq 'downloadfile') {
 		serveProtectedDownload($req, $params, \%user_info);
 		return;

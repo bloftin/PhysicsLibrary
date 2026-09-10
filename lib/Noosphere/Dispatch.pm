@@ -240,9 +240,6 @@ sub dispatch {
   'sitedoc' => \&siteDoc,  # collaborative site docs
   'templatetestperl' => \&templateTestPerl,  # A page dedicated to Template Toolkit testing
 
-  # misc
-  #
-  'randomentry' => \&getRandomEntry,
 );
 
 # a list of functions not to include in a template; that is, their results show
