@@ -267,11 +267,10 @@ sub renderEncyclopediaObjOld {
 	return $html;
 }
 
-# get a random entry
+# Redirect to a random entry before rendering the article page.
 #
-sub getRandomEntry {
-	my $params = shift;
-	my $userinf = shift;
+sub serveRandomEntry {
+	my ($req, $params) = @_;
 	
 	my $tbl = getConfig('en_tbl');
 
@@ -290,25 +289,39 @@ sub getRandomEntry {
 	$count = dbEval("count(*) from $tbl")
         if getConfig('dbms') eq 'MariaDB';
 
-        $index = int(rand($count));
+	# A cached redirect would keep sending visitors to the same selection.
+	$req->headers_out->set('Cache-Control' => 'no-store');
+	if (!$count) {
+		sendOutput($req, errorMessage('No encyclopedia entries are available.'), 404);
+		return;
+	}
+	$index = int(rand($count));
        
-	# get a uid randomly from the database
+	# get a canonical name randomly from the database
 	#
-	my $uid;
-	$uid = dbEval("uid from $tbl limit 1 offset $index")
+	my $name;
+	$name = dbEval("name from $tbl limit 1 offset $index")
 		if getConfig('dbms') eq 'pg';
-	$uid = dbEval("uid from $tbl limit $index,1")
+	$name = dbEval("name from $tbl limit $index,1")
 		if getConfig('dbms') eq 'mysql';
-	$uid = dbEval("uid from $tbl limit $index,1")
+	$name = dbEval("name from $tbl limit $index,1")
         if getConfig('dbms') eq 'MariaDB';
 
-	# "stuff" the proper getobj params
-	#
-	$params->{'op'} = 'getobj';
-	$params->{'from'} = $tbl;
-	$params->{'id'} = $uid;
+	if (!defined($name) || $name eq '') {
+		sendOutput($req, errorMessage('The selected entry is unavailable. Please try again.'), 404);
+		return;
+	}
 
-	return getObj($params, $userinf);
+	my $main = getConfig('main_url');
+	$main =~ s{/+$}{};
+	my $url = $main . '/encyclopedia/' . uri_escape_utf8($name) . '.html';
+	my %methods = map { $_ => 1 } getMethods();
+	if (defined($params->{'method'}) && $methods{$params->{'method'}}) {
+		$url .= '?method=' . uri_escape_utf8($params->{'method'});
+	}
+	$req->headers_out->set('Location' => $url);
+	sendOutput($req, '', 302);
+	return;
 }
 
 # show the "rest" of the encyclopedia metadata (below the main rendered 
