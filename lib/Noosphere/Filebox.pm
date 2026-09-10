@@ -230,6 +230,7 @@ sub handleFileManager {
 	my $template = shift;
 	my $params = shift;
 	my $upload = shift;
+	my $error_out = shift; # optional scalar reference for callers that block submission on errors
 	
 	my $ftemplate = new TemplateNS('filemanagerform.html');
 	my $table = $params->{'from'} || $params->{'to'};
@@ -336,10 +337,10 @@ sub handleFileManager {
 				
 				if (not inset($file,@methoddirs)) {
 					my $ftext;
-					if (defined $params->{'id'}) {
-						$ftext = "<a href=\"".getConfig('file_url')."/$table/$params->{id}/$file\">$file</a>";
-					} else { 
+					if (nb($params->{'tempdir'})) {
 						$ftext = "<a href=\"".getConfig('cache_url')."/$params->{tempdir}/$file\">$file</a>";
+					} else {
+						$ftext = "<a href=\"".getConfig('file_url')."/$table/$params->{id}/$file\">$file</a>";
 					}
 			
 					$rmlist .= "<input type=\"checkbox\" name=\"remove\" value=\"$file\" />$ftext<br />";
@@ -436,6 +437,7 @@ sub handleFileManager {
 	#
 	my $html_fmanager = $ftemplate->expand();
 	$template->setKey('fmanager', $html_fmanager);
+	$$error_out = $ferror if $error_out;
 	#dwarn "handleFileManager ended";
 	return ($template, $html_fmanager);
 }
