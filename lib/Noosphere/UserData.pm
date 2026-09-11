@@ -53,9 +53,10 @@ sub getSettings {
 sub isUserActive {
 	my $username = shift;
 
-	my $val = lookupfield(getConfig('user_tbl'), 'active', "username='$username'");
-
-	return $val;
+	return 0 unless defined($username) && !ref($username);
+	my $row = dbSelectRowBound($dbh, 'SELECT active FROM '.getConfig('user_tbl').
+		' WHERE username = ? LIMIT 1', $username);
+	return $row ? $row->{active} : 0;
 }
 
 # markUserAccess - mark a user as having accessed Noosphere at the current time

@@ -859,12 +859,12 @@ sub user_registered {
 	my $value = shift;
 	my $name = shift;
 	
-	(my $rv,my $sth) = dbSelect($dbh,{WHAT=>'uid',FROM=>getConfig('user_tbl'),WHERE=>"lower($name)=lower('$value')",LIMIT=>1});
-
-	my $rows = $sth->rows();
-	$sth->finish();
-
-	return $rows;
+	return 0 unless defined($value) && !ref($value);
+	die "Invalid account lookup field.\n" unless defined($name) && !ref($name) &&
+		($name eq 'username' || $name eq 'email');
+	my $row = dbSelectRowBound($dbh, 'SELECT uid FROM '.getConfig('user_tbl').
+		" WHERE lower($name) = lower(?) LIMIT 1", $value);
+	return $row ? 1 : 0;
 }
 
 # get object name by id 
@@ -887,11 +887,10 @@ sub getnamebyid {
 sub getuidbyusername {
 	my $name = shift;
 
-	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'uid',FROM=>'users',WHERE=>"username='$name'"});
-
-	my $row = $sth->fetchrow_hashref();
-
-	return $row->{uid};
+	return undef unless defined($name) && !ref($name);
+	my $row = dbSelectRowBound($dbh,
+		'SELECT uid FROM users WHERE username = ? LIMIT 1', $name);
+	return $row ? $row->{uid} : undef;
 }
 
 

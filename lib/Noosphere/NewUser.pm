@@ -172,6 +172,7 @@ sub checkHash {
 	my $hash_str = shift;
 	
 	my $error = "invalid hash";
+	return $error unless defined($hash_str) && !ref($hash_str);
 	#dwarn "hash_str is $hash_str";
 	my @hash_data = split(/:/,$hash_str);
 	
@@ -205,7 +206,7 @@ sub activateAccount {
 	unless ($error eq '') {
 	return($error); }
 
-	unless ($p1 eq $p2) {
+	unless (defined($p1) && !ref($p1) && defined($p2) && !ref($p2) && $p1 eq $p2) {
 	return("passwords are different, please reenter"); }
 
 	unless ($p1 ne '' and $p2 ne '') {
@@ -226,13 +227,11 @@ sub activateAccount {
 	# create the record in the user table
 	#
 	my $newid = nextval('users_uid_seq');
-	my ($rv,$dbq) = dbInsert($dbh,{
-		INTO=>'users',
-		COLS=>'uid,joined,username,password,email,preamble',
-		VALUES=>"$newid,now(),'$user','$p1','$email','".sq($defpreamble)."'"});
-	$dbq->finish();
+	my $rv = eval { dbExecuteBound($dbh,
+		'INSERT INTO users (uid, joined, username, password, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, ?, ?, ?)',
+		$newid, $user, $p1, $email, $defpreamble) };
 
-	if (not $rv) {
+	if (!defined($rv) || $rv <= 0) {
 	return("failed to add user"); }
 
 	# make the user's self-named default group and add them to it

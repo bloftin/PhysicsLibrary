@@ -2,6 +2,18 @@ package Noosphere;
 
 use strict;
 
+sub findLoginUser {
+ my ($username, $password) = @_;
+ return undef unless defined($username) && !ref($username) && length($username) &&
+   defined($password) && !ref($password) && length($password);
+ $username =~ s/^ +//;
+ $username =~ s/ +$//;
+ $username =~ s/ +/ /g;
+ return eval { dbSelectRowBound($dbh,
+   'SELECT uid FROM users WHERE lower(username) = lower(?) AND password = ? AND active = 1 LIMIT 1',
+   $username, $password) };
+}
+
 # handleLogin - main entry point for getting user information hash and 
 #	processing logins.
 #
@@ -40,23 +52,12 @@ sub handleLogin {
  
 	# handle login op
 	#
-	elsif ($params->{op} eq 'login' && $user && $passwd) {
-		#dwarn "handle login op";
-		$user =~ s/^ +//;
-		$user =~ s/ +$//;
-		$user =~ s/ +/ /g;
-	
-		#dwarn "Attempting to log in $user with $passwd";
-	 
-		my ($rv,$dbq) = dbSelect($dbh,{
-			WHAT => '*',
-			FROM => 'users',
-			WHERE => "lower(username)=lower('$user') AND password='$passwd' AND active=1",
-			LIMIT => 1});
+	elsif ($params->{op} eq 'login') {
+		my $row = findLoginUser($user, $passwd);
 	 
 		# error if exactly one row wasn't returned
 		#
-		if ($rv != 1) {
+		if (!$row) {
 			$user_info{'ticket'} = undef;
 			$user_info{'uid'} = 0;	
 		}
@@ -64,8 +65,6 @@ sub handleLogin {
 		# otherwise we found the user, get their info
 		#
 		else {
-			my $row = $dbq->fetchrow_hashref();
-			$dbq->finish();
 			$user_info{'uid'} = $row->{'uid'}; 
 	 
 			$user_info{'ticket'} = makeTicket($user_info{'uid'},

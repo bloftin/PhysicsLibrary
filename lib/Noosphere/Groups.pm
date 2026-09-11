@@ -489,18 +489,19 @@ sub deleteAllUsersFromGroup {
 sub makeDefaultGroup {
 	my $userid = shift;
 
-	my $username = lookupfield(getConfig('user_tbl'),'username',"uid=$userid");
+	my $user = dbSelectRowBound($dbh, 'SELECT username FROM '.getConfig('user_tbl').
+		' WHERE uid = ?', $userid);
+	die "Account not found.\n" unless $user;
+	my $username = $user->{username};
 
 	my $gtbl = getConfig("groups_tbl");
 
 	my $nextid = nextval($gtbl."_groupid_seq");
 
-	my ($rv,$sth) = dbInsert($dbh,{INTO=>$gtbl,COLS=>'groupid,userid,groupname,description', VALUES=>"$nextid, $userid, '$username', 'This is the default group for user $username.'"});
-	$sth->finish();
-
-	my $gid=lookupfield($gtbl,"groupid","userid=$userid");
-
-	return $gid;
+	dbExecuteBound($dbh, "INSERT INTO $gtbl (groupid, userid, groupname, description) VALUES (?, ?, ?, ?)",
+		$nextid, $userid, $username, "This is the default group for user $username.");
+	my $group = dbSelectRowBound($dbh, "SELECT groupid FROM $gtbl WHERE userid = ?", $userid);
+	return $group ? $group->{groupid} : undef;
 }
 
 # add a group

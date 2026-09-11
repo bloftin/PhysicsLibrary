@@ -10,6 +10,8 @@ sub pwChange {
   my $params = shift; 
   
   my $error = "";
+  return errorMessage("Invalid password change URL.")
+    unless defined($params->{hash}) && !ref($params->{hash});
   my $hash = urlunescape($params->{"hash"});
  
   # check for a valid hash
@@ -24,7 +26,9 @@ sub pwChange {
   # handle submission
   #
   if (defined $params->{submit}) {
-    if ($params->{pw1} ne $params->{pw2}) {
+    if (!defined($params->{pw1}) || ref($params->{pw1}) ||
+        !defined($params->{pw2}) || ref($params->{pw2}) ||
+        $params->{pw1} ne $params->{pw2}) {
 	  $error .= "passwords don't match!<br>";
 	}
 
@@ -48,17 +52,18 @@ sub changePassword {
   my $hash = shift;
   my $password = shift;
 
-  #dwarn "INCOMING HASH is\n";
-  #dwarn $hash;
-  # extract username from the hash
-  my ($username) = split(/:/,$hash);
-
-  # do the database operation
-  my ($rv, $sth) = dbUpdate($dbh, {WHAT=>getConfig('user_tbl'),SET=>"password='$password'",WHERE=>"username='$username'"});
-  $sth->finish();
+  return errorMessage('Invalid password change URL.') unless checkHash($hash) eq '';
+  return errorMessage('Please enter a password.')
+    unless defined($password) && !ref($password) && length($password);
+  my ($username, $email) = split(/:/,$hash);
+  my $rv = eval { dbExecuteBound($dbh, 'UPDATE '.getConfig('user_tbl').
+    ' SET password = ? WHERE username = ? AND email = ?', $password, $username, $email) };
+  return errorMessage('Could not change the password. Please request a new link and try again.')
+    unless defined($rv) && $rv > 0;
 
   # return an acknowledgement
-  return paddingTable(makeBox('Password Changed',"The password for <b>$username</b> has been changed.  <p> You may now log in using the new password."));
+  return paddingTable(makeBox('Password Changed','The password for <b>'.htmlescape($username).
+    '</b> has been changed. <p> You may now log in using the new password.'));
 }
 
 # request a password change.  
@@ -70,24 +75,33 @@ sub pwChangeRequest {
   my $error = "";
 
   if (defined $params->{submit}) {
-     # look up the user
-	 my $email = lookupfield(getConfig('user_tbl'),'email',"username='$params->{username}'");
+     my $username = $params->{username};
+     my $row;
+     if (defined($username) && !ref($username) && length($username)) {
+       my $ok = eval {
+         $row = dbSelectRowBound($dbh, 'SELECT username, email FROM '.getConfig('user_tbl').
+           ' WHERE username = ? LIMIT 1', $username);
+         1;
+       };
+       return errorMessage('Could not process the request. Please try again later.') unless $ok;
+     }
+	 my $email = $row ? $row->{email} : undef;
 	 if (!$email) {
 	   $error .= "Cannot find that user!<br>";
 	 }
      if (!$error) {
 	   # make the hash
-	   my $hash=sha1_hex(join(':',$params->{username},$email),SECRET);
+	   my $hash=sha1_hex(join(':',$row->{username},$email),SECRET);
 	   #dwarn "HASH for a pwchange is\n";
 	   #dwarn $hash;
        # send out the message
-	   return sendPwChangeMail($params->{username},$email, $hash);
+	   return sendPwChangeMail($row->{username},$email, $hash);
 	 }
   } 
 
   # return initial form
   #
-  $template->setKey('username',$params->{username});
+  $template->setKey('username',ref($params->{username}) ? '' : $params->{username});
   $template->setKey('error',$error);
   
   return paddingTable(makeBox('Request a Password Change',$template->expand()));

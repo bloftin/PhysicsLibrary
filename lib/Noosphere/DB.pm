@@ -307,6 +307,37 @@ sub dbLowLevelSelect {
   return ($rv,$dbq);
 }
 
+sub dbSelectRowBound {
+  my ($dbh, $query, @values) = @_;
+  return dbRunBound($dbh, $query, 1, @values);
+}
+
+sub dbExecuteBound {
+  my ($dbh, $query, @values) = @_;
+  return dbRunBound($dbh, $query, 0, @values);
+}
+
+sub dbRunBound {
+  my ($dbh, $query, $fetch_row, @values) = @_;
+  my $result;
+  my $ok = eval {
+    # Account query errors must not disclose bound credentials or driver detail.
+    local $dbh->{PrintError} = 0;
+    local $dbh->{RaiseError} = 1;
+    local $dbh->{ShowErrorStatement} = 0;
+    my $sth = $dbh->prepare($query);
+    die 'prepare failed' unless $sth;
+    my $rv = $sth->execute(@values);
+    die 'execute failed' unless defined $rv;
+    $result = $fetch_row ? $sth->fetchrow_hashref() : $rv;
+    die 'fetch failed' if $sth->err;
+    $sth->finish();
+    1;
+  };
+  die "Account database operation failed.\n" unless $ok;
+  return $result;
+}
+
 sub dbGetRows {
   my $dbq = shift;
   
