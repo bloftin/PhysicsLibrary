@@ -166,12 +166,20 @@ sub validPasswordResetToken {
   return defined($token) && !ref($token) && $token =~ /\A[0-9a-f]{64}\z/;
 }
 
+sub passwordResetCredentialStamp {
+  my ($password_hash) = @_;
+  return undef unless validPasswordHash($password_hash);
+  return sha256_hex('reset-v1:' . $password_hash);
+}
+
 sub createPasswordResetTicket {
   my $username = shift;
   return undef unless defined($username) && !ref($username) && length($username);
-  my $user = dbSelectRowBound($dbh, 'SELECT uid FROM '.getConfig('user_tbl').
+  my $user = dbSelectRowBound($dbh, 'SELECT uid, password_hash FROM '.getConfig('user_tbl').
     ' WHERE username = ? AND active = 1 LIMIT 1', $username);
   return undef unless $user;
+  my $stamp = passwordResetCredentialStamp($user->{password_hash});
+  return undef unless defined $stamp;
   my $token = newPasswordResetToken();
   my $now = passwordResetTime();
   my $expires = passwordResetTime(passwordResetTokenLifetime());
@@ -179,31 +187,40 @@ sub createPasswordResetTicket {
     'DELETE FROM password_reset_tokens WHERE uid = ? AND (used_at IS NOT NULL OR expires < ?)',
     $user->{uid}, $now);
   my $rv = dbExecuteBound($dbh,
-    'INSERT INTO password_reset_tokens (uid, token_hash, created, expires, used_at) VALUES (?, ?, ?, ?, NULL)',
-    $user->{uid}, sha256_hex($token), $now, $expires);
+    'INSERT INTO password_reset_tokens (uid, token_hash, created, expires, used_at, credential_stamp) VALUES (?, ?, ?, ?, NULL, ?)',
+    $user->{uid}, sha256_hex($token), $now, $expires, $stamp);
   return defined($rv) && $rv > 0 ? $token : undef;
 }
 
 sub passwordResetTicket {
   my $token = shift;
   return undef unless validPasswordResetToken($token);
-  return dbSelectRowBound($dbh, 'SELECT pr.uid, pr.token_hash, u.username FROM password_reset_tokens pr '.
+  my $ticket = dbSelectRowBound($dbh, 'SELECT pr.uid, pr.token_hash, pr.credential_stamp, u.username, u.password_hash FROM password_reset_tokens pr '.
     'JOIN '.getConfig('user_tbl').' u ON u.uid = pr.uid '.
     'WHERE pr.token_hash = ? AND pr.used_at IS NULL AND pr.expires >= ? AND u.active = 1 LIMIT 1',
     sha256_hex($token), passwordResetTime());
+  return undef unless $ticket && defined($ticket->{credential_stamp});
+  my $stamp = passwordResetCredentialStamp($ticket->{password_hash});
+  return defined($stamp) && $stamp eq $ticket->{credential_stamp} ? $ticket : undef;
 }
 
 sub consumePasswordResetTicket {
   my ($ticket, $password_hash) = @_;
   return 0 unless $ticket && $ticket->{uid} && $ticket->{token_hash};
+  my $stamp = passwordResetCredentialStamp($ticket->{password_hash});
+  return 0 unless defined($stamp) && defined($ticket->{credential_stamp}) &&
+    $stamp eq $ticket->{credential_stamp} && validPasswordHash($password_hash);
   my $used = passwordResetTime();
   my $rv = dbExecuteBound($dbh,
     'UPDATE password_reset_tokens SET used_at = ? WHERE token_hash = ? AND used_at IS NULL AND expires >= ?',
     $used, $ticket->{token_hash}, $used);
   return 0 unless defined($rv) && $rv == 1;
+  # Compare and update in one statement so prevalidated sibling links cannot race.
+  my $match = ($dbh->{Driver}->{Name} || '') =~ /\A(?:mysql|MariaDB)\z/
+    ? 'BINARY password_hash = BINARY ?' : 'password_hash = ?';
   return dbExecuteBound($dbh, 'UPDATE '.getConfig('user_tbl').
-    " SET password_hash = ?, password = '' WHERE uid = ? AND active = 1",
-    $password_hash, $ticket->{uid});
+    " SET password_hash = ?, password = '' WHERE uid = ? AND active = 1 AND $match",
+    $password_hash, $ticket->{uid}, $ticket->{password_hash});
 }
 
 1;

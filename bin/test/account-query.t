@@ -95,7 +95,7 @@ for my $file (
     ['Login.pm', qw(findLoginUser handleLogin)],
     ['Password.pm', qw(pwChange changePassword pwChangeRequest passwordResetTokenLifetime
         passwordResetTime newPasswordResetToken validPasswordResetToken createPasswordResetTicket
-        passwordResetTicket consumePasswordResetTicket)],
+        passwordResetCredentialStamp passwordResetTicket consumePasswordResetTicket)],
     ['NewUser.pm', qw(checkHash makeHash activateAccount)],
     ['Util.pm', qw(user_registered getuidbyusername)],
     ['UserData.pm', qw(isUserActive)],
@@ -171,14 +171,15 @@ subtest 'shared account lookups' => sub {
 };
 
 subtest 'recovery lookup and change' => sub {
-    fixture(); @results = ({username => "O'Neil", email => 'member@example.invalid'}, {uid => 42}, 1, 1);
+    my $old_hash = Noosphere::hashAccountPassword('old-password');
+    fixture(); @results = ({username => "O'Neil", email => 'member@example.invalid'}, {uid => 42, password_hash => $old_hash}, 1, 1);
     is(Noosphere::pwChangeRequest({submit => 1, username => "o'neil"}), 'Mail Sent', 'recovery request');
     is($queries[0]->{sql}, 'SELECT username, email FROM users WHERE username = ? AND active = 1 LIMIT 1', 'fixed lookup SQL');
     is_deeply($queries[0]->{bind}, ["o'neil"], 'lookup bound');
     is_deeply([@{$mail[0]}[0,1]], ["O'Neil", 'member@example.invalid'], 'mail uses stored identity and address');
     like($mail[0]->[2], qr/\A[0-9a-f]{64}\z/, 'recovery mail uses opaque token');
-    is($queries[1]->{sql}, 'SELECT uid FROM users WHERE username = ? AND active = 1 LIMIT 1', 'token creation finds active account');
-    is($queries[3]->{sql}, 'INSERT INTO password_reset_tokens (uid, token_hash, created, expires, used_at) VALUES (?, ?, ?, ?, NULL)', 'reset row stored');
+    is($queries[1]->{sql}, 'SELECT uid, password_hash FROM users WHERE username = ? AND active = 1 LIMIT 1', 'token creation finds active account');
+    is($queries[3]->{sql}, 'INSERT INTO password_reset_tokens (uid, token_hash, created, expires, used_at, credential_stamp) VALUES (?, ?, ?, ?, NULL, ?)', 'reset row stored');
     is($queries[3]->{bind}->[0], 42, 'reset row belongs to user');
     like($queries[3]->{bind}->[1], qr/\A[0-9a-f]{64}\z/, 'only token hash is stored');
     isnt($queries[3]->{bind}->[1], $mail[0]->[2], 'stored value is not the link token');
@@ -188,15 +189,17 @@ subtest 'recovery lookup and change' => sub {
     is_deeply($queries[0]->{bind}, [$payload], 'SQL-like username is just a value');
     my $token = 'a' x 64;
     my $token_hash = sha256_hex($token);
-    my $ticket = {uid => 42, token_hash => $token_hash, username => "O'Neil"};
+    my $ticket = {uid => 42, token_hash => $token_hash, username => "O'Neil",
+        password_hash => $old_hash, credential_stamp => Noosphere::passwordResetCredentialStamp($old_hash)};
     fixture(); @results = ($ticket, $ticket, 1, 1);
     like(Noosphere::pwChange({hash => $token, submit => 1, pw1 => $quoted_password, pw2 => $quoted_password}),
         qr/Password Changed/, 'password change route succeeds');
-    is($queries[0]->{sql}, 'SELECT pr.uid, pr.token_hash, u.username FROM password_reset_tokens pr JOIN users u ON u.uid = pr.uid WHERE pr.token_hash = ? AND pr.used_at IS NULL AND pr.expires >= ? AND u.active = 1 LIMIT 1', 'reset token lookup');
+    is($queries[0]->{sql}, 'SELECT pr.uid, pr.token_hash, pr.credential_stamp, u.username, u.password_hash FROM password_reset_tokens pr JOIN users u ON u.uid = pr.uid WHERE pr.token_hash = ? AND pr.used_at IS NULL AND pr.expires >= ? AND u.active = 1 LIMIT 1', 'reset token lookup');
     is($queries[0]->{bind}->[0], $token_hash, 'lookup hashes token');
     is($queries[2]->{sql}, 'UPDATE password_reset_tokens SET used_at = ? WHERE token_hash = ? AND used_at IS NULL AND expires >= ?', 'token consumed first');
     is($queries[2]->{bind}->[1], $token_hash, 'consumption uses token hash');
-    is($queries[3]->{sql}, "UPDATE users SET password_hash = ?, password = '' WHERE uid = ? AND active = 1", 'fixed change SQL');
+    is($queries[3]->{sql}, "UPDATE users SET password_hash = ?, password = '' WHERE uid = ? AND active = 1 AND password_hash = ?", 'fixed conditional change SQL');
+    is($queries[3]->{bind}->[2], $old_hash, 'password update requires the validated credential state');
     ok(Noosphere::verifyAccountPassword($queries[3]->{bind}->[0], $quoted_password), 'only hash is stored');
     is($queries[3]->{bind}->[1], 42, 'password change targets the token user');
     for my $bad (undef, [], '', 'invalid') {
@@ -218,6 +221,14 @@ subtest 'recovery lookup and change' => sub {
     like(Noosphere::pwChange({hash => $token, submit => 1, pw1 => 'one', pw2 => 'two'}),
         qr/passwords don't match/, 'confirmation mismatch does not save');
     is(scalar @queries, 1, 'mismatch never updates database');
+    for my $driver (qw(mysql MariaDB)) {
+        fixture();
+        $Noosphere::dbh->{Driver} = {Name => $driver};
+        @results = ($ticket, 1, '0E0');
+        like(Noosphere::changePassword($token, 'new'), qr/Could not change/, "$driver stale state is not reported as success");
+        like($queries[2]->{sql}, qr/AND BINARY password_hash = BINARY \?\z/, "$driver compares exact credential bytes");
+        is($queries[2]->{bind}->[2], $old_hash, 'expected credential hash is bound');
+    }
 };
 
 subtest 'recovery lifetime without a configuration edit' => sub {
@@ -238,7 +249,7 @@ subtest 'recovery lifetime without a configuration edit' => sub {
         local *Noosphere::getConfig = sub { return $_[0] eq 'user_tbl' ? 'users' : undef; };
         local *Noosphere::passwordResetTime = sub { return $_[0] || 0; };
         fixture();
-        @results = ({uid => 42}, 1, 1);
+        @results = ({uid => 42, password_hash => Noosphere::hashAccountPassword('old-password')}, 1, 1);
         ok(Noosphere::createPasswordResetTicket('member'), 'ticket created without a lifetime setting');
         is($queries[2]->{bind}->[3] - $queries[2]->{bind}->[2], 7200,
             'stored expiry is two hours after creation');
@@ -293,7 +304,7 @@ subtest 'isolated database integration' => sub {
         {RaiseError => 1, PrintError => 0, sqlite_unicode => 1});
     my $db = $Noosphere::dbh;
     $db->do("CREATE TABLE users (uid INTEGER PRIMARY KEY, joined TEXT, username TEXT, password TEXT DEFAULT '', password_hash TEXT, email TEXT, preamble TEXT, active INTEGER DEFAULT 1, access INTEGER DEFAULT 10)");
-    $db->do("CREATE TABLE password_reset_tokens (uid INTEGER, token_hash TEXT PRIMARY KEY, created TEXT, expires TEXT, used_at TEXT)");
+    $db->do("CREATE TABLE password_reset_tokens (uid INTEGER, token_hash TEXT PRIMARY KEY, created TEXT, expires TEXT, used_at TEXT, credential_stamp TEXT)");
     $db->do('CREATE TABLE groups (groupid INTEGER PRIMARY KEY, userid INTEGER, groupname TEXT, description TEXT)');
     my $insert = $db->prepare('INSERT INTO users (uid, username, password_hash, email, active) VALUES (?, ?, ?, ?, ?)');
     $insert->execute(1, 'member', Noosphere::hashAccountPassword('old-password'), 'member@example.invalid', 1);

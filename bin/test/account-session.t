@@ -133,7 +133,7 @@ subtest 'session database and routes' => sub {
     my $db = $Noosphere::dbh;
     $db->do("CREATE TABLE users (uid INTEGER PRIMARY KEY, username TEXT, password TEXT DEFAULT '', password_hash TEXT, access INTEGER DEFAULT 10, active INTEGER DEFAULT 1)");
     $db->do('CREATE TABLE account_sessions (token_hash TEXT PRIMARY KEY, uid INTEGER NOT NULL, created BIGINT NOT NULL, expires BIGINT NOT NULL, last_seen BIGINT NOT NULL, credential_stamp TEXT NOT NULL)');
-    $db->do('CREATE TABLE password_reset_tokens (uid INTEGER, token_hash TEXT PRIMARY KEY, created TEXT, expires TEXT, used_at TEXT)');
+    $db->do('CREATE TABLE password_reset_tokens (uid INTEGER, token_hash TEXT PRIMARY KEY, created TEXT, expires TEXT, used_at TEXT, credential_stamp TEXT)');
     my $hash = Noosphere::hashAccountPassword('first-password');
     $db->do('INSERT INTO users (uid, username, password_hash) VALUES (1, ?, ?)', undef, 'member', $hash);
     $db->do('INSERT INTO users (uid, username, password_hash) VALUES (2, ?, ?)', undef, 'other', $hash);

@@ -514,6 +514,7 @@ CREATE TABLE password_reset_tokens (
  created timestamp,
  expires timestamp,
  used_at timestamp,
+ credential_stamp char(64),
  PRIMARY KEY(token_hash)
 );
 

@@ -843,6 +843,7 @@ CREATE TABLE password_reset_tokens (
   created datetime default NULL,
   expires datetime default NULL,
   used_at datetime default NULL,
+  credential_stamp char(64) default NULL,
   PRIMARY KEY  (token_hash),
   KEY password_reset_tokens_uid_idx (uid)
 ) TYPE=MyISAM;
