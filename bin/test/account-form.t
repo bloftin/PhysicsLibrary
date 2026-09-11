@@ -126,7 +126,7 @@ subtest 'account fields are not profile fields' => sub {
     for my $access (10, 100) {
         my $user = fixture();
         $user->{data}->{access} = $record->{access} = $access;
-        my %attempt = map { $_ => 'changed-value' } qw(uid username access password active
+        my %attempt = map { $_ => 'changed-value' } qw(uid username access password password_hash active
             email prefs score joined last lastip future_column);
         $attempt{id} = 99;
         my $values = params($user, %attempt, forename => 'After');

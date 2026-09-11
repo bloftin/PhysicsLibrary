@@ -797,6 +797,7 @@ CREATE TABLE users (
   uid int(11) NOT NULL default '0',
   username varchar(32) NOT NULL default '',
   password varchar(32) NOT NULL default '',
+  password_hash varchar(255) default NULL,
   email varchar(255) NOT NULL default '',
   joined datetime default NULL,
   forename varchar(64) default '',

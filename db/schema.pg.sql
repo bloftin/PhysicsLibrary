@@ -469,7 +469,8 @@ CREATE SEQUENCE users_uid_seq;
 CREATE TABLE users (
  uid int8 DEFAULT nextval('users_uid_seq'),                /*unique id of user*/
  username varchar(32) NOT NULL UNIQUE,                /*username in PM, unique*/
- password varchar(32) NOT NULL,                             /*password of user*/
+ password varchar(32) NOT NULL DEFAULT '',                  /*legacy field, cleared on migration*/
+ password_hash varchar(255),
  email varchar(128) NOT NULL,                     /*email address, is verified*/
  joined timestamp DEFAULT CURRENT_TIMESTAMP,                /*date user joined*/
  /*add optional fields here as desired*/

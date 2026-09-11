@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use Getopt::Long qw(GetOptions);
+
+my ($apply, $status, $offline, $help, $complete);
+my $limit = 100;
+GetOptions('apply' => \$apply, 'status' => \$status, 'offline-confirmed' => \$offline,
+    'limit=i' => \$limit, 'require-complete' => \$complete, 'help' => \$help) or die "Invalid options.\n";
+if ($help) {
+    print "Usage: perl bin/migrate-account-storage --status [--require-complete]\n",
+        "       perl bin/migrate-account-storage --apply --offline-confirmed [--limit 100]\n";
+    exit 0;
+}
+die "Choose --status or --apply, not both.\n" unless ($status ? 1 : 0) + ($apply ? 1 : 0) == 1;
+die "Stop account writers first and pass --offline-confirmed.\n" if $apply && !$offline;
+die "--require-complete requires --status.\n" if $complete && !$status;
+die "Batch size must be 1..10000.\n" unless $limit >= 1 && $limit <= 10000;
+die "Unexpected arguments.\n" if @ARGV;
+
+my $ok = eval {
+    require Noosphere;
+    require Noosphere::DB;
+    require Noosphere::PasswordStorage;
+    my $dbh = Noosphere::dbConnect();
+    die 'connection failed' unless $dbh;
+    if ($apply) {
+        my $n = Noosphere::migrateAccountStorage($dbh, $limit);
+        print "Migrated: $n\n";
+    }
+    my $counts = Noosphere::accountStorageStatus($dbh);
+    print join(' ', map { "$_=$counts->{$_}" } qw(legacy hashed empty mixed invalid)), "\n";
+    $dbh->disconnect();
+    die 'storage inconsistency' if $counts->{mixed} || $counts->{invalid};
+    if ($complete && $counts->{legacy}) {
+        print STDERR "Migration incomplete; keep account writers stopped.\n";
+        exit 2;
+    }
+    1;
+};
+unless ($ok) {
+    print STDERR "Storage operation failed. Check prerequisites and schema; keep account writers stopped and rerun --status.\n";
+    exit 1;
+}

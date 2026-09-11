@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::PasswordStorage;
 
 sub findLoginUser {
  my ($username, $password) = @_;
@@ -9,9 +10,12 @@ sub findLoginUser {
  $username =~ s/^ +//;
  $username =~ s/ +$//;
  $username =~ s/ +/ /g;
- return eval { dbSelectRowBound($dbh,
-   'SELECT uid FROM users WHERE lower(username) = lower(?) AND password = ? AND active = 1 LIMIT 1',
-   $username, $password) };
+ return eval {
+   my $row = dbSelectRowBound($dbh,
+     'SELECT uid, password_hash FROM users WHERE lower(username) = lower(?) AND active = 1 LIMIT 1',
+     $username);
+   $row && verifyAccountPassword($row->{password_hash}, $password) ? {uid => $row->{uid}} : undef;
+ };
 }
 
 # handleLogin - main entry point for getting user information hash and 

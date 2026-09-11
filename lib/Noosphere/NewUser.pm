@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::PasswordStorage;
 
 use Digest::SHA1 qw(sha1_hex);
 
@@ -227,9 +228,12 @@ sub activateAccount {
 	# create the record in the user table
 	#
 	my $newid = nextval('users_uid_seq');
-	my $rv = eval { dbExecuteBound($dbh,
-		'INSERT INTO users (uid, joined, username, password, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, ?, ?, ?)',
-		$newid, $user, $p1, $email, $defpreamble) };
+	my $rv = eval {
+		my $encoded = hashAccountPassword($p1);
+		dbExecuteBound($dbh,
+		"INSERT INTO users (uid, joined, username, password, password_hash, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, '', ?, ?, ?)",
+		$newid, $user, $encoded, $email, $defpreamble);
+	};
 
 	if (!defined($rv) || $rv <= 0) {
 	return("failed to add user"); }

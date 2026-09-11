@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::PasswordStorage;
 
 use Digest::SHA1 qw(sha1_hex);
 
@@ -56,8 +57,11 @@ sub changePassword {
   return errorMessage('Please enter a password.')
     unless defined($password) && !ref($password) && length($password);
   my ($username, $email) = split(/:/,$hash);
-  my $rv = eval { dbExecuteBound($dbh, 'UPDATE '.getConfig('user_tbl').
-    ' SET password = ? WHERE username = ? AND email = ?', $password, $username, $email) };
+  my $rv = eval {
+    my $encoded = hashAccountPassword($password);
+    dbExecuteBound($dbh, 'UPDATE '.getConfig('user_tbl').
+      " SET password_hash = ?, password = '' WHERE username = ? AND email = ?", $encoded, $username, $email);
+  };
   return errorMessage('Could not change the password. Please request a new link and try again.')
     unless defined($rv) && $rv > 0;
 

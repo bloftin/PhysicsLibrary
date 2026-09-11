@@ -1292,6 +1292,7 @@ sub getUserData {
 	my $data = $dbq->fetchrow_hashref();
 	$dbq->finish();
  
+	delete @{$data}{qw(password password_hash)} if $data;
 	return $data; 
 }
 

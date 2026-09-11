@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
+use lib "$FindBin::Bin/../../lib";
 
 our (@queries, @results, @cookies, @mail, @setup, @policies);
 our ($failure, $finished);
@@ -12,6 +13,7 @@ my $quoted_password = q{a'\b; active=0 --};
 {
     package Noosphere;
     use Digest::SHA qw(sha1_hex);
+    use Noosphere::PasswordStorage;
     our $dbh;
     sub SECRET () { 'synthetic-test-key' }
     sub getConfig {
@@ -112,10 +114,10 @@ sub login {
 
 subtest 'login parameters and failure behavior' => sub {
     fixture();
-    @results = ({uid => 42});
+    @results = ({uid => 42, password_hash => Noosphere::hashAccountPassword($quoted_password)});
     is(login('  Test   Member  ', $quoted_password)->{uid}, 42, 'successful login');
-    is($queries[0]->{sql}, 'SELECT uid FROM users WHERE lower(username) = lower(?) AND password = ? AND active = 1 LIMIT 1', 'fixed login SQL');
-    is_deeply($queries[0]->{bind}, ['Test Member', $quoted_password], 'only username spacing normalized');
+    is($queries[0]->{sql}, 'SELECT uid, password_hash FROM users WHERE lower(username) = lower(?) AND active = 1 LIMIT 1', 'fixed login SQL');
+    is_deeply($queries[0]->{bind}, ['Test Member'], 'only username is sent to the login query');
     is(scalar @cookies, 1, 'session minted after match');
     is($finished, 1, 'statement finished');
     for my $pair ([$payload, 'wrong'], ['member', $payload], [undef, 'pw'], ['member', undef],
@@ -127,11 +129,15 @@ subtest 'login parameters and failure behavior' => sub {
         is(scalar @cookies, 0, 'no login cookie');
         if (@queries) {
             unlike($queries[0]->{sql}, qr/\Q$payload\E/, 'input not embedded in query');
-            is_deeply($queries[0]->{bind}, $pair, 'input remains literal bound data');
+            is_deeply($queries[0]->{bind}, [$pair->[0]], 'username remains literal bound data');
         }
     }
-    fixture(); @results = ({uid => 42});
+    fixture(); @results = ({uid => 42, password_hash => Noosphere::hashAccountPassword('0')});
     is(login('member', '0')->{uid}, 42, 'nonempty zero password handled as data');
+    fixture(); @results = ({uid => 42, password => 'old-password', password_hash => undef});
+    is(login('member', 'old-password')->{uid}, 0, 'unmigrated account has no plaintext fallback');
+    fixture(); @results = ({uid => 42, password_hash => Noosphere::hashAccountPassword('Case Sensitive')});
+    is(login('member', 'case sensitive')->{uid}, 0, 'login verifies password with exact case');
 };
 
 subtest 'shared account lookups' => sub {
@@ -165,8 +171,9 @@ subtest 'recovery lookup and change' => sub {
     my $hash = Noosphere::makeHash("O'Neil", 'member@example.invalid');
     like(Noosphere::pwChange({hash => $hash, submit => 1, pw1 => $quoted_password, pw2 => $quoted_password}),
         qr/Password Changed/, 'password change route succeeds');
-    is($queries[0]->{sql}, 'UPDATE users SET password = ? WHERE username = ? AND email = ?', 'fixed change SQL');
-    is_deeply($queries[0]->{bind}, [$quoted_password, "O'Neil", 'member@example.invalid'], 'password and link identity bound');
+    is($queries[0]->{sql}, "UPDATE users SET password_hash = ?, password = '' WHERE username = ? AND email = ?", 'fixed change SQL');
+    ok(Noosphere::verifyAccountPassword($queries[0]->{bind}->[0], $quoted_password), 'only hash is stored');
+    is_deeply([@{$queries[0]->{bind}}[1,2]], ["O'Neil", 'member@example.invalid'], 'link identity bound');
     for my $bad (undef, [], '', 'invalid') {
         fixture();
         like(Noosphere::changePassword($bad, 'pw'), qr/Invalid password change URL/, 'helper requires valid link');
@@ -189,8 +196,9 @@ subtest 'activation binds all record values' => sub {
     fixture(); @results = (undef, 1, {username => "O'Neil"}, 1, {groupid => 99});
     my $hash = Noosphere::makeHash("O'Neil", 'member@example.invalid');
     is(Noosphere::activateAccount($Noosphere::dbh, $hash, $quoted_password, $quoted_password), '', 'activation succeeds');
-    is($queries[1]->{sql}, 'INSERT INTO users (uid, joined, username, password, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, ?, ?, ?)', 'fixed insert SQL');
-    is_deeply($queries[1]->{bind}, [99, "O'Neil", $quoted_password, 'member@example.invalid', q{\newcommand{\name}{O'Neil}}], 'all values literal including preamble');
+    is($queries[1]->{sql}, "INSERT INTO users (uid, joined, username, password, password_hash, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, '', ?, ?, ?)", 'fixed insert SQL');
+    ok(Noosphere::verifyAccountPassword($queries[1]->{bind}->[2], $quoted_password), 'activation stores a hash');
+    is_deeply([@{$queries[1]->{bind}}[0,1,3,4]], [99, "O'Neil", 'member@example.invalid', q{\newcommand{\name}{O'Neil}}], 'other values literal including preamble');
     is_deeply($queries[3]->{bind}, [99, 99, "O'Neil", "This is the default group for user O'Neil."], 'default group also binds stored username');
     is_deeply(\@setup, [qw(membership acl acl title index)], 'post-creation setup retained');
     fixture(); @results = (undef, '0E0');
@@ -231,12 +239,12 @@ subtest 'isolated database integration' => sub {
     local $Noosphere::dbh = DBI->connect('dbi:SQLite:dbname=:memory:', '', '',
         {RaiseError => 1, PrintError => 0, sqlite_unicode => 1});
     my $db = $Noosphere::dbh;
-    $db->do('CREATE TABLE users (uid INTEGER PRIMARY KEY, joined TEXT, username TEXT, password TEXT, email TEXT, preamble TEXT, active INTEGER DEFAULT 1)');
+    $db->do("CREATE TABLE users (uid INTEGER PRIMARY KEY, joined TEXT, username TEXT, password TEXT DEFAULT '', password_hash TEXT, email TEXT, preamble TEXT, active INTEGER DEFAULT 1)");
     $db->do('CREATE TABLE groups (groupid INTEGER PRIMARY KEY, userid INTEGER, groupname TEXT, description TEXT)');
-    my $insert = $db->prepare('INSERT INTO users (uid, username, password, email, active) VALUES (?, ?, ?, ?, ?)');
-    $insert->execute(1, 'member', 'old-password', 'member@example.invalid', 1);
-    $insert->execute(2, 'other', 'untouched', 'other@example.invalid', 1);
-    $insert->execute(3, 'inactive', 'password', 'inactive@example.invalid', 0);
+    my $insert = $db->prepare('INSERT INTO users (uid, username, password_hash, email, active) VALUES (?, ?, ?, ?, ?)');
+    $insert->execute(1, 'member', Noosphere::hashAccountPassword('old-password'), 'member@example.invalid', 1);
+    $insert->execute(2, 'other', Noosphere::hashAccountPassword('untouched'), 'other@example.invalid', 1);
+    $insert->execute(3, 'inactive', Noosphere::hashAccountPassword('password'), 'inactive@example.invalid', 0);
     is(login('MEMBER', 'old-password')->{uid}, 1, 'real login preserves case-insensitive name');
     is(login($payload, 'wrong')->{uid}, 0, 'username payload cannot authenticate');
     is(login('member', $payload)->{uid}, 0, 'password payload cannot authenticate');
@@ -245,14 +253,15 @@ subtest 'isolated database integration' => sub {
     is(scalar @mail, 0, 'no recovery mail for payload');
     my $hash = Noosphere::makeHash('member', 'member@example.invalid');
     like(Noosphere::changePassword($hash, $quoted_password), qr/Password Changed/, 'quoted password saved');
-    is($db->selectrow_array('SELECT password FROM users WHERE uid = 1'), $quoted_password, 'literal password round trip');
-    is($db->selectrow_array('SELECT password FROM users WHERE uid = 2'), 'untouched', 'other account unchanged');
+    is($db->selectrow_array('SELECT password FROM users WHERE uid = 1'), '', 'legacy field remains empty');
+    ok(Noosphere::verifyAccountPassword($db->selectrow_array('SELECT password_hash FROM users WHERE uid = 1'), $quoted_password), 'hash round trip');
+    ok(Noosphere::verifyAccountPassword($db->selectrow_array('SELECT password_hash FROM users WHERE uid = 2'), 'untouched'), 'other account unchanged');
     is(login('member', $quoted_password)->{uid}, 1, 'quoted password authenticates normally');
     my $stale = Noosphere::makeHash('member', 'previous@example.invalid');
     like(Noosphere::changePassword($stale, 'not-written'), qr/Could not change/, 'old email link cannot update');
     my $literal = Noosphere::makeHash($payload, 'member@example.invalid');
     like(Noosphere::changePassword($literal, 'not-written'), qr/Could not change/, 'even a signed SQL-like identity is only data');
-    is($db->selectrow_array('SELECT password FROM users WHERE uid = 1'), $quoted_password, 'failed identity match leaves password intact');
+    ok(Noosphere::verifyAccountPassword($db->selectrow_array('SELECT password_hash FROM users WHERE uid = 1'), $quoted_password), 'failed identity match leaves hash intact');
     my $new = Noosphere::makeHash("O'Neil", 'new@example.invalid');
     is(Noosphere::activateAccount($db, $new, $quoted_password, $quoted_password), '', 'real activation insert');
     is(login("O'Neil", $quoted_password)->{uid}, 99, 'new account login');
