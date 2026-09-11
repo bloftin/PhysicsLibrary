@@ -4,6 +4,7 @@ use strict;
 use Socket;
 use Template;
 use Encode;
+use Digest::SHA qw(hmac_sha256_hex);
 
 sub validUserId {
 	my $uid = shift;
@@ -959,20 +960,26 @@ sub editUserPrefs {
 # 
 sub editUserData {
  my ($params, $user_info) = @_;
- 
+ return loginExpired() unless profileUserValid($user_info);
+ my $req = Apache2::RequestUtil->request;
+ $req->headers_out->set('Cache-Control' => 'no-store');
+ my $method = $req->method;
+ return errorMessage('Use the profile form to update your details.')
+   unless $method eq 'GET' || $method eq 'POST';
+
+ my $error = $method eq 'POST' ? changeUserData($params, $user_info) : '';
+ my $data = getUserData($user_info->{uid});
+ return loginExpired() unless profileUserValid({%$user_info, data => $data});
+ $user_info->{data} = $data;
+ my $token = profileFormToken($user_info);
+ return errorMessage('The profile form is unavailable. Please try again later.')
+   unless defined $token;
+
  my $content = new TemplateNS('edituser.html');
- my $data = $user_info->{'data'};
- my $html = '';
-
- if ($user_info->{uid} == -1 ) { return loginExpired(); }
-
- my $error = changeUserData($params,$data);
- $content->setKeys('error' => $error, 'id' => $user_info->{"uid"});
- $data = $user_info->{"data"} = getUserData($user_info->{"uid"});
- $content->setKeys(%$data);
- 
- $html = makeBox("Edit User Info for <b>".$data->{'username'}."</b>",$content->expand()); 
- return paddingTable($html); 
+ $content->setKeys(map { $_ => $data->{$_} } (profileEditableFields(), 'email'));
+ $content->setKeys(error => $error, profile_token => $token);
+ return paddingTable(makeBox('Edit User Info for <b>'.htmlescape($data->{username}).'</b>',
+   $content->expand()));
 }
 
 # the user prefs editor
@@ -1019,79 +1026,79 @@ sub changePrefs {
 	return $message;			
 }
 
-# make sure user data is vaild
-#
-sub checkUserData {
-	my $params = shift;
+sub profileEditableFields {
+ return qw(forename surname city state country homepage sig bio preamble);
+}
 
-	my $error = "";
+sub profileUserValid {
+ my ($user_info) = @_;
+ return 0 unless ref($user_info) eq 'HASH';
+ my $uid = $user_info->{uid};
+ my $data = $user_info->{data};
+ return 0 unless defined($uid) && !ref($uid) && $uid =~ /\A[1-9][0-9]*\z/;
+ return 0 unless ref($data) eq 'HASH' && defined($data->{uid}) &&
+   !ref($data->{uid}) && $data->{uid} eq $uid && defined($data->{active}) &&
+   !ref($data->{active}) && $data->{active} eq '1';
+ return defined($user_info->{ticket}) && !ref($user_info->{ticket}) &&
+   length($user_info->{ticket}) > 0;
+}
 
-	if (not ($params->{email} =~ /^\s*[\w.\-]+@[\w.\-]+\s*$/)) {
-		$error .= "Need a valid e-mail address!<br>";
-	}
+sub profileFormToken {
+ my ($user_info) = @_;
+ return undef unless profileUserValid($user_info);
+ my $secret = SECRET();
+ return undef unless defined($secret) && !ref($secret) && length($secret);
+ # Domain separation keeps this token specific to this form and login session.
+ return hmac_sha256_hex("profile-form-v1\0".$user_info->{uid}."\0".$user_info->{ticket}, $secret);
+}
 
-	return $error;
+sub profileTokenMatches {
+ my ($supplied, $expected) = @_;
+ return 0 unless defined($supplied) && !ref($supplied) &&
+   $supplied =~ /\A[0-9a-f]{64}\z/ && defined($expected);
+ my $difference = 0;
+ for my $i (0 .. 63) {
+   $difference |= ord(substr($supplied, $i, 1)) ^ ord(substr($expected, $i, 1));
+ }
+ return $difference == 0;
 }
 
 sub changeUserData {
-	my $params = shift;
-	my $data = shift;
-	my $changed = 0;
-	my $message = "";		# error message to return, "" is no error
-	my @keys = (keys %$params);
-	my @fields = ();
-	
-	# see if we are submitting any fields for changing, if not, just exit
-	#
-	if ($#keys == 0) {
-		return $message;
-	}
+ my ($params, $user_info) = @_;
+ return 'Please sign in again.' unless profileUserValid($user_info);
+ my $req = Apache2::RequestUtil->request;
+ return 'Use the profile form to update your details.' unless $req->method eq 'POST';
+ return 'The form has expired. Please reload it and try again.'
+   unless ref($params) eq 'HASH' &&
+     profileTokenMatches($params->{profile_token}, profileFormToken($user_info));
 
-	# go through and look for changed fields
-	#
-	for my $key (@keys) {
-		$params->{$key}='' if (not defined $params->{$key}); # no NULL fields
+ my $data = getUserData($user_info->{uid});
+ return 'Please sign in again.' unless profileUserValid({%$user_info, data => $data});
+ my (@fields, @values);
+ my %limits = (forename => 64, surname => 64, city => 128, state => 128,
+   country => 128, homepage => 255);
+ for my $field (profileEditableFields()) {
+   next unless exists $params->{$field};
+   my $value = defined($params->{$field}) ? $params->{$field} : '';
+   return 'Invalid profile field.' if ref($value);
+   return 'A profile field is too long.'
+     if length($value) > ($limits{$field} || 65535);
+   next if $value eq (defined($data->{$field}) ? $data->{$field} : '');
+   push @fields, $field;
+   push @values, $value;
+ }
+ return 'No changes' unless @fields;
 
-		if (exists $data->{$key} && ($params->{$key} ne $data->{$key})) {
-			$changed=1;
-			push @fields,$key;
-		}
-	}
-
-	# handle changes
-	#
-	if ($changed == 0) {
-		$message.="No changes";
-	} else {
-
-		my $error = checkUserData($params);
-
-		if ($error eq '') {
-			$message .= 'changed';
-			my $set = '';
-			foreach my $field (@fields) {
-				$message .= " $field";
-				$set .= "$field=\'".sq($params->{$field})."\',";
-			}
-			$set =~ s/,$//;	 # kill trailing ,
-	
-			#dwarn $set;
-		
-			# do the database update
-			(my $rv,my $sth) = dbUpdate($dbh,{WHAT => 'users',
-			SET => $set,
-			WHERE => 'uid='.$data->{'uid'}});
-			$sth->finish();
-		}
-
-		# there was an error, can't accept changes
-		#
-		else {
-			$message = $error;
-		}
-	}
-	
-	return $message;			
+ my $saved = eval {
+   my $sth = $dbh->prepare('UPDATE users SET '.join(', ', map { "$_ = ?" } @fields).
+     ' WHERE uid = ? AND active = 1');
+   die 'prepare failed' unless $sth;
+   my $rv = $sth->execute(@values, $user_info->{uid});
+   $sth->finish();
+   defined($rv) && $rv > 0;
+ };
+ return 'Could not save your profile. Please try again.' unless $saved;
+ return 'Profile updated.';
 }
 
 # a wrapper to expand the template returned by the getUser sub.

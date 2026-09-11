@@ -1,6 +1,7 @@
 <table width="100%">
-<form method="post" action="<NS:template main_url/>/?op=edituser&id=<NS:template id query/>">
-<tr><td align="center" colspan="2"><font color="#ff0000" size="+1"><NS:template error raw/></font></td></tr>
+<form method="post" action="<NS:template main_url/>/?op=edituser">
+<input type="hidden" name="profile_token" value="<NS:template profile_token qhtml/>">
+<tr><td align="center" colspan="2"><font color="#ff0000" size="+1"><NS:template error/></font></td></tr>
 <tr>
  <td bgcolor="#dddddd">Name:</td><td>
    <input type="text" name="forename" value="<NS:template forename qhtml/>" size="15"> 
@@ -9,7 +10,7 @@
 </tr>
 <tr>
  <td bgcolor="#dddddd">Email:</td><td>
-   <input type="text" name="email" value="<NS:template email qhtml/>" size="35">
+   <NS:template email/>
  </td>
 </tr>
 <tr>
