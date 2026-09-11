@@ -2,6 +2,9 @@ package Noosphere;
 
 use strict;
 use Noosphere::PasswordStorage;
+use Noosphere::Ticket;
+
+our $dbh;
 
 sub findLoginUser {
  my ($username, $password) = @_;
@@ -12,9 +15,9 @@ sub findLoginUser {
  $username =~ s/ +/ /g;
  return eval {
    my $row = dbSelectRowBound($dbh,
-     'SELECT uid, password_hash FROM users WHERE lower(username) = lower(?) AND active = 1 LIMIT 1',
+     'SELECT uid, password_hash, access FROM users WHERE lower(username) = lower(?) AND active = 1 LIMIT 1',
      $username);
-   $row && verifyAccountPassword($row->{password_hash}, $password) ? {uid => $row->{uid}} : undef;
+   $row && verifyAccountPassword($row->{password_hash}, $password) ? $row : undef;
  };
 }
 
@@ -43,13 +46,14 @@ sub handleLogin {
 
 	# handle logging out: unset ticket
 	#
-	if ($params->{'op'} eq 'logout') {
+	if ($params->{'op'} eq 'logout' && $req->method eq 'POST' &&
+        validSessionToken($user_info{'ticket'}) &&
+        defined($params->{logout_token}) && !ref($params->{logout_token}) &&
+        $params->{logout_token} eq logoutFormToken($user_info{'ticket'})) {
 		#dwarn "logout selected";
+		revokeTicket($user_info{'ticket'});
 		$user_info{'ticket'} = undef;
 		$user_info{'uid'} = 0;
-
-		
-		clearCookie($req, 'ticket');
 
 		#dwarn 'got logout'; 
 	}
@@ -57,7 +61,7 @@ sub handleLogin {
 	# handle login op
 	#
 	elsif ($params->{op} eq 'login') {
-		my $row = findLoginUser($user, $passwd);
+		my $row = $req->method eq 'POST' ? findLoginUser($user, $passwd) : undef;
 	 
 		# error if exactly one row wasn't returned
 		#
@@ -69,17 +73,14 @@ sub handleLogin {
 		# otherwise we found the user, get their info
 		#
 		else {
-			$user_info{'uid'} = $row->{'uid'}; 
-	 
-			$user_info{'ticket'} = makeTicket($user_info{'uid'},
-				$user_info{'ip'},
-				getConfig('cookie_timeout'),
-				$user_info{'time'});
-
-			#my $timeout = $user_info{'time'} + (60 * getConfig('cookie_timeout'));
-
-			my $timeout = 60 * getConfig('cookie_timeout');
-			setCookie($req, 'ticket', $user_info{'ticket'}, $timeout); 
+			my $ticket = eval {
+                revokeTicket($user_info{'ticket'});
+                makeTicket($row->{uid}, $user_info{'ip'}, getConfig('cookie_timeout'),
+                    $user_info{'time'}, $row->{password_hash}, $row->{access});
+            };
+            $user_info{'ticket'} = $ticket;
+            $user_info{'uid'} = defined($ticket) ? $row->{uid} : 0;
+            setCookie($req, 'ticket', $ticket, sessionLifetime()) if defined $ticket;
 		}
 	}
 
@@ -93,6 +94,14 @@ sub handleLogin {
 		$user_info{'time'});
 	}
 
+    if ($user_info{'uid'} <= 0) {
+        $user_info{'ticket'} = undef;
+        clearCookie($req, 'ticket') if defined($cookies->{ticket}) || $params->{op} eq 'login';
+    }
+    if ($user_info{'uid'} > 0 || $params->{op} =~ /\A(?:login|logout|pwchange|pwchangereq)\z/) {
+        $req->headers_out->set('Cache-Control' => 'no-store');
+        $req->headers_out->set('Referrer-Policy' => 'same-origin');
+    }
 	# get data and prefs (even for anonymous user)
 	#
 	$user_info{'data'} = getUserData($user_info{'uid'});
@@ -106,18 +115,18 @@ sub handleLogin {
 		#dwarn "handle user last request statistics after";
 	}
 
-	# handle never logging out
-	# 
-	if ($user_info{'uid'} > 0 && $user_info{'prefs'}->{'neverlogout'} eq 'on') {
-		#dwarn "handle never logging out before";
-		my $timeout =	(180*24*60*60);	# 6 months
-			
-		# set a new cookie that pushes expiry time back.
-		#
-		setCookie($req, 'ticket', $user_info{'ticket'}, $timeout); 
-	}
-	#dwarn "handle never logging out after";
 	return %user_info;
+}
+
+sub logoutPage {
+    my ($params, $user_info) = @_;
+    return paddingTable(makeBox('Logout', 'You are signed out.')) unless $user_info->{uid} > 0;
+    my $token = logoutFormToken($user_info->{ticket});
+    return paddingTable(makeBox('Logout',
+        '<form method="post" action="/"><p>Sign out of this browser?</p>'.
+        '<input type="hidden" name="op" value="logout" />'.
+        '<input type="hidden" name="logout_token" value="'.$token.'" />'.
+        '<button type="submit">Logout</button></form>'));
 }
 
 # get the contents of the login/logged-in box displayed on the left

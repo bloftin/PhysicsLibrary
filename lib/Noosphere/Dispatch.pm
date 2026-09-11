@@ -95,6 +95,7 @@ sub dispatch {
   'usercorsr' => \&userGenericList,
   'pwchangereq' => \&pwChangeRequest,
   'pwchange' => \&pwChange,
+  'logout' => \&logoutPage,
   'watches' => \&listWatches,
   
   # orphaning and adopting

@@ -820,6 +820,33 @@ CREATE TABLE users (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'account_sessions'
+--
+
+CREATE TABLE account_sessions (
+  token_hash char(64) NOT NULL,
+  uid int(11) NOT NULL,
+  created bigint NOT NULL,
+  expires bigint NOT NULL,
+  last_seen bigint NOT NULL,
+  credential_stamp char(64) NOT NULL,
+  PRIMARY KEY (token_hash),
+  KEY account_sessions_uid_idx (uid),
+  KEY account_sessions_expires_idx (expires)
+) TYPE=MyISAM;
+
+-- Table structure for table 'password_reset_tokens'
+CREATE TABLE password_reset_tokens (
+  uid int(11) NOT NULL default '0',
+  token_hash char(64) NOT NULL default '',
+  created datetime default NULL,
+  expires datetime default NULL,
+  used_at datetime default NULL,
+  PRIMARY KEY  (token_hash),
+  KEY password_reset_tokens_uid_idx (uid)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'users_uid_seq'
 --
 
@@ -904,4 +931,3 @@ INSERT INTO tdesc VALUES ('users','Users',7);
 INSERT INTO tdesc VALUES ('requests','Requests',8);
 INSERT INTO tdesc VALUES ('polls','Polls',9);
 INSERT INTO tdesc VALUES ('collab','Collaborations',10);
-

@@ -2,6 +2,7 @@ package Noosphere;
 use strict;
 
 use Noosphere::IR;
+use Noosphere::Ticket;
 
 # take a collab and add it as a site doc
 #
@@ -291,6 +292,7 @@ sub reactivate {
 	my $utbl = getConfig('user_tbl');
 
 	return loginExpired() if ($userinf->{uid} <= 0);
+	return errorMessage('Invalid account.') unless defined($params->{id}) && !ref($params->{id}) && $params->{id} =~ /\A[1-9][0-9]*\z/;
 	
 	my $isadmin = ($userinf->{data}->{access}>=getConfig('access_admin'));
 	
@@ -312,7 +314,8 @@ sub reactivate {
 
 	# change the "active" flag.
 	#
-	my ($rv, $sth) = dbUpdate($dbh, {WHAT=>$utbl, SET=>"active=1", WHERE=>"uid=$params->{id}"});
+	return errorMessage('Could not update account. Please try again.')
+        unless eval { setAccountActive($params->{id}, 1) };
 
 	return paddingTable(makeBox('Reactivate User',"User reactivated.	<ul><li>Click <a href=\"".getConfig('main_url')."\">here</a> to go home.</li><li>Click <a href=\"".getConfig('main_url')."/?op=getobj&from=users&id=$params->{id}\">here</a> to return to viewing the user</li></ol>"));
 }
@@ -326,6 +329,7 @@ sub deactivate {
 	my $utbl = getConfig('user_tbl');
 
 	return loginExpired() if ($userinf->{uid} <= 0);
+	return errorMessage('Invalid account.') unless defined($params->{id}) && !ref($params->{id}) && $params->{id} =~ /\A[1-9][0-9]*\z/;
 	
 	my $isadmin = ($userinf->{data}->{access}>=getConfig('access_admin'));
 	
@@ -347,7 +351,8 @@ sub deactivate {
 
 	# change the "active" flag.
 	#
-	my ($rv, $sth) = dbUpdate($dbh, {WHAT=>$utbl, SET=>"active=0", WHERE=>"uid=$params->{id}"});
+	return errorMessage('Could not update account. Please try again.')
+        unless eval { setAccountActive($params->{id}, 0) };
 
 	return paddingTable(makeBox('Deactivate User',"User deactivated.	<ul><li>Click <a href=\"".getConfig('main_url')."\">here</a> to go home.</li><li>Click <a href=\"".getConfig('main_url')."/?op=getobj&from=users&id=$params->{id}\">here</a> to return to viewing the user</li></ol>"));
 }

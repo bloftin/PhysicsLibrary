@@ -497,6 +497,28 @@ CREATE TABLE users (
 create index users_username_idx on users (username);
 create index users_lowerusername_idx on users (lower(username));
 
+CREATE TABLE account_sessions (
+  token_hash char(64) NOT NULL PRIMARY KEY,
+  uid int8 NOT NULL,
+  created int8 NOT NULL,
+  expires int8 NOT NULL,
+  last_seen int8 NOT NULL,
+  credential_stamp char(64) NOT NULL
+);
+CREATE INDEX account_sessions_uid_idx ON account_sessions (uid);
+CREATE INDEX account_sessions_expires_idx ON account_sessions (expires);
+
+CREATE TABLE password_reset_tokens (
+ uid int8 NOT NULL,
+ token_hash char(64) NOT NULL,
+ created timestamp,
+ expires timestamp,
+ used_at timestamp,
+ PRIMARY KEY(token_hash)
+);
+
+create index password_reset_tokens_uid_idx on password_reset_tokens (uid);
+
 /******************************************************************************
  news table
 *******************************************************************************/
@@ -800,4 +822,3 @@ INSERT INTO tdesc VALUES ('users','Users',7);
 INSERT INTO tdesc VALUES ('requests','Requests',8);
 INSERT INTO tdesc VALUES ('polls','Polls',9);
 INSERT INTO tdesc VALUES ('collab','Collaborations',10);
-

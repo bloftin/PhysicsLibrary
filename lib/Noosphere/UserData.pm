@@ -934,6 +934,8 @@ sub editUserPrefs {
  
 	foreach my $group (@$groupings) {
 		my $groupname = $group->[0];
+		my @keys = grep { $_ ne 'neverlogout' } @{$group->[1]};
+		next unless @keys;
 
 		$inputs .= "<tr><td bgcolor=\"#eeeeee\">";
 		$inputs .= "<font size=\"+1\">$groupname</font>";
@@ -941,7 +943,7 @@ sub editUserPrefs {
 
 		$inputs .= "<tr><td><br />";
 		$inputs .= "<table align=\"center\">";
-		foreach my $key (@{$group->[1]}) {
+		foreach my $key (@keys) {
 			my ($widget,$desc) = getPrefsWidget($user_info,$key);
 			if ($widget ne '') {
 				$inputs .= "<tr><td>$desc:</td><td align=\"center\">$widget</td></tr>";

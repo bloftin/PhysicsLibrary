@@ -3,7 +3,13 @@ package Noosphere;
 use strict;
 use Noosphere::PasswordStorage;
 
-use Digest::SHA1 qw(sha1_hex);
+use Digest::SHA qw(sha256_hex);
+use POSIX qw(strftime);
+
+our $dbh;
+
+use constant PASSWORD_RESET_TOKEN_BYTES => 32;
+use constant DEFAULT_PASSWORD_RESET_TOKEN_LIFETIME => 2 * 60 * 60;
 
 # change the password
 #
@@ -13,12 +19,12 @@ sub pwChange {
   my $error = "";
   return errorMessage("Invalid password change URL.")
     unless defined($params->{hash}) && !ref($params->{hash});
-  my $hash = urlunescape($params->{"hash"});
+  my $token = urlunescape($params->{"hash"});
  
-  # check for a valid hash
-  #
-  my $herr = checkHash($hash);
-  if ($herr eq 'invalid hash') { 
+  return errorMessage("Invalid password change URL.") unless validPasswordResetToken($token);
+  my $ticket = eval { passwordResetTicket($token) };
+  return errorMessage("Could not process the request. Please try again later.") if $@;
+  if (!$ticket) {
     return errorMessage("Invalid password change URL.");
   }
   
@@ -35,14 +41,14 @@ sub pwChange {
 
     # make the password change
 	if (!$error) {
-      return changePassword($hash,$params->{pw1});
+      return changePassword($token,$params->{pw1});
 	}
   }
   
   # initial form and error handling
   #
   $template->setKey('error',$error);
-  $template->setKey('hash',$hash);
+  $template->setKey('hash',$token);
 
   return paddingTable(makeBox('Change Your Password',$template->expand()));
 }
@@ -50,23 +56,24 @@ sub pwChange {
 # actual database change of password, plus return acknowledgement form 
 #
 sub changePassword {
-  my $hash = shift;
+  my $token = shift;
   my $password = shift;
 
-  return errorMessage('Invalid password change URL.') unless checkHash($hash) eq '';
+  return errorMessage('Invalid password change URL.') unless validPasswordResetToken($token);
+  my $ticket = eval { passwordResetTicket($token) };
+  return errorMessage('Could not change the password. Please request a new link and try again.') if $@;
+  return errorMessage('Invalid password change URL.') unless $ticket;
   return errorMessage('Please enter a password.')
     unless defined($password) && !ref($password) && length($password);
-  my ($username, $email) = split(/:/,$hash);
   my $rv = eval {
     my $encoded = hashAccountPassword($password);
-    dbExecuteBound($dbh, 'UPDATE '.getConfig('user_tbl').
-      " SET password_hash = ?, password = '' WHERE username = ? AND email = ?", $encoded, $username, $email);
+    consumePasswordResetTicket($ticket, $encoded);
   };
   return errorMessage('Could not change the password. Please request a new link and try again.')
     unless defined($rv) && $rv > 0;
 
   # return an acknowledgement
-  return paddingTable(makeBox('Password Changed','The password for <b>'.htmlescape($username).
+  return paddingTable(makeBox('Password Changed','The password for <b>'.htmlescape($ticket->{username}).
     '</b> has been changed. <p> You may now log in using the new password.'));
 }
 
@@ -84,7 +91,7 @@ sub pwChangeRequest {
      if (defined($username) && !ref($username) && length($username)) {
        my $ok = eval {
          $row = dbSelectRowBound($dbh, 'SELECT username, email FROM '.getConfig('user_tbl').
-           ' WHERE username = ? LIMIT 1', $username);
+           ' WHERE username = ? AND active = 1 LIMIT 1', $username);
          1;
        };
        return errorMessage('Could not process the request. Please try again later.') unless $ok;
@@ -94,10 +101,9 @@ sub pwChangeRequest {
 	   $error .= "Cannot find that user!<br>";
 	 }
      if (!$error) {
-	   # make the hash
-	   my $hash=sha1_hex(join(':',$row->{username},$email),SECRET);
-	   #dwarn "HASH for a pwchange is\n";
-	   #dwarn $hash;
+	   my $hash = eval { createPasswordResetTicket($row->{username}); };
+	   return errorMessage('Could not process the request. Please try again later.')
+	     unless defined($hash);
        # send out the message
 	   return sendPwChangeMail($row->{username},$email, $hash);
 	 }
@@ -118,7 +124,7 @@ sub sendPwChangeMail {
   my $email = shift;
   my $hash = shift;
 
-  $hash = urlescape($username.':'.$email.':'.$hash);
+  $hash = urlescape($hash);
   #dwarn "HASH FOR PW CHANGE IS\n";
   #dwarn $hash; 
   # send the mail
@@ -133,6 +139,71 @@ If you received this message without requesting it, it is possible someone is do
   ", getConfig('projname').": password change");
 
   return paddingTable(makeBox('Mail Sent',"A message was sent to <b>$email</b> with further instructions.  Please follow them to change your password."));
+}
+
+sub passwordResetTokenLifetime {
+  my $seconds = eval { getConfig('password_reset_token_lifetime') };
+  return DEFAULT_PASSWORD_RESET_TOKEN_LIFETIME
+    unless defined($seconds) && !ref($seconds) && $seconds =~ /\A[1-9][0-9]*\z/;
+  return $seconds;
+}
+
+sub passwordResetTime {
+  my $offset = shift || 0;
+  return strftime('%Y-%m-%d %H:%M:%S', gmtime(time + $offset));
+}
+
+sub newPasswordResetToken {
+  my $bytes = '';
+  while (length($bytes) < PASSWORD_RESET_TOKEN_BYTES) {
+    $bytes .= passwordSalt();
+  }
+  return unpack('H*', substr($bytes, 0, PASSWORD_RESET_TOKEN_BYTES));
+}
+
+sub validPasswordResetToken {
+  my $token = shift;
+  return defined($token) && !ref($token) && $token =~ /\A[0-9a-f]{64}\z/;
+}
+
+sub createPasswordResetTicket {
+  my $username = shift;
+  return undef unless defined($username) && !ref($username) && length($username);
+  my $user = dbSelectRowBound($dbh, 'SELECT uid FROM '.getConfig('user_tbl').
+    ' WHERE username = ? AND active = 1 LIMIT 1', $username);
+  return undef unless $user;
+  my $token = newPasswordResetToken();
+  my $now = passwordResetTime();
+  my $expires = passwordResetTime(passwordResetTokenLifetime());
+  dbExecuteBound($dbh,
+    'DELETE FROM password_reset_tokens WHERE uid = ? AND (used_at IS NOT NULL OR expires < ?)',
+    $user->{uid}, $now);
+  my $rv = dbExecuteBound($dbh,
+    'INSERT INTO password_reset_tokens (uid, token_hash, created, expires, used_at) VALUES (?, ?, ?, ?, NULL)',
+    $user->{uid}, sha256_hex($token), $now, $expires);
+  return defined($rv) && $rv > 0 ? $token : undef;
+}
+
+sub passwordResetTicket {
+  my $token = shift;
+  return undef unless validPasswordResetToken($token);
+  return dbSelectRowBound($dbh, 'SELECT pr.uid, pr.token_hash, u.username FROM password_reset_tokens pr '.
+    'JOIN '.getConfig('user_tbl').' u ON u.uid = pr.uid '.
+    'WHERE pr.token_hash = ? AND pr.used_at IS NULL AND pr.expires >= ? AND u.active = 1 LIMIT 1',
+    sha256_hex($token), passwordResetTime());
+}
+
+sub consumePasswordResetTicket {
+  my ($ticket, $password_hash) = @_;
+  return 0 unless $ticket && $ticket->{uid} && $ticket->{token_hash};
+  my $used = passwordResetTime();
+  my $rv = dbExecuteBound($dbh,
+    'UPDATE password_reset_tokens SET used_at = ? WHERE token_hash = ? AND used_at IS NULL AND expires >= ?',
+    $used, $ticket->{token_hash}, $used);
+  return 0 unless defined($rv) && $rv == 1;
+  return dbExecuteBound($dbh, 'UPDATE '.getConfig('user_tbl').
+    " SET password_hash = ?, password = '' WHERE uid = ? AND active = 1",
+    $password_hash, $ticket->{uid});
 }
 
 1;

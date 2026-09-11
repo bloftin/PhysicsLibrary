@@ -2,53 +2,43 @@ package Noosphere;
 use strict;
 
 sub setCookie {
-	my $req = shift;
-	my $key = shift;
-	my $val = shift;
-	my $exp = shift;
- 
-	my $addrs = getConfig("siteaddrs");
-	my $dom = $addrs->{'main'};
-	my $pth = '/';
-	my $expires = $exp ? "max-age=$exp" : "";
-	my $cookie;
- 
-# planetphysics.org does NOT domain-match .planetphysics.org, so paranoid browsers
-# such as w3m will drop the cookie.  This adds another cookie leaves the
-# domain attribute implicit (so it defaults to the request host)
-# APK - this still doesn't work in w3m, and people with IE are still unable
-# to stay logged in.
-#
-	$cookie = join ('; ', "$key=$val", "path=$pth", $expires);
-	#$cookie="$key=$val; expires=$exp; path=$pth";
-	#dwarn "setting cookie $cookie";
-	$req->headers_out->add("set-cookie" => "$cookie");
+    my ($req, $key, $val, $exp) = @_;
+    die "Invalid cookie.\n" unless defined($key) && !ref($key) && $key =~ /\A[A-Za-z0-9_-]+\z/ &&
+        defined($val) && !ref($val) && $val =~ /\A[\x21\x23-\x2b\x2d-\x3a\x3c-\x5b\x5d-\x7e]*\z/;
+    die "Invalid cookie expiry.\n" if defined($exp) && (ref($exp) || $exp !~ /\A[0-9]+\z/);
+    $key = '__Host-pl_session' if $key eq 'ticket';
+    my @parts = ("$key=$val", 'Path=/', 'Secure', 'HttpOnly', 'SameSite=Lax');
+    push @parts, "Max-Age=$exp" if defined $exp;
+    push @parts, 'Expires=Thu, 01 Jan 1970 00:00:00 GMT' if defined($exp) && $exp == 0;
+    $req->headers_out->add('Set-Cookie' => join('; ', @parts));
 }
 
 sub clearCookie {
-	my $req = shift;
-	my $key = shift;
-	setCookie($req,$key,"",0);
+    my ($req, $key) = @_;
+    setCookie($req, $key, '', 0);
+    if ($key eq 'ticket') {
+        $req->headers_out->add('Set-Cookie' =>
+            'ticket=; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+    }
 }
 
 sub parseCookies {
-	my $req = shift;
-	
-	my $buf = $req->header_in("Cookie");
-	#dwarn "Cookie header_in:\n $buf";	
-	my @data = split(/;\s*/,$buf);
-	#dwarn print join(", ", @data);
-	my %cookies;
-	
-	#dwarn "cookies: \n" if (scalar @data);
-	foreach my $cookie (@data) {
-		
-		my ($key,$val) = split(/=/,$cookie);
-		$cookies{$key} = $val;
-		#dwarn "\t$key=>$val\n"; 
-	}
-
-	return %cookies; 
+    my ($req) = @_;
+    my $buf = $req->header_in('Cookie') || '';
+    my (%cookies, %seen);
+    foreach my $cookie (split(/;\s*/, $buf)) {
+        my ($key, $val) = split(/=/, $cookie, 2);
+        next unless defined($key) && defined($val);
+        next if $key eq 'ticket';
+        if ($key eq '__Host-pl_session') {
+            $seen{$key}++;
+            $cookies{ticket} = $val if length($val) <= 64;
+        } else {
+            $cookies{$key} = $val;
+        }
+    }
+    delete $cookies{ticket} if ($seen{'__Host-pl_session'} || 0) > 1;
+    return %cookies;
 }
 
 1;
