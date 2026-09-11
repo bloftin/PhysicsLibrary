@@ -1071,6 +1071,9 @@ sub reRenderObj {
 sub adminObjectEditor {
 	my $params = shift;
 	my $userinf = shift;
+	my $upload = shift;
+
+	return noAccess() if ($userinf->{data}->{access} < getConfig('access_editobj'));
 
 	my $schema;
 	if ($params->{from} eq getConfig('en_tbl')) {
@@ -1080,25 +1083,60 @@ sub adminObjectEditor {
 	$schema = getConfig('generic_schema')->{$params->{from}};
 	}
 
-	return noAccess() if ($userinf->{data}->{access} < getConfig('access_editobj'));
+	return errorMessage('Invalid object.') unless $schema &&
+		defined($params->{id}) && $params->{id} =~ /\A[0-9]+\z/;
 
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>$params->{from},WHERE=>"uid=$params->{id}"});
 	my $rec = $sth->fetchrow_hashref();
 	$sth->finish();
+	return errorMessage('Object not found.') unless $rec;
 	
 	my $html = '';
+	my $filebox = '';
+	my $error = '';
+	my $submitted = defined($params->{submit}) || defined($params->{submit2});
+	my $refresh = $submitted || defined($params->{filebox});
+	if ($params->{from} eq getConfig('en_tbl')) {
+		my $tempdir = $params->{tempdir};
+		return errorMessage('Invalid temporary file area.') if $refresh &&
+			nb($tempdir) && $tempdir !~ m{\Atemp/[0-9]+\z};
+		if (!$refresh || !nb($tempdir) || !-d (getConfig('cache_root')."/$tempdir")) {
+			if ($refresh && (nb($tempdir) || nb($params->{filechanges}) || defined($params->{filebox}))) {
+				$error = 'The temporary file area expired. Existing files have been restored; please reapply your file changes before submitting.';
+			}
+			copyBoxFilesToTemp($params->{from}, $params);
+			delete $params->{filechanges};
+			delete $params->{filelist};
+		}
+		# Filebox actions stage changes; only the main Submit commits them.
+		my %fileparams = %$params;
+		delete $fileparams{remove} unless ($params->{filebox} || '') eq 'remove';
+		delete $fileparams{filebox} if $error;
+		delete $fileparams{remove} if $error;
+		my $template = templateFromText('');
+		my $fileerror = '';
+		(undef, $filebox) = handleFileManager($template, \%fileparams,
+			$error ? undef : $upload, \$fileerror);
+		$params->{tempdir} = $fileparams{tempdir};
+		$params->{filechanges} = $fileparams{filechanges};
+		$error ||= 'Please resolve the filebox errors before submitting.' if $fileerror;
+	}
 
-	if (defined $params->{submit} || defined $params->{submit2}) {
-	my $homeflag = defined $params->{submit2} ? 1 : 0;
+	if ($submitted && !$error) {
+		my $homeflag = defined $params->{submit2} ? 1 : 0;
 		if (nb($params->{remark})) {
-			$html = adminUpdateObjectMetadata($schema,$params,$userinf,$rec, $homeflag);
-	} else {
-			$html = errorMessage("You <b>must</b> enter a remark for your modification! Please hit 'back' and do this.");
+			return adminUpdateObjectMetadata($schema,$params,$userinf,$rec, $homeflag);
+		} else {
+			$error = 'You must enter a remark for your modification.';
+		}
 	}
-	} else {
-			my $title = $params->{from} eq getConfig('en_tbl') ? 'Qwik-editing' : 'Editing metadata';
-			$html = paddingTable(makeBox($title, getAdminMetadataEditor($params,$schema,$rec)));
+	my $title = $params->{from} eq getConfig('en_tbl') ? 'Qwik-editing' : 'Editing metadata';
+	my %values = %{ $refresh ? $params : $rec };
+	foreach my $key (keys %$schema) {
+		$values{$key} = 0 if $schema->{$key}->[1] eq 'check' && !defined($values{$key});
 	}
+	$html = paddingTable(makeBox($title, ($error ? errorMessage($error) : '') .
+		getAdminMetadataEditor($params,$schema,\%values,$filebox)));
 
 	return $html;
 }
@@ -1153,12 +1191,13 @@ sub getAdminMetadataEditor {
 	my $params = shift;
 	my $schema = shift;
 	my $rec = shift;
+	my $filebox = shift || '';
 	
 	my $html = '';
 
 	# initial form output
 	#
-	$html .= "<form method=\"post\" action=\"/\">";
+	$html .= "<form method=\"post\" action=\"/\" enctype=\"multipart/form-data\">";
 
 	# build metadata editing portion of form
 	#
@@ -1170,7 +1209,8 @@ sub getAdminMetadataEditor {
 
 	# add editing fields
 	#
-	$html .= "<br>Editing remark: <br><textarea name=\"remark\" rows=\"5\" cols=\"50\"></textarea>";
+	$html .= "<br>Editing remark: <br><textarea name=\"remark\" rows=\"5\" cols=\"50\">" . qhtmlescape($params->{remark} || '') . "</textarea>";
+	$html .= $filebox;
 	$html .= "<input type=\"hidden\" name=\"op\" value=\"adminedit\">";
 	$html .= "<input type=\"hidden\" name=\"id\" value=\"$params->{id}\">";
 	$html .= "<input type=\"hidden\" name=\"from\" value=\"$params->{from}\">";
@@ -1222,31 +1262,40 @@ sub adminUpdateObjectMetadata {
 
 	# make the changes
 	#
-	if ($#update >= 0) {
+	my $filechanges = $params->{from} eq getConfig('en_tbl') &&
+		($params->{filechanges} || '') eq 'yes';
+	if ($#update >= 0 || $filechanges) {
 
 		# encyclopedia stuff
 		if ($params->{from} eq getConfig('en_tbl')) {
 			# save a snapshot of the current version
 			snapshot($params->{from}, $rec->{uid}, "$rec->{name}_$rec->{version}", $userinf->{uid}, $params->{remark});
+			if ($filechanges && !moveTempFilesToBox($params, $params->{id}, $params->{from})) {
+				return errorMessage('Could not save the filebox. Please return to the editor and try again.');
+			}
 			
 			# increment version
 			my ($rv, $sth) = dbUpdate($dbh,{WHAT=> $params->{from}, SET => 'version=version+1', WHERE=>"uid=$params->{id}"});
 		}
 	
 		# generic field updating
-		my ($rv,$sth) = dbUpdate($dbh,{
-			WHAT => $params->{from},
- 			SET => join(',',@update),
-			WHERE => "uid=$params->{id}"
-		});
-	
-		$sth->finish();
+		if (@update) {
+			my ($rv,$sth) = dbUpdate($dbh,{
+				WHAT => $params->{from},
+				SET => join(',',@update),
+				WHERE => "uid=$params->{id}"
+			});
+			$sth->finish();
+		}
 
 		# do stuff for updating of encyclopedia objects. (invalidate, xref, etc) 
 		#
 		if ($params->{from} eq getConfig('en_tbl')) {
 			handleEncyclopediaChange($params,$rec);
 		}
+	}
+	if ($params->{from} eq getConfig('en_tbl') && !$filechanges && nb($params->{tempdir})) {
+		removeTempCacheDir($params->{tempdir});
 	}
 
 	# build the notice and send it out
