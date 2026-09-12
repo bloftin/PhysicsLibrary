@@ -12,7 +12,12 @@ eval { require DBI; require DBD::SQLite; 1 }
 
 {
     package Noosphere;
-    sub getConfig { return $_[0] eq 'user_tbl' ? 'users' : undef; }
+    sub getConfig {
+        return {user_tbl => 'users', main_url => 'https://example.invalid',
+            projname => 'PhysicsLibrary'}->{$_[0]};
+    }
+    sub getAddr { return 'feedback@example.invalid'; }
+    sub sendMail { push @main::mail, [@_]; }
     sub errorMessage { return $_[0]; }
     sub paddingTable { return $_[0]; }
     sub makeBox { return join ' ', @_; }
@@ -35,7 +40,7 @@ my $dsn = "dbi:SQLite:dbname=$dir/accounts.db";
 my $db = DBI->connect($dsn, '', '', {RaiseError => 1, PrintError => 0, AutoCommit => 1});
 my $other_db = DBI->connect($dsn, '', '', {RaiseError => 1, PrintError => 0, AutoCommit => 1});
 $Noosphere::dbh = $db;
-$db->do("CREATE TABLE users (uid INTEGER PRIMARY KEY, username TEXT, password TEXT DEFAULT '', password_hash TEXT, active INTEGER DEFAULT 1)");
+$db->do("CREATE TABLE users (uid INTEGER PRIMARY KEY, username TEXT, email TEXT, password TEXT DEFAULT '', password_hash TEXT, active INTEGER DEFAULT 1)");
 $db->do('CREATE TABLE password_reset_tokens (uid INTEGER, token_hash TEXT PRIMARY KEY, created TEXT, expires TEXT, used_at TEXT)');
 open my $migration_in, '<', "$FindBin::Bin/../../db/migrations/account-recovery-followup.sql" or die $!;
 my $migration = do { local $/; <$migration_in> };
@@ -46,8 +51,10 @@ $db->do('INSERT INTO password_reset_tokens (uid, token_hash, created, expires) V
     undef, sha256_hex($legacy_token), Noosphere::passwordResetTime(), Noosphere::passwordResetTime(7200));
 $db->do($migration);
 my $initial_hash = Noosphere::hashAccountPassword('initial-password');
-$db->do('INSERT INTO users (uid, username, password_hash) VALUES (1, ?, ?)', undef, 'member', $initial_hash);
-$db->do('INSERT INTO users (uid, username, password_hash) VALUES (2, ?, ?)', undef, 'other', $initial_hash);
+$db->do('INSERT INTO users (uid, username, email, password_hash) VALUES (1, ?, ?, ?)', undef, 'member', 'member@example.invalid', $initial_hash);
+$db->do('INSERT INTO users (uid, username, email, password_hash) VALUES (2, ?, ?, ?)', undef, 'other', 'other@example.invalid', $initial_hash);
+
+our @mail;
 
 sub current_hash {
     return $db->selectrow_array('SELECT password_hash FROM users WHERE uid = 1');
@@ -73,6 +80,20 @@ subtest 'migration and sibling invalidation' => sub {
     ok(Noosphere::passwordResetTicket($other), 'other account link is unaffected');
     my $fresh = Noosphere::createPasswordResetTicket('member');
     ok(Noosphere::passwordResetTicket($fresh), 'new request after reset is valid');
+};
+
+subtest 'request response does not enumerate accounts' => sub {
+    @mail = ();
+    my $missing = Noosphere::pwChangeRequest({submit => 1, username => 'missing'});
+    like($missing, qr/If the account exists/, 'missing account receives generic response');
+    unlike($missing, qr/Cannot find|missing|member\@/i, 'missing response contains no account clue');
+    is(scalar @mail, 0, 'missing account sends no mail');
+
+    my $real = Noosphere::pwChangeRequest({submit => 1, username => 'member'});
+    like($real, qr/If the account exists/, 'real account receives same public response');
+    unlike($real, qr/member\@example\.invalid|member\b/i, 'real response does not expose account details');
+    is(scalar @mail, 1, 'real account sends reset mail');
+    is($mail[0]->[0], 'member@example.invalid', 'mail still goes to the account email');
 };
 
 subtest 'two already-validated submissions cannot both succeed' => sub {

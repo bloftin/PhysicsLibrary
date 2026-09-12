@@ -168,14 +168,6 @@ sub getLoginBoxOld {
 		$login = new TemplateNS('login.html');
 		my $error = 'login error';
 
-		# handle deactivated account situation
-		#
-		if (user_registered($params->{user}, 'username') &&
-			!isUserActive($params->{user})) {
-		
-			$error = 'account deactivated';
-		}
-
 		$login->setKey('error', $params->{op} eq 'login' ? $error : '');
 	}
 	

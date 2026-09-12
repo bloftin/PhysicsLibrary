@@ -45,7 +45,7 @@ our (%headers, @mail, @setup);
         my $self = shift;
         return q{\newcommand{\name}{O'Neil}} if $self->{file} eq 'test-preamble';
         return "https://$self->{hostname}/?op=activate&hash=$self->{hash}" if $self->{file} eq 'newuseremail';
-        return join ' ', map { defined($_) ? $_ : '' } @{$self}{qw(file error hash)};
+        return join ' ', map { defined($_) ? $_ : '' } @{$self}{qw(file error hash message user email)};
     }
 }
 require Noosphere::NewUser;
@@ -137,7 +137,10 @@ subtest 'isolated registration workflow' => sub {
         like(Noosphere::getNewUser($params, $anonymous), qr/Use the registration form/, 'GET cannot send mail');
         is(scalar @mail, 0, 'no mail side effect');
         local $method = 'POST';
-        like(Noosphere::getNewUser($params, $anonymous), qr/Mail Sent/, 'POST sends mail');
+        my $sent = Noosphere::getNewUser($params, $anonymous);
+        like($sent, qr/Mail Sent/, 'POST sends mail');
+        like($sent, qr/If the submitted information can be used/, 'registration response is generic');
+        unlike($sent, qr/member\@example\.invalid|Test Member/, 'registration response does not echo account details');
         is($mail[0]->[0], $params->{email}, 'mail recipient is validated');
         my ($token) = $mail[0]->[1] =~ /hash=([0-9a-f]{64})/;
         ok($token, 'opaque token in mail');
@@ -221,6 +224,14 @@ subtest 'isolated registration workflow' => sub {
     subtest 'request validation and service failures' => sub {
         local $method = 'POST';
         my $token = Noosphere::createRegistrationTicket('Failure', 'failure@example.invalid');
+        for my $pair (['Test Member', 'new@example.invalid'], ['New Person', 'member@example.invalid']) {
+            @mail = ();
+            my $response = Noosphere::getNewUser({%$params, user => $pair->[0], email => $pair->[1]}, $anonymous);
+            like($response, qr/Mail Sent/, 'existing identity receives generic accepted response');
+            like($response, qr/If the submitted information can be used/, 'existing identity response matches normal request');
+            unlike($response, qr/taken|already|in use|Could not create/i, 'existing identity collision is not disclosed');
+            is(scalar @mail, 0, 'existing identity sends no activation mail');
+        }
         for my $pair (['Bad  Name', 'ok@example.invalid'], ['x' x 33, 'ok@example.invalid'],
             ['Okay', 'x' x 129], ['Okay', "ok\@example.invalid\n"], [[], 'ok@example.invalid'],
             ['Okay', {}], [q{' OR 1=1 --}, 'ok@example.invalid']) {

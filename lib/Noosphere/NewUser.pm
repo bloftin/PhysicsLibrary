@@ -7,6 +7,10 @@ use Digest::SHA qw(sha256_hex);
 
 our $dbh;
 
+sub registrationRequestMessage {
+    return 'If the submitted information can be used to create an account, activation instructions will be sent shortly.';
+}
+
 sub registrationRequest {
     my $req = Apache2::RequestUtil->request;
     $req->headers_out->set('Cache-Control' => 'no-store');
@@ -41,22 +45,24 @@ sub getNewUser {
 	# to send the mail.
 	#
 	else {
-		$error = eval { checkNewUserInfo($params) };
+		$error = eval { checkNewUserInfo($params, {skip_collision_checks => 1}) };
 		return errorMessage('Could not process registration. Please try again later.') if $@;
 		if ($error eq '') {
-			my $body = new TemplateNS("newuseremail");
-			my $hostname = $addrs->{'main'};
-			my $hash = eval { createRegistrationTicket($params->{user}, $params->{email}) };
-			return errorMessage('Could not process registration. Please try again later.')
-				unless defined $hash;
-			$body->setKeys('hash' => $hash, 'hostname' => $hostname);
-			
-			my $sent = eval { sendMail($params->{email}, $body->expand()); 1 };
-			return errorMessage('Could not send registration email. Please try again later.') unless $sent;
+			if (!registrationIdentityExists($params->{user}, $params->{email})) {
+				my $body = new TemplateNS("newuseremail");
+				my $hostname = $addrs->{'main'};
+				my $hash = eval { createRegistrationTicket($params->{user}, $params->{email}) };
+				return errorMessage('Could not process registration. Please try again later.')
+					unless defined $hash;
+				$body->setKeys('hash' => $hash, 'hostname' => $hostname);
+
+				my $sent = eval { sendMail($params->{email}, $body->expand()); 1 };
+				return errorMessage('Could not send registration email. Please try again later.') unless $sent;
+			}
 			# TODO: figure out a way to see if the mail bounces and return error
 			$boxtitle = "Mail Sent";
 			$template = new TemplateNS("sentmail.html");
-			$template->setKey('email', $params->{"email"});
+			$template->setKey('message', registrationRequestMessage());
 		}
 		else {
 			$boxtitle = "Create New User Account";
@@ -91,7 +97,8 @@ sub getActivate {
 # collisions with other users)
 #
 sub checkNewUserInfo {
-	my $params = shift;
+	my ($params, $options) = @_;
+	$options ||= {};
 
 	my $error = '';
 	my $user = '';
@@ -115,8 +122,8 @@ sub checkNewUserInfo {
 			$error .= "Username cannot end with a space.<br/>"; }
 		if ($user =~ / {2,}/) {
 			$error .= "Username contains more than one space in a row.<br/>"; } 
-	if (user_registered($params->{'user'},'username')) {
-		$error .= "Sorry, that user name is taken.<br/>"; }
+	if (!$options->{skip_collision_checks} && user_registered($params->{'user'},'username')) {
+		$error .= "Could not create an account with the supplied username and email address.<br/>"; }
 	}
 
 	if (!defined($params->{'email'}) || $params->{'email'} eq '') {
@@ -132,8 +139,8 @@ sub checkNewUserInfo {
 		if (not $email =~ /\A[\w\-.]+\@[\w\-.]+\z/ ) {
 		$error .= "Please enter a <b>valid</b> email address.<br/>";
 	}
-	if (user_registered($email,'email')) {
-			$error .= "Email address already in use.<br/>"; 
+	if (!$options->{skip_collision_checks} && user_registered($email,'email')) {
+			$error .= "Could not create an account with the supplied username and email address.<br/>";
 	}
 	if (email_blacklisted($email)) {
 		$error .= "That e-mail address is blacklisted! (shame on you!)<br />";
@@ -141,6 +148,12 @@ sub checkNewUserInfo {
 	}
 
 	return $error;
+}
+
+sub registrationIdentityExists {
+	my ($user, $email) = @_;
+
+	return user_registered($user, 'username') || user_registered($email, 'email');
 }
 
 # check to see if an email address matches any of the blacklisted masks

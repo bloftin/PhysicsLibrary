@@ -11,6 +11,10 @@ our $dbh;
 use constant PASSWORD_RESET_TOKEN_BYTES => 32;
 use constant DEFAULT_PASSWORD_RESET_TOKEN_LIFETIME => 2 * 60 * 60;
 
+sub passwordResetRequestMessage {
+  return 'If the account exists and can receive mail, password reset instructions will be sent shortly.';
+}
+
 # change the password
 #
 sub pwChange {
@@ -73,8 +77,8 @@ sub changePassword {
     unless defined($rv) && $rv > 0;
 
   # return an acknowledgement
-  return paddingTable(makeBox('Password Changed','The password for <b>'.htmlescape($ticket->{username}).
-    '</b> has been changed. <p> You may now log in using the new password.'));
+  return paddingTable(makeBox('Password Changed',
+    'The password has been changed. <p> You may now log in using the new password.'));
 }
 
 # request a password change.  
@@ -97,16 +101,14 @@ sub pwChangeRequest {
        return errorMessage('Could not process the request. Please try again later.') unless $ok;
      }
 	 my $email = $row ? $row->{email} : undef;
-	 if (!$email) {
-	   $error .= "Cannot find that user!<br>";
-	 }
-     if (!$error) {
+     if ($email) {
 	   my $hash = eval { createPasswordResetTicket($row->{username}); };
 	   return errorMessage('Could not process the request. Please try again later.')
 	     unless defined($hash);
        # send out the message
-	   return sendPwChangeMail($row->{username},$email, $hash);
+	   sendPwChangeMail($row->{username},$email, $hash);
 	 }
+     return paddingTable(makeBox('Mail Sent', passwordResetRequestMessage()));
   } 
 
   # return initial form
@@ -138,7 +140,7 @@ If you received this message without requesting it, it is possible someone is do
   
   ", getConfig('projname').": password change");
 
-  return paddingTable(makeBox('Mail Sent',"A message was sent to <b>$email</b> with further instructions.  Please follow them to change your password."));
+  return paddingTable(makeBox('Mail Sent', passwordResetRequestMessage()));
 }
 
 sub passwordResetTokenLifetime {
