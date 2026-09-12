@@ -335,7 +335,13 @@ subtest 'HTTP handler integration with synthetic services' => sub {
     Noosphere::handler();
     is($writes, 1, 'valid POST saved once');
     is($request->{status}, 200, 'HTTP status reset for next request');
+    $request->{method} = 'GET';
+    $params = {op => 'login'};
+    Noosphere::handler();
+    is($request->{status}, 403, 'GET login switch rejected');
+    is($request->{out}{'Cache-Control'}, 'no-store', 'rejected account operation is not cached');
     $params = {op => 'httpupload', submit => 1};
+    $request->{method} = 'POST';
     Noosphere::handler();
     is($writes, 1, 'raw upload route also blocked before handler');
     is($request->{status}, 403, 'raw route returns rejection body and status');

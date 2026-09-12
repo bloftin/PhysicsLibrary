@@ -477,6 +477,8 @@ sub handler {
 	local $RequestFormValidated = 0;
 	my $account_error = requestAccountOriginError($req, $params);
 	if (length $account_error) {
+		$req->headers_out->set('Cache-Control' => 'no-store');
+		$req->headers_out->set('Referrer-Policy' => 'same-origin');
 		sendOutput($req, requestFormFailure(403, $account_error), 403);
 		return;
 	}
