@@ -11,7 +11,7 @@ use File::Copy::Recursive qw(rcopy pathrm rmove);
 use File::Spec;
 use HTTP::Tiny;
 
-use constant MAX_FILEBOX_UPLOADS => 10;
+use constant MAX_FILEBOX_UPLOADS => 20;
 
 # determine if a directory is "bad"; either nonexistant, equal to root
 #	or containing a //
