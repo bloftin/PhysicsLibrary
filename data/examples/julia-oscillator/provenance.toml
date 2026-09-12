@@ -1,0 +1,16 @@
+blas = "LBTConfig([ILP64] libopenblas64_.so)"
+blas_threads = 1
+julia_version = "1.10.12"
+method = "LinearAlgebra.exp: exp(t*A)*initial_state; Float64"
+platform = "x86_64-linux-gnu"
+
+[inputs_sha256]
+"Manifest.toml" = "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6"
+"Project.toml" = "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8"
+"oscillator.jl" = "40cc7c82cd8c89883c32133d5957f3b4a3bbedc62a27f70c6316b3b0e2b3772d"
+"presets.toml" = "6a5f59f4fefa71839db9f8ec39fc545b128ceb14caf1d1115b8974fb94a76bfc"
+
+[outputs_sha256]
+"critical.csv" = "d1d51864328a2f94fa65a5893db9113f7ae3b8c9b3e97c92b501219d93ef9164"
+"overdamped.csv" = "755f2bb93bdb0bd603052a34796f5d5827c96e336603be7d6e86890b677e4942"
+"underdamped.csv" = "881495eff840c7ec1be462c5662c683ea94ed682b281dbe48de43a32eae838e7"

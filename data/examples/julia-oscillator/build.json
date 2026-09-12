@@ -1,0 +1,37 @@
+{
+  "sources_sha256": {
+    "oscillator.jl": "40cc7c82cd8c89883c32133d5957f3b4a3bbedc62a27f70c6316b3b0e2b3772d",
+    "presets.toml": "6a5f59f4fefa71839db9f8ec39fc545b128ceb14caf1d1115b8974fb94a76bfc",
+    "Project.toml": "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8",
+    "Manifest.toml": "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6",
+    "test/runtests.jl": "602194cf4b44858802892e54d1d6a599b4c6d852e3bddc4147c20fac83c78a05",
+    "README.md": "3a28f9f956439148ed6f8c6e8c42abd7f45aa281a328931815fc043ff9f13ad0",
+    "LICENSE.txt": "01cce0055915f3dd6e772d316a4a81571b0882cfa89267eb07479b858eba0bac",
+    "article.tex": "648866c79164a6a7a2d18798d5f5e62e70c68b6283a62f2ca0f6ad66af9ebd2d",
+    "preamble.tex": "a2a5cd19d44707ef0e2703b5e53546a098361c1f6b1194b8d7ad4bb3effcadd1",
+    "preview.tex": "f073287e35482162a1549f39c778aaeb6d80a666273eda27839f5b3d5bda154a",
+    "build.py": "7f9224183024c5b9fc1e8a8e3bac8758033e169b663138b042975b6e7c8c0fa4",
+    "verify.py": "faaaa1da177ff78f331bb3c8ff44230037dbcd905a90b22010b009da3b00db33",
+    "viewer.template.html": "ee96d2627a8eabdaa19aef72ce2a4369670b551dfc0fa1fe2eafb27d104f2e31",
+    "style.css": "137f8bb6b86da6108a539aaaea46dd6ccf56db1e42464c294d7cbd1d536286c2"
+  },
+  "files_sha256": {
+    "index.html": "94f4fa54ded752632b4a4e6a9ca455618532aeeb55000497c19cd088d66ac5c7",
+    "style.css": "137f8bb6b86da6108a539aaaea46dd6ccf56db1e42464c294d7cbd1d536286c2",
+    "logo.png": "9931e0c2b7a734359c44f041fbe26a3d92c71c4d345dfc77227a56b5802a4bd2",
+    "LICENSE.txt": "01cce0055915f3dd6e772d316a4a81571b0882cfa89267eb07479b858eba0bac",
+    "provenance.toml": "97a927afa76cbf8885b0cff97a64aacd7cf4de278e10409edb778191176ecc67",
+    "comparison.png": "53659f736036fa687bc6b6ccf17d4bdabaf4a5a7a4385597416313e58a766c6d",
+    "comparison-mobile.png": "51cd02df39444e7b701337cd04dfd416c0f8fc2a6710f36012a9e680c1011401",
+    "underdamped.png": "60337005571f91330e45c6f9b046a5be867abba0a0a6ea8604abc3d800a358b3",
+    "underdamped-mobile.png": "1db22887e051fde16840b35c4186cdd2a4aa5a6a75fc192ba04f55b947cb3559",
+    "underdamped.csv": "881495eff840c7ec1be462c5662c683ea94ed682b281dbe48de43a32eae838e7",
+    "critical.png": "350ddf352a451d67d5f818e4d73b2c436a1351c24e031d56718b02934f46da1d",
+    "critical-mobile.png": "d48daa0cdc4be43a3751edac5603b5d639e04e6d18b44eaf43349c86ab44e860",
+    "critical.csv": "d1d51864328a2f94fa65a5893db9113f7ae3b8c9b3e97c92b501219d93ef9164",
+    "overdamped.png": "23c8a3b7c15a9e869bb8db7137cd074a4762977bda7883380ce20ccfce263331",
+    "overdamped-mobile.png": "c83441649d7df429398aef56eed5da7a15b271febbd8e5b99a90031a58edbbe1",
+    "overdamped.csv": "755f2bb93bdb0bd603052a34796f5d5827c96e336603be7d6e86890b677e4942",
+    "julia-oscillator.zip": "768d2ac65d92cb2b9a44bc6e889dc4b48a54614b047c526e7fe32e12d5a4a35a"
+  }
+}
