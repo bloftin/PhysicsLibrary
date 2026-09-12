@@ -93,7 +93,8 @@ sub requestFormNeedsProtection {
 
     # Only initial editor navigation is allowed without a submitted form.
     my %landing = (
-        editprefs => '', edit => 'id from new type', adden => 'type',
+        editprefs => '', edit => 'id from new type',
+        adden => 'class parent request title type',
         addobj => 'to type', acledit => 'id from', groupedit => '',
         memberedit => 'gid', linkpolicy => 'id from',
         collab_edit_comment => 'id', postmsg => 'id from replyto subject',

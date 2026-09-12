@@ -106,7 +106,13 @@ subtest 'read routes and editor navigation' => sub {
     }
     for my $params ({op => 'editprefs'}, {op => 'edit', from => 'objects', id => 1017},
             {op => 'acledit', from => 'collab', id => 22}, {op => 'memberedit', gid => 1},
-            {op => 'postmsg', from => 'objects', id => 1017, replyto => 42}) {
+            {op => 'postmsg', from => 'objects', id => 1017, replyto => 42},
+            {op => 'adden', class => 'pacs:46.40.Cd, pacs:46.40.-f, pacs:02.30.Jr',
+                type => 'Example',
+                parent => 'WaveMechanicsDerivingThe1DStringWaveEquationFromNewtonsSecondLaw',
+                title => "example of Wave Mechanics: Deriving the 1D String Wave Equation from Newton's Second Law"},
+            {op => 'adden', request => 18, title => 'proof of a request', type => 'Proof',
+                parent => 'SomeArticle'}) {
         is(Noosphere::requestFormGuard($request, $params, $user), undef, 'initial form opens directly');
         ok(Noosphere::requestFormNeedsProtection({%$params, unexpected_action => 1}, 'GET'),
             'extra navigation parameter requires confirmation');
