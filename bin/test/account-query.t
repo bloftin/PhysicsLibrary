@@ -50,6 +50,7 @@ my $quoted_password = q{a'\b; active=0 --};
     sub indexTitle { push @main::setup, 'title'; }
     sub irIndex { push @main::setup, 'index'; }
     sub dwarn { return; }
+    sub email_blacklisted { return 0; }
 }
 {
     package TemplateNS;
@@ -96,7 +97,8 @@ for my $file (
     ['Password.pm', qw(pwChange changePassword pwChangeRequest passwordResetTokenLifetime
         passwordResetTime newPasswordResetToken validPasswordResetToken createPasswordResetTicket
         passwordResetCredentialStamp passwordResetTicket consumePasswordResetTicket)],
-    ['NewUser.pm', qw(checkHash makeHash activateAccount)],
+    ['NewUser.pm', qw(registrationLinkError registrationTime validRegistrationToken
+        createRegistrationTicket registrationTicket withRegistrationLock checkNewUserInfo activateAccount)],
     ['Util.pm', qw(user_registered getuidbyusername)],
     ['UserData.pm', qw(isUserActive)],
     ['Groups.pm', qw(makeDefaultGroup)],
@@ -257,16 +259,22 @@ subtest 'recovery lifetime without a configuration edit' => sub {
 };
 
 subtest 'activation binds all record values' => sub {
-    fixture(); @results = (undef, 1, {username => "O'Neil"}, 1, {groupid => 99});
-    my $hash = Noosphere::makeHash("O'Neil", 'member@example.invalid');
+    fixture(); @results = (undef, undef, 1);
+    my $hash = Noosphere::createRegistrationTicket('O Neil', 'member@example.invalid');
+    like($hash, qr/\A[0-9a-f]{64}\z/, 'registration token is opaque');
+    is_deeply([@{$queries[2]->{bind}}[1,2]], ['O Neil', 'member@example.invalid'], 'pending identity is bound');
+    my $ticket = {token_hash => sha256_hex('activation-v1:' . $hash), username => 'O Neil', email => 'member@example.invalid'};
+    fixture(); $Noosphere::dbh->{Driver} = {Name => 'MariaDB'};
+    @results = ($ticket, {acquired => 1}, $ticket, undef, undef, 1, 1, {released => 1}, {username => 'O Neil'}, 1, {groupid => 99});
     is(Noosphere::activateAccount($Noosphere::dbh, $hash, $quoted_password, $quoted_password), '', 'activation succeeds');
-    is($queries[1]->{sql}, "INSERT INTO users (uid, joined, username, password, password_hash, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, '', ?, ?, ?)", 'fixed insert SQL');
-    ok(Noosphere::verifyAccountPassword($queries[1]->{bind}->[2], $quoted_password), 'activation stores a hash');
-    is_deeply([@{$queries[1]->{bind}}[0,1,3,4]], [99, "O'Neil", 'member@example.invalid', q{\newcommand{\name}{O'Neil}}], 'other values literal including preamble');
-    is_deeply($queries[3]->{bind}, [99, 99, "O'Neil", "This is the default group for user O'Neil."], 'default group also binds stored username');
+    is($queries[6]->{sql}, "INSERT INTO users (uid, joined, username, password, password_hash, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, '', ?, ?, ?)", 'fixed insert SQL');
+    ok(Noosphere::verifyAccountPassword($queries[6]->{bind}->[2], $quoted_password), 'activation stores a hash');
+    is_deeply([@{$queries[6]->{bind}}[0,1,3,4]], [99, 'O Neil', 'member@example.invalid', q{\newcommand{\name}{O'Neil}}], 'other values literal including preamble');
+    is_deeply($queries[9]->{bind}, [99, 99, 'O Neil', 'This is the default group for user O Neil.'], 'default group also binds stored username');
     is_deeply(\@setup, [qw(membership acl acl title index)], 'post-creation setup retained');
-    fixture(); @results = (undef, '0E0');
-    like(Noosphere::activateAccount($Noosphere::dbh, $hash, 'pw', 'pw'), qr/failed to add user/, 'insert failure reported');
+    fixture(); $Noosphere::dbh->{Driver} = {Name => 'MariaDB'};
+    @results = ($ticket, {acquired => 1}, $ticket, undef, undef, 1, '0E0', {released => 1});
+    like(Noosphere::activateAccount($Noosphere::dbh, $hash, 'pw', 'pw'), qr/Could not activate/, 'insert failure reported');
     is(scalar @setup, 0, 'no post-creation setup on failed insert');
 };
 
@@ -305,6 +313,7 @@ subtest 'isolated database integration' => sub {
     my $db = $Noosphere::dbh;
     $db->do("CREATE TABLE users (uid INTEGER PRIMARY KEY, joined TEXT, username TEXT, password TEXT DEFAULT '', password_hash TEXT, email TEXT, preamble TEXT, active INTEGER DEFAULT 1, access INTEGER DEFAULT 10)");
     $db->do("CREATE TABLE password_reset_tokens (uid INTEGER, token_hash TEXT PRIMARY KEY, created TEXT, expires TEXT, used_at TEXT, credential_stamp TEXT)");
+    $db->do('CREATE TABLE account_registration_tokens (token_hash TEXT PRIMARY KEY, username TEXT, email TEXT, created INTEGER, expires INTEGER, used_at INTEGER)');
     $db->do('CREATE TABLE groups (groupid INTEGER PRIMARY KEY, userid INTEGER, groupname TEXT, description TEXT)');
     my $insert = $db->prepare('INSERT INTO users (uid, username, password_hash, email, active) VALUES (?, ?, ?, ?, ?)');
     $insert->execute(1, 'member', Noosphere::hashAccountPassword('old-password'), 'member@example.invalid', 1);
@@ -335,13 +344,13 @@ subtest 'isolated database integration' => sub {
     my $literal = $payload . ('a' x 64);
     like(Noosphere::changePassword($literal, 'not-written'), qr/Invalid password change URL/, 'SQL-like token is only data');
     ok(Noosphere::verifyAccountPassword($db->selectrow_array('SELECT password_hash FROM users WHERE uid = 1'), $quoted_password), 'failed identity match leaves hash intact');
-    my $new = Noosphere::makeHash("O'Neil", 'new@example.invalid');
+    my $new = Noosphere::createRegistrationTicket('O Neil', 'new@example.invalid');
     is(Noosphere::activateAccount($db, $new, $quoted_password, $quoted_password), '', 'real activation insert');
-    is(login("O'Neil", $quoted_password)->{uid}, 99, 'new account login');
-    is($db->selectrow_array('SELECT groupname FROM groups WHERE userid = 99'), "O'Neil", 'default group keeps literal name');
-    is(Noosphere::user_registered("O'Neil", 'username'), 1, 'real existence lookup');
-    is(Noosphere::isUserActive("O'Neil"), 1, 'real active lookup');
-    is(Noosphere::getuidbyusername("O'Neil"), 99, 'real UID lookup');
+    is(login('O Neil', $quoted_password)->{uid}, 99, 'new account login');
+    is($db->selectrow_array('SELECT groupname FROM groups WHERE userid = 99'), 'O Neil', 'default group keeps literal name');
+    is(Noosphere::user_registered('O Neil', 'username'), 1, 'real existence lookup');
+    is(Noosphere::isUserActive('O Neil'), 1, 'real active lookup');
+    is(Noosphere::getuidbyusername('O Neil'), 99, 'real UID lookup');
     $db->do('DROP TABLE users');
     is(login('member', $quoted_password)->{uid}, 0, 'real driver error cannot authenticate');
 };

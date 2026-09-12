@@ -497,6 +497,16 @@ CREATE TABLE users (
 create index users_username_idx on users (username);
 create index users_lowerusername_idx on users (lower(username));
 
+CREATE TABLE account_registration_tokens (
+  token_hash char(64) PRIMARY KEY,
+  username varchar(32) NOT NULL,
+  email varchar(128) NOT NULL,
+  created bigint NOT NULL,
+  expires bigint NOT NULL,
+  used_at bigint DEFAULT NULL
+);
+CREATE INDEX account_registration_expires_idx ON account_registration_tokens (expires);
+
 CREATE TABLE account_sessions (
   token_hash char(64) NOT NULL PRIMARY KEY,
   uid int8 NOT NULL,

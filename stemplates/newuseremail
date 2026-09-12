@@ -1,3 +1,7 @@
 Thank you for creating a new account. In order to complete the account creation process, please go to the following url and set your password:
 
 https://<NS:template hostname/>/?op=activate&hash=<NS:template hash raw/>
+
+This link expires in 24 hours and can be used once to create your account.
+If it has expired, submit the registration form again to request a new link.
+If you did not request an account, you can ignore this email.

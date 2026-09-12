@@ -3,11 +3,24 @@ package Noosphere;
 use strict;
 use Noosphere::PasswordStorage;
 
-use Digest::SHA1 qw(sha1_hex);
+use Digest::SHA qw(sha256_hex);
+
+our $dbh;
+
+sub registrationRequest {
+    my $req = Apache2::RequestUtil->request;
+    $req->headers_out->set('Cache-Control' => 'no-store');
+    $req->headers_out->set('Referrer-Policy' => 'no-referrer');
+    return $req->method;
+}
 
 sub getNewUser {
 	my $params = shift;
 	my $userinf = shift;	# just in case the user is logged in
+	my $method = registrationRequest();
+	return errorMessage('Use the registration form to create an account.')
+		unless ($method eq 'GET' || $method eq 'POST') &&
+			(!defined($params->{verify}) || $method eq 'POST');
 
 	if ($userinf->{'uid'} > 0) {
 	
@@ -28,17 +41,18 @@ sub getNewUser {
 	# to send the mail.
 	#
 	else {
-		$error = checkNewUserInfo($params);
+		$error = eval { checkNewUserInfo($params) };
+		return errorMessage('Could not process registration. Please try again later.') if $@;
 		if ($error eq '') {
 			my $body = new TemplateNS("newuseremail");
 			my $hostname = $addrs->{'main'};
-			my $hash = makeHash($params->{"user"},$params->{"email"});
-			#$hash =~ s/ /%20/;
-			#dwarn "Before sendmail hash = $hash";
-			#dwarn "hostname is $hostname";
+			my $hash = eval { createRegistrationTicket($params->{user}, $params->{email}) };
+			return errorMessage('Could not process registration. Please try again later.')
+				unless defined $hash;
 			$body->setKeys('hash' => $hash, 'hostname' => $hostname);
 			
-			sendMail($params->{email},$body->expand());
+			my $sent = eval { sendMail($params->{email}, $body->expand()); 1 };
+			return errorMessage('Could not send registration email. Please try again later.') unless $sent;
 			# TODO: figure out a way to see if the mail bounces and return error
 			$boxtitle = "Mail Sent";
 			$template = new TemplateNS("sentmail.html");
@@ -54,36 +68,23 @@ sub getNewUser {
 }
 
 sub getActivate {
-	my $params = shift;
-	
-	my $html = '';
-	
-	my $error = checkHash($params->{"hash"});
-	
-	if ($error ne '') {
-		return(clearBox("Error",$error));
-	}
-	if (!defined($params->{"setpass"})) {
-		my $tobj = new TemplateNS("activate.html");
-
-	$tobj->setKey("hash", $params->{"hash"});
-		$html = clearBox("Activate Account",$tobj->expand());
-	}
-	else {
-		$error = activateAccount($dbh,$params->{"hash"},$params->{"p1"},$params->{"p2"});
-		if ($error eq '') {
-			$html = clearBox("Success",(new TemplateNS("success.html"))->expand());
-		}
-		else {
-			my $tobj = new TemplateNS("activate.html");
-
-		$tobj->setKey("hash", $params->{"hash"});
-		#BEN - there is a problem here;
-		#$tobj->setError("error", $error);
-			$html = clearBox("Activate Account",$tobj->expand());
-		}
-	}
-	return paddingTable($html);
+    my ($params) = @_;
+    my $method = registrationRequest();
+    return errorMessage('Use the activation form to set your password.')
+        unless ($method eq 'GET' || $method eq 'POST') &&
+            (!defined($params->{setpass}) || $method eq 'POST');
+    my $ticket = eval { registrationTicket($dbh, $params->{hash}) };
+    return errorMessage('Could not process activation. Please try again later.') if $@;
+    return errorMessage(registrationLinkError()) unless $ticket;
+    my $error = '';
+    if (defined $params->{setpass}) {
+        $error = activateAccount($dbh, $params->{hash}, $params->{p1}, $params->{p2});
+        return paddingTable(clearBox('Success', (new TemplateNS('success.html'))->expand()))
+            if $error eq '';
+    }
+    my $template = new TemplateNS('activate.html');
+    $template->setKeys(hash => $params->{hash}, error => $error);
+    return paddingTable(clearBox('Activate Account', $template->expand()));
 }
 
 # make sure the user's application info is ok (input data is sane, no 
@@ -95,6 +96,8 @@ sub checkNewUserInfo {
 	my $error = '';
 	my $user = '';
 	my $email	='';
+	return 'Please enter a valid username and email address.<br/>'
+		if ref($params->{user}) || ref($params->{email}) || ref($params->{license});
 	
 	if (!defined($params->{'license'}) || $params->{'license'} ne 'on') {
 		$error .= "You must agree to the license for an account.<br/>";
@@ -103,13 +106,14 @@ sub checkNewUserInfo {
 		$error .= "You must enter a username<br/>"; 
 	} else {
 		$user = $params->{'user'};
+		$error .= "Username is too long.<br/>" if length($user) > 32;
 		if ($user =~ /[^\w\[\] ]/) {
 			$error .= "Username contains invalid characters.<br/>"; }
 		if ($user =~ /^ /) {
 			$error .= "Username cannot begin with a space.<br/>"; }
 		if ($user =~ / $/) {
 			$error .= "Username cannot end with a space.<br/>"; }
-		if ($user =~ /[^ ]	+[^ ]/) {
+		if ($user =~ / {2,}/) {
 			$error .= "Username contains more than one space in a row.<br/>"; } 
 	if (user_registered($params->{'user'},'username')) {
 		$error .= "Sorry, that user name is taken.<br/>"; }
@@ -120,11 +124,12 @@ sub checkNewUserInfo {
 	}
 	else {
 		$email = $params->{'email'};
+		$error .= "Email address is too long.<br/>" if length($email) > 128;
 		
 	# TODO: add some real checks on email address here rfc 882
 	#			 note: here is a fake check instead. this may be good enough.
 	#
-		if (not $email =~ /^[\w\-.]+\@[\w\-.]+$/ ) {
+		if (not $email =~ /\A[\w\-.]+\@[\w\-.]+\z/ ) {
 		$error .= "Please enter a <b>valid</b> email address.<br/>";
 	}
 	if (user_registered($email,'email')) {
@@ -156,56 +161,82 @@ sub email_blacklisted {
 	return 0;
 }
 
-# make the hash key from the user and email address
-#
-sub makeHash {
-	my $user = shift;
-	my $email = shift;
-	
-	#dwarn "user is $user, email is $email";
-	my $hash = sha1_hex(join(':',$user,$email),SECRET);
-	$hash = "$user:$email:$hash";
-	#dwarn "hash is $hash";
-	return $hash; 
+sub registrationLinkError {
+    return 'This activation link is invalid, expired, or already used. Please request a new registration email.';
 }
 
-sub checkHash {
-	my $hash_str = shift;
-	
-	my $error = "invalid hash";
-	return $error unless defined($hash_str) && !ref($hash_str);
-	#dwarn "hash_str is $hash_str";
-	my @hash_data = split(/:/,$hash_str);
-	
-	#dwarn "hash data is @hash_data";
-	#dwarn "Before unless equal $#hash_data";
-	return $error unless ($#hash_data eq 2);
-	#dwarn "After unless hash eq";
-	my %ticket = ('user'=>$hash_data[0],'email'=>$hash_data[1],'hash'=>$hash_data[2]);
-	# dwarn "user is $ticket{'user'} email is $ticket{'email'}";
- 
-	my $hash = sha1_hex(join(':',@ticket{qw(user email)}),SECRET);
- 	#dwarn "checking, hash is $hash";
- 	#dwarn "ticket hash is $ticket{'hash'}";
-	return $error unless ($ticket{"hash"} eq $hash);
-	return ''; 
+sub registrationTime {
+    return time;
+}
+
+sub validRegistrationToken {
+    my ($token) = @_;
+    return defined($token) && !ref($token) && $token =~ /\A[0-9a-f]{64}\z/;
+}
+
+sub createRegistrationTicket {
+    my ($user, $email) = @_;
+    return undef if checkNewUserInfo({user => $user, email => $email, license => 'on'}) ne '';
+    my $token = unpack('H*', passwordSalt() . passwordSalt());
+    die "Registration unavailable.\n" unless validRegistrationToken($token);
+    my $now = registrationTime();
+    my $rv = dbExecuteBound($dbh,
+        'INSERT INTO account_registration_tokens (token_hash, username, email, created, expires, used_at) VALUES (?, ?, ?, ?, ?, NULL)',
+        sha256_hex('activation-v1:' . $token), $user, $email, $now, $now + 86400);
+    return defined($rv) && $rv == 1 ? $token : undef;
+}
+
+sub registrationTicket {
+    my ($db, $token) = @_;
+    return undef unless validRegistrationToken($token);
+    return dbSelectRowBound($db,
+        'SELECT token_hash, username, email FROM account_registration_tokens WHERE token_hash = ? AND used_at IS NULL AND expires > ?',
+        sha256_hex('activation-v1:' . $token), registrationTime());
+}
+
+sub withRegistrationLock {
+    my ($db, $code) = @_;
+    my $driver = $db->{Driver}->{Name} || '';
+    my ($acquire, $release, @bind);
+    if ($driver =~ /\A(?:mysql|MariaDB)\z/) {
+        ($acquire, $release) = ('SELECT GET_LOCK(?, 5) AS acquired', 'SELECT RELEASE_LOCK(?) AS released');
+        @bind = ('noosphere:account-registration-v1');
+    } elsif ($driver eq 'Pg') {
+        ($acquire, $release) = ('SELECT CAST(pg_try_advisory_lock(?, ?) AS integer) AS acquired',
+            'SELECT CAST(pg_advisory_unlock(?, ?) AS integer) AS released');
+        @bind = (1852796787, 1);
+    } elsif ($driver eq 'SQLite') {
+        dbExecuteBound($db, 'BEGIN IMMEDIATE');
+    } else {
+        die "Registration unavailable.\n";
+    }
+    if (defined $acquire) {
+        my $row = dbSelectRowBound($db, $acquire, @bind);
+        die "Registration unavailable.\n" unless $row && defined($row->{acquired}) && $row->{acquired} == 1;
+    }
+    my $result;
+    my $ok = eval { $result = $code->(); 1 };
+    my $released = eval {
+        if (defined $release) {
+            my $row = dbSelectRowBound($db, $release, @bind);
+            die 'release failed' unless $row && defined($row->{released}) && $row->{released} == 1;
+        } else {
+            dbExecuteBound($db, $ok ? 'COMMIT' : 'ROLLBACK');
+        }
+        1;
+    };
+    eval { $db->disconnect } unless $released;
+    die "Registration unavailable.\n" unless $ok && $released;
+    return $result;
 }
 
 sub activateAccount {
-	my $dbh = shift;
+	my $db = shift;
 	my $hash = shift;
 	my $p1 = shift;
 	my $p2 = shift;
 	
-	my $error = checkHash($hash);
-	my $preamble_file = getConfig('default_preamble');
-	my $defpreamble = (new TemplateNS($preamble_file))->expand();
-
-	# TODO: this function needs to be nicified in many ways, and have the 
-	# actual database insert split off into another sub.
-
-	unless ($error eq '') {
-	return($error); }
+	return registrationLinkError() unless validRegistrationToken($hash);
 
 	unless (defined($p1) && !ref($p1) && defined($p2) && !ref($p2) && $p1 eq $p2) {
 	return("passwords are different, please reenter"); }
@@ -213,30 +244,41 @@ sub activateAccount {
 	unless ($p1 ne '' and $p2 ne '') {
 	return("empty password, please reenter"); }
 
-	my ($user,$email) = split(/:/,$hash);
-	#dwarn "adding $user at $email to database";
-
-	# silently fail if the user exists (probably the client submitted the same
-	# command twice in rapid succession)
-	#
-	if (user_registered($user, 'username')) {
-	
-		dwarn "not adding $user at $email, already exists!";
-		return '';
-	}
-
-	# create the record in the user table
-	#
-	my $newid = nextval('users_uid_seq');
-	my $rv = eval {
-		my $encoded = hashAccountPassword($p1);
-		dbExecuteBound($dbh,
-		"INSERT INTO users (uid, joined, username, password, password_hash, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, '', ?, ?, ?)",
-		$newid, $user, $encoded, $email, $defpreamble);
+	local $dbh = $db;
+	my ($newid, $user);
+	my $error;
+	my $ok = eval {
+		my $ticket = registrationTicket($db, $hash);
+		if (!$ticket) {
+			$error = registrationLinkError();
+		} else {
+			my $encoded = hashAccountPassword($p1);
+			my $defpreamble = (new TemplateNS(getConfig('default_preamble')))->expand();
+			$error = withRegistrationLock($db, sub {
+				# Recheck under the lock; separate emails may name the same account.
+				$ticket = registrationTicket($db, $hash);
+				return registrationLinkError() unless $ticket;
+				return registrationLinkError() if checkNewUserInfo({user => $ticket->{username},
+					email => $ticket->{email}, license => 'on'}) ne '';
+				my $now = registrationTime();
+				my $claimed = dbExecuteBound($db,
+					'UPDATE account_registration_tokens SET used_at = ? WHERE token_hash = ? AND used_at IS NULL AND expires > ?',
+					$now, $ticket->{token_hash}, $now);
+				return registrationLinkError() unless defined($claimed) && $claimed == 1;
+				$newid = nextval('users_uid_seq');
+				die 'invalid account id' unless defined($newid) && $newid =~ /\A[1-9][0-9]*\z/;
+				$user = $ticket->{username};
+				my $rv = dbExecuteBound($db,
+					"INSERT INTO users (uid, joined, username, password, password_hash, email, preamble) VALUES (?, CURRENT_TIMESTAMP, ?, '', ?, ?, ?)",
+					$newid, $user, $encoded, $ticket->{email}, $defpreamble);
+				die 'insert failed' unless defined($rv) && $rv == 1;
+				return '';
+			});
+		}
+		1;
 	};
-
-	if (!defined($rv) || $rv <= 0) {
-	return("failed to add user"); }
+	return 'Could not activate the account. Please request a new registration email and try again.' unless $ok;
+	return $error if $error ne '';
 
 	# make the user's self-named default group and add them to it
 	#
