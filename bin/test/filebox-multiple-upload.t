@@ -84,6 +84,7 @@ subtest 'filebox form shows selected filenames' => sub {
     like($html, qr/id="filebox-upload-list"/, 'selected-file list placeholder is present');
     like($html, qr/input\.onchange/, 'selected-file list updates when files are selected');
     like($html, qr/createTextNode\(files\[i\]\.name\)/, 'selected filenames are inserted as text');
+    unlike($html, qr/\bi\s*<\s*files\.length/, 'inline script avoids raw less-than markup');
 };
 
 {
