@@ -10,7 +10,7 @@ our $dbh;
 sub registrationRequest {
     my $req = Apache2::RequestUtil->request;
     $req->headers_out->set('Cache-Control' => 'no-store');
-    $req->headers_out->set('Referrer-Policy' => 'no-referrer');
+    $req->headers_out->set('Referrer-Policy' => 'strict-origin');
     return $req->method;
 }
 

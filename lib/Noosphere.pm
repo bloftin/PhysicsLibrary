@@ -10,6 +10,8 @@ use File::chdir;
 use Cwd qw(abs_path);
 use Template;
 use Encode ();
+use Noosphere::RequestForm;
+our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
 
@@ -381,7 +383,12 @@ sub headerAndCSS {
 sub sendOutput {
 	my $req = shift;
 	my $html = shift;
-	my $status = shift || 200;
+	my $status = shift || $RequestFormStatus || 200;
+	$html = requestFormDecorate($html, $RequestFormUser, $req->unparsed_uri);
+	if (defined requestFormToken($RequestFormUser)) {
+		$req->headers_out->set('Cache-Control' => 'no-store');
+		$req->headers_out->set('X-Frame-Options' => 'SAMEORIGIN');
+	}
 	my $body = utf8::is_utf8($html) ? Encode::encode('UTF-8', $html) : $html;
 	my $len = bytes::length($body);
 
@@ -392,7 +399,6 @@ sub sendOutput {
 #	$req->send_http_header;
 	my $content_type = $req->content_type;
 	#dwarn "sendOutput req content type: $content_type";
-	writeFile("/tmp/sendOutput.html", $html);
 	$req->print($body);
 	$req->rflush(); 
 }
@@ -801,7 +807,16 @@ sub handler {
 	#dwarn "After init stat cache";
 	# user info and cookies
 	#
+	local $RequestFormStatus;
+	local $RequestFormUser;
+	local $RequestFormValidated = 0;
+	my $account_error = requestAccountOriginError($req, $params);
+	if (length $account_error) {
+		sendOutput($req, requestFormFailure(403, $account_error), 403);
+		return;
+	}
 	my %user_info = handleLogin($req, $params, \%cookies);
+	$RequestFormUser = \%user_info;
 
 	if ($params->{'op'} eq 'randomentry') {
 		serveRandomEntry($req, $params);
@@ -824,6 +839,10 @@ sub handler {
 		$req->content_type('text/plain;charset=UTF-8');
 		$req->headers_out->add('content-length' => $len);
 		$req->print($html);
+		return;
+	}
+	if (length $html) {
+		sendOutput($req, $html);
 		return;
 	}
 	# if none, process template stuff
@@ -893,7 +912,6 @@ sub handler {
 	
     		my $ret = $tt->process($file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
 			
-			writeFile("/tmp/view.xml", $html);
 			# handle caching
 		
 		

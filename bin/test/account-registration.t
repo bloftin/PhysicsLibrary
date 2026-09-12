@@ -152,7 +152,7 @@ subtest 'isolated registration workflow' => sub {
             ok(!defined($used->($token)), 'opening link does not consume token');
         }
         is($headers{'Cache-Control'}, 'no-store', 'activation form not cached');
-        is($headers{'Referrer-Policy'}, 'no-referrer', 'activation URL not sent as referrer');
+        is($headers{'Referrer-Policy'}, 'strict-origin', 'activation path and token not sent as referrer');
         for my $verb (qw(GET HEAD PUT)) {
             local $method = $verb;
             like(Noosphere::getActivate({hash => $token, setpass => 1, p1 => $password, p2 => $password}),

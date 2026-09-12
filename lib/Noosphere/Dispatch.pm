@@ -1,6 +1,8 @@
 package Noosphere;
 
 use strict;
+use Noosphere::RequestForm;
+our $RequestFormValidated;
 
 use vars qw{%HANDLERS %NONTEMPLATE};
 
@@ -27,8 +29,18 @@ sub dispatch {
   my $upload = shift || {};
   
   my $content = '';
+  return '' unless defined $params->{op};
+  return requestFormFailure(400, 'Invalid operation.')
+    if ref($params->{op});
   #dwarn "Dispatch handler_hr: $params";
   if (defined $handler_hr->{$params->{op}}) {
+    my $req = eval { Apache2::RequestUtil->request };
+    my $blocked = requestFormGuard($req, $params, $userinf);
+    return $blocked if defined $blocked;
+    local $RequestFormValidated = $RequestFormValidated ||
+      ($req->method eq 'POST' && requestFormTokenMatches(
+        $params->{_form_token}, requestFormToken($userinf)));
+    delete $params->{_form_token};
     $content = &{$handler_hr->{$params->{op}}}($params, $userinf, $upload);
   }
 

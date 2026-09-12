@@ -226,6 +226,7 @@ sub parseParams {
   #dwarn $ismime;
   #dwarn $req;
   my %get_params=parseGetArgs(scalar($req->args));
+  delete $get_params{$_} for grep { lc($_) eq '_form_token' } keys %get_params;
   #dwarn "After parseGetARgs";
   my %post_params=$req->content if (not $ismime);
   #dwarn "THE BODY IS:\n";

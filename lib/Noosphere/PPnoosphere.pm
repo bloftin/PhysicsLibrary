@@ -4,6 +4,8 @@ package Noosphere;
 use strict;
 use Noosphere::Util;
 use Noosphere::XSLTemplate;
+use Noosphere::RequestForm;
+our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
 
@@ -221,7 +223,12 @@ sub headerAndCSS {
 sub sendOutput {
 	my $req = shift;
 	my $html = shift;
-	my $status = shift || 200;
+	my $status = shift || $RequestFormStatus || 200;
+	$html = requestFormDecorate($html, $RequestFormUser, $req->unparsed_uri);
+	if (defined requestFormToken($RequestFormUser)) {
+		$req->headers_out->set('Cache-Control' => 'no-store');
+		$req->headers_out->set('X-Frame-Options' => 'SAMEORIGIN');
+	}
 
 	my $len = length($html);
 	$req->status($status);
@@ -463,7 +470,16 @@ sub handler {
  	#dwarn "Start of PP user info and cookies\n";
 	# user info and cookies
 	#
+	local $RequestFormStatus;
+	local $RequestFormUser;
+	local $RequestFormValidated = 0;
+	my $account_error = requestAccountOriginError($req, $params);
+	if (length $account_error) {
+		sendOutput($req, requestFormFailure(403, $account_error), 403);
+		return;
+	}
 	my %user_info = handleLogin($req, $params, \%cookies);
+	$RequestFormUser = \%user_info;
 
 	# check for any content that isn't meant for any template
 	#
