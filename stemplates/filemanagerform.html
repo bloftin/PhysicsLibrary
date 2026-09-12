@@ -14,12 +14,49 @@
    
    <br /><br />
    
-   Attach file:
+   Attach files:
    
    <br />
    
-   <input type="file" size="50" name="upload" value="" />
+   <input type="file" size="50" name="upload" id="filebox-upload" value="" multiple="multiple" />
    <input type="submit" name="filebox" VALUE="upload" />
+   <div id="filebox-upload-list"></div>
+   <script type="text/javascript">
+   (function () {
+     var input = document.getElementById('filebox-upload');
+     var list = document.getElementById('filebox-upload-list');
+     if (!input || !list || !input.files) {
+       return;
+     }
+
+     input.onchange = function () {
+       var files = input.files;
+       var header;
+       var items;
+       var i;
+
+       while (list.firstChild) {
+         list.removeChild(list.firstChild);
+       }
+
+       if (!files || !files.length) {
+         return;
+       }
+
+       header = document.createElement('div');
+       header.appendChild(document.createTextNode(files.length + ' selected file' + (files.length == 1 ? '' : 's') + ':'));
+       list.appendChild(header);
+
+       items = document.createElement('ul');
+       for (i = 0; i < files.length; i++) {
+         var item = document.createElement('li');
+         item.appendChild(document.createTextNode(files[i].name));
+         items.appendChild(item);
+       }
+       list.appendChild(items);
+     };
+   }());
+   </script>
    
    <br /><br />
 
