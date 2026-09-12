@@ -94,7 +94,7 @@ my $quoted_password = q{a'\b; active=0 --};
 for my $file (
     ['DB.pm', qw(dbSelectRowBound dbExecuteBound dbRunBound)],
     ['Login.pm', qw(findLoginUser handleLogin)],
-    ['Password.pm', qw(pwChange changePassword pwChangeRequest passwordResetTokenLifetime
+    ['Password.pm', qw(pwChange changePassword pwChangeRequest passwordResetRequestMessage passwordResetTokenLifetime
         passwordResetTime newPasswordResetToken validPasswordResetToken createPasswordResetTicket
         passwordResetCredentialStamp passwordResetTicket consumePasswordResetTicket)],
     ['NewUser.pm', qw(registrationLinkError registrationTime validRegistrationToken
@@ -175,7 +175,8 @@ subtest 'shared account lookups' => sub {
 subtest 'recovery lookup and change' => sub {
     my $old_hash = Noosphere::hashAccountPassword('old-password');
     fixture(); @results = ({username => "O'Neil", email => 'member@example.invalid'}, {uid => 42, password_hash => $old_hash}, 1, 1);
-    is(Noosphere::pwChangeRequest({submit => 1, username => "o'neil"}), 'Mail Sent', 'recovery request');
+    like(Noosphere::pwChangeRequest({submit => 1, username => "o'neil"}),
+        qr/If the account exists/, 'recovery request');
     is($queries[0]->{sql}, 'SELECT username, email FROM users WHERE username = ? AND active = 1 LIMIT 1', 'fixed lookup SQL');
     is_deeply($queries[0]->{bind}, ["o'neil"], 'lookup bound');
     is_deeply([@{$mail[0]}[0,1]], ["O'Neil", 'member@example.invalid'], 'mail uses stored identity and address');
@@ -186,7 +187,8 @@ subtest 'recovery lookup and change' => sub {
     like($queries[3]->{bind}->[1], qr/\A[0-9a-f]{64}\z/, 'only token hash is stored');
     isnt($queries[3]->{bind}->[1], $mail[0]->[2], 'stored value is not the link token');
     fixture();
-    like(Noosphere::pwChangeRequest({submit => 1, username => $payload}), qr/Cannot find/, 'missing user');
+    like(Noosphere::pwChangeRequest({submit => 1, username => $payload}),
+        qr/If the account exists/, 'missing user receives generic response');
     is(scalar @mail, 0, 'no mail on missing match');
     is_deeply($queries[0]->{bind}, [$payload], 'SQL-like username is just a value');
     my $token = 'a' x 64;
