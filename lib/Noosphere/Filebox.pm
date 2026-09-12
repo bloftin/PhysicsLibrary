@@ -11,6 +11,8 @@ use File::Copy::Recursive qw(rcopy pathrm rmove);
 use File::Spec;
 use HTTP::Tiny;
 
+use constant MAX_FILEBOX_UPLOADS => 20;
+
 # determine if a directory is "bad"; either nonexistant, equal to root
 #	or containing a //
 #
@@ -291,16 +293,23 @@ sub handleFileManager {
 		$ftemplate->setKey('fb_urls', $params->{fb_urls});
 	}
 	
-	# move an uploaded file
+	# move uploaded files
 	#
-	if (defined $upload and $upload->{'filename'}) {
-		#dwarn "moving uploaded file $upload->{tempfile} to $dest/$upload->{filename}";
-		$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
-		if (rmove($upload->{tempfile},"$dest/$upload->{filename}")) {
-			$changes = 1;
+	my @uploads = fileboxUploads($upload);
+	if (@uploads) {
+		if (@uploads > MAX_FILEBOX_UPLOADS) {
+			$ferror .= "Please upload no more than ".MAX_FILEBOX_UPLOADS." files at once.<br/>";
 		} else {
-			$ferror .= "Problem saving uploaded file $upload->{filename}<br/>";
-			dwarn "Failed to move uploaded file: $!";
+			$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin";
+			foreach my $file (@uploads) {
+				#dwarn "moving uploaded file $file->{tempfile} to $dest/$file->{filename}";
+				if (rmove($file->{tempfile},"$dest/$file->{filename}")) {
+					$changes = 1;
+				} else {
+					$ferror .= "Problem saving uploaded file $file->{filename}<br/>";
+					dwarn "Failed to move uploaded file: $!";
+				}
+			}
 		}
 	}
 
@@ -440,6 +449,18 @@ sub handleFileManager {
 	$$error_out = $ferror if $error_out;
 	#dwarn "handleFileManager ended";
 	return ($template, $html_fmanager);
+}
+
+sub fileboxUploads {
+	my $upload = shift;
+	return () unless ref($upload) eq 'HASH';
+
+	my @uploads = ref($upload->{uploads}) eq 'ARRAY' ? @{$upload->{uploads}} : ($upload);
+	return grep {
+		ref($_) eq 'HASH' &&
+		defined($_->{filename}) && $_->{filename} ne '' &&
+		defined($_->{tempfile}) && $_->{tempfile} ne ''
+	} @uploads;
 }
 
 # wget - low level interface to URL grab method. return 1 success, 0 fail.

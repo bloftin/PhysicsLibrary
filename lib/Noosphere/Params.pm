@@ -21,6 +21,7 @@ sub parseMime {
   my $boundary=shift;
   my $body=shift;
   my %upload;
+  my @uploads;
   my %formdata;
 
   #dwarn "parseMime Started";
@@ -80,9 +81,11 @@ sub parseMime {
 	  #dwarn "uploaded file name $filename";
 	  #dwarn "upload data [$mimedata]";
 
-	  $upload{formname}=$name;
-	  $upload{filename}=basefilename($filename);
-	  $upload{type}=$type;
+	  my %file = (
+	    formname => $name,
+	    filename => basefilename($filename),
+	    type => $type,
+	  );
 	  my $tempfile=getTempFileName();
 	  # write out to the temp file
 	  #
@@ -90,11 +93,16 @@ sub parseMime {
 	  binmode OUT;
 	  syswrite OUT,$mimedata;
 	  close OUT;
-	  $upload{tempfile}=$tempfile;
+	  $file{tempfile}=$tempfile;
+	  push @uploads, \%file;
+
+	  # Preserve the original single-upload shape for older callers.
+	  %upload = %file if ($upload{filename} eq '');
       #dwarn "\tfile=>[$filename,$type,$tempfile]\n";
 	}
   }
 
+  $upload{uploads} = \@uploads if @uploads;
   return ({%formdata},{%upload});
 }
 
@@ -174,6 +182,7 @@ sub parseParamsNew {
 #	my $req = Apache::Request->new(shift);
   #$req = Apache2::RequestUtil->request;
 	my %upload;
+	my @uploads;
 	my %params;
 
 	# get Apache2::Request params table
@@ -192,24 +201,31 @@ sub parseParamsNew {
 	#
 	my @ulist = $req->uploads;
 	if (scalar @ulist > 0) {
-		my $u = $req->upload($ulist[0]);
+		foreach my $name (@ulist) {
+			my @objects = $req->upload($name);
+			foreach my $u (@objects) {
+				next unless $u;
 
-		# build upload object
-		# 
-		# old ad hoc fields: formname, filename, type, tempfile
-		# map to: Apache2::Upload ->name(), ->filename(), type(), tempname()
-		#
-		my $fname = $u->filename();
-		if ($fname =~ /[\/\\]([^\/\\]+)$/) {
-			$fname = $1;	# get base name if full path provided
+				# build upload object
+				#
+				# old ad hoc fields: formname, filename, type, tempfile
+				# map to: Apache2::Upload ->name(), ->filename(), type(), tempname()
+				#
+				my $fname = $u->filename();
+				if ($fname =~ /[\/\\]([^\/\\]+)$/) {
+					$fname = $1;	# get base name if full path provided
+				}
+
+				my %file = (
+					'formname' => $u->name(),
+					'filename' => $fname,
+					'tempfile' => $u->tempname(),
+				);
+				push @uploads, \%file;
+				%upload = %file if not defined $upload{'filename'};
+			}
 		}
-
-		%upload = (
-			'formname' => $u->name(),
-			'filename' => $fname,
-			'tempfile' => $u->tempname(),
-		);
-
+		$upload{uploads} = \@uploads if @uploads;
 	}
 
 	return(\%params,\%upload); 
