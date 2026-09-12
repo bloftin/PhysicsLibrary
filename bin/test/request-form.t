@@ -252,6 +252,7 @@ subtest 'actual response writer decorates only the delivered page' => sub {
     open my $in, '<', "$FindBin::Bin/../../lib/Noosphere.pm" or die $!;
     my $source = do { local $/; <$in> };
     my ($sub) = $source =~ /^(sub sendOutput \{.*?)(?=^sub |\z)/ms;
+    require Noosphere::SecurityHeaders;
     eval "package Noosphere; our (\$RequestFormStatus, \$RequestFormUser); $sub";
     die $@ if $@;
     my $user = fixture();
@@ -262,6 +263,8 @@ subtest 'actual response writer decorates only the delivered page' => sub {
     is($request->{status}, 403, 'dispatch rejection reaches HTTP status');
     is($request->{out}{'Cache-Control'}, 'no-store', 'personal response is not cached');
     is($request->{out}{'X-Frame-Options'}, 'SAMEORIGIN', 'confirmation cannot be framed by another origin');
+    is($request->{out}{'X-Content-Type-Options'}, 'nosniff', 'content type sniffing disabled');
+    is($request->{out}{'Referrer-Policy'}, 'same-origin', 'referrers stay same-origin by default');
     like($request->{output}, qr/name="_form_token"/, 'delivered form contains token');
     is($request->{out}{'content-length'}, length($request->{output}), 'byte length computed after decoration');
     unlike($html, qr/_form_token/, 'input template/cached fragment not modified');

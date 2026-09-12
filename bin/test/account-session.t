@@ -93,6 +93,14 @@ subtest 'bounded lifetime defaults' => sub {
     }
 };
 
+subtest 'account routes are not cached' => sub {
+    for my $op (qw(login logout newuser activate edituser pwchange pwchangereq)) {
+        my ($user, $req) = request('GET', {op => $op});
+        is($req->{headers}->{fields}->{'Cache-Control'}, 'no-store', "$op response cannot be cached");
+        is($req->{headers}->{fields}->{'Referrer-Policy'}, 'same-origin', "$op keeps account URL local");
+    }
+};
+
 subtest 'preferences omit obsolete unlimited session option' => sub {
     open my $in, '<', "$FindBin::Bin/../../lib/Noosphere/UserData.pm" or die $!;
     my $source = do { local $/; <$in> };

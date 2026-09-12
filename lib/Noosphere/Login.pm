@@ -98,7 +98,7 @@ sub handleLogin {
         $user_info{'ticket'} = undef;
         clearCookie($req, 'ticket') if defined($cookies->{ticket}) || $params->{op} eq 'login';
     }
-    if ($user_info{'uid'} > 0 || $params->{op} =~ /\A(?:login|logout|pwchange|pwchangereq)\z/) {
+    if ($user_info{'uid'} > 0 || $params->{op} =~ /\A(?:login|logout|newuser|activate|edituser|pwchange|pwchangereq)\z/) {
         $req->headers_out->set('Cache-Control' => 'no-store');
         $req->headers_out->set('Referrer-Policy' => 'same-origin');
     }

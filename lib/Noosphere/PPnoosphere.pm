@@ -5,6 +5,7 @@ use strict;
 use Noosphere::Util;
 use Noosphere::XSLTemplate;
 use Noosphere::RequestForm;
+use Noosphere::SecurityHeaders;
 our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
@@ -225,6 +226,7 @@ sub sendOutput {
 	my $html = shift;
 	my $status = shift || $RequestFormStatus || 200;
 	$html = requestFormDecorate($html, $RequestFormUser, $req->unparsed_uri);
+	setStandardSecurityHeaders($req);
 	if (defined requestFormToken($RequestFormUser)) {
 		$req->headers_out->set('Cache-Control' => 'no-store');
 		$req->headers_out->set('X-Frame-Options' => 'SAMEORIGIN');
