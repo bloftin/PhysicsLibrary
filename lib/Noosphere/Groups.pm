@@ -8,6 +8,41 @@ package Noosphere;
 
 use strict;
 
+our $dbh;
+
+sub _validGroupId {
+	my $value = shift;
+	return defined($value) && !ref($value) && $value =~ /^\d+$/;
+}
+
+sub _validGroupUserId {
+	my $value = shift;
+	return defined($value) && !ref($value) && $value =~ /^\d+$/;
+}
+
+sub _validGroupObjectArgs {
+	my ($table, $objectid) = @_;
+	return 0 unless defined($table) && !ref($table) && $table =~ /^[A-Za-z_][A-Za-z0-9_]*$/;
+	return 0 unless defined($objectid) && !ref($objectid) && $objectid =~ /^\d+$/;
+	return 1 if $table eq getConfig('en_tbl');
+	return 1 if $table eq getConfig('collab_tbl');
+	my $schemas = getConfig('generic_schema') || {};
+	return exists $schemas->{$table};
+}
+
+sub _groupAdminId {
+	my $groupid = shift;
+	return undef unless _validGroupId($groupid);
+	return lookupfield(getConfig('groups_tbl'), 'userid', "groupid=$groupid");
+}
+
+sub _userOwnsGroup {
+	my ($userinf, $groupid) = @_;
+	return 0 unless ref($userinf) eq 'HASH' && _validGroupUserId($userinf->{uid});
+	my $adminid = _groupAdminId($groupid);
+	return defined($adminid) && $userinf->{uid} == $adminid;
+}
+
 # create an editor group on a particular object
 #
 #  * makes a group name: title . ' editors'
@@ -16,6 +51,12 @@ use strict;
 sub createEditorGroup {
 	my $params = shift;
 	my $userinf = shift;
+
+	return errorMessage("You must be logged in to create an editor group.") if ($userinf->{uid} <= 0);
+	return errorMessage("Invalid object.") unless _validGroupObjectArgs($params->{from}, $params->{id});
+	return errorMessage("You can't change access for that object.")
+		unless hasPermissionTo($params->{from}, $params->{id}, $userinf, 'acl') ||
+			$userinf->{data}->{access} >= getConfig('access_admin');
 	
 	# add the group
 	#
@@ -65,6 +106,7 @@ sub groupEditor  {
 	  foreach my $key (keys %$params) {
 	  if ($key =~ /^selected_([0-9]+)$/) {
 	    my $gid = $1;
+	      next unless _userOwnsGroup($userinf, $gid);
 	      deleteAllUsersFromGroup($gid);
 		deleteGroup($gid);
 	  }
@@ -155,6 +197,7 @@ sub memberEditor {
 	my $error = '';
 	my $html = '';
 
+	return errorMessage("Invalid group.") unless _validGroupId($gid);
 	my $adminid = lookupfield($gtbl, 'userid', "groupid=$gid");
 
 	return errorMessage("You aren't the admin of that group!") if ($userinf->{uid} != $adminid);
@@ -403,6 +446,15 @@ sub getUserGroupids {
 sub addUserToGroup_wrapper {
 	my $params = shift;
 	my $userinf = shift;
+
+	return errorMessage("You must be logged in to edit a group.") if ($userinf->{uid} <= 0);
+	return errorMessage("Invalid group.") unless _validGroupId($params->{groupid});
+	return errorMessage("Invalid user.") unless _validGroupUserId($params->{userid});
+	return errorMessage("You aren't the admin of that group!") unless _userOwnsGroup($userinf, $params->{groupid});
+	return errorMessage("User does not exist.") unless lookupfield(getConfig('user_tbl'), 'uid', "uid=$params->{userid}");
+	return errorMessage("That user is already a member of this group.")
+		if defined lookupfield(getConfig('gmember_tbl'), 'userid',
+			"groupid=$params->{groupid} and userid=$params->{userid}");
 
 	addUserToGroup($params->{groupid}, $params->{userid});
 
