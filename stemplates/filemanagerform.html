@@ -48,7 +48,7 @@
        list.appendChild(header);
 
        items = document.createElement('ul');
-       for (i = 0; i < files.length; i++) {
+       for (i = 0; i != files.length; i++) {
          var item = document.createElement('li');
          item.appendChild(document.createTextNode(files[i].name));
          items.appendChild(item);
