@@ -1,0 +1,14 @@
+# Only prebuilt assets are served here. No script execution or directory listing.
+Options -Indexes -ExecCGI
+<IfModule mod_headers.c>
+    Header set Cache-Control "public, max-age=300"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "same-origin"
+    Header set Content-Security-Policy "default-src 'none'; img-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+</IfModule>
+<IfModule mod_mime.c>
+    AddType text/css .css
+    AddType text/csv .csv
+    AddType text/plain .toml
+    AddType application/zip .zip
+</IfModule>

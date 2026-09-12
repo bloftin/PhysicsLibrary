@@ -1,0 +1,5 @@
+# Preserve the byte-level provenance of the Julia publishing example on Windows/WSL.
+examples/julia-oscillator/** text eol=lf
+data/examples/julia-oscillator/** text eol=lf
+data/examples/julia-oscillator/*.png binary
+data/examples/julia-oscillator/*.zip binary

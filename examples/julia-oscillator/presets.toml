@@ -1,0 +1,26 @@
+# SI units: kg, N/m, N s/m, m, m/s, s. All cases start at rest.
+[model]
+mass = 1.0
+stiffness = 4.0
+displacement = 1.0
+velocity = 0.0
+duration = 12.0
+samples = 601
+
+[[presets]]
+id = "underdamped"
+label = "Underdamped"
+damping = 0.8
+description = "The mass crosses equilibrium repeatedly as its oscillation decays."
+
+[[presets]]
+id = "critical"
+label = "Critically damped"
+damping = 4.0
+description = "For this release from rest, critical damping returns toward equilibrium without overshoot, faster than the overdamped case."
+
+[[presets]]
+id = "overdamped"
+label = "Overdamped"
+damping = 8.0
+description = "Stronger damping suppresses oscillation but gives a slower return toward equilibrium."

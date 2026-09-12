@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Three reproducible Julia calculations of free damped harmonic motion, with displacement and energy plots.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Damped Harmonic Motion | PhysicsLibrary</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="https://physicslibrary.org/"><img src="logo.png" width="280" height="53" alt="PhysicsLibrary.org"></a>
+    <p>An open source physics library</p>
+  </header>
+  <main>
+    <div class="article-heading">
+      <p class="eyebrow">Computational example <span>Julia</span></p>
+      <h1>Damped Harmonic Motion</h1>
+      <p class="intro">One mass, one spring, three ways to return to equilibrium.</p>
+      <p class="equation">m x&#8243; + c x&#8242; + k x = 0</p>
+      <p class="conditions">m = 1 kg &nbsp; &middot; &nbsp; k = 4 N/m &nbsp; &middot; &nbsp; x(0) = 1 m &nbsp; &middot; &nbsp; v(0) = 0 m/s</p>
+    </div>
+    <fieldset class="viewer">
+      <legend>Damping regime</legend>
+      @@CHOICES@@
+      <div class="panels">@@PANELS@@</div>
+    </fieldset>
+    <section class="comparison">
+      <h2>The Three Regimes Together</h2>
+      <p>Damping removes mechanical energy. More damping does not always mean a faster return: the overdamped mass takes longer to approach equilibrium than the critically damped mass for this release from rest.</p>
+      <picture><source media="(max-width: 650px)" srcset="comparison-mobile.png" width="600" height="480"><img src="comparison.png" width="1000" height="560" alt="Comparison of displacement over 12 seconds: underdamped motion oscillates, critical damping approaches zero without crossing it, and overdamped motion returns more slowly." loading="lazy"></picture>
+    </section>
+    <section class="reproduce">
+      <div>
+        <h2>Reproduce the Result</h2>
+        <p>The Julia project contains the calculation, preset inputs, tests, environment manifest, and CSV results.</p>
+        <a class="download" href="julia-oscillator.zip" download>Download Julia project <span>@@ZIP_SIZE@@</span></a>
+        <p class="small">Published results &middot; Julia @@JULIA_VERSION@@ &middot; 601 samples per preset</p>
+      </div>
+      <div>
+        <h3>Method and Assumptions</h3>
+        <p>The state is evaluated as exp(tA)u(0) with Julia's standard-library matrix exponential. The model assumes a linear spring and viscous damping, with no driving force.</p>
+        <p>Independent analytic solutions check all three regimes. Mechanical energy, E = (m v&#178; + k x&#178;)/2, must decrease or remain constant.</p>
+        <p class="small">These are saved calculations. Selecting a preset does not run code on the server.</p>
+        <a href="provenance.toml" download>Calculation provenance</a>
+      </div>
+    </section>
+  </main>
+  <footer><a href="https://physicslibrary.org/">PhysicsLibrary</a> &middot; <a href="LICENSE.txt">Example license</a></footer>
+</body>
+</html>

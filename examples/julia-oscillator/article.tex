@@ -1,0 +1,75 @@
+This computational example compares three forms of free motion of a damped
+mass--spring system. All three cases start with the same displacement and zero
+velocity. Only the damping coefficient changes.
+
+\section{Model and initial conditions}
+The displacement $x(t)$, measured from equilibrium, satisfies
+\begin{equation}
+ m\ddot{x}+c\dot{x}+kx=0,
+ \qquad x(0)=1\,\mathrm{m},\quad \dot{x}(0)=0.
+\end{equation}
+We use $m=1\,\mathrm{kg}$ and $k=4\,\mathrm{N/m}$, so that
+\begin{equation}
+ \omega_0=\sqrt{k/m}=2\,\mathrm{rad/s},
+ \qquad \zeta=\frac{c}{2\sqrt{mk}}.
+\end{equation}
+The damping coefficient $c$ is measured in $\mathrm{N\,s/m}$.
+
+\begin{center}
+\begin{tabular}{lrr}
+Case & $c\;(\mathrm{N\,s/m})$ & $\zeta$ \\
+\hline
+Underdamped & $0.8$ & $0.2$ \\
+Critically damped & $4.0$ & $1.0$ \\
+Overdamped & $8.0$ & $2.0$ \\
+\end{tabular}
+\end{center}
+
+\section{Published results}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{comparison.png}
+\end{center}
+The underdamped mass repeatedly crosses equilibrium. For these initial
+conditions, critical damping approaches equilibrium without overshoot and
+faster than the overdamped case. Increasing damping beyond the critical value
+slows the return.
+
+The mechanical energy is
+\begin{equation}
+ E(t)=\frac{1}{2}m\dot{x}^{2}+\frac{1}{2}kx^{2},
+ \qquad \frac{dE}{dt}=-c\dot{x}^{2}\leq 0.
+\end{equation}
+Displacement can oscillate while mechanical energy decreases. The curves are
+sampled at $601$ times from $0$ to $12\,\mathrm{s}$, with spacing
+$0.02\,\mathrm{s}$; this spacing is an output sampling interval, not an
+integration step size.
+
+\section{Reproducing the calculation in Julia}
+Writing $\mathbf{u}=(x,\dot{x})^{T}$ gives
+\begin{equation}
+ \mathbf{u}(t)=\exp(tA)\mathbf{u}(0),\qquad
+ A=\begin{pmatrix}0&1\\-k/m&-c/m\end{pmatrix}.
+\end{equation}
+The supplied Julia script evaluates the matrix exponential with the standard
+\texttt{LinearAlgebra} library, using double-precision arithmetic. Tests compare
+the displacement and velocity with independent scalar analytic solutions in
+all three damping regimes, and check energy decay.
+
+The \PMlinkexternal{preset viewer and downloadable Julia project}
+{https://images.physicslibrary.org/examples/julia-oscillator/index.html}
+include the source, environment manifest, CSV data, plots, and provenance.
+Extract the project archive and run these commands in its top-level directory:
+\begin{verbatim}
+julia --startup-file=no --project=. test/runtests.jl
+julia --startup-file=no --project=. oscillator.jl
+\end{verbatim}
+The calculation uses Julia standard libraries. To explore different initial
+conditions locally, change \texttt{presets.toml} and rerun the tests and script.
+The published tests describe the original presets; adjust the preset-specific
+expectations if changing the physical experiment.
+
+\section{Interpretation and limits}
+This model assumes a linear spring and viscous damping, with no driving force.
+It does not model dry friction, nonlinear springs, or large-deformation effects.
+The displayed results are saved computations. Viewing the article or changing
+the displayed preset does not start a calculation on the PhysicsLibrary server.

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Three reproducible Julia calculations of free damped harmonic motion, with displacement and energy plots.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Damped Harmonic Motion | PhysicsLibrary</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="https://physicslibrary.org/"><img src="logo.png" width="280" height="53" alt="PhysicsLibrary.org"></a>
+    <p>An open source physics library</p>
+  </header>
+  <main>
+    <div class="article-heading">
+      <p class="eyebrow">Computational example <span>Julia</span></p>
+      <h1>Damped Harmonic Motion</h1>
+      <p class="intro">One mass, one spring, three ways to return to equilibrium.</p>
+      <p class="equation">m x&#8243; + c x&#8242; + k x = 0</p>
+      <p class="conditions">m = 1 kg &nbsp; &middot; &nbsp; k = 4 N/m &nbsp; &middot; &nbsp; x(0) = 1 m &nbsp; &middot; &nbsp; v(0) = 0 m/s</p>
+    </div>
+    <fieldset class="viewer">
+      <legend>Damping regime</legend>
+      <input type="radio" name="preset" id="underdamped" checked aria-controls="underdamped-panel"><label for="underdamped">Underdamped</label>
+<input type="radio" name="preset" id="critical" aria-controls="critical-panel"><label for="critical">Critically damped</label>
+<input type="radio" name="preset" id="overdamped" aria-controls="overdamped-panel"><label for="overdamped">Overdamped</label>
+      <div class="panels"><section class="preset" id="underdamped-panel" aria-label="Underdamped">
+          <picture><source media="(max-width: 650px)" srcset="underdamped-mobile.png" width="600" height="620"><img src="underdamped.png" width="1000" height="620" alt="Underdamped: displacement and mechanical energy versus time; The mass crosses equilibrium repeatedly as its oscillation decays."></picture>
+          <aside><h3>Underdamped</h3><p>The mass crosses equilibrium repeatedly as its oscillation decays.</p>
+          <dl><div><dt>Damping coefficient</dt><dd>0.8 N s/m</dd></div><div><dt>Damping ratio</dt><dd>&#950; = 0.2</dd></div></dl>
+          <a href="underdamped.csv" download>Download CSV data</a><p class="small">0 to 12 s &middot; 0.02 s sampling</p></aside>
+        </section>
+<section class="preset" id="critical-panel" aria-label="Critically damped">
+          <picture><source media="(max-width: 650px)" srcset="critical-mobile.png" width="600" height="620"><img src="critical.png" width="1000" height="620" alt="Critically damped: displacement and mechanical energy versus time; For this release from rest, critical damping returns toward equilibrium without overshoot, faster than the overdamped case."></picture>
+          <aside><h3>Critically damped</h3><p>For this release from rest, critical damping returns toward equilibrium without overshoot, faster than the overdamped case.</p>
+          <dl><div><dt>Damping coefficient</dt><dd>4 N s/m</dd></div><div><dt>Damping ratio</dt><dd>&#950; = 1</dd></div></dl>
+          <a href="critical.csv" download>Download CSV data</a><p class="small">0 to 12 s &middot; 0.02 s sampling</p></aside>
+        </section>
+<section class="preset" id="overdamped-panel" aria-label="Overdamped">
+          <picture><source media="(max-width: 650px)" srcset="overdamped-mobile.png" width="600" height="620"><img src="overdamped.png" width="1000" height="620" alt="Overdamped: displacement and mechanical energy versus time; Stronger damping suppresses oscillation but gives a slower return toward equilibrium."></picture>
+          <aside><h3>Overdamped</h3><p>Stronger damping suppresses oscillation but gives a slower return toward equilibrium.</p>
+          <dl><div><dt>Damping coefficient</dt><dd>8 N s/m</dd></div><div><dt>Damping ratio</dt><dd>&#950; = 2</dd></div></dl>
+          <a href="overdamped.csv" download>Download CSV data</a><p class="small">0 to 12 s &middot; 0.02 s sampling</p></aside>
+        </section></div>
+    </fieldset>
+    <section class="comparison">
+      <h2>The Three Regimes Together</h2>
+      <p>Damping removes mechanical energy. More damping does not always mean a faster return: the overdamped mass takes longer to approach equilibrium than the critically damped mass for this release from rest.</p>
+      <picture><source media="(max-width: 650px)" srcset="comparison-mobile.png" width="600" height="480"><img src="comparison.png" width="1000" height="560" alt="Comparison of displacement over 12 seconds: underdamped motion oscillates, critical damping approaches zero without crossing it, and overdamped motion returns more slowly." loading="lazy"></picture>
+    </section>
+    <section class="reproduce">
+      <div>
+        <h2>Reproduce the Result</h2>
+        <p>The Julia project contains the calculation, preset inputs, tests, environment manifest, and CSV results.</p>
+        <a class="download" href="julia-oscillator.zip" download>Download Julia project <span>471 KB</span></a>
+        <p class="small">Published results &middot; Julia 1.10.12 &middot; 601 samples per preset</p>
+      </div>
+      <div>
+        <h3>Method and Assumptions</h3>
+        <p>The state is evaluated as exp(tA)u(0) with Julia's standard-library matrix exponential. The model assumes a linear spring and viscous damping, with no driving force.</p>
+        <p>Independent analytic solutions check all three regimes. Mechanical energy, E = (m v&#178; + k x&#178;)/2, must decrease or remain constant.</p>
+        <p class="small">These are saved calculations. Selecting a preset does not run code on the server.</p>
+        <a href="provenance.toml" download>Calculation provenance</a>
+      </div>
+    </section>
+  </main>
+  <footer><a href="https://physicslibrary.org/">PhysicsLibrary</a> &middot; <a href="LICENSE.txt">Example license</a></footer>
+</body>
+</html>
