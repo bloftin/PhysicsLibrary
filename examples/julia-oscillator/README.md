@@ -139,6 +139,17 @@ Live manual tests:
 
 After merge, use `git switch main` and `git pull --ff-only` on production.
 
+## Licensing
+
+This example is intentionally mixed-license. The executable/source components
+of the computational project, including Julia code, build scripts, tests,
+browser JavaScript, CSS and viewer templates, are licensed under the GNU General
+Public License, version 3 or later. The mathematical exposition, article text,
+plots, CSV result data and other non-software publication materials retain the
+normal Physics Library article terms, currently Creative Commons
+Attribution-ShareAlike. See `LICENSE.txt` in this directory and in the
+downloadable ZIP.
+
 ## Publish as a PhysicsLibrary article
 
 Create an **Example** titled **Three Damping Regimes of a Harmonic Oscillator**.
@@ -158,7 +169,8 @@ canonical name; the prototype does not assume an object id or create a DB row.
 
 Preview with make4ht and PDF, confirm the comparison figure and download link,
 then publish through the normal editor. New article rendering may run LaTeX;
-it does not run Julia. Keep the bundled example license with source downloads.
+it does not run Julia. Keep the bundled mixed GPLv3/Physics Library CC BY-SA
+license notice with source downloads.
 The resources section is outside the rendered content, so it also appears below
 the PDF or PNG viewer. It is not inserted inside a downloaded PDF or the editor
 preview. The article body's ordinary link remains available to PDF readers.

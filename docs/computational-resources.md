@@ -21,6 +21,8 @@ already includes a link for PDF readers.
 4. View the saved article. Expect one Computational Resources section containing
    Damped Harmonic Motion, Julia 1.10.12, the explorer, ZIP, provenance, license
    and three CSV links. Follow them and confirm they load on the image host.
+   The license notice should identify software files as GPLv3 and article/math
+   materials as Physics Library CC BY-SA.
 5. Check HTML and PDF views. The surrounding section should remain present in
    both. Preview/render the article itself using the normal make4ht/PDF tools.
 
@@ -54,8 +56,11 @@ that directory before attaching its ID to an article. Nothing is fetched or
 computed by the server to inspect resources.
 
 The initial catalog supports self-contained HTML explorers, ZIP projects,
-TOML provenance, text licenses and CSV datasets. Additional languages can use
-the same presentation. Other artifact formats should be added deliberately
+TOML provenance, text licenses and CSV datasets. Computational source bundles
+should carry a software license, while article-style exposition, mathematical
+text, figures and result data should keep the Physics Library article license
+unless a publication deliberately states otherwise. Additional languages can
+use the same presentation. Other artifact formats should be added deliberately
 with validation and tests, not by allowing arbitrary uploaded links or markup.
 
 Unknown IDs and invalid catalog entries are omitted. A malformed, oversized or

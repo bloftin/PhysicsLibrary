@@ -63,6 +63,9 @@ for my $url (@urls) {
     $url =~ s{\Ahttps://images\.example\.test/examples/}{};
     ok(-f "$repo/data/examples/$url", 'linked publication asset exists: ' . $url);
 }
+my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
+like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
+like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');
 
 for my $bad ('{', '[]', '{"schema_version":2,"resources":["julia-oscillator"]}',
     '{"schema_version":1,"resources":"julia-oscillator"}', 'x' x 8193,
