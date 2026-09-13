@@ -23,6 +23,28 @@ function analytic(model, c, t)
     end
 end
 
+@testset "Published interactive sweep" begin
+    config = PLOscillator.load_presets()
+    model = config["model"]
+    data = PLOscillator.sweep(config)
+    @test data["version"] == 1
+    @test data["samples"] == 151
+    @test length(data["cases"]) == 21
+    for (step, record) in enumerate(data["cases"])
+        @test record["zeta"] == (step - 1) / 10
+        @test all(length(record[key]) == 151 for key in ("x", "v", "energy"))
+        for i in 1:151
+            t = (i-1) * data["duration"] / (data["samples"]-1)
+            x, v = analytic(model, record["damping"], t)
+            energy = (model["mass"]*v^2+model["stiffness"]*x^2)/2
+            @test abs(record["x"][i]/data["scale"] - x) <= 5.01e-7
+            @test abs(record["v"][i]/data["scale"] - v) <= 5.01e-7
+            @test abs(record["energy"][i]/data["scale"] - energy) <= 5.01e-7
+        end
+        @test all(diff(record["energy"]) .<= 0)
+    end
+end
+
 @testset "Published oscillator presets" begin
     config = PLOscillator.load_presets()
     @test length(config["presets"]) == 3

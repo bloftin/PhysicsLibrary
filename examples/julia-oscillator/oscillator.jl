@@ -39,6 +39,23 @@ end
 
 filehash(path) = bytes2hex(open(sha256, path))
 
+function sweep(config)
+    model = merge(config["model"], Dict("samples" => 151))
+    scale = 1_000_000
+    cases = []
+    for step in 0:20
+        zeta = step / 10
+        damping = 2zeta * sqrt(model["mass"] * model["stiffness"])
+        rows = solution(model, damping)
+        push!(cases, Dict("zeta" => zeta, "damping" => damping,
+            "x" => [round(Int, r.x * scale) for r in rows],
+            "v" => [round(Int, r.v * scale) for r in rows],
+            "energy" => [round(Int, r.energy * scale) for r in rows]))
+    end
+    return Dict("version" => 1, "scale" => scale, "duration" => model["duration"],
+        "samples" => model["samples"], "cases" => cases)
+end
+
 function generate(output=joinpath(@__DIR__, "results"))
     config = load_presets()
     mkpath(output)
@@ -52,6 +69,9 @@ function generate(output=joinpath(@__DIR__, "results"))
             end
         end
     end
+    open(joinpath(output, "sweep.toml"), "w") do io
+        TOML.print(io, sweep(config); sorted=true)
+    end
     provenance = Dict(
         "julia_version" => string(VERSION),
         "method" => "LinearAlgebra.exp: exp(t*A)*initial_state; Float64",
@@ -60,13 +80,13 @@ function generate(output=joinpath(@__DIR__, "results"))
         "blas_threads" => BLAS.get_num_threads(),
         "inputs_sha256" => Dict(name => filehash(joinpath(@__DIR__, name))
             for name in ("oscillator.jl", "presets.toml", "Project.toml", "Manifest.toml")),
-        "outputs_sha256" => Dict(p["id"] * ".csv" => filehash(joinpath(output, p["id"] * ".csv"))
-            for p in config["presets"]),
+        "outputs_sha256" => Dict(name => filehash(joinpath(output, name))
+            for name in vcat([p["id"] * ".csv" for p in config["presets"]], ["sweep.toml"])),
     )
     open(joinpath(output, "provenance.toml"), "w") do io
         TOML.print(io, provenance; sorted=true)
     end
-    println("Generated three preset datasets in ", output)
+    println("Generated three reference presets and a 21-case sweep in ", output)
 end
 
 end

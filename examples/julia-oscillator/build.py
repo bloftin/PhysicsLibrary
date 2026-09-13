@@ -16,7 +16,7 @@ except ModuleNotFoundError:
 HERE = Path(__file__).resolve().parent
 DEFAULT_SITE = HERE.parents[1] / "data" / "examples" / "julia-oscillator"
 INPUTS = ("oscillator.jl", "presets.toml", "Project.toml", "Manifest.toml")
-SOURCES = INPUTS + ("test/runtests.jl", "README.md", "LICENSE.txt", "article.tex", "preamble.tex", "preview.tex", "build.py", "verify.py", "viewer.template.html", "style.css")
+SOURCES = INPUTS + ("test/runtests.jl", "test/viewer.cjs", "README.md", "LICENSE.txt", "article.tex", "preamble.tex", "preview.tex", "build.py", "verify.py", "viewer.template.html", "style.css", "explorer.js")
 IDS = ("underdamped", "critical", "overdamped")
 COLORS = ("#157b72", "#b43d58", "#435fac")
 
@@ -118,12 +118,19 @@ def draw_plots(site, config, data):
 
 def publish(site):
     config, provenance, data = verified_data()
+    sweep_path = HERE / "results" / "sweep.toml"
+    if digest(sweep_path) != provenance["outputs_sha256"]["sweep.toml"]:
+        raise ValueError("Changed sweep.toml; regenerate Julia results")
+    sweep = read_toml(sweep_path)
+    from verify import verify_sweep
+    verify_sweep(sweep)
     site.mkdir(parents=True, exist_ok=True)
+    (site / "sweep-data.js").write_text("window.PLOscillatorSweep = " + json.dumps(sweep, separators=(",", ":"), allow_nan=False) + ";\n", encoding="utf-8")
     draw_plots(site, config, data)
     for name in IDS:
         shutil.copyfile(HERE / "results" / (name + ".csv"), site / (name + ".csv"))
     shutil.copyfile(HERE / "results" / "provenance.toml", site / "provenance.toml")
-    for name in ("style.css", "LICENSE.txt"):
+    for name in ("style.css", "LICENSE.txt", "explorer.js"):
         shutil.copyfile(HERE / name, site / name)
     logo = HERE.parents[1] / "data" / "images" / "physicslibrarylogotransparent.png"
     if not logo.exists():
@@ -147,7 +154,7 @@ def publish(site):
     page = page.replace("@@JULIA_VERSION@@", html.escape(provenance["julia_version"]))
     # The bundle includes a self-contained offline viewer. Its link points to the enclosing download.
     (site / "index.html").write_text(page.replace("@@ZIP_SIZE@@", "ZIP"), encoding="utf-8")
-    assets = ["index.html", "style.css", "logo.png", "LICENSE.txt", "provenance.toml", "comparison.png", "comparison-mobile.png"]
+    assets = ["index.html", "style.css", "explorer.js", "sweep-data.js", "logo.png", "LICENSE.txt", "provenance.toml", "comparison.png", "comparison-mobile.png"]
     assets += [name + ext for name in IDS for ext in (".png", "-mobile.png", ".csv")]
     bundle = site / "julia-oscillator.zip"
     with zipfile.ZipFile(bundle, "w", zipfile.ZIP_DEFLATED) as archive:
@@ -157,15 +164,17 @@ def publish(site):
             archive.writestr(info, path.read_bytes())
         for name in SOURCES:
             add(HERE / name, name)
-        for name in [p + ".csv" for p in IDS] + ["provenance.toml"]:
+        for name in [p + ".csv" for p in IDS] + ["provenance.toml", "sweep.toml"]:
             add(HERE / "results" / name, "results/" + name)
         for name in assets:
             if name == "index.html":
                 info = zipfile.ZipInfo("viewer/index.html", date_time=(2026, 1, 1, 0, 0, 0))
                 info.compress_type = zipfile.ZIP_DEFLATED
                 offline = (site / name).read_text().replace('href="julia-oscillator.zip"', 'href="../README.md"').replace("Download Julia project", "Project README")
+                for preset in IDS:
+                    offline = offline.replace('href="' + preset + '.csv"', 'href="../results/' + preset + '.csv"')
                 archive.writestr(info, offline)
-            else:
+            elif not name.endswith(".csv"):
                 add(site / name, "viewer/" + name)
         add(site / "comparison.png", "comparison.png")
     (site / "index.html").write_text(page.replace("@@ZIP_SIZE@@", f"{bundle.stat().st_size / 1024:.0f} KB"), encoding="utf-8")

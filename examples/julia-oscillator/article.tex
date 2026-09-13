@@ -44,6 +44,13 @@ sampled at $601$ times from $0$ to $12\,\mathrm{s}$, with spacing
 $0.02\,\mathrm{s}$; this spacing is an output sampling interval, not an
 integration step size.
 
+The accompanying explorer also contains $21$ saved cases with damping ratios
+from $0$ to $2$ in increments of $0.1$, including undamped motion. These cases
+use $151$ samples at $0.08\,\mathrm{s}$ intervals. Their displacement, velocity
+and energy are rounded to six decimal places in SI units. Playback and the
+time control display saved samples; they do not solve the equation in the
+browser. The three reference CSVs retain the denser sampling described above.
+
 \section{Reproducing the calculation in Julia}
 Writing $\mathbf{u}=(x,\dot{x})^{T}$ gives
 \begin{equation}
@@ -55,7 +62,7 @@ The supplied Julia script evaluates the matrix exponential with the standard
 the displacement and velocity with independent scalar analytic solutions in
 all three damping regimes, and check energy decay.
 
-The \PMlinkexternal{preset viewer and downloadable Julia project}
+The \PMlinkexternal{damping explorer and downloadable Julia project}
 {https://images.physicslibrary.org/examples/julia-oscillator/index.html}
 include the source, environment manifest, CSV data, plots, and provenance.
 Extract the project archive and run these commands in its top-level directory:
