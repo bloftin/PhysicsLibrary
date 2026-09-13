@@ -1,0 +1,162 @@
+How does a force determine a trajectory? Newton's second law gives an
+acceleration, not a position. Two integrations connect force to motion, and
+two initial conditions select one trajectory from a family of possible motions.
+
+\section{Model and initial conditions}
+Consider a particle of constant mass $m>0$ moving along a fixed $x$ axis in an
+inertial reference frame. Let the signed, constant \emph{net} force along that
+axis be $F_0$. Other forces must already be included in this sum. For example,
+a horizontal applied force may be the net force along a frictionless track;
+gravity and the normal force then cancel vertically.
+
+Newton's second law is
+\begin{equation}
+ F_0 = m\frac{dv}{dt} = m\frac{d^2x}{dt^2},
+ \qquad a_0 := \frac{F_0}{m}.
+\end{equation}
+We specify position and velocity at the same initial time $t_0$:
+\begin{equation}
+ x(t_0)=x_0, \qquad v(t_0)=v_0.
+\end{equation}
+The time $t_0$ need not be zero. Write $\tau=t-t_0$ for elapsed time.
+These assumptions describe nonrelativistic motion with no drag or changing
+mass. Constant acceleration is valid only while the net force stays constant.
+
+\section{First integration: acceleration to velocity}
+Integrate $dv/dt=a_0$ with respect to time:
+\begin{equation}
+ v(t)=a_0t+C_1.
+\end{equation}
+The derivative of a constant is zero, so differentiation cannot tell us $C_1$.
+The initial velocity supplies the missing information:
+\begin{equation}
+ v_0=a_0t_0+C_1,
+ \qquad C_1=v_0-a_0t_0.
+\end{equation}
+Thus
+\begin{equation}
+ \boxed{v(t)=v_0+a_0(t-t_0)=v_0+a_0\tau.}
+\end{equation}
+Equivalently, a definite integral incorporates the condition directly:
+\begin{equation}
+ v(t)-v_0=\int_{t_0}^{t}a_0\,ds=a_0(t-t_0).
+\end{equation}
+The integration variable $s$ is a dummy variable; $t$ is the upper limit.
+
+\section{Second integration: velocity to position}
+Integrating $dx/dt=a_0t+C_1$ gives a second independent constant:
+\begin{equation}
+ x(t)=\frac{1}{2}a_0t^2+C_1t+C_2.
+\end{equation}
+Now use the initial position and the value of $C_1$:
+\begin{align}
+ x_0 &= \frac{1}{2}a_0t_0^2+(v_0-a_0t_0)t_0+C_2,\\
+ C_2 &= x_0-v_0t_0+\frac{1}{2}a_0t_0^2.
+\end{align}
+Substitution and collection of terms yield
+\begin{equation}
+ \boxed{x(t)=x_0+v_0(t-t_0)+\frac{1}{2}a_0(t-t_0)^2.}
+\end{equation}
+With the choice $t_0=0$, the unshifted constants become $C_1=v_0$ and $C_2=x_0$.
+In elapsed-time coordinates the constants are always simply the initial values.
+
+The same result follows by a definite integral of the velocity:
+\begin{align}
+ x(t)-x_0
+ &=\int_{t_0}^{t}\bigl[v_0+a_0(s-t_0)\bigr]\,ds\\
+ &=v_0\tau+\frac{1}{2}a_0\tau^2.
+\end{align}
+This exhibits the double integration explicitly:
+\begin{equation}
+ x(t)=x_0+v_0\tau+
+ \int_{t_0}^{t}\left[\int_{t_0}^{s}a_0\,du\right]ds.
+\end{equation}
+The factor $1/2$ is the integral of the linearly growing velocity increment.
+Geometrically it is the triangular area under $v-v_0$ versus elapsed time.
+
+\section{A worked example with a nonzero start time}
+Take $m=2\,\mathrm{kg}$, $F_0=4\,\mathrm{N}$, $t_0=2\,\mathrm{s}$,
+$x_0=1\,\mathrm{m}$ and $v_0=3\,\mathrm{m\,s^{-1}}$. Then
+$a_0=2\,\mathrm{m\,s^{-2}}$, and
+\begin{align}
+ v(t)&=3\,\mathrm{m\,s^{-1}}+(2\,\mathrm{m\,s^{-2}})\tau,\\
+ x(t)&=1\,\mathrm{m}+(3\,\mathrm{m\,s^{-1}})\tau
+                   +(1\,\mathrm{m\,s^{-2}})\tau^2.
+\end{align}
+At clock time $t=5\,\mathrm{s}$, only $\tau=3\,\mathrm{s}$ have elapsed.
+The particle is at $x=19\,\mathrm{m}$ with velocity $v=9\,\mathrm{m\,s^{-1}}$.
+Its displacement is $18\,\mathrm{m}$, not $19\,\mathrm{m}$.
+
+The constants in the unshifted form are
+$C_1=-1\,\mathrm{m\,s^{-1}}$ and $C_2=-1\,\mathrm{m}$.
+They encode the chosen clock and coordinate origin; they are not the prescribed
+velocity and position at $t_0=2\,\mathrm{s}$.
+
+\section{Three forces, the same initial state}
+The accompanying Julia resource holds mass and initial conditions fixed and
+compares three constant net forces over $0\leq\tau\leq6\,\mathrm{s}$:
+\begin{center}
+\begin{tabular}{lrrr}
+Case & $F_0\ (\mathrm{N})$ & $a_0\ (\mathrm{m\,s^{-2}})$ & $x(t_0+6\,\mathrm{s})\ (\mathrm{m})$\\
+\hline
+Speeding up & 4 & 2 & 55\\
+Coasting & 0 & 0 & 19\\
+Slowing, then reversing & -2 & -1 & 1
+\end{tabular}
+\end{center}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{comparison.png}
+\end{center}
+The zero-force case demonstrates Newton's first law: an object can move while
+the net force is zero. A force is required to \emph{change} its velocity.
+
+In the negative-force case, $v=0$ at $\tau=3\,\mathrm{s}$, or
+$t=5\,\mathrm{s}$, where $x=5.5\,\mathrm{m}$. Acceleration is still
+$-1\,\mathrm{m\,s^{-2}}$ at that instant. The force then drives the particle
+backward. This is not a brake that switches off when the particle stops.
+After six seconds the displacement is zero, but the distance traveled is
+$4.5+4.5=9\,\mathrm{m}$. Signed velocity and speed $|v|$ are different quantities.
+
+The third-law reaction acts on the agent supplying the force, not on the
+particle itself; it does not cancel $F_0$ in the particle's force balance.
+
+\section{Checks and a useful time-free relation}
+Differentiate the position twice to recover $v(t)$ and $a_0$. At $\tau=0$,
+both prescribed initial conditions are recovered. All terms in the position
+formula have units of length.
+
+Eliminating elapsed time gives
+\begin{equation}
+ v^2-v_0^2=2a_0(x-x_0).
+\end{equation}
+One can check this by substituting the two integrated formulas, without
+dividing by $a_0$ or $v$. Multiplying by $m/2$ gives the work--energy relation
+\begin{equation}
+ \frac{1}{2}mv^2-\frac{1}{2}mv_0^2=F_0(x-x_0).
+\end{equation}
+Squaring loses the sign of velocity. The time-dependent solution is needed to
+distinguish the outward and returning parts of the turning example.
+
+\section{Computational method and further experiments}
+The saved results use Julia's standard-library matrix exponential. For
+$\mathbf{u}=(x,v,1)^{\mathsf T}$,
+\begin{equation}
+ \frac{d\mathbf{u}}{dt}=A\mathbf{u},\qquad
+ A=\begin{pmatrix}0&1&0\\0&0&a_0\\0&0&0\end{pmatrix},\qquad
+ \mathbf{u}(t)=\exp(\tau A)\mathbf{u}(t_0).
+\end{equation}
+Because $A^3=0$, the exponential terminates at
+$I+\tau A+\tau^2 A^2/2$, recovering the two integrations above.
+This is evaluation of an exact linear-system solution in floating-point
+arithmetic, not a time-stepping approximation. Independent tests compare it
+with the integrated formulas, initial conditions, signed area under velocity,
+and work--energy balance. The explorer displays 121 saved samples per case,
+spaced by $0.05\,\mathrm{s}$; its controls do not run Julia.
+
+\PMlinkexternal{Open the constant-acceleration explorer}{https://images.physicslibrary.org/examples/newton-constant-acceleration/index.html}.
+The explorer includes CSV data and a downloadable source project.
+
+Try predicting what changes if the same force acts on twice the mass, if
+$v_0=0$, or if the clock origin changes while elapsed time stays fixed.
+Edit the local Julia case file to test your predictions. Changing the coordinate
+origin changes $x_0$ but neither velocity nor acceleration.

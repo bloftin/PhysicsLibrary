@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Constant Acceleration | Physics Library</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="trajectory-data.js" defer></script>
+  <script src="explorer.js" defer></script>
+</head>
+<body>
+<header>
+  <a href="https://physicslibrary.org/"><img src="logo.png" width="300" height="50" alt="PhysicsLibrary"></a>
+  <p class="tagline">An open source physics library</p>
+  <a href="https://physicslibrary.org/encyclopedia/NewtonsLawsOfMotion.html">Newton's laws of motion</a>
+</header>
+<main>
+  <h1>Constant Acceleration</h1>
+  <p class="intro">A constant net force. Two integrations. One trajectory fixed by its initial position and velocity.</p>
+  <p>One-dimensional motion in an inertial frame, with constant mass and no drag. All three cases start at clock time <i>t</i><sub>0</sub> = 2 s with <i>x</i><sub>0</sub> = 1 m and <i>v</i><sub>0</sub> = 3 m/s. Mass <i>m</i> = 2 kg.</p>
+  <section id="explorer" hidden aria-label="Constant-acceleration trajectories">
+    <div class="controls">
+      <label>Net force <select id="case"><option value="0">+4 N: speeding up</option><option value="1">0 N: coasting</option><option value="2">-2 N: slowing, then reversing</option></select></label>
+      <label for="time">Elapsed time <output id="elapsed" for="time">0.00 s</output><input id="time" type="range" min="0" max="120" step="1" value="0"></label>
+    </div>
+    <dl class="readouts">
+      <div><dt>Clock time</dt><dd id="clock">2.00 s</dd></div>
+      <div><dt>Position</dt><dd id="position">1.00 m</dd></div>
+      <div><dt>Velocity</dt><dd id="velocity">3.00 m/s</dd></div>
+      <div><dt>Acceleration</dt><dd id="acceleration">2.00 m/s²</dd></div>
+    </dl>
+    <canvas id="track" width="1000" height="140" role="img" aria-label="Position on a fixed horizontal axis"></canvas>
+    <p id="case-note">The positive force increases an initially positive velocity.</p>
+    <p class="constants">In the unshifted formulas: <i>C</i><sub>1</sub> = <span id="c1">-1.00</span> m/s; <i>C</i><sub>2</sub> = <span id="c2">-1.00</span> m.</p>
+  </section>
+  <section aria-label="Saved trajectory plots">
+    @@PLOTS@@
+  </section>
+  <section class="derivation">
+    <h2>From force to position</h2>
+    <h3>1. Newton's second law</h3>
+    <p class="equation"><i>F</i><sub>0</sub> = <i>m</i> d<i>v</i>/d<i>t</i>, &nbsp; <i>a</i><sub>0</sub> = <i>F</i><sub>0</sub>/<i>m</i></p>
+    <h3>2. Integrate once and apply the initial velocity</h3>
+    <p class="equation"><i>v</i>(<i>t</i>) = <i>a</i><sub>0</sub><i>t</i> + <i>C</i><sub>1</sub></p>
+    <p>At <i>t</i> = <i>t</i><sub>0</sub>, we require <i>v</i> = <i>v</i><sub>0</sub>. Therefore <i>C</i><sub>1</sub> = <i>v</i><sub>0</sub> − <i>a</i><sub>0</sub><i>t</i><sub>0</sub>.</p>
+    <p class="equation"><i>v</i>(<i>t</i>) = <i>v</i><sub>0</sub> + <i>a</i><sub>0</sub>(<i>t</i> − <i>t</i><sub>0</sub>)</p>
+    <h3>3. Integrate again and apply the initial position</h3>
+    <p class="equation"><i>x</i>(<i>t</i>) = ½<i>a</i><sub>0</sub><i>t</i>² + <i>C</i><sub>1</sub><i>t</i> + <i>C</i><sub>2</sub></p>
+    <p>Requiring <i>x</i>(<i>t</i><sub>0</sub>) = <i>x</i><sub>0</sub> gives <i>C</i><sub>2</sub> = <i>x</i><sub>0</sub> − <i>v</i><sub>0</sub><i>t</i><sub>0</sub> + ½<i>a</i><sub>0</sub><i>t</i><sub>0</sub>².</p>
+    <p class="equation result"><i>x</i>(<i>t</i>) = <i>x</i><sub>0</sub> + <i>v</i><sub>0</sub>τ + ½<i>a</i><sub>0</sub>τ², &nbsp; τ = <i>t</i> − <i>t</i><sub>0</sub></p>
+    <p>The constant position is where we start. The linear term is the motion we already had. The quadratic term is the additional displacement caused by the force. Its factor ½ comes from integrating the linear velocity increment.</p>
+    <h3>A checkpoint at clock time 5 s</h3>
+    <p>With +4 N, only 3 s have elapsed: <i>v</i> = 9 m/s and <i>x</i> = 19 m. With −2 N, the particle is momentarily at rest at <i>x</i> = 5.5 m, but its acceleration remains −1 m/s². It then reverses. After 6 s elapsed it returns to 1 m: zero displacement, yet 9 m traveled.</p>
+    <p>In the coasting case, zero net force leaves velocity unchanged. The equal and opposite third-law force acts on the force-producing agent, not on this particle.</p>
+    <p><a href="article.tex" download>Full LaTeX derivation</a> includes the double definite integral, the two constants, dimensions, work–energy checks and the computational method.</p>
+  </section>
+  <section class="downloads">
+    <h2>Reproduce this example</h2>
+    <p>Julia @@VERSION@@ · Matrix-exponential solution checked against the integrated formulas. 121 saved samples per case, every 0.05 s. Controls read saved values; no server computation.</p>
+    <p><a href="newton-constant-acceleration.zip" download>Download Julia project</a> · <a href="provenance.toml">Provenance</a> · <a href="LICENSE.txt">License</a></p>
+    <p><a href="speeding-up.csv" download>Speeding up CSV</a> · <a href="coasting.csv" download>Coasting CSV</a> · <a href="turning.csv" download>Turning CSV</a></p>
+    <p>Software: GPLv3 or later. Mathematical text, plots and data: Physics Library CC BY-SA.</p>
+  </section>
+</main>
+</body>
+</html>

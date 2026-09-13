@@ -1,0 +1,18 @@
+blas = "LBTConfig([ILP64] libopenblas64_.so)"
+blas_threads = 1
+command = "julia --startup-file=no --project=. motion.jl"
+julia_version = "1.10.12"
+method = "LinearAlgebra.exp on augmented [x,v,1] state; Float64; no time stepping"
+platform = "x86_64-linux-gnu"
+release = "1"
+
+[inputs_sha256]
+"Manifest.toml" = "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6"
+"Project.toml" = "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8"
+"cases.toml" = "5026bfb171378c72912daa4dad8cbaf39c69e537618759f545319a20afbaf738"
+"motion.jl" = "a867127dbae7436632c03aa6dcb8c60bff59cff89caad427d71b6199ca309569"
+
+[outputs_sha256]
+"coasting.csv" = "601a361b08f0d4280422d4b0d3db7b95de6f9a3b45fc50d2b7b58bb21e7f531a"
+"speeding-up.csv" = "87e0683ab9fd0531811e6a167973772be8ae64b5811fab7e5f15d833417e5ef0"
+"turning.csv" = "fae7f9ce6ad33ed1fb7c1f081ca00e9cfdcfa09114f3a53c41b790f7e0ade6c2"

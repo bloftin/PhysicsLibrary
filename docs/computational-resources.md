@@ -15,6 +15,12 @@ LaTeX body text that can be pasted into a collaboration object.
 For maintainer review and release checks, see
 `docs/computational-resources-maintainer-checklist.md`.
 
+The second worked resource is `examples/newton-constant-acceleration/`: a
+Newton's second law Example with double integration, explicit initial conditions,
+three saved force cases, and an offline explorer. Its README includes publication
+steps; `data/examples/newton-constant-acceleration/article-attachments.zip`
+contains the LaTeX draft, preamble, figure and filebox manifest.
+
 ## Publish the oscillator Example
 
 1. Create an Example titled **Three Damping Regimes of a Harmonic Oscillator**

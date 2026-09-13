@@ -63,6 +63,15 @@ for my $url (@urls) {
     $url =~ s{\Ahttps://images\.example\.test/examples/}{};
     ok(-f "$repo/data/examples/$url", 'linked publication asset exists: ' . $url);
 }
+writefile($manifest_path, readfile("$repo/examples/newton-constant-acceleration/computational-resources.json"));
+my $newton = resources();
+is(scalar @$newton, 1, 'Newton manifest selects a second real publication');
+is($newton->[0]{title}, "Constant Acceleration from Newton's Second Law", 'Newton title comes from catalog');
+for my $url (render($newton) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'Newton publication asset exists: ' . $url);
+}
+reset_files();
 my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
 like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
 like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');

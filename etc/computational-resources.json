@@ -1,6 +1,21 @@
 {
   "schema_version": 1,
   "resources": {
+    "newton-constant-acceleration": {
+      "title": "Constant Acceleration from Newton's Second Law",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Three constant-force trajectories checked against double integration and initial conditions. Includes a worked derivation, saved data, source and an offline explorer.",
+      "explorer": "index.html",
+      "source": "newton-constant-acceleration.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Speeding up", "file": "speeding-up.csv"},
+        {"label": "Coasting", "file": "coasting.csv"},
+        {"label": "Slowing, then reversing", "file": "turning.csv"}
+      ]
+    },
     "julia-oscillator": {
       "title": "Damped Harmonic Motion",
       "language": "Julia",
