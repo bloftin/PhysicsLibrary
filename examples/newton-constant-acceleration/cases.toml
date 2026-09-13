@@ -1,0 +1,32 @@
+[[cases]]
+id = "speeding-up"
+label = "Speeding up"
+mass = 2.0
+force = 4.0
+x0 = 1.0
+v0 = 3.0
+t0 = 2.0
+duration = 6.0
+samples = 121
+
+[[cases]]
+id = "coasting"
+label = "Zero-force coasting"
+mass = 2.0
+force = 0.0
+x0 = 1.0
+v0 = 3.0
+t0 = 2.0
+duration = 6.0
+samples = 121
+
+[[cases]]
+id = "turning"
+label = "Slowing, then reversing"
+mass = 2.0
+force = -2.0
+x0 = 1.0
+v0 = 3.0
+t0 = 2.0
+duration = 6.0
+samples = 121

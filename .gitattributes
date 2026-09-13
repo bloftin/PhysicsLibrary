@@ -3,3 +3,7 @@ examples/julia-oscillator/** text eol=lf
 data/examples/julia-oscillator/** text eol=lf
 data/examples/julia-oscillator/*.png binary
 data/examples/julia-oscillator/*.zip binary
+examples/newton-constant-acceleration/** text eol=lf
+data/examples/newton-constant-acceleration/** text eol=lf
+data/examples/newton-constant-acceleration/*.png binary
+data/examples/newton-constant-acceleration/*.zip binary

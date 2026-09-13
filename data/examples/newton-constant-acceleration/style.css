@@ -1,0 +1,41 @@
+:root { color-scheme: light; font-family: Georgia, "Times New Roman", serif; color: #202924; background: #fff; letter-spacing: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+header, main { max-width: 1060px; margin: auto; padding: 20px 28px; }
+header { border-bottom: 1px solid #c5cfcb; }
+header img { display: block; width: 300px; max-width: 100%; height: auto; }
+.tagline { margin: 2px 0 14px; font-size: 14px; font-style: italic; }
+a { color: #245aad; text-underline-offset: 3px; }
+h1 { font-size: 32px; line-height: 1.2; margin: 8px 0 12px; }
+h2 { font-size: 24px; margin: 0 0 18px; }
+h3 { font-size: 19px; }
+p { line-height: 1.6; }
+.intro { font-size: 19px; }
+section { padding: 22px 0; border-bottom: 1px solid #c5cfcb; }
+[hidden] { display: none !important; }
+.controls { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; font: 15px Arial, sans-serif; }
+label { display: block; }
+select { display: block; width: 100%; min-height: 42px; margin-top: 12px; font: inherit; background: #fff; color: #202924; border: 1px solid #879b91; border-radius: 3px; padding: 8px; }
+input[type=range] { display: block; width: 100%; margin: 17px 0 0; accent-color: #16766e; }
+output { float: right; font-variant-numeric: tabular-nums; }
+.readouts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 28px 0 4px; font-family: Arial, sans-serif; }
+dt { font-size: 13px; color: #4c5d54; }
+dd { margin: 8px 0 0; font-size: 21px; font-variant-numeric: tabular-nums; }
+canvas { display: block; width: 100%; height: 140px; }
+.constants { font-size: 15px; }
+figure { margin: 0; }
+figure img { width: 100%; height: auto; display: block; }
+figcaption { font-size: 15px; line-height: 1.5; margin: 10px 0 22px; }
+.derivation { max-width: 780px; }
+.equation { font-size: 20px; line-height: 1.8; overflow-wrap: anywhere; }
+.result { border-left: 3px solid #16766e; padding-left: 16px; }
+.downloads { font-size: 15px; border: 0; }
+:focus-visible { outline: 3px solid #b54865; outline-offset: 3px; }
+@media (max-width: 650px) {
+  header, main { padding: 18px 16px; }
+  h1 { font-size: 28px; }
+  .controls { grid-template-columns: 1fr; gap: 22px; }
+  .readouts { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
+  dd { font-size: 19px; }
+  .equation { font-size: 18px; }
+}
