@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Three reproducible Julia calculations of free damped harmonic motion, with displacement and energy plots.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Damped Harmonic Motion | PhysicsLibrary</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="sweep-data.js" defer></script>
+  <script src="explorer.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="https://physicslibrary.org/"><img src="logo.png" width="280" height="53" alt="PhysicsLibrary.org"></a>
+    <p>An open source physics library</p>
+  </header>
+  <main>
+    <div class="article-heading">
+      <p class="eyebrow">Computational example <span>Julia</span></p>
+      <h1>Damped Harmonic Motion</h1>
+      <p class="intro">From sustained oscillation to a slow return to equilibrium.</p>
+      <p class="equation">m x&#8243; + c x&#8242; + k x = 0</p>
+      <p class="conditions">m = 1 kg &nbsp; &middot; &nbsp; k = 4 N/m &nbsp; &middot; &nbsp; x(0) = 1 m &nbsp; &middot; &nbsp; v(0) = 0 m/s</p>
+    </div>
+    <section id="osc-explorer" class="explorer" aria-label="Damping explorer" hidden>
+      <div class="explorer-controls">
+        <div><label for="osc-damping">Damping ratio &#950; = <output id="osc-zeta" for="osc-damping">0.2</output></label>
+          <input id="osc-damping" type="range" min="0" max="20" step="1" value="2">
+          <div class="range-ends"><span>0 &middot; Undamped</span><span>1 &middot; Critical</span><span>2</span></div>
+        </div>
+        <div class="regime"><h2 id="osc-regime">Underdamped</h2><p>c = <span id="osc-c">0.8 N s/m</span></p></div>
+      </div>
+      <p id="osc-behavior" class="behavior">The mass crosses equilibrium as its oscillation decays.</p>
+      <fieldset class="quantity"><legend>Plot</legend>
+        <label><input type="radio" name="osc-quantity" value="x" checked> Displacement</label>
+        <label><input type="radio" name="osc-quantity" value="v"> Velocity</label>
+        <label><input type="radio" name="osc-quantity" value="energy"> Energy</label>
+      </fieldset>
+      <p id="osc-chart-label" class="chart-label">Displacement (m)</p>
+      <canvas id="osc-chart" role="img" aria-label="Displacement versus time"></canvas>
+      <canvas id="osc-scene" role="img" aria-label="Mass and spring position relative to equilibrium"></canvas>
+      <div class="time-controls">
+        <button id="osc-play" type="button" aria-pressed="false">Play</button>
+        <button id="osc-reset" type="button">Reset</button>
+        <label for="osc-time">Time</label><input id="osc-time" type="range" min="0" max="150" step="1" value="0">
+      </div>
+      <dl class="readings" aria-label="Selected sample">
+        <div><dt>Time</dt><dd id="osc-t">0.00 s</dd></div>
+        <div><dt>Displacement</dt><dd id="osc-x">1.000 m</dd></div>
+        <div><dt>Velocity</dt><dd id="osc-v">0.000 m/s</dd></div>
+        <div><dt>Energy</dt><dd id="osc-e">2.000 J</dd></div>
+      </dl>
+      <div class="explorer-foot"><p class="small">21 saved Julia cases &middot; 0.08 s sampling</p><a id="osc-download">Download selected case (CSV)</a></div>
+    </section>
+    <details id="reference-cases" open><summary>Three reference presets</summary>
+    <fieldset class="viewer">
+      <legend>Damping regime</legend>
+      @@CHOICES@@
+      <div class="panels">@@PANELS@@</div>
+    </fieldset>
+    </details>
+    <section class="comparison">
+      <h2>The Three Regimes Together</h2>
+      <p>Damping removes mechanical energy. More damping does not always mean a faster return: the overdamped mass takes longer to approach equilibrium than the critically damped mass for this release from rest.</p>
+      <picture><source media="(max-width: 650px)" srcset="comparison-mobile.png" width="600" height="480"><img src="comparison.png" width="1000" height="560" alt="Comparison of displacement over 12 seconds: underdamped motion oscillates, critical damping approaches zero without crossing it, and overdamped motion returns more slowly." loading="lazy"></picture>
+    </section>
+    <section class="reproduce">
+      <div>
+        <h2>Reproduce the Result</h2>
+        <p>The Julia project contains the calculation, preset inputs, tests, environment manifest, and CSV results.</p>
+        <a class="download" href="julia-oscillator.zip" download>Download Julia project <span>@@ZIP_SIZE@@</span></a>
+        <p class="small">Published results &middot; Julia @@JULIA_VERSION@@ &middot; 601 samples per preset</p>
+      </div>
+      <div>
+        <h3>Method and Assumptions</h3>
+        <p>The state is evaluated as exp(tA)u(0) with Julia's standard-library matrix exponential. The model assumes a linear spring and viscous damping, with no driving force.</p>
+        <p>Independent analytic solutions check all three regimes. Mechanical energy, E = (m v&#178; + k x&#178;)/2, must decrease or remain constant.</p>
+        <p class="small">These are saved calculations. Selecting a preset does not run code on the server.</p>
+        <a href="provenance.toml" download>Calculation provenance</a>
+      </div>
+    </section>
+  </main>
+  <footer><a href="https://physicslibrary.org/">PhysicsLibrary</a> &middot; <a href="LICENSE.txt">Example license</a></footer>
+</body>
+</html>
