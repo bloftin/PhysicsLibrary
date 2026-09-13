@@ -8,6 +8,10 @@ It is independent of the selected HTML/PDF/PNG/source renderer and its cache.
 It does not modify the downloaded PDF; the oscillator's supplied article body
 already includes a link for PDF readers.
 
+For an author-facing collaboration/site documentation draft, see
+`docs/computational-resources-author-guide.tex`. It is written as PL-friendly
+LaTeX body text that can be pasted into a collaboration object.
+
 ## Publish the oscillator Example
 
 1. Create an Example titled **Three Damping Regimes of a Harmonic Oscillator**

@@ -1,0 +1,135 @@
+Computational resources let a Physics Library article point to reviewed,
+precomputed files that help readers explore an example.  Typical resources are
+static explorers, source archives, provenance files, licenses, and CSV data.
+They are meant to support the mathematical article; they are not a separate
+article type.
+
+\section{What authors should expect}
+
+A computational resource is attached to a saved article by uploading a small
+manifest file named
+\begin{verbatim}
+computational-resources.json
+\end{verbatim}
+through the normal article file attachment controls.  The filename matters.
+Do not rename it.
+
+After the article is saved, a \emph{Computational Resources} section appears on
+the saved article page.  The section appears outside the rendered article body,
+near the view-style controls and article metadata.  It remains visible when a
+reader switches between HTML, PDF, page images, and source views.
+
+The editor preview only renders the current LaTeX body.  It does not show the
+saved article's file attachments or the surrounding article page.  Therefore it
+is normal for the computational resources section to be absent from preview and
+to appear only after saving the article.
+
+\section{What computational resources are}
+
+Computational resources are reviewed, static publication artifacts.  They may
+include:
+\begin{itemize}
+\item an offline HTML explorer;
+\item a downloadable source archive;
+\item CSV result data;
+\item a provenance file recording the software/runtime used to produce the
+      results;
+\item a license notice.
+\end{itemize}
+
+Viewing the article or moving controls in an explorer should not start a
+calculation on the Physics Library server.  Published explorers should use saved
+results.  This keeps the site responsive, inexpensive to host, and resistant to
+automated requests that would otherwise waste computation.
+
+\section{How to attach an approved resource}
+
+For an already approved computational resource, the maintainer will provide a
+manifest file.  For example:
+\begin{verbatim}
+{
+  "schema_version": 1,
+  "resources": ["julia-oscillator"]
+}
+\end{verbatim}
+
+To attach it to an article:
+\begin{enumerate}
+\item Open the article editor.
+\item In the attachment area, choose the file named
+      \texttt{computational-resources.json}.
+\item Upload it through the existing filebox controls.
+\item Save or update the article normally.
+\item Open the saved article page and check the \emph{Computational Resources}
+      section.
+\end{enumerate}
+
+The section does not require a new LaTeX command in the article body.  Removing
+the manifest from the article's attachments and saving the article removes the
+section.
+
+\section{Writing article text that uses a resource}
+
+The article body should still explain the mathematics.  The resource should be
+presented as supporting material, not as a substitute for the argument.
+
+Good article text usually includes:
+\begin{itemize}
+\item the equation or model being studied;
+\item the parameters used in the published computation;
+\item what was held fixed and what was varied;
+\item what the saved figures or data show;
+\item how a reader can reproduce the calculation from the source archive;
+\item any assumptions or limitations of the model.
+\end{itemize}
+
+For example, an article might say that an explorer displays saved trajectories
+for a damped harmonic oscillator and that changing the displayed case does not
+solve the differential equation in the browser.
+
+\section{Licensing convention}
+
+Physics Library article text, mathematical exposition, and figures should keep
+the normal Physics Library article license, currently Creative Commons
+Attribution-ShareAlike.  Computational source code should use a software
+license.  For Physics Library computational bundles, the recommended default is
+the GNU General Public License, version 3 or later.
+
+A typical bundle should therefore say:
+\begin{itemize}
+\item source code, build scripts, tests, and browser scripts: GPLv3 or later;
+\item article-style text, mathematical exposition, plots, and result data:
+      Physics Library CC BY-SA unless otherwise stated.
+\end{itemize}
+
+This split keeps software under a software license while preserving the normal
+share-alike treatment of Physics Library mathematical content.
+
+\section{What authors should not do}
+
+\begin{itemize}
+\item Do not paste arbitrary external URLs into the manifest.
+\item Do not upload code and expect the server to run it.
+\item Do not use article preview as the final check for resources; save and
+      inspect the article page.
+\item Do not rename \texttt{computational-resources.json}.
+\item Do not publish unexplained numbers without enough context for a reader to
+      reproduce or evaluate them.
+\end{itemize}
+
+\section{Checklist before asking for review}
+
+\begin{enumerate}
+\item The article explains the model, parameters, and limitations.
+\item The resource is static and does not require server-side execution.
+\item The source archive contains the code needed to reproduce the published
+      results.
+\item The provenance file records the runtime and important file hashes.
+\item The license notice distinguishes software from article/math materials.
+\item The saved article shows the \emph{Computational Resources} section.
+\item The explorer, source archive, provenance, license, and CSV links all open.
+\end{enumerate}
+
+When in doubt, keep the article readable without the resource.  A good
+computational resource should make the article more useful, not make the article
+dependent on a particular browser feature or live computation service.
