@@ -12,6 +12,9 @@ For an author-facing collaboration/site documentation draft, see
 `docs/computational-resources-author-guide.tex`. It is written as PL-friendly
 LaTeX body text that can be pasted into a collaboration object.
 
+For maintainer review and release checks, see
+`docs/computational-resources-maintainer-checklist.md`.
+
 ## Publish the oscillator Example
 
 1. Create an Example titled **Three Damping Regimes of a Harmonic Oscillator**
