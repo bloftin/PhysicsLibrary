@@ -6,24 +6,25 @@
     "Manifest.toml": "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6",
     "test/runtests.jl": "02763c56b1ac06a1ef0775ae4a1194098e9bf4e13d1fa6ea37e37258b9cd551d",
     "test/viewer.cjs": "f1df5c596117c051579761faf4a8deaa0a87813e7021e68454f348c188216a54",
-    "README.md": "666d8b460b4913c2159ca588b7b2db42f700f2dc61bee9b0d8425afd4ad72f8c",
-    "LICENSE.txt": "01cce0055915f3dd6e772d316a4a81571b0882cfa89267eb07479b858eba0bac",
+    "README.md": "d51e15c15bdd5c4cf0539f49fe7a27179c42af1cddd424a86dcde870ea0d169d",
+    "LICENSE.txt": "c9d9e826a0452df210753586fc1e2142e50c87308bebda48cf8e628ea76f284f",
     "article.tex": "6a42ab6f0b9d6774d4b466618ed7162fd3024e371043554299e20a50a36b0267",
     "preamble.tex": "a2a5cd19d44707ef0e2703b5e53546a098361c1f6b1194b8d7ad4bb3effcadd1",
     "preview.tex": "f073287e35482162a1549f39c778aaeb6d80a666273eda27839f5b3d5bda154a",
-    "build.py": "e9d0040af2cab4b1bfc0d6c37ee84d9d408f83a0bb8086f6e2d1793a5ceea445",
+    "build.py": "0f74c33e338c057072db9aceda145f5ee311d6a4e5415cc9cc47de26bbe46d19",
     "verify.py": "d24a39714bca267299b77cc74a8a361f17aa8cabcc63e245ce2b3e4c66a66bd1",
-    "viewer.template.html": "75344b50f7b5be119e2a5c9e2a3bdd1caf5f32cba1980233419b822b30d0eb66",
+    "viewer.template.html": "8d07a351df2d0d17dba80230a60182a0311bc1788ee346564e6cb3d07a0b3e1d",
     "style.css": "841fb602e6dac4ee419dda802e9fa7d3b613036f14ee009db2a3edd7282410f8",
-    "explorer.js": "8d346182f9b27f3f55fd38acfdd204eb8c594c9978cde065dde7a2997b051f32"
+    "explorer.js": "8d346182f9b27f3f55fd38acfdd204eb8c594c9978cde065dde7a2997b051f32",
+    "computational-resources.json": "f2ff3f489cb925207bd1b90c8a7b38df2a97f75a4619b2154dab7921be1564d3"
   },
   "files_sha256": {
-    "index.html": "32d4fe903e623d10edeaf4f85d0e94cf603fb81c6ebe70520a998a0044940e5a",
+    "index.html": "33cbf838507c872f8fe0299437beecaec532b3e9f19ce4fccf86d704972436cc",
     "style.css": "841fb602e6dac4ee419dda802e9fa7d3b613036f14ee009db2a3edd7282410f8",
     "explorer.js": "8d346182f9b27f3f55fd38acfdd204eb8c594c9978cde065dde7a2997b051f32",
     "sweep-data.js": "2b8b681cdc2da6ce187059f91e071f155787ffaa860bd88b44663f1af275bec4",
     "logo.png": "9931e0c2b7a734359c44f041fbe26a3d92c71c4d345dfc77227a56b5802a4bd2",
-    "LICENSE.txt": "01cce0055915f3dd6e772d316a4a81571b0882cfa89267eb07479b858eba0bac",
+    "LICENSE.txt": "c9d9e826a0452df210753586fc1e2142e50c87308bebda48cf8e628ea76f284f",
     "provenance.toml": "9283098bda51e0d990e6b46d82d8a98428545bc5d47000c53d296a520fba7d71",
     "comparison.png": "53659f736036fa687bc6b6ccf17d4bdabaf4a5a7a4385597416313e58a766c6d",
     "comparison-mobile.png": "51cd02df39444e7b701337cd04dfd416c0f8fc2a6710f36012a9e680c1011401",
@@ -36,6 +37,6 @@
     "overdamped.png": "23c8a3b7c15a9e869bb8db7137cd074a4762977bda7883380ce20ccfce263331",
     "overdamped-mobile.png": "c83441649d7df429398aef56eed5da7a15b271febbd8e5b99a90031a58edbbe1",
     "overdamped.csv": "755f2bb93bdb0bd603052a34796f5d5827c96e336603be7d6e86890b677e4942",
-    "julia-oscillator.zip": "4e134247c225543826c87e8e7af61421cfe693acad7032624e47f06600ee7388"
+    "julia-oscillator.zip": "c488b4b05b86cbba90b6507fe1f80ad2c3bafa21a76030379a6e7c691b8071f6"
   }
 }

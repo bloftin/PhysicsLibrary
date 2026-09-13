@@ -5,8 +5,9 @@ Browsing or choosing a case never executes Julia. Optional local JavaScript draw
 saved trajectories and creates CSV downloads; without it, native radio controls,
 CSS, and PNGs retain the three reference presets. There are no forms, cookies,
 external fonts, requests triggered by the explorer controls, or polling.
-No application handler, execution permission, database schema, or article type
-changes are needed for this first prototype.
+No execution service, execution permission, database schema, or article type
+changes are needed. An optional filebox manifest connects the publication to an
+article's Computational Resources section.
 
 ## Reproduce locally
 
@@ -95,15 +96,18 @@ before switching branches; do not reset the worktree.
 cd /var/www/pp
 git status --short
 git fetch origin
-git switch codex/julia-oscillator-prototype
+git switch codex/computational-resources
 git pull --ff-only
+sudo -u apache prove -v bin/test/computational-resources.t
 python3 examples/julia-oscillator/verify.py
 sudo apachectl configtest
+sudo systemctl restart httpd
 curl -fI https://images.physicslibrary.org/examples/julia-oscillator/index.html
 ```
 
-This is a static addition. Neither Julia nor Python plotting dependencies are
-required on production, and httpd need not be restarted. The repository's image
+The explorer is static. Neither Julia nor Python plotting dependencies are
+required on production. Restart httpd to load the new article integration module;
+later static-only asset updates do not require a restart. The repository's image
 virtual host serves `/var/www/pp/data`. The new directory avoids the denied
 `data/doc` path. Confirm the deployed virtual host matches this configuration.
 If the URL is denied, inspect that virtual host's rules; do not relax the existing
@@ -135,6 +139,17 @@ Live manual tests:
 
 After merge, use `git switch main` and `git pull --ff-only` on production.
 
+## Licensing
+
+This example is intentionally mixed-license. The executable/source components
+of the computational project, including Julia code, build scripts, tests,
+browser JavaScript, CSS and viewer templates, are licensed under the GNU General
+Public License, version 3 or later. The mathematical exposition, article text,
+plots, CSV result data and other non-software publication materials retain the
+normal Physics Library article terms, currently Creative Commons
+Attribution-ShareAlike. See `LICENSE.txt` in this directory and in the
+downloadable ZIP.
+
 ## Publish as a PhysicsLibrary article
 
 Create an **Example** titled **Three Damping Regimes of a Harmonic Oscillator**.
@@ -145,12 +160,22 @@ canonical name; the prototype does not assume an object id or create a DB row.
 - Article body: `article.tex` (no documentclass or document environment).
 - Filebox: upload `comparison.png` from the published directory. The body links
   to the public preset viewer and downloadable project.
+- Filebox: also upload `computational-resources.json` from this directory (or
+  the ZIP root), keeping its filename unchanged. After saving, the article's
+  Computational Resources section links the reviewed explorer, project, three
+  datasets, provenance and license. No additional LaTeX command is needed.
 - Optionally attach `julia-oscillator.zip` and the three CSVs for the article's
   own filebox, preserving the original filenames.
 
 Preview with make4ht and PDF, confirm the comparison figure and download link,
 then publish through the normal editor. New article rendering may run LaTeX;
-it does not run Julia. Keep the bundled example license with source downloads.
+it does not run Julia. Keep the bundled mixed GPLv3/Physics Library CC BY-SA
+license notice with source downloads.
+The resources section is outside the rendered content, so it also appears below
+the PDF or PNG viewer. It is not inserted inside a downloaded PDF or the editor
+preview. The article body's ordinary link remains available to PDF readers.
+Maintainers can find the reusable manifest/catalog format and deployment checks
+in `docs/computational-resources.md` in the site repository.
 
 ## Boundary for a future execution service
 

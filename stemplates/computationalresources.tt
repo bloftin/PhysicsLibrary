@@ -1,0 +1,36 @@
+[% IF computational_resources.size %]
+<section class="pl-computational-resources" aria-label="Computational resources">
+<style type="text/css">
+.pl-computational-resources { border-top: 1px solid #b6c3bc; border-bottom: 1px solid #b6c3bc; padding: 14px 0; margin: 18px 0; overflow-wrap: anywhere; }
+.pl-computational-resources h2 { font-size: 18px; margin: 0 0 12px; }
+.pl-computational-resources h3 { font-size: 16px; margin: 0 0 6px; }
+.pl-computational-resources article + article { border-top: 1px solid #ddd; padding-top: 12px; margin-top: 12px; }
+.pl-computational-resources p { margin: 6px 0; }
+.pl-computational-resources .pl-resource-meta { font-size: 13px; color: #43594e; }
+.pl-computational-resources ul { display: flex; flex-wrap: wrap; gap: 8px 20px; list-style: none; padding: 0; margin: 10px 0 0; }
+.pl-computational-resources li { margin: 0; }
+.pl-computational-resources a:focus-visible { outline: 2px solid #12655a; outline-offset: 3px; }
+</style>
+<h2>Computational Resources</h2>
+[% FOREACH resource IN computational_resources %]
+<article aria-label="[% resource.title | html %]">
+<h3>[% resource.title | html %]</h3>
+<p class="pl-resource-meta">[% resource.language | html %] [% resource.version | html %] &middot; Precomputed results</p>
+<p>[% resource.reproducibility | html %]</p>
+<ul aria-label="Project resources">
+<li><a href="[% resource.explorer | html %]">Open explorer</a></li>
+<li><a href="[% resource.source | html %]">Download source (ZIP)</a></li>
+<li><a href="[% resource.provenance | html %]">Provenance</a></li>
+<li><a href="[% resource.license | html %]">Project license</a></li>
+</ul>
+[% IF resource.datasets.size %]
+<ul aria-label="CSV datasets">
+[% FOREACH dataset IN resource.datasets %]
+<li><a href="[% dataset.url | html %]">[% dataset.label | html %] (CSV)</a></li>
+[% END %]
+</ul>
+[% END %]
+</article>
+[% END %]
+</section>
+[% END %]

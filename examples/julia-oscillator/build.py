@@ -16,7 +16,7 @@ except ModuleNotFoundError:
 HERE = Path(__file__).resolve().parent
 DEFAULT_SITE = HERE.parents[1] / "data" / "examples" / "julia-oscillator"
 INPUTS = ("oscillator.jl", "presets.toml", "Project.toml", "Manifest.toml")
-SOURCES = INPUTS + ("test/runtests.jl", "test/viewer.cjs", "README.md", "LICENSE.txt", "article.tex", "preamble.tex", "preview.tex", "build.py", "verify.py", "viewer.template.html", "style.css", "explorer.js")
+SOURCES = INPUTS + ("test/runtests.jl", "test/viewer.cjs", "README.md", "LICENSE.txt", "article.tex", "preamble.tex", "preview.tex", "build.py", "verify.py", "viewer.template.html", "style.css", "explorer.js", "computational-resources.json")
 IDS = ("underdamped", "critical", "overdamped")
 COLORS = ("#157b72", "#b43d58", "#435fac")
 
