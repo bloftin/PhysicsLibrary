@@ -12,6 +12,7 @@ use Noosphere::IR;
 use Noosphere::Crossref;
 use Noosphere::Authors;
 use Noosphere::Charset;
+use Noosphere::ComputationalResources;
 use URI::Escape;
 use Encode qw(decode FB_CROAK is_utf8);
 use File::chdir;
@@ -138,6 +139,7 @@ sub renderEncyclopediaObj {
 	my $vars = {
         mathobj        	=> $contentbox,
 		viewstyle       => $viewstyle,
+		computational_resources => getComputationalResources($rec),
 		watch     		=> $watch,
 		metadata    	=> $metadata,
 		admin           => $admin,

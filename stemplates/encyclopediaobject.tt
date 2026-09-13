@@ -16,6 +16,7 @@
 
 
 
+		[% INCLUDE computationalresources.tt %]
 		[% metadata %]
 	
 
