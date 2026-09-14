@@ -48,9 +48,9 @@ sufficient after saving the manifest; no rerender is required for this section.
 To detach resources, remove `computational-resources.json` through the filebox
 and save. The article and its other attachments remain unchanged.
 
-## Reuse for another publication
+## Attach one or more publications
 
-The author-controlled manifest selects up to four catalog IDs:
+The author-controlled manifest selects one to four reviewed catalog IDs:
 
 ```json
 {
@@ -58,6 +58,25 @@ The author-controlled manifest selects up to four catalog IDs:
   "resources": ["julia-oscillator"]
 }
 ```
+
+To attach several resources to the same article, list the catalog IDs in the
+order they should appear:
+
+```json
+{
+  "schema_version": 1,
+  "resources": [
+    "newton-constant-acceleration",
+    "julia-oscillator"
+  ]
+}
+```
+
+This is useful when one article has a short starter computation, a deeper
+simulation, and later perhaps a notebook export. Duplicates are ignored, unknown
+IDs are omitted, and the uploaded manifest still cannot provide display text,
+URLs or executable instructions. All public labels and links continue to come
+from the reviewed catalog.
 
 Maintainers add reviewed, prebuilt publications to
 `etc/computational-resources.json` through a normal code review. Each entry has

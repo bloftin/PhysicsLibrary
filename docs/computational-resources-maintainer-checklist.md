@@ -62,6 +62,19 @@ The author-facing filebox manifest should be small and boring:
 }
 ```
 
+An article may attach several reviewed resources:
+
+```json
+{
+  "schema_version": 1,
+  "resources": ["starter-resource", "advanced-resource"]
+}
+```
+
+Keep the list to at most four entries and put them in the order readers should
+see them. Prefer a small number of clearly related resources over turning the
+article into a general download index.
+
 The manifest filename must be exactly:
 
 ```text
@@ -168,6 +181,7 @@ Check that:
 - title, language, version and reproducibility text are concise;
 - dataset labels are human-readable;
 - duplicate catalog ids are not introduced;
+- a multi-resource article uses manifest order intentionally and stays focused;
 - the section still renders when unrelated articles have no manifest.
 
 ## Local Checks
@@ -220,6 +234,8 @@ Manual production checks:
 - Open explorer, source ZIP, provenance, license and CSV links.
 - Open an unrelated article and confirm no empty resources section appears.
 - Remove the manifest from a test article and save; the section should disappear.
+- For a multi-resource test article, confirm every resource appears once and in
+  manifest order.
 
 ## Things To Reject Or Defer
 
