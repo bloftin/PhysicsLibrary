@@ -125,6 +125,14 @@ sub requestFormFailure {
 
 sub requestFormConfirmation {
     my ($params, $token) = @_;
+    my %warnings = (
+        delobj => 'This object will be permanently deleted. Continue?',
+        deluser => 'This user will be permanently deleted. Continue?',
+        deactivate => 'This user will no longer be able to sign in. Continue?',
+        reactivate => 'This user will be able to sign in again. Continue?',
+        abandon => 'You will give up ownership of this object. Continue?',
+    );
+    my $warning = $warnings{$params->{op} || ''};
     my $fields = '';
     my $details = '';
     for my $key (sort keys %$params) {
@@ -132,15 +140,48 @@ sub requestFormConfirmation {
         return requestFormFailure(400, 'Invalid action parameters.')
             if $key !~ /\A[a-z0-9_]+\z/ || ref($params->{$key}) ||
                 length($params->{$key} || '') > 65536;
+        # This form supplies the warning formerly shown by the handler's ask step.
+        next if defined($warning) && $key eq 'ask';
         my $value = requestFormEscape($params->{$key});
         $fields .= '<input type="hidden" name="'.$key.'" value="'.$value.'" />';
         $details .= '<dt>'.$key.'</dt><dd style="overflow-wrap:anywhere">'.
             requestFormEscape(substr($params->{$key} || '', 0, 500)).'</dd>';
     }
-    return '<h2>Confirm Action</h2><p>Review this action before continuing.</p><dl>'.
+    return '<h2>Confirm Action</h2><p>'.requestFormEscape(
+        $warning || 'Review this action before continuing.').'</p><dl>'.
         $details.'</dl><form method="post" action="'.requestFormEscape(getConfig('main_url')).'/">'.
         $fields.'<input type="hidden" name="_form_token" value="'.$token.'" />'.
         '<button type="submit">Confirm</button> <a href="/">Cancel</a></form>';
+}
+
+sub requestFormComplete {
+    my ($op, $params) = @_;
+    my $main = getConfig('main_url');
+    $main =~ s{/+$}{};
+    my $url = URI->new($main.'/');
+    my $id = $params->{id};
+    if (defined($id) && !ref($id) && $id =~ /\A[1-9][0-9]*\z/) {
+        if (($op eq 'rerender' || $op eq 'abandon') &&
+                defined($params->{from}) && !ref($params->{from}) &&
+                $params->{from} =~ /\A[a-z][a-z0-9_]*\z/) {
+            my @query = (op => 'getobj', from => $params->{from}, id => $id);
+            push @query, method => $params->{method} if defined($params->{method}) &&
+                !ref($params->{method}) && $params->{method} =~ /\A(?:make4ht|l2h|pdf|png|src)\z/;
+            $url->query_form(@query);
+        } elsif ($op eq 'deactivate' || $op eq 'reactivate') {
+            $url->query_form(op => 'getuser', id => $id);
+        }
+    }
+    # A GET destination prevents refresh from submitting the completed action again.
+    my $req = Apache2::RequestUtil->request;
+    $req->headers_out->set('Location' => "$url");
+    $req->headers_out->set('Cache-Control' => 'no-store');
+    $RequestFormStatus = 303;
+    my %messages = (delobj => 'Object deleted.', deluser => 'User deleted.',
+        deactivate => 'User deactivated.', reactivate => 'User reactivated.',
+        abandon => 'Object abandoned.', rerender => 'Rendering requested.');
+    return '<p>'.($messages{$op} || 'Action completed.').' <a href="'.
+        requestFormEscape("$url").'">Continue</a></p>';
 }
 
 sub requestFormGuard {

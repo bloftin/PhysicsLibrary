@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::RequestForm;
 use Noosphere::Config;
 use Noosphere::UserData;
 use Noosphere::Owners;
@@ -531,18 +532,15 @@ sub abandonObject {
 
 	return errorMessage("You can't abandon someone else's object") if ($userinf->{uid} != $userid );
 
-	if ($params->{'ask'} eq "yes") {
-		return paddingTable(makeBox('Abandon Object',"<center><Br><font color=\"#ff0000\" size=\"+1\"><b>Are you sure you want to do this?</b>
-	<br><br>
-	<a href=\"".getConfig("main_url")."/?op=abandon&from=$params->{from}&id=$params->{id}\">YES!</a><br>
-	</center></font>"));
+	if (($params->{'ask'} || '') eq "yes") {
+		return requestFormConfirmation({%$params, op => 'abandon'}, requestFormToken($userinf));
 	}
 	
 	# perform abandoning
 	#
 	_abandonObject($params, $userinf->{'uid'});
 
-	return messageWithRedirect("Object abandoned","".getConfig("main_url")."/?op=getobj&from=$params->{from}&id=$params->{id}","Your object has been abandoned.	You will be redirected back to it now.",1);	
+	return requestFormComplete('abandon', $params);
 }
 
 # low-level performing of abandoning 
