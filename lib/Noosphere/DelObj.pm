@@ -10,6 +10,7 @@ package Noosphere;
 ###############################################################################
 
 use strict;
+use Noosphere::RequestForm;
 
 use Noosphere::Util;
 use Noosphere::UserData;
@@ -41,11 +42,8 @@ sub delObject {
 		return errorMessage("You can't delete other people's objects.	Nice try, though.");
 	}
  
-	if ($params->{'ask'} eq "yes") {
-		return paddingTable(makeBox('Delete Object',"<center><Br><font color=\"#ff0000\" size=\"+1\"><b>Object will be gone forever, are you SURE? </b>
-	<br><br>
-	<a href=\"".getConfig("main_url")."/?op=delobj&from=$params->{from}&id=$params->{id}\">YES!</a><br>
-	</center></font>"));
+	if (($params->{'ask'} || '') eq "yes") {
+		return requestFormConfirmation({%$params, op => 'delobj'}, requestFormToken($userinf));
 	}
 
 	if (!objectExistsByUid($params->{'id'},$params->{'from'})) {
@@ -56,13 +54,7 @@ sub delObject {
 	#
 	my $rv = _delObject($params, $userid);
 
-	# format output
-	#
-	my $template = new XSLTemplate('delobj.xsl');
-
-	$template->addText('<delobj></delobj>');	# no data
-
-	return $template->expand();
+	return requestFormComplete('delobj', $params);
 }
 
 # non-UI-core of object deletion

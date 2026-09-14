@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Noosphere::RequestForm;
 
 use Noosphere::IR;
 use Noosphere::Ticket;
@@ -300,12 +301,8 @@ sub reactivate {
 		return errorMessage("Only admins can reactivate users.");
 	}
  
-	if ($params->{ask} eq "yes") {
-		return paddingTable(makeBox('Reactivate User',
-		"<center><Br><font color=\"#ff0000\" size=\"+1\"><b>User will be able to log in.	Are you SURE? </b>
-		<br><br>
-	<a href=\"".getConfig("main_url")."/?op=reactivate&id=$params->{id}\">YES!</a><br><br>
-	</center></font>"));
+	if (($params->{ask} || '') eq "yes") {
+		return requestFormConfirmation({%$params, op => 'reactivate'}, requestFormToken($userinf));
 	}
 
 	if (!objectExistsByUid($params->{id},$utbl)) {
@@ -317,7 +314,7 @@ sub reactivate {
 	return errorMessage('Could not update account. Please try again.')
         unless eval { setAccountActive($params->{id}, 1) };
 
-	return paddingTable(makeBox('Reactivate User',"User reactivated.	<ul><li>Click <a href=\"".getConfig('main_url')."\">here</a> to go home.</li><li>Click <a href=\"".getConfig('main_url')."/?op=getobj&from=users&id=$params->{id}\">here</a> to return to viewing the user</li></ol>"));
+	return requestFormComplete('reactivate', $params);
 }
 
 # deactivate a user. this just prevents them from ever logging in.
@@ -337,12 +334,8 @@ sub deactivate {
 		return errorMessage("Only admins can deactivate users.");
 	}
  
-	if ($params->{ask} eq "yes") {
-		return paddingTable(makeBox('Deactivate User',
-		"<center><Br><font color=\"#ff0000\" size=\"+1\"><b>User will not be able to log in.	Are you SURE? </b>
-		<br><br>
-	<a href=\"".getConfig("main_url")."/?op=deactivate&id=$params->{id}\">YES!</a><br><br>
-	</center></font>"));
+	if (($params->{ask} || '') eq "yes") {
+		return requestFormConfirmation({%$params, op => 'deactivate'}, requestFormToken($userinf));
 	}
 
 	if (!objectExistsByUid($params->{id},$utbl)) {
@@ -354,7 +347,7 @@ sub deactivate {
 	return errorMessage('Could not update account. Please try again.')
         unless eval { setAccountActive($params->{id}, 0) };
 
-	return paddingTable(makeBox('Deactivate User',"User deactivated.	<ul><li>Click <a href=\"".getConfig('main_url')."\">here</a> to go home.</li><li>Click <a href=\"".getConfig('main_url')."/?op=getobj&from=users&id=$params->{id}\">here</a> to return to viewing the user</li></ol>"));
+	return requestFormComplete('deactivate', $params);
 }
 
 # delete a user
@@ -373,12 +366,8 @@ sub delUser {
 		return errorMessage("You can't delete other people!");
 	}
  
-	if ($params->{ask} eq "yes") {
-		return paddingTable(makeBox('Delete User',
-		"<center><Br><font color=\"#ff0000\" size=\"+1\"><b>User will be gone forever, are you SURE? </b>
-		<br><br>
-	<a href=\"".getConfig("main_url")."/?op=deluser&id=$params->{id}\">YES!</a><br><br>
-	</center></font>"));
+	if (($params->{ask} || '') eq "yes") {
+		return requestFormConfirmation({%$params, op => 'deluser'}, requestFormToken($userinf));
 	}
 
 	if (!objectExistsByUid($params->{id},$utbl)) {
@@ -414,7 +403,7 @@ sub delUser {
 	#
 	irUnindex($params->{'from'}, $params->{'id'});
 
-	return paddingTable(makeBox('Delete User',"User deleted.	Click <a href=\"".getConfig('main_url')."\">here</a> to go home."));
+	return requestFormComplete('deluser', $params);
 }
 
 # cache control - ability to selectively invalidated cache groups
@@ -1066,12 +1055,10 @@ sub reRenderObj {
 	setvalidflag_off($params->{'from'},$params->{'id'});
 	setbuildflag_off($params->{'from'},$params->{'id'});
 
-	my $html = getObj($params,$userinf);
-
-	return $html;
+	return requestFormComplete('rerender', $params);
 }
 
-# Admin object metadata editor 
+# Admin object metadata editor
 #
 sub adminObjectEditor {
 	my $params = shift;

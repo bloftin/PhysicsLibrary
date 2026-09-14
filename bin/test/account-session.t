@@ -22,6 +22,7 @@ our %config = (user_tbl => 'users', cookie_timeout => 14 * 24 * 60,
 require Noosphere::Login;
 require Noosphere::Cookies;
 require Noosphere::Password;
+require Noosphere::RequestForm;
 
 {
     package SessionHeaders;
@@ -206,12 +207,15 @@ subtest 'session database and routes' => sub {
     }
     local *Noosphere::objectExistsByUid = sub { return 1; };
     local *Noosphere::loginExpired = sub { return 'Sign in'; };
+    local *Apache2::RequestUtil::request = sub { return $req; };
     my $admin = {uid => 2, data => {access => 100}};
     like(Noosphere::deactivate({id => 1, ask => 'no'}, {uid => 1, data => {access => 10}}), qr/Only admins/, 'ordinary user cannot deactivate accounts');
     is(Noosphere::checkTicket($third), 1, 'denied admin action leaves session valid');
     like(Noosphere::deactivate({id => 1, ask => 'no'}, $admin), qr/User deactivated/, 'admin deactivation handler succeeds');
+    is($req->{headers}{fields}{Location}, 'https://example.invalid/?op=getuser&id=1', 'deactivation returns to account view');
     is(Noosphere::checkTicket($third), -1, 'deactivation revokes session');
     like(Noosphere::reactivate({id => 1, ask => 'no'}, $admin), qr/User reactivated/, 'admin reactivation handler succeeds');
+    is($Noosphere::RequestFormStatus, 303, 'reactivation completes with a GET redirect');
     is(Noosphere::checkTicket($third), -1, 'reactivation does not revive old session');
 
     ($user) = request('POST', {op => 'login', user => 'member', passwd => 'second-password'});
