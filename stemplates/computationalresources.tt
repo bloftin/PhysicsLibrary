@@ -6,12 +6,16 @@
 .pl-computational-resources h3 { font-size: 16px; margin: 0 0 6px; }
 .pl-computational-resources article + article { border-top: 1px solid #ddd; padding-top: 12px; margin-top: 12px; }
 .pl-computational-resources p { margin: 6px 0; }
+.pl-computational-resources .pl-resource-count { font-size: 13px; color: #43594e; margin: -6px 0 12px; }
 .pl-computational-resources .pl-resource-meta { font-size: 13px; color: #43594e; }
 .pl-computational-resources ul { display: flex; flex-wrap: wrap; gap: 8px 20px; list-style: none; padding: 0; margin: 10px 0 0; }
 .pl-computational-resources li { margin: 0; }
 .pl-computational-resources a:focus-visible { outline: 2px solid #12655a; outline-offset: 3px; }
 </style>
 <h2>Computational Resources</h2>
+[% IF computational_resources.size > 1 %]
+<p class="pl-resource-count">[% computational_resources.size | html %] reviewed static resources are attached to this article.</p>
+[% END %]
 [% FOREACH resource IN computational_resources %]
 <article aria-label="[% resource.title | html %]">
 <h3>[% resource.title | html %]</h3>
