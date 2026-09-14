@@ -1,0 +1,21 @@
+Motion on an Inclined Plane
+
+Software: GNU General Public License, version 3 or later.
+Copyright (C) 2026 Physics Library contributors.
+
+You may redistribute and/or modify the Julia source, build scripts, tests,
+browser scripts, and HTML/CSS template under the terms of the GNU General
+Public License as published by the Free Software Foundation, either version
+3 of the License, or (at your option) any later version.
+This software is distributed WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See COPYING for the full license: https://www.gnu.org/licenses/gpl-3.0.html
+
+Mathematical exposition, article text, explanatory prose, diagrams, plots and
+CSV data retain the normal Physics Library Creative Commons Attribution-ShareAlike
+terms: https://physicslibrary.org/?op=license
+Attribution: Physics Library contributors, Motion on an Inclined Plane:
+https://images.physicslibrary.org/examples/inclined-plane/index.html
+
+The PhysicsLibrary logo identifies the originating site and is excluded from
+this example's license grant.

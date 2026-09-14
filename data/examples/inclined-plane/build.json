@@ -1,0 +1,41 @@
+{
+  "sources_sha256": {
+    "motion.jl": "458a97dc452e30e66b7185d082d12462e2b461ef99551444f457fd761061deba",
+    "cases.toml": "935f4d56e10817729baa1ca27da00280c19c8fbd230ed315d8dc720f57af29ac",
+    "Project.toml": "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8",
+    "Manifest.toml": "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6",
+    "test/runtests.jl": "84e4e109b07aa17bc6517901cdcb987af43be4f4f637a72795a1879f8e44b666",
+    "test/viewer.cjs": "25a7051e3fabaecae7696e183120dfa09a826f43390a1b9ead00d723b7085aa3",
+    "build.py": "de095017d911fd2bdf6d2e11569f5b5678529b3a66291da2ecde5670ca769dc4",
+    "verify.py": "122c318d7def34f01fcb7c56c79fc9708583efdee29b39c5208ecaf9ad5cf8aa",
+    "README.md": "9c19b2acafed894bddca7804b0c47d6db0336d18eb6b1a9c924405d240d4de5f",
+    "LICENSE.txt": "02a59944f20cefe947ba1d3b792786b2d6d9d997e99935e0043b544a2e95de51",
+    "COPYING": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "article.tex": "ad9e455b5a4bbf8507cfac6686923f08982f251d3835540d1a8c3b07aa20478f",
+    "preamble.tex": "e542c52c0aefdb58afd45e0d112d8e708d85603f228b9bd7d669d7836bc65426",
+    "preview.tex": "ad73a0fbf41a2d1c663fe87fe01279d451c7638214954050a35985a8705c928c",
+    "computational-resources.json": "c0d5963bd7b7ac84109efe3fa87150d582b5b95d352aaee446d24f42468cc9b3",
+    "viewer.template.html": "9996609cc483024e24a5d11567a11fafcd095ee0527ba2549830a3601a4f7298",
+    "style.css": "28136d3f9f685e04b976588c3ac35ec4e059c57c73be68d551f4f732afe6972f",
+    "explorer.js": "f41ea0fa858023f86ea69ed55e3f983e68b566c59a923223623f9ff195b97903"
+  },
+  "files_sha256": {
+    "index.html": "c965269bdd5de4a7e120d5901fc483e2cb315ec10e52478cb003503b9943c614",
+    "trajectory-data.js": "550d4218477e05eccd6301ecaa41ba82f56efe9fc1ccf3b4ed9184f09a19a94b",
+    "style.css": "28136d3f9f685e04b976588c3ac35ec4e059c57c73be68d551f4f732afe6972f",
+    "explorer.js": "f41ea0fa858023f86ea69ed55e3f983e68b566c59a923223623f9ff195b97903",
+    "logo.png": "9931e0c2b7a734359c44f041fbe26a3d92c71c4d345dfc77227a56b5802a4bd2",
+    "comparison.png": "ed761e4b085ba7ef3f95b399c81860e9d2f477b0c5a75c5d8d9d6b91041d87fe",
+    "comparison-mobile.png": "d8003b805c19e656a5ae89b50b4e1b45ac857da6907db471522a0a0a968ff479",
+    "inclined-plane-forces.png": "06f9bc75add7198df0e0d3a0ba0ce51935d04c3d6cc4fdd498d52bcde9e67858",
+    "LICENSE.txt": "02a59944f20cefe947ba1d3b792786b2d6d9d997e99935e0043b544a2e95de51",
+    "COPYING": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "article.tex": "ad9e455b5a4bbf8507cfac6686923f08982f251d3835540d1a8c3b07aa20478f",
+    "provenance.toml": "d6306ad7b5366cab4f27e98442137e86c69ea5125303a832ae4914438abfbd4b",
+    "frictionless.csv": "564210cebbdc77eadbeaabc59de6185b94dd7f8c8d2081a2f0069a8e1cdf8a73",
+    "sliding.csv": "3887a59ed68cb9e2095ea265345e9ea6ac83eb895368651a0a1dca342f0d4a22",
+    "sticking.csv": "1e2690981243cab82a7a4630203e36b53f26740b3f70df9aea52b923c93f86f0",
+    "inclined-plane.zip": "2e269ccbbfb26e6d1b47219a85c9e5d69f2e4b0eea5ce8c18f013fa0397ca07a",
+    "article-attachments.zip": "07a75ccb52c05de21fed812eb9dab6411f398e7da6bcb2e060441d178e220321"
+  }
+}

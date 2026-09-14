@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Motion on an Inclined Plane | PhysicsLibrary</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="trajectory-data.js" defer></script>
+  <script src="explorer.js" defer></script>
+</head>
+<body>
+<header><a href="https://physicslibrary.org/"><img src="logo.png" width="280" height="53" alt="PhysicsLibrary.org"></a><p>An open source physics library</p></header>
+<main>
+  <div class="heading"><p class="eyebrow">Mechanics / Computational example</p>
+    <h1>Motion on an Inclined Plane</h1>
+    <p>Gravity pulls downhill. Friction decides whether the block moves.</p>
+    <p class="conditions">m = 2 kg &middot; &theta; = 30&deg; &middot; L = 10 m &middot; g = 9.81 m/s&sup2;</p>
+  </div>
+  <section id="explorer" aria-label="Inclined-plane explorer" hidden>
+    <div class="toolbar"><label for="case">Surface <select id="case"><option value="0">Frictionless</option><option value="1">Sliding with friction</option><option value="2">Held by static friction</option></select></label>
+      <label class="check"><input type="checkbox" id="forces" checked> Force vectors</label>
+      <span id="regime" role="status">Sliding</span>
+    </div>
+    <div class="scene-layout">
+      <canvas id="scene" width="900" height="560" role="img" aria-label="Block on a 30 degree ramp with weight, normal reaction and friction vectors"></canvas>
+      <div class="force-readings"><h2>Force Balance</h2><p id="coefficients"></p>
+        <dl><div><dt><span class="dot weight"></span>Weight, mg</dt><dd id="weight"></dd></div>
+        <div><dt><span class="dot normal"></span>Normal, N</dt><dd id="normal"></dd></div>
+        <div><dt><span class="dot friction"></span>Friction, f</dt><dd id="friction"></dd></div>
+        <div><dt>Downhill, mg sin &theta;</dt><dd id="downhill"></dd></div>
+        <div><dt>Net downhill force</dt><dd id="net"></dd></div></dl>
+        <p id="balance" class="formula"></p>
+      </div>
+    </div>
+    <div class="playback"><button id="play" type="button" aria-label="Play" title="Play" aria-pressed="false">&#9654;</button><button id="reset" type="button" aria-label="Reset" title="Reset">&#8634;</button><label for="time">Time</label><input id="time" type="range" min="0" max="180" step="1" value="0"><output id="clock" for="time">0.00 s</output></div>
+    <dl class="readings"><div><dt>Downhill distance</dt><dd id="distance"></dd></div><div><dt>Speed</dt><dd id="speed"></dd></div><div><dt>Acceleration</dt><dd id="acceleration"></dd></div><div><dt>Energy dissipated</dt><dd id="heat"></dd></div></dl>
+    <p id="event" role="status"></p>
+    <p class="download-row"><a id="csv" href="frictionless.csv" download>Selected case (CSV)</a><span>181 saved Julia samples per case</span></p>
+  </section>
+  <section class="reference"><h2>Three Surfaces, One Ramp</h2>
+    <p>The moving cases end just as the block reaches the foot of the ramp. The stationary case is observed for four seconds.</p>
+    <picture><source media="(max-width: 600px)" srcset="comparison-mobile.png"><img src="comparison.png" width="1080" height="840" alt="Distance, speed and energy dissipated versus time for the three surfaces"></picture>
+    <p><a href="frictionless.csv">Frictionless CSV</a> &middot; <a href="sliding.csv">Sliding CSV</a> &middot; <a href="sticking.csv">Static CSV</a></p>
+  </section>
+  <section class="derivation"><h2>From Force to Motion</h2>
+    <p>Choose distance s positive down the ramp. The normal balance gives N = mg cos &theta;. Rest is possible when mg sin &theta; &le; &mu;<sub>s</sub>N. Static friction then matches the downhill pull; it is not automatically at its maximum.</p>
+    <p>Once the block slips downhill, f = &mu;<sub>k</sub>N and Newton's second law becomes</p>
+    <p class="equation">a = g (sin &theta; &minus; &mu;<sub>k</sub> cos &theta;).</p>
+    <p>Integrating from the initial time t<sub>0</sub> fixes both constants of integration:</p>
+    <p class="equation">v(t) = v<sub>0</sub> + a(t &minus; t<sub>0</sub>)<br>s(t) = s<sub>0</sub> + v<sub>0</sub>(t &minus; t<sub>0</sub>) + &frac12;a(t &minus; t<sub>0</sub>)&sup2;.</p>
+    <p>Here t<sub>0</sub> = s<sub>0</sub> = v<sub>0</sub> = 0. For a sliding release, the arrival time is &radic;(2L/a) and the arrival speed is &radic;(2aL). The mass cancels from the acceleration, but forces and energies still scale with mass.</p>
+    <h2>Where the Energy Goes</h2>
+    <p>With zero gravitational potential at the foot, K = &frac12;mv&sup2;, U = mg(L &minus; s)sin &theta;, and the dissipated mechanical energy is Q = fs. Throughout each saved trajectory, K + U + Q = mgL sin &theta; = 98.1 J.</p>
+    <p>Frictionless motion converts all 98.1 J into kinetic energy. Sliding friction converts part into thermal/internal energy of the contact system. Static friction does no work on a block that does not move.</p>
+    <h2>Assumptions</h2><p>A nonrotating block on a fixed straight ramp; constant gravity; Coulomb friction with 0 &le; &mu;<sub>k</sub> &le; &mu;<sub>s</sub>; no air drag. The animation ends before any collision or change of surface. Force arrows share a scale; the block is drawn larger for visibility.</p>
+  </section>
+  <section class="reproduce"><h2>Reproduce and Reuse</h2><p>Julia @@VERSION@@ evaluates the constant-acceleration state with its standard-library matrix exponential. Independent kinematics and work-energy checks verify the saved data.</p>
+    <p><a href="inclined-plane.zip" download>Download Julia project</a> &middot; <a href="provenance.toml">Provenance</a> &middot; <a href="article-attachments.zip" download>Article attachment bundle</a> &middot; <a href="article.tex">LaTeX article</a></p>
+  </section>
+</main>
+<footer><a href="https://physicslibrary.org/">PhysicsLibrary</a> &middot; <a href="LICENSE.txt">GPLv3+ code / Physics Library CC BY-SA text and data</a></footer>
+</body>
+</html>

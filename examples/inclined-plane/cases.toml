@@ -1,0 +1,23 @@
+mass = 2.0
+gravity = 9.81
+angle_deg = 30.0
+length = 10.0
+samples = 181
+
+[[cases]]
+id = "frictionless"
+label = "Frictionless"
+mu_s = 0.0
+mu_k = 0.0
+
+[[cases]]
+id = "sliding"
+label = "Sliding with friction"
+mu_s = 0.3
+mu_k = 0.2
+
+[[cases]]
+id = "sticking"
+label = "Held by static friction"
+mu_s = 0.7
+mu_k = 0.5
