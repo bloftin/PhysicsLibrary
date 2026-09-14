@@ -27,9 +27,13 @@ async function slide(page, id, value) {
         const sampleMax = Number(await page.locator('#sample').getAttribute('max'));
         const convMax = Number(await page.locator('#convergence').getAttribute('max'));
         const rootMax = Number(await page.locator('#root-step').getAttribute('max'));
+        const pathBefore = await page.locator('#path-plot').evaluate(el => el.toDataURL());
+        const rootBefore = await page.locator('#root-plot').evaluate(el => el.toDataURL());
         await slide(page, '#sample', Math.floor(sampleMax/2));
         await slide(page, '#convergence', convMax);
         await slide(page, '#root-step', rootMax);
+        assert.notEqual(await page.locator('#path-plot').evaluate(el => el.toDataURL()), pathBefore);
+        assert.notEqual(await page.locator('#root-plot').evaluate(el => el.toDataURL()), rootBefore);
         assert.notEqual(await page.locator('#m-time').textContent(), '-');
         assert.notEqual(await page.locator('#c-error').textContent(), '-');
         assert.notEqual(await page.locator('#r-residual').textContent(), '-');
@@ -43,6 +47,17 @@ async function slide(page, id, value) {
       assert.ok(requests.every(r => r.method() === 'GET' && r.url().startsWith('file:')));
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       assert.deepEqual(errors, []);
+      for (const id of ['path-plot','time-plot','convergence-plot','root-plot']) {
+        const colors = await page.locator('#'+id).evaluate(el => {
+          const pixels=el.getContext('2d').getImageData(0,0,el.width,el.height).data;
+          let nonwhite=0;
+          for(let i=0;i<pixels.length;i+=4)if(pixels[i+3] && pixels[i]<220)nonwhite++;
+          return nonwhite;
+        });
+        assert.ok(colors>1000, id+' has drawn content');
+      }
+      await page.evaluate(() => Promise.all([...document.images].map(im => im.decode())));
+      if(process.env.SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`brachistochrone-${width}.png`),fullPage:true});
       await page.close();
 
       const fallback = await browser.newPage({javaScriptEnabled:false, viewport:{width,height:1100}});

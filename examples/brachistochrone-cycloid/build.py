@@ -10,7 +10,7 @@ HERE=Path(__file__).resolve().parent
 DEFAULT_SITE=HERE.parents[1]/'data'/'examples'/'brachistochrone-cycloid'
 IDS=("before-bottom","at-bottom","after-bottom")
 INPUTS=("brachistochrone.jl","cases.toml","Project.toml","Manifest.toml")
-SOURCES=INPUTS+("test/runtests.jl","test/viewer.cjs","README.md","LICENSE.txt","article.tex","preamble.tex","preview.tex","build.py","verify.py","viewer.template.html","style.css","explorer.js","computational-resources.json","catalog-entry.json")
+SOURCES=INPUTS+("test/runtests.jl","test/viewer.cjs","test/publication.py","README.md","LICENSE.txt","COPYING","article.tex","preamble.tex","preview.tex","build.py","verify.py","viewer.template.html","style.css","explorer.js","computational-resources.json","catalog-entry.json")
 DATASETS=tuple(f"{i}.csv" for i in IDS)+("endpoint-sweep.csv","root-history.csv","time-convergence.csv")
 
 def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -32,11 +32,11 @@ def load_data(allow_draft=False):
         raise ValueError('Draft reference data: run Julia first, or use --allow-draft for local preview')
     for name in INPUTS:
         expected=prov.get('inputs_sha256',{}).get(name)
-        if expected and digest(HERE/name)!=expected:
+        if (not expected and not allow_draft) or (expected and digest(HERE/name)!=expected):
             raise ValueError(f'Changed {name}; regenerate results/provenance before publishing')
     for name in DATASETS:
         expected=prov.get('outputs_sha256',{}).get(name)
-        if expected and digest(HERE/'results'/name)!=expected:
+        if (not expected and not allow_draft) or (expected and digest(HERE/'results'/name)!=expected):
             raise ValueError(f'Changed {name}; regenerate results/provenance before publishing')
     data={i:load_csv(HERE/'results'/f'{i}.csv') for i in IDS}
     roots=load_csv(HERE/'results'/'root-history.csv')
@@ -74,7 +74,7 @@ def publish(site,allow_draft=False):
     for name in DATASETS:
         shutil.copyfile(HERE/'results'/name,site/name)
     shutil.copyfile(HERE/'results'/'provenance.toml',site/'provenance.toml')
-    for name in ('style.css','explorer.js','LICENSE.txt'):
+    for name in ('style.css','explorer.js','LICENSE.txt','COPYING'):
         shutil.copyfile(HERE/name,site/name)
     by_root={i:[] for i in IDS};by_conv={i:[] for i in IDS}
     for r in roots:by_root[r['case_id']].append(r)
@@ -88,8 +88,8 @@ def publish(site,allow_draft=False):
             'root_history':[{'iteration':int(r['iteration']),'lo':r['lo_rad'],'hi':r['hi_rad'],'mid':r['mid_rad'],'ratio':r['ratio_mid'],'target':r['target_ratio'],'residual':r['residual'],'width':r['bracket_width_rad']} for r in by_root[id]]}
     (site/'trajectory-data.js').write_text('window.PLBrachistochrone = '+json.dumps(js,separators=(',',':'),allow_nan=False)+';\n',encoding='utf-8')
     page=(HERE/'viewer.template.html').read_text(encoding='utf-8').replace('@@JULIA_VERSION@@',prov.get('julia_version','draft'))
-    (site/'index.html').write_text(page.replace('@@ZIP_SIZE@@','ZIP'),encoding='utf-8')
-    public_names=['index.html','trajectory-data.js','style.css','explorer.js','comparison.png','path-straight.png','time-convergence.png','root-solve.png','provenance.toml','LICENSE.txt']+list(DATASETS)+[f'{i}.png' for i in IDS]
+    (site/'index.html').write_text(page,encoding='utf-8')
+    public_names=['index.html','trajectory-data.js','style.css','explorer.js','comparison.png','path-straight.png','time-convergence.png','root-solve.png','provenance.toml','LICENSE.txt','COPYING']+list(DATASETS)+[f'{i}.png' for i in IDS]
     bundle={name:(HERE/name).read_bytes() for name in SOURCES}
     bundle.update({'results/'+name:(HERE/'results'/name).read_bytes() for name in DATASETS+('provenance.toml',)})
     for name in public_names:
@@ -102,13 +102,13 @@ def publish(site,allow_draft=False):
     bundle['comparison.png']=(site/'comparison.png').read_bytes()
     archive(site/'brachistochrone-cycloid.zip',bundle)
     kb=(site/'brachistochrone-cycloid.zip').stat().st_size/1024
-    (site/'index.html').write_text(page.replace('@@ZIP_SIZE@@',f'{kb:.0f} KB'),encoding='utf-8')
     assets=public_names+['brachistochrone-cycloid.zip']
-    report={'sources_sha256':{name:digest(HERE/name) for name in SOURCES},'files_sha256':{name:digest(site/name) for name in assets}}
+    report={'configuration':read_toml(HERE/'cases.toml'),'provenance':prov,
+        'sources_sha256':{name:digest(HERE/name) for name in SOURCES},'files_sha256':{name:digest(site/name) for name in assets}}
     (site/'build.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     from verify import verify
-    verify(site)
-    print(f'Published static preview to {site} ({kb:.0f} KiB source ZIP)')
+    verify(site, allow_draft=allow_draft)
+    print(f'Published static resource to {site} ({kb:.0f} KiB source ZIP)')
 
 if __name__=='__main__':
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,default=DEFAULT_SITE);ap.add_argument('--allow-draft',action='store_true');args=ap.parse_args();publish(args.output,args.allow_draft)
