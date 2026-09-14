@@ -1,0 +1,114 @@
+{
+  "configuration": {
+    "model": {
+      "gravity": 9.81,
+      "samples": 241,
+      "convergence_segments": [
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048,
+        4096,
+        8192,
+        16384
+      ],
+      "sweep_y": 1.0,
+      "sweep_ratio_min": 0.5,
+      "sweep_ratio_max": 5.0,
+      "sweep_ratio_step": 0.1
+    },
+    "cases": [
+      {
+        "id": "before-bottom",
+        "label": "Endpoint before cycloid bottom",
+        "x": 1.0,
+        "y": 1.0
+      },
+      {
+        "id": "at-bottom",
+        "label": "Endpoint at cycloid bottom",
+        "x": 1.5707963267948966,
+        "y": 1.0
+      },
+      {
+        "id": "after-bottom",
+        "label": "CV17 example: endpoint after cycloid bottom",
+        "x": 4.0,
+        "y": 1.0
+      }
+    ]
+  },
+  "provenance": {
+    "command": "julia --startup-file=no --project=. brachistochrone.jl",
+    "generator": "julia",
+    "julia_version": "1.10.12",
+    "method": "Monotone bisection with saved iteration history; closed-form cycloid sampling; saved midpoint-segment travel-time convergence",
+    "platform": "x86_64-linux-gnu",
+    "release": "2",
+    "inputs_sha256": {
+      "Manifest.toml": "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6",
+      "Project.toml": "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8",
+      "brachistochrone.jl": "540af896cd8ebccbbf2a756f095eb634674c09683ffcff1ec866f582c8386061",
+      "cases.toml": "a2c45e544b84f59c45a7cf0ff7778b8cb311d86c216d4b7f766fceecd4707e11"
+    },
+    "outputs_sha256": {
+      "after-bottom.csv": "a1a85e4996fdec298334991a3dbdb07136fac60711781ddc911111f6ccdf5e40",
+      "at-bottom.csv": "b143c80ba0a0a732f3c0c8b2fedb06a715a67381fb14a5d5fe955db8bbf48b13",
+      "before-bottom.csv": "86b5fbe6c79658e0ba2fbb9e40c88ebd5557c8e70713162421cd37afc8cede47",
+      "endpoint-sweep.csv": "d1de0ecb5b2755ceff92e72943bde0faf359ce38e88340bff3675b42ea484e91",
+      "root-history.csv": "b654f199ba23c51dfc06fabc09ec04a3cd137f1c7e64e32aef8ab71d833656f3",
+      "time-convergence.csv": "37d98740c8cc3457a726ea52aef55e905d9a8ebbcf7297667edb0b2ccc33687b"
+    }
+  },
+  "sources_sha256": {
+    "brachistochrone.jl": "540af896cd8ebccbbf2a756f095eb634674c09683ffcff1ec866f582c8386061",
+    "cases.toml": "a2c45e544b84f59c45a7cf0ff7778b8cb311d86c216d4b7f766fceecd4707e11",
+    "Project.toml": "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8",
+    "Manifest.toml": "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6",
+    "test/runtests.jl": "04093e2ac0a8c8f5f54bdfab6a82c8304bf5a388d1bae664af8b61d096a2116a",
+    "test/viewer.cjs": "c55eaa6b3a8b4160c4b5fe05e1aa4fce626521de326e87f27e4bd9412400495c",
+    "test/publication.py": "e0fb8157a3e2d9bf2c965ceb844121b008953d3861b1fc8f3f26efbe2e618f09",
+    "README.md": "fc1c472e8e02144903b328b8fa737a98b2d9e8f37eb9c3083f2be26e1451ae6e",
+    "LICENSE.txt": "e2134e6959458f2797aaa8fd6dd56c9355aea59b9dfba0bb0d4774e973fff73e",
+    "COPYING": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "article.tex": "1575f5be5dc20c9db41efc52daca76e2b3679e1de0e26c7fed99518e0a89f4ed",
+    "preamble.tex": "e542c52c0aefdb58afd45e0d112d8e708d85603f228b9bd7d669d7836bc65426",
+    "preview.tex": "9e5effa1ac1376f489cab30d744be9527ce5519008dbbf7cba21de192182ef9d",
+    "build.py": "c7c300ee1d85f4f9ab23d3583ec9284ed8a38e4100ecd951b7527f04396d53e9",
+    "verify.py": "a338c1467559e6ae5cf77e1e52a0e08fd50a93e4fb06f5b31a3c236ba7dfee76",
+    "viewer.template.html": "a4945dbd3f78838d4ba897f13565a35df501e075eb9446811c9eaf28df046db8",
+    "style.css": "bb3beef74dc982c13843160e1c6beb9fa2128185c014e079245e4c295f510438",
+    "explorer.js": "75f1931a1bd5d2092af35012b3dde1ccdc0e60bc046b31108e2a66bae867ae33",
+    "computational-resources.json": "f1442043fe5e8a30e4ca2695ec1122806c04dab5f969adb204ea2b0ec2c674f2",
+    "catalog-entry.json": "6ac3d49151f81ea6548fc42e14213a81cf004430a2fe2a96d37b9d7adf0a24eb"
+  },
+  "files_sha256": {
+    "index.html": "4d0601bcea54171a767d79d89bfe9083743020014b429101abe192625feda822",
+    "trajectory-data.js": "af81a448659c149ff7b05fe624798f324445c70854daa8318e94771720e67f98",
+    "style.css": "bb3beef74dc982c13843160e1c6beb9fa2128185c014e079245e4c295f510438",
+    "explorer.js": "75f1931a1bd5d2092af35012b3dde1ccdc0e60bc046b31108e2a66bae867ae33",
+    "comparison.png": "fd05705ff8d9c36eefdf20a0a3f2c826dfacfb7980f0c1159e5adb456d53c03b",
+    "path-straight.png": "abebd73bc41e8570930ae5b9f97bfdc3a0cd6976d9fa1d4f12e01c55623474f1",
+    "time-convergence.png": "55a5063e8baa9e78fe6366350dc64124ed3777a13dd9fa5aff445f7caf237b13",
+    "root-solve.png": "017a37fcc650cb4d1e0ed0ebebda8e96e2a56dabd26a0cc71a12184fa30e5ef1",
+    "provenance.toml": "b66b3472662303b5da7a9a644cdb7527a62c9167a0655f5ce1082173077254d7",
+    "LICENSE.txt": "e2134e6959458f2797aaa8fd6dd56c9355aea59b9dfba0bb0d4774e973fff73e",
+    "COPYING": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "before-bottom.csv": "86b5fbe6c79658e0ba2fbb9e40c88ebd5557c8e70713162421cd37afc8cede47",
+    "at-bottom.csv": "b143c80ba0a0a732f3c0c8b2fedb06a715a67381fb14a5d5fe955db8bbf48b13",
+    "after-bottom.csv": "a1a85e4996fdec298334991a3dbdb07136fac60711781ddc911111f6ccdf5e40",
+    "endpoint-sweep.csv": "d1de0ecb5b2755ceff92e72943bde0faf359ce38e88340bff3675b42ea484e91",
+    "root-history.csv": "b654f199ba23c51dfc06fabc09ec04a3cd137f1c7e64e32aef8ab71d833656f3",
+    "time-convergence.csv": "37d98740c8cc3457a726ea52aef55e905d9a8ebbcf7297667edb0b2ccc33687b",
+    "before-bottom.png": "b2f6bdce44592276ed6657863ed53d6b684eff90964ec17aececbac2612980c3",
+    "at-bottom.png": "98b9a1a5c9985a85c42542af41293b144d183192f0c576eeca3339b1bd0ea80f",
+    "after-bottom.png": "f8e23ca8b139cf4c5af04fb7bde6fc1fb07710cf7f50247e5154f0eee4ac114c",
+    "brachistochrone-cycloid.zip": "5d0638b9d07ba9b0d5fe6d823eaddca32c6572168abc02bb2a8b3113c4ee41a4"
+  }
+}

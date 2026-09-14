@@ -12,3 +12,8 @@ data/examples/inclined-plane/** text eol=lf
 examples/inclined-plane/*.png binary
 data/examples/inclined-plane/*.png binary
 data/examples/inclined-plane/*.zip binary
+examples/brachistochrone-cycloid/** text eol=lf
+data/examples/brachistochrone-cycloid/** text eol=lf
+examples/brachistochrone-cycloid/*.png binary
+data/examples/brachistochrone-cycloid/*.png binary
+data/examples/brachistochrone-cycloid/*.zip binary

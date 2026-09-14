@@ -42,7 +42,7 @@ julia --startup-file=no --project=. brachistochrone.jl
 ```
 
 Then build the published plots, offline explorer and source archive with Python
-3.11+ and Matplotlib:
+3.11+ (or Python 3.10 with `tomli`) and Matplotlib:
 
 ```bash
 python3 build.py
@@ -51,6 +51,8 @@ python3 verify.py
 
 For an extracted project use `python3 build.py --output viewer` and open
 `viewer/index.html` directly.
+Verify that build with `python3 verify.py viewer`. Verification of an existing
+publication uses only the Python standard library and does not require Julia.
 
 ## Numerical method
 
@@ -79,25 +81,29 @@ geometric/time scaling, the bisection brackets, and the final endpoint residual.
 
 ## PhysicsLibrary integration
 
-1. Add the object/filebox manifest `computational-resources.json` to CV17.
-2. Add `catalog-entry.json`'s resource object to the site catalog
-   `etc/computational-resources.json`.
-3. Publish the generated static files under
-   `data/examples/brachistochrone-cycloid/`.
+1. Deploy the repository's committed catalog and `data/examples/brachistochrone-cycloid/`.
+2. Add the object/filebox manifest `computational-resources.json` to CV17.
+3. Open the saved article and follow its explorer link.
 4. Keep the article's ordinary explorer link for PDF readers.
 
 The public target URL is intended to be:
 `https://images.physicslibrary.org/examples/brachistochrone-cycloid/index.html`.
 
-## Draft-data note
+## Production verification
 
-The package produced in this ChatGPT session includes preview CSV files generated
-from an independent Python implementation of the same formulas because a Julia
-runtime was not available in the authoring container. The included `build.py`
-refuses to treat those files as publication provenance unless `--allow-draft` is
-supplied. **Before publishing, run the two Julia commands above**, which replace
-the results and provenance with actual Julia-generated files, then rebuild
-without `--allow-draft`.
+The committed results were generated with Julia 1.10.12. Both the source-side
+`results/` and deployed static publication are tracked, so production needs no
+Julia installation or build step. From the repository root:
+
+```bash
+python3 examples/brachistochrone-cycloid/verify.py
+python3 examples/brachistochrone-cycloid/test/publication.py
+prove -v bin/test/brachistochrone-computational-resource.t
+```
+
+After changing the model or its inputs, rerun Julia's tests and generator,
+then `build.py` without `--allow-draft`, and commit both result directories.
+`--allow-draft` is only for local previews; it is not a production build option.
 
 Software is GPLv3-or-later; mathematical text, figures and data retain the normal
 PhysicsLibrary CC BY-SA terms. See `LICENSE.txt`.

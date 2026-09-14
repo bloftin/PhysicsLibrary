@@ -1,0 +1,20 @@
+command = "julia --startup-file=no --project=. brachistochrone.jl"
+generator = "julia"
+julia_version = "1.10.12"
+method = "Monotone bisection with saved iteration history; closed-form cycloid sampling; saved midpoint-segment travel-time convergence"
+platform = "x86_64-linux-gnu"
+release = "2"
+
+[inputs_sha256]
+"Manifest.toml" = "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6"
+"Project.toml" = "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8"
+"brachistochrone.jl" = "540af896cd8ebccbbf2a756f095eb634674c09683ffcff1ec866f582c8386061"
+"cases.toml" = "a2c45e544b84f59c45a7cf0ff7778b8cb311d86c216d4b7f766fceecd4707e11"
+
+[outputs_sha256]
+"after-bottom.csv" = "a1a85e4996fdec298334991a3dbdb07136fac60711781ddc911111f6ccdf5e40"
+"at-bottom.csv" = "b143c80ba0a0a732f3c0c8b2fedb06a715a67381fb14a5d5fe955db8bbf48b13"
+"before-bottom.csv" = "86b5fbe6c79658e0ba2fbb9e40c88ebd5557c8e70713162421cd37afc8cede47"
+"endpoint-sweep.csv" = "d1de0ecb5b2755ceff92e72943bde0faf359ce38e88340bff3675b42ea484e91"
+"root-history.csv" = "b654f199ba23c51dfc06fabc09ec04a3cd137f1c7e64e32aef8ab71d833656f3"
+"time-convergence.csv" = "37d98740c8cc3457a726ea52aef55e905d9a8ebbcf7297667edb0b2ccc33687b"
