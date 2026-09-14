@@ -1,0 +1,20 @@
+{
+  "brachistochrone-cycloid": {
+    "title": "Brachistochrone Cycloid and Travel Time",
+    "language": "Julia",
+    "version": "1.10.12",
+    "reproducibility": "Cycloid endpoint parameters solved by bisection with the complete iteration history saved; independent piecewise-linear travel-time estimates show convergence to the exact cycloid time. Includes three endpoint regimes, saved data, source and an offline interactive explorer.",
+    "explorer": "index.html",
+    "source": "brachistochrone-cycloid.zip",
+    "provenance": "provenance.toml",
+    "license": "LICENSE.txt",
+    "datasets": [
+      {"label": "Endpoint before cycloid bottom", "file": "before-bottom.csv"},
+      {"label": "Endpoint at cycloid bottom", "file": "at-bottom.csv"},
+      {"label": "CV17 after-bottom example", "file": "after-bottom.csv"},
+      {"label": "Endpoint-ratio sweep", "file": "endpoint-sweep.csv"},
+      {"label": "Travel-time convergence", "file": "time-convergence.csv"},
+      {"label": "Endpoint-root bisection history", "file": "root-history.csv"}
+    ]
+  }
+}

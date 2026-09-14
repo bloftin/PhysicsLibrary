@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brachistochrone Cycloid and Travel Time</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header class="hero">
+  <p class="eyebrow">PhysicsLibrary CV17 computational resource</p>
+  <h1>Brachistochrone Cycloid and Travel Time</h1>
+  <p>Julia precomputes the endpoint fit, ray samples, travel-time convergence, and every bisection step. The controls below display those saved results; they do not execute Julia.</p>
+</header>
+<section class="card controls-card" aria-labelledby="case-heading">
+  <div><h2 id="case-heading">Reference endpoint</h2><p class="small">All reference cases use a vertical drop of <b>Y = 1 m</b>.</p></div>
+  <div class="control-block"><label for="case">Endpoint regime</label><select id="case"></select></div>
+</section>
+<div class="explorer-grid">
+<section class="card panel" aria-labelledby="path-heading">
+  <div class="panel-head"><div><p class="panel-number">1</p><h2 id="path-heading">Cycloid and straight-line comparison</h2></div><p class="small">Depth increases downward.</p></div>
+  <canvas id="path-plot" width="900" height="500" aria-label="Brachistochrone cycloid and straight-line comparison with a selected saved trajectory point"></canvas>
+  <label class="slider-label" for="sample">Saved cycloid sample</label><input id="sample" type="range" min="0" value="0">
+  <div class="metrics four"><div class="metric"><span>time</span><b id="m-time">-</b><small>s</small></div><div class="metric"><span>x</span><b id="m-x">-</b><small>m</small></div><div class="metric"><span>depth y</span><b id="m-y">-</b><small>m</small></div><div class="metric"><span>speed</span><b id="m-v">-</b><small>m/s</small></div></div>
+  <p class="small" id="case-summary"></p>
+</section>
+<section class="card panel" aria-labelledby="time-heading">
+  <div class="panel-head"><div><p class="panel-number">2</p><h2 id="time-heading">Travel-time comparison</h2></div></div>
+  <canvas id="time-plot" width="900" height="500" aria-label="Travel-time bars comparing the cycloid, straight line, and idealized down-then-horizontal path"></canvas>
+  <div class="metrics three"><div class="metric"><span>cycloid</span><b id="t-cycloid">-</b><small>s</small></div><div class="metric"><span>straight</span><b id="t-straight">-</b><small>s</small></div><div class="metric"><span>saving</span><b id="t-saving">-</b><small>%</small></div></div>
+</section>
+<section class="card panel" aria-labelledby="conv-heading">
+  <div class="panel-head"><div><p class="panel-number">3</p><h2 id="conv-heading">Numerical travel-time convergence</h2></div></div>
+  <canvas id="convergence-plot" width="900" height="500" aria-label="Relative error of the saved piecewise-linear travel-time estimates versus segment count"></canvas>
+  <label class="slider-label" for="convergence">Saved convergence level</label><input id="convergence" type="range" min="0" value="0">
+  <div class="metrics three"><div class="metric"><span>segments</span><b id="c-segments">-</b></div><div class="metric"><span>estimate</span><b id="c-time">-</b><small>s</small></div><div class="metric"><span>relative error</span><b id="c-error">-</b><small>%</small></div></div>
+</section>
+<section class="card panel" aria-labelledby="root-heading">
+  <div class="panel-head"><div><p class="panel-number">4</p><h2 id="root-heading">Endpoint-root solve</h2></div></div>
+  <canvas id="root-plot" width="900" height="500" aria-label="Saved bisection bracket and residual history for the cycloid endpoint equation"></canvas>
+  <label class="slider-label" for="root-step">Saved bisection iteration</label><input id="root-step" type="range" min="0" value="0">
+  <div class="metrics four"><div class="metric"><span>iteration</span><b id="r-iteration">-</b></div><div class="metric"><span>midpoint theta</span><b id="r-mid">-</b><small>rad</small></div><div class="metric"><span>bracket width</span><b id="r-width">-</b><small>rad</small></div><div class="metric"><span>|residual|</span><b id="r-residual">-</b></div></div>
+</section>
+</div>
+<section class="card"><h2>Reference cases</h2><img src="comparison.png" alt="Three reference brachistochrone paths: endpoints before, at, and after the bottom of the cycloidal arch."><p>The after-bottom case is the CV17 numerical example, <b>X = 4 m</b> and <b>Y = 1 m</b>.</p></section>
+<noscript><section class="card"><h2>Static fallback</h2><div class="fallback-grid"><figure><img src="path-straight.png" alt="After-bottom cycloid and straight-line comparison"></figure><figure><img src="time-convergence.png" alt="Travel-time convergence for the after-bottom reference case"></figure><figure><img src="root-solve.png" alt="Bisection residual versus iteration"></figure></div></section></noscript>
+<section class="card"><h2>Saved data and source</h2><div class="downloads"><a href="brachistochrone-cycloid.zip">Download Julia project</a><a href="provenance.toml">Provenance</a><a href="LICENSE.txt">License</a><a href="endpoint-sweep.csv">Endpoint-ratio sweep CSV</a><a href="time-convergence.csv">Travel-time convergence CSV</a><a href="root-history.csv">Bisection history CSV</a></div><p class="small">Target Julia release: @@JULIA_VERSION@@. Source ZIP: @@ZIP_SIZE@@.</p></section>
+<section class="card fallback-grid reference-files"><figure><h3>Before bottom</h3><img src="before-bottom.png" alt="Cycloid ending before the bottom"><figcaption><a href="before-bottom.csv">Download CSV</a></figcaption></figure><figure><h3>At bottom</h3><img src="at-bottom.png" alt="Cycloid ending at the bottom"><figcaption><a href="at-bottom.csv">Download CSV</a></figcaption></figure><figure><h3>After bottom</h3><img src="after-bottom.png" alt="Cycloid dipping below the endpoint before rising"><figcaption><a href="after-bottom.csv">Download CSV</a></figcaption></figure></section>
+<script src="trajectory-data.js"></script><script src="explorer.js"></script>
+</main>
+</body>
+</html>

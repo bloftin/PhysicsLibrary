@@ -1,0 +1,78 @@
+This computational example numerically fits cycloidal brachistochrone paths to
+specified endpoints and checks the analytic travel-time result. It accompanies
+CV17, \emph{The Brachistochrone Problem}.
+
+\section{Endpoint solve}
+For an endpoint $(X,Y)$, with $Y$ measured positively downward, write
+\begin{equation}
+ x=a(\theta-\sin\theta),\qquad
+ y=a(1-\cos\theta).
+\end{equation}
+Eliminating $a$ gives the scalar nonlinear equation
+\begin{equation}
+ \frac{X}{Y}=\frac{\theta_B-\sin\theta_B}{1-\cos\theta_B}.
+\end{equation}
+The supplied Julia program solves this equation by bisection on
+$0<\theta_B<2\pi$. In addition to the final root, it saves every bisection
+bracket, midpoint, and residual so the numerical solve can be inspected rather
+than treated as a black box. It then recovers
+\begin{equation}
+ a=\frac{Y}{1-\cos\theta_B},\qquad
+ T=\theta_B\sqrt{\frac{a}{g}}.
+\end{equation}
+
+\section{CV17 reference case}
+For $X=4\,\mathrm{m}$, $Y=1\,\mathrm{m}$ and
+$g=9.81\,\mathrm{m\,s^{-2}}$, the numerical solve gives
+\begin{equation}
+ \theta_B\approx4.3760724130,\qquad
+ a\approx0.7518727660\,\mathrm{m},\qquad
+ T\approx1.2114965265\,\mathrm{s}.
+\end{equation}
+Because $\theta_B>\pi$, the path reaches a maximum depth
+$2a\approx1.503745532\,\mathrm{m}$ before rising to the endpoint. The straight
+segment requires about $1.86168\,\mathrm{s}$, so the cycloid is about $34.9\%$
+faster for this example.
+
+\begin{center}
+\includegraphics{comparison.png}
+\end{center}
+
+\section{A second numerical calculation: travel-time convergence}
+The exact cycloid time provides a useful target against which a direct numerical
+quadrature can be tested. Divide the cycloid into $N$ short straight segments.
+For segment $k$, let $\Delta s_k$ be its chord length and let $\bar y_k$ be the
+midpoint depth. The numerical estimate is
+\begin{equation}
+ T_N=\sum_{k=1}^{N}\frac{\Delta s_k}{\sqrt{2g\bar y_k}}.
+\end{equation}
+The Julia resource saves this estimate for
+$N=4,8,16,\ldots,16384$. The corresponding relative error decreases steadily as
+the curve is refined. This is intentionally a separate calculation from the
+closed-form identity $T=\theta_B\sqrt{a/g}$.
+
+\section{Interactive explorer}
+The static explorer coordinates four views of the same saved computation:
+\begin{enumerate}
+\item the cycloid overlaid on the straight chord, with a scrubber through saved
+      position, time, and speed samples;
+\item exact travel-time bars for the cycloid, straight line, and the idealized
+      down-then-horizontal comparison;
+\item the saved convergence history of $T_N$ toward the exact cycloid time; and
+\item the saved bisection history for the endpoint root, including bracket
+      width and endpoint-equation residual.
+\end{enumerate}
+The browser performs no endpoint solve and no travel-time integration. The
+controls only select among Julia-generated samples already stored with the
+resource.
+
+\section{Reproducibility checks}
+The Julia tests verify endpoint closure, the energy relation $v^2=2gy$, the
+special $\theta_B=\pi$ case, scaling of geometrically similar problems, the
+validity and contraction of every bisection bracket, and monotone convergence
+of the independent segment-time calculation.
+
+The \PMlinkexternal{interactive explorer and downloadable Julia project}
+{https://images.physicslibrary.org/examples/brachistochrone-cycloid/index.html}
+include source, tests, trajectory CSVs, root history, convergence data, plots,
+and provenance.
