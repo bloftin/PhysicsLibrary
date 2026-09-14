@@ -7,3 +7,8 @@ examples/newton-constant-acceleration/** text eol=lf
 data/examples/newton-constant-acceleration/** text eol=lf
 data/examples/newton-constant-acceleration/*.png binary
 data/examples/newton-constant-acceleration/*.zip binary
+examples/inclined-plane/** text eol=lf
+data/examples/inclined-plane/** text eol=lf
+examples/inclined-plane/*.png binary
+data/examples/inclined-plane/*.png binary
+data/examples/inclined-plane/*.zip binary

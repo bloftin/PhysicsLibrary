@@ -84,6 +84,12 @@ produced the computation. Source archives should only be run after review.
 
 ## Production checkout and tests
 
+The `inclined-plane` publication adds a release-from-rest example with a moving
+block, force vectors, three friction cases, and an accompanying LaTeX derivation.
+Its author attachment bundle is `data/examples/inclined-plane/article-attachments.zip`;
+setup and reproduction steps are in `examples/inclined-plane/README.md`.
+It can share an article's manifest with the Newton and oscillator resources.
+
 Preserve any local changes reported by `git status` before switching branches.
 
 ```bash

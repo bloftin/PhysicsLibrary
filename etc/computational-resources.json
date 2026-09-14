@@ -1,6 +1,21 @@
 {
   "schema_version": 1,
   "resources": {
+    "inclined-plane": {
+      "title": "Motion on an Inclined Plane",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Three releases from rest: frictionless, sliding and static equilibrium. Includes force diagrams, an animated offline explorer, double integration, energy checks, source and saved data.",
+      "explorer": "index.html",
+      "source": "inclined-plane.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Frictionless", "file": "frictionless.csv"},
+        {"label": "Sliding with friction", "file": "sliding.csv"},
+        {"label": "Static equilibrium", "file": "sticking.csv"}
+      ]
+    },
     "newton-constant-acceleration": {
       "title": "Constant Acceleration from Newton's Second Law",
       "language": "Julia",

@@ -1,0 +1,69 @@
+:root { color-scheme: light; font-family: Georgia, 'Times New Roman', serif; color: #242c2b; background: #fff; letter-spacing: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+header, main, footer { max-width: 1120px; margin: auto; padding: 20px 28px; }
+header { border-bottom: 1px solid #d9dfda; }
+header img { max-width: 100%; height: auto; }
+header p { margin: 2px 0 0; font-size: 13px; font-style: italic; }
+a { color: #156b65; text-underline-offset: 3px; }
+a:hover { color: #9c3048; }
+h1 { font-size: 34px; margin: 10px 0 14px; line-height: 1.15; }
+h2 { font-size: 23px; margin: 0 0 16px; }
+p { line-height: 1.6; }
+.heading { padding: 8px 0 22px; }
+.heading > p { margin: 10px 0; }
+.eyebrow, .conditions, .toolbar, .playback, dl, .download-row, #event, footer { font-family: system-ui, sans-serif; }
+.eyebrow { font-size: 12px; text-transform: uppercase; color: #526760; }
+.conditions { font-size: 14px; color: #53625d; }
+section { border-top: 1px solid #ccd8d1; padding: 24px 0; }
+#explorer { background: #f7faf8; padding: 0 0 16px; }
+.toolbar { display: flex; align-items: center; gap: 24px; padding: 16px; border-bottom: 1px solid #d9e2dc; flex-wrap: wrap; font-size: 14px; }
+.toolbar label:first-child { display: flex; align-items: center; gap: 12px; }
+select { font: inherit; max-width: 100%; padding: 6px; background: #fff; border: 1px solid #9aaea3; border-radius: 3px; }
+.check { display: flex; gap: 6px; align-items: center; }
+input { accent-color: #11776e; }
+#regime { color: #156b65; font-weight: 600; margin-left: auto; }
+.scene-layout { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(230px, 1fr); align-items: center; }
+canvas { display: block; width: 100%; aspect-ratio: 900 / 560; }
+.force-readings { padding: 18px; }
+.force-readings h2 { font-size: 20px; }
+.force-readings p { font-size: 14px; }
+dl { margin: 0; }
+.force-readings dl > div { display: flex; justify-content: space-between; gap: 8px; margin: 15px 0; font-size: 13px; }
+dd { margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; }
+.weight { background: #b23958; }.normal { background: #286caf; }.friction { background: #ad7908; }
+.formula { color: #156b65; font-style: italic; }
+.playback { display: grid; grid-template-columns: 40px 40px auto minmax(60px, 1fr) 72px; align-items: center; gap: 12px; margin: 0 18px; font-size: 14px; }
+button { width: 40px; height: 40px; border: 1px solid #94aaa0; border-radius: 4px; background: #fff; color: #16685f; font-size: 19px; cursor: pointer; }
+button:hover { background: #dfebe4; }
+:focus-visible { outline: 3px solid #ad7908; outline-offset: 3px; }
+input[type=range] { width: 100%; margin: 0; }
+output { font-variant-numeric: tabular-nums; text-align: right; }
+.readings { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 24px 18px 0; gap: 16px; }
+.readings dt { font-size: 12px; color: #5b6b62; margin-bottom: 5px; }
+.readings dd { font-size: 20px; }
+#event { margin: 18px; font-size: 13px; min-height: 42px; }
+.download-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin: 0 18px; font-size: 12px; }
+.reference img { display: block; max-width: 100%; width: 900px; height: auto; margin: auto; }
+.derivation { max-width: 780px; }
+.derivation h2:not(:first-child) { margin-top: 32px; }
+.equation { text-align: center; line-height: 2; font-style: italic; }
+footer { font-size: 12px; border-top: 1px solid #ccd8d1; }
+[hidden] { display: none !important; }
+@media (max-width: 700px) {
+  header, main, footer { padding: 16px; }
+  h1 { font-size: 28px; }
+  .toolbar { gap: 12px; padding: 12px; }
+  .toolbar label:first-child { width: 100%; display: grid; gap: 6px; }
+  .scene-layout { grid-template-columns: minmax(0,1fr); }
+  .force-readings { padding: 0 16px 18px; }
+  .force-readings dl { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+  .force-readings dl > div { display: block; margin: 0; }
+  .force-readings dd { margin-top: 4px; }
+  .playback { margin: 0 12px; gap: 6px; grid-template-columns: 36px 36px minmax(0,1fr) 64px; }
+  .playback label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  button { width: 36px; height: 36px; }
+  .readings { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .readings dd { font-size: 19px; }
+}

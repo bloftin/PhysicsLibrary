@@ -1,0 +1,15 @@
+command = "julia --startup-file=no --project=. motion.jl"
+julia_version = "1.10.12"
+method = "LinearAlgebra.exp on [s,v,1]; Coulomb friction; release from rest; stop sampling at ramp end"
+platform = "x86_64-linux-gnu"
+
+[inputs_sha256]
+"Manifest.toml" = "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6"
+"Project.toml" = "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8"
+"cases.toml" = "935f4d56e10817729baa1ca27da00280c19c8fbd230ed315d8dc720f57af29ac"
+"motion.jl" = "458a97dc452e30e66b7185d082d12462e2b461ef99551444f457fd761061deba"
+
+[outputs_sha256]
+"frictionless.csv" = "564210cebbdc77eadbeaabc59de6185b94dd7f8c8d2081a2f0069a8e1cdf8a73"
+"sliding.csv" = "3887a59ed68cb9e2095ea265345e9ea6ac83eb895368651a0a1dca342f0d4a22"
+"sticking.csv" = "1e2690981243cab82a7a4630203e36b53f26740b3f70df9aea52b923c93f86f0"

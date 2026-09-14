@@ -72,6 +72,15 @@ for my $url (render($newton) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'Newton publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/inclined-plane/computational-resources.json"));
+my $incline = resources();
+is(scalar @$incline, 1, 'inclined-plane manifest selects its reviewed publication');
+is($incline->[0]{title}, 'Motion on an Inclined Plane', 'inclined-plane title comes from catalog');
+for my $url (render($incline) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'inclined-plane publication asset exists: ' . $url);
+}
+reset_files();
 my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
 like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
 like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');
