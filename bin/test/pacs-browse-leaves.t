@@ -75,5 +75,8 @@ close $template;
 like($template_source, qr/pacsnode\.count/, 'template renders per-node entry counts');
 like($template_source, qr/pacs_leaves\.0\.domain/, 'leaf top link uses the leaf domain');
 unlike($template_source, qr/pacs_leaves\.first\s*\]\]\/domain/, 'leaf top link does not stringify a hash');
+like($template_source, qr/domain == 'objects'/, 'object subject browse has encyclopedia navigation');
+like($template_source, qr{<a href="/encyclopedia">Alphabetical index</a>}, 'object subject browse links to alphabetical index');
+like($template_source, qr{<a href="/\?op=listobj&amp;from=objects">Browse and search</a>}, 'object subject browse links to browse and search');
 
 done_testing();

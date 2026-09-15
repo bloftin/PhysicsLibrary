@@ -16,7 +16,7 @@
 							<tr>
 								<td WIDTH="100%" BGCOLOR="#003399">
 									<font color="white" class="box_title">
-										Browse [% name %]
+										Browse and search [% name | html %]
 									</font>
 								</td>
 							</tr>
@@ -38,8 +38,8 @@
                             <input type="hidden" name="op" value="listobj">
                             <input type="hidden" name="from" value="[% table %]">
 
-                            Search title/author:
-                            <input type="text" name="q" value="[% search | html %]" size="24">
+                            <label for="list-search">[% IF encyclopedia %]Search encyclopedia:[% ELSE %]Search title/author:[% END %]</label>
+                            <input id="list-search" type="search" name="q" value="[% search | html %]" size="24">
                             <input type="submit" value="search">
 
                             Sort:
@@ -59,6 +59,9 @@
                                 <a href="/?op=listobj&amp;from=[% table %]">clear</a>
                             [% END %]
                         </form>
+                        [% IF encyclopedia %]
+                        <p><a href="/encyclopedia">Alphabetical index</a> | <a href="/browse/objects/">Browse by subject</a></p>
+                        [% END %]
 
                         [% pager %]
 
@@ -87,11 +90,11 @@
                                     <!-- title and uploader -->
                                     <td>
 
-                                        <a href=/?op=getobj;from=[% table %];id=[% object.id %]>[% object.title %]</a>
+                                        <a href=/?op=getobj;from=[% table %];id=[% object.id %]>[% object.title | html %]</a>
 
-                                        added by 
+                                        [% IF encyclopedia %]owned by[% ELSE %]added by[% END %]
 
-                                        <a href=/?op=getuser;id=[% object.userid %]> [% object.username %]</a>
+                                        <a href=/?op=getuser;id=[% object.userid %]> [% object.username | html %]</a>
 
                                     </td>
 
@@ -105,11 +108,11 @@
 
                                     <td> 
                                         
-                                        Authors: [% object.authors %]
+                                        [% IF encyclopedia %]Type: [% object.article_type | html %][% ELSE %]Authors: [% object.authors | html %][% END %]
 
                                         <p></p>
 
-                                        Uploaded on: [% object.date %]
+                                        [% IF encyclopedia %]Added on:[% ELSE %]Uploaded on:[% END %] [% object.date %]
 
                                         [%IF object.classification %]
                                         , Classification: [% object.classification %]
@@ -156,7 +159,7 @@
                                         <tr>
                                             <td WIDTH="100%" BGCOLOR="dddddd">
                                                 <center>
-                                                    <a href=/?op=addobj;to=[% table %]> Add to  [% name %]</a>
+                                                    [% IF encyclopedia %]<a href="/?op=adden">Add article</a>[% ELSE %]<a href=/?op=addobj;to=[% table %]> Add to  [% name %]</a>[% END %]
                                                 </center>
                                             </td>
                                         </tr>
