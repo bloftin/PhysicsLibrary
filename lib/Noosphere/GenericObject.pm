@@ -330,7 +330,40 @@ sub genericListTableIsAllowed {
 	my $table = shift;
 	my $schemas = getConfig('generic_schema');
 
-	return (defined($table) && defined($schemas->{$table}));
+	return (defined($table) && ($table eq getConfig('en_tbl') || defined($schemas->{$table})));
+}
+
+# Encyclopedia records have no generic authors/comments columns.
+sub encyclopediaListRows {
+	my ($search, $sort, $limit, $offset) = @_;
+	$limit = int($limit || 1);
+	$limit = 1 if $limit < 1;
+	$offset = int($offset || 0);
+	$offset = 0 if $offset < 0;
+	$sort = 'created_desc' if ($sort || '') eq 'authors';
+	my $table = getConfig('en_tbl');
+	my $users = getConfig('user_tbl');
+	my $where = '';
+	my @bind;
+	if (length $search) {
+		my $like = $search;
+		$like =~ s/([!%_])/!$1/g;
+		$like = '%'.$like.'%';
+		my @terms = map { "LOWER($_) LIKE LOWER(?) ESCAPE '!'" }
+			qw(title synonyms defines keywords data);
+		push @terms, "EXISTS (SELECT 1 FROM $users u WHERE u.uid=$table.userid AND LOWER(u.username) LIKE LOWER(?) ESCAPE '!')";
+		$where = ' WHERE ('.join(' OR ', @terms).')';
+		@bind = ($like) x scalar(@terms);
+	}
+	my $order = genericListSortSql($sort);
+	my $count = $dbh->prepare("SELECT COUNT(*) AS count FROM $table$where");
+	$count->execute(@bind);
+	my ($total) = $count->fetchrow_array();
+	$count->finish();
+	my $sth = $dbh->prepare("SELECT * FROM $table$where ORDER BY $order LIMIT $limit OFFSET $offset");
+	$sth->execute(@bind);
+	my @rows = dbGetRows($sth);
+	return ($total, @rows);
 }
 
 sub genericListSortOptions {
@@ -385,6 +418,7 @@ sub listGeneric {
 	my $userinf = shift;
 
 	return errorMessage('Unknown object type.') if (!genericListTableIsAllowed($params->{from}));
+	my $encyclopedia = $params->{from} eq getConfig('en_tbl');
 
 	my @objects_array = ();
 	my $factor = 4;  # scale factor for the list size
@@ -396,32 +430,34 @@ sub listGeneric {
 	my $total = 0;
 	my $html_out = '';
 	my $sort = $params->{sort} || 'created_desc';
-	my %allowed_sorts = map { $_->{value} => 1 } @{genericListSortOptions()};
+	my $sort_options = [grep { !$encyclopedia || $_->{value} ne 'authors' } @{genericListSortOptions()}];
+	my %allowed_sorts = map { $_->{value} => 1 } @$sort_options;
 	$sort = 'created_desc' if (!$allowed_sorts{$sort});
 	my $group = ($params->{group} || '') eq 'letter' ? 'letter' : '';
 	$sort = 'title' if ($group eq 'letter' && $sort ne 'title');
-	my $search = $params->{q} || '';
+	my $search = defined($params->{q}) ? $params->{q} : '';
 	$search =~ s/^\s+//;
 	$search =~ s/\s+$//;
-	my $where = genericListWhereSql($search);
+	my $where = $encyclopedia ? '' : genericListWhereSql($search);
 	my $order = genericListSortSql($sort);
 
 	my $tt_file = 'genericlist.tt';
 
 	my $template = new XSLTemplate('genericlist.xsl');
 
-	$total = dbRowCount($params->{from}, $where);
-
-	# query up the objects
-	#
-	my ($rv, $sth) = dbSelect($dbh, {WHAT=>'*', FROM=>$params->{from},
+	my @rows;
+	if ($encyclopedia) {
+		($total, @rows) = encyclopediaListRows($search, $sort, $limit, $offset);
+	} else {
+		$total = dbRowCount($params->{from}, $where);
+		my ($rv, $sth) = dbSelect($dbh, {WHAT=>'*', FROM=>$params->{from},
 			WHERE=>$where, 'ORDER BY'=>$order, LIMIT=>$limit, OFFSET=>$offset});
-	
-	my @rows = dbGetRows($sth);
+		@rows = dbGetRows($sth);
+	}
 		
 	# format and output metadata
 	# 
-	my $name = getIsA($params->{from}, 1);
+	my $name = $encyclopedia ? 'Encyclopedia' : getIsA($params->{from}, 1);
 	$template->addText("<genericscreen>");
 	$template->addText("<genericlist name=\"$name\" table=\"$params->{from}\">");
 	# metadata should be formatted as:
@@ -466,6 +502,7 @@ sub listGeneric {
 				id				=> $row->{uid},
 				classification 	=> $class,  		 	
 				group_label		=> $group_label,
+				article_type	=> $encyclopedia ? getTypeString($row->{type}) : '',
 		});
 
 		$ord++;
@@ -512,7 +549,8 @@ sub listGeneric {
 			search					=> $search,
 			sort					=> $sort,
 			group					=> $group,
-			sort_options			=> genericListSortOptions(),
+			sort_options			=> $sort_options,
+			encyclopedia			=> $encyclopedia,
 			active_filters			=> ($search ne '' || $sort ne 'created_desc' || $group ne ''),
     };
 

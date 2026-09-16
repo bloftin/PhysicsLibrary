@@ -44,6 +44,10 @@
              <table>
               <!-- content -->
               <!-- [% USE DBI( dbh = my_dbh_ref ) %] -->
+
+              [% IF domain == 'objects' %]
+                <p><a href="/encyclopedia">Alphabetical index</a> | <a href="/?op=listobj&amp;from=objects">Browse and search</a></p>
+              [% END %]
               
               <!-- search box if we are browsing categories only -->
               [% IF !tdesc%]

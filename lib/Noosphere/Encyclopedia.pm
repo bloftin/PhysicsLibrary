@@ -642,7 +642,13 @@ sub getEncyclopedia {
 	# link to the msc browser for encylcopedia
 	#
 	# BEN Broken link, needs fixing
-	$content .= "<center><a href=\"".getConfig("main_url")."/browse/objects/\">(browse by subject)</a></center>";
+	$content .= '<form method="get" action="/"><input type="hidden" name="op" value="listobj" />'
+		.'<input type="hidden" name="from" value="'.$table.'" />'
+		.'<label for="encyclopedia-search">Search encyclopedia:</label> '
+		.'<input id="encyclopedia-search" type="search" name="q" size="24" /> '
+		.'<input type="submit" value="search" /></form>';
+	$content .= '<p><a href="/?op=listobj&amp;from='.$table.'">Browse and search</a> | '
+		.'<a href="/browse/objects/">Browse by subject</a></p>';
 	
 	# build the index selector with an initial query.
 	#
