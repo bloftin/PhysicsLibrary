@@ -30,7 +30,7 @@
 						<img 
 							alt="This item is collaborative site documentation." 
 							title="This item is collaborative site documentation." 
-							src="{//globals/image_url}/site_icon.png" 
+							src="{//globals/image_url}/object.png"
 							border="0"/>
 						
 						<xsl:text> </xsl:text>
