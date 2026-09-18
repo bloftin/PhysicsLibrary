@@ -70,6 +70,7 @@ sub applyIndexingPolicy {
 		showwatchers
 		getcors
 		userobjs
+		preamble
 	);
 	my $no_index = $noindex_ops{$op} ? 1 : 0;
 
