@@ -30,6 +30,11 @@ is($user_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
 my $history_request = IndexingRequest->new();
 ok(applyIndexingPolicy($history_request, 'viewver'), 'existing history policy is retained');
 
+my $preamble_request = IndexingRequest->new();
+ok(applyIndexingPolicy($preamble_request, 'preamble'), 'article preamble pages are not indexed');
+is($preamble_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
+    'article preamble pages send the robots response header');
+
 my $article_request = IndexingRequest->new();
 ok(!applyIndexingPolicy($article_request, 'getobj'), 'article pages remain indexable');
 ok(!exists $article_request->{headers}->{'X-Robots-Tag'},
