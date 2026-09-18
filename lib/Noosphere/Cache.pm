@@ -76,7 +76,7 @@ sub getRenderedContentHtml {
 
 		#dwarn "object not valid, rerender/build";
 		if (! cacheObject($table, $rec, $method)) {
-			$html .= "<br />Timed out waiting for render.	Please wait a few seconds and try again (for longer documents, give more time.)<br />";
+			$html .= "<br />Rendering is already in progress or could not be completed. Please try again shortly.<br />";
 			return $html;
 		}
 	}
@@ -92,36 +92,26 @@ sub cacheObject {
 	my $table = shift;
 	my $rec = shift;
 	my $method = shift;
-	
 	my $id = $rec->{'uid'};
-	my $count = 0;
-	my $max = getConfig('build_timeout');
-	my $latex = '';
-	
 	my ($valid,$build) = getcacheflags($table,$id,$method);
 
-	#dwarn "cacheObject started";
-	# not valid, but building, so wait
-	#
-	if ($build == 1)	{
-		do { 
-		sleep 1;
-			print "Not valid, but bulding\n";
-			if ($count >= $max) { return 0; }
-				($valid,$build) = getcacheflags($table,$id,$method);
-			$count++;
-		} while ($valid == 0 && $build == 1);
+	# Do not hold an Apache worker while another request renders this object.
+	return 0 if ($build == 1);
 
+	# The flag read above is advisory. Claim the build with one conditional
+	# update so concurrent requests cannot render into the same directory.
+	if (!setbuildflag_on($table, $id, $method)) {
+		($valid,$build) = getcacheflags($table,$id,$method);
 		return $valid ? 1 : 0;
 	}
-	# not valid, and not building, so build it
-	#
-	else { 
-		print "not valid and not building, so build it\n";
-		setbuildflag_on($table, $id, $method);
+
+	print "not valid and not building, so build it\n";
+	my $render_ok = 0;
+	my $render_error = '';
+
+	eval {
 		cleanCache($table, $id, $method);
 		cacheFileBox($table, $id, $method);
-		my $render_ok = 0;
 
 		if ($table eq getConfig('en_tbl')) {
 			print "prepareEntryForRendering start\n";
@@ -163,20 +153,32 @@ sub cacheObject {
 			writeLinksToFile($table, $id, $method, $links);
 			print "writeLinksToFile end\n";
 		}
+		1;
+	} or $render_error = $@ || 'unknown render error';
+
+	if ($render_error ne '') {
+		dwarn("render raised an exception for $table/$id/$method: $render_error");
+		setvalidflag_off($table, $id, $method);
+		setbuildflag_off($table, $id, $method);
+		return 0;
+	}
+
+	if ($render_ok) {
+		print "setvalidflag_on start\n";
+		setvalidflag_on($table, $id, $method);
+		print "setvalidflag_on end\n";
 		print "setbuildflag_off start\n";
 		setbuildflag_off($table, $id, $method);
 		print "setbuildflag_off end\n";
-		if ($render_ok) {
-			print "setvalidflag_on start\n";
-			setvalidflag_on($table, $id, $method);
-			print "setvalidflag_on end\n";
-		} else {
-			dwarn("render failed for $table/$id/$method; leaving cache invalid");
-			print "setvalidflag_off start\n";
-			setvalidflag_off($table, $id, $method);
-			print "setvalidflag_off end\n";
-			return 0;
-		}
+	} else {
+		dwarn("render failed for $table/$id/$method; leaving cache invalid");
+		print "setvalidflag_off start\n";
+		setvalidflag_off($table, $id, $method);
+		print "setvalidflag_off end\n";
+		print "setbuildflag_off start\n";
+		setbuildflag_off($table, $id, $method);
+		print "setbuildflag_off end\n";
+		return 0;
 	}
 
 	return 1;
@@ -535,8 +537,9 @@ sub setbuildflag_on {
 	$methodq = " and (".join(' or ',map("method='$_'",@methods)).")" if (@methods);
 
 	(my $rv, my $sth) = dbUpdate($dbh,{WHAT => $ctbl, SET => 'build=1, touched=CURRENT_TIMESTAMP',
-		 WHERE => "tbl='$table' and objectid=$id $methodq"});	
+		 WHERE => "tbl='$table' and objectid=$id and valid=0 and build=0 $methodq"});
 	$sth->finish();
+	return (defined($rv) && $rv > 0) ? 1 : 0;
 }
 
 sub setbuildflag_off {

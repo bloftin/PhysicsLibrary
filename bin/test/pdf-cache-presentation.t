@@ -24,7 +24,7 @@ sub dbSelect { push @queries, $_[1]; return (1, bless({}, 'OwnerStatement')); }
 }
 sub pdfDocumentPresentation { return Noosphere::pdfDocumentPresentation(@_); }
 sub getcacheflags { return (0, 0); }
-sub setbuildflag_on {}
+sub setbuildflag_on { return 1; }
 sub setbuildflag_off {}
 sub setvalidflag_on {}
 sub setvalidflag_off {}
