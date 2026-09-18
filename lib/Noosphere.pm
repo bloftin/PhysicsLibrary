@@ -59,6 +59,24 @@ sub inMaintenance {
 	return 0;
 }
 
+sub applyIndexingPolicy {
+	my $req = shift;
+	my $op = shift || '';
+	my %noindex_ops = map { $_ => 1 } qw(
+		vbrowser
+		viewdiff
+		viewver
+		oldreqs
+		showwatchers
+		getcors
+		userobjs
+	);
+	my $no_index = $noindex_ops{$op} ? 1 : 0;
+
+	$req->headers_out->set('X-Robots-Tag' => 'noindex, follow') if $no_index;
+	return $no_index;
+}
+
 # call functions that have raw output (not embedded in any templates) 
 #
 sub getNoTemplateContent {
@@ -887,15 +905,7 @@ sub handler {
 			my $headert = new TemplateNS( 'header.html' );
 			my $header = $headert->expand();
 			my $sidebar_html = '';
-			my %noindex_ops = map { $_ => 1 } qw(
-				vbrowser
-				viewdiff
-				viewver
-				oldreqs
-				showwatchers
-				getcors
-			);
-			my $no_index = $noindex_ops{$params->{op}} ? 1 : 0;
+			my $no_index = applyIndexingPolicy($req, $params->{op});
 			my $title = $NoosphereTitle || $params->{name} || getConfig('projname');
 
 			$sidebar_html = fillInLeftBar($sidebar_html,$params,\%user_info);
