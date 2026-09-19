@@ -67,7 +67,8 @@ sub handleLogin {
 		#
 		if (!$row) {
 			$user_info{'ticket'} = undef;
-			$user_info{'uid'} = 0;	
+			$user_info{'uid'} = 0;
+			$user_info{'login_failed'} = 1 if $req->method eq 'POST';
 		}
 
 		# otherwise we found the user, get their info
@@ -211,12 +212,14 @@ sub getLoginBox {
 		return $loginbox;
 
 	} else {
-		my $error = '';
+		my $error = $user_info->{login_failed}
+			? 'Unable to sign in. Check your username and password, then try again.'
+			: '';
 		my $loginbox = '';
 		my $file = 'login.tt';
 		
 		my $vars = {
-        error       => $error,
+			Error       => $error,
     	};
 
 		my $tt = Template->new({

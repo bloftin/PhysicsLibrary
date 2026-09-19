@@ -7,7 +7,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 
 our (@queries, @results, @cookies, @mail, @setup, @policies);
-our ($failure, $finished);
+our ($failure, $finished, $login_template_vars);
 my $payload = q{' OR 1=1 --};
 my $quoted_password = q{a'\b; active=0 --};
 
@@ -62,7 +62,7 @@ my $quoted_password = q{a'\b; active=0 --};
     }
     package QueryRequest;
     sub header_in { return ''; }
-    sub method { return 'POST'; }
+    sub method { return $_[0]->{method} || 'POST'; }
     sub headers_out { return bless {}, 'QueryHeaders'; }
     package QueryHeaders;
     sub set { return; }
@@ -90,10 +90,20 @@ my $quoted_password = q{a'\b; active=0 --};
     sub err { return $main::failure eq 'fetch-err' ? 1 : undef; }
     sub finish { $main::finished++; return 1; }
 }
+{
+    package Template;
+    sub new { return bless {}, shift; }
+    sub process {
+        my ($self, $file, $vars, $output) = @_;
+        $main::login_template_vars = $vars;
+        $$output = $vars->{Error} || '';
+        return 1;
+    }
+}
 
 for my $file (
     ['DB.pm', qw(dbSelectRowBound dbExecuteBound dbRunBound)],
-    ['Login.pm', qw(findLoginUser handleLogin)],
+    ['Login.pm', qw(findLoginUser handleLogin getLoginBox)],
     ['Password.pm', qw(pwChange changePassword pwChangeRequest passwordResetRequestMessage passwordResetTokenLifetime
         passwordResetTime newPasswordResetToken validPasswordResetToken createPasswordResetTicket
         passwordResetCredentialStamp passwordResetTicket consumePasswordResetTicket)],
@@ -117,7 +127,7 @@ for my $file (
 
 sub fixture {
     @queries = @results = @cookies = @mail = @setup = @policies = ();
-    ($failure, $finished) = ('', 0);
+    ($failure, $finished, $login_template_vars) = ('', 0, undef);
     $Noosphere::dbh = bless {PrintError => 1, RaiseError => 0, ShowErrorStatement => 1}, 'QueryDatabase';
 }
 sub login {
@@ -140,6 +150,7 @@ subtest 'login parameters and failure behavior' => sub {
         fixture();
         my $user = login(@$pair);
         is($user->{uid}, 0, 'unmatched or malformed login fails');
+		is($user->{login_failed}, 1, 'failed login is marked for a generic response');
         ok(!defined $user->{ticket}, 'no ticket');
         is(scalar @cookies, 0, 'no login cookie');
         if (@queries) {
@@ -153,6 +164,17 @@ subtest 'login parameters and failure behavior' => sub {
     is(login('member', 'old-password')->{uid}, 0, 'unmigrated account has no plaintext fallback');
     fixture(); @results = ({uid => 42, password_hash => Noosphere::hashAccountPassword('Case Sensitive')});
     is(login('member', 'case sensitive')->{uid}, 0, 'login verifies password with exact case');
+
+	my $failed = login('unknown-user', 'wrong-password');
+	Noosphere::getLoginBox({}, {uid => 0, data => {}, login_failed => $failed->{login_failed}});
+	is($login_template_vars->{Error}, 'Unable to sign in. Check your username and password, then try again.',
+		'failed sign-in message is generic');
+	unlike($login_template_vars->{Error}, qr/unknown-user|wrong-password/i,
+		'failed sign-in message does not reveal submitted credentials');
+    Noosphere::getLoginBox({}, {uid => 0, data => {}});
+    is($login_template_vars->{Error}, '', 'initial login form has no failure message');
+	my $get_login = {Noosphere::handleLogin(bless({method => 'GET'}, 'QueryRequest'), {op => 'login'}, {})};
+	ok(!$get_login->{login_failed}, 'GET login form is not marked as a failed sign-in');
 };
 
 subtest 'shared account lookups' => sub {
