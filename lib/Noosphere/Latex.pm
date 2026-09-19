@@ -1394,7 +1394,9 @@ sub postProcess_make4htIndex {
 	}
 	#dwarn "postProcess_makehtIndex return 1st regular expression:\n $file";
 	#$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$&\"/igso;
-	$file =~ s{\bsrc=(["'])([^"']+?)\1}{src=$1$url/$2$1}g;
+	# TeX4ht image files are relative to the cache directory, but an author
+	# extension may emit an absolute resource URL such as a trusted iframe.
+	$file =~ s{\bsrc=(["'])(?![A-Za-z][A-Za-z0-9+.-]*:|//)([^"']+?)\1}{src=$1$url/$2$1}g;
 	#dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
 	
 	# add title tooltips
