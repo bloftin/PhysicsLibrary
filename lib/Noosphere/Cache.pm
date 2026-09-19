@@ -303,9 +303,17 @@ sub prepareYouTubeEmbeds {
 
 sub youtubeEmbedMacro {
 	return <<'EOF';
+\providecommand{\PLYouTubeEmbedHTML}[1]{%
+  \begingroup
+  \edef\PLYouTubeEmbedCode{%
+    \endgroup
+    \noexpand\HCode{<div class="pl-youtube"><iframe class="pl-youtube-frame" src="https://www.youtube-nocookie.com/embed/#1" title="Embedded YouTube video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>}%
+  }%
+  \PLYouTubeEmbedCode
+}
 \providecommand{\PLYouTubeEmbed}[2]{%
   \ifdefined\HCode
-    \HCode{<div class="pl-youtube"><iframe class="pl-youtube-frame" src="https://www.youtube-nocookie.com/embed/#1" title="Embedded YouTube video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>}%
+    \PLYouTubeEmbedHTML{#1}%
     \par\noindent\emph{#2}\par
   \else
     \href{https://www.youtube.com/watch?v=#1}{#2}%

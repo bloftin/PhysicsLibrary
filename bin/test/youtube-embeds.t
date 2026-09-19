@@ -50,6 +50,8 @@ ok(!$invalid_has_embed, 'invalid video sources do not request an iframe');
 
 my $macro = youtubeEmbedMacro();
 like($macro, qr{youtube-nocookie\.com/embed/#1}, 'privacy-enhanced player is used');
+like($macro, qr{\\edef\\PLYouTubeEmbedCode}, 'video IDs are expanded before TeX4ht receives the iframe HTML');
+like($macro, qr{\\PLYouTubeEmbedHTML\{#1\}}, 'iframe emission uses the expanded video ID helper');
 like($macro, qr{loading="lazy"}, 'player loads lazily');
 unlike($macro, qr{<script\b}i, 'embed macro adds no scripts');
 
