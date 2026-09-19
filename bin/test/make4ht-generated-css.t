@@ -41,6 +41,8 @@ my $body = <<'HTML';
 <p class="crosslinks">Print navigation</p>
 <p class="special">Escaped CSS content</p>
 <div class="selector"><span data-label="a&amp;b">Child selector</span></div>
+<img src="local-figure.png" alt="Local figure" />
+<iframe src="https://www.youtube-nocookie.com/embed/6oGjAlrHjtE" title="External video"></iframe>
 HTML
 write_fixture('TestTableFormatting.html', '<html><head><link href="TestTableFormatting.css" rel="stylesheet" /></head><body>' . $body . '</body></html>');
 my $css = <<'CSS';
@@ -75,6 +77,8 @@ like($html, qr/\\3b1 /, 'Unicode CSS uses CSS escapes');
 unlike($html, qr/[^\x00-\x7f]/, 'cached output remains ASCII');
 like($html, qr/max-width: 52em/, 'existing article typography retained');
 like($html, qr/<h2>Table formatting/, 'article body retained');
+like($html, qr{src="https://example\.org/cache/local-figure\.png"}, 'relative generated assets use the cache URL');
+like($html, qr{src="https://www\.youtube-nocookie\.com/embed/6oGjAlrHjtE"}, 'absolute iframe URLs are not rewritten as cache assets');
 my $xml = eval { XML::LibXML->load_xml(string => "<content>$html</content>") };
 ok($xml, 'style and content parse as collaboration XML') or diag($@);
 if ($xml) {

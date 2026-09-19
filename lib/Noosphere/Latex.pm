@@ -1394,7 +1394,9 @@ sub postProcess_make4htIndex {
 	}
 	#dwarn "postProcess_makehtIndex return 1st regular expression:\n $file";
 	#$file =~ s/src=\s*\"(.*?)\"/src=\"$url\/$&\"/igso;
-	$file =~ s{\bsrc=(["'])([^"']+?)\1}{src=$1$url/$2$1}g;
+	# TeX4ht image files are relative to the cache directory, but an author
+	# extension may emit an absolute resource URL such as a trusted iframe.
+	$file =~ s{\bsrc=(["'])(?![A-Za-z][A-Za-z0-9+.-]*:|//)([^"']+?)\1}{src=$1$url/$2$1}g;
 	#dwarn "postProcessL2hIndex 2nd regular expression:\n $file";
 	
 	# add title tooltips
@@ -1503,6 +1505,16 @@ sub postProcess_make4htIndex {
 	max-width: 100%;
 	overflow-x: auto;
 	white-space: pre-wrap;
+}
+.pl-make4ht-content .pl-youtube {
+	max-width: 52em;
+	margin: 1.15em 0 0.4em;
+}
+.pl-make4ht-content .pl-youtube-frame {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border: 0;
 }
 .pl-make4ht-content math,
 .pl-make4ht-content .math-display,
