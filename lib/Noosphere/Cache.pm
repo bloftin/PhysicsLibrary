@@ -262,6 +262,82 @@ sub replaceTwoArgRenderCommand {
 	return $latex;
 }
 
+# Return the canonical YouTube video identifier for a supported author input.
+# The renderer only emits embeds for recognized YouTube URLs or bare IDs.
+sub youtubeVideoId {
+	my $source = shift;
+	return undef unless defined($source);
+
+	$source =~ s/\\&/&/g;
+	return $source if ($source =~ /\A[A-Za-z0-9_-]{11}\z/);
+	return $1 if ($source =~ m{\Ahttps?://(?:www\.)?youtu\.be/([A-Za-z0-9_-]{11})(?:[/?#].*)?\z}i);
+	return $1 if ($source =~ m{\Ahttps?://(?:www\.)?youtube(?:-nocookie)?\.com/(?:embed|shorts)/([A-Za-z0-9_-]{11})(?:[/?#].*)?\z}i);
+	return $1 if ($source =~ m{\Ahttps?://(?:www\.)?youtube\.com/watch\?(?:[^#]*?&)?v=([A-Za-z0-9_-]{11})(?:[&#].*)?\z}i);
+
+	return undef;
+}
+
+# Convert the author-facing \PMyoutube command into a safe renderer-specific
+# representation. make4ht receives a responsive iframe; other renderers get
+# a standard external link.
+sub prepareYouTubeEmbeds {
+	my $latex = shift;
+	my $method = shift;
+	my $has_embed = 0;
+
+	$latex = replaceTwoArgRenderCommand($latex, '\\PMyoutube', sub {
+		my ($source, $caption) = @_;
+		my $video_id = youtubeVideoId($source);
+
+		return '\\textbf{[Invalid YouTube video URL or ID]}' unless defined($video_id);
+		if ($method eq 'make4ht') {
+			$has_embed = 1;
+			return "\\PLYouTubeEmbed{$video_id}{$caption}";
+		}
+
+		return "\\PMlinkexternal{$caption}{https://www.youtube.com/watch?v=$video_id}";
+	});
+
+	return ($latex, $has_embed);
+}
+
+sub youtubeEmbedMacro {
+	return <<'EOF';
+\providecommand{\PLYouTubeEmbed}[2]{%
+  \ifdefined\HCode
+    \HCode{<div class="pl-youtube"><iframe class="pl-youtube-frame" src="https://www.youtube-nocookie.com/embed/#1" title="Embedded YouTube video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>}%
+    \par\noindent\emph{#2}\par
+  \else
+    \href{https://www.youtube.com/watch?v=#1}{#2}%
+  \fi
+}
+EOF
+}
+
+sub addYouTubeEmbedSupport {
+	my $preamble = shift;
+
+	$preamble = addHyperrefPackage($preamble);
+	return $preamble if ($preamble =~ /\\(?:providecommand|newcommand|renewcommand)\s*\{\\PLYouTubeEmbed\}/);
+
+	return $preamble . "\n" . youtubeEmbedMacro();
+}
+
+sub addYouTubeEmbedSupportToDocument {
+	my $latex = shift;
+
+	return $latex if ($latex =~ /\\(?:providecommand|newcommand|renewcommand)\s*\{\\PLYouTubeEmbed\}/);
+	$latex = addPDFLinkSupportToDocument($latex);
+	my $macro = youtubeEmbedMacro();
+	if ($latex =~ /\\begin\{document\}/) {
+		$latex =~ s/(\\begin\{document\})/$macro$1/s;
+	} else {
+		$latex = $macro . $latex;
+	}
+
+	return $latex;
+}
+
 # Page-image PNGs cannot preserve hyperlinks, so flatten Noosphere's link
 # commands to their visible anchor text.
 #
@@ -425,6 +501,8 @@ sub prepareCollabForRendering {
 		-1,
 		'');
 	$linked = dolinktofile($linked, $table, $id);
+	my $has_youtube;
+	($linked, $has_youtube) = prepareYouTubeEmbeds($linked, $method);
 
 	if ($method eq 'png') {
 		$latex = stripNativeRenderLinks($linked);
@@ -433,6 +511,7 @@ sub prepareCollabForRendering {
 	} elsif ($method eq 'pdf' || $method eq 'make4ht') {
 		$latex = convertHyperrefRenderLinks($linked);
 		$latex = addPDFLinkSupportToDocument($latex) if ($latex =~ /\\href\s*\{/);
+		$latex = addYouTubeEmbedSupportToDocument($latex) if ($method eq 'make4ht' && $has_youtube);
 	} else {
 		$latex = $linked;
 	}
@@ -466,6 +545,8 @@ sub prepareEntryForRendering {
 	#
 	my ($linked,$links) = crossReferenceLaTeX($newent,$latex,$title,$method,$syns,$id,$class);
 	$linked = dolinktofile($linked,$table,$id);	# handle \PMlinktofile
+	my $has_youtube;
+	($linked, $has_youtube) = prepareYouTubeEmbeds($linked, $method);
 	
 	# png uses the pre-processed output; hyperlink directives are flattened to
 	# their visible text because page images do not preserve clickable links.
@@ -497,6 +578,7 @@ sub prepareEntryForRendering {
 		$latex = convertHyperrefRenderLinks($linked);
 		$preamble = stripHtmlPackage($preamble);
 		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
+		$preamble = addYouTubeEmbedSupport($preamble) if ($has_youtube);
 	}
 
 	# calculate supplementary packages to add. This currently only includes

@@ -1504,6 +1504,16 @@ sub postProcess_make4htIndex {
 	overflow-x: auto;
 	white-space: pre-wrap;
 }
+.pl-make4ht-content .pl-youtube {
+	max-width: 52em;
+	margin: 1.15em 0 0.4em;
+}
+.pl-make4ht-content .pl-youtube-frame {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border: 0;
+}
 .pl-make4ht-content math,
 .pl-make4ht-content .math-display,
 .pl-make4ht-content .equation,
