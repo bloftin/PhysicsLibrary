@@ -251,8 +251,8 @@ sub swaptitle {
 
 	# do swapping
 	#
-	if ($title =~ /,/) {
-		my @array = split(/\s*,\s*/,$title);
+	my @array = split(/\s*,\s*/,$title);
+	if (@array == 2) {
 		$title = $array[1].' '.$array[0];
 	}
 
