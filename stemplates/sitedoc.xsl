@@ -112,6 +112,22 @@
                     <tr>
                         <td valign="top">
                             <xsl:call-template name="doc-section">
+                                <xsl:with-param name="title">Video Template</xsl:with-param>
+                                <xsl:with-param name="content">
+                                    <p>
+                                        Currently only youtube embedded video links are allowed on PhysicsLibrary.  You use the manual link contol sequence of \PMyoutube{https://youtu.be/VIDEO_ID}{A short description of the video.}  A typical example:
+                                    </p>
+
+                                    <pre>\PMyoutube{https://youtu.be/6oGjAlrHjtE}{Companion video for the inertia-tensor similarity-transformation derivation.}</pre>
+                                    
+                                </xsl:with-param>
+                            </xsl:call-template>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <xsl:call-template name="doc-section">
                                 <xsl:with-param name="title">Site Documentation Entries</xsl:with-param>
                                 <xsl:with-param name="content">
                                     <xsl:choose>
