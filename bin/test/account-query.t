@@ -347,7 +347,8 @@ subtest 'isolated database integration' => sub {
     is(login($payload, 'wrong')->{uid}, 0, 'username payload cannot authenticate');
     is(login('member', $payload)->{uid}, 0, 'password payload cannot authenticate');
     is(login('inactive', 'password')->{uid}, 0, 'inactive account cannot authenticate');
-    like(Noosphere::pwChangeRequest({submit => 1, username => $payload}), qr/Cannot find/, 'recovery payload matches no account');
+    like(Noosphere::pwChangeRequest({submit => 1, username => $payload}), qr/If the account exists/,
+        'recovery payload receives the generic response');
     is(scalar @mail, 0, 'no recovery mail for payload');
     like(Noosphere::pwChangeRequest({submit => 1, username => 'member'}), qr/Mail Sent/, 'real recovery request');
     my $token = $mail[0]->[2];
