@@ -81,6 +81,16 @@ for my $url (render($incline) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'inclined-plane publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/orbital-gravitation/computational-resources.json"));
+my $orbit = resources();
+is(scalar @$orbit, 1, 'orbital-gravitation manifest selects its reviewed publication');
+is($orbit->[0]{title}, 'Orbital Motion from Universal Gravitation', 'orbital resource title comes from catalog');
+is(scalar @{$orbit->[0]{datasets}}, 3, 'orbital resource exposes three reference datasets');
+for my $url (render($orbit) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'orbital publication asset exists: ' . $url);
+}
+reset_files();
 my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
 like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
 like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');
