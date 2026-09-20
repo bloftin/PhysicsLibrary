@@ -447,12 +447,14 @@ sub disambiguate_subcollection {
 		if ($fromid != -1) {
 			$thissource = getSourceCollection($table, $fromid);
 		}
+		return @ids unless defined $thissource && length $thissource;
 
 		# get a subset of IDs of items which match this entry's collection
 		# 
 		my @subset = ();
 		foreach my $cid (@ids) {
-			if ($thissource eq getSourceCollection($table, $concepts->{$cid})) {
+			my $source = getSourceCollection($table, $concepts->{$cid});
+			if (defined $source && $thissource eq $source) {
 				push @subset, $cid;
 			}
 		}
@@ -986,6 +988,14 @@ sub splitPseudoLaTeX {
 	my @escaped = ();
 	my @linkids = (); # list of ids to manually link
 	my $eidx = 0;
+
+	# Code environments can contain arbitrary text, punctuation, and TeX-like
+	# sequences. Keep them intact instead of sending their contents through the
+	# automatic cross-reference parser.
+	while ($text =~ s{(\\begin\{(verbatim\*?|Verbatim|lstlisting\*?)\}(?:\[[^\]]*\])?.*?\\end\{\2\})}{\@\@$eidx\@\@}s) {
+		push @escaped, $1;
+		$eidx++;
+	}
 
 	# crossreference escaping
 	#
