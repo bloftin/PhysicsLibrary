@@ -1,0 +1,40 @@
+{
+  "sources_sha256": {
+    "motion.jl": "db6901c20ba267088262a582fd46be13bb672fe696ab7bb001ad5fac56b16eab",
+    "cases.toml": "741c3bd64eedeedc83d5772d7537c3f4ae3fb4e23bfd5062a585787096464bfe",
+    "Project.toml": "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8",
+    "Manifest.toml": "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6",
+    "test/runtests.jl": "79e586cd5f1cc7189b22597e20df33a7ca51eb45273ce500a88aec16bb7815e9",
+    "README.md": "57953d64acdcaa646fd11d02ad5e4136a92d7ff0377dd96bfef0d76e155d345a",
+    "LICENSE.txt": "1403a2bfe90cf95cf13be99b33682337536a37f8424b0927824144d829a3ef23",
+    "COPYING": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "article.tex": "0886448f950f29fceb9f86e1ee1b2dc96de2359f1f23090dc2e4ae21213f305d",
+    "preamble.tex": "9ff8269e4176f61cf43d81667013eaf91b0f1eadd2d85bfde4ed5a2d1692699d",
+    "preview.tex": "c4dc73deed3a07c6f21fc241cbd9f2a271a0907da30b952edd64c4f131184fb1",
+    "build.py": "570fe1017501e65a082305c4c0fd6a4c01ad02288da3be0c03e7f6eaa4608cdb",
+    "verify.py": "feb681a30530c2e225c9db4d01f84de6dd3ca2dd2a38aeff4304758421070f4f",
+    "viewer.template.html": "eb21b6db0b8b6bbdae1e7aa38942b37347ef3f5f8e3ef431a440530affd1eeb8",
+    "style.css": "3d5608f5331ca41581f3508656112fd76d03527b3e34839e91602d05194b820a",
+    "explorer.js": "ccd14d546dde79350bc325d48dbd2428064e9e91543f0bdccbace37c5a9fd575",
+    "computational-resources.json": "52a72b28446def32c4e44183c0ff987742c41af884d7962057ea9ce433fc35dd",
+    "reference-orbits.png": "691d447622ddad934321ec4977f0fa89a9487ca28bb8d00fc0e8a39b67bb14cf"
+  },
+  "files_sha256": {
+    "index.html": "f3529cdddf211065b3d22a5c9db234b0b33e0ed0e71dd87e878e410500acd9bf",
+    "orbit-data.js": "54ad9aa090b0d38dd0d611770a70baee57791b8211f974bf531d52e6ea67cead",
+    "style.css": "3d5608f5331ca41581f3508656112fd76d03527b3e34839e91602d05194b820a",
+    "explorer.js": "ccd14d546dde79350bc325d48dbd2428064e9e91543f0bdccbace37c5a9fd575",
+    "logo.png": "9931e0c2b7a734359c44f041fbe26a3d92c71c4d345dfc77227a56b5802a4bd2",
+    "LICENSE.txt": "1403a2bfe90cf95cf13be99b33682337536a37f8424b0927824144d829a3ef23",
+    "COPYING": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "article.tex": "0886448f950f29fceb9f86e1ee1b2dc96de2359f1f23090dc2e4ae21213f305d",
+    "provenance.toml": "24ab96207f6f153ae25043a64c498386699508167aa8665de2fc54a1c02d983b",
+    "reference-orbits.png": "691d447622ddad934321ec4977f0fa89a9487ca28bb8d00fc0e8a39b67bb14cf",
+    "reference-orbits-mobile.png": "ca8ad23aabf5c9acea0931cc19ccdb7b404ce654598870dffc6d28d5ac4728fc",
+    "article-attachments.zip": "b29096ecc0850756bea0b7d9229b12ca73c4f7b7d01d7d23249cb63a03dfac8d",
+    "elliptical.csv": "0b68ae174beb1d50c2e57a37b10d64ae62bf10edd1134b2cef905e148c46969a",
+    "circular.csv": "6051daec0b532806260776b30860baa21cfb1cc21611e9b5b33da51165aec4cd",
+    "escape.csv": "858fc4112b168f8d7dc543c46ff7cf6949ad2e1c3e5ab65653ac118a0710cc8f",
+    "orbital-gravitation.zip": "867be769f831c5c21adeeaba17e766458f733fb6d2068d010cbb7f06545148a1"
+  }
+}

@@ -1,0 +1,36 @@
+License notice for the Orbital Motion from Universal Gravitation computational example
+
+Software license
+----------------
+
+The software source code, build scripts, tests, browser scripts, HTML/CSS
+viewer template, and other executable or build-oriented files in this example
+are licensed under the GNU General Public License, version 3.
+
+You may redistribute and/or modify those software files under the terms of the
+GNU General Public License as published by the Free Software Foundation, either
+version 3 of the License, or (at your option) any later version.
+
+Those software files are distributed in the hope that they will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+details:
+
+https://www.gnu.org/licenses/gpl-3.0.html
+
+Article and explanatory material
+--------------------------------
+
+The mathematical exposition, article text, explanatory prose, figures, plots,
+CSV result data, and other non-software publication materials in this example
+retain the normal Physics Library article licensing terms, currently Creative
+Commons Attribution-ShareAlike:
+
+https://physicslibrary.org/?op=license
+
+Site marks
+----------
+
+The PhysicsLibrary logo identifies the originating site and is excluded from
+this example's license grant. Other PhysicsLibrary articles retain their own
+site licensing terms.

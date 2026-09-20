@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A saved Julia exploration of orbital motion under Newton's law of universal gravitation.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Orbital Motion from Universal Gravitation | PhysicsLibrary</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="orbit-data.js" defer></script>
+  <script src="explorer.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><a href="https://physicslibrary.org/"><img src="logo.png" width="280" height="53" alt="PhysicsLibrary.org"></a><p>An open source physics library</p></header>
+  <main>
+    <div class="article-heading">
+      <p class="eyebrow">Computational example <span>Julia</span></p>
+      <h1>Orbital Motion from Universal Gravitation</h1>
+      <p class="intro">Change the launch speed and watch gravity turn a straight-ahead journey into an ellipse, a circle, or an escape path.</p>
+      <p class="equation">F = G M m / r<sup>2</sup> &nbsp; &rarr; &nbsp; a = G M / r<sup>2</sup></p>
+      <p class="conditions">Earth-centered two-body model &middot; initial radius 4 Earth radii &middot; no atmosphere or thrust</p>
+    </div>
+    <section id="orbit-explorer" class="explorer" aria-label="Orbital launch explorer" hidden>
+      <div class="controls">
+        <div><label for="launch-speed">Launch speed <output id="speed-factor" for="launch-speed">1.00</output> &times; circular speed</label>
+          <input id="launch-speed" type="range" min="0" max="36" step="1" value="15">
+          <div class="range-ends"><span>0.70 &middot; Ellipse</span><span>1.00 &middot; Circle</span><span>1.42 &middot; Escape</span></div>
+        </div>
+        <div class="orbit-kind"><h2 id="orbit-kind">Circular orbit</h2><p id="orbit-note">Gravity continually turns the velocity without changing the orbital radius.</p></div>
+      </div>
+      <div class="scene-wrap"><canvas id="orbit-scene" width="920" height="580" role="img" aria-label="Earth and a saved orbital trajectory"></canvas>
+        <aside><h2>At the Marker</h2><dl><div><dt>Time</dt><dd id="time-readout"></dd></div><div><dt>Radius from Earth center</dt><dd id="radius-readout"></dd></div><div><dt>Speed</dt><dd id="velocity-readout"></dd></div><div><dt>Acceleration</dt><dd id="acceleration-readout"></dd></div><div><dt>Specific orbital energy</dt><dd id="energy-readout"></dd></div></dl></aside>
+      </div>
+      <div class="time-controls"><button id="play" type="button" aria-pressed="false">Play</button><button id="reset" type="button">Reset</button><label for="orbit-time">Time</label><input id="orbit-time" type="range" min="0" max="360" step="1" value="0"><output id="clock" for="orbit-time">0.00 h</output></div>
+      <div class="mass-panel"><label for="test-mass">Test mass <output id="mass-readout" for="test-mass">1000 kg</output></label><input id="test-mass" type="range" min="0" max="40" step="1" value="20"><div><p>Gravity force on the spacecraft: <strong id="force-readout"></strong></p><p>Mechanical energy of the spacecraft: <strong id="total-energy-readout"></strong></p><p id="mass-note">Changing the test mass changes force and total energy by the same factor, so the displayed path does not change.</p></div></div>
+      <p class="explorer-foot"><a id="download" download>Download selected trajectory (CSV)</a><span>37 saved Julia launch speeds &middot; 361 samples each &middot; browser playback only</span></p>
+    </section>
+    <section class="reference">
+      <h2>Three Reference Launches</h2>
+      <p>The spacecraft begins tangentially at four Earth radii. Below circular speed it begins at an apoapsis and falls inward; at circular speed, gravity supplies exactly the required centripetal acceleration; above escape speed, the specific orbital energy becomes positive.</p>
+      <picture><source media="(max-width: 640px)" srcset="reference-orbits-mobile.png"><img src="reference-orbits.png" width="1080" height="700" alt="Elliptical, circular and escaping orbital paths about Earth"></picture>
+      <p><a href="elliptical.csv">Elliptical CSV</a> &middot; <a href="circular.csv">Circular CSV</a> &middot; <a href="escape.csv">Near-escape CSV</a></p>
+    </section>
+    <section class="derivation">
+      <h2>From Force Law to Orbit</h2>
+      <p>For a test mass <i>m</i> around an Earth mass <i>M</i>, Newton's second law and the universal law of gravitation give</p>
+      <p class="display">m d<sup>2</sup><b>r</b>/dt<sup>2</sup> = -G M m <b>r</b>/r<sup>3</sup>, &nbsp; so &nbsp; d<sup>2</sup><b>r</b>/dt<sup>2</sup> = -&mu;<b>r</b>/r<sup>3</sup>, &nbsp; &mu; = GM.</p>
+      <p>The test mass cancels. That is why a small satellite and a much heavier satellite follow the same path when released from the same position and velocity. The explorer's mass control changes the force and total energy readings, but not the saved trajectory.</p>
+      <p>At radius <i>r</i><sub>0</sub>, circular motion needs v<sub>c</sub> = &radic;(&mu;/r<sub>0</sub>). The escape threshold is v<sub>esc</sub> = &radic;(2&mu;/r<sub>0</sub>) = &radic;2 v<sub>c</sub>. The diagnostic used here is specific energy, &epsilon; = v<sup>2</sup>/2 - &mu;/r: negative for bound ellipses, zero at escape, and positive for unbound motion.</p>
+      <h2>Numerical Method and Limits</h2>
+      <p>Julia advances the planar state with velocity-Verlet, a symplectic method well suited to conservative gravitational motion. The calculation saves two circular-orbit periods at 361 equally spaced times for each launch speed. The published explorer never runs Julia or numerical integration in the browser or on PhysicsLibrary servers.</p>
+      <p>This is the ideal two-body problem. It omits the Moon, Earth oblateness, atmospheric drag, relativity, thrust, collisions, and any mass change. A near-escape trajectory is followed only through the finite saved time window.</p>
+    </section>
+    <section class="reproduce"><div><h2>Reproduce and Reuse</h2><p>The Julia project contains the integrator, inputs, tests, saved trajectories and provenance.</p><a class="download" href="orbital-gravitation.zip" download>Download Julia project <span>@@ZIP_SIZE@@</span></a><p class="small">Julia @@JULIA_VERSION@@ &middot; no external Julia packages</p></div><div><h3>Publication Record</h3><p>Every explorer path comes from the reviewed Julia calculation. Selecting controls only chooses a saved case and sample.</p><p><a href="provenance.toml">Calculation provenance</a> &middot; <a href="article-attachments.zip" download>Article attachment bundle</a> &middot; <a href="article.tex">LaTeX article</a></p></div></section>
+  </main>
+  <footer><a href="https://physicslibrary.org/">PhysicsLibrary</a> &middot; <a href="LICENSE.txt">GPLv3+ code / Physics Library CC BY-SA text and data</a></footer>
+</body>
+</html>

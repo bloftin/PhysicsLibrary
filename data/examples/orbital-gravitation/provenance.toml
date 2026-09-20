@@ -1,0 +1,16 @@
+command = "julia --startup-file=no --project=. motion.jl"
+julia_version = "1.10.12"
+method = "Planar two-body gravity; Float64 velocity-Verlet; fixed two-period window"
+platform = "x86_64-linux-gnu"
+
+[inputs_sha256]
+"Manifest.toml" = "46804c383bcc0c7c496bb702d6b31a8e196102be2b77f345f531142d664656f6"
+"Project.toml" = "241d1261416082ba3afba8a54cccd6fcfb16b87dffbcd08d9585e189b8d56aa8"
+"cases.toml" = "741c3bd64eedeedc83d5772d7537c3f4ae3fb4e23bfd5062a585787096464bfe"
+"motion.jl" = "db6901c20ba267088262a582fd46be13bb672fe696ab7bb001ad5fac56b16eab"
+
+[outputs_sha256]
+"circular.csv" = "6051daec0b532806260776b30860baa21cfb1cc21611e9b5b33da51165aec4cd"
+"elliptical.csv" = "0b68ae174beb1d50c2e57a37b10d64ae62bf10edd1134b2cef905e148c46969a"
+"escape.csv" = "858fc4112b168f8d7dc543c46ff7cf6949ad2e1c3e5ab65653ac118a0710cc8f"
+"sweep.csv" = "bb376f8e0700cb15ec94e33548c8fa4154886695a609e78bd9d7d82059b0c8fd"

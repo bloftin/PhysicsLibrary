@@ -63,6 +63,21 @@
         {"label": "Critical", "file": "critical.csv"},
         {"label": "Overdamped", "file": "overdamped.csv"}
       ]
+    },
+    "orbital-gravitation": {
+      "title": "Orbital Motion from Universal Gravitation",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Planar two-body Earth-orbit trajectories computed with velocity-Verlet. Includes 37 saved launch speeds, reference CSVs, source, tests, provenance and an offline explorer with no server-side computation.",
+      "explorer": "index.html",
+      "source": "orbital-gravitation.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Elliptical orbit", "file": "elliptical.csv"},
+        {"label": "Circular orbit", "file": "circular.csv"},
+        {"label": "Near-escape trajectory", "file": "escape.csv"}
+      ]
     }
   }
 }
