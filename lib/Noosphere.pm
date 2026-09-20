@@ -490,18 +490,28 @@ sub serveFile {
 sub serveProtectedDownload {
 	my ($req, $params, $userinf) = @_;
 
-	if ($userinf->{'uid'} <= 0) {
-		my $message = 'Please <a href="'.getConfig('main_url').'">sign in</a> to download this file.';
-		sendOutput($req, makeBox('Sign In Required', $message), 403);
-		return;
-	}
-
 	my $path = $params->{'path'} || '';
 	$path =~ s/^\/+//;
 
 	if ($path =~ /\0/ || $path =~ /\\/ || $path =~ /(?:^|\/)\.\.(?:\/|$)/ ||
 		$path !~ m{^(?:files/(?:objects|books|papers|lec)/.+|snapshots/.+)$}) {
 		sendOutput($req, errorMessage('Invalid download path.'), 400);
+		return;
+	}
+
+	my $filebox = publicFileboxDownloadInfo($path);
+	my $uid = $userinf->{'uid'} || 0;
+	if ($filebox) {
+		if (!hasPermissionTo($filebox->{'table'}, $filebox->{'objectid'}, $userinf, 'read')) {
+			my $message = $uid > 0
+				? 'You do not have permission to download this file.'
+				: 'Please <a href="'.getConfig('main_url').'">sign in</a> to download this file.';
+			sendOutput($req, makeBox($uid > 0 ? 'Access Denied' : 'Sign In Required', $message), 403);
+			return;
+		}
+	} elsif ($uid <= 0) {
+		my $message = 'Please <a href="'.getConfig('main_url').'">sign in</a> to download this file.';
+		sendOutput($req, makeBox('Sign In Required', $message), 403);
 		return;
 	}
 
@@ -528,7 +538,10 @@ sub serveProtectedDownload {
 	}
 
 	binmode($fh);
+	setStandardSecurityHeaders($req);
 	$req->content_type($type);
+	my $filename = downloadAttachmentFilename($filebox ? $filebox->{'filename'} : $resolved_file);
+	$req->headers_out->set('Content-Disposition' => 'attachment; filename="'.$filename.'"');
 	$req->headers_out->add('content-length' => $len);
 
 	while (read($fh, my $buffer, 8192)) {
@@ -537,6 +550,34 @@ sub serveProtectedDownload {
 	close($fh);
 	$req->rflush();
 	return;
+}
+
+sub publicFileboxDownloadInfo {
+	my $path = shift || '';
+	my ($kind, $objectid, $filename) = $path =~ m{^files/(objects|books|papers|lec)/(\d+)/([^/]+)$};
+	return undef if (!defined($kind) || $filename =~ /[\x00-\x1F\x7F\\]/);
+
+	my %tables = (
+		objects => getConfig('en_tbl'),
+		books => getConfig('books_tbl'),
+		papers => getConfig('papers_tbl'),
+		lec => getConfig('exp_tbl'),
+	);
+	return undef if (!defined($tables{$kind}) || $tables{$kind} eq '');
+
+	return {
+		table => $tables{$kind},
+		objectid => $objectid,
+		filename => $filename,
+	};
+}
+
+sub downloadAttachmentFilename {
+	my $filename = shift || 'download';
+	$filename =~ s{.*[/\\]}{};
+	$filename =~ s/[\x00-\x1F\x7F"\\]/_/g;
+	$filename =~ s/[^\x20-\x7E]/_/g;
+	return length($filename) ? $filename : 'download';
 }
 
 sub protectedDownloadContentType {
@@ -551,7 +592,8 @@ sub protectedDownloadContentType {
 	return 'image/jpeg' if ($file =~ /\.(?:jpe?g)$/i);
 	return 'image/gif' if ($file =~ /\.gif$/i);
 	return 'image/svg+xml' if ($file =~ /\.svg$/i);
-	return 'text/plain; charset=UTF-8' if ($file =~ /\.(?:txt|tex|log|aux)$/i);
+	return 'text/csv; charset=UTF-8' if ($file =~ /\.csv$/i);
+	return 'text/plain; charset=UTF-8' if ($file =~ /\.(?:txt|tex|log|aux|jl|toml|md)$/i);
 	return 'text/xml; charset=UTF-8' if ($file =~ /\.xml$/i);
 
 	return 'application/octet-stream';
