@@ -37,9 +37,12 @@ sub getSourceCollection {
 	my $objectid = shift;
 
 	my $idx = getConfig('index_tbl');
+	return undef unless defined $idx && $idx =~ /\A[A-Za-z_][A-Za-z0-9_]*\z/;
+	return undef unless defined $table && $table =~ /\A[A-Za-z_][A-Za-z0-9_]*\z/;
+	return undef unless defined $objectid && $objectid =~ /\A\d+\z/;
 
-	my $sth = $dbh->prepare("select source from $idx where tbl='$table' and objectid=$objectid");
-	$sth->execute();
+	my $sth = $dbh->prepare("select source from $idx where tbl=? and objectid=?");
+	$sth->execute($table, $objectid);
 
 	my $count = $sth->rows();
 
@@ -48,10 +51,10 @@ sub getSourceCollection {
 		return undef;
 	}
 
-	my $source = ($sth->fetchrow_arrayref())->[0];
+	my $row = $sth->fetchrow_arrayref();
 	$sth->finish();
 
-	return $source;
+	return defined $row ? $row->[0] : undef;
 }
 
 1;
