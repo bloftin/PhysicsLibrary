@@ -27,6 +27,11 @@ ok(applyIndexingPolicy($user_request, 'userobjs'), 'user object listings are not
 is($user_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
     'user object listings send the robots response header');
 
+my $beta_request = IndexingRequest->new();
+ok(applyIndexingPolicy($beta_request, 'edituserobjsbeta'), 'beta user article listings are not indexed');
+is($beta_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
+    'beta user article listings send the robots response header');
+
 my $history_request = IndexingRequest->new();
 ok(applyIndexingPolicy($history_request, 'viewver'), 'existing history policy is retained');
 

@@ -37,6 +37,9 @@
                                          <a href="/?op=edituserobjs">My Articles</a>
                                     </div>
                                     <div style="height: 20px; display: block; font-size: 16px">
+                                         <a href="/?op=edituserobjsbeta">My Articles (Beta)</a>
+                                    </div>
+                                    <div style="height: 20px; display: block; font-size: 16px">
                                         <a href="/?op=editcors">Corrections ([% corrections %])</a>
                                     </div>
                                     <div style="height: 20px; display: block; font-size: 16px">

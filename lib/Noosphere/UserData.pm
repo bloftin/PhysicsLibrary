@@ -200,15 +200,32 @@ sub filterUserObjectRows {
 	}
 }
 
+# The beta view intentionally shares the established query, scope and pager
+# logic with My Articles; it only changes the presentation.
+sub userEditObjectList {
+	return userObjectListPage($_[0], $_[1], {
+		template => 'usereditobjlist.tt',
+		box_title => 'Your Objects',
+	});
+}
+
+sub userArticleBetaList {
+	return userObjectListPage($_[0], $_[1], {
+		template => 'userarticlesbeta.tt',
+		beta => 1,
+	});
+}
+
 # user object edit list
 # 
-sub userEditObjectList {
+sub userObjectListPage {
 	
 	my $params = shift;
 	my $userinf = shift;
+	my $view = shift || {};
 
 	#dwarn "Enter userEditObjectList!!!!!!!!!!!!\n";
-	my $tt_file = 'usereditobjlist.tt'; 
+	my $tt_file = $view->{template} || 'usereditobjlist.tt';
 	my $template = new XSLTemplate("usereditobjlist.xsl");
 	
 	my $html = '';
@@ -377,21 +394,34 @@ sub userEditObjectList {
 			my $aclhref = getConfig("main_url")."/?op=acledit;from=$row->{tbl};id=$row->{objectid}";
 			my $linkhref = getConfig("main_url")."/?op=linkpolicy;from=$row->{tbl};id=$row->{objectid}";
 			my $historyhref = getConfig("main_url")."/?op=vbrowser;from=$row->{tbl};id=$row->{objectid}";
+			my $transferhref = getConfig("main_url")."/?op=transfer&amp;from=$row->{tbl}&amp;id=$row->{objectid}";
+			my $abandonhref = getConfig("main_url")."/?op=abandon&amp;from=$row->{tbl}&amp;id=$row->{objectid}&amp;ask=yes";
+			my $deletehref = getConfig("main_url")."/?op=delobj&amp;from=$row->{tbl}&amp;id=$row->{objectid}&amp;ask=yes";
 			my $type_label = userObjectTypeLabel($row->{'tbl'});
 
 			push(@objects_array,{ 
 				title 		=> $title, 
+				safe_title	=> qhtmlescape($row->{'title'}),
 				obj_url 	=> $obj_url, 
 				date 		=> $date, 
 				date_label 	=> $date_label,
+				created		=> ymd($row->{'created'}),
+				modified		=> ymd($row->{'modified'}),
 				ord 		=> $ord, 
 				id 			=> $row->{objectid}, 
 				table 		=> $row->{tbl},
 				type_label	=> $type_label,
+				unclassified	=> ($unclassified ? 1 : 0),
+				has_messages	=> ($messages ? 1 : 0),
+				has_corrections	=> ($corrections ? 1 : 0),
+				is_owner	=> ($row->{'userid'} == $uid ? 1 : 0),
 				edithref 	=> $edithref,
 				aclhref  	=> $aclhref,
 				linkhref    => $linkhref,
-				historyhref	=> $historyhref,	
+				historyhref	=> $historyhref,
+				transferhref	=> $transferhref,
+				abandonhref	=> $abandonhref,
+				deletehref	=> $deletehref,
 				 });
 
 			$ord++;
@@ -428,7 +458,8 @@ sub userEditObjectList {
 	
 	my $ret = $tt->process($tt_file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable(clearBox('Your Objects',$html));
+	return paddingTable($html) if $view->{beta};
+	return paddingTable(clearBox($view->{box_title} || 'Your Objects',$html));
 }
 
 sub userEditObjectListOld {

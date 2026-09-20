@@ -101,6 +101,7 @@ sub dispatch {
   'edituser' => \&editUserData,
   'editprefs' => \&editUserPrefs,
   'edituserobjs' => \&userEditObjectList,
+  'edituserobjsbeta' => \&userArticleBetaList,
   'userobjs' => \&userGenericList,
   'usermsgs' => \&userGenericList,
   'usercorsf' => \&userGenericList,

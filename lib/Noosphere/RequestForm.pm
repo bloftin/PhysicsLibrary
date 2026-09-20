@@ -67,7 +67,7 @@ sub requestAccountOriginError {
 
 sub requestFormReadRoutes {
     return qw(frontpage adminstats webstats showise oldnews pacssearch pacsbrowse
-        settings getuser edituserobjs userobjs usermsgs usercorsf usercorsr
+        settings getuser edituserobjs edituserobjsbeta userobjs usermsgs usercorsf usercorsr
         orphanage ownerhistory collab enchrono preamble getrefs en vbrowser
         viewver viewdiff messageschrono showwatchers getmsg forums viewpoll
         viewpolls getpoll mailbox oldmail sentmail getmail globalcors unproven
