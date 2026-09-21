@@ -335,6 +335,8 @@ sub userObjectListPage {
 	my $end = $offset + $limit - 1;
 	$end = $#rows if ($end > $#rows);
 	@rows = ($total > 0) ? @rows[$offset .. $end] : ();
+	my $showing_from = $total > 0 ? $offset + 1 : 0;
+	my $showing_to = $total > 0 ? $end + 1 : 0;
 	 
 	$template->addText("<usereditobjs qtype=\"$params->{qtype}\">");
 
@@ -449,6 +451,8 @@ sub userObjectListPage {
 			search						=> qhtmlescape($search),
 			qtype						=> qhtmlescape($params->{'qtype'} || ''),
 			active_filters				=> ($sort ne 'title' || $object_type ne 'all' || $group ne '' || $search ne ''),
+			showing_from				=> $showing_from,
+			showing_to				=> $showing_to,
     };
 
 	my $tt = Template->new({

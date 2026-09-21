@@ -33,6 +33,11 @@ like($template, qr/name="q"/, 'beta view provides title and name search');
 like($template, qr/name="type"/, 'beta view provides collection filtering');
 like($template, qr/name="sort"/, 'beta view provides sorting');
 like($template, qr/Open classic My Articles/, 'beta view links back to the established interface');
+like($template, qr/Create Article/, 'beta view provides a direct article creation action');
+like($template, qr/Showing \[% showing_from %\]-\[% showing_to %\] of \[% total %\]/,
+    'beta view reports the currently visible article range');
+like($template, qr/<nav class="pl-articles-beta-pager" aria-label="Article pages">/,
+    'beta pager has navigation semantics');
 like($template, qr/object\.safe_title/, 'beta output uses the escaped article title');
 like($template, qr/Needs classification.*Corrections.*New messages/s,
     'beta view surfaces existing article status flags');
@@ -46,13 +51,17 @@ like($userdata, qr/sub userObjectListPage/s,
     'classic and beta views share the established list data path');
 like($userdata, qr/safe_title\s*=>\s*qhtmlescape\(\$row->\{'title'\}\)/,
     'article titles are escaped before beta template rendering');
+like($userdata, qr/showing_from\s*=>\s*\$showing_from.*?showing_to\s*=>\s*\$showing_to/s,
+    'beta view receives the visible article range');
 
 SKIP: {
-    eval { require Template; 1 } or skip 'Template Toolkit is not installed', 4;
+    eval { require Template; 1 } or skip 'Template Toolkit is not installed', 5;
     my $tt = Template->new(INCLUDE_PATH => "$repo/stemplates");
     my $rendered = '';
     ok($tt->process('userarticlesbeta.tt', {
         total => 1,
+		showing_from => 1,
+		showing_to => 1,
         search => 'field',
         sort => 'modified_desc',
         object_type => 'objects',
@@ -74,6 +83,7 @@ SKIP: {
     like($rendered, qr/Needs classification.*Corrections.*New messages/s,
         'rendered article includes status flags');
     like($rendered, qr/Open classic My Articles/, 'rendered template retains classic view escape hatch');
+	like($rendered, qr/Showing 1-1 of 1 article/, 'rendered view describes the visible range');
 }
 
 done_testing();
