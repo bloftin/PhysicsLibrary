@@ -14,6 +14,8 @@
 .pl-articles-beta-list { border-top: 1px solid #b6c5d2; }
 .pl-articles-beta-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
 .pl-articles-beta-row h2 { font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-articles-beta-row h2 a { color: #17212b; }
+.pl-articles-beta-row h2 a:hover, .pl-articles-beta-row h2 a:focus { color: #064d93; }
 .pl-articles-beta-meta { color: #586673; font-size: .8rem; margin: .32rem 0 .4rem; }
 .pl-articles-beta-type { background: #e2ebf1; border: 1px solid #b5c6d3; color: #2b4861; font-size: .75rem; font-weight: bold; margin-right: .4rem; padding: .08rem .32rem; }
 .pl-articles-beta-flag { background: #fff2cf; border: 1px solid #caa958; color: #654600; font-size: .74rem; margin-right: .3rem; padding: .08rem .3rem; }
