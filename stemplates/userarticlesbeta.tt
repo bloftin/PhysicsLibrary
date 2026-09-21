@@ -1,0 +1,78 @@
+<style type="text/css">
+.pl-articles-beta { max-width: 76rem; margin: 0 auto; color: #1d2935; font-family: Arial, Helvetica, sans-serif; }
+.pl-articles-beta a { color: #064d93; }
+.pl-articles-beta-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-articles-beta-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.pl-articles-beta-header h1 { color: #122c4b; display: inline; font-size: 1.55rem; margin: 0; }
+.pl-articles-beta-beta { background: #d7eadb; border: 1px solid #6b9b73; color: #245331; font-size: .72rem; font-weight: bold; margin-left: .45rem; padding: .12rem .38rem; vertical-align: middle; }
+.pl-articles-beta-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-articles-beta-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
+.pl-articles-beta-create:hover, .pl-articles-beta-create:focus { background: #103a61; }
+.pl-articles-beta-toolbar { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-articles-beta-toolbar-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) minmax(9rem, .42fr) minmax(10rem, .54fr) auto; }
+.pl-articles-beta label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-articles-beta input[type="search"], .pl-articles-beta select { box-sizing: border-box; font-size: .92rem; max-width: 100%; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-articles-beta-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-articles-beta-tools { font-size: .84rem; margin: .65rem 0 0; }
+.pl-articles-beta-pager { border-bottom: 1px solid #b6c5d2; font-size: .9rem; margin: 0 0 .55rem; padding: 0 0 .45rem; text-align: center; }
+.pl-articles-beta-list + .pl-articles-beta-pager { border-bottom: 0; border-top: 1px solid #b6c5d2; margin: .55rem 0 0; padding: .55rem 0 0; }
+.pl-articles-beta-list { border-top: 1px solid #b6c5d2; }
+.pl-articles-beta-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
+.pl-articles-beta-row h2 { font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-articles-beta-row h2 a { color: #17212b; }
+.pl-articles-beta-row h2 a:hover, .pl-articles-beta-row h2 a:focus { color: #064d93; }
+.pl-articles-beta-meta { color: #586673; font-size: .8rem; margin: .32rem 0 .4rem; }
+.pl-articles-beta-type { background: #e2ebf1; border: 1px solid #b5c6d3; color: #2b4861; font-size: .75rem; font-weight: bold; margin-right: .4rem; padding: .08rem .32rem; }
+.pl-articles-beta-flag { background: #fff2cf; border: 1px solid #caa958; color: #654600; font-size: .74rem; margin-right: .3rem; padding: .08rem .3rem; }
+.pl-articles-beta-actions { display: flex; flex-wrap: wrap; font-size: .84rem; gap: .35rem .75rem; margin-top: .48rem; }
+.pl-articles-beta-actions details { display: inline-block; }
+.pl-articles-beta-actions summary { color: #064d93; cursor: pointer; }
+.pl-articles-beta-actions-menu { background: #fff; border: 1px solid #aebdca; margin-top: .25rem; min-width: 9rem; padding: .35rem .5rem; position: absolute; z-index: 2; }
+.pl-articles-beta-actions-menu a { display: block; margin: .2rem 0; }
+.pl-articles-beta-empty { border: 1px solid #b6c5d2; padding: .9rem; }
+@media (max-width: 700px) { .pl-articles-beta-toolbar-grid { grid-template-columns: 1fr 1fr; } .pl-articles-beta-toolbar-grid .pl-articles-beta-search { grid-column: 1 / -1; } }
+@media (max-width: 420px) { .pl-articles-beta-toolbar-grid { grid-template-columns: 1fr; } .pl-articles-beta-toolbar-grid .pl-articles-beta-search { grid-column: auto; } .pl-articles-beta-button { width: 100%; } }
+</style>
+
+<div class="pl-articles-beta">
+  <div class="pl-articles-beta-header">
+    <div class="pl-articles-beta-header-row"><div><h1>My Articles</h1><span class="pl-articles-beta-beta">BETA</span></div><a class="pl-articles-beta-create" href="/?op=adden">Create Article</a></div>
+    [% IF total %]<p class="pl-articles-beta-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] article[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-articles-beta-summary">No articles match this view.</p>[% END %]
+  </div>
+
+  <form class="pl-articles-beta-toolbar" method="get" action="/">
+    <input type="hidden" name="op" value="edituserobjsbeta">
+    [% IF qtype %]<input type="hidden" name="qtype" value="[% qtype %]">[% END %]
+    [% IF group == "type" %]<input type="hidden" name="group" value="type">[% END %]
+    <div class="pl-articles-beta-toolbar-grid">
+      <div class="pl-articles-beta-search"><label for="pl-articles-search">Search title or name</label><input id="pl-articles-search" type="search" name="q" value="[% search %]"></div>
+      <div><label for="pl-articles-type">Collection</label><select id="pl-articles-type" name="type" onchange="this.form.submit()"><option value="all" [% IF object_type == "all" %]selected[% END %]>All articles</option><option value="objects" [% IF object_type == "objects" %]selected[% END %]>Encyclopedia</option><option value="papers" [% IF object_type == "papers" %]selected[% END %]>Papers</option><option value="books" [% IF object_type == "books" %]selected[% END %]>Books</option><option value="lec" [% IF object_type == "lec" %]selected[% END %]>Lectures</option></select></div>
+      <div><label for="pl-articles-sort">Sort by</label><select id="pl-articles-sort" name="sort" onchange="this.form.submit()"><option value="title" [% IF sort == "title" %]selected[% END %]>Title</option><option value="created_desc" [% IF sort == "created_desc" %]selected[% END %]>Newest added</option><option value="created_asc" [% IF sort == "created_asc" %]selected[% END %]>Oldest added</option><option value="modified_desc" [% IF sort == "modified_desc" %]selected[% END %]>Recently edited</option><option value="modified_asc" [% IF sort == "modified_asc" %]selected[% END %]>Oldest edits</option></select></div>
+      <div><button class="pl-articles-beta-button" type="submit">Search</button></div>
+    </div>
+    <div class="pl-articles-beta-tools"><a href="/?op=edituserobjsbeta">Clear filters</a> | <a href="/?op=edituserobjs">Open classic My Articles</a></div>
+  </form>
+
+  [% IF objects.size %]
+    <nav class="pl-articles-beta-pager" aria-label="Article pages">[% pager %]</nav>
+    <div class="pl-articles-beta-list">
+      [% FOREACH object IN objects %]
+        <article class="pl-articles-beta-row">
+          <h2><a href="[% object.obj_url %]">[% object.safe_title %]</a></h2>
+          <div class="pl-articles-beta-meta"><span class="pl-articles-beta-type">[% object.type_label %]</span>Created [% object.created %] | Last modified [% object.modified %]</div>
+          [% IF object.unclassified %]<span class="pl-articles-beta-flag">Needs classification</span>[% END %]
+          [% IF object.has_corrections %]<span class="pl-articles-beta-flag">Corrections</span>[% END %]
+          [% IF object.has_messages %]<span class="pl-articles-beta-flag">New messages</span>[% END %]
+          <div class="pl-articles-beta-actions">
+            <a href="[% object.obj_url %]">View</a><a href="[% object.edithref %]">Edit</a>
+            [% IF object.table == "objects" %]<a href="[% object.historyhref %]">History</a>[% END %]
+            <details><summary>Manage</summary><div class="pl-articles-beta-actions-menu"><a href="[% object.aclhref %]">Change access</a>[% IF object.table == "objects" %]<a href="[% object.linkhref %]">Linking policy</a>[% END %]<a href="[% object.transferhref %]">Transfer</a><a href="[% object.abandonhref %]">Abandon</a><a href="[% object.deletehref %]">Delete</a></div></details>
+          </div>
+        </article>
+      [% END %]
+    </div>
+    <nav class="pl-articles-beta-pager" aria-label="Article pages">[% pager %]</nav>
+  [% ELSE %]
+    <p class="pl-articles-beta-empty">No articles match these filters.</p>
+  [% END %]
+</div>
