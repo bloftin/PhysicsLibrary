@@ -71,6 +71,7 @@ sub applyIndexingPolicy {
 		getcors
 		userobjs
 		edituserobjsbeta
+		collab
 		preamble
 	);
 	my $no_index = $noindex_ops{$op} ? 1 : 0;

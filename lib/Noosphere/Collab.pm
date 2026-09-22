@@ -255,10 +255,158 @@ sub getCollabObjList {
 	return $xml;
 }
 
-# display main collab screen, show's your collaborations, and collaborations
-# you have permissions to edit.
-#
+# The current route keeps the established collaboration permissions and actions,
+# while this presentation-oriented path supplies a modern task list.
+sub collabNavigationParams {
+	my $params = shift || {};
+	my $sort = $params->{'sort'} || 'activity';
+	$sort = 'activity' unless $sort =~ /\A(?:activity|title|created)\z/;
+	my $filter = $params->{'filter'} || 'all';
+	$filter = 'all' unless $filter =~ /\A(?:all|locked|mine|shared|published)\z/;
+	my $search = $params->{'q'};
+	$search = '' if !defined($search) || ref($search);
+	$search =~ s/^\s+|\s+$//g;
+	$search = substr($search, 0, 255);
+	return ($sort, $filter, $search);
+}
+
+sub filterCollabRows {
+	my ($rows, $filter, $search) = @_;
+	if ($filter ne 'all') {
+		@$rows = grep {
+			($filter eq 'locked' && $_->{'locked'}) ||
+			($filter eq 'mine' && $_->{'is_owner'}) ||
+			($filter eq 'shared' && !$_->{'is_owner'}) ||
+			($filter eq 'published' && $_->{'published'})
+		} @$rows;
+	}
+	if (length $search) {
+		my $needle = lc($search);
+		@$rows = grep {
+			index(lc($_->{'search_title'} || ''), $needle) >= 0 ||
+			index(lc($_->{'search_abstract'} || ''), $needle) >= 0
+		} @$rows;
+	}
+}
+
+sub sortCollabRows {
+	my ($rows, $sort) = @_;
+	@$rows = sort {
+		($sort eq 'title') ?
+			(lc($a->{'search_title'} || '') cmp lc($b->{'search_title'} || '')) :
+		($sort eq 'created') ?
+			(($b->{'created_sort'} || '') cmp ($a->{'created_sort'} || '')) :
+			(($b->{'activity_sort'} || '') cmp ($a->{'activity_sort'} || '')) ||
+			(lc($a->{'search_title'} || '') cmp lc($b->{'search_title'} || ''))
+	} @$rows;
+}
+
 sub collabMain {
+	my $params = shift;
+	my $userinf = shift;
+	my $collab = getConfig('collab_tbl');
+	my ($sort, $filter, $search) = collabNavigationParams($params);
+	my $glist = join(', ', getMemberGroupIDs($userinf->{'uid'}));
+	my $acl = getConfig('acl_tbl');
+	my @acl_filters = ("user_or_group = 'u' and default_or_normal = 'n' and subjectid = $userinf->{uid}");
+	push @acl_filters, "user_or_group = 'g' and default_or_normal = 'n' and subjectid in ($glist)" if length $glist;
+	push @acl_filters, "default_or_normal = 'd'";
+	my $sth = $dbh->prepare("select objectid from $acl where tbl='$collab' and _write = 1 and (".join(' or ', @acl_filters).")");
+	$sth->execute();
+	my @uids = (-1);
+	while (my $row = $sth->fetchrow_arrayref()) {
+		push @uids, $row->[0];
+	}
+	$sth->finish();
+
+	my $uidlist = join(', ', @uids);
+	$sth = $dbh->prepare("select * from $collab where userid=$userinf->{uid} or uid in ($uidlist)");
+	$sth->execute();
+	my @collabs;
+	while (my $row = $sth->fetchrow_hashref()) {
+		my $locked = $row->{'_lock'} ? 1 : 0;
+		my ($lockuser, $locktime) = ('', '');
+		if ($locked) {
+			$locktime = mdhm($row->{'locktime'});
+			$lockuser = lookupfield(getConfig('user_tbl'), 'username', "uid=$row->{lockuser}");
+		}
+
+		my $edits = getConfig('author_tbl');
+		my $sth2 = $dbh->prepare("select userid, ts from $edits where tbl='$collab' and objectid=$row->{uid} order by ts desc limit 1");
+		$sth2->execute();
+		my $lastedit = $sth2->fetchrow_hashref();
+		$sth2->finish();
+		my ($lastwhen, $lastuser, $lastedit_ts) = ('', '', '');
+		if (defined $lastedit) {
+			$lastwhen = mdhm($lastedit->{'ts'});
+			$lastuser = lookupfield(getConfig('user_tbl'), 'username', "uid=$lastedit->{userid}");
+			$lastedit_ts = $lastedit->{'ts'} || '';
+		}
+
+		my $owner = $row->{'userid'} == $userinf->{'uid'} ? 1 : 0;
+		my $can_manage_access = $owner;
+		my $ownername = '';
+		if (!$owner) {
+			$ownername = lookupfield(getConfig('user_tbl'), 'username', "uid=$row->{userid}");
+			my $permissions = getPermissions($collab, $row->{'uid'}, $userinf);
+			$can_manage_access = 1 if $permissions->{'acl'};
+		}
+
+		my @manage;
+		push @manage, {url=>getConfig('main_url')."/?op=vbrowser&amp;from=$collab&amp;id=$row->{uid}", anchor=>'Revision history'};
+		push @manage, {url=>getConfig('main_url')."/?op=acledit&amp;from=$collab&amp;id=$row->{uid}", anchor=>'Manage access'} if $can_manage_access;
+		push @manage, {url=>getConfig('main_url')."/?op=collab_edit_comment&amp;id=$row->{uid}", anchor=>'Edit comment'} if $owner;
+		push @manage, {url=>getConfig('main_url')."/?op=collab_publish&amp;id=$row->{uid}&amp;ask=yes", anchor=>'Publish'} if (!$row->{'sitedoc'} && !$row->{'published'} && $owner);
+		push @manage, {url=>getConfig('main_url')."/?op=delobj&amp;from=$collab&amp;id=$row->{uid}&amp;ask=yes", anchor=>'Delete'} if $owner;
+
+		my $abstract = $row->{'abstract'} || '';
+		$abstract =~ s/\s+/ /gs;
+		push @collabs, {
+			id => $row->{'uid'},
+			title => qhtmlescape($row->{'title'}),
+			abstract => qhtmlescape($abstract),
+			is_owner => $owner,
+			ownername => qhtmlescape($ownername),
+			locked => $locked,
+			locked_by_current_user => ($locked && ($row->{'lockuser'} || 0) == $userinf->{'uid'} ? 1 : 0),
+			lockuser => qhtmlescape($lockuser),
+			locktime => $locktime,
+			lastwhen => $lastwhen,
+			lastuser => qhtmlescape($lastuser),
+			published => ($row->{'published'} ? 1 : 0),
+			sitedoc => ($row->{'sitedoc'} ? 1 : 0),
+			viewhref => getConfig('main_url')."/?op=getobj&amp;from=$collab&amp;id=$row->{uid}",
+			edithref => getConfig('main_url')."/?op=edit&amp;from=$collab&amp;id=$row->{uid}",
+			lockhref => getConfig('main_url')."/?op=edit&amp;from=$collab&amp;id=$row->{uid}&amp;lock=1",
+			releasehref => getConfig('main_url')."/?op=collab_release_lock&amp;id=$row->{uid}",
+			manage => \@manage,
+			search_title => $row->{'title'} || '',
+			search_abstract => $abstract,
+			created_sort => $row->{'created'} || '',
+			activity_sort => $lastedit_ts || $row->{'modified'} || $row->{'created'} || '',
+		};
+	}
+	$sth->finish();
+	filterCollabRows(\@collabs, $filter, $search);
+	sortCollabRows(\@collabs, $sort);
+	my $html = '';
+	my $tt = Template->new({ INCLUDE_PATH => '/var/www/pp/stemplates' });
+	$tt->process('collabmain.tt', {
+		collabs => \@collabs,
+		total => scalar(@collabs),
+		owned => scalar(grep { $_->{'is_owner'} } @collabs),
+		shared => scalar(grep { !$_->{'is_owner'} } @collabs),
+		locked => scalar(grep { $_->{'locked'} } @collabs),
+		sort => $sort,
+		filter => $filter,
+		search => qhtmlescape($search),
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return paddingTable($html);
+}
+
+# Legacy XSL presentation retained temporarily as a reference while the
+# route above uses the modern template.
+sub collabMainLegacy {
 	my $params = shift;
 	my $userinf = shift;
 
