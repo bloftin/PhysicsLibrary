@@ -5,18 +5,14 @@ use Test::More;
 use FindBin;
 
 my $root = "$FindBin::Bin/../..";
-my $template_path = "$root/stemplates/collabmain.xsl";
+my $template_path = "$root/stemplates/collabmain.tt";
 
 open my $template, '<', $template_path or die $!;
 my $source = do { local $/; <$template> };
 close $template;
 
-like(
-	$source,
-	qr{src="\{//globals/image_url\}/object\.png"},
-	'site-document collaborations use the existing object icon',
-);
-unlike($source, qr/site_icon\.png/, 'template does not reference the missing legacy icon');
-ok(-f "$root/data/images/object.png", 'referenced collaboration icon exists');
+like($source, qr/pl-collab-badge-site/, 'site-document collaborations have a dedicated state badge');
+like($source, qr/Site documentation/, 'site-document collaborations have a visible label');
+unlike($source, qr/site_icon\.png/, 'workspace does not reference the missing legacy icon');
 
 done_testing();

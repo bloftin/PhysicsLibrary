@@ -1,0 +1,87 @@
+<style type="text/css">
+.pl-collab { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-collab a { color: #064d93; }
+.pl-collab-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-collab-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.pl-collab-header h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-collab-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-collab-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
+.pl-collab-create:hover, .pl-collab-create:focus { background: #103a61; }
+.pl-collab-toolbar { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-collab-toolbar-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) minmax(9rem, .46fr) minmax(9rem, .46fr) auto; }
+.pl-collab label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-collab input[type="search"], .pl-collab select { box-sizing: border-box; font-size: .92rem; max-width: 100%; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-collab-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-collab-tools { font-size: .84rem; margin: .65rem 0 0; }
+.pl-collab-list { border-top: 1px solid #b6c5d2; }
+.pl-collab-row { border-bottom: 1px solid #cbd6de; padding: .85rem .15rem .8rem; }
+.pl-collab-row h2 { font-size: 1.04rem; line-height: 1.32; margin: 0; }
+.pl-collab-row h2 a { color: #17212b; }
+.pl-collab-row h2 a:hover, .pl-collab-row h2 a:focus { color: #064d93; }
+.pl-collab-meta { color: #586673; font-size: .81rem; margin: .34rem 0 .44rem; }
+.pl-collab-badge { border: 1px solid #b5c6d3; color: #2b4861; font-size: .74rem; font-weight: bold; margin-right: .35rem; padding: .08rem .3rem; }
+.pl-collab-badge-owner { background: #e2ebf1; }
+.pl-collab-badge-published { background: #d7eadb; border-color: #6b9b73; color: #245331; }
+.pl-collab-badge-site { background: #f3e6cb; border-color: #c7a35c; color: #654600; }
+.pl-collab-badge-locked { background: #f7dddd; border-color: #bd7171; color: #7b2020; }
+.pl-collab-comment { line-height: 1.45; margin: .35rem 0; }
+.pl-collab-comment-empty { color: #67737c; font-style: italic; }
+.pl-collab-state { background: #f5f8fa; border-left: 3px solid #88a5bb; color: #3f5362; font-size: .83rem; margin-top: .5rem; padding: .35rem .5rem; }
+.pl-collab-state-locked { background: #fff3f3; border-left-color: #bd7171; color: #6d2828; }
+.pl-collab-actions { display: flex; flex-wrap: wrap; font-size: .84rem; gap: .35rem .75rem; margin-top: .58rem; }
+.pl-collab-actions details { display: inline-block; }
+.pl-collab-actions summary { color: #064d93; cursor: pointer; }
+.pl-collab-actions-menu { background: #fff; border: 1px solid #aebdca; margin-top: .25rem; min-width: 10rem; padding: .35rem .5rem; position: absolute; z-index: 2; }
+.pl-collab-actions-menu a { display: block; margin: .2rem 0; }
+.pl-collab-empty { border: 1px solid #b6c5d2; padding: .9rem; }
+@media (max-width: 700px) { .pl-collab-toolbar-grid { grid-template-columns: 1fr 1fr; } .pl-collab-toolbar-grid .pl-collab-search { grid-column: 1 / -1; } }
+@media (max-width: 420px) { .pl-collab-header-row, .pl-collab-toolbar-grid { grid-template-columns: 1fr; display: grid; } .pl-collab-toolbar-grid .pl-collab-search { grid-column: auto; } .pl-collab-button, .pl-collab-create { box-sizing: border-box; text-align: center; width: 100%; } }
+</style>
+
+<div class="pl-collab">
+  <div class="pl-collab-header">
+    <div class="pl-collab-header-row"><h1>Collaborations</h1><a class="pl-collab-create" href="/?op=edit&amp;from=collab&amp;new=1">Create Collaboration</a></div>
+    <p class="pl-collab-summary">[% total %] collaboration[% IF total != 1 %]s[% END %] in view: [% owned %] yours, [% shared %] shared with you, [% locked %] locked.</p>
+  </div>
+
+  <form class="pl-collab-toolbar" method="get" action="/">
+    <input type="hidden" name="op" value="collab">
+    <div class="pl-collab-toolbar-grid">
+      <div class="pl-collab-search"><label for="pl-collab-search">Search title or comment</label><input id="pl-collab-search" type="search" name="q" value="[% search %]"></div>
+      <div><label for="pl-collab-filter">Show</label><select id="pl-collab-filter" name="filter" onchange="this.form.submit()"><option value="all" [% IF filter == "all" %]selected[% END %]>All collaborations</option><option value="locked" [% IF filter == "locked" %]selected[% END %]>Locked</option><option value="mine" [% IF filter == "mine" %]selected[% END %]>Mine</option><option value="shared" [% IF filter == "shared" %]selected[% END %]>Shared with me</option><option value="published" [% IF filter == "published" %]selected[% END %]>Published</option></select></div>
+      <div><label for="pl-collab-sort">Sort by</label><select id="pl-collab-sort" name="sort" onchange="this.form.submit()"><option value="activity" [% IF sort == "activity" %]selected[% END %]>Recent activity</option><option value="title" [% IF sort == "title" %]selected[% END %]>Title</option><option value="created" [% IF sort == "created" %]selected[% END %]>Recently created</option></select></div>
+      <div><button class="pl-collab-button" type="submit">Search</button></div>
+    </div>
+    <div class="pl-collab-tools"><a href="/?op=collab">Clear filters</a></div>
+  </form>
+
+  [% IF collabs.size %]
+    <div class="pl-collab-list">
+      [% FOREACH collab IN collabs %]
+        <article class="pl-collab-row">
+          <h2><a href="[% collab.viewhref %]">[% collab.title %]</a></h2>
+          <div class="pl-collab-meta">
+            [% IF collab.is_owner %]<span class="pl-collab-badge pl-collab-badge-owner">Yours</span>[% ELSE %]Owned by [% collab.ownername %][% END %]
+            [% IF collab.sitedoc %]<span class="pl-collab-badge pl-collab-badge-site">Site documentation</span>[% END %]
+            [% IF collab.published %]<span class="pl-collab-badge pl-collab-badge-published">Published</span>[% END %]
+            [% IF collab.locked %]<span class="pl-collab-badge pl-collab-badge-locked">Locked</span>[% END %]
+          </div>
+          [% IF collab.abstract %]<div class="pl-collab-comment">[% collab.abstract %]</div>[% ELSE %]<div class="pl-collab-comment pl-collab-comment-empty">No comment provided.</div>[% END %]
+          [% IF collab.locked %]
+            <div class="pl-collab-state pl-collab-state-locked">[% IF collab.locked_by_current_user %]Locked by you. <a href="[% collab.releasehref %]">Release lock</a>[% ELSE %]Locked by [% collab.lockuser %] since [% collab.locktime %].[% END %]</div>
+          [% ELSIF collab.lastwhen %]
+            <div class="pl-collab-state">Last activity [% collab.lastwhen %] by [% collab.lastuser %]. Available to edit.</div>
+          [% ELSE %]
+            <div class="pl-collab-state">No recorded edits yet. Available to edit.</div>
+          [% END %]
+          <div class="pl-collab-actions">
+            <a href="[% collab.viewhref %]">Open</a><a href="[% collab.edithref %]">Edit</a><a href="[% collab.lockhref %]">Edit with lock</a>
+            [% IF collab.manage.size %]<details><summary>Manage</summary><div class="pl-collab-actions-menu">[% FOREACH action IN collab.manage %]<a href="[% action.url %]">[% action.anchor %]</a>[% END %]</div></details>[% END %]
+          </div>
+        </article>
+      [% END %]
+    </div>
+  [% ELSE %]
+    <p class="pl-collab-empty">No collaborations match these filters.</p>
+  [% END %]
+</div>

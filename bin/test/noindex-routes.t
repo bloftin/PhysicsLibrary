@@ -32,6 +32,11 @@ ok(applyIndexingPolicy($beta_request, 'edituserobjsbeta'), 'beta user article li
 is($beta_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
     'beta user article listings send the robots response header');
 
+my $collab_request = IndexingRequest->new();
+ok(applyIndexingPolicy($collab_request, 'collab'), 'collaboration workspaces are not indexed');
+is($collab_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
+    'collaboration workspaces send the robots response header');
+
 my $history_request = IndexingRequest->new();
 ok(applyIndexingPolicy($history_request, 'viewver'), 'existing history policy is retained');
 
