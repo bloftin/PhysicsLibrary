@@ -30,4 +30,10 @@ like(
 my @crawler_rules = $config =~ /RewriteCond\s+%\{HTTP_USER_AGENT\}\s+\([^\n]*\bSogou\b[^\n]*\bBytespider\b[^\n]*\bdwnupd\b[^\n]*\)\s+\[NC\]/g;
 is(scalar @crawler_rules, 3, 'all HTTPS virtual hosts reject the observed abusive crawlers');
 
+my @probe_path_rules = $config =~ /RewriteRule\s+\^\/\?\(\?:root\|home\|srv\|storage\|vendor\|config\|wordpress\|wp-admin\|wp-content\|wp-includes\)\(\?:\/\|\$\)\s+-\s+\[F,L,NC\]/g;
+is(scalar @probe_path_rules, 3, 'all HTTPS virtual hosts reject common probe-only path roots');
+
+my @credential_rules = $config =~ /RewriteRule\s+\^\/\?\(\?:\.\*\?\/\)\?\\\.\(\?:env\(\?:\[\.~\]\.\*\)\?\|git\|aws\|ssh\|claude\|codex\|gemini\|config\|openclaw\|nerve\)\(\?:\/\|\$\)\s+-\s+\[F,L,NC\]/g;
+is(scalar @credential_rules, 3, 'all HTTPS virtual hosts reject credential-directory probes');
+
 done_testing();
