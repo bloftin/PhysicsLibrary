@@ -15,6 +15,7 @@ use XML::LibXML;
 our $reruns = 'ref|eqref|cite';
 my $root = tempdir(CLEANUP => 1);
 my ($status, $stdout, $stderr) = (256, '', '');
+my $run_count = 0;
 my @warnings;
 my $postprocessed = 0;
 sub getConfig {
@@ -28,7 +29,10 @@ sub UTF8toTeX { return $_[0]; }
 sub htmlescape { return encode_entities($_[0], '<>&'); }
 sub latex_error_check { return 0; }
 sub dwarn { push @warnings, $_[0]; }
-sub runExternalCommand { return ($status, $stdout, $stderr); }
+sub runExternalCommand {
+    $run_count++;
+    return ($status, $stdout, $stderr);
+}
 sub postProcess_make4htIndex {
     $postprocessed++;
     write_render_message('Successful preview');
@@ -77,6 +81,12 @@ ok($xml, 'failure output parses as XML for collaboration templates') or diag($@)
 is($postprocessed, 0, 'failed converter output is not postprocessed');
 like($warnings[-1], qr/\Q$dir\E/, 'full server diagnostics retained');
 
+$run_count = 0;
+my $latex_with_citation = "\\documentclass{article}\n\\begin{document}\\cite{reference}\\end{document}\n";
+is(renderLaTeX('.', 'temp/preview', $latex_with_citation, 'make4ht', 'TestTableFormatting'), 0,
+    'failed citation-bearing preview returns failure');
+is($run_count, 1, 'failed preliminary make4ht pass does not run a duplicate conversion');
+
 is(renderLaTeX('objects', 1017, $latex, 'make4ht', 'TestTableFormatting'), 0,
     'cached article failure still returns failure');
 unlike(rendered_output('objects', 1017), qr/Compiler details|STDOUT|Misplaced/,
@@ -103,5 +113,10 @@ is(renderLaTeX('.', 'temp/preview', $latex, 'make4ht', 'TestTableFormatting'), 1
 is($postprocessed, 1, 'successful output follows normal postprocessing');
 unlike(rendered_output('temp', 'preview'), qr/Compiler details|Rendering failed/,
     'successful rerender replaces old diagnostics');
+
+$run_count = 0;
+is(renderLaTeX('.', 'temp/preview', $latex_with_citation, 'make4ht', 'TestTableFormatting'), 1,
+    'successful citation-bearing preview completes');
+is($run_count, 2, 'successful citation-bearing preview retains its second make4ht pass');
 
 done_testing();

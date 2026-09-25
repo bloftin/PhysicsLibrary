@@ -659,6 +659,12 @@ sub render_make4ht {
 		my ($retval, $output, $error) = runExternalCommand('/usr/bin/make4ht', ['-d', $dir, "$dir/$fname.tex"], 60);
 		#dwarn "make4ht rerun output: $output";
 		#dwarn "make4ht rerun error: $error";
+		if ($retval != 0) {
+			dwarn("make4ht failed for $fname with status $retval\nSTDOUT:\n$output\nSTDERR:\n$error");
+			my $details = $preview ? make4ht_error_details($output, $error, $dir) : undef;
+			write_render_message("Rendering failed.  make4ht exited with status $retval.", $details);
+			return 0;
+		}
 	}
 
 	#dwarn "EXECING make4ht -d $dir $dir/$fname.tex";
