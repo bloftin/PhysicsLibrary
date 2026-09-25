@@ -1,0 +1,73 @@
+<style type="text/css">
+.pl-encyclopedia-list { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-encyclopedia-list a { color: #064d93; }
+.pl-encyclopedia-list-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-encyclopedia-list-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.pl-encyclopedia-list h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-encyclopedia-list-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-encyclopedia-list-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
+.pl-encyclopedia-list-create:hover, .pl-encyclopedia-list-create:focus { background: #103a61; }
+.pl-encyclopedia-list-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
+.pl-encyclopedia-list-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
+.pl-encyclopedia-list-toolbar { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-encyclopedia-list-toolbar-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) minmax(8rem, .42fr) minmax(8rem, .42fr) auto; }
+.pl-encyclopedia-list label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-encyclopedia-list input[type="search"], .pl-encyclopedia-list select { box-sizing: border-box; font-size: .92rem; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-encyclopedia-list-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-encyclopedia-list-tools { font-size: .84rem; margin: .65rem 0 0; }
+.pl-encyclopedia-list-pager { border-bottom: 1px solid #b6c5d2; font-size: .9rem; margin: 0 0 .55rem; padding: 0 0 .45rem; text-align: center; }
+.pl-encyclopedia-list-results + .pl-encyclopedia-list-pager { border-bottom: 0; border-top: 1px solid #b6c5d2; margin: .55rem 0 0; padding: .55rem 0 0; }
+.pl-encyclopedia-list-results { border-top: 1px solid #b6c5d2; }
+.pl-encyclopedia-list-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
+.pl-encyclopedia-list-row h2 { font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-encyclopedia-list-row h2 a { color: #17212b; }
+.pl-encyclopedia-list-row h2 a:hover, .pl-encyclopedia-list-row h2 a:focus { color: #064d93; }
+.pl-encyclopedia-list-meta { color: #586673; font-size: .8rem; margin: .32rem 0 .15rem; }
+.pl-encyclopedia-list-type { background: #e2ebf1; border: 1px solid #b5c6d3; color: #2b4861; font-size: .75rem; font-weight: bold; margin-right: .4rem; padding: .08rem .32rem; }
+.pl-encyclopedia-list-group { background: #f5f8fa; border-bottom: 1px solid #b6c5d2; border-top: 1px solid #b6c5d2; color: #314353; font-size: .9rem; font-weight: bold; margin: -.8rem -.15rem .7rem; padding: .38rem .5rem; }
+.pl-encyclopedia-list-empty { border: 1px solid #b6c5d2; padding: .9rem; }
+@media (max-width: 700px) { .pl-encyclopedia-list-toolbar-grid { grid-template-columns: 1fr 1fr; } .pl-encyclopedia-list-toolbar-grid .pl-encyclopedia-list-search { grid-column: 1 / -1; } }
+@media (max-width: 500px) { .pl-encyclopedia-list-header-row, .pl-encyclopedia-list-toolbar-grid { align-items: stretch; display: grid; grid-template-columns: 1fr; } .pl-encyclopedia-list-toolbar-grid .pl-encyclopedia-list-search { grid-column: auto; } .pl-encyclopedia-list-button, .pl-encyclopedia-list-create { box-sizing: border-box; text-align: center; width: 100%; } }
+</style>
+
+<div class="pl-encyclopedia-list">
+  <header class="pl-encyclopedia-list-header">
+    <div class="pl-encyclopedia-list-header-row"><h1>Search Encyclopedia</h1><a class="pl-encyclopedia-list-create" href="/?op=adden">Create Article</a></div>
+    [% IF total %]<p class="pl-encyclopedia-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching article[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-encyclopedia-list-summary">No encyclopedia articles match this view.</p>[% END %]
+  </header>
+
+  <nav class="pl-encyclopedia-list-nav" aria-label="Encyclopedia navigation">
+    <a href="/encyclopedia">Alphabetical index</a>
+    <a href="/browse/objects/">Browse by subject</a>
+    <a href="/?op=listobj&amp;from=objects" aria-current="page">Browse and search</a>
+  </nav>
+
+  <form class="pl-encyclopedia-list-toolbar" method="get" action="/">
+    <input type="hidden" name="op" value="listobj">
+    <input type="hidden" name="from" value="objects">
+    <div class="pl-encyclopedia-list-toolbar-grid">
+      <div class="pl-encyclopedia-list-search"><label for="encyclopedia-list-search">Search titles, concepts, or contributors</label><input id="encyclopedia-list-search" type="search" name="q" value="[% search | html %]"></div>
+      <div><label for="encyclopedia-list-sort">Sort by</label><select id="encyclopedia-list-sort" name="sort" onchange="this.form.submit()">[% FOREACH option IN sort_options %]<option value="[% option.value %]"[% IF sort == option.value %] selected[% END %]>[% option.label %]</option>[% END %]</select></div>
+      <div><label for="encyclopedia-list-group">Group</label><select id="encyclopedia-list-group" name="group" onchange="this.form.submit()"><option value=""[% IF group == "" %] selected[% END %]>None</option><option value="letter"[% IF group == "letter" %] selected[% END %]>First letter</option></select></div>
+      <div><button class="pl-encyclopedia-list-button" type="submit">Search</button></div>
+    </div>
+    [% IF active_filters %]<div class="pl-encyclopedia-list-tools"><a href="/?op=listobj&amp;from=objects">Clear filters</a></div>[% END %]
+  </form>
+
+  [% IF objects.size %]
+    <nav class="pl-encyclopedia-list-pager" aria-label="Search result pages">[% pager %]</nav>
+    <div class="pl-encyclopedia-list-results">
+      [% last_group = "" %]
+      [% FOREACH object IN objects %]
+        <article class="pl-encyclopedia-list-row">
+          [% IF group == "letter" AND object.group_label != last_group %]<div class="pl-encyclopedia-list-group">[% object.group_label %]</div>[% last_group = object.group_label %][% END %]
+          <h2><a href="/?op=getobj&amp;from=objects&amp;id=[% object.id %]">[% object.title | html %]</a></h2>
+          <div class="pl-encyclopedia-list-meta"><span class="pl-encyclopedia-list-type">[% object.article_type | html %]</span>Owned by <a href="/?op=getuser&amp;id=[% object.userid %]">[% object.username | html %]</a> | Added [% object.date %][% IF object.classification %] | Classification: [% object.classification %][% END %]</div>
+        </article>
+      [% END %]
+    </div>
+    <nav class="pl-encyclopedia-list-pager" aria-label="Search result pages">[% pager %]</nav>
+  [% ELSE %]
+    <p class="pl-encyclopedia-list-empty">No articles match these filters.</p>
+  [% END %]
+</div>

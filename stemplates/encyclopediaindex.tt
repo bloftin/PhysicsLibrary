@@ -1,0 +1,77 @@
+<style type="text/css">
+.pl-encyclopedia { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-encyclopedia a { color: #064d93; }
+.pl-encyclopedia-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-encyclopedia-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.pl-encyclopedia h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-encyclopedia-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-encyclopedia-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
+.pl-encyclopedia-create:hover, .pl-encyclopedia-create:focus { background: #103a61; }
+.pl-encyclopedia-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
+.pl-encyclopedia-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
+.pl-encyclopedia-search { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-encyclopedia-search-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) auto; }
+.pl-encyclopedia label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-encyclopedia input[type="search"] { box-sizing: border-box; font-size: .92rem; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-encyclopedia-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-encyclopedia-section { margin: 1rem 0; }
+.pl-encyclopedia-section h2 { color: #17212b; font-size: 1.08rem; margin: 0; }
+.pl-encyclopedia-section-intro { color: #526170; font-size: .84rem; margin: .3rem 0 .6rem; }
+.pl-encyclopedia-index { display: grid; gap: .38rem; grid-template-columns: repeat(auto-fill, minmax(4.1rem, 1fr)); }
+.pl-encyclopedia-index a { align-items: baseline; background: #f5f8fa; border: 1px solid #c4d0d9; display: flex; justify-content: space-between; min-height: 2.2rem; padding: .32rem .42rem; text-decoration: none; }
+.pl-encyclopedia-index a:hover, .pl-encyclopedia-index a:focus { background: #e2ebf1; border-color: #7192aa; }
+.pl-encyclopedia-index a[aria-current="true"] { background: #dce9f3; border-color: #37698e; color: #17212b; font-weight: bold; }
+.pl-encyclopedia-index-count { color: #586673; font-size: .76rem; }
+.pl-encyclopedia-results { border-top: 1px solid #b6c5d2; margin-top: 1.2rem; padding-top: .9rem; }
+.pl-encyclopedia-results ol { margin: .65rem 0 0; padding-left: 1.35rem; }
+.pl-encyclopedia-results li { border-bottom: 1px solid #d4dde3; padding: .5rem 0; }
+.pl-encyclopedia-result-meta { color: #586673; font-size: .81rem; margin-top: .18rem; }
+@media (max-width: 500px) { .pl-encyclopedia-header-row { align-items: stretch; display: grid; grid-template-columns: 1fr; } .pl-encyclopedia-create { text-align: center; } .pl-encyclopedia-search-grid { grid-template-columns: 1fr; } .pl-encyclopedia-button { width: 100%; } }
+</style>
+
+<div class="pl-encyclopedia">
+  <header class="pl-encyclopedia-header">
+    <div class="pl-encyclopedia-header-row"><h1>Physics Library Encyclopedia</h1><a class="pl-encyclopedia-create" href="/?op=adden">Create Article</a></div>
+    <p class="pl-encyclopedia-summary">[% article_count %] articles and [% concept_count %] concepts available to explore.</p>
+  </header>
+
+  <nav class="pl-encyclopedia-nav" aria-label="Encyclopedia navigation">
+    <a href="/encyclopedia" aria-current="page">Alphabetical index</a>
+    <a href="/browse/objects/">Browse by subject</a>
+    <a href="/?op=listobj&amp;from=objects">Browse and search</a>
+  </nav>
+
+  <form class="pl-encyclopedia-search" method="get" action="/">
+    <input type="hidden" name="op" value="listobj">
+    <input type="hidden" name="from" value="objects">
+    <div class="pl-encyclopedia-search-grid">
+      <div><label for="encyclopedia-search">Search the encyclopedia</label><input id="encyclopedia-search" type="search" name="q"></div>
+      <div><button class="pl-encyclopedia-button" type="submit">Search</button></div>
+    </div>
+  </form>
+
+  <section class="pl-encyclopedia-section" aria-labelledby="encyclopedia-index-heading">
+    <h2 id="encyclopedia-index-heading">Alphabetical index</h2>
+    <p class="pl-encyclopedia-section-intro">Choose a letter to browse its article titles, synonyms, and defined concepts.</p>
+    <nav class="pl-encyclopedia-index" aria-label="Alphabetical index">
+      [% FOREACH index IN index_rows %]
+        <a href="[% index.href %]"[% IF index.selected %] aria-current="true"[% END %]><span>[% index.idx %]</span><span class="pl-encyclopedia-index-count">[% index.count %]</span></a>
+      [% END %]
+    </nav>
+  </section>
+
+  [% IF selected_letter %]
+    <section class="pl-encyclopedia-results" aria-labelledby="encyclopedia-results-heading">
+      <h2 id="encyclopedia-results-heading">Entries beginning with [% selected_letter %]</h2>
+      [% IF objects.size %]
+        <ol>
+          [% FOREACH object IN objects %]
+            <li><a href="[% object.href %]">[% object.title %]</a><div class="pl-encyclopedia-result-meta">[% IF object.relation %][% object.relation %] | [% END %]Owned by [% object.owner %]</div></li>
+          [% END %]
+        </ol>
+      [% ELSE %]
+        <p class="pl-encyclopedia-section-intro">No indexed entries begin with this character.</p>
+      [% END %]
+    </section>
+  [% END %]
+</div>
