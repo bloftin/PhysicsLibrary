@@ -441,7 +441,7 @@ sub listGeneric {
 	my $where = $encyclopedia ? '' : genericListWhereSql($search);
 	my $order = genericListSortSql($sort);
 
-	my $tt_file = 'genericlist.tt';
+	my $tt_file = $encyclopedia ? 'encyclopedialist.tt' : 'genericlist.tt';
 
 	my $template = new XSLTemplate('genericlist.xsl');
 
@@ -552,6 +552,9 @@ sub listGeneric {
 			sort_options			=> $sort_options,
 			encyclopedia			=> $encyclopedia,
 			active_filters			=> ($search ne '' || $sort ne 'created_desc' || $group ne ''),
+			total					=> $total,
+			showing_from			=> $total ? $offset + 1 : 0,
+			showing_to				=> $total ? (($offset + scalar(@rows)) > $total ? $total : $offset + scalar(@rows)) : 0,
     };
 
 	my $tt = Template->new({
