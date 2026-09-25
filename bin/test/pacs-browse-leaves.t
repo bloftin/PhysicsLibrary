@@ -11,6 +11,9 @@ close $module;
 my ($helper) = $source =~ /^(sub pacsBrowseLeaves \{.*?)(?=^sub |\z)/ms;
 die 'pacsBrowseLeaves not found' unless defined $helper;
 
+my ($browse_handler) = $source =~ /^(sub pacsBrowse \{.*?)(?=^# the generic MSC browser)/ms;
+die 'pacsBrowse not found' unless defined $browse_handler;
+
 {
 	package Noosphere;
 	use strict;
@@ -87,5 +90,9 @@ like($template_source, qr/one of its subcategories/, 'subject browser explains d
 like($template_source, qr/pacs_leaves_limited/, 'subject browser explains bounded broad-subject results');
 like($source, qr/# leaf level.*?\$upstr\s*=\s*defined \$upid \? "\$upid\/" : '';/s,
 	'leaf subject pages preserve their immediate parent in the up-one-level path');
+like($browse_handler, qr/elsif \(defined lookupfield\(\$scheme, 'id', "parent='" \. sq\(\$id\) \. "'"\)\)/,
+	'PACS categories expand based on actual child records rather than identifier spelling');
+unlike($browse_handler, qr/elsif \(\$id =~ \/XX\$\/io\)/,
+	'PACS browsing does not assume only XX-suffixed categories can have children');
 
 done_testing();

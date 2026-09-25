@@ -262,9 +262,9 @@ sub pacsBrowse {
 		}
 
 	}
-	# ##-XX level / ##Cxx level
-	# Ben changed XX to .
-	elsif ($id =~ /XX$/io) {
+	# Any category with children is an expandable subject, regardless of the
+	# historical spelling of its PACS identifier.
+	elsif (defined lookupfield($scheme, 'id', "parent='" . sq($id) . "'")) {
 		#dwarn "-XX level";
 		#dwarn "domain: $domain ";
 		if ($domain ne 'categories') {
