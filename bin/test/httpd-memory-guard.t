@@ -27,4 +27,7 @@ like(
     'primary HTTPS virtual host rejects direct version archive requests',
 );
 
+my @crawler_rules = $config =~ /RewriteCond\s+%\{HTTP_USER_AGENT\}\s+\([^\n]*\bSogou\b[^\n]*\bBytespider\b[^\n]*\bdwnupd\b[^\n]*\)\s+\[NC\]/g;
+is(scalar @crawler_rules, 3, 'all HTTPS virtual hosts reject the observed abusive crawlers');
+
 done_testing();
