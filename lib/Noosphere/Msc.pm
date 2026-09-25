@@ -329,6 +329,7 @@ sub pacsBrowse {
 			$desc = getHierarchicalMscComment($params->{id});
 
 			my $upid = lookupfield($scheme, 'parent', "id='$id'");
+			$upstr = defined $upid ? "$upid/" : '';
 			$parent = 1;
 			##$template->addText("<parent href=\"".getConfig("main_url")."/browse/$domain/$upid/\">");
 			##$template->addText("<id>$params->{id}</id><desc>$desc</desc>");

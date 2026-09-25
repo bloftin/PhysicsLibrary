@@ -85,5 +85,7 @@ like($template_source, qr/pl-subject-browser-node/, 'subject browser renders a s
 like($template_source, qr/Up one level/, 'subject browser provides parent navigation');
 like($template_source, qr/one of its subcategories/, 'subject browser explains descendant article results');
 like($template_source, qr/pacs_leaves_limited/, 'subject browser explains bounded broad-subject results');
+like($source, qr/# leaf level.*?\$upstr\s*=\s*defined \$upid \? "\$upid\/" : '';/s,
+	'leaf subject pages preserve their immediate parent in the up-one-level path');
 
 done_testing();
