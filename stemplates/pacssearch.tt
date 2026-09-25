@@ -1,0 +1,85 @@
+<style type="text/css">
+.pl-pacs-search { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-pacs-search a { color: #064d93; }
+.pl-pacs-search-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-pacs-search h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-pacs-search-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-pacs-search-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
+.pl-pacs-search-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
+.pl-pacs-search-form { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-pacs-search-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) auto; }
+.pl-pacs-search label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-pacs-search input[type="search"] { box-sizing: border-box; font-size: .92rem; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-pacs-search-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-pacs-search-tools { font-size: .82rem; margin: .55rem 0 0; }
+.pl-pacs-search-section { margin: 1rem 0; }
+.pl-pacs-search-section h2 { color: #17212b; font-size: 1.08rem; margin: 0; }
+.pl-pacs-search-intro { color: #526170; font-size: .84rem; margin: .3rem 0 .65rem; }
+.pl-pacs-search-results { border-top: 1px solid #b6c5d2; }
+.pl-pacs-search-result { border-bottom: 1px solid #cbd6de; display: grid; gap: .25rem .75rem; grid-template-columns: minmax(5rem, auto) minmax(0, 1fr); padding: .68rem .15rem; }
+.pl-pacs-search-code { color: #173d62; font-family: "Courier New", monospace; font-size: .9rem; font-weight: bold; }
+.pl-pacs-search-code a { text-decoration: none; }
+.pl-pacs-search-comment { line-height: 1.38; }
+.pl-pacs-search-articles { border-top: 1px solid #b6c5d2; list-style: none; margin: .65rem 0 0; padding: 0; }
+.pl-pacs-search-article { border-bottom: 1px solid #cbd6de; padding: .62rem .15rem; }
+.pl-pacs-search-article-title { font-weight: bold; }
+.pl-pacs-search-article-meta { color: #586673; font-size: .81rem; margin-top: .18rem; }
+.pl-pacs-search-empty { border: 1px solid #b6c5d2; padding: .85rem; }
+@media (max-width: 500px) { .pl-pacs-search-grid, .pl-pacs-search-result { grid-template-columns: 1fr; } .pl-pacs-search-button { width: 100%; } }
+</style>
+
+<div class="pl-pacs-search">
+  <header class="pl-pacs-search-header">
+    <h1>Search Subjects</h1>
+    <p class="pl-pacs-search-summary">Find PACS classifications by code or description, then continue into the subject hierarchy.</p>
+  </header>
+
+  <nav class="pl-pacs-search-nav" aria-label="Encyclopedia navigation">
+    <a href="/encyclopedia">Alphabetical index</a>
+    <a href="/?op=listobj&amp;from=objects">Browse and search</a>
+    <a href="/browse/objects/">Browse by subject</a>
+    <a href="/?op=pacssearch" aria-current="page">Search subjects</a>
+  </nav>
+
+  <form class="pl-pacs-search-form" method="get" action="/">
+    <input type="hidden" name="op" value="pacssearch">
+    <div class="pl-pacs-search-grid">
+      <div><label for="pacs-search-term">Find a classification topic</label><input id="pacs-search-term" type="search" name="pacsterm" value="[% term %]"></div>
+      <div><button class="pl-pacs-search-button" type="submit">Search</button></div>
+    </div>
+    <div class="pl-pacs-search-tools"><label><input type="checkbox" name="leaves"[% IF leaves %] checked="checked"[% END %]> Show leaf classifications only</label></div>
+  </form>
+
+  [% IF has_search %]
+    <section class="pl-pacs-search-section" aria-labelledby="pacs-search-results-heading">
+      <h2 id="pacs-search-results-heading">Matching Classifications</h2>
+      [% IF results.size %]
+        <p class="pl-pacs-search-intro">Results for “[% term %]”.</p>
+        <div class="pl-pacs-search-results">
+          [% FOREACH result IN results %]
+            <div class="pl-pacs-search-result"><div class="pl-pacs-search-code"><a href="[% result.href %]">[% result.id %]</a></div><div class="pl-pacs-search-comment">[% result.comment %]</div></div>
+          [% END %]
+        </div>
+      [% ELSE %]
+        <p class="pl-pacs-search-empty">No classifications match this search.</p>
+      [% END %]
+    </section>
+
+    <section class="pl-pacs-search-section" aria-labelledby="pacs-search-articles-heading">
+      <h2 id="pacs-search-articles-heading">Articles in Matching Classifications</h2>
+      <p class="pl-pacs-search-intro">Articles are included when their assigned PACS classification belongs to a matching topic or one of its subcategories.</p>
+      [% IF article_results.size %]
+        <ul class="pl-pacs-search-articles">
+          [% FOREACH article IN article_results %]
+            <li class="pl-pacs-search-article"><a class="pl-pacs-search-article-title" href="/?op=getobj&amp;from=objects&amp;id=[% article.id %]">[% article.title %]</a><div class="pl-pacs-search-article-meta">Filed under <a href="[% article.classification_href %]">[% article.classification_id %]</a>: [% article.classification_comment %]</div></li>
+          [% END %]
+        </ul>
+        [% IF article_results_limited %]<p class="pl-pacs-search-intro">Showing the first 100 matching articles. Follow a classification above to browse its complete article list.</p>[% END %]
+      [% ELSE %]
+        <p class="pl-pacs-search-empty">No encyclopedia articles are currently filed under the matching classifications.</p>
+      [% END %]
+    </section>
+  [% ELSE %]
+    <p class="pl-pacs-search-empty">Enter a classification code or a descriptive word to search the PACS vocabulary.</p>
+  [% END %]
+</div>

@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Template;
 
 # get a full msc comment for the given id and all categories above
 #
@@ -63,55 +64,87 @@ sub getMscCommentById {
 	return $comment;
 }
 
-# search the MSC for a string
+# Build a PACS term expression for an explicitly named MSC table alias.
+#
+sub pacsSearchCondition {
+	my ($term, $alias) = @_;
+	my @terms = grep { length } split(/\s+/, $term);
+
+	return join(' and ', map {
+		if (/^-(.+)$/) {
+			"$alias.comment not like '%" . sq($1) . "%'";
+		}
+		else {
+			my $safe_term = sq($_);
+			"($alias.comment like '%$safe_term%' or $alias.id='$safe_term')";
+		}
+	} @terms);
+}
+
+# Search PACS labels and encyclopedia articles classified within matching topics.
 #
 sub pacsSearch {
 	my $params = shift;
-	
-	my $html = '';
 
 	my $term = $params->{pacsterm} || '';
 	my $leaves = $params->{leaves} ? $params->{leaves} : ($term ? 'off' : 'on');
-	my $leafstatus = $leaves eq 'on' ? 'checked' : '';
+	my @results;
+	my @article_results;
+	my $article_results_limited = 0;
 
-	# display search form
-	#
-	$html .= "<h3>Search PACS</h3>
-		<center>
-		<table border=\"0\"><td>
-		<form action=\"/\" method=\"get\">						 
-		<input type=\"hidden\" name=\"op\" value=\"pacssearch\">
-		<input type=\"text\" name=\"pacsterm\" value=\"$term\">
-		<input type=\"submit\" value=\"search\">
-		<input type=\"checkbox\" name=\"leaves\" $leafstatus> leaves only
-		<p></p>
-		<font size=\"-2\">(case insensitive substrings, use '-' to exclude)</font>
-	</form>
-		<td></table>
-	</center>";
-
-	# do a search, append results
-	#
 	if ($term) {
-		$html .= "<hr>";
-		my @terms = split(/\s+/,latin1ToHtml($term));
-		my $searchterm = join (' and ',map(($_=~/^-(.+)$".getConfig("main_url")."/?"not comment like '\%$1\%'":"comment like '\%$_\%' or id='$_'") ,@terms));
-		my $leafq = $leaves eq 'on'?"and not id like '\%X\%'":"";
+		my $searchterm = pacsSearchCondition($term, 'msc');
+		my $leafq = $leaves eq 'on' ? "and not msc.id like '%X%'" : '';
 		my ($rv,$sth) = dbSelect($dbh,{WHAT=>'id,comment, parent',FROM=>'msc',WHERE=>"$searchterm $leafq",'ORDER BY'=>'id',ASC=>''});
 	
 		while (my $row = $sth->fetchrow_hashref()) {
 			my $linkto = (defined $row->{parent})?"id=$row->{parent}":'';
-			$html .= "&nbsp;<b><font face=\"monospace\" size=\"+1\"><a href=\"".getConfig("main_url")."/?op=pacsbrowse&$linkto\">$row->{id}</a></font></b> - $row->{comment}<br>";
-		}
-		if (!$sth->rows()) {
-			$html .= "Nothing found.";
+			push @results, {
+				id => qhtmlescape($row->{id}),
+				comment => qhtmlescape(latin1ToUTF8(htmlToLatin1($row->{comment}))),
+				href => getConfig("main_url")."/?op=pacsbrowse&$linkto",
+			};
 		}
 		$sth->finish();
-	}	
-	
-	$html .= "<br>";
 
-	return paddingTable(clearBox('PACS Search',$html));
+		my $class = getConfig('class_tbl');
+		my $clinks = getConfig('clinks_tbl');
+		my $article_searchterm = pacsSearchCondition($term, 'matched_msc');
+		my $article_leafq = $leaves eq 'on' ? "and not matched_msc.id like '%X%'" : '';
+		my ($article_rv, $article_sth) = dbLowLevelSelect($dbh,
+			"select distinct objects.uid, objects.title, assigned_msc.id as classification_id, assigned_msc.comment as classification_comment " .
+			"from msc as matched_msc, $clinks, $class, objects, msc as assigned_msc " .
+			"where $article_searchterm $article_leafq and " .
+			"$clinks.a = matched_msc.uid and $class.catid = $clinks.b and " .
+			"$class.nsid = $clinks.nsb and $class.tbl = 'objects' and " .
+			"objects.uid = $class.objectid and assigned_msc.uid = $class.catid " .
+			"order by lower(objects.title) limit 101");
+
+		while (my $row = $article_sth->fetchrow_hashref()) {
+			push @article_results, {
+				id => $row->{uid},
+				title => mathTitleXSL($row->{title}, 'highlight'),
+				classification_id => qhtmlescape($row->{classification_id}),
+				classification_comment => qhtmlescape(latin1ToUTF8(htmlToLatin1($row->{classification_comment}))),
+				classification_href => getConfig('main_url')."/browse/objects/$row->{classification_id}/",
+			};
+		}
+		$article_sth->finish();
+		$article_results_limited = pop(@article_results) ? 1 : 0 if @article_results > 100;
+	}
+
+	my $html = '';
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('pacssearch.tt', {
+		term => qhtmlescape($term),
+		leaves => $leaves eq 'on' ? 1 : 0,
+		has_search => $term ne '' ? 1 : 0,
+		results => \@results,
+		article_results => \@article_results,
+		article_results_limited => $article_results_limited,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return paddingTable($html);
 }
 
 sub pacsBrowseLeaves {
