@@ -20,6 +20,10 @@
 .pl-pacs-search-code { color: #173d62; font-family: "Courier New", monospace; font-size: .9rem; font-weight: bold; }
 .pl-pacs-search-code a { text-decoration: none; }
 .pl-pacs-search-comment { line-height: 1.38; }
+.pl-pacs-search-articles { border-top: 1px solid #b6c5d2; list-style: none; margin: .65rem 0 0; padding: 0; }
+.pl-pacs-search-article { border-bottom: 1px solid #cbd6de; padding: .62rem .15rem; }
+.pl-pacs-search-article-title { font-weight: bold; }
+.pl-pacs-search-article-meta { color: #586673; font-size: .81rem; margin-top: .18rem; }
 .pl-pacs-search-empty { border: 1px solid #b6c5d2; padding: .85rem; }
 @media (max-width: 500px) { .pl-pacs-search-grid, .pl-pacs-search-result { grid-template-columns: 1fr; } .pl-pacs-search-button { width: 100%; } }
 </style>
@@ -58,6 +62,21 @@
         </div>
       [% ELSE %]
         <p class="pl-pacs-search-empty">No classifications match this search.</p>
+      [% END %]
+    </section>
+
+    <section class="pl-pacs-search-section" aria-labelledby="pacs-search-articles-heading">
+      <h2 id="pacs-search-articles-heading">Articles in Matching Classifications</h2>
+      <p class="pl-pacs-search-intro">Articles are included when their assigned PACS classification belongs to a matching topic or one of its subcategories.</p>
+      [% IF article_results.size %]
+        <ul class="pl-pacs-search-articles">
+          [% FOREACH article IN article_results %]
+            <li class="pl-pacs-search-article"><a class="pl-pacs-search-article-title" href="/?op=getobj&amp;from=objects&amp;id=[% article.id %]">[% article.title %]</a><div class="pl-pacs-search-article-meta">Filed under <a href="[% article.classification_href %]">[% article.classification_id %]</a>: [% article.classification_comment %]</div></li>
+          [% END %]
+        </ul>
+        [% IF article_results_limited %]<p class="pl-pacs-search-intro">Showing the first 100 matching articles. Follow a classification above to browse its complete article list.</p>[% END %]
+      [% ELSE %]
+        <p class="pl-pacs-search-empty">No encyclopedia articles are currently filed under the matching classifications.</p>
       [% END %]
     </section>
   [% ELSE %]
