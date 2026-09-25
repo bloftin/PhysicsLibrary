@@ -138,9 +138,14 @@ my $html;
     is(Noosphere::listGeneric({from=>'users'},$user),'Unknown object type.','invalid table rejected by handler');
 }
 my $index=read_file("$root/lib/Noosphere/Encyclopedia.pm");
-like($index,qr/id="encyclopedia-search" type="search" name="q"/,'index exposes query field');
-like($index,qr/name="op" value="listobj"/,'index search uses list route');
-like($index,qr/Browse and search/,'index has browse/search link');
+like($index,qr/encyclopediaindex\.tt/,'index uses the dedicated encyclopedia presentation template');
+my $index_template=read_file("$root/stemplates/encyclopediaindex.tt");
+like($index_template,qr/id="encyclopedia-search" type="search" name="q"/,'index exposes query field');
+like($index_template,qr/name="op" value="listobj"/,'index search uses list route');
+like($index_template,qr/Physics Library Encyclopedia/,'index template has an encyclopedia heading');
+like($index_template,qr/Browse by subject/,'index template retains the subject browser');
+like($index_template,qr/aria-label="Alphabetical index"/,'index template labels the alphabetical navigation');
+like($index_template,qr/pl-encyclopedia-index/,'index template provides the modern index layout');
 if ($ENV{PL_BROWSE_PREVIEW}) {
     open my $out, '>', $ENV{PL_BROWSE_PREVIEW} or die $!;
     print $out '<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>', $html, '</body></html>';

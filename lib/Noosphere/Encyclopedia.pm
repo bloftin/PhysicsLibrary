@@ -19,6 +19,7 @@ use File::chdir;
 use File::Path qw(make_path remove_tree);
 use File::Copy qw( copy );
 use File::Remove 'remove';
+use Template;
 
 # display an encyclopedia object
 # 
@@ -639,17 +640,6 @@ sub getEncyclopedia {
 		$letter = pack('C',$idx);
 	}
 	
-	# link to the msc browser for encylcopedia
-	#
-	# BEN Broken link, needs fixing
-	$content .= '<form method="get" action="/"><input type="hidden" name="op" value="listobj" />'
-		.'<input type="hidden" name="from" value="'.$table.'" />'
-		.'<label for="encyclopedia-search">Search encyclopedia:</label> '
-		.'<input id="encyclopedia-search" type="search" name="q" size="24" /> '
-		.'<input type="submit" value="search" /></form>';
-	$content .= '<p><a href="/?op=listobj&amp;from='.$table.'">Browse and search</a> | '
-		.'<a href="/browse/objects/">Browse by subject</a></p>';
-	
 	# build the index selector with an initial query.
 	#
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'ichar as idx, count(objectid) as cnt',
@@ -658,52 +648,40 @@ sub getEncyclopedia {
 								 'GROUP BY'=>'idx'});
 
 	my @rows = dbGetRows($sth);
-	$content .= "<table width=\"90%\" align=\"right\"><td><dl>";
+	my @index_rows;
+	my @objects;
 	foreach my $row (@rows) {
-		my $num = ord($row->{idx});
-		$content .= "<dt>";
-		$content .= "<font class=\"indexfont\" size=\"+1\"><a href=\"/encyclopedia/$row->{idx}/\">$row->{idx}</a></font> - $row->{cnt} ";
-		$content .= ($row->{'cnt'}>1) ? 'entries' : 'entry';
-		$content .= "</dt>";
+		push @index_rows, {
+			idx => qhtmlescape($row->{idx}),
+			count => $row->{cnt},
+			href => '/encyclopedia/'.uri_escape($row->{idx}).'/',
+			selected => ($letter eq $row->{idx}) ? 1 : 0,
+		};
 		if ($letter eq $row->{'idx'}) {
-			$content .= "<dd>";
 			($rv,$sth) = dbSelect($dbh,{WHAT=>"$index.objectid,$index.type,$index.cname as name,$index.title,users.username,$index.userid",
-													FROM=>"$index,users",
-																WHERE=>"ichar = '$letter' AND users.uid=$index.userid AND tbl='".getConfig('en_tbl')."'"});
-		
-			my @objects = dbGetRows($sth);
-			$content .= "<table>";
-			foreach my $object (sort {cleanCmp(mangleTitle($a->{title}),mangleTitle($b->{title}))} @objects) {
-				$content .= "<tr><td>";
+											FROM=>"$index,users",
+														WHERE=>"ichar = '$letter' AND users.uid=$index.userid AND tbl='".getConfig('en_tbl')."'"});
 
-				my $mtitle = mangleTitle($object->{title});
-				$content .= "<a href=\"/encyclopedia/$object->{name}.html\">".mathTitle($mtitle, 'highlight')."</a>";
-
-				# take account of synonyms 
-				#
+			my @found_objects = dbGetRows($sth);
+			foreach my $object (sort {cleanCmp(mangleTitle($a->{title}),mangleTitle($b->{title}))} @found_objects) {
+				my $relation = '';
 				if ($object->{'type'} == 2) {
 					my $parenttitle = lookupfield($index,'title',"objectid=$object->{objectid} and type=1 and tbl='$table'");
-
-					$content .= " (=<i>".mathTitle($parenttitle)."</i>)";
-				}	
-
-				# take account of defines
-				#
+					$relation = 'Synonym for '.qhtmlescape($parenttitle);
+				}
 				elsif ($object->{'type'} == 3) {
 					my $parenttitle = lookupfield($index,'title',"objectid=$object->{objectid} and type=1 and tbl='$table'");
-
-					$content .= " (in <i>".mathTitle($parenttitle)."</i>)";
+					$relation = 'Defined in '.qhtmlescape($parenttitle);
 				}
-				$content .= ' owned by ';
-				$content .= $object->{'username'};
-				$content .= "</td></tr>";
+				push @objects, {
+					title => qhtmlescape($object->{title} || '(no title)'),
+					href => '/encyclopedia/'.uri_escape($object->{name}).'.html',
+					relation => $relation,
+					owner => qhtmlescape($object->{username}),
+				};
 			}
-			$content .= "</table>";
-			$content .= "</dd>";
 		}
 	}
-	$content .= "</dl>";
-	$content .= "</td></table>";
 
 	# count distinct entries
 	#
@@ -719,24 +697,17 @@ sub getEncyclopedia {
 	my $concepts = $row->{'cnt'};
 	$sth->finish();
 
-	# build output
-	#
-	$content = clearBox(getConfig('projname').' Encyclopedia',$content);
-	my $interact .= makeBox("Interact","<center><a href=\"".getConfig("main_url")."/?op=adden\">add</center>");
-	my $html = "<table width=\"100%\" cellpadding=\"2\" cellspacing=\"0\">
-		<tr>
-		<td>$content</td>
-	</tr>
-	<tr>
-		<td><center>
-		 $count entries total.  <br />
-		 $concepts concepts total.
-		 </center>
-		</td>
-	</tr>
-	<tr>
-		<td>$interact</td>
-	</tr></table>";
+	my $html = '';
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('encyclopediaindex.tt', {
+		article_count => $count,
+		concept_count => $concepts,
+		index_rows => \@index_rows,
+		objects => \@objects,
+		selected_letter => qhtmlescape($letter),
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	$html = paddingTable($html);
 	#dwarn "getEncyclopedia end";
 	return $html;
 }
