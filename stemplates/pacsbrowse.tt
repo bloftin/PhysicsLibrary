@@ -81,11 +81,13 @@
   [% IF pacs_leaves.size %]
     <section class="pl-subject-browser-section" aria-labelledby="subject-browser-articles">
       <h2 id="subject-browser-articles">Articles in This Subject</h2>
+      <p class="pl-subject-browser-section-intro">Includes articles filed under this subject or one of its subcategories.</p>
       <ul class="pl-subject-browser-leaves">
         [% FOREACH pacsleaf IN pacs_leaves %]
           <li><a href="/?op=getobj&amp;from=[% pacsleaf.domain %]&amp;id=[% pacsleaf.uid %]">[% pacsleaf.title %]</a><div class="pl-subject-browser-leaf-meta">Owned by <a href="/?op=getuser&amp;id=[% pacsleaf.userid %]">[% pacsleaf.username %]</a></div></li>
         [% END %]
       </ul>
+      [% IF pacs_leaves_limited %]<p class="pl-subject-browser-section-intro">Showing the first 100 matching articles. Choose a narrower subcategory to refine the list.</p>[% END %]
     </section>
   [% ELSIF !pacs_nodes.size %]
     <p class="pl-subject-browser-empty">No further categories or articles are available here.</p>

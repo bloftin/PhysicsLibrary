@@ -98,11 +98,11 @@ sub pacsSearch {
 		my ($rv,$sth) = dbSelect($dbh,{WHAT=>'id,comment, parent',FROM=>'msc',WHERE=>"$searchterm $leafq",'ORDER BY'=>'id',ASC=>''});
 	
 		while (my $row = $sth->fetchrow_hashref()) {
-			my $linkto = (defined $row->{parent})?"id=$row->{parent}":'';
+			my $browse_id = defined $row->{parent} ? $row->{parent} : $row->{id};
 			push @results, {
 				id => qhtmlescape($row->{id}),
 				comment => qhtmlescape(latin1ToUTF8(htmlToLatin1($row->{comment}))),
-				href => getConfig("main_url")."/?op=pacsbrowse&$linkto",
+				href => getConfig("main_url")."/browse/objects/$browse_id/",
 			};
 		}
 		$sth->finish();
@@ -148,7 +148,7 @@ sub pacsSearch {
 }
 
 sub pacsBrowseLeaves {
-	my ($scheme, $class, $domain, $id) = @_;
+	my ($scheme, $class, $clinks, $domain, $id) = @_;
 
 	return () unless ($domain eq 'objects' or $domain eq 'papers' or $domain eq 'lec' or $domain eq 'books');
 
@@ -157,10 +157,12 @@ sub pacsBrowseLeaves {
 	my $safe_id = sq($id);
 
 	my ($rv, $sth) = dbLowLevelSelect($dbh,
-		"select $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid " .
-		"from $scheme, $class, $domain, users where $scheme.id = '$safe_id' and " .
-		"$class.tbl = '$domain' and $class.catid = $scheme.uid and " .
-		"$domain.uid = $class.objectid and users.uid = $domain.userid order by lower($domain.title)");
+		"select distinct $scheme.id, $scheme.comment, $domain.title, $domain.uid, users.username, users.uid as userid " .
+		"from $scheme, $clinks, $class, $domain, users where $scheme.id = '$safe_id' and " .
+		"$clinks.a = $scheme.uid and $class.catid = $clinks.b and " .
+		"$class.nsid = $clinks.nsb and $class.tbl = '$domain' and " .
+		"$domain.uid = $class.objectid and users.uid = $domain.userid " .
+		"order by lower($domain.title) limit 101");
 
 	my @rows = dbGetRows($sth);
 	my @leaves;
@@ -312,7 +314,7 @@ sub pacsBrowse {
 				comment			=> $comment, 		 	
 			});
 		}
-		push(@pacs_leaves, pacsBrowseLeaves($scheme, $class, $domain, $id));
+		push(@pacs_leaves, pacsBrowseLeaves($scheme, $class, $clinks, $domain, $id));
 	}
 	
 	# leaf level
@@ -331,9 +333,11 @@ sub pacsBrowse {
 			##$template->addText("<parent href=\"".getConfig("main_url")."/browse/$domain/$upid/\">");
 			##$template->addText("<id>$params->{id}</id><desc>$desc</desc>");
 			##$template->addText('</parent>');
-			push(@pacs_leaves, pacsBrowseLeaves($scheme, $class, $domain, $id));
+			push(@pacs_leaves, pacsBrowseLeaves($scheme, $class, $clinks, $domain, $id));
 		}
 	}
+
+	my $pacs_leaves_limited = pop(@pacs_leaves) ? 1 : 0 if @pacs_leaves > 100;
 
     my $vars = {
         category      => "PACS",
@@ -348,6 +352,7 @@ sub pacsBrowse {
 		id			  => $id,
 		pacs_nodes	  => \@pacs_nodes,
 		pacs_leaves   => \@pacs_leaves,	
+		pacs_leaves_limited => $pacs_leaves_limited,
     };
 
     my $tt = Template->new({

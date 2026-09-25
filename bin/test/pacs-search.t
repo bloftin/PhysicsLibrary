@@ -51,6 +51,7 @@ like($source, qr/article_results\s*=>\s*\\\@article_results/, 'classified articl
 like($source, qr/\$clinks\.a = matched_msc\.uid/, 'article search expands matching PACS classifications through their descendants');
 like($source, qr/\$class\.tbl = 'objects'/, 'article search is limited to encyclopedia entries');
 like($source, qr/limit 101/, 'article search has a bounded result set');
+like($source, qr{/browse/objects/\$browse_id/}, 'classification matches open the encyclopedia subject browser');
 like($template, qr/Search Subjects/, 'template has a modern search heading');
 like($template, qr/Browse by subject/, 'template returns to the subject browser');
 like($template, qr/pl-pacs-search-result/, 'template renders structured results');
