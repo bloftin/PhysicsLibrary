@@ -16,7 +16,6 @@ use vars qw{%LINKABLETAGS};
 %LINKABLETAGS = (
 	'PMlinkescapeword'=>1,
 	'PMlinkescapephrase'=>1,
-	'textit'=>1,
 	'footnote'=>1,
 	'emph'=>1,
 	'proof'=>1,  # APM-Xi
@@ -26,7 +25,6 @@ use vars qw{%LINKABLETAGS};
 	'textsc'=>1, 
 	'textmd'=>1, 
 	'textbf'=>1, 
-	'textit'=>1, 
 	'tiny'=>1, 
 	'scriptsize'=>1, 
 	'footnotesize'=>1, 
