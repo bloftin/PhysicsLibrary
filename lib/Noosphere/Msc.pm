@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Template;
 
 # get a full msc comment for the given id and all categories above
 #
@@ -67,33 +68,12 @@ sub getMscCommentById {
 #
 sub pacsSearch {
 	my $params = shift;
-	
-	my $html = '';
 
 	my $term = $params->{pacsterm} || '';
 	my $leaves = $params->{leaves} ? $params->{leaves} : ($term ? 'off' : 'on');
-	my $leafstatus = $leaves eq 'on' ? 'checked' : '';
+	my @results;
 
-	# display search form
-	#
-	$html .= "<h3>Search PACS</h3>
-		<center>
-		<table border=\"0\"><td>
-		<form action=\"/\" method=\"get\">						 
-		<input type=\"hidden\" name=\"op\" value=\"pacssearch\">
-		<input type=\"text\" name=\"pacsterm\" value=\"$term\">
-		<input type=\"submit\" value=\"search\">
-		<input type=\"checkbox\" name=\"leaves\" $leafstatus> leaves only
-		<p></p>
-		<font size=\"-2\">(case insensitive substrings, use '-' to exclude)</font>
-	</form>
-		<td></table>
-	</center>";
-
-	# do a search, append results
-	#
 	if ($term) {
-		$html .= "<hr>";
 		my @terms = split(/\s+/,latin1ToHtml($term));
 		my $searchterm = join (' and ',map(($_=~/^-(.+)$".getConfig("main_url")."/?"not comment like '\%$1\%'":"comment like '\%$_\%' or id='$_'") ,@terms));
 		my $leafq = $leaves eq 'on'?"and not id like '\%X\%'":"";
@@ -101,17 +81,25 @@ sub pacsSearch {
 	
 		while (my $row = $sth->fetchrow_hashref()) {
 			my $linkto = (defined $row->{parent})?"id=$row->{parent}":'';
-			$html .= "&nbsp;<b><font face=\"monospace\" size=\"+1\"><a href=\"".getConfig("main_url")."/?op=pacsbrowse&$linkto\">$row->{id}</a></font></b> - $row->{comment}<br>";
-		}
-		if (!$sth->rows()) {
-			$html .= "Nothing found.";
+			push @results, {
+				id => qhtmlescape($row->{id}),
+				comment => qhtmlescape(latin1ToUTF8(htmlToLatin1($row->{comment}))),
+				href => getConfig("main_url")."/?op=pacsbrowse&$linkto",
+			};
 		}
 		$sth->finish();
-	}	
-	
-	$html .= "<br>";
+	}
 
-	return paddingTable(clearBox('PACS Search',$html));
+	my $html = '';
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('pacssearch.tt', {
+		term => qhtmlescape($term),
+		leaves => $leaves eq 'on' ? 1 : 0,
+		has_search => $term ne '' ? 1 : 0,
+		results => \@results,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return paddingTable($html);
 }
 
 sub pacsBrowseLeaves {
