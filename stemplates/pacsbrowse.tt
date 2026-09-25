@@ -1,166 +1,97 @@
-<html>
-  <head>
-    <title>PACS Browser</title>
-  </head>
-  <body>
+<style type="text/css">
+.pl-subject-browser { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-subject-browser a { color: #064d93; }
+.pl-subject-browser-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-subject-browser h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-subject-browser-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-subject-browser-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
+.pl-subject-browser-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
+.pl-subject-browser-search { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-subject-browser-search-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) auto; }
+.pl-subject-browser label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-subject-browser input[type="search"] { box-sizing: border-box; font-size: .92rem; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-subject-browser-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-subject-browser-tools { font-size: .82rem; margin: .55rem 0 0; }
+.pl-subject-browser-path { background: #f5f8fa; border-left: 3px solid #88a5bb; color: #3f5362; font-size: .84rem; margin: 0 0 1rem; padding: .38rem .55rem; }
+.pl-subject-browser-section { margin: 1rem 0; }
+.pl-subject-browser-section h2 { color: #17212b; font-size: 1.08rem; margin: 0; }
+.pl-subject-browser-section-intro { color: #526170; font-size: .84rem; margin: .3rem 0 .65rem; }
+.pl-subject-browser-list { border-top: 1px solid #b6c5d2; }
+.pl-subject-browser-node { border-bottom: 1px solid #cbd6de; display: grid; gap: .25rem .75rem; grid-template-columns: minmax(5rem, auto) minmax(0, 1fr) auto; padding: .68rem .15rem; }
+.pl-subject-browser-code { color: #173d62; font-family: "Courier New", monospace; font-size: .9rem; font-weight: bold; }
+.pl-subject-browser-code a { text-decoration: none; }
+.pl-subject-browser-comment { line-height: 1.38; }
+.pl-subject-browser-count { background: #e2ebf1; border: 1px solid #b5c6d3; color: #2b4861; font-size: .75rem; height: fit-content; padding: .08rem .32rem; white-space: nowrap; }
+.pl-subject-browser-leaves { border-top: 1px solid #b6c5d2; list-style: none; margin: .65rem 0 0; padding: 0; }
+.pl-subject-browser-leaves li { border-bottom: 1px solid #cbd6de; padding: .58rem .15rem; }
+.pl-subject-browser-leaf-meta { color: #586673; font-size: .81rem; margin-top: .18rem; }
+.pl-subject-browser-bottom-nav { border-top: 1px solid #b6c5d2; font-size: .84rem; margin-top: 1rem; padding-top: .6rem; }
+.pl-subject-browser-empty { border: 1px solid #b6c5d2; padding: .85rem; }
+@media (max-width: 600px) { .pl-subject-browser-node { grid-template-columns: minmax(5rem, auto) minmax(0, 1fr); } .pl-subject-browser-count { grid-column: 2; justify-self: start; } }
+@media (max-width: 500px) { .pl-subject-browser-search-grid { grid-template-columns: 1fr; } .pl-subject-browser-button { width: 100%; } }
+</style>
 
-  <!-- clear box -->
-  <table width="100%" cellpadding="2" cellspacing="0">
-    <tr>
-      <td>
-        <table WIDTH="100%">
+<div class="pl-subject-browser" id="subject-browser-top">
+  <header class="pl-subject-browser-header">
+    <h1>Browse by Subject</h1>
+    <p class="pl-subject-browser-summary">Explore Physics Library articles through the Physics and Astronomy Classification Scheme.</p>
+  </header>
 
-          <!-- title -->
-          <tr>
-              <td bgcolor="#000000">
+  <nav class="pl-subject-browser-nav" aria-label="Encyclopedia navigation">
+    [% IF domain == 'objects' %]
+      <a href="/encyclopedia">Alphabetical index</a>
+      <a href="/?op=listobj&amp;from=objects">Browse and search</a>
+      <a href="/browse/objects/" aria-current="page">Browse by subject</a>
+    [% ELSE %]
+      <a href="/?op=pacsbrowse" aria-current="page">Classification browser</a>
+    [% END %]
+  </nav>
 
-              <!-- title box -->
-              
-              <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
-                <tr>
-                  <td WIDTH="100%" BGCOLOR="#003399">
-                    <font color="white" class="box_title">
-                      [% IF tdesc%]
-                        By subject
-                      [% ELSE %]
-                        Browsing PACS
-                      [% END %]
-                    </font>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-			  </table>
-		  </td>
-	  </tr>
+  <form class="pl-subject-browser-search" method="get" action="/">
+    <input type="hidden" name="op" value="pacssearch">
+    <div class="pl-subject-browser-search-grid">
+      <div><label for="subject-browser-search">Find a classification topic</label><input id="subject-browser-search" type="search" name="pacsterm"></div>
+      <div><button class="pl-subject-browser-button" type="submit">Search</button></div>
+    </div>
+    <div class="pl-subject-browser-tools"><label><input type="checkbox" name="leaves" checked="checked"> Show leaf classifications only</label></div>
+  </form>
 
-    <tr>
-		  <td>    
-        <!-- content box -->
-			  <table width="100%" cellpadding="0" cellspacing="2">
-				  <tr>
-					  <td>
-             <table>
-              <!-- content -->
-              <!-- [% USE DBI( dbh = my_dbh_ref ) %] -->
+  [% IF parent %]
+    <div class="pl-subject-browser-path"><a href="/browse/[% domain %]/[% upstr %]">Up one level</a> | Current category: [% id %] - [% desc %]</div>
+  [% ELSE %]
+    <div class="pl-subject-browser-path">Top-level PACS categories</div>
+  [% END %]
 
-              [% IF domain == 'objects' %]
-                <p><a href="/encyclopedia">Alphabetical index</a> | <a href="/?op=listobj&amp;from=objects">Browse and search</a></p>
-              [% END %]
-              
-              <!-- search box if we are browsing categories only -->
-              [% IF !tdesc%]
-                <table align="center" border="0">
-                  <td>
-                    <form method="get" action="https://physicslibrary.org/">
-                      <input type="hidden" name="op" value="pacssearch"/>
-                      <input type="text" name="pacsterm" value=""/>
-                      <input type="submit" value="search"/>
-                      <input type="checkbox" name="leaves" checked="1" /> leaves only
-                      <p></p>
-                      <font size="-2">(Case insensitive substrings, use '-' to exclude)</font>
-                    </form>
-                  </td>
-                </table>
-              [% END %]  
+  [% IF pacs_nodes.size %]
+    <section class="pl-subject-browser-section" aria-labelledby="subject-browser-categories">
+      <h2 id="subject-browser-categories">[% IF parent %]Subcategories[% ELSE %]Top-Level Categories[% END %]</h2>
+      <p class="pl-subject-browser-section-intro">Choose a category to continue through the subject hierarchy.</p>
+      <div class="pl-subject-browser-list">
+        [% FOREACH pacsnode IN pacs_nodes %]
+          <div class="pl-subject-browser-node">
+            <div class="pl-subject-browser-code">[% IF pacsnode.child or pacsnode.count > 0 %]<a href="/browse/[% pacsnode.domain %]/[% pacsnode.id %]/">[% pacsnode.id %]</a>[% ELSE %][% pacsnode.id %][% END %]</div>
+            <div class="pl-subject-browser-comment">[% pacsnode.comment %]</div>
+            [% IF pacsnode.count %]<span class="pl-subject-browser-count">[% pacsnode.count %] article[% IF pacsnode.count != 1 %]s[% END %]</span>[% END %]
+          </div>
+        [% END %]
+      </div>
+    </section>
+  [% END %]
 
-              <p></p>
+  [% IF pacs_leaves.size %]
+    <section class="pl-subject-browser-section" aria-labelledby="subject-browser-articles">
+      <h2 id="subject-browser-articles">Articles in This Subject</h2>
+      <ul class="pl-subject-browser-leaves">
+        [% FOREACH pacsleaf IN pacs_leaves %]
+          <li><a href="/?op=getobj&amp;from=[% pacsleaf.domain %]&amp;id=[% pacsleaf.uid %]">[% pacsleaf.title %]</a><div class="pl-subject-browser-leaf-meta">Owned by <a href="/?op=getuser&amp;id=[% pacsleaf.userid %]">[% pacsleaf.username %]</a></div></li>
+        [% END %]
+      </ul>
+    </section>
+  [% ELSIF !pacs_nodes.size %]
+    <p class="pl-subject-browser-empty">No further categories or articles are available here.</p>
+  [% END %]
 
-              <!-- print header -->
-              <font size="+1">
-                [% IF parent %]
-                  [% id %] - [% desc %]
-                [% ELSE %]
-                  Top Level Categories
-                [% END %]
-              </font>
-
-              <p></p>
-
-              <!-- <p> size: [% pacs_nodes.size %] </p> -->
-
-              <!-- browse content pane -->
-              <table border="0" width="100%" >
-                <!-- display PACS node content -->
-                [% IF pacs_nodes.size > 0 %]
-                  [% FOREACH pacsnode IN pacs_nodes %]
-                    <tr valign="top">
-                      <td style="min-width:50px;">
-                        
-                        <font face="monospace" size="+1">
-                          [% IF pacsnode.child or pacsnode.count > 0 %]
-                            <a href=/browse/[% pacsnode.domain %]/[% pacsnode.id %]/>[% pacsnode.id %]</a>
-                          [% ELSE %] 
-                            [% pacsnode.id %]
-                          [% END %]
-                        
-                        </font>
-                      </td>
-                      <td>-</td>
-
-                      <td>
-                        [% pacsnode.comment %] 
-                      </td>
-                      [% IF pacsnode.count %]
-                        <td>-</td>
-                        <td align="right">
-                          [% pacsnode.count %]
-                        </td>
-                        <td>
-                          item[% IF pacsnode.count > 1%]s[% END %]
-                        </td>
-                      [% END %]
-                    </tr>
-                  [% END %]
-                [% END %] 
-                <!-- leaf size: [% pacs_leaves.size %]  -->
-                [% IF pacs_leaves.size > 0 %]
-                  <tr>
-                      <td>
-                          <ol>
-                            [% FOREACH pacsleaf IN pacs_leaves %]
-                                  <li>
-                                    <a href=/?op=getobj&amp;from=[% pacsleaf.domain %]&amp;id=[% pacsleaf.uid %]>[% pacsleaf.title %]</a>
-                                    <font size="-1"> owned by
-                                      <a href=/?op=getuser;id=[% pacsleaf.userid %]>[% pacsleaf.username %]</a>
-                                    </font>
-                                  </li>
-                            [% END %]
-                          </ol>
-                      </td>
-                  </tr>
-                [% END %]   
-
-                <!-- navigation buttons -->
-				
-                <tr>
-                  <td align="center" colspan="6">
-                    [ 
-                      
-                      [% IF parent %]
-                        <a href=/browse/[% domain %]/[% upstr %]>up</a>
-                      [% END %]
-
-                      [% IF pacs_leaves.size > 0 %]
-                        <a href=/browse/[% pacs_leaves.0.domain %]/>top</a>
-                      [% END %]
-
-                      [% IF pacs_nodes.size > 0 %]
-                        <a href=/browse/[% pacs_nodes.0.domain %]/>top</a>
-                      [% END %]
-                        
-                    ] 
-                  </td>
-                </tr>
-
-              </table>  
-        </table>
-      </td>
-    </tr>
-  </table>
-  <!-- end standard box -->
-
-    
-  </body>
-</html>
+  <nav class="pl-subject-browser-bottom-nav" aria-label="Subject browser navigation">
+    [% IF parent %]<a href="/browse/[% domain %]/[% upstr %]">Up one level</a> | [% END %]<a href="/browse/[% domain %]/">Top-level categories</a> | <a href="#subject-browser-top">Back to top</a>
+  </nav>
+</div>
