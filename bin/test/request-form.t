@@ -156,10 +156,18 @@ subtest 'confirmation and nested notice actions' => sub {
     my $page = Noosphere::requestFormGuard($request,
         {op => 'rerender', id => 1017, from => 'objects', value => '"><script>alert(1)</script>'}, $user);
     like($page, qr/Confirm Action/, 'GET shows a confirmation');
+    like($page, qr/pl-confirm-action/, 'confirmation uses the scoped review panel');
+    like($page, qr/Rerender article/, 'confirmation gives the action a readable name');
+    like($page, qr/No change has been made yet/, 'confirmation makes its pending state clear');
+    like($page, qr/Confirm action/, 'confirmation gives the submit control a specific label');
     like($page, qr/method="post"/, 'confirmation uses POST');
     like($page, qr/name="_form_token" value="$token"/, 'confirmation has session token');
     unlike($page, qr/<script>/, 'request data escaped');
     unlike($page, qr/(?:href|action)="[^"]*\Q$token\E/, 'token never placed in link');
+    my $request_update = Noosphere::requestFormGuard($request,
+        {op => 'updatereq', request => 90}, $user);
+    like($request_update, qr/Update request/, 'request updates use a readable action name');
+    like($request_update, qr/>Request<\/dt><dd>90<\/dd>/, 'request updates label the request identifier');
     $request->{method} = 'POST';
     my $calls = 0;
     my $nested = {sendobj => sub { $calls++; return 'nested'; }};
