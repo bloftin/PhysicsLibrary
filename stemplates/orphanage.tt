@@ -1,0 +1,65 @@
+<style type="text/css">
+.pl-orphanage { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-orphanage a { color: #064d93; }
+.pl-orphanage-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-orphanage h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-orphanage-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-orphanage-intro { background: #eef3f7; border: 1px solid #b6c5d2; color: #3e5265; font-size: .86rem; margin: 0 0 1rem; padding: .75rem; }
+.pl-orphanage-section { margin: 1.1rem 0; }
+.pl-orphanage-section h2 { color: #17212b; font-size: 1.08rem; margin: 0; }
+.pl-orphanage-section-intro { color: #526170; font-size: .84rem; margin: .3rem 0 .65rem; }
+.pl-orphanage-list { border-top: 1px solid #b6c5d2; }
+.pl-orphanage-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
+.pl-orphanage-row h3 { font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-orphanage-row h3 a { color: #17212b; }
+.pl-orphanage-row h3 a:hover, .pl-orphanage-row h3 a:focus { color: #064d93; }
+.pl-orphanage-meta { color: #586673; font-size: .81rem; margin: .32rem 0 .42rem; }
+.pl-orphanage-adopt { background: #174e80; border: 1px solid #103a61; color: #fff !important; display: inline-block; font-size: .83rem; font-weight: bold; padding: .32rem .58rem; text-decoration: none; }
+.pl-orphanage-adopt:hover, .pl-orphanage-adopt:focus { background: #103a61; }
+.pl-orphanage-empty { border: 1px solid #b6c5d2; color: #526170; margin: 0; padding: .85rem; }
+</style>
+
+<div class="pl-orphanage">
+  <header class="pl-orphanage-header">
+    <h1>Orphanage</h1>
+    <p class="pl-orphanage-summary">Articles seeking a new maintainer.</p>
+  </header>
+
+  <p class="pl-orphanage-intro">Adopting an article transfers its stewardship to you. Please review the article before accepting responsibility for future updates and corrections.</p>
+
+  [% IF orphaned.size %]
+    <section class="pl-orphanage-section" aria-labelledby="orphaned-heading">
+      <h2 id="orphaned-heading">Orphaned Articles</h2>
+      <p class="pl-orphanage-section-intro">[% orphaned_total %] article[% IF orphaned_total != 1 %]s[% END %] currently without an owner.</p>
+      <div class="pl-orphanage-list">
+        [% FOREACH article IN orphaned %]
+          <article class="pl-orphanage-row">
+            <h3><a href="[% article.titlehref %]">[% article.title %]</a></h3>
+            <div class="pl-orphanage-meta">[% article.owner %]</div>
+            <a class="pl-orphanage-adopt" href="[% article.adopthref %]">Adopt article</a>
+          </article>
+        [% END %]
+      </div>
+    </section>
+  [% END %]
+
+  [% IF adoptable.size %]
+    <section class="pl-orphanage-section" aria-labelledby="adoptable-heading">
+      <h2 id="adoptable-heading">Available for Adoption</h2>
+      <p class="pl-orphanage-section-intro">[% adoptable_total %] article[% IF adoptable_total != 1 %]s[% END %] with unresolved corrections that may be adopted.</p>
+      <div class="pl-orphanage-list">
+        [% FOREACH article IN adoptable %]
+          <article class="pl-orphanage-row">
+            <h3><a href="[% article.titlehref %]">[% article.title %]</a></h3>
+            <div class="pl-orphanage-meta">[% article.owner %]</div>
+            <a class="pl-orphanage-adopt" href="[% article.adopthref %]">Adopt article</a>
+          </article>
+        [% END %]
+      </div>
+    </section>
+  [% END %]
+
+  [% UNLESS orphaned.size || adoptable.size %]
+    <p class="pl-orphanage-empty">All articles currently have homes.</p>
+  [% END %]
+</div>

@@ -349,7 +349,7 @@ sub orphanCount {
 #
 sub orphanage {
 
-	my $html = "";
+	my $main = getConfig('main_url');
 
 	# get abandoned objects
 	#
@@ -378,40 +378,50 @@ sub orphanage {
 	}
 
 	my @adoptable = dbGetRows($sth);
-
-	if ($#abandoned >= 0) {
-		$html .= "<center><b>Orphaned objects:</b></center><br>";
-
-		foreach my $row (@abandoned) {
-			my ($lastid, $lastname) = getLastData($row->{'tbl'}, $row->{'objectid'});
-			my $lastowner = "unknown";
-			if ($lastid && $lastname) {
-				$lastowner = "<a href=\"".getConfig("main_url")."/?op=getuser&id=$lastid\">$lastname</a>";
-			}
-
-			$html .= "[ <a href=\"".getConfig("main_url")."/?op=adopt&from=$row->{tbl}&id=$row->{objectid}&ask=yes\">adopt</a> ] <a href=\"".getConfig("main_url")."/?op=getobj&from=$row->{tbl}&id=$row->{objectid}\">$row->{title}</a> (was owned by $lastowner)<br>";
+	my (@orphaned_rows, @adoptable_rows);
+	foreach my $row (@abandoned) {
+		my ($lastid, $lastname) = getLastData($row->{'tbl'}, $row->{'objectid'});
+		my $id = $row->{'objectid'};
+		my $table = $row->{'tbl'};
+		my $lastowner = 'Previous owner unknown';
+		if ($lastid && $lastname) {
+			$lastowner = 'Previously maintained by <a href="'.$main.'/?op=getuser&amp;id='.$lastid.'">'.
+				qhtmlescape($lastname).'</a>';
 		}
-
-		$html .= "<br>";
+		push @orphaned_rows, {
+			title => qhtmlescape($row->{'title'}), owner => $lastowner,
+			titlehref => $main.'/?op=getobj&amp;from='.qhtmlescape($table).'&amp;id='.$id,
+			adopthref => $main.'/?op=adopt&amp;from='.qhtmlescape($table).'&amp;id='.$id.'&amp;ask=yes',
+		};
 	}
 
-	if ($#adoptable >= 0) {
-		$html .= "<center><b>Adoptable (but still owned) objects:</b></center><br>";
-	
-		foreach my $row (@adoptable) {
-			my $userid = lookupfield(getConfig('index_tbl'),'userid',"tbl='$en' and objectid=$row->{objectid}");
-			my $username = lookupfield(getConfig('user_tbl'),'username',"uid=$userid");
-			my $title = lookupfield($en,'title',"uid=$row->{objectid}");
-
-			$html .= "[ <a href=\"".getConfig("main_url")."/?op=adopt&from=objects&id=$row->{objectid}&ask=yes\">adopt</a> ] <a href=\"".getConfig("main_url")."/?op=getobj&from=$en&id=$row->{objectid}\">$title</a> (owned by <a href=\"".getConfig("main_url")."/?op=getuser&id=$userid\">$username</a>)<br>";
+	foreach my $row (@adoptable) {
+		my $id = $row->{'objectid'};
+		my $userid = lookupfield(getConfig('index_tbl'),'userid',"tbl='$en' and objectid=$id");
+		my $username = lookupfield(getConfig('user_tbl'),'username',"uid=$userid");
+		my $title = lookupfield($en,'title',"uid=$id");
+		my $owner = 'Current owner unknown';
+		if ($userid && $username) {
+			$owner = 'Currently maintained by <a href="'.$main.'/?op=getuser&amp;id='.$userid.'">'.
+				qhtmlescape($username).'</a>';
 		}
+		push @adoptable_rows, {
+			title => qhtmlescape($title), owner => $owner,
+			titlehref => $main.'/?op=getobj&amp;from='.$en.'&amp;id='.$id,
+			adopthref => $main.'/?op=adopt&amp;from=objects&amp;id='.$id.'&amp;ask=yes',
+		};
 	}
 
-	if ($#adoptable < 0 && $#abandoned< 0) {
-		$html .= "All objects currently have homes!";
-	}
+	my $tt = Template->new({ INCLUDE_PATH => '/var/www/pp/stemplates' });
+	my $html = '';
+	$tt->process('orphanage.tt', {
+		orphaned => \@orphaned_rows,
+		adoptable => \@adoptable_rows,
+		orphaned_total => scalar(@orphaned_rows),
+		adoptable_total => scalar(@adoptable_rows),
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable(clearBox('Object Orphanage',$html));
+	return paddingTable($html);
 }
 
 sub isAdoptable
