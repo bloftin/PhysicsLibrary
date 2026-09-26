@@ -291,7 +291,7 @@ sub browseGeneric {
 
 	#dwarn "Start browseGeneric";
 	my $html_out = '';
-	my $tt_file = 'genericlobby.tt';
+	my $tt_file = $params->{from} eq 'papers' ? 'paperslobby.tt' : 'genericlobby.tt';
 	#my $template = new XSLTemplate('genericlobby.xsl');
 
 	# get plural section descriptor
@@ -441,7 +441,8 @@ sub listGeneric {
 	my $where = $encyclopedia ? '' : genericListWhereSql($search);
 	my $order = genericListSortSql($sort);
 
-	my $tt_file = $encyclopedia ? 'encyclopedialist.tt' : 'genericlist.tt';
+	my $tt_file = $encyclopedia ? 'encyclopedialist.tt' :
+		$params->{from} eq 'papers' ? 'paperslist.tt' : 'genericlist.tt';
 
 	my $template = new XSLTemplate('genericlist.xsl');
 
