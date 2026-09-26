@@ -42,7 +42,7 @@ sub unprovenTheorems {
 	my $unpts = getUnprovenTheorems();
 	my %bytitle;
 	my @titles;
-	my $html = "";
+	my @theorems;
 
 	foreach my $uid (keys(%$unpts)) {
 		my $i = "";
@@ -56,10 +56,6 @@ sub unprovenTheorems {
 	@titles = sort { humanReadableCmp($a, $b); } @titles;
 	my $total = scalar @titles;
 
-	my $template = new XSLTemplate('unproven.xsl');
-
-	$template->addText('<unprovenlist>');
-
 	for (my $i = 0; $i < $limit && $offset + $i < scalar @titles; $i++) {
 		my $row = $unpts->{$bytitle{$titles[$i + $offset]}};
 		my $uenct = urlescape($row->{'title'});
@@ -68,27 +64,26 @@ sub unprovenTheorems {
 		my $ourl = getConfig("main_url")."/?op=getobj&amp;from=objects&amp;id=$row->{uid}";
 		my $purl = getConfig("main_url")."/?op=adden&amp;request=$row->{uid}&amp;title=proof+of+$uenct&amp;type=Proof&amp;parent=$row->{name}";
 
-		my $mathtitle = mathTitleXSL($row->{'title'}, 'highlight');
-
-		$template->addText("	<item>");
-		$template->addText("		<series ord=\"$ord\"/>");
-		$template->addText("		<object href=\"$ourl\"/>");
-		$template->addText("		<prove href=\"$purl\"/>");
-		$template->addText("		<title>$mathtitle</title>");
-		#$template->addText("		<user name=\"".qhtmlescape($row->{'username'})."\" href=\"".getConfig("main_url")."/?op=getuser;id=$row->{userid}\"/>");
-		$template->addText("	</item>");
-
-		$ord++;
+		push @theorems, {
+			ord        => $ord,
+			title      => mathTitle($row->{'title'}, 'highlight'),
+			object_url => $ourl,
+			proof_url  => $purl,
+		};
 	}
-
-	$template->addText('</unprovenlist>');
 
 	$params->{'total'} = $total;
 	$params->{'offset'} = $offset;
+	my $pager = getPager($params, $userinf, 1);
+	my $html = '';
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('unproven.tt', {
+		total    => $total,
+		theorems => \@theorems,
+		pager    => $pager,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	getPageWidgetXSLT($template, $params, $userinf);
-
-	return $template->expand();
+	return paddingTable($html);
 }
 
 
