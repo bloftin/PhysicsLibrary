@@ -1,0 +1,47 @@
+<style type="text/css">
+.pl-corrections { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-corrections a { color: #064d93; }
+.pl-corrections-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-corrections h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-corrections-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-corrections-intro { background: #eef3f7; border: 1px solid #b6c5d2; color: #3e5265; font-size: .86rem; margin: 0 0 1rem; padding: .75rem; }
+.pl-corrections-pager { border-bottom: 1px solid #b6c5d2; font-size: .9rem; margin: 0 0 .55rem; padding: 0 0 .45rem; text-align: center; }
+.pl-corrections-list + .pl-corrections-pager { border-bottom: 0; border-top: 1px solid #b6c5d2; margin: .55rem 0 0; padding: .55rem 0 0; }
+.pl-corrections-list { border-top: 1px solid #b6c5d2; }
+.pl-corrections-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
+.pl-corrections-row h2 { font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-corrections-row h2 a { color: #17212b; }
+.pl-corrections-row h2 a:hover, .pl-corrections-row h2 a:focus { color: #064d93; }
+.pl-corrections-meta { color: #586673; font-size: .81rem; margin: .32rem 0 .42rem; }
+.pl-corrections-target { color: #3e5265; font-size: .87rem; margin: .18rem 0; }
+.pl-corrections-actions { display: flex; flex-wrap: wrap; font-size: .84rem; gap: .35rem .75rem; margin-top: .45rem; }
+.pl-corrections-view { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-weight: bold; padding: .28rem .52rem; text-decoration: none; }
+.pl-corrections-view:hover, .pl-corrections-view:focus { background: #103a61; }
+.pl-corrections-empty { border: 1px solid #b6c5d2; color: #526170; margin: 0; padding: .85rem; }
+</style>
+
+<div class="pl-corrections">
+  <header class="pl-corrections-header">
+    <h1>Pending Corrections</h1>
+    <p class="pl-corrections-summary">[% total %] correction[% IF total != 1 %]s[% END %] awaiting review or resolution.</p>
+  </header>
+
+  <p class="pl-corrections-intro">Corrections are community reports about published articles. Open a correction to review the report and continue its resolution.</p>
+
+  [% IF corrections.size %]
+    <nav class="pl-corrections-pager" aria-label="Pending correction pages">[% pager %]</nav>
+    <div class="pl-corrections-list">
+      [% FOREACH correction IN corrections %]
+        <article class="pl-corrections-row">
+          <h2><a href="[% correction.correction_url %]">[% correction.correction_title %]</a></h2>
+          <div class="pl-corrections-target">For <a href="[% correction.object_url %]">[% correction.object_title %]</a></div>
+          <div class="pl-corrections-meta">Filed [% correction.date %] by <a href="[% correction.reporter_url %]">[% correction.reporter %]</a>. Assigned to [% IF correction.owner_url %]<a href="[% correction.owner_url %]">[% correction.owner %]</a>[% ELSE %][% correction.owner %][% END %].</div>
+          <div class="pl-corrections-actions"><a class="pl-corrections-view" href="[% correction.correction_url %]">View correction</a><a href="[% correction.object_url %]">View article</a></div>
+        </article>
+      [% END %]
+    </div>
+    <nav class="pl-corrections-pager" aria-label="Pending correction pages">[% pager %]</nav>
+  [% ELSE %]
+    <p class="pl-corrections-empty">There are no pending corrections.</p>
+  [% END %]
+</div>
