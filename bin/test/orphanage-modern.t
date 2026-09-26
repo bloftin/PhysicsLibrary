@@ -40,13 +40,13 @@ like($template, qr/All articles currently have homes/,
 
 SKIP: {
     eval { require Template; 1 } or skip 'Template Toolkit is not installed locally', 4;
-    my $tt = Template->new;
+    my $tt = Template->new({ INCLUDE_PATH => "$root/stemplates" });
     my $html = '';
-    ok($tt->process("$root/stemplates/orphanage.tt", {
+    ok($tt->process('orphanage.tt', {
         orphaned => [{title => 'Unowned article', titlehref => '/?op=getobj', owner => 'Previous owner unknown', adopthref => '/?op=adopt'}],
         adoptable => [{title => 'Available article', titlehref => '/?op=getobj', owner => 'Currently maintained by editor', adopthref => '/?op=adopt'}],
         orphaned_total => 1, adoptable_total => 1,
-    }, \$html), 'template renders representative orphanage rows');
+    }, \$html), 'template renders representative orphanage rows') or diag($tt->error());
     like($html, qr/Unowned article/, 'rendered output includes orphaned row');
     like($html, qr/Available article/, 'rendered output includes adoptable row');
     like($html, qr/Adopt article/, 'rendered output includes adoption controls');
