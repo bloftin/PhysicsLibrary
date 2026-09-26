@@ -23,7 +23,7 @@ die "--limit must be positive\n" if (!defined($limit) || $limit < 1);
 $Noosphere::dbh = Noosphere::dbConnect();
 my $table = Noosphere::getConfig('en_tbl');
 
-my @where = ("not exists (select 1 from wordidx wi where wi.tbl = ? and wi.objectid = o.uid)");
+my @where = ("not exists (select 1 from wordidx_state wis where wis.tbl = ? and wis.objectid = o.uid)");
 my @bind = ($table);
 if (defined($objectid)) {
 	push @where, 'o.uid = ?';
@@ -52,6 +52,7 @@ foreach my $entry (@entries) {
 	my $ok = eval {
 		$Noosphere::dbh->begin_work();
 		Noosphere::wordIndexEntry($table, $entry);
+		Noosphere::markWordIndexCurrent($entry->{uid}, $table);
 		$Noosphere::dbh->commit();
 		1;
 	};

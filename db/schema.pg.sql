@@ -345,7 +345,17 @@ create index wordidx_wid_idx on wordidx (wid);
 create index wordidx_objectid_idx on wordidx (objectid);
 
 /******************************************************************************
- links (xref links between objects recorded here)
+ wordidx_state (current source-text index marker)
+*******************************************************************************/
+create table wordidx_state (
+ objectid int8 not null,
+ tbl varchar(16) not null,
+ indexed_at timestamp not null default current_timestamp,
+ primary key (objectid, tbl)
+);
+
+/******************************************************************************
+links (xref links between objects recorded here)
 *******************************************************************************/
 
 create table links (

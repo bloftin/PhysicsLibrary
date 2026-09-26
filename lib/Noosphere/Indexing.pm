@@ -112,6 +112,30 @@ sub dropFromWordIndex {
 	$sth->finish();
 }
 
+# Record whether an object's word index reflects its current source text.
+# Updating the marker is cheap enough for edit and delete requests; rebuilding
+# the word index itself is handled by the background worker.
+sub markWordIndexStale {
+	my $id = shift;
+	my $table = shift;
+
+	my ($rv,$sth) = dbDelete($dbh,{FROM=>'wordidx_state',WHERE=>"objectid=$id and tbl='" . sq($table) . "'"});
+	$sth->finish();
+}
+
+sub markWordIndexCurrent {
+	my $id = shift;
+	my $table = shift;
+
+	markWordIndexStale($id,$table);
+	my ($rv,$sth) = dbInsert($dbh,{
+		INTO => 'wordidx_state',
+		COLS => 'objectid,tbl',
+		VALUES => "$id,'" . sq($table) . "'",
+	});
+	$sth->finish();
+}
+
 # get word unique ID from words table
 #
 sub getwid {

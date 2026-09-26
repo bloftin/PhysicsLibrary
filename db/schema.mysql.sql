@@ -893,6 +893,17 @@ CREATE TABLE wordidx (
 ) TYPE=InnoDB;
 
 --
+-- Table structure for table 'wordidx_state'
+--
+
+CREATE TABLE wordidx_state (
+  objectid int(11) NOT NULL,
+  tbl varchar(16) NOT NULL,
+  indexed_at timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY (objectid,tbl)
+) TYPE=InnoDB;
+
+--
 -- Table structure for table 'words'
 --
 

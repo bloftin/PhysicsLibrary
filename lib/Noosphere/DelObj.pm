@@ -143,6 +143,7 @@ sub delEncyclopedia {
 	# delete from word index
 	#
 	dropFromWordIndex($id,$table);
+	markWordIndexStale($id,$table);
 
 	# invalidate all objects that point to this one
 	#
