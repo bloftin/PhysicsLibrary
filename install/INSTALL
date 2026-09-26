@@ -167,6 +167,13 @@ Section 2 : Installation Procedure
      37 * * * * $NSROOT/bin/outstandingcor >/dev/null 2>/dev/null
      00 8 * * * $NSROOT/bin/cleantemp >/dev/null 2>/dev/null
      45 * * * * $NSROOT/bin/spelld_rehash.sh
+
+    Apply database migrations from `db/migrations` as they are introduced.
+    In particular, before accepting encyclopedia source longer than 64 KiB,
+    expand the legacy article-body column once:
+
+     mariadb -u <database-user> -p <database-name> \
+       < $NSROOT/db/migrations/objects-data-mediumtext.sql
     
     The "cleantemp" script itself must be changed to point to
     
