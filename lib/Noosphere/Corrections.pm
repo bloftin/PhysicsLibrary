@@ -291,7 +291,7 @@ sub globalViewCorrections {
 	my $limit = $userinf->{'prefs'}->{'pagelength'};
 	my $offset = $params->{'offset'}||0;
 	my $total = $params->{'total'}||-1;
-	my $html = '';
+	my @corrections;
 	my $table = getConfig('en_tbl');
 	my $cor = getConfig('cor_tbl');
 	
@@ -340,39 +340,41 @@ sub globalViewCorrections {
 
 	my @rows = dbGetRows($sth);
 
-	if ($sth->rows() > 0 ) {
-		my $i = 1;
-		$html .= "<table>";
-		$html .= "<tr><td align=\"center\">date</td><td width=\"90%\" align=\"center\">correction and object title</td><td align=\"center\">to</td><td align=\"center\">from</td></tr>";
-		foreach my $row (@rows) {
-			my $ar = "x";
-			my $bg = ($i % 2 == 1) ? "bgcolor=\"#eeeeee\"" : "";
-			$html .= "<tr $bg>";
-			my $date = ymd($row->{filed});
-			$html .= "<td valign=\"top\">$date</td>";
-			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$cor&amp;id=$row->{uid}\">$row->{title}</a><br>to: <a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$table&amp;id=$row->{objectid}\">$row->{objtitle}</a></td>";
-			if (defined $row->{usertoid}) {
-				$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{usertoid}\">$row->{userto}</a></td>";
-			} else {
-				$html .= "<td valign=\"top\">nobody</td>";
-			}
-			if (defined $row->{userfrom}) {
-				$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{userfromid}\">$row->{userfrom}</a></td>";
-			} else {
-				$html .= "<td valign=\"top\">user #$row->{userfromid}</td>";
-			}
-			$html .= "</tr>\n";
-			$i++;
-		}
-		$html .= "</table>";
-		$html .= "<br>";
-		$html .= getPager({op=>$params->{'op'}, total=>$total, offset=>$offset},$userinf,2);
-	}
-	else {
-		$html .= "No corrections";
+	foreach my $row (@rows) {
+		my $correction_url = getConfig("main_url")."/?op=getobj&amp;from=$cor&amp;id=$row->{uid}";
+		my $object_url = getConfig("main_url")."/?op=getobj&amp;from=$table&amp;id=$row->{objectid}";
+		my $reporter = defined $row->{userfrom}
+			? qhtmlescape($row->{userfrom})
+			: 'user #'.qhtmlescape($row->{userfromid});
+		my $owner = defined $row->{usertoid}
+			? qhtmlescape($row->{userto})
+			: 'nobody';
+
+		push @corrections, {
+			date             => ymd($row->{filed}),
+			correction_title => qhtmlescape($row->{title}),
+			correction_url   => $correction_url,
+			object_title     => qhtmlescape($row->{objtitle}),
+			object_url       => $object_url,
+			reporter         => $reporter,
+			reporter_url     => getConfig("main_url")."/?op=getuser&amp;id=$row->{userfromid}",
+			owner            => $owner,
+			owner_url        => defined $row->{usertoid}
+				? getConfig("main_url")."/?op=getuser&amp;id=$row->{usertoid}"
+				: undef,
+		};
 	}
 
-	return paddingTable(clearBox("Viewing all pending corrections",$html));
+	my $pager = getPager({op=>$params->{'op'}, total=>$total, offset=>$offset},$userinf,2);
+	my $html = '';
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('globalcors.tt', {
+		total       => $total,
+		corrections => \@corrections,
+		pager       => $pager,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+
+	return paddingTable($html);
 
 }
 
