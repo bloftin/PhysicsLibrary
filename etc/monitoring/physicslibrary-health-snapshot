@@ -5,6 +5,8 @@ umask 027
 
 log_dir=${PHYSICSLIBRARY_HEALTH_LOG_DIR:-/var/log/physicslibrary}
 log_file="$log_dir/health.tsv"
+pressure_log="$log_dir/memory-pressure.log"
+pressure_threshold_kb=${PHYSICSLIBRARY_MEMORY_SNAPSHOT_THRESHOLD_KB:-262144}
 
 mkdir -p -m 0750 "$log_dir"
 
@@ -24,6 +26,17 @@ read -r load_1 load_5 load_15 _ < /proc/loadavg
 mem_available_kb=$(awk '$1 == "MemAvailable:" { print $2; exit }' /proc/meminfo)
 swap_free_kb=$(awk '$1 == "SwapFree:" { print $2; exit }' /proc/meminfo)
 established_https=$(ss -Htan state established '( sport = :443 )' 2>/dev/null | wc -l | tr -d ' ')
+
+if [[ "$pressure_threshold_kb" =~ ^[0-9]+$ ]] &&
+   [[ "${mem_available_kb:-}" =~ ^[0-9]+$ ]] &&
+   (( mem_available_kb < pressure_threshold_kb )); then
+  {
+    printf 'timestamp=%s mem_available_kb=%s swap_free_kb=%s load_1=%s established_https=%s\n' \
+      "$(date --iso-8601=seconds)" "$mem_available_kb" "${swap_free_kb:-NA}" "$load_1" "${established_https:-NA}"
+    ps -eo pid,ppid,user,rss,pcpu,pmem,etime,comm,args --sort=-rss | head -n 16
+    printf '\n'
+  } >> "$pressure_log"
+fi
 
 if [ ! -s "$log_file" ]; then
   printf 'timestamp\tbusy_workers\tidle_workers\tscoreboard\tload_1\tload_5\tload_15\tmem_available_kb\tswap_free_kb\testablished_https\n' >> "$log_file"

@@ -204,6 +204,8 @@ Section 2 : Installation Procedure
  9b. To retain lightweight local evidence around Apache stalls and reboots,
      install the optional health snapshot monitor.  It records Apache worker
      state, load, memory, swap, and HTTPS connection counts every 30 seconds.
+     It records the largest resident processes separately when available memory
+     falls below 256 MiB.
      Follow the installation, log rotation, and verification instructions in:
 
       $NSROOT/etc/monitoring/README.md

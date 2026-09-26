@@ -360,6 +360,22 @@ sub renderLaTeX {
 		write_render_message('Rendering could not start because the render lock could not be created.');
 		return 0;
 	}
+
+	# A method-level lock prevents duplicate work for one cache entry.  The
+	# host-wide lock keeps several expensive TeX converters from exhausting a
+	# small web server when independent cache entries are requested together.
+	my $capacity_lock_fh;
+	if (open($capacity_lock_fh, "+>>", "$path/render-capacity.lock")) {
+		if (!flock($capacity_lock_fh, LOCK_EX | LOCK_NB)) {
+			write_render_message('Rendering capacity is currently in use.  Please reload shortly.');
+			return 0;
+		}
+	} else {
+		dwarn "renderLaTeX could not open capacity lock $path/render-capacity.lock: $!";
+		write_render_message('Rendering could not start because the capacity lock could not be created.');
+		return 0;
+	}
+
 	# get web URL for rendered images
 	#
 	my $url = getConfig('cache_url')."/$table/$id/$method";

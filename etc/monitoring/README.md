@@ -6,7 +6,9 @@ requests to any external service.
 
 Each row in `/var/log/physicslibrary/health.tsv` contains the timestamp,
 Apache worker counts and scoreboard, one-, five-, and fifteen-minute load,
-available memory, free swap, and established HTTPS socket count. The log is
+available memory, free swap, and established HTTPS socket count. When available
+memory falls below 256 MiB, the monitor also appends the largest resident
+processes to `/var/log/physicslibrary/memory-pressure.log`. Both logs are
 rotated daily and retained for seven days.
 
 ## Installation
@@ -40,4 +42,8 @@ During or after a suspected stall, inspect the last snapshots with:
 
 ```bash
 sudo tail -n 120 /var/log/physicslibrary/health.tsv
+sudo tail -n 80 /var/log/physicslibrary/memory-pressure.log
 ```
+
+Set `PHYSICSLIBRARY_MEMORY_SNAPSHOT_THRESHOLD_KB` in the service environment
+to use a threshold other than the default 262144 KiB.
