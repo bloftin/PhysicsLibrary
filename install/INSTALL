@@ -194,6 +194,13 @@ Section 2 : Installation Procedure
      journal.  Review etc/monitoring/xref-word-index.md for operational checks
      and deployment-specific paths before enabling it.
 
+ 9b. To retain lightweight local evidence around Apache stalls and reboots,
+     install the optional health snapshot monitor.  It records Apache worker
+     state, load, memory, swap, and HTTPS connection counts every 30 seconds.
+     Follow the installation, log rotation, and verification instructions in:
+
+      $NSROOT/etc/monitoring/README.md
+
 10. Set one-time tasks to initialize at system startup.  Inspect the file 
 
      $NSROOT/bin/init.sh 
