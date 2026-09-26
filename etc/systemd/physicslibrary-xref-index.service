@@ -1,0 +1,13 @@
+[Unit]
+Description=Physics Library cross-reference word-index update
+
+[Service]
+Type=oneshot
+User=apache
+Group=apache
+WorkingDirectory=/var/www/pp
+ExecStart=/usr/bin/perl /var/www/pp/bin/update-xref-word-index --apply --limit 1
+Nice=15
+CPUQuota=20%
+IOSchedulingClass=idle
+TimeoutStartSec=120

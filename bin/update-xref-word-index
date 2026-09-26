@@ -1,0 +1,69 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use FindBin;
+use Getopt::Long qw(GetOptions);
+use lib "$FindBin::Bin/../lib";
+
+use Noosphere qw($dbh);
+use Noosphere::DB;
+use Noosphere::Indexing;
+
+my ($apply, $limit, $objectid);
+$limit = 1;
+GetOptions(
+	'apply' => \$apply,
+	'limit=i' => \$limit,
+	'object=i' => \$objectid,
+) or die "usage: $0 [--apply] [--limit N] [--object ID]\n";
+
+die "--limit must be positive\n" if (!defined($limit) || $limit < 1);
+
+$dbh = Noosphere::dbConnect();
+my $table = Noosphere::getConfig('en_tbl');
+
+my @where = ("not exists (select 1 from wordidx wi where wi.tbl = ? and wi.objectid = o.uid)");
+my @bind = ($table);
+if (defined($objectid)) {
+	push @where, 'o.uid = ?';
+	push @bind, $objectid;
+}
+
+my $sql = "select o.uid, o.data from $table o where " . join(' and ', @where) . ' order by o.uid limit ?';
+push @bind, $limit;
+my $sth = $dbh->prepare($sql) or die "could not prepare word-index scan\n";
+$sth->execute(@bind) or die "could not scan for unindexed articles\n";
+
+my @entries;
+while (my $entry = $sth->fetchrow_hashref()) {
+	push @entries, $entry;
+}
+$sth->finish();
+
+if (!$apply) {
+	print scalar(@entries) . " unindexed article(s) selected; rerun with --apply to index them.\n";
+	$dbh->disconnect();
+	exit 0;
+}
+
+my $indexed = 0;
+foreach my $entry (@entries) {
+	my $ok = eval {
+		$dbh->begin_work();
+		Noosphere::wordIndexEntry($table, $entry);
+		$dbh->commit();
+		1;
+	};
+	if (!$ok) {
+		my $error = $@ || 'unknown error';
+		eval { $dbh->rollback(); };
+		warn "could not index article $entry->{uid}: $error";
+		next;
+	}
+	$indexed++;
+	print "indexed article $entry->{uid}\n";
+}
+
+print "indexed $indexed article(s)\n";
+$dbh->disconnect();
