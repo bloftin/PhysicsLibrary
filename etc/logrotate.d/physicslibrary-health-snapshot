@@ -1,4 +1,4 @@
-/var/log/physicslibrary/health.tsv {
+/var/log/physicslibrary/health.tsv /var/log/physicslibrary/memory-pressure.log {
     daily
     rotate 7
     missingok

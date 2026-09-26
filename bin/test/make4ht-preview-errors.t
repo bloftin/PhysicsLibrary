@@ -107,6 +107,33 @@ cmp_ok(length($details), '<', 8500, 'long stdout is bounded');
 like($details, qr/Output truncated/, 'truncation is explicit');
 like($details, qr/important stderr/, 'long stdout cannot hide stderr');
 
+pipe(my $capacity_ready, my $capacity_signal) or die "Cannot create capacity-ready pipe: $!";
+pipe(my $capacity_release, my $capacity_continue) or die "Cannot create capacity-release pipe: $!";
+my $capacity_pid = fork();
+die "Cannot fork capacity-lock holder: $!" unless defined $capacity_pid;
+if ($capacity_pid == 0) {
+    close $capacity_ready;
+    close $capacity_continue;
+    open my $capacity_lock, '>>', "$root/render-capacity.lock" or die $!;
+    flock($capacity_lock, LOCK_EX) or die $!;
+    print {$capacity_signal} "locked\n";
+    close $capacity_signal;
+    <$capacity_release>;
+    exit 0;
+}
+close $capacity_signal;
+close $capacity_release;
+<$capacity_ready>;
+is(renderLaTeX('.', 'temp/capacity', $latex, 'make4ht', 'TestTableFormatting'), 0,
+    'global capacity lock rejects a concurrent render without waiting');
+like(rendered_output('temp', 'capacity'), qr/Rendering capacity is currently in use/,
+    'capacity contention provides a retry message');
+print {$capacity_continue} "release\n";
+close $capacity_ready;
+close $capacity_continue;
+waitpid($capacity_pid, 0);
+is($? >> 8, 0, 'capacity-lock holder exits cleanly');
+
 ($status, $stdout, $stderr) = (0, '', '');
 is(renderLaTeX('.', 'temp/preview', $latex, 'make4ht', 'TestTableFormatting'), 1,
     'successful render returns success');
