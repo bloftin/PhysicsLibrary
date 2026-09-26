@@ -132,6 +132,24 @@ sub requestFormConfirmation {
         reactivate => 'This user will be able to sign in again. Continue?',
         abandon => 'You will give up ownership of this object. Continue?',
     );
+    my %actions = (
+        updatereq => 'Update request',
+        deletereq => 'Delete request',
+        confirmreq => 'Confirm request fulfillment',
+        confirmallreq => 'Confirm request fulfillments',
+        denyreq => 'Deny request fulfillment',
+        rerender => 'Rerender article',
+        delobj => 'Delete article',
+        deluser => 'Delete user',
+        deactivate => 'Deactivate user',
+        reactivate => 'Reactivate user',
+        abandon => 'Give up ownership',
+        rollback => 'Restore article version',
+    );
+    my %labels = (
+        op => 'Action', request => 'Request', identifier => 'Filling article',
+        id => 'Article ID', from => 'Collection', method => 'Format',
+    );
     my $warning = $warnings{$params->{op} || ''};
     my $fields = '';
     my $details = '';
@@ -144,14 +162,40 @@ sub requestFormConfirmation {
         next if defined($warning) && $key eq 'ask';
         my $value = requestFormEscape($params->{$key});
         $fields .= '<input type="hidden" name="'.$key.'" value="'.$value.'" />';
-        $details .= '<dt>'.$key.'</dt><dd style="overflow-wrap:anywhere">'.
-            requestFormEscape(substr($params->{$key} || '', 0, 500)).'</dd>';
+        my $label = requestFormEscape($labels{$key} || $key);
+        my $display = $key eq 'op' ? ($actions{$params->{$key}} || $params->{$key}) :
+            substr($params->{$key} || '', 0, 500);
+        $details .= '<div class="pl-confirm-action__detail"><dt>'.$label.'</dt><dd>'.
+            requestFormEscape($display).'</dd></div>';
     }
-    return '<h2>Confirm Action</h2><p>'.requestFormEscape(
-        $warning || 'Review this action before continuing.').'</p><dl>'.
-        $details.'</dl><form method="post" action="'.requestFormEscape(getConfig('main_url')).'/">'.
-        $fields.'<input type="hidden" name="_form_token" value="'.$token.'" />'.
-        '<button type="submit">Confirm</button> <a href="/">Cancel</a></form>';
+    my $message = requestFormEscape($warning || 'Review the details before continuing.');
+    return '<style>'.
+        '.pl-confirm-action{max-width:46rem;margin:1.5rem auto;padding:1.25rem 1.35rem;'.
+        'border:1px solid #b8c9d8;background:#fff;color:#182633}'.
+        '.pl-confirm-action h2{margin:0;color:#173f67;font-size:1.45em}'.
+        '.pl-confirm-action__intro{margin:.4rem 0 1rem;color:#455d73}'.
+        '.pl-confirm-action__warning{margin:0 0 1rem;padding:.65rem .75rem;'.
+        'border-left:4px solid #b24a23;background:#fff4e8;color:#652c18}'.
+        '.pl-confirm-action__details{margin:0 0 1.1rem;border-top:1px solid #d5e0e9}'.
+        '.pl-confirm-action__detail{display:grid;grid-template-columns:10rem minmax(0,1fr);'.
+        'gap:.75rem;padding:.55rem .15rem;border-bottom:1px solid #d5e0e9}'.
+        '.pl-confirm-action__detail dt{font-weight:bold;color:#314e68}'.
+        '.pl-confirm-action__detail dd{margin:0;overflow-wrap:anywhere}'.
+        '.pl-confirm-action__actions{display:flex;align-items:center;gap:.9rem;margin:0}'.
+        '.pl-confirm-action__confirm{padding:.45rem .85rem;border:1px solid #173f67;'.
+        'background:#1d5b8f;color:#fff;font:inherit;font-weight:bold;cursor:pointer}'.
+        '.pl-confirm-action__cancel{color:#174f83}'.
+        '@media(max-width:34rem){.pl-confirm-action{margin:.75rem 0;padding:1rem}'.
+        '.pl-confirm-action__detail{grid-template-columns:1fr;gap:.15rem}}</style>'.
+        '<section class="pl-confirm-action"><h2>Confirm Action</h2>'.
+        '<p class="pl-confirm-action__intro">No change has been made yet.</p>'.
+        (defined($warning) ? '<p class="pl-confirm-action__warning">'.$message.'</p>' : '').
+        '<dl class="pl-confirm-action__details">'.$details.'</dl>'.
+        '<form class="pl-confirm-action__actions" method="post" action="'.
+        requestFormEscape(getConfig('main_url')).'/">'.$fields.
+        '<input type="hidden" name="_form_token" value="'.$token.'" />'.
+        '<button class="pl-confirm-action__confirm" type="submit">Confirm action</button>'.
+        '<a class="pl-confirm-action__cancel" href="/">Cancel</a></form></section>';
 }
 
 sub requestFormComplete {
