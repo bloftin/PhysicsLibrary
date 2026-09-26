@@ -147,7 +147,8 @@ sub unclassifiedObjects {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $template = new XSLTemplate("unclassified.xsl");
+	my $html = '';
+	my @objects;
 
 	# init paging
 	my $total = $params->{'total'} || -1;
@@ -174,34 +175,36 @@ sub unclassifiedObjects {
 	($rv,$sth) = dbLowLevelSelect($dbh,"select distinct o.title, lower(o.title), o.uid, o.userid, u.username from $index as i inner join $en as o on (i.tbl='$en' and i.objectid=o.uid and i.type=1) left outer join $class as c on (c.tbl='$en' and c.objectid=o.uid) left outer join users as u on (u.uid=o.userid) where c.objectid is null order by lower(o.title) limit $offset, $limit")
         if (getConfig('dbms') eq 'MariaDB');
 
-	#my $total = $sth->rows();
-	$template->addText("<unclassifiedlist>");
-	
 	my $ord = $offset + 1;
 	while (my $row = $sth->fetchrow_hashref()) {
-		my $mathtitle = mathTitleXSL($row->{'title'}, 'highlight');
 		my $username = $row->{'username'} || 'unknown';
+		my $object_url = getConfig('main_url')."/?op=getobj&amp;from=$en&amp;id=$row->{uid}";
+		my $classify_url = getConfig('main_url')."/?op=adminclassify&amp;from=$en&amp;id=$row->{uid}";
+		my $owner_url = getConfig('main_url')."/?op=getuser&amp;id=$row->{userid}";
 
-		$template->addText("	<item>");
-		$template->addText("		<series ord=\"$ord\"/>");
-		#$template->addText("		<object title=\"".qhtmlescape($row->{'title'})."\" href=\"".getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{uid}\"/>");
-		$template->addText("		<object href=\"".getConfig("main_url")."/?op=getobj;from=".getConfig('en_tbl').";id=$row->{uid}\"/>");
-		$template->addText("		<title>$mathtitle</title>");
-		$template->addText("		<user name=\"".qhtmlescape($username)."\" href=\"".getConfig("main_url")."/?op=getuser;id=$row->{userid}\"/>");
-		$template->addText("	</item>");
+		push @objects, {
+			ord          => $ord,
+			title        => qhtmlescape($row->{'title'}),
+			owner        => qhtmlescape($username),
+			object_url   => $object_url,
+			classify_url => $classify_url,
+			owner_url    => $owner_url,
+		};
 
 		$ord++;
 	}
 	$sth->finish();
-	
-	$template->addText("</unclassifiedlist>");
-	
 	$params->{'offset'} = $offset;
 	$params->{'total'} = $total;
+	my $pager = getPager($params, $userinf, 1);
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('unclassified.tt', {
+		total   => $total,
+		objects => \@objects,
+		pager   => $pager,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	getPageWidgetXSLT($template, $params, $userinf);
-	
-	return $template->expand();
+	return paddingTable($html);
 }
 
 
