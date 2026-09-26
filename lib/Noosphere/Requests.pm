@@ -524,6 +524,66 @@ sub fillReq {
 # get a list of currently active requests
 #
 sub reqList {
+	my $params = shift;
+	my $userinf = shift;
+	my $table = getConfig('req_tbl');
+	my ($rv, $sth) = dbSelect($dbh, {
+		WHAT => "$table.*, users.username",
+		FROM => "$table, users",
+		WHERE => "closed is null and users.uid = $table.creatorid",
+		'ORDER BY' => 'created',
+		DESC => '',
+	});
+	my @rows = dbGetRows($sth);
+	my (@open_requests, @fulfilled_requests);
+
+	foreach my $row (@rows) {
+		my $request = {
+			date => ymd($row->{created}),
+			title => qhtmlescape($row->{title}),
+			titlehref => getConfig('main_url')."/?op=getobj&amp;from=$table&amp;id=$row->{uid}",
+			requester => qhtmlescape($row->{username}),
+			requesterhref => getConfig('main_url')."/?op=getuser&amp;id=$row->{creatorid}",
+			message_total => getmsgcount($table, $row->{uid}),
+			message_unseen => count_unseen($table, $row->{uid}, $userinf->{uid}),
+		};
+
+		if (defined $row->{fulfilled}) {
+			($rv, $sth) = dbSelect($dbh, {
+				WHAT => 'username',
+				FROM => 'users',
+				WHERE => "uid=$row->{fulfillerid}",
+			});
+			my $urec = $sth->fetchrow_hashref();
+			$sth->finish();
+			$request->{filler} = qhtmlescape($urec->{username});
+			$request->{fillerhref} = getConfig('main_url')."/?op=getuser&amp;id=$row->{fulfillerid}";
+			push @fulfilled_requests, $request;
+		} else {
+			my $title = urlescape($row->{title});
+			$request->{fillhref} = getConfig('main_url')."/?op=adden;request=$row->{uid};title=$title";
+			$request->{updatehref} = getConfig('main_url')."/?op=updatereq;request=$row->{uid}";
+			push @open_requests, $request;
+		}
+	}
+
+	my $tt = Template->new({ INCLUDE_PATH => '/var/www/pp/stemplates' });
+	my $html = '';
+	my $vars = {
+		open_requests => \@open_requests,
+		fulfilled_requests => \@fulfilled_requests,
+		open_total => scalar @open_requests,
+		fulfilled_total => scalar @fulfilled_requests,
+		admin => ($userinf->{data}->{access} >= getConfig('access_admin')) ? 1 : 0,
+	};
+	my $ret = $tt->process('reqlist.tt', $vars, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+
+	return paddingTable($html);
+}
+
+# Retained only as a reference while installations move from the XSL template.
+sub reqListLegacy {
 		my $params = shift;
 		my $userinf = shift;
 		my $table = getConfig('req_tbl');

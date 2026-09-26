@@ -1,0 +1,78 @@
+<style type="text/css">
+.pl-requests { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-requests a { color: #064d93; }
+.pl-requests-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-requests-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.pl-requests h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-requests-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-requests-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
+.pl-requests-create:hover, .pl-requests-create:focus { background: #103a61; }
+.pl-requests-tools { background: #eef3f7; border: 1px solid #b6c5d2; font-size: .85rem; margin: 0 0 1rem; padding: .7rem .75rem; }
+.pl-requests-tools a + a { border-left: 1px solid #b6c5d2; margin-left: .65rem; padding-left: .65rem; }
+.pl-requests-section { margin: 1.1rem 0; }
+.pl-requests-section h2 { color: #17212b; font-size: 1.08rem; margin: 0; }
+.pl-requests-section-intro { color: #526170; font-size: .84rem; margin: .3rem 0 .65rem; }
+.pl-requests-list { border-top: 1px solid #b6c5d2; }
+.pl-requests-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
+.pl-requests-row h3 { font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-requests-row h3 a { color: #17212b; }
+.pl-requests-row h3 a:hover, .pl-requests-row h3 a:focus { color: #064d93; }
+.pl-requests-meta { color: #586673; font-size: .81rem; margin: .32rem 0 .42rem; }
+.pl-requests-badge { background: #e2ebf1; border: 1px solid #b5c6d3; color: #2b4861; font-size: .74rem; font-weight: bold; margin-right: .38rem; padding: .08rem .3rem; }
+.pl-requests-badge-filled { background: #d7eadb; border-color: #6b9b73; color: #245331; }
+.pl-requests-badge-unread { background: #fff2cf; border-color: #caa958; color: #654600; }
+.pl-requests-actions { display: flex; flex-wrap: wrap; font-size: .84rem; gap: .35rem .75rem; margin-top: .45rem; }
+.pl-requests-empty { border: 1px solid #b6c5d2; color: #526170; margin: 0; padding: .85rem; }
+@media (max-width: 420px) { .pl-requests-header-row { align-items: stretch; display: grid; grid-template-columns: 1fr; } .pl-requests-create { box-sizing: border-box; text-align: center; width: 100%; } .pl-requests-tools a { display: inline-block; margin: .15rem 0; } }
+</style>
+
+<div class="pl-requests">
+  <header class="pl-requests-header">
+    <div class="pl-requests-header-row"><h1>Requests</h1><a class="pl-requests-create" href="/?op=addreq">Create Request</a></div>
+    <p class="pl-requests-summary">Community requests for additions to the Physics Library encyclopedia.</p>
+  </header>
+
+  <div class="pl-requests-tools">
+    <a href="/?op=updatereq">Report a request as filled</a>
+    <a href="/?op=oldreqs">Browse completed requests</a>
+    [% IF admin %]<a href="/?op=confirmallreq">Confirm filled requests</a>[% END %]
+  </div>
+
+  <section class="pl-requests-section" aria-labelledby="open-requests-heading">
+    <h2 id="open-requests-heading">Open Requests</h2>
+    <p class="pl-requests-section-intro">[% open_total %] request[% IF open_total != 1 %]s[% END %] awaiting an article or other fulfillment.</p>
+    [% IF open_requests.size %]
+      <div class="pl-requests-list">
+        [% FOREACH request IN open_requests %]
+          <article class="pl-requests-row">
+            <h3><a href="[% request.titlehref %]">[% request.title %]</a></h3>
+            <div class="pl-requests-meta">Requested by <a href="[% request.requesterhref %]">[% request.requester %]</a> on [% request.date %].</div>
+            [% IF request.message_total %]<span class="pl-requests-badge">[% request.message_total %] message[% IF request.message_total != 1 %]s[% END %]</span>[% END %]
+            [% IF request.message_unseen %]<span class="pl-requests-badge pl-requests-badge-unread">[% request.message_unseen %] unread</span>[% END %]
+            <div class="pl-requests-actions"><a href="[% request.fillhref %]">Fill request</a><a href="[% request.updatehref %]">Update fulfillment</a></div>
+          </article>
+        [% END %]
+      </div>
+    [% ELSE %]
+      <p class="pl-requests-empty">No open requests at the moment.</p>
+    [% END %]
+  </section>
+
+  [% IF fulfilled_requests.size %]
+    <section class="pl-requests-section" aria-labelledby="filled-requests-heading">
+      <h2 id="filled-requests-heading">Awaiting Confirmation</h2>
+      <p class="pl-requests-section-intro">[% fulfilled_total %] fulfillment[% IF fulfilled_total != 1 %]s[% END %] reported by contributors.</p>
+      <div class="pl-requests-list">
+        [% FOREACH request IN fulfilled_requests %]
+          <article class="pl-requests-row">
+            <h3><a href="[% request.titlehref %]">[% request.title %]</a></h3>
+            <div class="pl-requests-meta">Requested by <a href="[% request.requesterhref %]">[% request.requester %]</a> on [% request.date %].</div>
+            <span class="pl-requests-badge pl-requests-badge-filled">Reported filled by <a href="[% request.fillerhref %]">[% request.filler %]</a></span>
+            [% IF request.message_total %]<span class="pl-requests-badge">[% request.message_total %] message[% IF request.message_total != 1 %]s[% END %]</span>[% END %]
+            [% IF request.message_unseen %]<span class="pl-requests-badge pl-requests-badge-unread">[% request.message_unseen %] unread</span>[% END %]
+          </article>
+        [% END %]
+      </div>
+    </section>
+  [% END %]
+</div>

@@ -69,6 +69,7 @@ sub applyIndexingPolicy {
 		oldreqs
 		showwatchers
 		getcors
+		edituserobjs
 		userobjs
 		edituserobjsbeta
 		collab
