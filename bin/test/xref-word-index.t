@@ -62,5 +62,9 @@ like($worker, qr/Noosphere::wordIndexEntry\(\$table, \$entry\)/,
 	'background worker maintains the index outside article requests');
 like($worker, qr/not exists \(select 1 from wordidx/i,
 	'background worker selects only articles without an index row');
+like($worker, qr/\$Noosphere::dbh = Noosphere::dbConnect\(\)/,
+	'background worker assigns the database handle to the Noosphere package');
+unlike($worker, qr/\n\$dbh\b/,
+	'background worker does not rely on an unavailable imported database handle');
 
 done_testing();
