@@ -172,6 +172,28 @@ Section 2 : Installation Procedure
     
      $NSROOT/data/cache/temp
 
+ 9a. Physics Library deployments that use systemd should also install the
+     cross-reference word-index worker.  This complements the cron jobs above:
+     `renderall` rebuilds invalidated cached output, while this worker maintains
+     the word index used to identify which cached articles need invalidation.
+
+     First apply the word-index marker migration, then install and enable the
+     bundled service and timer:
+
+      mariadb -u <database-user> -p <database-name> \
+        < $NSROOT/db/migrations/xref-word-index-state.sql
+      sudo install -D -m 0644 $NSROOT/etc/systemd/physicslibrary-xref-index.service \
+        /etc/systemd/system/physicslibrary-xref-index.service
+      sudo install -D -m 0644 $NSROOT/etc/systemd/physicslibrary-xref-index.timer \
+        /etc/systemd/system/physicslibrary-xref-index.timer
+      sudo systemctl daemon-reload
+      sudo systemctl enable --now physicslibrary-xref-index.timer
+
+     The timer indexes at most one article every two minutes with low CPU and
+     I/O priority.  It resumes after a reboot and records runs in the system
+     journal.  Review etc/monitoring/xref-word-index.md for operational checks
+     and deployment-specific paths before enabling it.
+
 10. Set one-time tasks to initialize at system startup.  Inspect the file 
 
      $NSROOT/bin/init.sh 
