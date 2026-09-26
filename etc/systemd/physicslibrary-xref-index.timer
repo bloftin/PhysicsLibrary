@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodically update the Physics Library cross-reference word index
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=2min
+RandomizedDelaySec=30s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

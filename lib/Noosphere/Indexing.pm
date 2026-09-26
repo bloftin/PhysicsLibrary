@@ -73,24 +73,29 @@ sub wordIndexEntry {
 	# delete all entries with this objectid+table - we will redo
 	dropFromWordIndex($uid,$table);
 
-	# insert an entry for each word into dictionary and word list
-	foreach my $word (@list) {
+	# An entry needs only one invalidation-index row per distinct word.
+	my %seen;
+	foreach my $word (grep { !$seen{$_}++ } @list) {
 	
-		# insert into word list (will not do anything if word is there)
-		#
-		$dbh->{PrintError} = 0;	# no, we dont need to see uniqueness errors.
-		#dwarn "insert into 'words' word, $word";
-		my ($rv,$sth) = dbInsert($dbh,{INTO=>'words',COLS=>'word',VALUES=>$word});
-		$sth->finish();
-		$dbh->{PrintError} = 1;
-	
-		# look up word's wid
-		#
+		# Look up an existing dictionary entry before allocating an id.  The
+		# explicit sequence keeps this compatible with the legacy MariaDB schema.
 		my $wid = getwid($word);
+		if (!defined($wid)) {
+			my $nextid = nextval('words_uid_seq');
+			local $dbh->{PrintError} = 0; # another writer may insert it first
+			my ($rv,$sth) = dbInsert($dbh,{
+				INTO => 'words',
+				COLS => 'uid,word',
+				VALUES => "$nextid,'" . sq($word) . "'",
+			});
+			$sth->finish() if ($sth);
+			$wid = getwid($word);
+		}
+		die "could not create word dictionary entry for '$word'\n" if (!defined($wid));
 
 		# insert into word index
 		#
-		($rv,$sth) = dbInsert($dbh,{INTO=>'wordidx',VALUES=>"$wid,$uid,'$table'"});
+		my ($rv,$sth) = dbInsert($dbh,{INTO=>'wordidx',VALUES=>"$wid,$uid,'" . sq($table) . "'"});
 		$sth->finish();
 	}
 
