@@ -204,16 +204,15 @@ sub filterUserObjectRows {
 # logic with My Articles; it only changes the presentation.
 sub userEditObjectList {
 	return userObjectListPage($_[0], $_[1], {
-		template => 'usereditobjlist.tt',
-		box_title => 'Your Objects',
+		template => 'userarticlesbeta.tt',
+		modern => 1,
 	});
 }
 
+# Kept as a compatibility alias for bookmarks from the beta rollout.  The
+# canonical My Articles route now owns the modern presentation.
 sub userArticleBetaList {
-	return userObjectListPage($_[0], $_[1], {
-		template => 'userarticlesbeta.tt',
-		beta => 1,
-	});
+	return userEditObjectList(@_);
 }
 
 # user object edit list
@@ -462,7 +461,7 @@ sub userObjectListPage {
 	
 	my $ret = $tt->process($tt_file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html) if $view->{beta};
+	return paddingTable($html) if $view->{modern};
 	return paddingTable(clearBox($view->{box_title} || 'Your Objects',$html));
 }
 

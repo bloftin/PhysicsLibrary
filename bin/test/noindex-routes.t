@@ -27,6 +27,11 @@ ok(applyIndexingPolicy($user_request, 'userobjs'), 'user object listings are not
 is($user_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
     'user object listings send the robots response header');
 
+my $article_request = IndexingRequest->new();
+ok(applyIndexingPolicy($article_request, 'edituserobjs'), 'My Articles listings are not indexed');
+is($article_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
+    'My Articles listings send the robots response header');
+
 my $beta_request = IndexingRequest->new();
 ok(applyIndexingPolicy($beta_request, 'edituserobjsbeta'), 'beta user article listings are not indexed');
 is($beta_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
@@ -45,9 +50,9 @@ ok(applyIndexingPolicy($preamble_request, 'preamble'), 'article preamble pages a
 is($preamble_request->{headers}->{'X-Robots-Tag'}, 'noindex, follow',
     'article preamble pages send the robots response header');
 
-my $article_request = IndexingRequest->new();
-ok(!applyIndexingPolicy($article_request, 'getobj'), 'article pages remain indexable');
-ok(!exists $article_request->{headers}->{'X-Robots-Tag'},
+my $published_article_request = IndexingRequest->new();
+ok(!applyIndexingPolicy($published_article_request, 'getobj'), 'article pages remain indexable');
+ok(!exists $published_article_request->{headers}->{'X-Robots-Tag'},
     'article pages do not receive a noindex response header');
 
 open my $view, '<', "$FindBin::Bin/../../stemplates/view.tt" or die $!;

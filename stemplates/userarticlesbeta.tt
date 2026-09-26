@@ -4,7 +4,6 @@
 .pl-articles-beta-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
 .pl-articles-beta-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
 .pl-articles-beta-header h1 { color: #122c4b; display: inline; font-size: 1.55rem; margin: 0; }
-.pl-articles-beta-beta { background: #d7eadb; border: 1px solid #6b9b73; color: #245331; font-size: .72rem; font-weight: bold; margin-left: .45rem; padding: .12rem .38rem; vertical-align: middle; }
 .pl-articles-beta-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-articles-beta-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
 .pl-articles-beta-create:hover, .pl-articles-beta-create:focus { background: #103a61; }
@@ -36,12 +35,12 @@
 
 <div class="pl-articles-beta">
   <div class="pl-articles-beta-header">
-    <div class="pl-articles-beta-header-row"><div><h1>My Articles</h1><span class="pl-articles-beta-beta">BETA</span></div><a class="pl-articles-beta-create" href="/?op=adden">Create Article</a></div>
+    <div class="pl-articles-beta-header-row"><h1>My Articles</h1><a class="pl-articles-beta-create" href="/?op=adden">Create Article</a></div>
     [% IF total %]<p class="pl-articles-beta-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] article[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-articles-beta-summary">No articles match this view.</p>[% END %]
   </div>
 
   <form class="pl-articles-beta-toolbar" method="get" action="/">
-    <input type="hidden" name="op" value="edituserobjsbeta">
+    <input type="hidden" name="op" value="edituserobjs">
     [% IF qtype %]<input type="hidden" name="qtype" value="[% qtype %]">[% END %]
     [% IF group == "type" %]<input type="hidden" name="group" value="type">[% END %]
     <div class="pl-articles-beta-toolbar-grid">
@@ -50,7 +49,7 @@
       <div><label for="pl-articles-sort">Sort by</label><select id="pl-articles-sort" name="sort" onchange="this.form.submit()"><option value="title" [% IF sort == "title" %]selected[% END %]>Title</option><option value="created_desc" [% IF sort == "created_desc" %]selected[% END %]>Newest added</option><option value="created_asc" [% IF sort == "created_asc" %]selected[% END %]>Oldest added</option><option value="modified_desc" [% IF sort == "modified_desc" %]selected[% END %]>Recently edited</option><option value="modified_asc" [% IF sort == "modified_asc" %]selected[% END %]>Oldest edits</option></select></div>
       <div><button class="pl-articles-beta-button" type="submit">Search</button></div>
     </div>
-    <div class="pl-articles-beta-tools"><a href="/?op=edituserobjsbeta">Clear filters</a> | <a href="/?op=edituserobjs">Open classic My Articles</a></div>
+    <div class="pl-articles-beta-tools"><a href="/?op=edituserobjs">Clear filters</a></div>
   </form>
 
   [% IF objects.size %]
