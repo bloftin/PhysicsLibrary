@@ -567,7 +567,7 @@ CREATE TABLE objects (
   modified datetime default NULL,
   parentid int(11) default NULL,
   title varchar(255) NOT NULL default '',
-  data text NOT NULL,
+  data mediumtext NOT NULL,
   preamble text,
   name varchar(255) NOT NULL default '',
   related text,
