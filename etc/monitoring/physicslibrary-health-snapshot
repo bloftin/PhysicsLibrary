@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -u
+umask 027
+
+log_dir=${PHYSICSLIBRARY_HEALTH_LOG_DIR:-/var/log/physicslibrary}
+log_file="$log_dir/health.tsv"
+
+mkdir -p -m 0750 "$log_dir"
+
+status=$(curl -fsS --connect-timeout 2 --max-time 5 \
+  --resolve physicslibrary.org:443:127.0.0.1 \
+  'https://physicslibrary.org/server-status?auto' 2>/dev/null || true)
+
+status_value() {
+  local key=$1
+  local value
+
+  value=$(printf '%s\n' "$status" | awk -F ': ' -v key="$key" '$1 == key { print $2; exit }')
+  printf '%s' "${value:-NA}"
+}
+
+read -r load_1 load_5 load_15 _ < /proc/loadavg
+mem_available_kb=$(awk '$1 == "MemAvailable:" { print $2; exit }' /proc/meminfo)
+swap_free_kb=$(awk '$1 == "SwapFree:" { print $2; exit }' /proc/meminfo)
+established_https=$(ss -Htan state established '( sport = :443 )' 2>/dev/null | wc -l | tr -d ' ')
+
+if [ ! -s "$log_file" ]; then
+  printf 'timestamp\tbusy_workers\tidle_workers\tscoreboard\tload_1\tload_5\tload_15\tmem_available_kb\tswap_free_kb\testablished_https\n' >> "$log_file"
+fi
+
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  "$(date --iso-8601=seconds)" \
+  "$(status_value BusyWorkers)" \
+  "$(status_value IdleWorkers)" \
+  "$(status_value Scoreboard)" \
+  "$load_1" "$load_5" "$load_15" \
+  "${mem_available_kb:-NA}" "${swap_free_kb:-NA}" "${established_https:-NA}" \
+  >> "$log_file"

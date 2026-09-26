@@ -1,0 +1,7 @@
+[Unit]
+Description=Capture a local Physics Library health snapshot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/physicslibrary-health-snapshot
+Nice=10
