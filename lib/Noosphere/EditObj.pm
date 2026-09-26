@@ -462,8 +462,7 @@ sub handleEncyclopediaChange {
 	
 	# re-index and un-xref this entry if data changed
 	if ($params->{data} ne $rec->{data}) {
-		#dwarn "handleEncyclopediaChange before wordIndexEntry";
-		#wordIndexEntry($table,$params);
+		markWordIndexStale($rec->{uid},$table);
 		#dwarn "handleEncyclopediaChange before xrefDeleteLinksFrom";
 		xrefDeleteLinksFrom($rec->{uid},$table);	
 	}
