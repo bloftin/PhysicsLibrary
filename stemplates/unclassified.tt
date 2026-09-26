@@ -1,0 +1,45 @@
+<style type="text/css">
+.pl-unclassified { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-unclassified a { color: #064d93; }
+.pl-unclassified-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-unclassified h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-unclassified-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-unclassified-intro { background: #eef3f7; border: 1px solid #b6c5d2; color: #3e5265; font-size: .86rem; margin: 0 0 1rem; padding: .75rem; }
+.pl-unclassified-pager { border-bottom: 1px solid #b6c5d2; font-size: .9rem; margin: 0 0 .55rem; padding: 0 0 .45rem; text-align: center; }
+.pl-unclassified-list + .pl-unclassified-pager { border-bottom: 0; border-top: 1px solid #b6c5d2; margin: .55rem 0 0; padding: .55rem 0 0; }
+.pl-unclassified-list { border-top: 1px solid #b6c5d2; }
+.pl-unclassified-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
+.pl-unclassified-row h2 { font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-unclassified-row h2 a { color: #17212b; }
+.pl-unclassified-row h2 a:hover, .pl-unclassified-row h2 a:focus { color: #064d93; }
+.pl-unclassified-meta { color: #586673; font-size: .81rem; margin: .32rem 0 .42rem; }
+.pl-unclassified-actions { display: flex; flex-wrap: wrap; font-size: .84rem; gap: .35rem .75rem; }
+.pl-unclassified-classify { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-weight: bold; padding: .28rem .52rem; text-decoration: none; }
+.pl-unclassified-classify:hover, .pl-unclassified-classify:focus { background: #103a61; }
+.pl-unclassified-empty { border: 1px solid #b6c5d2; color: #526170; margin: 0; padding: .85rem; }
+</style>
+
+<div class="pl-unclassified">
+  <header class="pl-unclassified-header">
+    <h1>Unclassified Articles</h1>
+    <p class="pl-unclassified-summary">[% total %] article[% IF total != 1 %]s[% END %] awaiting subject classification.</p>
+  </header>
+
+  <p class="pl-unclassified-intro">Classify these articles so readers can discover them through Browse by Subject and subject search.</p>
+
+  [% IF objects.size %]
+    <nav class="pl-unclassified-pager" aria-label="Unclassified article pages">[% pager %]</nav>
+    <div class="pl-unclassified-list">
+      [% FOREACH object IN objects %]
+        <article class="pl-unclassified-row">
+          <h2><a href="[% object.object_url %]">[% object.title %]</a></h2>
+          <div class="pl-unclassified-meta">Contributed by <a href="[% object.owner_url %]">[% object.owner %]</a></div>
+          <div class="pl-unclassified-actions"><a href="[% object.object_url %]">View article</a><a class="pl-unclassified-classify" href="[% object.classify_url %]">Classify</a></div>
+        </article>
+      [% END %]
+    </div>
+    <nav class="pl-unclassified-pager" aria-label="Unclassified article pages">[% pager %]</nav>
+  [% ELSE %]
+    <p class="pl-unclassified-empty">Every published article currently has a subject classification.</p>
+  [% END %]
+</div>
