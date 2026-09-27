@@ -1,0 +1,73 @@
+<style type="text/css">
+.pl-books-list { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-books-list a { color: #064d93; }
+.pl-books-list-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-books-list-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.pl-books-list h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-books-list-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-books-list-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
+.pl-books-list-create:hover, .pl-books-list-create:focus { background: #103a61; }
+.pl-books-list-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
+.pl-books-list-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
+.pl-books-list-toolbar { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-books-list-toolbar-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) minmax(8rem, .42fr) minmax(8rem, .42fr) auto; }
+.pl-books-list label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-books-list input[type="search"], .pl-books-list select { box-sizing: border-box; font-size: .92rem; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-books-list-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-books-list-tools { font-size: .84rem; margin: .65rem 0 0; }
+.pl-books-list-pager { border-bottom: 1px solid #b6c5d2; font-size: .9rem; margin: 0 0 .55rem; padding: 0 0 .45rem; text-align: center; }
+.pl-books-list-results + .pl-books-list-pager { border-bottom: 0; border-top: 1px solid #b6c5d2; margin: .55rem 0 0; padding: .55rem 0 0; }
+.pl-books-list-results { border-top: 1px solid #b6c5d2; }
+.pl-books-list-row { border-bottom: 1px solid #cbd6de; padding: .8rem .15rem .75rem; }
+.pl-books-list-row h2 { overflow-wrap: anywhere; font-size: 1.03rem; line-height: 1.32; margin: 0; }
+.pl-books-list-row h2 a { color: #17212b; }
+.pl-books-list-row h2 a:hover, .pl-books-list-row h2 a:focus { color: #064d93; }
+.pl-books-list-meta { color: #586673; font-size: .8rem; margin: .32rem 0 .15rem; }
+.pl-books-list-group { background: #f5f8fa; border-bottom: 1px solid #b6c5d2; border-top: 1px solid #b6c5d2; color: #314353; font-size: .9rem; font-weight: bold; margin: -.8rem -.15rem .7rem; padding: .38rem .5rem; }
+.pl-books-list-empty { border: 1px solid #b6c5d2; padding: .9rem; }
+@media (max-width: 700px) { .pl-books-list-toolbar-grid { grid-template-columns: 1fr 1fr; } .pl-books-list-toolbar-grid .pl-books-list-search { grid-column: 1 / -1; } }
+@media (max-width: 500px) { .pl-books-list-header-row, .pl-books-list-toolbar-grid { align-items: stretch; display: grid; grid-template-columns: 1fr; } .pl-books-list-toolbar-grid .pl-books-list-search { grid-column: auto; } .pl-books-list-button, .pl-books-list-create { box-sizing: border-box; text-align: center; width: 100%; } }
+</style>
+
+<div class="pl-books-list">
+  <header class="pl-books-list-header">
+    <div class="pl-books-list-header-row"><h1>Search Books</h1><a class="pl-books-list-create" href="/?op=addobj&amp;to=books">Add Book</a></div>
+    [% IF total %]<p class="pl-books-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching book[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-books-list-summary">No books match this view.</p>[% END %]
+  </header>
+
+  <nav class="pl-books-list-nav" aria-label="Books navigation">
+    <a href="/?op=browse&amp;from=books">Books</a>
+    <a href="/?op=listobj&amp;from=books" aria-current="page">Browse and search</a>
+    <a href="/?op=listobj&amp;from=books&amp;sort=created_desc">Latest additions</a>
+    <a href="/?op=pacsbrowse&amp;from=books">Browse by subject</a>
+  </nav>
+
+  <form class="pl-books-list-toolbar" method="get" action="/">
+    <input type="hidden" name="op" value="listobj">
+    <input type="hidden" name="from" value="books">
+    <div class="pl-books-list-toolbar-grid">
+      <div class="pl-books-list-search"><label for="books-list-search">Search titles, authors, or topics</label><input id="books-list-search" type="search" name="q" value="[% search | html %]"></div>
+      <div><label for="books-list-sort">Sort by</label><select id="books-list-sort" name="sort" onchange="this.form.submit()">[% FOREACH option IN sort_options %]<option value="[% option.value %]"[% IF sort == option.value %] selected[% END %]>[% option.label %]</option>[% END %]</select></div>
+      <div><label for="books-list-group">Group</label><select id="books-list-group" name="group" onchange="this.form.submit()"><option value=""[% IF group == "" %] selected[% END %]>None</option><option value="letter"[% IF group == "letter" %] selected[% END %]>First letter</option></select></div>
+      <div><button class="pl-books-list-button" type="submit">Search</button></div>
+    </div>
+    [% IF active_filters %]<div class="pl-books-list-tools"><a href="/?op=listobj&amp;from=books">Clear filters</a></div>[% END %]
+  </form>
+
+  [% IF objects.size %]
+    <nav class="pl-books-list-pager" aria-label="Search result pages">[% pager %]</nav>
+    <div class="pl-books-list-results">
+      [% last_group = "" %]
+      [% FOREACH object IN objects %]
+        <article class="pl-books-list-row">
+          [% IF group == "letter" AND object.group_label != last_group %]<div class="pl-books-list-group">[% object.group_label %]</div>[% last_group = object.group_label %][% END %]
+          <h2><a href="/?op=getobj&amp;from=books&amp;id=[% object.id %]">[% object.title | html %]</a></h2>
+          <div class="pl-books-list-meta">[% IF object.authors %]Authors: [% object.authors | html %] | [% END %]Added by <a href="/?op=getuser&amp;id=[% object.userid %]">[% object.username | html %]</a> | Uploaded [% object.date %][% IF object.classification %] | Classification: [% object.classification %][% END %]</div>
+        </article>
+      [% END %]
+    </div>
+    <nav class="pl-books-list-pager" aria-label="Search result pages">[% pager %]</nav>
+  [% ELSE %]
+    <p class="pl-books-list-empty">No books match these filters.</p>
+  [% END %]
+</div>

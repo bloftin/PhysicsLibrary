@@ -89,6 +89,13 @@ for my $i (0..$#titles) {
 }
 $db->do('CREATE TABLE books (uid INTEGER, userid INTEGER, title TEXT, authors TEXT, keywords TEXT, data TEXT, comments TEXT, created TEXT, modified TEXT)');
 $db->do("INSERT INTO books VALUES (1,1,'Mechanics','A. Author','','','', '2026-01-01', '2026-01-01')");
+for my $id (2..7) {
+    $db->do('INSERT INTO books VALUES (?,1,?,?,?,?,?,?,?)', undef,
+        $id, $id == 7 ? 'Book <7>' : "Book $id", 'B. Author & Co.',
+        $id == 7 ? 'quantum' : '', $id == 7 ? 'spin' : '',
+        $id == 7 ? 'reviewnote' : '',
+        sprintf('2026-01-%02d', $id), sprintf('2026-01-%02d', $id));
+}
 $db->do('CREATE TABLE papers AS SELECT * FROM books WHERE 0');
 for my $id (1..7) {
     $db->do('INSERT INTO papers VALUES (?,1,?,?,?,?,?,?,?)', undef,
@@ -156,7 +163,48 @@ my $html;
     like($empty,qr/>Clear filters<\/a>/,'clear action for filtered results');
     my $book=Noosphere::listGeneric({op=>'listobj',from=>'books',q=>'Author',sort=>'authors'},$user);
     like($book,qr/Authors: A\. Author/,'book search still uses generic author metadata');
-    like($book,qr/op=addobj;to=books/,'books retain generic creation route');
+    like($book,qr/op=addobj&amp;to=books/,'books retain generic creation route');
+    my $books_params={op=>'browse',from=>'books'};
+    my $books=Noosphere::browseGeneric($books_params,$user);
+    like($books,qr/<h1>Search Books<\/h1>/,'Books landing renders the modern search page');
+    like($books,qr/aria-current="page">Browse and search/,'Books browse and search tab is selected');
+    like($books,qr/value="created_desc"\s+selected[^>]*>latest additions first/,'Books defaults to newest additions');
+    like($books,qr/Book &lt;7&gt;.*Book 6.*Book 5.*Book 4.*Book 3/s,'Books are newest first with escaped titles');
+    unlike($books,qr/>Mechanics<|>Book 2</,'Books first page respects the page size');
+    like($books,qr/Showing 1-5 of 7 matching books/,'Books count and range reflect the collection');
+    like($books,qr/Authors: B\. Author &amp; Co\./,'Books authors are escaped');
+    like($books,qr/owner &lt;one&gt;/,'Books owner is escaped');
+    like($books,qr/op=getobj&amp;from=books&amp;id=7/,'Books rows link to book records');
+    like($books,qr/op=addobj&amp;to=books">Add Book/,'Books keeps its creation action');
+    like($books,qr/op=pacsbrowse&amp;from=books/,'Books retains subject browsing');
+    like($books,qr/Uploaded 2026-01-07.*Classification: PACS 02\.30/,'Books keeps upload date and classification');
+    like($books,qr/name="from" value="books"/,'Books search form stays in its collection');
+    is($Noosphere::pager{op},'listobj','Books pager uses the canonical list route');
+    is($Noosphere::pager{from},'books','Books pager retains its collection');
+    is($Noosphere::pager{sort},'created_desc','Books pager retains newest-first order');
+    my $books_request=PapersIndexingRequest->new();
+    ok(Noosphere::applyIndexingPolicy($books_request,$books_params->{op}),'Books landing uses the listing noindex policy');
+    is($books_request->{'X-Robots-Tag'},'noindex, follow','Books landing receives noindex header');
+    my $book_page=Noosphere::browseGeneric({op=>'browse',from=>'books',q=>'Author',sort=>'created_asc',offset=>1},$user);
+    like($book_page,qr/Book 2.*Book 3.*Book 4.*Book 5.*Book 6/s,'Books honors explicit ordering and offset');
+    is($Noosphere::pager{q},'Author','Books pager preserves its search');
+    is($Noosphere::pager{offset},1,'Books pager preserves its offset');
+    Noosphere::browseGeneric({op=>'browse',from=>'books',group=>'letter'},$user);
+    is($Noosphere::pager{group},'letter','Books retains letter grouping');
+    is($Noosphere::pager{sort},'title','Books grouping sorts alphabetically');
+    for my $term ('quantum', 'spin', 'reviewnote') {
+        my $matches=Noosphere::listGeneric({op=>'listobj',from=>'books',q=>$term},$user);
+        like($matches,qr/Showing 1-1 of 1 matching book\./,"Books searches topic metadata: $term");
+    }
+    my $empty_books=Noosphere::browseGeneric({op=>'browse',from=>'books',q=>'<absent>'},$user);
+    like($empty_books,qr/No books match these filters/,'Books has an empty state');
+    like($empty_books,qr/name="q" value="&lt;absent&gt;"/,'Books preserves and escapes unmatched query');
+    like($empty_books,qr{href="/\?op=listobj&amp;from=books">Clear filters},'Books clear filters stays in the collection');
+    if ($ENV{PL_BOOKS_PREVIEW}) {
+        open my $out, '>', $ENV{PL_BOOKS_PREVIEW} or die $!;
+        print $out '<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>', $books, '</body></html>';
+        close $out;
+    }
     my $papers_params={op=>'browse',from=>'papers'};
     my $papers=Noosphere::browseGeneric($papers_params,$user);
     like($papers,qr/Search Papers/,'Papers landing renders the browse and search page');
@@ -178,7 +226,7 @@ my $html;
     Noosphere::browseGeneric({op=>'browse',from=>'papers',group=>'letter'},$user);
     is($Noosphere::pager{group},'letter','landing alias preserves grouping');
     is($Noosphere::pager{sort},'title','letter grouping still uses alphabetical order');
-    for my $table (qw(books lec)) {
+    for my $table (qw(lec)) {
         my $other={op=>'browse',from=>$table};
         my $landing=Noosphere::browseGeneric($other,$user);
         is($other->{op},'browse',"$table landing keeps its original route");
