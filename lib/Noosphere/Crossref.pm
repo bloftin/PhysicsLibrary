@@ -227,20 +227,26 @@ sub addterm {
 	my $title = shift;
 	my $cid = shift;				# concept id
 	my $encoding = shift || '';
+	my $seen = shift || {};
+	return unless defined $title;
+	$title =~ s/^\s+|\s+$//g;
+	return unless length $title;
 	
 	#dwarn "*** xref: original title is $title";
 	$title = swaptitle($title);	# handle rearranging index forms
+	$title =~ s/^\s+|\s+$//g;
+	return unless length $title;
+	# One expansion can reach the same alias through several transformations.
+	return if $seen->{$encoding}->{$title}++;
 
 	# pull out first word of term 
 	#
-	$title =~ /^([^\s]+)/o;
-	my $fwuc = $1;
+	my ($fwuc) = $title =~ /^(\S+)/;
 	my $fw = lc($fwuc);
 	
 	# pull out last word
 	#
-	$title =~ /([^\s]+)$/o;
-	my $lwuc = $1;
+	my ($lwuc) = $title =~ /(\S+)$/;
 	my $lw = lc($lwuc);
 	
 	# do the actual adding
@@ -258,7 +264,7 @@ sub addterm {
 	# add extra nonmathy title for mathy titles (both levels of translation)
 	#
 	if (ismathy($title)) {
-		addterm($terms,getnonmathy($title,1),$cid, $encoding);
+		addterm($terms,getnonmathy($title,1),$cid, $encoding, $seen);
 	
 		# APK - this is bad. we don't want $\zeta$ function linking to 
 		# "function"
@@ -267,11 +273,11 @@ sub addterm {
 
 	# add extra nonpossessive entry for possessives, linking to same obj
 	#
-	addterm($terms,getnonpossessive($title),$cid, $encoding) if ispossessive($fwuc);
+	addterm($terms,getnonpossessive($title),$cid, $encoding, $seen) if ispossessive($fwuc);
 
 	# add extra nonplural entry for plurals, linking to same obj
 	#
-	addterm($terms,depluralize($title),$cid, $encoding) if isplural($lwuc);
+	addterm($terms,depluralize($title),$cid, $encoding, $seen) if isplural($lwuc);
 	
 	# handle aliases for internationalizations
 
@@ -281,16 +287,16 @@ sub addterm {
 		my $ascii = UTF8ToAscii($title);
 
 		if ($ascii ne $title) { 
-			addterm($terms, $ascii, $cid, 'utf8');
+			addterm($terms, $ascii, $cid, 'utf8', $seen);
 			my $tex = UTF8toTeX($title);
-			addterm($terms, $tex, $cid, 'tex');
+			addterm($terms, $tex, $cid, 'tex', $seen);
 		}
 		else { 
 			my $utf8 = TeXtoUTF8($title);
 			if ($utf8 ne $title) {
-				addterm($terms, $utf8, $cid, 'tex');
+				addterm($terms, $utf8, $cid, 'tex', $seen);
 				my $ascii = UTF8ToAscii($utf8);
-				addterm($terms, $ascii, $cid, 'tex');
+				addterm($terms, $ascii, $cid, 'tex', $seen);
 			}
 		}
 	} 
