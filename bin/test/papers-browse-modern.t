@@ -11,11 +11,12 @@ sub slurp {
 }
 
 my $generic = slurp('lib/Noosphere/GenericObject.pm');
-my $lobby = slurp('stemplates/paperslobby.tt');
 my $list = slurp('stemplates/paperslist.tt');
 
-like($generic, qr/from\} eq 'papers' \? 'paperslobby\.tt' : 'genericlobby\.tt'/,
-	'Papers use a dedicated browse landing template');
+like($generic, qr/return listGeneric\(\{ %\$params, op => 'listobj' \}, \$userinf\) if \(\$params->\{from\} eq 'papers'\);/,
+	'Papers browse route opens the searchable collection view');
+like($generic, qr/my \$tt_file = 'genericlobby\.tt';/,
+	'Other generic collections retain the existing browse landing template');
 like($generic, qr/from\} eq 'papers' \? 'paperslist\.tt' : 'genericlist\.tt'/,
 	'Papers use a dedicated list template');
 like($generic, qr/genericListWhereSql\(\$search\)/,
@@ -25,16 +26,8 @@ like($generic, qr/genericListSortOptions\(\)/,
 like($generic, qr/getPager\(\$params, \$userinf, \$factor\)/,
 	'Papers retain pagination');
 
-like($lobby, qr/<h1>Physics Library Papers<\/h1>/,
-	'Papers landing page provides a collection heading');
-like($lobby, qr/name="from" value="papers"/,
-	'Papers landing page search targets the papers collection');
-like($lobby, qr/Browse and search papers/,
-	'Papers landing page exposes browsing');
-like($lobby, qr/Latest additions/,
-	'Papers landing page exposes recent papers');
-like($lobby, qr/Add Paper/,
-	'Papers landing page keeps the add-paper action');
+ok(!-e 'stemplates/paperslobby.tt',
+	'Papers do not retain a separate landing page');
 
 like($list, qr/<h1>Search Papers<\/h1>/,
 	'Papers list provides a search heading');

@@ -36,7 +36,6 @@
   </header>
 
   <nav class="pl-papers-list-nav" aria-label="Papers navigation">
-    <a href="/?op=browse&amp;from=papers">Papers</a>
     <a href="/?op=listobj&amp;from=papers" aria-current="page">Browse and search</a>
     <a href="/?op=listobj&amp;from=papers&amp;sort=created_desc">Latest additions</a>
   </nav>

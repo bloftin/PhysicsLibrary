@@ -290,8 +290,12 @@ sub browseGeneric {
 	my $userinf = shift;
 
 	#dwarn "Start browseGeneric";
+	# Papers now land on their searchable collection view instead of an
+	# intermediate generic lobby.
+	return listGeneric({ %$params, op => 'listobj' }, $userinf) if ($params->{from} eq 'papers');
+
 	my $html_out = '';
-	my $tt_file = $params->{from} eq 'papers' ? 'paperslobby.tt' : 'genericlobby.tt';
+	my $tt_file = 'genericlobby.tt';
 	#my $template = new XSLTemplate('genericlobby.xsl');
 
 	# get plural section descriptor
