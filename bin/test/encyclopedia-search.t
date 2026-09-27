@@ -103,6 +103,15 @@ for my $id (1..7) {
         sprintf('2026-01-%02d', $id), sprintf('2026-01-%02d', $id));
 }
 
+$db->do('CREATE TABLE lec AS SELECT * FROM books WHERE 0');
+for my $id (1..7) {
+    $db->do('INSERT INTO lec VALUES (?,1,?,?,?,?,?,?,?)', undef,
+        $id, $id == 7 ? 'Lecture <7>' : "Lecture $id", 'B. Author & Co.',
+        $id == 7 ? 'quantum' : '', $id == 7 ? 'spin' : '',
+        $id == 7 ? 'reviewnote' : '',
+        sprintf('2026-01-%02d', $id), sprintf('2026-01-%02d', $id));
+}
+
 for my $table (qw(objects books papers lec)) {
     ok(Noosphere::genericListTableIsAllowed($table), "$table can be listed");
 }
@@ -226,11 +235,46 @@ my $html;
     Noosphere::browseGeneric({op=>'browse',from=>'papers',group=>'letter'},$user);
     is($Noosphere::pager{group},'letter','landing alias preserves grouping');
     is($Noosphere::pager{sort},'title','letter grouping still uses alphabetical order');
-    for my $table (qw(lec)) {
-        my $other={op=>'browse',from=>$table};
-        my $landing=Noosphere::browseGeneric($other,$user);
-        is($other->{op},'browse',"$table landing keeps its original route");
-        unlike($landing,qr/Search Papers/,"$table landing is not replaced by paper search");
+    my $lectures_params={op=>'browse',from=>'lec'};
+    my $lectures=Noosphere::browseGeneric($lectures_params,$user);
+    like($lectures,qr/<h1>Search Lectures<\/h1>/,'Lectures landing renders the modern search page');
+    like($lectures,qr/aria-current="page">Browse and search/,'Lectures browse and search tab is selected');
+    like($lectures,qr/value="created_desc"\s+selected[^>]*>latest additions first/,'Lectures defaults to newest additions');
+    like($lectures,qr/Lecture &lt;7&gt;.*Lecture 6.*Lecture 5.*Lecture 4.*Lecture 3/s,'Lectures are newest first with escaped titles');
+    unlike($lectures,qr/>Lecture [12]</,'Lectures first page respects the page size');
+    like($lectures,qr/Showing 1-5 of 7 matching lectures/,'Lectures count and range reflect the collection');
+    like($lectures,qr/Authors: B\. Author &amp; Co\./,'Lectures authors are escaped');
+    like($lectures,qr/owner &lt;one&gt;/,'Lectures owner is escaped');
+    like($lectures,qr/op=getobj&amp;from=lec&amp;id=7/,'Lectures rows link to lecture records');
+    like($lectures,qr/op=addobj&amp;to=lec">Add Lecture/,'Lectures keeps its creation action');
+    like($lectures,qr/op=pacsbrowse&amp;from=lec/,'Lectures retains subject browsing');
+    like($lectures,qr/Uploaded 2026-01-07.*Classification: PACS 02\.30/,'Lectures keeps upload date and classification');
+    like($lectures,qr/name="from" value="lec"/,'Lectures search form stays in its collection');
+    is($Noosphere::pager{op},'listobj','Lectures pager uses the canonical list route');
+    is($Noosphere::pager{from},'lec','Lectures pager retains its collection');
+    is($Noosphere::pager{sort},'created_desc','Lectures pager retains newest-first order');
+    my $lectures_request=PapersIndexingRequest->new();
+    ok(Noosphere::applyIndexingPolicy($lectures_request,$lectures_params->{op}),'Lectures landing uses the listing noindex policy');
+    is($lectures_request->{'X-Robots-Tag'},'noindex, follow','Lectures landing receives noindex header');
+    my $lecture_page=Noosphere::browseGeneric({op=>'browse',from=>'lec',q=>'Author',sort=>'created_asc',offset=>1},$user);
+    like($lecture_page,qr/Lecture 2.*Lecture 3.*Lecture 4.*Lecture 5.*Lecture 6/s,'Lectures honors explicit ordering and offset');
+    is($Noosphere::pager{q},'Author','Lectures pager preserves its search');
+    is($Noosphere::pager{offset},1,'Lectures pager preserves its offset');
+    Noosphere::browseGeneric({op=>'browse',from=>'lec',group=>'letter'},$user);
+    is($Noosphere::pager{group},'letter','Lectures retains letter grouping');
+    is($Noosphere::pager{sort},'title','Lectures grouping sorts alphabetically');
+    for my $term ('quantum', 'spin', 'reviewnote') {
+        my $matches=Noosphere::listGeneric({op=>'listobj',from=>'lec',q=>$term},$user);
+        like($matches,qr/Showing 1-1 of 1 matching lecture\./,"Lectures searches topic metadata: $term");
+    }
+    my $empty_lectures=Noosphere::browseGeneric({op=>'browse',from=>'lec',q=>'<absent>'},$user);
+    like($empty_lectures,qr/No lectures match these filters/,'Lectures has an empty state');
+    like($empty_lectures,qr/name="q" value="&lt;absent&gt;"/,'Lectures preserves and escapes unmatched query');
+    like($empty_lectures,qr{href="/\?op=listobj&amp;from=lec">Clear filters},'Lectures clear filters stays in the collection');
+    if ($ENV{PL_LECTURES_PREVIEW}) {
+        open my $out, '>', $ENV{PL_LECTURES_PREVIEW} or die $!;
+        print $out '<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>', $lectures, '</body></html>';
+        close $out;
     }
     is(Noosphere::listGeneric({from=>'users'},$user),'Unknown object type.','invalid table rejected by handler');
 }
