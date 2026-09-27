@@ -14,6 +14,10 @@ processes and active TeX/render commands in
 `/var/log/physicslibrary/cpu-pressure.log`. The logs are rotated daily and
 retained for seven days.
 
+For per-article PID, timing, and memory breadcrumbs inside the render pipeline,
+see [Render-stage logging](render-stage-logging.md). It complements these
+host-level snapshots and requires no additional scheduled job.
+
 ## Installation
 
 Run these commands on the server from the repository root:

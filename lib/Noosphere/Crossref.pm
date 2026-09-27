@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Noosphere::RenderLog;
 
 use Noosphere::Classification;
 use Noosphere::Indexing;
@@ -57,7 +58,7 @@ sub crossReferenceLaTeX {
 	# delete old outgoing links
 	#
 	my $table = getConfig('en_tbl');	 # TODO: generalize this for any table
-	xrefDeleteLinksFrom($fromid,$table);
+	Noosphere::RenderLog::run('xref.delete_links', sub { xrefDeleteLinksFrom($fromid,$table) });
 
 	# fix l2h stuff
 	#
@@ -70,25 +71,25 @@ sub crossReferenceLaTeX {
 	my $escaped;
 	my $linkids;
 
-	($latex,@user_escaped) = getEscapedWords($latex);
-	($latex,$escaped,$linkids) = splitPseudoLaTeX($latex, $method);
+	($latex,@user_escaped) = Noosphere::RenderLog::run('xref.escaped_words', sub { getEscapedWords($latex) });
+	($latex,$escaped,$linkids) = Noosphere::RenderLog::run('xref.pseudo_latex', sub { splitPseudoLaTeX($latex, $method) });
 	
-	$latex = preprocessLaTeX($latex);
-	my ($nonmath,$math) = splitLaTeX($latex, $escaped);
+	$latex = Noosphere::RenderLog::run('xref.preprocess', sub { preprocessLaTeX($latex) });
+	my ($nonmath,$math) = Noosphere::RenderLog::run('xref.split', sub { splitLaTeX($latex, $escaped) });
 
 	# handle manual linking metadata
 	# 
-	doManualLinks($linkids, $fromid);
+	Noosphere::RenderLog::run('xref.manual_links', sub { doManualLinks($linkids, $fromid) });
 
 	# do automatic linking
 	#
-	my ($terms,$concepts,$reverse,$nolink) = generateterms($fromid,$syns);
-	my $matches = findmatches($nonmath,$terms);
-	my ($linked,$links) = makelinks($nonmath,$math,$terms,$concepts,$matches,$class,$fromid,$nolink,\@user_escaped);
+	my ($terms,$concepts,$reverse,$nolink) = Noosphere::RenderLog::run('xref.terms', sub { generateterms($fromid,$syns) });
+	my $matches = Noosphere::RenderLog::run('xref.matches', sub { findmatches($nonmath,$terms) });
+	my ($linked,$links) = Noosphere::RenderLog::run('xref.make_links', sub { makelinks($nonmath,$math,$terms,$concepts,$matches,$class,$fromid,$nolink,\@user_escaped) });
 	
-	my $recombined = recombine($linked, $math, $escaped);
+	my $recombined = Noosphere::RenderLog::run('xref.recombine', sub { recombine($linked, $math, $escaped) });
 	
-	return (postprocessLaTeX($recombined),$links);
+	return (Noosphere::RenderLog::run('xref.postprocess', sub { postprocessLaTeX($recombined) }),$links);
 }
 
 # preprocessing hacks to make l2h output look right
@@ -164,12 +165,12 @@ sub generateterms {
 
 	# we need to get master objects (type 1) first to generate concept ids
 	#
-	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'title,cname as name,objectid,type',
+	my ($rv,$sth) = Noosphere::RenderLog::run('xref.index_query', sub { dbSelect($dbh,{WHAT=>'title,cname as name,objectid,type',
 		FROM=>$index,
 		WHERE=>"tbl='".getConfig('en_tbl')."'",
-		'ORDER BY'=>'type',ASC=>''});
+		'ORDER BY'=>'type',ASC=>''}) });
 
-	my @rows = dbGetRows($sth);
+	my @rows = Noosphere::RenderLog::run('xref.index_fetch', sub { dbGetRows($sth) });
 
 	# dummy values
 	#
@@ -314,18 +315,18 @@ sub disambiguate {
 
 	return $ids[0] if ($#ids == 0);	 # one entry early-out
 
-	@ids = disambiguate_subcollection($fromid, $concepts, @ids);
+	@ids = Noosphere::RenderLog::run('xref.collections', sub { disambiguate_subcollection($fromid, $concepts, @ids) });
 
 	return $ids[0] if ($#ids == 0);	 # one entry early-out
 
-	@ids = disambiguate_classification($class, $concepts, @ids);
+	@ids = Noosphere::RenderLog::run('xref.classification', sub { disambiguate_classification($class, $concepts, @ids) });
 
 	return $ids[0] if ($#ids == 0);	 # one entry early-out
 
-	@ids = post_resolve_linkpolicy($fromid, $concepts, $title, @ids);
+	@ids = Noosphere::RenderLog::run('xref.link_policy', sub { post_resolve_linkpolicy($fromid, $concepts, $title, @ids) });
 
 	if ($#ids > 0) {
-		my $winner = disambiguate_graph($fromid, $concepts, @ids);
+		my $winner = Noosphere::RenderLog::run('xref.graph', sub { disambiguate_graph($fromid, $concepts, @ids) });
 		return $winner if ($winner != -1);
 	}
 
@@ -576,7 +577,7 @@ sub makelinks {
 		my $anchor = getanchor($matches->{$pos});	
 		next if (inset(lc($anchor),@nolink));	# skip blacklisted words
 
-		my $cid = disambiguate($concepts,$names,$matchtitle,$class,$fromid);
+		my $cid = Noosphere::RenderLog::run('xref.disambiguate', sub { disambiguate($concepts,$names,$matchtitle,$class,$fromid) });
 		next if ($clinked{$cid});
 	
 		# save link info for match title and concept
@@ -601,7 +602,7 @@ sub makelinks {
 		my $tags = $matches->{$pos}->{'tags'};
 	
 		my $id = $linked{$matchtitle};
-		my $name = getnamebyid($id);
+		my $name = Noosphere::RenderLog::run('xref.target_name', sub { getnamebyid($id) });
 	
 		my $anchor = getanchor($matches->{$pos});
 		my $listanchor = $anchor;	# we are done preparing list anchor
@@ -650,10 +651,10 @@ sub makelinks {
 		# add to simple links list 
 		#
 		my $lnk = "<a href=\"$listurl$name.html\">$listanchor</a>";
-		push @linkarray, mathTitle($lnk, 'highlight');
+		push @linkarray, Noosphere::RenderLog::run('xref.math_title', sub { mathTitle($lnk, 'highlight') });
 	
 		# add to links table if we have a from id
-		xrefAddLink($fromid,$table,$id,$table) if ($fromid);
+		Noosphere::RenderLog::run('xref.save_link', sub { xrefAddLink($fromid,$table,$id,$table) }) if ($fromid);
 	}
 	
 	my $finaltext = join(' ',@ltext);

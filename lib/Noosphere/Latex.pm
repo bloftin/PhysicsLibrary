@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::RenderLog;
 use Noosphere::Util;
 use Noosphere::Charset;
 use HTML::Entities;
@@ -28,6 +29,10 @@ sub runExternalCommand {
 	my $program = shift;
 	my $args = shift || [];
 	my $timeout = shift || 60;
+	# Record the executable only, never arguments containing article data or paths.
+	my $executable = $program;
+	$executable =~ s{.*/}{};
+	return Noosphere::RenderLog::run("external.$executable", sub {
 
 	if (-x '/usr/bin/timeout') {
 		$args = ["${timeout}s", $program, @$args];
@@ -39,10 +44,11 @@ sub runExternalCommand {
 	my $pid = open3($in_fh, $out_fh, $err_fh, $program, @$args);
 	close $in_fh;
 
-	my ($output, $error) = read_command_pipes($out_fh, $err_fh);
+	my ($output, $error) = Noosphere::RenderLog::run('external.capture', sub { read_command_pipes($out_fh, $err_fh) });
 
 	waitpid($pid, 0);
 	return ($?, $output, $error);
+	});
 }
 
 sub read_command_pipes {
@@ -308,6 +314,9 @@ sub renderLaTeX {
 	my $latex = shift;
 	my $method = shift;
 	my $fname = shift;
+	local $Noosphere::RenderLog::CURRENT = Noosphere::RenderLog::context(
+		getConfig('render_stage_logging'), $table, $id, $method);
+	return Noosphere::RenderLog::run('render.dispatch', sub {
 
 	#dwarn "renderLaTeX started";
 	if (not defined($table) or $table eq '.') {
@@ -381,7 +390,7 @@ sub renderLaTeX {
 	my $url = getConfig('cache_url')."/$table/$id/$method";
 	#dwarn "renderLaTeX url: $url";
 	# BB: convert UTF8 international characters to TeX
-	$latex = UTF8toTeX($latex);
+	$latex = Noosphere::RenderLog::run('render.utf8_to_tex', sub { UTF8toTeX($latex) });
 
 	# flat png image output (nicest looking)
 	#
@@ -511,11 +520,12 @@ sub renderLaTeX {
 
 	}
 	#dwarn "renderLaTeX end";
+	return 0;
+	});
 	##chdir $cwd;
 	#chdir("$cwd");# or dwarn "ERROR chdir: cannot change: $!\n";
 	#local $CWD = "$cwd"; # we should not have to do this, the local $CWD should go back once scope leaves but need to test first
 	#local $CWD = "$path"; 
-	return 0;
 }
 
 # do a non-fonts render just to check syntax of LaTeX
@@ -524,6 +534,7 @@ sub latex_error_check {
 	my $fname = shift;
 	my $latex = shift;
 	my $dir = shift;
+	return Noosphere::RenderLog::run('render.syntax_check', sub {
 
 	my $latexprog = "/usr/bin/latex";
 
@@ -554,6 +565,7 @@ sub latex_error_check {
 	# for now let all errors go by until this is more robust, as it is not letting png/jpg through as example
 	$error = 0;
 	return $error;
+	});
 }
 
 # latex2html rendering core
@@ -642,7 +654,7 @@ sub render_l2h {
  
 	# post process l2h's HTML output
 	#
-	return postProcessL2hIndex($url,$dir);
+	return Noosphere::RenderLog::run('html.l2h_postprocess', sub { postProcessL2hIndex($url,$dir) });
 }
 
 # latex2html rendering core
@@ -695,7 +707,7 @@ sub render_make4ht {
 	}
 
 	# post process HTML output
-	return postProcess_make4htIndex($url,$dir,"$fname.html");
+	return Noosphere::RenderLog::run('html.make4ht_postprocess', sub { postProcess_make4htIndex($url,$dir,"$fname.html") });
 }
 
 sub make4ht_error_details {
@@ -1055,10 +1067,12 @@ sub render_pdf {
 sub write_out_latex {
 	my $fname = shift;
 	my $latex = shift;
+	return Noosphere::RenderLog::run('render.write_tex', sub {
 	
 	open OFILE,">$fname.tex";
 	print OFILE $latex;
 	close OFILE;
+	});
 }
 
 # get error log data
@@ -1283,9 +1297,9 @@ sub postProcessL2hIndex {
 	}
 
 	if (open(my $filein, '<:raw', $file_path)) {
-		$file_in = do { local $/; <$filein> };
+		$file_in = Noosphere::RenderLog::run('html.read', sub { local $/; <$filein> });
 		close $filein;
-		$file_in = decodeRenderedHTML($file_in);
+		$file_in = Noosphere::RenderLog::run('html.decode', sub { decodeRenderedHTML($file_in) });
 	} else {
 		dwarn "postProcessL2hIndex could not open $file_path";
 		return 0;
@@ -1299,7 +1313,7 @@ sub postProcessL2hIndex {
 		numeric_entities => 1,
 	});
 	$tidy->ignore( type => TIDY_WARNING, type => TIDY_INFO );
-	$file = $tidy->clean($file_in);
+	$file = Noosphere::RenderLog::run('html.tidy', sub { $tidy->clean($file_in) });
 	#dwarn "postProcessL2hIndex after tidy:\n $file";
 
 	if ($file =~ /<body.*?>(.*?)<hr\s*?\/>\s*?<\/body>/sio) {
@@ -1397,9 +1411,9 @@ sub postProcess_make4htIndex {
 	}
 
 	if (open(my $filein, '<:raw', $file_path)) {
-		$file_in = do { local $/; <$filein> };
+		$file_in = Noosphere::RenderLog::run('html.read', sub { local $/; <$filein> });
 		close $filein;
-		$file_in = decodeRenderedHTML($file_in);
+		$file_in = Noosphere::RenderLog::run('html.decode', sub { decodeRenderedHTML($file_in) });
 	} else {
 		dwarn "postProcess_make4htIndex could not open $file_path";
 		return 0;
@@ -1558,7 +1572,7 @@ sub postProcess_make4htIndex {
 </style>
 EOF
 
-	my $document_style = make4ht_document_style($dir, $filename);
+	my $document_style = Noosphere::RenderLog::run('html.generated_css', sub { make4ht_document_style($dir, $filename) });
 	$file = "$make4ht_style<div class=\"pl-make4ht-content\">$document_style$file</div>";
 	#dwarn "postProcessL2hIndex final html:\n $file";
 	# write it out to standard location

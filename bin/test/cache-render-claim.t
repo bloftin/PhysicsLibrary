@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use Noosphere::RenderLog;
 
 our $dbh;
 my $update_result = 1;
@@ -136,4 +138,23 @@ is($valid_off_calls, 1, 'renderer exception leaves the cache invalid');
 is_deeply(\@finalization, ['valid-off', 'build-off'],
     'exception cache remains claimed until invalid state is recorded');
 
+{
+    local $Noosphere::RenderLog::CURRENT = Noosphere::RenderLog::context(1, 'objects', 1224, 'make4ht');
+    my @breadcrumbs;
+    local $SIG{__WARN__} = sub { push @breadcrumbs, $_[0] };
+    open my $capture, '>', \my $debug or die $!;
+    local *STDOUT = $capture;
+    @flags = ([0, 0]);
+    $render_exception = '';
+    is(cacheObject('objects', $rec, 'make4ht'), 1, 'enabled tracing preserves successful cache render');
+    like(join('', @breadcrumbs), qr/stage=cache.cleanup event=begin.*stage=cache.cleanup event=end/s,
+        'cleanup is bracketed before article preparation');
+    like(join('', @breadcrumbs), qr/stage=cache.prepare event=begin.*stage=cache.render event=begin.*stage=cache.write_links event=end/s,
+        'cache phases have ordered breadcrumbs');
+    like($breadcrumbs[-1], qr/stage=cache.object event=end/, 'whole cache operation ends its span');
+    @flags = ([0, 0]);
+    $render_exception = 'converter died';
+    is(cacheObject('objects', $rec, 'make4ht'), 0, 'enabled tracing preserves handled failure');
+    like(join('', @breadcrumbs), qr/stage=cache.render event=error/, 'failing render stage is recorded');
+}
 done_testing();

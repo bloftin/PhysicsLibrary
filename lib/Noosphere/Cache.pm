@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::RenderLog;
 	
 require Noosphere::Filebox;
 require Noosphere::Encyclopedia;
@@ -93,6 +94,9 @@ sub cacheObject {
 	my $rec = shift;
 	my $method = shift;
 	my $id = $rec->{'uid'};
+	local $Noosphere::RenderLog::CURRENT = Noosphere::RenderLog::context(
+		getConfig('render_stage_logging'), $table, $id, $method);
+	return Noosphere::RenderLog::run('cache.object', sub {
 	my ($valid,$build) = getcacheflags($table,$id,$method);
 
 	# Do not hold an Apache worker while another request renders this object.
@@ -110,12 +114,12 @@ sub cacheObject {
 	my $render_error = '';
 
 	eval {
-		cleanCache($table, $id, $method);
-		cacheFileBox($table, $id, $method);
+		Noosphere::RenderLog::run('cache.cleanup', sub { cleanCache($table, $id, $method) });
+		Noosphere::RenderLog::run('cache.filebox', sub { cacheFileBox($table, $id, $method) });
 
 		if ($table eq getConfig('en_tbl')) {
 			print "prepareEntryForRendering start\n";
-			my ($output, $links) = prepareEntryForRendering(
+			my ($output, $links) = Noosphere::RenderLog::run('cache.prepare', sub { prepareEntryForRendering(
 				0,
 				$rec->{'preamble'},
 				$rec->{'data'},
@@ -124,33 +128,33 @@ sub cacheObject {
 				[@{getSynonymsList($rec->{'uid'})},@{getDefinesList($rec->{'uid'})}],
 				$table,
 				$rec->{'uid'},
-				classstring($table,$rec->{'uid'}));
+				classstring($table,$rec->{'uid'})) });
 			print "prepareEntryForRendering end\n";
-			$output = prepareCachedPDF($output, $table, $rec) if ($method eq 'pdf');
+			$output = Noosphere::RenderLog::run('cache.pdf_presentation', sub { prepareCachedPDF($output, $table, $rec) }) if ($method eq 'pdf');
 			print "renderLaTeX start\n";
-			$render_ok = renderLaTeX($table, $rec->{'uid'}, $output, $method, $rec->{'name'});
+			$render_ok = Noosphere::RenderLog::run('cache.render', sub { renderLaTeX($table, $rec->{'uid'}, $output, $method, $rec->{'name'}) });
 			print "renderLaTeX end\n";
 			print "writeLinksToFile start\n";
-			writeLinksToFile($table, $id, $method, $links);
+			Noosphere::RenderLog::run('cache.write_links', sub { writeLinksToFile($table, $id, $method, $links) });
 			print "writeLinksToFile end\n";
 		}
 
 		elsif ($table eq getConfig('collab_tbl')) {
 			print "prepareCollabForRendering start\n";
-			my ($output, $links) = prepareCollabForRendering(
+			my ($output, $links) = Noosphere::RenderLog::run('cache.prepare_collab', sub { prepareCollabForRendering(
 				$rec->{'data'},
 				$method,
 				$rec->{'title'},
 				$table,
-				$rec->{'uid'});
+				$rec->{'uid'}) });
 			print "prepareCollabForRendering end\n";
-			$output = prepareCachedPDF($output, $table, $rec) if ($method eq 'pdf');
+			$output = Noosphere::RenderLog::run('cache.pdf_presentation', sub { prepareCachedPDF($output, $table, $rec) }) if ($method eq 'pdf');
 			print "renderLaTeX coolab_tbl start\n";
 			my $name = normalize($rec->{'title'});
-			$render_ok = renderLaTeX($table, $rec->{'uid'}, $output, $method, $name);
+			$render_ok = Noosphere::RenderLog::run('cache.render', sub { renderLaTeX($table, $rec->{'uid'}, $output, $method, $name) });
 			print "renderLaTeX coolab_tbl end\n";
 			print "writeLinksToFile start\n";
-			writeLinksToFile($table, $id, $method, $links);
+			Noosphere::RenderLog::run('cache.write_links', sub { writeLinksToFile($table, $id, $method, $links) });
 			print "writeLinksToFile end\n";
 		}
 		1;
@@ -182,6 +186,7 @@ sub cacheObject {
 	}
 
 	return 1;
+	});
 }
 
 # Read one brace-delimited LaTeX argument, preserving nested groups.  This is
@@ -497,6 +502,9 @@ sub prepareCollabForRendering {
 	my $title = shift;
 	my $table = shift;
 	my $id = shift;
+	local $Noosphere::RenderLog::CURRENT = Noosphere::RenderLog::context(
+		getConfig('render_stage_logging'), $table, $id, $method);
+	return Noosphere::RenderLog::run('prepare.collab', sub {
 
 	return ($latex, '') if ($method eq 'src');
 
@@ -510,7 +518,7 @@ sub prepareCollabForRendering {
 		'');
 	$linked = dolinktofile($linked, $table, $id);
 	my $has_youtube;
-	($linked, $has_youtube) = prepareYouTubeEmbeds($linked, $method);
+	($linked, $has_youtube) = Noosphere::RenderLog::run('prepare.embeds', sub { prepareYouTubeEmbeds($linked, $method) });
 
 	if ($method eq 'png') {
 		$latex = stripNativeRenderLinks($linked);
@@ -527,6 +535,7 @@ sub prepareCollabForRendering {
 	$latex = stripCommentEnvironments($latex);
 
 	return ($latex, $links);
+	});
 }
 
 # prepares an entry for rendering :
@@ -544,17 +553,20 @@ sub prepareEntryForRendering {
 	my $table = shift;
 	my $id = shift;
 	my $class = shift;
+	local $Noosphere::RenderLog::CURRENT = Noosphere::RenderLog::context(
+		getConfig('render_stage_logging'), $table, $id, $method);
+	return Noosphere::RenderLog::run('prepare.entry', sub {
 	
 	#dwarn "prepareEntryForRendering start cwd: $CWD";
 	my $file = getConfig('entry_template');
-	my $template = new TemplateNS($file);	
+	my $template = Noosphere::RenderLog::run('prepare.template_load', sub { new TemplateNS($file) });
  
 	# handle cross-referencing 
 	#
-	my ($linked,$links) = crossReferenceLaTeX($newent,$latex,$title,$method,$syns,$id,$class);
-	$linked = dolinktofile($linked,$table,$id);	# handle \PMlinktofile
+	my ($linked,$links) = Noosphere::RenderLog::run('prepare.crossref', sub { crossReferenceLaTeX($newent,$latex,$title,$method,$syns,$id,$class) });
+	$linked = Noosphere::RenderLog::run('prepare.file_links', sub { dolinktofile($linked,$table,$id) });
 	my $has_youtube;
-	($linked, $has_youtube) = prepareYouTubeEmbeds($linked, $method);
+	($linked, $has_youtube) = Noosphere::RenderLog::run('prepare.embeds', sub { prepareYouTubeEmbeds($linked, $method) });
 	
 	# png uses the pre-processed output; hyperlink directives are flattened to
 	# their visible text because page images do not preserve clickable links.
@@ -574,7 +586,7 @@ sub prepareEntryForRendering {
 	# PDF uses native hyperref links rather than the old MAP/image-map path.
 	#
 	if ($method eq "pdf") {
-		$latex = convertHyperrefRenderLinks($linked);
+		$latex = Noosphere::RenderLog::run('prepare.hyperlinks', sub { convertHyperrefRenderLinks($linked) });
 		$preamble = stripHtmlPackage($preamble);
 		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 	}
@@ -583,7 +595,7 @@ sub prepareEntryForRendering {
 	# latex2html-specific and can render as plain text.
 	#
 	if ($method eq "make4ht") {
-		$latex = convertHyperrefRenderLinks($linked);
+		$latex = Noosphere::RenderLog::run('prepare.hyperlinks', sub { convertHyperrefRenderLinks($linked) });
 		$preamble = stripHtmlPackage($preamble);
 		$preamble = addPDFLinkSupport($preamble) if ($latex =~ /\\(?:href|PMlinkexternal)\s*\{/);
 		$preamble = addYouTubeEmbedSupport($preamble) if ($has_youtube);
@@ -606,12 +618,13 @@ sub prepareEntryForRendering {
 	if ( $method eq "src" ) {
 		return ($latex,$links);
 	} else {
-		my $returnTemplate = $template->expand();
+		my $returnTemplate = Noosphere::RenderLog::run('prepare.template_expand', sub { $template->expand() });
 		$returnTemplate = stripHtmlPackage($returnTemplate) if ($method eq "pdf" || $method eq "png" || $method eq "make4ht");
 		#dwarn "links:\n $links";
 		#dwarn "prepareEntryForRendering template:\n$returnTemplate";
 		return ($returnTemplate,$links);
 	}
+	});
 }
 
 # cache flag util functions
