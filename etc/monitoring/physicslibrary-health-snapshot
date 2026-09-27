@@ -7,6 +7,8 @@ log_dir=${PHYSICSLIBRARY_HEALTH_LOG_DIR:-/var/log/physicslibrary}
 log_file="$log_dir/health.tsv"
 pressure_log="$log_dir/memory-pressure.log"
 pressure_threshold_kb=${PHYSICSLIBRARY_MEMORY_SNAPSHOT_THRESHOLD_KB:-262144}
+cpu_pressure_log="$log_dir/cpu-pressure.log"
+cpu_snapshot_load_threshold=${PHYSICSLIBRARY_CPU_SNAPSHOT_LOAD_THRESHOLD:-1.00}
 
 mkdir -p -m 0750 "$log_dir"
 
@@ -26,6 +28,8 @@ read -r load_1 load_5 load_15 _ < /proc/loadavg
 mem_available_kb=$(awk '$1 == "MemAvailable:" { print $2; exit }' /proc/meminfo)
 swap_free_kb=$(awk '$1 == "SwapFree:" { print $2; exit }' /proc/meminfo)
 established_https=$(ss -Htan state established '( sport = :443 )' 2>/dev/null | wc -l | tr -d ' ')
+busy_workers=$(status_value BusyWorkers)
+idle_workers=$(status_value IdleWorkers)
 
 if [[ "$pressure_threshold_kb" =~ ^[0-9]+$ ]] &&
    [[ "${mem_available_kb:-}" =~ ^[0-9]+$ ]] &&
@@ -38,14 +42,37 @@ if [[ "$pressure_threshold_kb" =~ ^[0-9]+$ ]] &&
   } >> "$pressure_log"
 fi
 
+# Preserve the process that actually consumed CPU during a stall.  The load
+# threshold is one runnable task on this single-vCPU host; a saturated Apache
+# pool is also noteworthy even before the load average rises.
+cpu_pressure=0
+if [[ "$cpu_snapshot_load_threshold" =~ ^[0-9]+([.][0-9]+)?$ ]] &&
+   awk -v load="$load_1" -v threshold="$cpu_snapshot_load_threshold" 'BEGIN { exit !(load >= threshold) }'; then
+  cpu_pressure=1
+elif [[ "$busy_workers" =~ ^[0-9]+$ ]] && [[ "$idle_workers" =~ ^[0-9]+$ ]] &&
+     (( busy_workers >= 6 && idle_workers == 0 )); then
+  cpu_pressure=1
+fi
+
+if (( cpu_pressure )); then
+  {
+    printf 'timestamp=%s busy_workers=%s idle_workers=%s load_1=%s load_5=%s load_15=%s established_https=%s\n' \
+      "$(date --iso-8601=seconds)" "$busy_workers" "$idle_workers" "$load_1" "$load_5" "$load_15" "${established_https:-NA}"
+    ps -eo pid,ppid,user,rss,pcpu,pmem,etime,comm,args --sort=-pcpu | head -n 21
+    printf 'render_processes:\n'
+    pgrep -af 'make4ht|htlatex|latex|pdflatex|dvisvgm|gs|renderall' || true
+    printf '\n'
+  } >> "$cpu_pressure_log"
+fi
+
 if [ ! -s "$log_file" ]; then
   printf 'timestamp\tbusy_workers\tidle_workers\tscoreboard\tload_1\tload_5\tload_15\tmem_available_kb\tswap_free_kb\testablished_https\n' >> "$log_file"
 fi
 
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   "$(date --iso-8601=seconds)" \
-  "$(status_value BusyWorkers)" \
-  "$(status_value IdleWorkers)" \
+  "$busy_workers" \
+  "$idle_workers" \
   "$(status_value Scoreboard)" \
   "$load_1" "$load_5" "$load_15" \
   "${mem_available_kb:-NA}" "${swap_free_kb:-NA}" "${established_https:-NA}" \
