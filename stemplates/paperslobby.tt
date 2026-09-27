@@ -1,0 +1,55 @@
+<style type="text/css">
+.pl-papers { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-papers a { color: #064d93; }
+.pl-papers-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
+.pl-papers-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
+.pl-papers h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-papers-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
+.pl-papers-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
+.pl-papers-create:hover, .pl-papers-create:focus { background: #103a61; }
+.pl-papers-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
+.pl-papers-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
+.pl-papers-search { background: #eef3f7; border: 1px solid #b6c5d2; margin: 0 0 1rem; padding: .75rem; }
+.pl-papers-search-grid { align-items: end; display: grid; gap: .7rem; grid-template-columns: minmax(12rem, 1fr) auto; }
+.pl-papers label { color: #314353; display: block; font-size: .79rem; font-weight: bold; margin-bottom: .22rem; }
+.pl-papers input[type="search"] { box-sizing: border-box; font-size: .92rem; min-height: 2rem; padding: .25rem .38rem; width: 100%; }
+.pl-papers-button { background: #174e80; border: 1px solid #103a61; color: #fff; cursor: pointer; font-size: .86rem; min-height: 2rem; padding: .3rem .7rem; }
+.pl-papers-section { margin: 1rem 0; }
+.pl-papers-section h2 { color: #17212b; font-size: 1.08rem; margin: 0; }
+.pl-papers-section-intro { color: #526170; font-size: .84rem; margin: .3rem 0 .6rem; }
+.pl-papers-actions { border-top: 1px solid #b6c5d2; display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .6rem; margin-top: .7rem; padding-top: .7rem; }
+.pl-papers-actions a { background: #f5f8fa; border: 1px solid #c4d0d9; padding: .55rem .6rem; text-decoration: none; }
+.pl-papers-actions a:hover, .pl-papers-actions a:focus { background: #e2ebf1; border-color: #7192aa; }
+@media (max-width: 500px) { .pl-papers-header-row, .pl-papers-search-grid { align-items: stretch; display: grid; grid-template-columns: 1fr; } .pl-papers-create, .pl-papers-button { box-sizing: border-box; text-align: center; width: 100%; } }
+</style>
+
+<div class="pl-papers">
+  <header class="pl-papers-header">
+    <div class="pl-papers-header-row"><h1>Physics Library Papers</h1><a class="pl-papers-create" href="/?op=addobj&amp;to=papers">Add Paper</a></div>
+    <p class="pl-papers-summary">Explore research papers contributed to the Physics Library.</p>
+  </header>
+
+  <nav class="pl-papers-nav" aria-label="Papers navigation">
+    <a href="/?op=browse&amp;from=papers" aria-current="page">Papers</a>
+    <a href="/?op=listobj&amp;from=papers">Browse and search</a>
+    <a href="/?op=listobj&amp;from=papers&amp;sort=created_desc">Latest additions</a>
+  </nav>
+
+  <form class="pl-papers-search" method="get" action="/">
+    <input type="hidden" name="op" value="listobj">
+    <input type="hidden" name="from" value="papers">
+    <div class="pl-papers-search-grid">
+      <div><label for="papers-search">Search paper titles, authors, or topics</label><input id="papers-search" type="search" name="q"></div>
+      <div><button class="pl-papers-button" type="submit">Search</button></div>
+    </div>
+  </form>
+
+  <section class="pl-papers-section" aria-labelledby="papers-explore-heading">
+    <h2 id="papers-explore-heading">Explore Papers</h2>
+    <p class="pl-papers-section-intro">Search the collection or start with the most recently added work.</p>
+    <nav class="pl-papers-actions" aria-label="Explore papers">
+      <a href="/?op=listobj&amp;from=papers">Browse and search papers</a>
+      <a href="/?op=listobj&amp;from=papers&amp;sort=created_desc">See latest additions</a>
+    </nav>
+  </section>
+</div>
