@@ -289,7 +289,7 @@ sub browseGeneric {
 	my $params = shift;
 	my $userinf = shift;
 
-	if (($params->{from} || '') eq 'papers') {
+	if (($params->{from} || '') eq 'papers' || ($params->{from} || '') eq 'books') {
 		# Keep pagination and the outer page's indexing policy on the list route.
 		$params->{op} = 'listobj';
 		return listGeneric($params, $userinf);
@@ -448,7 +448,8 @@ sub listGeneric {
 	my $order = genericListSortSql($sort);
 
 	my $tt_file = $encyclopedia ? 'encyclopedialist.tt' :
-		$params->{from} eq 'papers' ? 'paperslist.tt' : 'genericlist.tt';
+		$params->{from} eq 'papers' ? 'paperslist.tt' :
+		$params->{from} eq 'books' ? 'bookslist.tt' : 'genericlist.tt';
 
 	my $template = new XSLTemplate('genericlist.xsl');
 

@@ -15,7 +15,7 @@ my $list = slurp('stemplates/paperslist.tt');
 
 like($generic, qr/\$params->\{op\} = 'listobj';\s*return listGeneric\(\$params, \$userinf\)/,
 	'Papers landing delegates to the browse and search route');
-like($generic, qr/from\} eq 'papers' \? 'paperslist\.tt' : 'genericlist\.tt'/,
+like($generic, qr/from\} eq 'papers' \? 'paperslist\.tt' :/,
 	'Papers use a dedicated list template');
 like($generic, qr/genericListWhereSql\(\$search\)/,
 	'Papers retain the generic search query behavior');
