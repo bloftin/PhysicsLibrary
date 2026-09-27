@@ -1,0 +1,10 @@
+name = "MinimumEffortInterception"
+uuid = "78a7f987-61d3-49af-a51e-202cdbce83d8"
+version = "1.0.0"
+
+[deps]
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1.10"

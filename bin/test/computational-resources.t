@@ -91,6 +91,16 @@ for my $url (render($orbit) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'orbital publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/minimum-effort-interception/computational-resources.json"));
+my $intercept = resources();
+is(scalar @$intercept, 1, 'interception manifest selects its reviewed publication');
+is($intercept->[0]{title}, 'Minimum-Effort Interception of a Moving Target', 'interception title comes from catalog');
+is(scalar @{$intercept->[0]{datasets}}, 1, 'interception resource exposes the Julia reference dataset');
+for my $url (render($intercept) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'interception publication asset exists: ' . $url);
+}
+reset_files();
 my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
 like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
 like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');

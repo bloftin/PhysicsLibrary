@@ -1,0 +1,7 @@
+generator = "julia"
+julia_version = "1.10.12"
+command = "julia --startup-file=no --project=. interception.jl"
+model = "x_prime=u; target=d+Vt; J=integral(u^2/2)dt"
+reference_sha256 = "acaa72f5cba1b3b6d2dee4869cba2ce83f0d020637292e9439240aa7a79f532a"
+julia_source_sha256 = "648c5e11c28d7ab9aaf94489f79ffc5bf9ad98b2aaff370e7fa03d9ab4fd7462"
+viewer_sha256 = "3c9df894569f15bc399ea51eabc72ba96309f0f412c733211b959cb5818be7a8"
