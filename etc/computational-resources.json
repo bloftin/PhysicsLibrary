@@ -64,6 +64,19 @@
         {"label": "Overdamped", "file": "overdamped.csv"}
       ]
     },
+    "minimum-effort-interception": {
+      "title": "Minimum-Effort Interception of a Moving Target",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Exact local explorer for head start, target speed and trial arrival time, checked against three Julia reference trajectories. Includes source, tests, CSV and an offline project archive.",
+      "explorer": "index.html",
+      "source": "minimum-effort-interception.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia reference trajectories", "file": "reference.csv"}
+      ]
+    },
     "orbital-gravitation": {
       "title": "Orbital Motion from Universal Gravitation",
       "language": "Julia",

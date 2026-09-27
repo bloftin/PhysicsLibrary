@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Moving Target | Minimum-Effort Interception</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="explorer.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <div><p class="eyebrow">Physics Library / Computational resource</p><h1>Intercept a moving target</h1><p class="lede">Change the target's head start and speed. Compare your chosen intercept with the minimum-effort path.</p></div>
+      <a class="article-link" href="https://physicslibrary.org/encyclopedia/MinimumEffortInterceptionOfAMovingTarget.html">Read the article &#8599;</a>
+    </header>
+
+    <div class="workspace">
+      <aside class="controls" aria-label="Initial conditions">
+        <h2>Initial conditions</h2>
+        <div class="control"><label for="distance">Head start <output id="distance-value" for="distance">100 m</output></label><input id="distance" type="range" min="20" max="200" step="5" value="100"><div class="limits"><span>20 m</span><span>200 m</span></div></div>
+        <div class="control"><label for="speed">Target speed <output id="speed-value" for="speed">10 m/s</output></label><input id="speed" type="range" min="2" max="20" step="1" value="10"><div class="limits"><span>2 m/s</span><span>20 m/s</span></div></div>
+        <div class="control"><label for="trial">Your intercept time <output id="trial-value" for="trial">10 s</output></label><input id="trial" type="range" min="40" max="250" step="1" value="100"><div class="limits"><span>Earlier</span><span>Later</span></div></div>
+        <div class="actions"><button type="button" id="play">Play</button><button type="button" id="reset" class="secondary">Reset</button></div>
+        <label class="time-label" for="time">Time <output id="time-value" for="time">0 s</output></label><input id="time" type="range" min="0" max="1000" step="1" value="0">
+        <div class="preset"><label for="scenario">Reference case</label><select id="scenario"><option value="article">Article example: 100 m, 10 m/s</option><option value="near">Near target: 60 m, 12 m/s</option><option value="distant">Distant target: 180 m, 6 m/s</option></select></div>
+      </aside>
+
+      <section class="scene" aria-label="Interception visualization">
+        <div class="scene-heading"><h2>Intercept</h2><p id="status" role="status" aria-live="polite">The paths meet at 10 s and 200 m.</p></div>
+        <div class="legend"><span><i class="swatch target"></i>Target</span><span><i class="swatch chosen"></i>Your path</span><span><i class="swatch optimum"></i>Minimum effort</span></div>
+        <canvas id="trajectory" aria-label="Position versus time showing target, selected vehicle path, and minimum-effort vehicle path"></canvas>
+        <div class="track-title">At the selected time</div>
+        <canvas id="track" aria-label="Current one-dimensional positions of the target and vehicle"></canvas>
+      </section>
+    </div>
+
+    <section class="analysis" aria-label="Effort comparison">
+      <div class="analysis-heading"><div><h2>Effort landscape</h2><p>For each arrival time, the vehicle travels at constant speed to meet the target.</p></div><p class="equation">J(T) = (d + VT)<sup>2</sup> / (2T)</p></div>
+      <canvas id="effort" aria-label="Control effort versus arrival time with chosen and minimum values"></canvas>
+      <div class="metrics"><div><span>Minimum time</span><strong id="optimal-time">10 s</strong></div><div><span>Minimum speed</span><strong id="optimal-speed">20 m/s</strong></div><div><span>Your effort</span><strong id="chosen-effort">2,000 m<sup>2</sup>/s</strong></div><div><span>Extra effort</span><strong id="extra-effort">0%</strong></div></div>
+      <p id="comparison" class="comparison">At the optimum, the vehicle moves twice as fast as the target.</p>
+    </section>
+
+    <footer><p><strong>Model.</strong> One-dimensional motion, constant target speed, freely chosen arrival time and cost J = &#189; &#8747; u<sup>2</sup>dt. Vehicle speed is constant for each trial. This is quadratic control effort, not fuel use.</p><p>Exact formulae for arbitrary slider values are evaluated locally in your browser. The <a href="reference.csv">Julia reference trajectories</a> and <a href="minimum-effort-interception.zip">Julia project</a> can be inspected or reproduced offline. No calculation runs on the site server.</p><p><a href="provenance.toml">Provenance</a> &middot; <a href="LICENSE.txt">License</a> &middot; <button type="button" class="text-button" id="download">Download current paths CSV</button></p></footer>
+  </main>
+</body>
+</html>
