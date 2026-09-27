@@ -15,6 +15,8 @@ sub read_file {
 my $source = read_file("$root/lib/Noosphere/GenericObject.pm");
 my ($listing) = $source =~ /^(sub genericListTableIsAllowed \{.*?)(?=^sub renderGeneric)/ms;
 die 'listing functions not found' unless $listing;
+my ($browse) = $source =~ /^(sub browseGeneric \{.*?)(?=^sub |\z)/ms;
+die 'browse function not found' unless $browse;
 
 {
     package XSLTemplate;
@@ -57,8 +59,20 @@ die 'listing functions not found' unless $listing;
     sub getPager { %pager=%{$_[0]}; return '<p>Result pages</p>' }
     sub errorMessage { return $_[0] }
 }
-eval 'package Noosphere; use strict; our $dbh; '.$listing;
+eval 'package Noosphere; use strict; our $dbh; '.$listing.$browse;
 die $@ if $@;
+
+my $handler = read_file("$root/lib/Noosphere.pm");
+my ($indexing) = $handler =~ /^(sub applyIndexingPolicy \{.*?)(?=^sub |\z)/ms;
+die 'indexing policy not found' unless $indexing;
+eval 'package Noosphere; '.$indexing;
+die $@ if $@;
+{
+    package PapersIndexingRequest;
+    sub new { bless {}, shift }
+    sub headers_out { return $_[0] }
+    sub set { $_[0]->{$_[1]} = $_[2] }
+}
 
 $Noosphere::dbh=DBI->connect('dbi:SQLite:dbname=:memory:', '', '', {RaiseError=>1,PrintError=>0});
 my $db=$Noosphere::dbh;
@@ -75,6 +89,12 @@ for my $i (0..$#titles) {
 }
 $db->do('CREATE TABLE books (uid INTEGER, userid INTEGER, title TEXT, authors TEXT, keywords TEXT, data TEXT, comments TEXT, created TEXT, modified TEXT)');
 $db->do("INSERT INTO books VALUES (1,1,'Mechanics','A. Author','','','', '2026-01-01', '2026-01-01')");
+$db->do('CREATE TABLE papers AS SELECT * FROM books WHERE 0');
+for my $id (1..7) {
+    $db->do('INSERT INTO papers VALUES (?,1,?,?,?,?,?,?,?)', undef,
+        $id, "Paper $id", 'A. Author', '', '', '',
+        sprintf('2026-01-%02d', $id), sprintf('2026-01-%02d', $id));
+}
 
 for my $table (qw(objects books papers lec)) {
     ok(Noosphere::genericListTableIsAllowed($table), "$table can be listed");
@@ -137,6 +157,33 @@ my $html;
     my $book=Noosphere::listGeneric({op=>'listobj',from=>'books',q=>'Author',sort=>'authors'},$user);
     like($book,qr/Authors: A\. Author/,'book search still uses generic author metadata');
     like($book,qr/op=addobj;to=books/,'books retain generic creation route');
+    my $papers_params={op=>'browse',from=>'papers'};
+    my $papers=Noosphere::browseGeneric($papers_params,$user);
+    like($papers,qr/Search Papers/,'Papers landing renders the browse and search page');
+    like($papers,qr/aria-current="page">Browse and search/,'browse and search navigation is selected');
+    like($papers,qr/value="created_desc"\s+selected[^>]*>latest additions first/,'latest additions is the default selection');
+    like($papers,qr/Paper 7.*Paper 6.*Paper 5.*Paper 4.*Paper 3/s,'newest papers appear first');
+    unlike($papers,qr/Paper [12]</,'first page respects the listing page size');
+    is($Noosphere::pager{op},'listobj','pagination uses the canonical listing operation');
+    is($Noosphere::pager{from},'papers','pagination stays in the papers collection');
+    is($Noosphere::pager{sort},'created_desc','pager retains latest-first ordering');
+    my $request=PapersIndexingRequest->new();
+    ok(Noosphere::applyIndexingPolicy($request,$papers_params->{op}),'Papers landing keeps listing noindex policy');
+    is($request->{'X-Robots-Tag'},'noindex, follow','Papers landing receives the noindex header');
+    my $filtered={op=>'browse',from=>'papers',q=>'Author',sort=>'created_asc',offset=>1};
+    my $older=Noosphere::browseGeneric($filtered,$user);
+    like($older,qr/Paper 2.*Paper 3.*Paper 4/s,'explicit oldest-first order and offset are honored');
+    is($Noosphere::pager{q},'Author','landing alias preserves the search query');
+    is($Noosphere::pager{offset},1,'landing alias preserves pagination offset');
+    Noosphere::browseGeneric({op=>'browse',from=>'papers',group=>'letter'},$user);
+    is($Noosphere::pager{group},'letter','landing alias preserves grouping');
+    is($Noosphere::pager{sort},'title','letter grouping still uses alphabetical order');
+    for my $table (qw(books lec)) {
+        my $other={op=>'browse',from=>$table};
+        my $landing=Noosphere::browseGeneric($other,$user);
+        is($other->{op},'browse',"$table landing keeps its original route");
+        unlike($landing,qr/Search Papers/,"$table landing is not replaced by paper search");
+    }
     is(Noosphere::listGeneric({from=>'users'},$user),'Unknown object type.','invalid table rejected by handler');
 }
 my $index=read_file("$root/lib/Noosphere/Encyclopedia.pm");

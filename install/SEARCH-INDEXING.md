@@ -7,6 +7,7 @@ meta tag for:
 
 - `op=listobj` listings for encyclopedia objects, papers, books, and lectures,
   including unfiltered, sorted, and paginated listings without a `q` parameter.
+- The Papers landing alias `op=browse;from=papers`, which uses that listing.
 - `op=search`, `oldsearch`, `adv_search`, and `pacssearch`.
 - Google Custom Search results using the front-page template (`sa=Search`).
 

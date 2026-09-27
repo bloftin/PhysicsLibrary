@@ -289,9 +289,15 @@ sub browseGeneric {
 	my $params = shift;
 	my $userinf = shift;
 
+	if (($params->{from} || '') eq 'papers') {
+		# Keep pagination and the outer page's indexing policy on the list route.
+		$params->{op} = 'listobj';
+		return listGeneric($params, $userinf);
+	}
+
 	#dwarn "Start browseGeneric";
 	my $html_out = '';
-	my $tt_file = $params->{from} eq 'papers' ? 'paperslobby.tt' : 'genericlobby.tt';
+	my $tt_file = 'genericlobby.tt';
 	#my $template = new XSLTemplate('genericlobby.xsl');
 
 	# get plural section descriptor
