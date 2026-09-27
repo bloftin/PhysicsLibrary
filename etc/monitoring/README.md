@@ -8,8 +8,11 @@ Each row in `/var/log/physicslibrary/health.tsv` contains the timestamp,
 Apache worker counts and scoreboard, one-, five-, and fifteen-minute load,
 available memory, free swap, and established HTTPS socket count. When available
 memory falls below 256 MiB, the monitor also appends the largest resident
-processes to `/var/log/physicslibrary/memory-pressure.log`. Both logs are
-rotated daily and retained for seven days.
+processes to `/var/log/physicslibrary/memory-pressure.log`. When load reaches
+one runnable task or the Apache pool is saturated, it records the highest-CPU
+processes and active TeX/render commands in
+`/var/log/physicslibrary/cpu-pressure.log`. The logs are rotated daily and
+retained for seven days.
 
 ## Installation
 
@@ -43,7 +46,10 @@ During or after a suspected stall, inspect the last snapshots with:
 ```bash
 sudo tail -n 120 /var/log/physicslibrary/health.tsv
 sudo tail -n 80 /var/log/physicslibrary/memory-pressure.log
+sudo tail -n 80 /var/log/physicslibrary/cpu-pressure.log
 ```
 
 Set `PHYSICSLIBRARY_MEMORY_SNAPSHOT_THRESHOLD_KB` in the service environment
 to use a threshold other than the default 262144 KiB.
+Set `PHYSICSLIBRARY_CPU_SNAPSHOT_LOAD_THRESHOLD` to change the default
+one-runnable-task CPU capture threshold.
