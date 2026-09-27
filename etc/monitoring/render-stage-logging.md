@@ -15,13 +15,14 @@ cd /var/www/pp
 git switch main
 git pull --ff-only
 perl -Ilib -c lib/Noosphere/RenderLog.pm
-prove bin/test/render-stage-logging.t bin/test/cache-render-claim.t
-sudo httpd -t && sudo systemctl reload httpd
+prove bin/test/render-stage-logging.t bin/test/cache-render-claim.t bin/test/xref-term-expansion.t
+sudo httpd -t && sudo systemctl stop httpd && sudo systemctl start httpd
 ```
 
 No database migration, cron entry, timer, or separately installed script is
-needed. Gracefully retiring workers may still use the old code until their
-current requests finish. Do not force a known problematic article to rerender
+needed. This stop/start interrupts requests and starts fresh Apache processes.
+Schedule it accordingly. A graceful reload allows existing requests, including
+a stuck render, to continue. Do not force a known problematic article to rerender
 just to test logging; use an ordinary new-entry preview or let normal cache
 builds occur.
 
@@ -82,3 +83,21 @@ request URLs, and credentials. Metadata is sanitized and length-limited.
 Set `render_stage_logging` to `0` and reload Apache to stop tracing once the
 investigation is complete. No render limits, cache semantics, or converter
 timeouts are changed by this feature.
+
+## Term-expansion stalls
+
+If `xref.index_fetch` ends but `xref.terms` does not, inspect term expansion
+before blaming TeX: the converter has not started at that point. This stage
+expands the entire `objindex` title set, not just the article being rendered.
+
+A legacy blank title can trigger unbounded recursion in the old `addterm`:
+failed word matches leave Perl's `$1` holding a caller's previous capture.
+If that value looks plural or possessive, the empty title is repeatedly
+expanded without changing. This can depend on the calling request, so an
+isolated index test without that capture can pass. The fix ignores blank
+titles, extracts words without stale captures, and tracks visited aliases
+within each expansion. Existing blank database rows do not need deletion.
+
+The regression test covers inherited captures with logging enabled and
+disabled. Local export tests should still run under external time and memory
+limits; never use an unbounded production render as a diagnostic test.
