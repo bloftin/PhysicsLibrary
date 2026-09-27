@@ -62,6 +62,7 @@ sub inMaintenance {
 sub applyIndexingPolicy {
 	my $req = shift;
 	my $op = shift || '';
+	my $search_results = shift || 0;
 	my %noindex_ops = map { $_ => 1 } qw(
 		vbrowser
 		viewdiff
@@ -74,8 +75,14 @@ sub applyIndexingPolicy {
 		edituserobjsbeta
 		collab
 		preamble
+		listobj
+		search
+		oldsearch
+		adv_search
+		pacssearch
 	);
-	my $no_index = $noindex_ops{$op} ? 1 : 0;
+	# Parsed operations cover every query parameter order and listing filter.
+	my $no_index = ($noindex_ops{$op} || $search_results) ? 1 : 0;
 
 	$req->headers_out->set('X-Robots-Tag' => 'noindex, follow') if $no_index;
 	return $no_index;
@@ -990,7 +997,9 @@ sub handler {
 
 			$content_type = $req->content_type;
 			#dwarn "frontpage started req content type: $content_type";
-			$content = buildMainPageTT($params, \%user_info);
+			# The Google results page uses the front-page template, not view.tt.
+			my $no_index = applyIndexingPolicy($req, $params->{op}, $params->{sa});
+			$content = buildMainPageTT($params, \%user_info, $no_index);
 			#warn "content = $content";
 			
 			#my $status = 200;
@@ -1066,6 +1075,7 @@ sub serveImageFile {
 sub buildMainPageTT {
 	my $params  = shift;
 	my $userinf = shift;
+	my $no_index = shift || 0;
 	my $file = 'mainpage.tt';
 	my $html_obj = '';
 	my $html = '';
@@ -1104,6 +1114,7 @@ sub buildMainPageTT {
 	my $search_results = $params->{sa};
 	#dwarn "Searching: $search_results";
 	my $vars = {
+        no_index        => $no_index,
         head      		=> $head,
 		header          => $header,
 		sidebar         => $sidebar,
