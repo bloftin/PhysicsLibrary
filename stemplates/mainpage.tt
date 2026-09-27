@@ -1,5 +1,8 @@
 <html>
     <head>
+        [% IF no_index %]
+        <meta name="robots" content="noindex,follow" />
+        [% END %]
         [% head %]
     </head>
     <body>
