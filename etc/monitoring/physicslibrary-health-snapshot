@@ -47,7 +47,7 @@ fi
 # pool is also noteworthy even before the load average rises.
 cpu_pressure=0
 if [[ "$cpu_snapshot_load_threshold" =~ ^[0-9]+([.][0-9]+)?$ ]] &&
-   awk -v load="$load_1" -v threshold="$cpu_snapshot_load_threshold" 'BEGIN { exit !(load >= threshold) }'; then
+   awk -v current_load="$load_1" -v threshold="$cpu_snapshot_load_threshold" 'BEGIN { exit !(current_load >= threshold) }'; then
   cpu_pressure=1
 elif [[ "$busy_workers" =~ ^[0-9]+$ ]] && [[ "$idle_workers" =~ ^[0-9]+$ ]] &&
      (( busy_workers >= 6 && idle_workers == 0 )); then
