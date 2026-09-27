@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use Noosphere::RenderLog;
 use File::Temp qw(tempdir);
 use File::Path qw(make_path);
 use Encode qw(encode decode FB_CROAK);

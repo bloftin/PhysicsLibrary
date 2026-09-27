@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
+use Noosphere::RenderLog;
+use lib "$FindBin::Bin/../../lib";
 require Noosphere::PDF;
 
 our $dbh;

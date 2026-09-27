@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use Noosphere::RenderLog;
 use File::Temp qw(tempdir);
 use Encode qw(decode FB_CROAK);
 use XML::LibXML;

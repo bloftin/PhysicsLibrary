@@ -248,6 +248,7 @@ Crawl-delay: 10
 	"cookie_timeout"=>14*24*60,     # minutes... 2 weeks
 	"build_timeout"=>10,            # seconds
 	"on_demand_rendering_enabled"=>1, # emergency load guard: render from cron/admin, not web requests
+	"render_stage_logging"=>1, # diagnostic breadcrumbs for uncached renders; see etc/monitoring/render-stage-logging.md
 	"keep_search_results"=>'30 MINUTE',
                       
 	# single rendering
