@@ -4,14 +4,28 @@ use warnings;
 use Test::More;
 use FindBin;
 
-open my $in, '<', "$FindBin::Bin/../../etc/httpd-physicslibrary-le-ssl.conf" or die $!;
+open my $in, '<', "$FindBin::Bin/../../etc/httpd-physicslibrary.conf" or die $!;
+my $base_config = do { local $/; <$in> };
+close $in;
+
+open $in, '<', "$FindBin::Bin/../../etc/httpd-physicslibrary-le-ssl.conf" or die $!;
 my $config = do { local $/; <$in> };
 close $in;
 
 like(
+    $base_config,
+    qr{MaxRequestWorkers\s+8},
+    'prefork worker concurrency leaves memory for the host and rendering',
+);
+like(
+    $base_config,
+    qr{MaxConnectionsPerChild\s+10},
+    'base prefork workers have a short connection lifetime',
+);
+like(
     $config,
-    qr{<IfModule\s+mpm_prefork_module>\s*MaxConnectionsPerChild\s+1000\s*</IfModule>}s,
-    'prefork workers have a finite connection lifetime',
+    qr{<IfModule\s+mpm_prefork_module>\s*#.*?\s*MaxConnectionsPerChild\s+10\s*</IfModule>}s,
+    'HTTPS configuration keeps the effective prefork lifetime short',
 );
 
 my ($primary_vhost) = $config =~ m{
