@@ -44,6 +44,9 @@ like(
 my @crawler_rules = $config =~ /RewriteCond\s+%\{HTTP_USER_AGENT\}\s+\([^\n]*\bSogou\b[^\n]*\bBytespider\b[^\n]*\bdwnupd\b[^\n]*\)\s+\[NC\]/g;
 is(scalar @crawler_rules, 3, 'all HTTPS virtual hosts reject the observed abusive crawlers');
 
+my @query_scanner_rules = $config =~ /RewriteCond\s+%\{QUERY_STRING\}\s+\(\^\|\&\)p=php\(\?:\/\|\%2f\|\$\)\s+\[NC\]\s*\n\s*RewriteRule\s+\^\s+-\s+\[F,L\]/g;
+is(scalar @query_scanner_rules, 3, 'all HTTPS virtual hosts reject observed php traversal query probes');
+
 my @probe_path_rules = $config =~ /RewriteRule\s+\^\/\?\(\?:root\|home\|srv\|storage\|vendor\|config\|wordpress\|wp-admin\|wp-content\|wp-includes\)\(\?:\/\|\$\)\s+-\s+\[F,L,NC\]/g;
 is(scalar @probe_path_rules, 3, 'all HTTPS virtual hosts reject common probe-only path roots');
 
