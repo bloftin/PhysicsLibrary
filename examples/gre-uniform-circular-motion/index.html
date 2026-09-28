@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Uniform Circular Motion | Physics Library</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="explorer.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <div><p class="eyebrow">Physics Library / Computational resource</p><h1>Motion around a circle</h1><p class="lede">Change the radius and speed. Watch the velocity turn while acceleration always points inward.</p></div>
+      <a class="article-link" href="https://physicslibrary.org/encyclopedia/GREUniformCircularMotion.html">Read the article &#8599;</a>
+    </header>
+
+    <div class="workspace">
+      <aside class="controls" aria-label="Motion controls">
+        <h2>Motion controls</h2>
+        <div class="control"><label for="radius">Radius <output id="radius-value" for="radius">5 m</output></label><input id="radius" type="range" min="0.2" max="10" step="0.05" value="5"><div class="limits"><span>0.2 m</span><span>10 m</span></div></div>
+        <div class="control"><label for="speed">Tangential speed <output id="speed-value" for="speed">8 m/s</output></label><input id="speed" type="range" min="0.5" max="20" step="any" value="8"><div class="limits"><span>0.5 m/s</span><span>20 m/s</span></div></div>
+        <div class="control"><label for="angle">Starting angle <output id="angle-value" for="angle">0&#176;</output></label><input id="angle" type="range" min="0" max="360" step="5" value="0"><div class="limits"><span>0&#176;</span><span>360&#176;</span></div></div>
+        <div class="control"><label for="mass">Mass <output id="mass-value" for="mass">2 kg</output></label><input id="mass" type="range" min="0.5" max="10" step="0.5" value="2"><div class="limits"><span>0.5 kg</span><span>10 kg</span></div></div>
+        <div class="switches"><label><input id="vectors" type="checkbox" checked> Show velocity and acceleration</label><label><input id="second" type="checkbox"> Show point at half the radius</label></div>
+        <div class="actions"><button type="button" id="play">Play</button><button type="button" id="reset" class="secondary">Reset</button></div>
+        <label class="time-label" for="time">Time <output id="time-value" for="time">0 s</output></label><input id="time" type="range" min="0" max="1000" step="1" value="0">
+        <div class="preset"><label for="scenario">Reference case</label><select id="scenario"><option value="article">Article example: 5 m, 8 m/s</option><option value="wheel">Wheel: 0.35 m, 120 rpm</option><option value="vectors">Vector example: 2 m, 6 m/s</option><option value="disk">Two-point disk: 0.6 m, 4 rad/s</option><option value="custom" hidden>Custom conditions</option></select></div>
+      </aside>
+
+      <section class="scene" aria-label="Circular motion visualization">
+        <div class="scene-heading"><h2>Orbit and vectors</h2><p id="status" role="status" aria-live="polite">One revolution takes 3.93 s.</p></div>
+        <div class="legend"><span><i class="swatch orbit"></i>Path</span><span><i class="swatch velocity"></i>Velocity</span><span><i class="swatch acceleration"></i>Inward acceleration</span></div>
+        <canvas id="orbit" aria-label="Moving point on a circle with tangential velocity and inward acceleration vectors"></canvas>
+        <p class="scene-caption">The arrows show direction. Their lengths are scaled independently so both stay visible as you change values.</p>
+      </section>
+    </div>
+
+    <section class="analysis" aria-label="Position components">
+      <div class="analysis-heading"><div><h2>Position through one revolution</h2><p>The x and y coordinates oscillate, even though the speed stays constant.</p></div><p class="equation">x = R cos(&theta;), &nbsp; y = R sin(&theta;)</p></div>
+      <div class="legend"><span><i class="swatch xpos"></i>x / R</span><span><i class="swatch ypos"></i>y / R</span></div>
+      <canvas id="components" aria-label="Horizontal and vertical position divided by radius versus time"></canvas>
+      <div class="metrics"><div><span>Angular speed</span><strong id="omega-value">1.6 rad/s</strong></div><div><span>Period</span><strong id="period-value">3.93 s</strong></div><div><span>Frequency</span><strong id="frequency-value">0.255 Hz</strong></div><div><span>Inward acceleration</span><strong id="acceleration-value">12.8 m/s<sup>2</sup></strong></div><div><span>Inward net force</span><strong id="force-value">25.6 N</strong></div></div>
+      <p id="comparison" class="comparison">Velocity is tangent to the circle. Acceleration points toward its center.</p>
+    </section>
+
+    <footer><p><strong>Model.</strong> A point moves counterclockwise at constant speed on a circle. &omega; = v/R, T = 2&pi;/&omega;, and a<sub>c</sub> = v<sup>2</sup>/R. Mass changes the required inward net force, not the kinematics. “Centripetal” describes the direction of that net force; it is not an additional force.</p><p>Slider values are evaluated locally in your browser. Inspect the <a href="reference.csv">Julia reference trajectories</a> or <a href="gre-uniform-circular-motion.zip">offline Julia project</a>. No Julia process runs on the Physics Library server.</p><p><a href="provenance.toml">Provenance</a> &middot; <a href="LICENSE.txt">License</a> &middot; <button type="button" class="text-button" id="download">Download current orbit CSV</button></p></footer>
+  </main>
+</body>
+</html>

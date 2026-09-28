@@ -101,6 +101,16 @@ for my $url (render($intercept) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'interception publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/gre-uniform-circular-motion/computational-resources.json"));
+my $circular = resources();
+is(scalar @$circular, 1, 'circular-motion manifest selects its reviewed publication');
+is($circular->[0]{title}, 'GRE Uniform Circular Motion', 'circular-motion title comes from catalog');
+is(scalar @{$circular->[0]{datasets}}, 1, 'circular-motion resource exposes Julia reference data');
+for my $url (render($circular) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'circular-motion publication asset exists: ' . $url);
+}
+reset_files();
 my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
 like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
 like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');
