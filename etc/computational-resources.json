@@ -1,6 +1,19 @@
 {
   "schema_version": 1,
   "resources": {
+    "gre-uniform-circular-motion": {
+      "title": "GRE Uniform Circular Motion",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Exact browser explorer for radius, tangential speed, starting angle, inward acceleration and a second point on a disk; four Julia reference trajectories, source, tests and an offline archive.",
+      "explorer": "index.html",
+      "source": "gre-uniform-circular-motion.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia circular-motion trajectories", "file": "reference.csv"}
+      ]
+    },
     "inclined-plane": {
       "title": "Motion on an Inclined Plane",
       "language": "Julia",

@@ -1,0 +1,7 @@
+generator = "julia"
+julia_version = "1.10.12"
+command = "julia --startup-file=no --project=. circular_motion.jl"
+model = "r=(R cos(theta),R sin(theta)); theta=theta0+v*t/R"
+reference_sha256 = "49205251011e4817fcdcf4fe7b07ebf769647d1c64e089a3161af32004deaaef"
+julia_source_sha256 = "9b8359aa0510a93f1686f485258faff42b2686b7892e0458ed4919de752d8404"
+viewer_sha256 = "2a6f22aafd590da086aff61bfa3853339f773f1cdac4ee3af24662217f6b753b"

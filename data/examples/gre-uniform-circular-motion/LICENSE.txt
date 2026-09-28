@@ -1,0 +1,9 @@
+GRE Uniform Circular Motion computational resource
+
+The Julia, JavaScript, HTML, CSS, build scripts, and tests are licensed under
+the GNU General Public License, version 3 or (at your option) any later version.
+See the bundled COPYING file or https://www.gnu.org/licenses/gpl-3.0.html.
+
+The mathematical exposition, plots, and generated reference data retain the
+Physics Library article terms (CC BY-SA): https://physicslibrary.org/?op=license.
+PhysicsLibrary site marks are excluded from this license grant.
