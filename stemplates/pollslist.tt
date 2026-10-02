@@ -1,0 +1,56 @@
+<style type="text/css">
+.pl-polls { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-polls a { color: #064d93; }
+.pl-polls-summary { color: #526170; font-size: .88rem; margin: 0 0 .8rem; }
+.pl-polls-section { margin: .8rem 0 1.1rem; }
+.pl-polls-section h2 { color: #17212b; font-size: 1.08rem; margin: 0 0 .4rem; }
+.pl-polls-count { color: #526170; font-size: .84rem; font-weight: normal; }
+.pl-polls-list { border-top: 1px solid #b6c5d2; }
+.pl-polls-row { align-items: center; border-bottom: 1px solid #cbd6de; display: grid; gap: .35rem .8rem; grid-template-columns: minmax(0, 1fr) auto auto; padding: .42rem .15rem; }
+.pl-polls-row h3 { font-size: .98rem; line-height: 1.3; margin: 0; min-width: 0; }
+.pl-polls-row h3 a { color: #17212b; }
+.pl-polls-row h3 a:hover, .pl-polls-row h3 a:focus { color: #064d93; }
+.pl-polls-dates { color: #586673; font-size: .82rem; margin: 0; white-space: nowrap; }
+.pl-polls-actions { align-items: center; display: flex; font-size: .84rem; gap: .7rem; white-space: nowrap; }
+.pl-polls-vote { background: #174e80; border: 1px solid #103a61; color: #fff !important; display: inline-block; font-weight: bold; padding: .2rem .5rem; text-decoration: none; }
+.pl-polls-vote:hover, .pl-polls-vote:focus { background: #103a61; }
+.pl-polls-empty { border: 1px solid #b6c5d2; color: #526170; font-size: .86rem; margin: 0; padding: .75rem; }
+@media (max-width: 700px) { .pl-polls-row { grid-template-columns: minmax(0, 1fr) auto; } .pl-polls-row h3 { grid-column: 1 / -1; } .pl-polls-dates { white-space: normal; } }
+</style>
+
+<div class="pl-polls">
+  [% INCLUDE modernboxheader.tt title = 'Polls' %]
+  <p class="pl-polls-summary">Vote in current polls and browse results from earlier ones.</p>
+
+  <section class="pl-polls-section" aria-labelledby="open-polls-heading">
+    <h2 id="open-polls-heading">Open Polls <span class="pl-polls-count">([% open_polls.size %])</span></h2>
+    [% IF open_polls.size %]
+      <div class="pl-polls-list">
+        [% FOREACH poll IN open_polls %]
+          <article class="pl-polls-row">
+            <h3><a href="[% poll.results_url %]">[% poll.title %]</a></h3>
+            <p class="pl-polls-dates">[% poll.start %] to [% poll.finish %]</p>
+            <div class="pl-polls-actions"><a class="pl-polls-vote" href="[% poll.vote_url %]">Vote</a><a class="pl-polls-results" href="[% poll.results_url %]">View results</a></div>
+          </article>
+        [% END %]
+      </div>
+    [% ELSE %]
+      <p class="pl-polls-empty">[% IF closed_polls.size %]No polls are open right now.[% ELSE %]No polls have been posted yet.[% END %]</p>
+    [% END %]
+  </section>
+
+  [% IF closed_polls.size %]
+    <section class="pl-polls-section" aria-labelledby="past-polls-heading">
+      <h2 id="past-polls-heading">Past Polls <span class="pl-polls-count">([% closed_polls.size %])</span></h2>
+      <div class="pl-polls-list">
+        [% FOREACH poll IN closed_polls %]
+          <article class="pl-polls-row">
+            <h3><a href="[% poll.results_url %]">[% poll.title %]</a></h3>
+            <p class="pl-polls-dates">[% poll.start %] to [% poll.finish %]</p>
+            <div class="pl-polls-actions"><a href="[% poll.results_url %]">View results</a></div>
+          </article>
+        [% END %]
+      </div>
+    </section>
+  [% END %]
+</div>

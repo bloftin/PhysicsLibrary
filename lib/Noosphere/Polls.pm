@@ -259,8 +259,6 @@ sub checkVote {
 # display a list of all polls which allows us to view any particular poll.
 #
 sub viewPolls {
-	my $html = '';
-	
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'uid,title,start,finish,(start<=CURRENT_TIMESTAMP and finish>CURRENT_TIMESTAMP) as opened', 
 		FROM=>'polls',
 		'ORDER BY'=>'start',DESC=>''});
@@ -270,23 +268,28 @@ sub viewPolls {
 	}
 
 	my @rows = dbGetRows($sth);
-
-	if (@rows) {
-		foreach my $row (@rows) {
-			my $start = ymd($row->{start});
-			my $finish = ymd($row->{finish});
-			if ($row->{opened}) {
-				$html .= "[<a href=\"".getConfig("main_url")."/?op=getpoll&id=$row->{uid}\">vote</a>] ";
-			}
-			$html .= "<a href=\"".getConfig("main_url")."/?op=getobj&from=polls&id=$row->{uid}\">$row->{title}</a> ";
-		$html.="<font size=\"-1\">($start to $finish) </font><br>";
-		}
-	} else {
-		$html .= "No polls.";
+	my (@open_polls, @closed_polls);
+	my $main = getConfig('main_url');
+	foreach my $row (@rows) {
+		my $id = int($row->{uid});
+		my $poll = {
+			title => qhtmlescape($row->{title}),
+			start => ymd($row->{start}),
+			finish => ymd($row->{finish}),
+			results_url => "$main/?op=getobj&amp;from=polls&amp;id=$id",
+			vote_url => "$main/?op=getpoll&amp;id=$id",
+		};
+		push @{ $row->{opened} ? \@open_polls : \@closed_polls }, $poll;
 	}
 
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('pollslist.tt', {
+		open_polls => \@open_polls,
+		closed_polls => \@closed_polls,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable(clearBox('Polls',$html));
+	return paddingTable($html);
 }
 
 # view results for a poll 
