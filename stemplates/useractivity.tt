@@ -1,0 +1,33 @@
+<style type="text/css">
+.pl-user-activity { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-user-activity a { color: #064d93; }
+.pl-user-activity-summary { color: #526170; font-size: .88rem; margin: 0 0 .8rem; }
+.pl-user-activity-table-wrap { overflow-x: auto; }
+.pl-user-activity-table { border-collapse: collapse; min-width: 28rem; width: 100%; }
+.pl-user-activity-table th { background: #eef3f7; border-bottom: 1px solid #b6c5d2; color: #314353; font-size: .82rem; padding: .55rem .65rem; text-align: left; }
+.pl-user-activity-table td { border-bottom: 1px solid #cbd6de; font-size: .88rem; padding: .55rem .65rem; }
+.pl-user-activity-table th:nth-child(2), .pl-user-activity-table td:nth-child(2) { width: 8rem; }
+.pl-user-activity-table th:nth-child(3), .pl-user-activity-table td:nth-child(3) { width: 12rem; }
+.pl-user-activity-table td:nth-child(2), .pl-user-activity-table td:nth-child(3) { color: #526170; white-space: nowrap; }
+.pl-user-activity-table tbody tr:hover { background: #f5f8fa; }
+.pl-user-activity-empty { border: 1px solid #b6c5d2; color: #526170; font-size: .86rem; margin: 0; padding: .75rem; }
+</style>
+
+<div class="pl-user-activity">
+  [% INCLUDE modernboxheader.tt title = 'User Activity' %]
+  <p class="pl-user-activity-summary">[% members.size %] other member[% IF members.size != 1 %]s[% END %], most recent request first.</p>
+  [% IF members.size %]
+    <div class="pl-user-activity-table-wrap">
+      <table class="pl-user-activity-table" aria-label="Recent user activity">
+        <thead><tr><th scope="col">Member</th><th scope="col">Idle</th><th scope="col">Last request</th></tr></thead>
+        <tbody>
+          [% FOREACH member IN members %]
+            <tr><td><a href="[% member.profile_url %]">[% member.username %]</a></td><td>[% member.idle %]</td><td>[% member.last %]</td></tr>
+          [% END %]
+        </tbody>
+      </table>
+    </div>
+  [% ELSE %]
+    <p class="pl-user-activity-empty">No other member activity is available yet.</p>
+  [% END %]
+</div>
