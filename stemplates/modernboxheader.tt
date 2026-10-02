@@ -1,0 +1,5 @@
+<style type="text/css">
+.pl-modern-box-header { background: #174e80; border-bottom: 3px solid #103a61; box-sizing: border-box; color: #fff; margin: 0 0 .65rem; padding: .55rem .8rem; }
+.pl-modern-box-header h1 { color: #fff; font: bold 1.35rem Arial, Helvetica, sans-serif; margin: 0; }
+</style>
+<header class="pl-modern-box-header"><h1>[% title | html %]</h1></header>
