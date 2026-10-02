@@ -1,0 +1,37 @@
+<style type="text/css">
+.pl-feedback { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-feedback a { color: #064d93; }
+.pl-feedback-summary { color: #526170; font-size: .88rem; margin: 0 0 1rem; }
+.pl-feedback-section { margin: 1rem 0 1.4rem; }
+.pl-feedback-section h2 { color: #17212b; font-size: 1.08rem; margin: 0 0 .5rem; }
+.pl-feedback-list { border-top: 1px solid #b6c5d2; }
+.pl-feedback-row { border-bottom: 1px solid #cbd6de; display: grid; gap: .4rem 1rem; grid-template-columns: minmax(9rem, 1fr) minmax(0, 3fr); padding: .8rem .15rem; }
+.pl-feedback-row h3 { font-size: .98rem; line-height: 1.3; margin: 0; }
+.pl-feedback-row p { color: #526170; font-size: .86rem; line-height: 1.45; margin: 0; }
+.pl-feedback-correction { border-top: 1px solid #b6c5d2; color: #526170; font-size: .86rem; line-height: 1.5; margin: 0; padding: .8rem .15rem; }
+@media (max-width: 620px) { .pl-feedback-row { grid-template-columns: 1fr; } }
+</style>
+
+<div class="pl-feedback">
+  [% INCLUDE modernboxheader.tt title = 'Feedback' %]
+  <p class="pl-feedback-summary">Questions and suggestions about Physics Library are welcome.</p>
+
+  <section class="pl-feedback-section" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact the team</h2>
+    <div class="pl-feedback-list">
+      <div class="pl-feedback-row">
+        <h3><a href="/?op=getobj&amp;from=forums&amp;id=6">Comments forum</a></h3>
+        <p>Share feedback and discuss ideas with the community in the Planet Physics Comments forum.</p>
+      </div>
+      <div class="pl-feedback-row">
+        <h3>Email</h3>
+        <p>Write to <a href="mailto:[% email %]">[% email %]</a> to contact the site team directly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pl-feedback-section" aria-labelledby="corrections-heading">
+    <h2 id="corrections-heading">Article corrections</h2>
+    <p class="pl-feedback-correction">Found an error in an encyclopedia entry? Open the article and choose <strong>Correct</strong> to file a correction. You will need an account; <a href="/?op=newuser">create one here</a>.</p>
+  </section>
+</div>

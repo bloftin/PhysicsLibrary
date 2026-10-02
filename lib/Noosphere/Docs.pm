@@ -40,9 +40,12 @@ sub getAboutOld {
 # get the feedback info page
 #
 sub getFeedback {
-
-  return paddingTable(clearBox('Feedback',(new TemplateNS('feedback.html'))->expand()));
-
+  my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+  my $html = '';
+  $tt->process('feedback.tt', {
+    email => qhtmlescape(getAddr('feedback')),
+  }, \$html) || die "Template process failed: ", $tt->error(), "\n";
+  return paddingTable($html);
 }
 # get the Google seach page
 #
