@@ -1,0 +1,36 @@
+<style type="text/css">
+.pl-forums { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-forums a { color: #064d93; }
+.pl-forums-summary { color: #526170; font-size: .88rem; margin: 0 0 .8rem; }
+.pl-forums-list { border-top: 1px solid #b6c5d2; }
+.pl-forums-row { align-items: center; border-bottom: 1px solid #cbd6de; display: grid; gap: .35rem 1rem; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto; padding: .55rem .15rem; }
+.pl-forums-row h2 { font-size: 1rem; line-height: 1.3; margin: 0; min-width: 0; }
+.pl-forums-row h2 a { color: #17212b; }
+.pl-forums-row h2 a:hover, .pl-forums-row h2 a:focus { color: #064d93; }
+.pl-forums-description { color: #526170; font-size: .86rem; line-height: 1.35; margin: 0; }
+.pl-forums-activity { color: #586673; font-size: .82rem; text-align: right; white-space: nowrap; }
+.pl-forums-unread { color: #8a5500; font-weight: bold; margin-left: .45rem; }
+.pl-forums-empty { border: 1px solid #b6c5d2; color: #526170; font-size: .86rem; margin: 0; padding: .75rem; }
+@media (max-width: 700px) { .pl-forums-row { grid-template-columns: minmax(0, 1fr) auto; } .pl-forums-description { grid-column: 1 / -1; grid-row: 2; } .pl-forums-activity { grid-column: 2; grid-row: 1; } }
+</style>
+
+<div class="pl-forums">
+  [% INCLUDE modernboxheader.tt title = 'Forums' %]
+  <p class="pl-forums-summary">[% forums.size %] discussion forum[% IF forums.size != 1 %]s[% END %]</p>
+  [% IF forums.size %]
+    <div class="pl-forums-list">
+      [% FOREACH forum IN forums %]
+        <article class="pl-forums-row">
+          <h2><a href="[% forum.url %]">[% forum.title %]</a></h2>
+          <p class="pl-forums-description">[% forum.description %]</p>
+          <div class="pl-forums-activity">
+            [% forum.messages %] message[% IF forum.messages != 1 %]s[% END %]
+            [% IF forum.unread > 0 %]<span class="pl-forums-unread">[% forum.unread %] unread</span>[% END %]
+          </div>
+        </article>
+      [% END %]
+    </div>
+  [% ELSE %]
+    <p class="pl-forums-empty">No forums are available yet.</p>
+  [% END %]
+</div>

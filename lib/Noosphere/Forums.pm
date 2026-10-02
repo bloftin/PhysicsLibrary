@@ -7,7 +7,6 @@ sub getForumsTop {
 	my $params = shift;	 # not used currently
 	my $userinf = shift;
 
-	my $index="";
 	my $table=getConfig('forum_tbl');
 
 	(my $rv,my $sth)=dbSelect($dbh,{WHAT=>'uid,title,data',
@@ -21,25 +20,24 @@ sub getForumsTop {
 	}
 
 	my @rows = dbGetRows($sth);
-	my $template = new TemplateNS('forums_main.html');
-	
-	if (@rows) {
-		$index .= "<dl>";
-		foreach my $row (@rows) {
-			$index .= "<dt>";	
-			$index .= "<a href=\"".getConfig("main_url")."/?op=getobj&from=$table&id=$row->{uid}\">$row->{title}</a>";
-			my $messages = msgCountWithNew($table,$row->{uid},$userinf->{uid});
-			$index .= " $messages";
-			$index .= "</dt>";
-			$index .= "<dd>$row->{data}</dd>";
-		}
-		$index .= "</dl>";
-	} else {
-		$index = "No forums.";
+	my @forums;
+	my $main = getConfig('main_url');
+	foreach my $row (@rows) {
+		my $id = int($row->{uid});
+		push @forums, {
+			title => qhtmlescape($row->{title}),
+			description => qhtmlescape($row->{data}),
+			url => "$main/?op=getobj&amp;from=$table&amp;id=$id",
+			messages => getmsgcount($table, $id),
+			unread => count_unseen($table, $id, $userinf->{uid}),
+		};
 	}
 
-	$template->setKey('index', $index);
-	return paddingTable(clearBox('Forums',$template->expand())); 
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('forumslist.tt', { forums => \@forums }, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return paddingTable($html);
 }
 
 # called by getobj, this interprets the object table entry in terms of a forum
