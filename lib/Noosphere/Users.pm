@@ -7,30 +7,23 @@ sub showUserActivity {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $list = '';
-
 	return loginExpired() if ($userinf->{'uid'} <= 0);
 	
 	my ($rv, $sth);
-	($rv,$sth) = dbSelect($dbh,{WHAT=>'uid,username,last,CURRENT_TIMESTAMP-last as idle', FROM=>'users', WHERE=>"last is not null and uid != $userinf->{uid}", 'ORDER BY'=>'last', LIMIT=>getConfig('useractivity_max'), DESC=>''}) 
+	($rv,$sth) = dbSelect($dbh,{WHAT=>'uid,username,last,EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP-last)) as idle', FROM=>'users', WHERE=>"last is not null and uid != $userinf->{uid}", 'ORDER BY'=>'last', LIMIT=>getConfig('useractivity_max'), DESC=>''})
 		if getConfig('dbms') eq 'pg';
 	($rv,$sth) = dbSelect($dbh,{WHAT=>'uid,username,last,unix_timestamp(now())-unix_timestamp(last) as idle', FROM=>'users', WHERE=>"last is not null and uid != $userinf->{uid}", 'ORDER BY'=>'last', LIMIT=>getConfig('useractivity_max'), DESC=>''})
 		if getConfig('dbms') eq 'mysql';
 	($rv,$sth) = dbSelect($dbh,{WHAT=>'uid,username,last,unix_timestamp(now())-unix_timestamp(last) as idle', FROM=>'users', WHERE=>"last is not null and uid != $userinf->{uid}", 'ORDER BY'=>'last', LIMIT=>getConfig('useractivity_max'), DESC=>''})
         if getConfig('dbms') eq 'MariaDB';
 
+	return errorMessage('Could not load user activity.') unless $rv;
 	my @rows = dbGetRows($sth);
-
-	$list .= "<center><table cellpadding=\"2\">";
-	$list .= "<tr><td align=\"center\">username</td><td align=\"center\">idle</td><td align=\"center\">last request @</td></tr>";
+	my @members;
+	my $main = getConfig('main_url');
 	foreach my $row (@rows) {
-		$list .= "<tr>";
-		$list .= "<td bgcolor=\"#eeeeee\" align=\"center\">$row->{username}</td>";
-		my $idle = $row->{'idle'};
-		$idle =~ s/\.\d+//;  # remove nths of a second 
-
-		# turn idle interval into something more human-readable
-		#
+		my $idle = int($row->{'idle'} || 0);
+		$idle = 0 if $idle < 0;
 		my $d = int($idle / 86400);
 		my $r = $idle % 86400;
 
@@ -47,14 +40,20 @@ sub showUserActivity {
 		push @idlearray, $s.'s';
 
 		my $idlestring = join (' ', @idlearray);
-		
-		$list .= "<td bgcolor=\"#eeeeee\" align=\"center\">$idlestring</td>"; 
-		$list .= "<td bgcolor=\"#eeeeee\" align=\"center\">$row->{last}</td>"; 
-		$list .= "</tr>";
+		my $id = int($row->{uid});
+		push @members, {
+			username => qhtmlescape($row->{username}),
+			profile_url => "$main/?op=getuser&amp;id=$id",
+			idle => $idlestring,
+			last => qhtmlescape($row->{last}),
+		};
 	}
-	$list .= "</table></center>";
 
-	return paddingTable(clearBox('User Activity',$list));
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('useractivity.tt', { members => \@members }, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return paddingTable($html);
 }
 
 # userList - get a user list
