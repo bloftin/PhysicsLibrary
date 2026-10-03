@@ -1,0 +1,49 @@
+<style type="text/css">
+.pl-object-corrections { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-object-corrections .pl-modern-box-header { background: #003399; border-bottom: 1px solid #002266; padding: .15rem .5rem; }
+.pl-object-corrections .pl-modern-box-header h1 { font-size: 1rem; line-height: 1.2; overflow-wrap: anywhere; }
+.pl-object-corrections a { color: #174e80; }
+.pl-object-corrections-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .86rem; gap: .5rem 1.2rem; padding: .45rem 0 .65rem; }
+.pl-object-corrections-summary { color: #526170; font-size: .82rem; margin: .8rem 0; }
+.pl-object-corrections-pager { font-size: .82rem; overflow-wrap: anywhere; padding: .4rem 0; text-align: center; }
+.pl-object-correction { border-bottom: 1px solid #cbd6de; padding: .7rem .2rem; overflow-wrap: anywhere; }
+.pl-object-correction:first-child { border-top: 1px solid #cbd6de; }
+.pl-object-correction-heading { align-items: baseline; display: flex; flex-wrap: wrap; gap: .4rem .8rem; }
+.pl-object-correction h2 { flex: 1 1 18rem; font-size: .95rem; line-height: 1.35; margin: 0; }
+.pl-object-correction-status { color: #526170; font-size: .8rem; }
+.pl-object-correction-status.pending { color: #925800; font-weight: bold; }
+.pl-object-correction-target { font-size: .86rem; margin: .35rem 0; }
+.pl-object-correction-meta { color: #526170; font-size: .8rem; margin: .35rem 0; }
+.pl-object-correction-actions { display: flex; flex-wrap: wrap; font-size: .84rem; gap: .5rem 1.1rem; margin: .5rem 0 0; }
+.pl-object-corrections-empty { border-top: 1px solid #cbd6de; color: #526170; padding: 1rem 0; }
+</style>
+<div class="pl-object-corrections">
+  [% INCLUDE modernboxheader.tt title = title %]
+  <nav class="pl-object-corrections-nav" aria-label="Your corrections">
+    <strong aria-current="page">To your objects</strong>
+    <a href="[% main_url | html %]/?op=editfiledcors">Your filed corrections</a>
+  </nav>
+  <p class="pl-object-corrections-summary">[% total %] correction[% IF total != 1 %]s[% END %] to your objects</p>
+  [% IF rows.size %]
+    <nav class="pl-object-corrections-pager" aria-label="Correction pages">[% pager %]</nav>
+    <div class="pl-object-corrections-list">
+    [% FOREACH row IN rows %]
+      <article class="pl-object-correction">
+        <div class="pl-object-correction-heading">
+          <h2><a href="[% main_url | html %]/?op=getobj&amp;from=[% correction_table | html %]&amp;id=[% row.uid | html %]">[% row.title | html %]</a></h2>
+          <span class="pl-object-correction-status[% IF row.pending %] pending[% END %]">[% row.status | html %]</span>
+        </div>
+        <p class="pl-object-correction-target">For <a href="[% main_url | html %]/?op=getobj&amp;from=[% object_table | html %]&amp;id=[% row.objectid | html %]">[% row.objtitle | html %]</a></p>
+        <p class="pl-object-correction-meta">Filed [% row.date | html %] by <a href="[% main_url | html %]/?op=getuser&amp;id=[% row.userid | html %]">[% row.username | html %]</a></p>
+        [% IF row.pending %]
+        <div class="pl-object-correction-actions">
+          <a href="[% main_url | html %]/?op=edit&amp;from=[% object_table | html %]&amp;id=[% row.objectid | html %]&amp;correct=[% row.uid | html %]">Edit to resolve</a>
+          <a href="[% main_url | html %]/?op=rejectcor&amp;id=[% row.objectid | html %]&amp;correct=[% row.uid | html %]">Reject</a>
+        </div>
+        [% END %]
+      </article>
+    [% END %]
+    </div>
+    <nav class="pl-object-corrections-pager" aria-label="Correction pages">[% pager %]</nav>
+  [% ELSE %]<p class="pl-object-corrections-empty">No corrections.</p>[% END %]
+</div>
