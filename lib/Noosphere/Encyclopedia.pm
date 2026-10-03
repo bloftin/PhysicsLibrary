@@ -86,19 +86,10 @@ sub renderEncyclopediaObj {
 		
 		#dwarn "getUpArrow ended";
 
-		my $btitle = "
-			<table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
-				<tr>
-					<td align=\"left\">$up 
-						<font color=\"#ffffff\">".mathTitle($title, 'title')."</font>
-					</td>
-				
-					<td align=\"right\"> 
-						<font color=\"#ffffff\" size=\"-2\">(".getTypeString($rec->{type}).")
-						</font>
-					</td>
-				</tr>
-			</table>";
+		my $parent = $up ne '' ? '<span class="pl-article-parent">'.$up.'</span>' : '';
+		my $btitle = '<div class="pl-article-heading"><h1 class="pl-article-title">'.
+			$parent.mathTitle($title, 'title').'</h1><span class="pl-article-type">('.
+			getTypeString($rec->{type}).')</span></div>';
 
 		# ugly hack to handle failed rendering, since we don't really return
 		# an error code from rendering, just an error log.
