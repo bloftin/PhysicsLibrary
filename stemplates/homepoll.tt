@@ -1,0 +1,15 @@
+<section class="pl-home-widget" aria-label="Current poll">
+  <h2 class="pl-home-title">Current Poll</h2>
+  [% IF failed %]<p class="pl-home-empty">Poll temporarily unavailable.</p>
+  [% ELSIF poll %]
+    <form method="post" action="/" class="pl-home-poll">
+      <fieldset>
+        <legend>[% poll.title | html %]</legend>
+        [% FOREACH option IN options %]<label><input type="radio" name="option" value="[% option | html %]" required><span>[% option | html %]</span></label>[% END %]
+      </fieldset>
+      <input type="hidden" name="op" value="vote">
+      <input type="hidden" name="id" value="[% poll.uid | html %]">
+      <div class="pl-home-poll-actions"><button type="submit">Vote</button><a href="[% main_url | html %]/?op=getobj&amp;from=polls&amp;id=[% poll.uid | html %]">View results</a></div>
+    </form>
+  [% ELSE %]<p class="pl-home-empty">No open <a href="[% main_url | html %]/?op=viewpolls">polls</a>.</p>[% END %]
+</section>

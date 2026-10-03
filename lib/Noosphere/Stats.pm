@@ -331,11 +331,22 @@ sub getSystemStatsHost {
 # getTopUsers - get the top users box that shows top users by score
 #
 sub getTopUsers {
+	my $modern = shift;
     #dwarn "getTopUsers!!!!!!!!!!!!!!!!!!!!!";
 	# grab the cached statistics
 	#
 	#my $topusers = $stats->get('topusers');
         my $topusers = $stats->get('topusers');
+	if ($modern) {
+		my @alltime = grep { $_->{uid} > 0 } @{ref($topusers) eq 'HASH' ? ($topusers->{toparows} || []) : []};
+		my @recent = grep { $_->{uid} > 0 && $_->{sum} > 0 } @{ref($topusers) eq 'HASH' ? ($topusers->{topwrows} || []) : []};
+		my $html;
+		my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+		$tt->process('hometopusers.tt', { alltime => \@alltime, recent => \@recent,
+			main_url => getConfig('main_url') }, \$html)
+			|| die "Template process failed: ", $tt->error(), "\n";
+		return $html;
+	}
 	# BEN TESTING
 	#my $topusers = getTopUsers();
 	# TODO - redo this all with XML and XSLT
@@ -563,6 +574,7 @@ sub getLatestModifications_data {
 #
 sub getLatest {
 	my $type = shift || 'additions';
+	my $modern = shift;
 
 	my $limit = getConfig('latest_additions');
 	if ($type ne 'additions') {
@@ -572,6 +584,24 @@ sub getLatest {
 
 	my $statkey = ($type eq 'additions' ? 'latestadds' : 'latestmods');
 	my $latestadds = $stats->get($statkey);
+	if ($modern) {
+		my @days;
+		foreach my $daylist (@{ref($latestadds) eq 'ARRAY' ? $latestadds : []}) {
+			my ($day) = keys %$daylist;
+			my @items;
+			foreach my $item (@{$daylist->{$day}}) {
+				my ($title) = keys %$item;
+				push @items, { title_html => mathTitle(qhtmlescape($title), 'highlight'), url => $item->{$title} };
+			}
+			push @days, { date => $day, items => \@items };
+		}
+		my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+		$tt->process('homelatest.tt', { days => \@days,
+			title => ($type eq 'additions' ? 'Latest Additions' : 'Latest Revisions'),
+			more_url => getConfig('main_url').'/?op=enchrono&amp;mode='.($type eq 'additions' ? 'created' : 'modified')
+		}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+		return $html;
+	}
 	
 	my $date = '';
 	my $table = '';
@@ -612,10 +642,10 @@ sub getLatest {
 # pass-throughs to call the above for either additions or modifications
 #
 sub getLatestAdditions {
-	return getLatest('additions');
+	return getLatest('additions', @_);
 }
 sub getLatestModifications {
-	return getLatest('modifications');
+	return getLatest('modifications', @_);
 }
 
 1;

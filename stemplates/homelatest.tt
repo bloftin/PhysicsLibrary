@@ -1,0 +1,11 @@
+<section class="pl-home-widget" aria-label="[% title | html %]">
+  <h2 class="pl-home-title">[% title | html %]</h2>
+  [% FOREACH day IN days %]
+    <h3 class="pl-home-subtitle">[% day.date | html %]</h3>
+    <ul class="pl-home-latest-list">
+      [% FOREACH item IN day.items %]<li><a href="[% item.url | html %]">[% item.title_html %]</a></li>[% END %]
+    </ul>
+  [% END %]
+  [% UNLESS days.size %]<p class="pl-home-empty">No recent entries.</p>[% END %]
+  <a class="pl-home-more" href="[% more_url %]">View more</a>
+</section>

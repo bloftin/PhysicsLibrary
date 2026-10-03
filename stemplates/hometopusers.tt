@@ -1,0 +1,13 @@
+<section class="pl-home-widget" aria-label="Top users">
+  <h2 class="pl-home-title">Top Users</h2>
+  <h3 class="pl-home-subtitle">All time</h3>
+  <ul class="pl-home-ranking">
+    [% FOREACH user IN alltime %]<li><a href="[% main_url | html %]/?op=getuser&amp;id=[% user.uid | html %]">[% user.username | html %]</a><span>[% user.score | html %]</span></li>[% END %]
+  </ul>
+  [% UNLESS alltime.size %]<p class="pl-home-empty">No data.</p>[% END %]
+  <h3 class="pl-home-subtitle">Last two weeks</h3>
+  <ul class="pl-home-ranking">
+    [% FOREACH user IN recent %]<li><a href="[% main_url | html %]/?op=getuser&amp;id=[% user.uid | html %]">[% user.username | html %]</a><span>[% user.sum | html %]</span></li>[% END %]
+  </ul>
+  [% UNLESS recent.size %]<p class="pl-home-empty">No recent activity.</p>[% END %]
+</section>

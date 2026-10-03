@@ -1,149 +1,87 @@
 <html>
-    <head>
-        [% IF no_index %]
-        <meta name="robots" content="noindex,follow" />
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    [% IF no_index %]<meta name="robots" content="noindex,follow" />[% END %]
+    <style type="text/css">
+.pl-home-masthead img { height: auto; max-width: 100%; }
+.pl-home-masthead input[type=text] { box-sizing: border-box; max-width: 100%; }
+.pl-home-mobile-links { display: none; }
+.pl-home-layout { align-items: start; color: #1d2935; display: grid; font-family: Arial, Helvetica, sans-serif; gap: 12px; grid-template-columns: 155px minmax(0, 1fr) 270px; }
+.pl-home-layout > * { min-width: 0; }
+.pl-home-main, .pl-home-right { display: grid; align-content: start; gap: 1rem; }
+.pl-home-widget { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.pl-home-title { background: #003399; border-bottom: 1px solid #002266; box-sizing: border-box; color: #fff; font-size: 1rem; line-height: 1.2; margin: 0 0 .55rem; padding: .15rem .5rem; }
+.pl-home-widget a { color: #174e80; }
+.pl-home-widget a:focus-visible, .pl-home-widget input:focus-visible, .pl-home-widget button:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-home-welcome p { font-size: .88rem; line-height: 1.55; margin: .6rem 0; }
+.pl-home-subtitle { color: #526170; font-size: .75rem; font-weight: bold; margin: .6rem 0 .25rem; }
+.pl-home-ranking, .pl-home-latest-list, .pl-home-messages { list-style: none; margin: 0; padding: 0; }
+.pl-home-ranking li { border-bottom: 1px solid #e1e7ec; display: grid; font-size: .8rem; gap: .6rem; grid-template-columns: minmax(0, 1fr) auto; padding: .2rem 0; }
+.pl-home-ranking span { color: #526170; font-variant-numeric: tabular-nums; }
+.pl-home-latest-list li { border-bottom: 1px solid #e1e7ec; font-size: .8rem; line-height: 1.4; padding: .3rem 0; }
+.pl-home-more { display: inline-block; font-size: .8rem; margin-top: .55rem; }
+.pl-home-empty { color: #526170; font-size: .82rem; line-height: 1.45; margin: .55rem 0; }
+.pl-home-messages li { border-bottom: 1px solid #cbd6de; padding: .6rem 0; }
+.pl-home-message-heading { align-items: baseline; display: flex; flex-wrap: wrap; font-size: .88rem; gap: .3rem 1rem; }
+.pl-home-message-heading a { flex: 1 1 15rem; font-weight: bold; }
+.pl-home-message-heading span { color: #526170; font-size: .76rem; }
+.pl-home-message-meta { align-items: baseline; color: #526170; display: flex; flex-wrap: wrap; font-size: .78rem; gap: .25rem .65rem; margin-top: .3rem; }
+.pl-home-poll { font-size: .82rem; }
+.pl-home-poll fieldset { border: 0; margin: 0; min-width: 0; padding: 0; }
+.pl-home-poll legend { font-weight: bold; line-height: 1.4; margin-bottom: .5rem; padding: 0; }
+.pl-home-poll label { align-items: start; display: grid; gap: .5rem; grid-template-columns: auto minmax(0, 1fr); line-height: 1.4; margin: .35rem 0; }
+.pl-home-poll input[type=radio] { margin: .15rem 0 0; }
+.pl-home-poll-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .65rem; }
+.pl-home-poll button { background: #003399; border: 1px solid #002266; border-radius: 2px; color: #fff; cursor: pointer; font: inherit; padding: .3rem .65rem; }
+@media (max-width: 1000px) { .pl-home-layout { grid-template-columns: 155px minmax(0, 1fr) 220px; } }
+@media (max-width: 820px) {
+  .pl-home-layout { grid-template-columns: 155px minmax(0, 1fr); }
+  .pl-home-left { grid-column: 1; grid-row: 1 / span 2; }
+  .pl-home-main, .pl-home-right { grid-column: 2; }
+}
+@media (max-width: 560px) {
+  .pl-home-mobile-links { display: flex; font: .82rem Arial, Helvetica, sans-serif; gap: 1rem; padding: .5rem 0; }
+  .pl-home-mobile-links a { color: #174e80; }
+  .pl-home-masthead table { width: 100%; }
+  .pl-home-masthead td { display: block; text-align: left; width: auto; }
+  .pl-home-layout { grid-template-columns: minmax(0, 1fr); }
+  .pl-home-main { grid-column: 1; grid-row: 1; }
+  .pl-home-right { grid-column: 1; grid-row: 2; }
+  .pl-home-left { grid-column: 1; grid-row: 3; }
+}
+    </style>
+    [% head %]
+  </head>
+  <body>
+    <div class="pl-home-masthead">[% header %]</div>
+    <nav class="pl-home-mobile-links" aria-label="Page sections"><a href="#pl-home-navigation">Account &amp; menu</a><a href="#pl-home-recent">Recent activity</a></nav>
+    <div class="pl-home-layout">
+      <div class="pl-home-left" id="pl-home-navigation">[% sidebar %]</div>
+      <main class="pl-home-main">
+        [% IF search_results %]
+        <section class="pl-home-widget" aria-label="Search results">
+          <h1 class="pl-home-title">Search Results</h1>
+          <div class="gcse-searchresults-only"></div>
+        </section>
+        [% ELSE %]
+        <section class="pl-home-widget pl-home-welcome" aria-label="Welcome to Physics Library">
+          <h1 class="pl-home-title">Welcome!</h1>
+          <p> Physics Library is a virtual community which aims to help make physics knowledge more accessible.  Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members.   The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>
+          <p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community.  All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>
+          <p> In addition to the physics encyclopedia, there are  <a href="https://physicslibrary.org/?op=browse;from=books">books</a>, <a href="https://physicslibrary.org/?op=browse;from=lec">lectures</a>, <a href="https://physicslibrary.org/?op=browse;from=papers">papers</a> and  <a href="https://physicslibrary.org/?op=forums">forums</a>.  You also might want to check out encyclopedia <a href="https://physicslibrary.org/?op=reqlist">requests</a> if you would like to see something we don't have or want to get started contributing. </p>
+          <p> Accounts are free and required to do anything other than browse, so <a href="https://physicslibrary.org/?op=newuser">sign up!</a> It only takes a minute. </p>
+          <p>Browse Encyclopedia By: <a href="https://physicslibrary.org/encyclopedia">Encyclopedia</a>  </p>
+        </section>
+        [% latestmessages %]
         [% END %]
-        [% head %]
-    </head>
-    <body>
-        <div id="container">
-             [% header %]
-            <div id="content">
-                    <table width="0" cellpadding="0" cellspacing="4">
-                    <tr> 
-                        <td WIDTH="155" VALIGN="TOP" ALIGN="LEFT">
-                            <div id="left">
-                                [% sidebar %]
-                            </div>
-                        </td>
-
-                        <td valign="top">
-                            <div id="right">
-                                    
-                                    <div id="maincontent_box">
-
-                                        [% IF search_results %]
-                                            <!-- standard box -->
-                                            <table width="100%" cellpadding="0" cellspacing="0">
-                                                <tr>
-                                                    <td>
-                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
-
-                                                            <!-- title -->
-                                                            <tr>
-                                                                <td WIDTH="100%" BGCOLOR="#003399">
-                                                                    <font color="white" class="box_title">
-                                                                        Search Results
-                                                                    </font>
-                                                                </td>
-                                                            </tr>
-                                                        
-                                                            <!-- content -->
-                                                            <tr>
-                                                                <td WIDTH="100%">
-                                                                    <!-- search resultes -->
-                                                                    <div class="gcse-searchresults-only"></div>
-
-                                                                </td>
-                                                            </tr>
-                                                            
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                
-                                            </table>
-                                            <!-- end standard box -->
-
-
-                                        [% ELSE %]
-
-                                            <!-- standard box -->
-                                            <table width="100%" cellpadding="0" cellspacing="0">
-                                                <tr>
-                                                    <td style="white-space:nowrap;">
-                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
-
-                                                            <!-- title -->
-                                                            <tr>
-                                                                <td WIDTH="100%" BGCOLOR="#003399">
-                                                                    <font color="white" class="box_title">
-                                                                        Welcome!
-                                                                    </font>
-                                                                </td>
-                                                            </tr>
-                                                        
-                                                            <!-- content -->
-                                                            <tr>
-                                                                <td WIDTH="100%">
-                                                                    <!-- about pl -->
-
-                                                                    <p> Physics Library is a virtual community which aims to help make physics knowledge more accessible.  Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members.   The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>  
-                                                    
-                                                                    <p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community.  All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>
-
-                                                                    <p> In addition to the physics encyclopedia, there are  <a href="https://physicslibrary.org/?op=browse;from=books">books</a>, <a href="https://physicslibrary.org/?op=browse;from=lec">lectures</a>, <a href="https://physicslibrary.org/?op=browse;from=papers">papers</a> and  <a href="https://physicslibrary.org/?op=forums">forums</a>.  You also might want to check out encyclopedia <a href="https://physicslibrary.org/?op=reqlist">requests</a> if you would like to see something we don't have or want to get started contributing. </p>
-
-                                                                    <p> Accounts are free and required to do anything other than browse, so <a href="https://physicslibrary.org/?op=newuser">sign up!</a> It only takes a minute. </p>
-
-                                                                    <p>Browse Encyclopedia By: <a href="https://physicslibrary.org/encyclopedia">Encyclopedia</a>  </p>
-
-                                                                </td>
-
-                                                                    
-
-                                                            </tr>
-                                                            
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                
-                                            </table>
-                                            <!-- end standard box -->
-
-                                            <div style="height: 12px;"></div>
-
-                                            [% latestmessages %]
-
-                                            <div style="height: 8px;"></div>
-                                        [% END %]
-                                    </div>
-                            </div>
-                        </td>
-
-                        <td WIDTH="9%" VALIGN="TOP" ALIGN="LEFT">
-                            <div id="left">
-                                [% top_users %]
-                            </div>
-
-                            <div id="poll_padding">
-                                <div id="poll">
-                                    [% poll %]
-                                </div>
-                            </div>
-
-                            <div id="latest_padding">
-                                <div id="latest">
-                                    [% latestadditions %]
-                                </div>
-                            </div>
-
-                            <div id="latest_padding">
-                                <div id="latest">
-                                    [% latestrevisions %]
-                                    <center><font size="-2"><a href="/?op=enchrono&amp;mode=modified">(more)</a></font></center>
-                                </div>
-                            </div>
-
-                        </td>
-
-
-                        
-                    </tr>
-
-                </table>
-            </div>
-        </div>
-        <!-- end container -->
-    </body>
+      </main>
+      <aside class="pl-home-right" id="pl-home-recent" aria-label="Community and recent entries">
+        [% top_users %]
+        [% poll %]
+        [% latestadditions %]
+        [% latestrevisions %]
+      </aside>
+    </div>
+  </body>
 </html>
 
