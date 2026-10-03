@@ -215,9 +215,6 @@ sub mailBox {
 	my $params = shift;
 	my $userinf = shift;
 	
-	my $template = new TemplateNS('mailbox.html');
-	my $list = '';
-
 	return errorMessage('Must be logged in to use mail') if ($userinf->{uid} < 1);
 
 	my ($rv,$sth) = dbSelect($dbh,{
@@ -231,31 +228,16 @@ sub mailBox {
  
 	my @rows = dbGetRows($sth);
  
-	if ($#rows > -1) {
-	$list .= "<table width=\"100%\">";
-	$list .= "<tr>
-					 <td align=\"center\"><b>date</b></td>
-			 <td width=\"80%\" align=\"center\"><b>subject</b></td>
-			 <td align=\"center\"><b>from</b></td></tr>";
-		my $parity = 1;
-		foreach my $row (@rows) {
-		my $date = ymd($row->{sent});
-		my $bg = $parity?" bgcolor=\"#eeeeee\"":"";
-			$list .= "<tr $bg>";
-			$list .= "<td>$date</td>";
-			$list .= "<td><a href=\"".getConfig("main_url")."/?op=getmail&id=$row->{uid}\">$row->{subject}</a></td>";
-			$list .= "<td><a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{userfrom}\">$row->{username}</a></td>";
-		$list .= "</tr>";
-		$parity = $parity?0:1;
-		} 
-	$list .= "</table>";
-	} else {
-		$list = "No new mail.";
+	foreach my $row (@rows) {
+		$row->{date} = ymd($row->{sent});
 	}
- 
-	$template->setKey('newmail', $list);
-	
-	return paddingTable(clearBox('Your '.getConfig('projname').' Mail Box',$template->expand()));
+	my $html;
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('mailbox.tt', {
+		title => 'Your '.getConfig('projname').' Mail Box',
+		main_url => getConfig('main_url'), rows => \@rows, count => scalar @rows
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # sentMail - get mail box screen
