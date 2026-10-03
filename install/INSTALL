@@ -210,6 +210,13 @@ Section 2 : Installation Procedure
 
       $NSROOT/etc/monitoring/README.md
 
+ 9c. Verify public article discovery after starting Apache.  The application
+     serves /sitemap.xml automatically and advertises it in /robots.txt; no
+     sitemap cron job or database migration is needed.  For canonical URLs,
+     search-page noindex checks, sitemap validation, and Google/Bing submission:
+
+      $NSROOT/install/SEARCH-INDEXING.md
+
 10. Set one-time tasks to initialize at system startup.  Inspect the file 
 
      $NSROOT/bin/init.sh 

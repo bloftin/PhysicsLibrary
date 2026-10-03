@@ -91,3 +91,60 @@ indexed inspection's user-declared/Google-selected canonical after recrawling.
 
 Google's canonical URL guidance:
 https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+
+## Article XML sitemap
+
+`https://physicslibrary.org/sitemap.xml` serves a UTF-8 XML sitemap of preferred
+encyclopedia article URLs. `robots.txt` advertises that address using the
+configured `main_url`, not the request's Host header.
+
+The sitemap queries article IDs and names, not LaTeX source or rendered caches.
+It uses the same canonical URL helper as article views and removes duplicate
+URLs. For ACL-controlled articles, it requires a world-readable default rule
+and conservatively excludes conflicting defaults and matching anonymous read
+denials. Private or unnamed articles are omitted. Search/listing pages, synonym
+aliases, old versions, papers, books, lectures, and cache assets are not included.
+It does not include `lastmod`: no render, hit, or generation timestamp is passed
+off as a significant article modification date.
+
+New public articles appear, and deleted or newly private articles disappear,
+on the next sitemap fetch. No migration, cron job, systemd unit, generated file,
+or article rerender is required. The response bypasses login, statistics,
+templates, and rendering. GET and HEAD are supported. Database/generation
+failures return HTTP 503 instead of a partial sitemap or homepage. Responses
+use `no-store` so a previously public URL is not kept in a cached sitemap.
+The single-file implementation checks the 50,000-URL / 50 MiB protocol limits
+and returns 503 rather than silently truncating; add sitemap-index splitting
+before the encyclopedia reaches those limits.
+
+After pulling main:
+
+```bash
+prove bin/test/article-sitemap.t bin/test/canonical-article-urls.t bin/test/noindex-routes.t
+sudo httpd -t && sudo systemctl stop httpd && sudo systemctl start httpd
+curl --max-time 10 -fsSI 'https://physicslibrary.org/sitemap.xml'
+curl --max-time 10 -fsS 'https://physicslibrary.org/robots.txt' | grep '^Sitemap:'
+curl --max-time 10 -fsS 'https://physicslibrary.org/sitemap.xml' > /tmp/physicslibrary-sitemap.xml
+perl -MXML::LibXML -e 'my $d = XML::LibXML->load_xml(location => shift); my $x = XML::LibXML::XPathContext->new($d); $x->registerNs(s => "http://www.sitemaps.org/schemas/sitemap/0.9"); my @urls = $x->findnodes("/s:urlset/s:url"); print scalar(@urls), " article URLs\n";' /tmp/physicslibrary-sitemap.xml
+grep -E 'VectorTripleProduct.html|ScalarTripleProduct.html' /tmp/physicslibrary-sitemap.xml
+```
+
+The HEAD response should be HTTP 200 with `application/xml;charset=UTF-8`, not
+HTML or a `noindex` header. Both example URLs should be present if their
+articles are public. The test uses the site's existing XML::Writer/XML::LibXML
+dependencies; optional isolated SQL integration also requires DBI/DBD::SQLite,
+but the production sitemap does not require SQLite.
+
+In Google Search Console, select the Physics Library property, open **Sitemaps**,
+submit `https://physicslibrary.org/sitemap.xml`, and check its fetch status and
+discovered URL count. In Bing Webmaster Tools, select the site, open **Sitemaps**,
+and submit the same URL. For Vector Triple Product and Scalar Triple Product,
+use Google's URL Inspection live test and request indexing after verifying
+their article responses and canonicals. Sitemap discovery helps crawlers find
+preferred URLs; it does not guarantee inclusion or an immediate recrawl.
+
+References:
+
+- [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
+- [Bing: Sitemaps](https://www.bing.com/webmasters/help/sitemaps-3b5cf6ed)
+- [Sitemaps protocol and limits](https://www.sitemaps.org/protocol.html)

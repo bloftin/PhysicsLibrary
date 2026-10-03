@@ -12,6 +12,7 @@ use Template;
 use Encode ();
 use Noosphere::RequestForm;
 use Noosphere::SecurityHeaders;
+use Noosphere::Sitemap;
 our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $NoosphereCanonical $AllowCache $MAINTENANCE $stats};
@@ -99,7 +100,7 @@ sub getNoTemplateContent {
 	}
 
 	if ($params->{'op'} eq 'robotstxt') {
-		return getConfig('robotstxt');
+		return getArticleRobotsText();
 	}
 	#dwarn "getNoTemplateContent params: $params";
 	my $content = dispatch(\%NONTEMPLATE, $params, $user_info, $upload); 
@@ -847,6 +848,12 @@ sub handler {
 	#
 	if (inMaintenance($ENV{'REMOTE_ADDR'})) {
 		sendOutput($req, getMaintenance(), 502); # server overloaded status
+		return;
+	}
+
+	# Sitemap requests need no account, statistics, template, or render work.
+	if ($uri eq '/sitemap.xml') {
+		serveArticleSitemap($req);
 		return;
 	}
 
