@@ -123,6 +123,19 @@ subtest 'real front-page templates' => sub {
     like($html,qr/pl-home-layout/,'homepage uses responsive layout');
     unlike($html,qr/<table|<center|<font/i,'homepage removes legacy wrappers');
     unlike($html,qr/name="robots"/,'normal homepage remains indexable');
+    my @welcome_paragraphs = (
+        q{<p> Physics Library is a virtual community which aims to help make physics knowledge more accessible. Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members. The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>},
+        q{<p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community. All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>},
+        q{<p> In addition to the physics encyclopedia, there are <a href="https://physicslibrary.org/?op=browse;from=books">books</a>, <a href="https://physicslibrary.org/?op=browse;from=lec">lectures</a>, <a href="https://physicslibrary.org/?op=browse;from=papers">papers</a> and <a href="https://physicslibrary.org/?op=forums">forums</a>. You also might want to check out encyclopedia <a href="https://physicslibrary.org/?op=reqlist">requests</a> if you would like to see something we don't have or want to get started contributing. </p>},
+        q{<p> Accounts are free and required to do anything other than browse, so <a href="https://physicslibrary.org/?op=newuser">sign up!</a> It only takes a minute. </p>},
+        q{<p>Browse Encyclopedia By: <a href="https://physicslibrary.org/encyclopedia">Encyclopedia</a> </p>},
+    );
+    my $normalized_html = $html;
+    $normalized_html =~ s/\s+/ /g;
+    for my $index (0 .. $#welcome_paragraphs) {
+        like($normalized_html, qr/\Q$welcome_paragraphs[$index]\E/,
+            'original Welcome paragraph '.($index + 1).' retains all wording, emphasis, and links');
+    }
     $html='';
     ok($tt->process('mainpage.tt',{%rendered,search_results=>1,no_index=>1},\$html),'search-results branch renders');
     like($html,qr/gcse-searchresults-only/,'Google results widget retained');

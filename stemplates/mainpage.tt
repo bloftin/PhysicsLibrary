@@ -14,8 +14,6 @@
 .pl-home-widget a { color: #174e80; }
 .pl-home-widget a:focus-visible, .pl-home-widget input:focus-visible, .pl-home-widget button:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
 .pl-home-welcome p { font-size: .88rem; line-height: 1.55; margin: .6rem 0; }
-.pl-home-browse { border-top: 1px solid #cbd6de; display: flex; flex-wrap: wrap; font-size: .86rem; gap: .5rem 1.2rem; padding-top: .65rem; }
-.pl-home-browse a:first-child { font-weight: bold; }
 .pl-home-subtitle { color: #526170; font-size: .75rem; font-weight: bold; margin: .6rem 0 .25rem; }
 .pl-home-ranking, .pl-home-latest-list, .pl-home-messages { list-style: none; margin: 0; padding: 0; }
 .pl-home-ranking li { border-bottom: 1px solid #e1e7ec; display: grid; font-size: .8rem; gap: .6rem; grid-template-columns: minmax(0, 1fr) auto; padding: .2rem 0; }
@@ -68,15 +66,11 @@
         [% ELSE %]
         <section class="pl-home-widget pl-home-welcome" aria-label="Welcome to Physics Library">
           <h1 class="pl-home-title">Welcome!</h1>
-          <p>Physics Library is an open source physics library built by its community. Explore the <a href="/encyclopedia">physics encyclopedia</a>, with articles written and reviewed by members.</p>
-          <p>Contributions are written in <a href="https://www.latex-project.org/">LaTeX</a> and shared under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License</a>.</p>
-          <p>Join the community through the <a href="/?op=forums">forums</a>, contribute to an <a href="/?op=reqlist">article request</a>, or <a href="/?op=newuser">create a free account</a>.</p>
-          <nav class="pl-home-browse" aria-label="Browse the library">
-            <a href="/encyclopedia">Encyclopedia</a>
-            <a href="/?op=browse;from=papers">Papers</a>
-            <a href="/?op=browse;from=books">Books</a>
-            <a href="/?op=browse;from=lec">Lectures</a>
-          </nav>
+          <p> Physics Library is a virtual community which aims to help make physics knowledge more accessible.  Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members.   The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>
+          <p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community.  All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>
+          <p> In addition to the physics encyclopedia, there are  <a href="https://physicslibrary.org/?op=browse;from=books">books</a>, <a href="https://physicslibrary.org/?op=browse;from=lec">lectures</a>, <a href="https://physicslibrary.org/?op=browse;from=papers">papers</a> and  <a href="https://physicslibrary.org/?op=forums">forums</a>.  You also might want to check out encyclopedia <a href="https://physicslibrary.org/?op=reqlist">requests</a> if you would like to see something we don't have or want to get started contributing. </p>
+          <p> Accounts are free and required to do anything other than browse, so <a href="https://physicslibrary.org/?op=newuser">sign up!</a> It only takes a minute. </p>
+          <p>Browse Encyclopedia By: <a href="https://physicslibrary.org/encyclopedia">Encyclopedia</a>  </p>
         </section>
         [% latestmessages %]
         [% END %]
