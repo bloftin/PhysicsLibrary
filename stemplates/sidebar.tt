@@ -1,15 +1,24 @@
-<table WIDTH="155" BORDER="0" CELLPADDING="0" CELLSPACING="2">
-	<tr>
-		<td WIDTH="100%">
-			[% login %] 
-		</td>
-	</tr>
-	
-	[% admin %] 
-	
-	<tr>
-		<td WIDTH="100%">
-			[% features %]
-		</td>
-	</tr>
-</table>
+<style type="text/css">
+.pl-sidebar { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0; width: 100%; }
+.pl-sidebar-section { margin: 0 0 .6rem; }
+.pl-sidebar-title { background: #003399; border-bottom: 1px solid #002266; box-sizing: border-box; color: #fff; font-size: 1rem; line-height: 1.2; margin: 0; overflow-wrap: anywhere; padding: .15rem .5rem; }
+.pl-sidebar-admin .pl-sidebar-title { background: #990000; border-bottom-color: #660000; }
+.pl-sidebar-body { background: #f1f4f7; border: 1px solid #cbd6de; border-top: 0; padding: .35rem .25rem; }
+.pl-sidebar h3 { border-top: 1px solid #d5dfe7; color: #526170; font-size: .73rem; font-weight: bold; margin: .45rem .25rem .2rem; padding-top: .4rem; }
+.pl-sidebar nav > h3:first-child { border-top: 0; margin-top: 0; padding-top: .1rem; }
+.pl-sidebar a { border-radius: 2px; color: #174e80; display: block; font-size: .82rem; line-height: 1.35; overflow-wrap: anywhere; padding: .18rem .25rem; text-decoration: none; }
+.pl-sidebar a:hover { background: #e0e9f2; text-decoration: underline; }
+.pl-sidebar a:focus-visible, .pl-sidebar input:focus-visible, .pl-sidebar button:focus-visible { outline: 2px solid #003399; outline-offset: 1px; }
+.pl-sidebar-count { color: #526170; font-size: .75rem; white-space: nowrap; }
+.pl-sidebar-logout { margin-bottom: .45rem; }
+.pl-sidebar-login { display: grid; gap: .3rem; padding: .2rem .25rem .5rem; }
+.pl-sidebar-login label { color: #526170; font-size: .78rem; }
+.pl-sidebar-login input { border: 1px solid #b6c5d2; box-sizing: border-box; font: inherit; font-size: .86rem; min-width: 0; padding: .25rem; width: 100%; }
+.pl-sidebar-login button { background: #003399; border: 1px solid #002266; border-radius: 2px; color: #fff; cursor: pointer; font: inherit; font-size: .82rem; padding: .3rem .5rem; }
+.pl-sidebar-error { color: #990000; font-size: .8rem; margin: .2rem .25rem .5rem; overflow-wrap: anywhere; }
+</style>
+<aside class="pl-sidebar" aria-label="Site navigation">
+  [% login %]
+  [% admin %]
+  [% features %]
+</aside>

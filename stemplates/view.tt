@@ -16,12 +16,12 @@
     [% header %]
 
     <!-- content and sidebar -->
-    <table WIDTH="100%" CELLPADDING="0" CELLSPACING="0">
+    <table WIDTH="100%" CELLPADDING="0" CELLSPACING="0" style="border-collapse:collapse;">
         <tr>
-            <td WIDTH="155" VALIGN="TOP" ALIGN="LEFT">
+            <td WIDTH="155" VALIGN="TOP" ALIGN="LEFT" style="padding:0 12px 0 0;">
                 [% sidebar %]
             </td>
-            <td VALIGN="TOP" ALIGN="LEFT" >
+            <td VALIGN="TOP" ALIGN="LEFT" style="padding:0;">
                 [% content %]
             </td>
         </tr>

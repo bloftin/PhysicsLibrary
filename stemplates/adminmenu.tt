@@ -1,0 +1,12 @@
+<section class="pl-sidebar-section pl-sidebar-admin" aria-label="Administration">
+  <h2 class="pl-sidebar-title">Admin Menu</h2>
+  <nav class="pl-sidebar-body" aria-label="Administration navigation">
+    <a href="[% main_url | html %]/?op=postnews">Post news</a>
+    <a href="[% main_url | html %]/?op=newpoll">New poll</a>
+    <a href="[% main_url | html %]/?op=adminstats">Statistics</a>
+    <a href="[% main_url | html %]/?op=dbadmin">DB admin</a>
+    <a href="[% main_url | html %]/?op=cachecont">Cache control</a>
+    <a href="[% main_url | html %]/?op=blacklist">Blacklist</a>
+    <a href="[% main_url | html %]/?op=webstats">Web stats</a>
+  </nav>
+</section>
