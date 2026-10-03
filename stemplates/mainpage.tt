@@ -78,6 +78,7 @@
       <aside class="pl-home-right" id="pl-home-recent" aria-label="Community and recent entries">
         [% top_users %]
         [% poll %]
+        [% news %]
         [% latestadditions %]
         [% latestrevisions %]
       </aside>

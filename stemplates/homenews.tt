@@ -1,0 +1,15 @@
+<section class="pl-home-widget" aria-label="News">
+  <h2 class="pl-home-title">News</h2>
+  [% IF failed %]
+  <p class="pl-home-empty">News is temporarily unavailable.</p>
+  [% ELSIF items.size %]
+  <ul class="pl-home-latest-list">
+    [% FOREACH item IN items %]
+    <li><a href="[% main_url | html %]/?op=getobj&amp;from=news&amp;id=[% item.uid | html %]">[% item.title | html %]</a><br><span>[% item.date | html %]</span></li>
+    [% END %]
+  </ul>
+  [% ELSE %]
+  <p class="pl-home-empty">No news yet.</p>
+  [% END %]
+  <a class="pl-home-more" href="[% main_url | html %]/?op=oldnews">More news</a>
+</section>
