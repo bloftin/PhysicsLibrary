@@ -291,10 +291,10 @@ sub viewNotices {
 	#
 	if (defined $params->{'return_title'}) {
 		if (blank($params->{'return_message'})) {
-			$html .= "<b>$params->{return_title}</b> : Done.";
+			$html .= "<b>".tohtmlascii($params->{return_title})."</b> : Done.";
 		}
 		else {
-			$html .= "<b>$params->{return_title}</b> : $params->{return_message}";
+			$html .= "<b>".tohtmlascii($params->{return_title})."</b> : $params->{return_message}";
 		}
 		$html .= "<br><br>";
 	}
@@ -305,103 +305,80 @@ sub viewNotices {
 
 	my @rows = dbGetRows($sth);
 
-	if (scalar @rows == 0) {
-		$html .= "No notices.<br>";
-		return paddingTable(clearBox('Your Notices',$html));
-	}
-
-	$html .= "<form name=\"notices\" method=\"post\" action=\"/\">";
-
-	$html .= "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">";
-	my $parity = 1;
+	my @notices;
 	foreach my $row (@rows) {
-		$html .= formatNotice($row, (($parity++%2)?'#eeeeee':'#ffffff'));
+		push @notices, formatNotice($row);
 	}
-	$html .= "</table>";
-
-	$html .= "<br><center>";
-	$html .= " <input type=\"button\" value=\"select all\" onClick=\"var c = 0, _el; for (c = 0; c < document.notices.elements.length; c++) { _el = document.notices.elements[c]; if (_el.type == 'checkbox') { _el.checked = true; } } \">";
-	$html .= " <input type=\"reset\" value=\"select none\">";
-	$html .= "<br><br>";
-	$html .= " <input type=\"submit\" name=\"delsel\" value=\"delete selected\">";
-	$html .= " <input type=\"submit\" name=\"delall\" value=\"delete all\">";
-	$html .= " <input type=\"submit\" name=\"delunsel\" value=\"delete all except\">";
-	$html .= " <br>";
-	$html .= "<input type=\"hidden\" name=\"op\" value=\"notices\">";
-	$html .= "</form>";
-	$html .= "</center>";
-
-	return paddingTable(clearBox('Your Notices',$html));
+	my $message = $html;
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('notices.tt', { title => 'Your Notices', notices => \@notices,
+		count => scalar @rows, message => $message }, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # format a notice for display in list
 #
 sub formatNotice {
 	my $row = shift;
-	my $colour = shift;
 
 	my $html = "";
 	
-	$html .= "<tr>";
-	$html .= "<td bgcolor=\"$colour\">";
-	$html .= "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">";
+	$html .= "<article class=\"pl-notice\"><div class=\"pl-notice-heading\">";
 
 	# selection checkbox
 	#
-	$html .= "<tr><td>";
-	$html .= "<input type=\"checkbox\" name=\"sel_$row->{uid}\">";
+	$html .= "<input type=\"checkbox\" name=\"sel_$row->{uid}\" aria-label=\"Select notice\">";
  
 	# display basic info line
 	#
 	if (defined $row->{'userfrom'}) {
 		my $username = lookupfield('users','username',"uid=$row->{userfrom}");
-		$html .= "$row->{title} by <a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{userfrom}\">$username</a> at $row->{created}";
+		$html .= "<strong>".tohtmlascii($row->{title})."</strong><span class=\"pl-notice-meta\">by <a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{userfrom}\">".tohtmlascii($username)."</a> at ".tohtmlascii($row->{created})."</span>";
 	} else {
-		$html .= "$row->{title} at $row->{created}";
+		$html .= "<strong>".tohtmlascii($row->{title})."</strong><span class=\"pl-notice-meta\">".tohtmlascii($row->{created})."</span>";
 	}
-	$html .= "</td>";
+	$html .= "</div>";
 
 	# comment/content, if present
 	#
 	if (nb($row->{'data'})) {
-		$html .= "<tr>";
-		$html .= "<td><i>".tohtmlascii($row->{'data'})."</i></td>";
-		$html .= "</tr>";
+		$html .= "<p class=\"pl-notice-body\">".tohtmlascii($row->{'data'})."</p>";
 	}
 
 	# options, if present
 	#
 	if (nb($row->{'choice_title'})) {
 
-		$html .= "<tr><td align=\"center\">";
+		$html .= "<div class=\"pl-notice-actions\">";
 	
 		my @titles = split (';', $row->{'choice_title'});
 		my @actions = split (';', $row->{'choice_action'});
  		my $default = $row->{'choice_default'};
 
-		$html .= "<br>Your choices: ";
+		$html .= "Your choices: ";
 
 		# make action "buttons"
 		#
 		my @buttons;
 		for (my $i = 0; $i < scalar @titles; $i++) {
 			# each action had better already be urlescaped
-			push @buttons, "<a href=\"".getConfig("main_url")."/?op=exercise_option&return_title=".urlescape($titles[$i])."&delsel=1&sel_$row->{uid}=on&params=$actions[$i]\">$titles[$i]</a>";
+			push @buttons, "<a href=\"".getConfig("main_url")."/?op=exercise_option&return_title=".urlescape($titles[$i])."&delsel=1&sel_$row->{uid}=on&params=$actions[$i]\">".tohtmlascii($titles[$i])."</a>";
 		}
 
 		$html .= "[ ".join(' | ', @buttons)." ]";
 
-		$html .= "</td></tr>";
+		$html .= "</div>";
 	
 		# default message
 		#
-		$html .= "<tr><td align=\"center\"><br>";
+		$html .= "<p class=\"pl-notice-default\">";
 		if (defined $default && $default != -1) {
-			$html .= "<i>The default choice (activated upon deletion) for this prompt is '$titles[$default]'</i>";
+			$html .= "The default choice (activated upon deletion) for this prompt is '".tohtmlascii($titles[$default])."'";
 		} else {
 			$html .= "<i>If you delete this notice, no action will be performed.</i>";
 		}
-		$html .= "</td></tr>";
+		$html .= "</p>";
 	}
 
 	# attached objects
@@ -409,17 +386,17 @@ sub formatNotice {
 	my ($rv,$sth) = dbSelect($dbh,{WHAT=>'*',FROM=>'objlinks',WHERE=>"srctbl='notices' and srcid=$row->{uid}"});
 	my @links = dbGetRows($sth);
 	if ($#links >= 0) {
-		$html .= "<tr><td>Context: ";
+		$html .= "<p class=\"pl-notice-context\">Context: ";
 		my @linkhtml = ();
 		foreach my $link (@links) {
 			my ($op,$from) = getop($link->{'desttbl'});
 			push @linkhtml, contextLink($link->{'desttbl'},$link->{'destid'},$link->{'note'});
 		}
 		$html .= join(', ',@linkhtml);
-		$html .= "</td></tr>";
+		$html .= "</p>";
 	}
 	
-	$html .= "</table></td></tr>";
+	$html .= "</article>";
  
 	return $html;
 }
