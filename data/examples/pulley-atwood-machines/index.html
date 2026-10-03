@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Pulleys and Atwood Machines | Physics Library</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="model.js" defer></script>
+  <script src="explorer.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Physics Library / Computational resource</p>
+        <h1>Pulleys and Atwood machines</h1>
+        <p class="lede">Move the masses. Compare equal travel over a fixed pulley with the two-to-one motion of a movable pulley.</p>
+      </div>
+      <a class="article-link" href="https://physicslibrary.org/encyclopedia/PulleysAndAtwoodMachines.html">Read the article &#8599;</a>
+    </header>
+
+    <div class="workspace">
+      <aside class="controls" aria-label="Pulley controls">
+        <h2>System</h2>
+        <div class="mode-switch" role="group" aria-label="Pulley arrangement">
+          <button type="button" id="fixed-mode" aria-pressed="true">Fixed pulley</button>
+          <button type="button" id="movable-mode" aria-pressed="false">Movable pulley</button>
+        </div>
+        <p class="mode-caption" id="mode-caption">Two hanging masses share one rope. Their displacements have equal magnitude and opposite direction.</p>
+        <div class="control"><label for="m1"><span id="m1-label">Left mass, m<sub>1</sub></span><output id="m1-value" for="m1">3.0 kg</output></label><input id="m1" type="range" min="0.5" max="10" step="0.1" value="3"><div class="limits"><span>0.5 kg</span><span>10 kg</span></div></div>
+        <div class="control"><label for="m2"><span id="m2-label">Right mass, m<sub>2</sub></span><output id="m2-value" for="m2">5.0 kg</output></label><input id="m2" type="range" min="0.5" max="10" step="0.1" value="5"><div class="limits"><span>0.5 kg</span><span>10 kg</span></div></div>
+        <div class="control"><label for="gravity">Gravity <output id="gravity-value" for="gravity">9.81 m/s<sup>2</sup></output></label><input id="gravity" type="range" min="1" max="15" step="0.01" value="9.81"><div class="limits"><span>1 m/s<sup>2</sup></span><span>15 m/s<sup>2</sup></span></div></div>
+        <div class="preset"><label for="scenario">Worked case</label><select id="scenario"><option value="atwood">Atwood: 3 kg and 5 kg</option><option value="balanced">Equal masses: 4 kg each</option><option value="movable">Movable: 4 kg and 6 kg</option><option value="movable-balanced">Movable balance: 3 kg and 6 kg</option><option value="custom" hidden>Custom conditions</option></select></div>
+        <div class="actions"><button type="button" id="play">Play</button><button type="button" id="reset" class="secondary">Reset</button></div>
+        <label class="time-label" for="time">Time <output id="time-value" for="time">0.00 s</output></label><input id="time" type="range" min="0" max="1000" step="1" value="0">
+      </aside>
+
+      <section class="scene" aria-label="Pulley visualization">
+        <div class="scene-heading"><h2 id="scene-title">Fixed pulley</h2><p id="status" role="status" aria-live="polite">The 5 kg mass descends; both masses move the same distance.</p></div>
+        <div class="legend"><span><i class="swatch rope"></i>One inextensible rope</span><span><i class="swatch first"></i>m<sub>1</sub></span><span><i class="swatch second"></i>m<sub>2</sub></span></div>
+        <canvas id="apparatus" aria-label="Pulley, rope, and moving masses"></canvas>
+        <p class="scene-caption">Motion begins from rest. The display stops before a mass reaches the pulley or floor.</p>
+      </section>
+    </div>
+
+    <section class="analysis" aria-label="Constraint and forces">
+      <div class="analysis-heading"><div><h2>One rope, two coordinates</h2><p id="constraint-explainer">The fixed rope length makes one side rise exactly as far as the other falls.</p></div><strong id="constraint-equation">&Delta;y<sub>1</sub> + &Delta;y<sub>2</sub> = 0</strong></div>
+      <div class="legend"><span><i class="swatch first"></i>m<sub>1</sub>, down positive</span><span><i class="swatch second"></i>m<sub>2</sub>, down positive</span></div>
+      <canvas id="displacements" aria-label="Displacement of each mass versus time"></canvas>
+      <div class="metrics"><div><span id="acceleration-label">m<sub>2</sub> acceleration</span><strong id="acceleration-value">2.45 m/s<sup>2</sup></strong></div><div><span>Rope tension</span><strong id="tension-value">36.79 N</strong></div><div><span>m<sub>1</sub> displacement</span><strong id="first-value">0.00 m</strong></div><div><span>m<sub>2</sub> displacement</span><strong id="second-value">0.00 m</strong></div><div><span>Constraint residual</span><strong id="residual-value">0.000 m</strong></div></div>
+      <p class="force-equations" id="force-equations">T - m<sub>1</sub>g = m<sub>1</sub>a &nbsp;&nbsp; m<sub>2</sub>g - T = m<sub>2</sub>a</p>
+    </section>
+
+    <footer>
+      <p><strong>Model.</strong> One massless, inextensible rope; frictionless, massless pulleys; uniform gravity; taut rope and release from rest. The movable system includes an ideal fixed redirecting pulley above the free mass. Positive display coordinates point downward for both masses. The load acceleration metric points upward when positive.</p>
+      <p>Controls are evaluated locally in your browser. The <a href="reference.csv">reference trajectories</a>, <a href="atwood.jl">Julia source</a>, and <a href="pulley-atwood-machines.zip">offline project</a> are available for inspection. No Julia process runs on the site server.</p>
+      <p><a href="provenance.toml">Provenance</a> &middot; <a href="LICENSE.txt">License</a> &middot; <button type="button" class="text-button" id="download">Download current trajectory CSV</button></p>
+    </footer>
+  </main>
+</body>
+</html>

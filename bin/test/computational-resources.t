@@ -111,6 +111,16 @@ for my $url (render($circular) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'circular-motion publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/pulley-atwood-machines/computational-resources.json"));
+my $pulley = resources();
+is(scalar @$pulley, 1, 'pulley manifest selects its reviewed publication');
+is($pulley->[0]{title}, 'Pulleys and Atwood Machines', 'pulley title comes from catalog');
+is(scalar @{$pulley->[0]{datasets}}, 1, 'pulley resource exposes reference trajectories');
+for my $url (render($pulley) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'pulley publication asset exists: ' . $url);
+}
+reset_files();
 my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
 like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
 like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');
