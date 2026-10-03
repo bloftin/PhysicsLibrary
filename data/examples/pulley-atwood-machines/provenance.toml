@@ -1,0 +1,7 @@
+reference_generator = "node build-reference.cjs"
+julia_reference_command = "julia --startup-file=no --project=. atwood.jl"
+model = "ideal fixed Atwood and one ideal movable pulley; release from rest"
+reference_sha256 = "5c2ee4dd7165d56972db1547c02a3ce852f4d7343f775f963fc7c494f2bb04a6"
+julia_source_sha256 = "7b5215173b4ea5ab6d465e0b1e8166c3364de1737618e825d06d3352b978cf90"
+browser_model_sha256 = "c054b0f5be9fd0c8f587f84b6cde89a2990cd8c566d9f765023d389b041bf9f4"
+viewer_sha256 = "35f5359b5feb600291e9e5221de4d1606c573a062449fa584de5f3b137ded6be"

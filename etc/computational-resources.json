@@ -1,6 +1,19 @@
 {
   "schema_version": 1,
   "resources": {
+    "pulley-atwood-machines": {
+      "title": "Pulleys and Atwood Machines",
+      "language": "Julia",
+      "version": "1.10+",
+      "reproducibility": "Static explorer for fixed and movable pulley constraints, mass and gravity controls, balanced and reversed cases; includes Julia source and tests, reference trajectories, and an offline project archive.",
+      "explorer": "index.html",
+      "source": "pulley-atwood-machines.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Pulley reference trajectories", "file": "reference.csv"}
+      ]
+    },
     "gre-uniform-circular-motion": {
       "title": "GRE Uniform Circular Motion",
       "language": "Julia",
