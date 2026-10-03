@@ -51,3 +51,43 @@ that could hide published content too.
 
 Google's documentation:
 https://developers.google.com/search/docs/crawling-indexing/block-indexing
+
+## Canonical encyclopedia URLs
+
+Successful encyclopedia article views declare one absolute `rel="canonical"`
+link in the document head, including the friendly URL itself. ID links, name
+links, legacy paths, and view-style/discussion parameters all identify the same
+preferred URL:
+
+```html
+<link rel="canonical" href="https://physicslibrary.org/encyclopedia/VectorTripleProduct.html" />
+```
+
+The URL uses the configured `main_url` and the resolved article's stored `name`,
+not the request hostname or supplied name/URL. Missing articles, permission
+failures, unnamed records, other object types, and helper/listing pages do not
+declare an encyclopedia canonical. Metadata is scoped to each mod_perl request.
+This adds no database query, redirect, rendering task, migration, or scheduled
+job; existing article links and view styles continue to work.
+
+After pulling main, run these checks and deploy with the Apache stop/start
+shown above:
+
+```bash
+prove bin/test/canonical-article-urls.t bin/test/noindex-routes.t
+curl --max-time 10 -fsS 'https://physicslibrary.org/encyclopedia/VectorTripleProduct.html' | grep 'rel="canonical"'
+curl --max-time 10 -fsS 'https://physicslibrary.org/?op=getobj&from=objects&id=209&method=l2h' | grep 'rel="canonical"'
+curl --max-time 10 -fsS 'https://physicslibrary.org/encyclopedia/ScalarTripleProduct.html' | grep 'rel="canonical"'
+```
+
+Both Vector Triple Product responses should declare the same friendly URL;
+Scalar Triple Product should declare its own. No article cache rebuild is
+needed because the canonical is in the outer page template, not rendered LaTeX.
+Google must recrawl before its stored user-declared canonical reflects this
+change. Canonical annotations express a preference, not an indexing guarantee,
+and do not establish why an article was previously excluded. In Search Console,
+use URL Inspection's live test to check the delivered HTML, then monitor the
+indexed inspection's user-declared/Google-selected canonical after recrawling.
+
+Google's canonical URL guidance:
+https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls

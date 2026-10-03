@@ -286,10 +286,10 @@ subtest 'actual response writer decorates only the delivered page' => sub {
 subtest 'HTTP handler integration with synthetic services' => sub {
     open my $in, '<', "$FindBin::Bin/../../lib/Noosphere.pm" or die $!;
     my $source = do { local $/; <$in> };
-    for my $name (qw(getNoTemplateContent getViewTemplateContent handler)) {
+    for my $name (qw(getNoTemplateContent getViewTemplateContent applyIndexingPolicy handler)) {
         my ($sub) = $source =~ /^(sub \Q$name\E \{.*?)(?=^sub |\z)/ms;
         die "missing $name" unless $sub;
-        eval "package Noosphere; no warnings 'uninitialized'; our (\$dbh, \$stats, \$AllowCache, \$MAINTENANCE, \$NoosphereTitle, \$RequestFormUser, \$RequestFormStatus, \$RequestFormValidated, %HANDLERS, %NONTEMPLATE); $sub";
+        eval "package Noosphere; no warnings 'uninitialized'; our (\$dbh, \$stats, \$AllowCache, \$MAINTENANCE, \$NoosphereTitle, \$NoosphereCanonical, \$RequestFormUser, \$RequestFormStatus, \$RequestFormValidated, %HANDLERS, %NONTEMPLATE); $sub";
         die $@ if $@;
     }
     my $user = fixture();

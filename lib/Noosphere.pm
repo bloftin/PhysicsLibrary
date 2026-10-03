@@ -14,7 +14,7 @@ use Noosphere::RequestForm;
 use Noosphere::SecurityHeaders;
 our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
-use vars qw{$dbh $DEBUG $NoosphereTitle $AllowCache $MAINTENANCE $stats};
+use vars qw{$dbh $DEBUG $NoosphereTitle $NoosphereCanonical $AllowCache $MAINTENANCE $stats};
 
 # 0 to turn off debug warnings.	1 turns on level 1 display, 2 for level 2 
 #	(shows all database and file operations), and so on.
@@ -674,6 +674,8 @@ sub cgi_handler {
 # main noosphere mod_perl entry point
 #
 sub handler {
+	# mod_perl reuses the interpreter; page metadata belongs to this request only.
+	local $NoosphereCanonical = '';
 	#dwarn "Noosphere Entry Point";
 		#my $req = shift;
 	#Ben, latest noosphere getting request this way
@@ -965,6 +967,7 @@ sub handler {
 
 			my $vars = {
 				no_index	  => $no_index,
+				canonical_url => $NoosphereCanonical,
 				header        => $header,
 				sidebar       => $sidebar_html,
 				content       => $content,

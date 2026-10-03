@@ -1,7 +1,18 @@
 package Noosphere;
 use strict;
 use Noosphere::TemplateNS;
-use vars qw($NoosphereTitle);
+use URI::Escape qw(uri_escape_utf8);
+use vars qw($NoosphereTitle $NoosphereCanonical);
+
+sub getEncyclopediaCanonicalURL {
+	my ($table, $rec) = @_;
+	return '' unless defined($table) && $table eq getConfig('en_tbl');
+	return '' unless defined($rec->{'name'}) && $rec->{'name'} ne '';
+
+	my $main = getConfig('main_url');
+	$main =~ s{/+$}{};
+	return $main . '/encyclopedia/' . uri_escape_utf8($rec->{'name'}) . '.html';
+}
 
 sub getObjTableIsAllowed {
 	my $table = shift;
@@ -36,6 +47,7 @@ sub getObjIdIsValid {
 sub getObj {
 	my $params = shift;
 	my $userinf = shift;
+	$NoosphereCanonical = '';
 	#dwarn "getObj Started";
 	my $html = '';
 	my $html_obj = '';
@@ -96,6 +108,9 @@ sub getObj {
 		$msg .= "This may be a mistake.  Try contacting the <a href=\"".getConfig('main_url')."/?op=getuser&id=$rec->{userid}\">object owner</a> (preferably) or <a href=\"mailto:".getAddr('feedback')."\">administration</a> (if the owner is unresponsive).";
 		return errorMessage($msg);
 	}
+
+	# Use the resolved record, not an alias or untrusted request URL.
+	$NoosphereCanonical = getEncyclopediaCanonicalURL($from, $rec);
 
 	# handle watch changing
 	#
