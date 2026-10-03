@@ -1027,22 +1027,11 @@ sub getEncyclopediaAdminControls {
 #
 sub getAdminMenu {
 	my $access = shift;
-	
-	my $html = '';
-	my $menu = '';
-	
-	if ($access >= getConfig('access_admin') ) {
-		my $bullet = getBullet();
-	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=postnews\">post news</a><br>";
-	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=newpoll\">new poll</a><br>";
-	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=adminstats\">statistics</a><br>";
-	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=dbadmin\">DB admin</a><br>";
-	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=cachecont\">cache control</a><br>";
-	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=blacklist\">blacklist</a><br>";
-	$menu .= "$bullet&nbsp;<a href=\"".getConfig("main_url")."/?op=webstats\">web stats</a><br>";
-	$html = adminBox('Admin Menu',$menu);
-	$html = "<tr><td>$html</td></tr>";
-	}
+	return '' unless defined $access && $access >= getConfig('access_admin');
+	my $html;
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('adminmenu.tt', { main_url => getConfig('main_url') }, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
 	return $html;
 }
 

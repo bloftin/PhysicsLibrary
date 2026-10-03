@@ -24,10 +24,10 @@
 
                                         [% IF search_results %]
                                             <!-- standard box -->
-                                            <table width="100%">
+                                            <table width="100%" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td>
-                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
 
                                                             <!-- title -->
                                                             <tr>
@@ -58,10 +58,10 @@
                                         [% ELSE %]
 
                                             <!-- standard box -->
-                                            <table width="100%">
+                                            <table width="100%" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td style="white-space:nowrap;">
-                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
+                                                        <table WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
 
                                                             <!-- title -->
                                                             <tr>
