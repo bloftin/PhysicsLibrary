@@ -1,0 +1,38 @@
+<style type="text/css">
+.pl-notices { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-notices .pl-modern-box-header { background: #003399; border-bottom-color: #002266; }
+.pl-notices-summary, .pl-notice-meta, .pl-notice-default { color: #526170; font-size: .82rem; }
+.pl-notices-toolbar { align-items: center; display: flex; flex-wrap: wrap; gap: .5rem; padding: .65rem 0; }
+.pl-notices button { background: #eef3f7; border: 1px solid #b6c5d2; border-radius: 3px; color: #243d55; cursor: pointer; font: inherit; font-size: .82rem; padding: .4rem .65rem; }
+.pl-notices button:hover { background: #dfeaf3; }
+.pl-notices button:focus-visible, .pl-notices input:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-notice { border-bottom: 1px solid #cbd6de; padding: .75rem 0; overflow-wrap: anywhere; }
+.pl-notice:first-child { border-top: 1px solid #cbd6de; }
+.pl-notice-heading { align-items: baseline; display: flex; flex-wrap: wrap; gap: .4rem .65rem; font-size: .9rem; }
+.pl-notice-heading input { flex: 0 0 auto; }
+.pl-notice-body, .pl-notice-context, .pl-notice-actions { font-size: .86rem; line-height: 1.5; margin: .5rem 0 0 1.8rem; }
+.pl-notice-default { margin: .4rem 0 0 1.8rem; line-height: 1.5; }
+.pl-notices-message { border-left: 3px solid #003399; padding: .6rem .8rem; margin-bottom: .75rem; }
+.pl-notices-empty { border-top: 1px solid #cbd6de; color: #526170; padding: 1rem 0; }
+@media (max-width: 520px) { .pl-notice-meta { flex-basis: 100%; margin-left: 1.8rem; } }
+</style>
+<div class="pl-notices">
+  [% INCLUDE modernboxheader.tt title = title %]
+  [% IF message %]<div class="pl-notices-message">[% message %]</div>[% END %]
+  <p class="pl-notices-summary">[% count %] unread notice[% IF count != 1 %]s[% END %]</p>
+  [% IF count %]
+  <form name="notices" method="post" action="/">
+    <input type="hidden" name="op" value="notices">
+    <div class="pl-notices-toolbar">
+      <label><input type="checkbox" aria-label="Select all notices" onchange="for (var i = 0; i &lt; this.form.elements.length; i++) { var el = this.form.elements[i]; if (el.type === 'checkbox' &amp;&amp; /^sel_/.test(el.name)) el.checked = this.checked; }"> Select all</label>
+      <button type="reset">Select none</button>
+    </div>
+    <div class="pl-notices-list">[% FOREACH notice IN notices %][% notice %][% END %]</div>
+    <div class="pl-notices-toolbar">
+      <button type="submit" name="delsel" value="1">Delete selected</button>
+      <button type="submit" name="delunsel" value="1">Delete unselected</button>
+      <button type="submit" name="delall" value="1">Delete all</button>
+    </div>
+  </form>
+  [% ELSE %]<p class="pl-notices-empty">No notices.</p>[% END %]
+</div>
