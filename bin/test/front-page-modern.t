@@ -11,7 +11,7 @@ sub read_file {
     return do {local $/; <$in>};
 }
 my @handlers;
-for my $spec (['Stats.pm', 'getTopUsers'], ['Stats.pm','getLatest'], ['Polls.pm','getCurrentPoll'], ['Messages.pm','getLatestMessages']) {
+for my $spec (['Stats.pm', 'getTopUsers'], ['Stats.pm','getLatest'], ['Polls.pm','getCurrentPoll'], ['Messages.pm','getLatestMessages'], ['News.pm','getHomeNews']) {
     my $source=read_file('lib/Noosphere/'.$spec->[0]);
     my ($handler)=$source =~ /(sub $spec->[1] \{.*?^\})/ms;
     push @handlers, $handler;
@@ -21,11 +21,12 @@ for my $spec (['Stats.pm', 'getTopUsers'], ['Stats.pm','getLatest'], ['Polls.pm'
     our ($dbh,$stats,@queries,@polls,@messages);
     our $success=1;
     sub getConfig {
-        return {template_path=>'stemplates',main_url=>'https://example.invalid',latest_additions=>20,latest_revisions=>20,latest_messages=>20,message_tbl=>'messages',user_tbl=>'users'}->{$_[0]};
+        return {template_path=>'stemplates',main_url=>'https://example.invalid',latest_additions=>20,latest_revisions=>20,latest_messages=>20,message_tbl=>'messages',user_tbl=>'users',news_tbl=>'news',news_frontpage_count=>1}->{$_[0]};
     }
     sub dbSelect {push @queries,$_[1]; return ($success,bless {pos=>0},'HomeStatement')}
     sub dbGetRows {@polls}
     sub mdhm {$_[0]}
+    sub md {$_[0]}
     sub qhtmlescape {my $s=$_[0]; $s =~ s/&/&amp;/g; $s =~ s/</&lt;/g; $s =~ s/>/&gt;/g; $s =~ s/"/&quot;/g; $s}
     sub mathTitle {$_[0]}
     sub dwarn {die 'unexpected diagnostic'}
@@ -82,6 +83,17 @@ my %fixtures;
     @Noosphere::polls=();
     Noosphere::getCurrentPoll(1);
     ok(!$HomeTemplate::vars->{poll},'no open poll represented explicitly');
+    @Noosphere::polls=({uid=>12,title=>'<News & Updates>',created=>'2026-10-03'});
+    is(Noosphere::getHomeNews(),'homenews.tt','homepage news uses dedicated template');
+    is($Noosphere::queries[-1]{LIMIT},1,'news honors configured front-page limit');
+    is($Noosphere::queries[-1]{FROM},'news','news headlines need no user join');
+    is($Noosphere::queries[-1]{WHAT},'uid,title,created','sidebar does not load full news bodies');
+    is($Noosphere::queries[-1]{'ORDER BY'},'created DESC, uid DESC','newest news appears first with stable ordering');
+    is($HomeTemplate::vars->{items}[0]{date},'2026-10-03','news dates formatted for display');
+    $fixtures{news}=$HomeTemplate::vars;
+    @Noosphere::polls=();
+    Noosphere::getHomeNews();
+    is(scalar @{$HomeTemplate::vars->{items}},0,'empty news represented explicitly');
     @Noosphere::messages=({uid=>8,threadid=>7,userid=>1,tbl=>'objects',objectid=>116,subject=>'<Message>',username=>'<Ben>',created=>'2026-10-03'});
     is(Noosphere::getLatestMessages(1),'homemessages.tt','messages use modern template');
     like($Noosphere::queries[-1]{WHERE},qr/messages.visible = 1/,'hidden messages remain excluded');
@@ -93,6 +105,8 @@ my %fixtures;
     ok($HomeTemplate::vars->{failed},'message query failure gets an unavailable state');
     Noosphere::getCurrentPoll(1);
     ok($HomeTemplate::vars->{failed},'poll failure gets an unavailable state');
+    Noosphere::getHomeNews();
+    ok($HomeTemplate::vars->{failed},'news query failure gets an unavailable state');
     $HomeCache::values{topusers}=[];
     Noosphere::getTopUsers(1);
     is(scalar @{$HomeTemplate::vars->{alltime}},0,'unavailable ranking cache handled');
@@ -103,7 +117,7 @@ my %fixtures;
 subtest 'real front-page templates' => sub {
     plan skip_all=>'Template Toolkit unavailable' unless $tt;
     my %rendered;
-    my %templates=(top_users=>'hometopusers.tt',latestadditions=>'homelatest.tt',latestrevisions=>'homelatest.tt',poll=>'homepoll.tt',latestmessages=>'homemessages.tt');
+    my %templates=(top_users=>'hometopusers.tt',latestadditions=>'homelatest.tt',latestrevisions=>'homelatest.tt',poll=>'homepoll.tt',latestmessages=>'homemessages.tt',news=>'homenews.tt');
     for my $key (sort keys %templates) {
         ok($tt->process($templates{$key},$fixtures{$key},\$rendered{$key}),"$key renders") or diag($tt->error);
     }
@@ -116,6 +130,9 @@ subtest 'real front-page templates' => sub {
     like($rendered{poll},qr/value="No &amp; maybe"/,'poll options escaped without changing values');
     like($rendered{poll},qr/method="post" action="\/"/,'poll retains POST submission');
     like($rendered{poll},qr/name="op" value="vote".*name="id" value="90"/s,'vote route and poll identifier retained');
+    like($rendered{news},qr/&lt;News &amp; Updates&gt;/,'news headlines are escaped');
+    like($rendered{news},qr/op=getobj&amp;from=news&amp;id=12/,'news links to the existing full article');
+    like($rendered{news},qr/op=oldnews/,'news archive remains accessible');
     my $decorated=Noosphere::requestFormDecorate($rendered{poll},{uid=>1,ticket=>('a' x 64),data=>{active=>1}});
     like($decorated,qr/name="_form_token"/,'existing CSRF decorator protects voting form');
     my $html;
@@ -123,6 +140,7 @@ subtest 'real front-page templates' => sub {
     like($html,qr/pl-home-layout/,'homepage uses responsive layout');
     unlike($html,qr/<table|<center|<font/i,'homepage removes legacy wrappers');
     unlike($html,qr/name="robots"/,'normal homepage remains indexable');
+    like($html,qr/Current Poll.*aria-label="News".*Latest Additions/s,'news appears below poll and above additions');
     my @welcome_paragraphs = (
         q{<p> Physics Library is a virtual community which aims to help make physics knowledge more accessible. Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members. The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>},
         q{<p> Physics Library entries are written in <a href="https://www.latex-project.org/">LaTeX</a>, the <i>lingua franca</i> of the worldwide mathematics community. All of the entries are automatically cross-referenced with each other, and the entire corpus is kept updated in real-time. </p>},
@@ -141,8 +159,14 @@ subtest 'real front-page templates' => sub {
     like($html,qr/gcse-searchresults-only/,'Google results widget retained');
     like($html,qr/name="robots" content="noindex,follow"/,'search-results noindex retained');
     unlike($html,qr/Welcome!/,'welcome does not appear in search results');
-    for my $template (qw(hometopusers homelatest homepoll homemessages)) {
+    for my $template (qw(hometopusers homelatest homepoll homemessages homenews)) {
         ok($tt->process("$template.tt",{},\$html),"$template empty state renders");
     }
+    my $empty_news='';
+    ok($tt->process('homenews.tt',{items=>[]},\$empty_news),'empty news renders');
+    like($empty_news,qr/No news yet\./,'empty news is clearly distinguished from failure');
+    my $failed_news='';
+    ok($tt->process('homenews.tt',{failed=>1},\$failed_news),'news failure renders');
+    like($failed_news,qr/temporarily unavailable/,'failed news does not claim there are no items');
 };
 done_testing;
