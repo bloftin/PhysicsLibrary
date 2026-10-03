@@ -99,24 +99,26 @@ sub userList {
 				align => 'center'}
 			);
 
-	my $list = "";
-	my $limit = $userinf->{prefs}->{pagelength};
+	my $limit = $userinf->{prefs}->{pagelength} || getConfig('listings_page');
 
 	# get total if we don't have one
 	#
 	if (not defined $params->{total}) {
 		my ($rv, $sth)=dbSelect($dbh,{WHAT=>'uid,username,joined,score', FROM=>'users', WHERE=>'uid > 0'});
+		return errorMessage('Could not load user list.') unless $rv;
 		$params->{total}=$sth->rows();
 		$sth->finish();
 	}
 
-	$params->{'offset'} = $params->{'offset'} || 0;
-	
-	my $sortkey = urlunescape($params->{'sortby'}) || 'uid';
+	my $sortkey = urlunescape($params->{'sortby'});
+	$sortkey = 'uid' unless exists $cols{$sortkey};
+	$params->{'offset'} = 0 unless defined $params->{'offset'} && $params->{'offset'} =~ /^\d+$/;
+	$params->{'total'} = 0 unless defined $params->{'total'} && $params->{'total'} =~ /^\d+$/;
+	$params->{'offset'} = 0 if $params->{'offset'} >= $params->{'total'};
 
 	my ($rv, $sth);
 
-	my $sortidx = (defined $params->{'sortidx'} ? $params->{'sortidx'} % 2 : 0);
+	my $sortidx = (defined $params->{'sortidx'} && $params->{'sortidx'} =~ /^[01]$/ ? $params->{'sortidx'} : 0);
 	my $sortstmt = $cols{$sortkey}->{'sortsql'}->[$sortidx];
 	
 	($rv, $sth) = dbSelect($dbh,{WHAT=>'users.uid,
@@ -143,92 +145,52 @@ sub userList {
         2/(1/(users.score/(round((unix_timestamp(now())-unix_timestamp(users.joined))/86400)+1)+1)+1/(round((unix_timestamp(now())-unix_timestamp(users.joined))/86400)+1)) as consistency,                                                             sum(objects.uid is not null) as entries',
         FROM=>'users left outer join objects ON users.uid = objects.userid', WHERE=>'users.uid > 0', 'GROUP BY' => 'users.uid', 'ORDER BY'=>$sortstmt, OFFSET=>$params->{'offset'}, LIMIT=>$limit}) if getConfig('dbms') eq 'MariaDB';
 
+	return errorMessage('Could not load user list.') unless $rv;
 	my @rows = dbGetRows($sth);
-
-	my $pager = getPager($params,$userinf);
-	$pager =~ s/items/people/g;  # ugly hack
-
-	$list .= "<center>";
-	$list .= "$pager <p>";
-	$list .= "<table cellpadding=\"2\">";
-
 	my $main_url = getConfig('main_url');
-	
-	# populate column info with default selection CGI params, etc
-	#
-	foreach my $key (keys %cols) {
-		$cols{$key}->{'params'} = {'op' => 'userlist', 'sortby' => $key};
-		$cols{$key}->{'title'} = "Click on me to resort by ".$cols{$key}->{'heading'};
+	my @columns;
+	foreach my $key (sort { $cols{$a}->{order} <=> $cols{$b}->{order} } keys %cols) {
+		my $selected = $key eq $sortkey;
+		my $next_idx = $selected ? ($sortidx + 1) % 2 : 0;
+		push @columns, {
+			key => $key,
+			label => $cols{$key}->{heading},
+			url => "$main_url/?op=userlist&amp;sortby=$key&amp;sortidx=$next_idx",
+			selected => $selected,
+			direction => $selected && $sortstmt =~ / DESC$/ ? 'descending' : 'ascending',
+		};
 	}
-
-	# alter column info based on selected or not
-	#
-	$cols{$sortkey}->{'heading'} = '<b>'.$cols{$sortkey}->{'heading'}.'</b>';
-	$cols{$sortkey}->{'params'}->{'sortidx'} = ($sortidx + 1) % 2;
-	$cols{$sortkey}->{'title'} = "Click on me to toggle the sort order.";
-	
-	$list .= "<tr> <td>&nbsp;</td>";
-
-	# output column headings
-	#
-	foreach my $key (sort { $cols{$a}->{'order'} <=> $cols{$b}->{'order'} } (keys %cols)) {
-
-		my $pstr = join('&amp;', map "$_=$cols{$key}->{params}->{$_}", (keys %{$cols{$key}->{'params'}}));
-
-		$list .= "<td align=\"center\" valign=\"bottom\"><a href=\"$main_url/?$pstr\" title=\"$cols{$key}->{title}\">$cols{$key}->{heading}</a></td>";
-	}
-			 
-	$list .= "</tr>";
-			 
-	my $i = $params->{'offset'} + 1;
-	
+	my @members;
+	my $number = $params->{'offset'} + 1;
 	foreach my $row (@rows) {
-
-		my %vals = ();
-
-		# grab and format raw database values
-		#
-		%vals = %$row;
-		$vals{'joined'} = ymd($row->{'joined'});
-		$vals{'productivity'} = sprintf("%.2f",$row->{'productivity'});
-		$vals{'consistency'} = sprintf("%.2f",$row->{'consistency'});
-		$vals{'username'} = "<a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{uid}\">$row->{username}</a>";
-
-		foreach my $key (keys %vals) {
-			if ($sortkey eq $key) {
-				$vals{$key} = '<b>'.$vals{$key}.'</b>';
-			}
-		}
-	
-		# print out columns
-		#
-		$list .= "<tr>"; 
-		$list .= "<td align=\"left\">$i. </td>";
-
-		foreach my $key (sort { $cols{$a}->{'order'} <=> $cols{$b}->{'order'} } keys %cols) {
-
-			$list .= "<td align=\"".$cols{$key}->{'align'}."\">$vals{$key}</td>";
-		}
-
-		$list .= "</tr>"; 
-		$i++;
+		my $uid = int($row->{uid});
+		push @members, {
+			number => $number++,
+			uid => $uid,
+			username => qhtmlescape($row->{username}),
+			profile_url => "$main_url/?op=getuser&amp;id=$uid",
+			score => qhtmlescape($row->{score}),
+			entries => qhtmlescape($row->{entries}),
+			productivity => sprintf('%.2f', $row->{productivity} || 0),
+			consistency => sprintf('%.2f', $row->{consistency} || 0),
+			joined => qhtmlescape(ymd($row->{joined})),
+		};
 	}
-	
-	$list .= "</table>";
-	$list .= "<p>$pager";
-	$list .= "</center>";
-
-	$list .= "<br><br>
-					<font size=\"-1\">
-					<dl>
-			 <dt>1</dt>
-			 <dd>Productivity is approximately s/d, where s=score and d=number of days the user has been a member of ".getConfig('projname').".</dd>
-			 <dt>2</dt>
- 	 		 <dd>Consistency is a metric of user value which attempts to recognize productivity over time.	It is approximately 2/(1/p+1/d), where p=productivity (as described above) and d=days of membership (this is then the harmonic mean of p and d).	The motivation for having such a metric is that new users can have a very high productivity at first, but then lose interest.	Since their productivity hasn't been spread over much time, they will hence not have a high consistency rating.</dd>
-			</dl>
-			</font> ";
-
-	return paddingTable(clearBox(getConfig('projname').' Users',$list)); 
+	my %pager_params = (
+		op => 'userlist', sortby => $sortkey, sortidx => $sortidx,
+		offset => $params->{'offset'}, total => $params->{'total'},
+	);
+	my $pager = getPager(\%pager_params, $userinf);
+	$pager =~ s/items/people/g;
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('userlist.tt', {
+		columns => \@columns, members => \@members, total => $params->{'total'},
+		first => @members ? $params->{'offset'} + 1 : 0,
+		last => @members ? $params->{'offset'} + scalar(@members) : 0,
+		pager => $pager,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return paddingTable($html);
 }
 
 1;

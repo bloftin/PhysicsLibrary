@@ -1,0 +1,61 @@
+<style type="text/css">
+.pl-user-list { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-user-list a { color: #064d93; }
+.pl-user-list-summary { color: #526170; font-size: .88rem; margin: 0 0 .6rem; }
+.pl-user-list-pager { font-size: .86rem; margin: .35rem 0 .75rem; }
+.pl-user-list-pager center { text-align: center; }
+.pl-user-list-table-wrap { overflow-x: auto; }
+.pl-user-list-table { border-collapse: collapse; min-width: 48rem; width: 100%; }
+.pl-user-list-table th { background: #eef3f7; border-bottom: 1px solid #b6c5d2; color: #314353; font-size: .8rem; padding: .5rem .45rem; text-align: left; white-space: nowrap; }
+.pl-user-list-table th a { color: inherit; text-decoration: none; }
+.pl-user-list-table th a:hover, .pl-user-list-table th a:focus { color: #064d93; text-decoration: underline; }
+.pl-user-list-table th[aria-sort="ascending"], .pl-user-list-table th[aria-sort="descending"] { background: #dce9f2; }
+.pl-user-list-table td { border-bottom: 1px solid #cbd6de; font-size: .85rem; padding: .5rem .45rem; }
+.pl-user-list-table tbody tr:hover { background: #f5f8fa; }
+.pl-user-list-table .pl-user-list-number { color: #697887; width: 2.5rem; }
+.pl-user-list-table .pl-user-list-numeric { text-align: right; }
+.pl-user-list-table .pl-user-list-date { white-space: nowrap; }
+.pl-user-list-empty { border: 1px solid #b6c5d2; color: #526170; font-size: .86rem; margin: 0; padding: .75rem; }
+.pl-user-list-notes { border-top: 1px solid #cbd6de; color: #526170; font-size: .82rem; line-height: 1.45; margin-top: 1rem; padding-top: .65rem; }
+.pl-user-list-notes h2 { color: #314353; font-size: .9rem; margin: 0 0 .35rem; }
+.pl-user-list-notes p { margin: .3rem 0; }
+</style>
+
+<div class="pl-user-list">
+  [% INCLUDE modernboxheader.tt title = 'Physics Library Users' %]
+  <p class="pl-user-list-summary">[% IF members.size %]Showing [% first %]-[% last %] of [% total %] people.[% ELSE %]No members to display.[% END %]</p>
+  [% IF members.size %]
+    <nav class="pl-user-list-pager" aria-label="User list pages">[% pager %]</nav>
+    <div class="pl-user-list-table-wrap">
+      <table class="pl-user-list-table" aria-label="Users">
+        <thead><tr><th scope="col"><span class="pl-user-list-number">#</span></th>
+          [% FOREACH column IN columns %]
+            <th scope="col" aria-sort="[% IF column.selected %][% column.direction %][% ELSE %]none[% END %]"><a href="[% column.url %]">[% column.label %][% IF column.selected %] [% IF column.direction == 'ascending' %]&#9650;[% ELSE %]&#9660;[% END %][% END %]</a></th>
+          [% END %]
+        </tr></thead>
+        <tbody>
+          [% FOREACH member IN members %]
+            <tr>
+              <td class="pl-user-list-number">[% member.number %].</td>
+              <td class="pl-user-list-numeric">[% member.uid %]</td>
+              <td><a href="[% member.profile_url %]">[% member.username %]</a></td>
+              <td class="pl-user-list-numeric">[% member.score %]</td>
+              <td class="pl-user-list-numeric">[% member.entries %]</td>
+              <td class="pl-user-list-numeric">[% member.productivity %]</td>
+              <td class="pl-user-list-numeric">[% member.consistency %]</td>
+              <td class="pl-user-list-date">[% member.joined %]</td>
+            </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </div>
+    <nav class="pl-user-list-pager" aria-label="User list pages">[% pager %]</nav>
+  [% ELSE %]
+    <p class="pl-user-list-empty">There are no members to list yet.</p>
+  [% END %]
+  <section class="pl-user-list-notes" aria-label="Score definitions">
+    <h2>About the scores</h2>
+    <p><strong>Productivity</strong> is approximately score divided by days of membership.</p>
+    <p><strong>Consistency</strong> is approximately the harmonic mean of productivity and days of membership. It rewards productivity sustained over time.</p>
+  </section>
+</div>
