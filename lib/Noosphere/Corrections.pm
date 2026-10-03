@@ -384,6 +384,7 @@ sub globalViewCorrections {
 sub editCorrections {
 	my $params = shift;
 	my $userinf = shift;
+	return errorMessage('Must be logged in to view corrections to your objects') if ($userinf->{uid} < 1);
 	
 	my $limit = $userinf->{'prefs'}->{'pagelength'};
 	my $offset = $params->{'offset'}||0;
@@ -401,6 +402,7 @@ sub editCorrections {
 			WHAT=>"count(*) as cnt",
 			FROM=>"corrections,$table,users",
 			WHERE=>"$table.uid=corrections.objectid and corrections.userid=users.uid and $table.userid=$userinf->{uid}"});
+		return errorMessage('Error with query. Contact admin.') if (!$rv);
 
 		my $row = $sth->fetchrow_hashref();
 		$total = $row->{cnt};
@@ -423,41 +425,23 @@ sub editCorrections {
 
 	my @rows = dbGetRows($sth);
 
-	$html .= "<center>(edit <a href=\"".getConfig("main_url")."/?op=editfiledcors\">your filed corrections</a>)</center>";
-	$html .= "<p>";
-
-	if ($sth->rows() > 0 ) {
-		my $i = 1;
-		$html .= "<table>";
-		$html .= "<tr><td></td><td align=\"center\">date</td><td width=\"90%\" align=\"center\">correction and object title</td><td align=\"center\">by user</td></tr>";
-		foreach my $row (@rows) {
-			my $ar = "x";
-			my $bg = ($i % 2 == 1) ? "bgcolor=\"#eeeeee\"" : '';
-			$html .= "<tr $bg>";
-			if (not defined $row->{closed}) {
-				$ar = "[<a href=\"".getConfig("main_url")."/?op=rejectcor&amp;id=$row->{objectid}&amp;correct=$row->{uid}\">x</a>|<a href=\"".getConfig("main_url")."/?op=edit&amp;from=$table&amp;id=$row->{objectid}&amp;correct=$row->{uid}\">+</a>]";
-			} else {
-				$ar = "+" if ($row->{accepted} == 1);
-				$ar = "-" if ($row->{accepted} == 2);
-			}
-			my $date = ymd($row->{filed});
-			$html .= "<td align=\"center\">$ar</td>";
-			$html .= "<td valign=\"top\">$date</td>";
-			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$cor&amp;id=$row->{uid}\">$row->{title}</a><br>to: <a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$table&amp;id=$row->{objectid}\">$row->{objtitle}</a></td>";
-			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{userid}\">$row->{username}</a></td>";
-			$html .= "</tr>";
-			$i++;
-		}
-		$html .= "</table>";
-		$html .= "<br>";
-		$html .= "<center><font size=\"-1\">(For entries where '[x|+]' appears, click on 'x' to reject the correction and '+' to accept it.)</font></center>";
-		$html .= getPager({op=>$params->{'op'}, total=>$total, offset=>$offset},$userinf,2);
+	foreach my $row (@rows) {
+		$row->{date} = ymd($row->{filed});
+		$row->{pending} = !defined $row->{closed};
+		$row->{status} = $row->{pending} ? 'Pending'
+			: !defined $row->{accepted} ? 'Closed'
+			: $row->{accepted} == 1 ? 'Accepted'
+			: $row->{accepted} == 2 ? 'Retracted' : 'Rejected';
 	}
-	else {
-		$html .= "No corrections";
-	}
-
-	return paddingTable(clearBox("Corrections to Your Objects",$html));
+	my $pager = getPager({op=>'editcors', total=>$total, offset=>$offset,
+		($params->{asc} ? (asc=>1) : ())}, $userinf, 2);
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('editcors.tt', {
+		title => 'Corrections to Your Objects', rows => \@rows, total => $total,
+		pager => $pager, main_url => getConfig('main_url'), object_table => $table,
+		correction_table => $cor,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # edit your filed corrections. leads off to either object viewer or special
