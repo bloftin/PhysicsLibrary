@@ -141,6 +141,7 @@ sub getPoll {
 # get html for current poll, that fits on the toolbar
 #
 sub getCurrentPoll {
+	my $modern = shift;
 	my $html = "";
 
 	(my $rv, my $sth) = dbSelect($dbh,{WHAT=>'title,options,uid',
@@ -150,12 +151,21 @@ sub getCurrentPoll {
 	 'DESC' => '',
 	 LIMIT => 1});
 
-	if (! $rv) {
+	if (! $rv && !$modern) {
 		dwarn "poll query failed!\n";
 		return "poll query failed!";
 	}
 	
-	my @rows = dbGetRows($sth);
+	my @rows = $rv ? dbGetRows($sth) : ();
+	if ($modern) {
+		my $row = $rows[0];
+		my @options = $row ? split(/,/, $row->{options}) : ();
+		my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+		$tt->process('homepoll.tt', { poll => $row, options => \@options,
+			failed => !$rv, main_url => getConfig('main_url') }, \$html)
+			|| die "Template process failed: ", $tt->error(), "\n";
+		return $html;
+	}
 	
 	if ($#rows < 0) {
 		return clearBox('Current Poll',"No open <a href=\"".getConfig("main_url")."/?op=viewpolls\">polls</a>.");

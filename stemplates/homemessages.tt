@@ -1,0 +1,18 @@
+<section class="pl-home-widget" aria-label="Latest messages">
+  <h2 class="pl-home-title">Latest Messages</h2>
+  [% IF failed %]<p class="pl-home-empty">Messages temporarily unavailable.</p>
+  [% ELSIF messages.size %]
+    <ul class="pl-home-messages">
+    [% FOREACH message IN messages %]
+      <li>
+        <div class="pl-home-message-heading"><a href="[% main_url | html %]/?op=getmsg&amp;id=[% message.uid | html %]">[% message.subject | html %]</a><span>[% message.date | html %]</span></div>
+        <div class="pl-home-message-meta">By <a href="[% main_url | html %]/?op=getuser&amp;id=[% message.userid | html %]">[% message.username | html %]</a>
+          <a href="[% main_url | html %]/?op=getobj&amp;from=[% message.tbl | html %]&amp;id=[% message.objectid | html %]">Context</a>
+          [% IF message.uid != message.threadid %]<a href="[% main_url | html %]/?op=getmsg&amp;id=[% message.threadid | html %]">Thread</a>[% END %]
+        </div>
+      </li>
+    [% END %]
+    </ul>
+  [% ELSE %]<p class="pl-home-empty">No messages.</p>[% END %]
+  <a class="pl-home-more" href="[% main_url | html %]/?op=messageschrono">View all messages</a>
+</section>

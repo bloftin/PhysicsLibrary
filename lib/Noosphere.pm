@@ -1104,12 +1104,12 @@ sub buildMainPageTT {
 		features => $mainMenubox,
 	}, \$sidebar) || die "Template process failed: ", $tt->error(), "\n";
 
-	my $la = getLatestAdditions();
-	my $lm = getLatestModifications();
-	my $latest_messages = getLatestMessages();
+	my $la = getLatestAdditions(1);
+	my $lm = getLatestModifications(1);
+	my $latest_messages = getLatestMessages(1);
 
-	my $top_users = getTopUsers();
-	my $poll = getCurrentPoll();
+	my $top_users = getTopUsers(1);
+	my $poll = getCurrentPoll(1);
 
 	my $search_results = $params->{sa};
 	#dwarn "Searching: $search_results";

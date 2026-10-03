@@ -163,6 +163,7 @@ sub getLatestMessagesXML {
 # get HTML for most recent visible messages
 #
 sub getLatestMessages {
+	my $modern = shift;
 	my $mtbl = getConfig('message_tbl');
 	my $utbl = getConfig('user_tbl');
 	my ($rv, $sth) = dbSelect($dbh, {
@@ -174,6 +175,21 @@ sub getLatestMessages {
 		LIMIT => getConfig('latest_messages')
 	});
 
+	if ($modern) {
+		my @messages;
+		if ($rv) {
+			while (my $row = $sth->fetchrow_hashref()) {
+				push @messages, { %$row, date => mdhm($row->{created}) };
+			}
+			$sth->finish();
+		}
+		my $html;
+		my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+		$tt->process('homemessages.tt', { messages => \@messages,
+			failed => !$rv, main_url => getConfig('main_url') }, \$html)
+			|| die "Template process failed: ", $tt->error(), "\n";
+		return $html;
+	}
 	return clearBox('Latest Messages', 'query error') unless $rv;
 
 	my $html = '';
