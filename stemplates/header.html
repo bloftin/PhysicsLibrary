@@ -1,4 +1,11 @@
 <style>
+	.pl-header-quick-links { font: .8rem Arial, Helvetica, sans-serif; line-height: 1.5; }
+	.pl-header-quick-links a { color: #174e80; display: inline-block; padding: .15rem .1rem; }
+	#cse-search-box .pl-header-search-controls { align-items: center; display: flex; gap: .3rem; justify-content: flex-end; }
+	#cse-search-box input[type=text] { border: 1px solid #8797a5; box-sizing: border-box; font: .85rem Arial, Helvetica, sans-serif; min-width: 0; padding: .3rem .45rem; }
+	#cse-search-box input[type=submit] { background: #003399; border: 1px solid #002266; border-radius: 2px; color: #fff; cursor: pointer; font: .85rem Arial, Helvetica, sans-serif; padding: .3rem .65rem; }
+	#cse-search-box input[type=submit]:hover { background: #002266; }
+	.pl-header-quick-links a:focus-visible, #cse-search-box input:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
 	table.tblheader
 	{
 		margin: auto;
@@ -25,11 +32,11 @@
 
 		<td align="right" valign="center">
 			<form action="https://physicslibrary.org" id="cse-search-box">
-				<div>
+				<div class="pl-header-search-controls">
 				  <input type="hidden" name="cx" value="d7c37e2bb0d444808" />
 				  <input type="hidden" name="cof" value="FORID:10" />
 				  <input type="hidden" name="ie" value="UTF-8" />
-				  <input type="text" name="q" id="pl-header-search-q" size="31" value="<NS:template q qhtml/>" />
+				  <input type="text" name="q" id="pl-header-search-q" size="31" aria-label="Search Physics Library" value="<NS:template q qhtml/>" />
 				  <input type="submit" name="sa" value="Search" />
 				</div>
 			</form>
@@ -83,7 +90,7 @@
 
 								<!-- quick links -->
 
-								<font size="-2">
+								<span class="pl-header-quick-links">
 									<a href="<NS:template main_url/>/encyclopedia">Encyclopedia</a> |
 									<!--<a href="<NS:template main_url/>/?op=browse&amp;from=books">Books</a> |
 									<a href="<NS:template main_url/>/?op=browse&amp;from=papers">Papers</a> |
@@ -92,12 +99,12 @@
 									<a href="<NS:template main_url/>/?op=sitedoc">Docs</a> |
 									<!-- APK - we should update this PURL to the below ASAP -->
 									<!--<a href="https://purl.oclc.org/NET/PMWiki/">Wiki</a> |-->
-									<a href="<NS:template main_url/>/?op=randomentry">Random</a> |
+									<a href="<NS:template main_url/>/?op=randomentry">Random</a>
 									<!--<a href="<NS:template main_url/>/?op=templatetestperl">Template Test</a> | |-->
 
 									&nbsp;
 
-								</font>
+								</span>
 		
 							</td>
 

@@ -1110,6 +1110,7 @@ sub buildMainPageTT {
 
 	my $top_users = getTopUsers(1);
 	my $poll = getCurrentPoll(1);
+	my $news = getHomeNews();
 
 	my $search_results = $params->{sa};
 	#dwarn "Searching: $search_results";
@@ -1125,6 +1126,7 @@ sub buildMainPageTT {
 		latestmessages  => $latest_messages,
 		latestrevisions => $lm,
 		poll            => $poll,
+		news            => $news,
 		search_results	=> $search_results,
 		top_users       => $top_users,
     };

@@ -33,6 +33,25 @@ sub getTopNews_data {
 	return $xml;
 }
 
+# compact headline list for the homepage sidebar
+sub getHomeNews {
+    my $count = getConfig('news_frontpage_count');
+    my ($rv, $sth) = dbSelect($dbh, {
+        WHAT => 'uid,title,created', FROM => getConfig('news_tbl'),
+        'ORDER BY' => 'created DESC, uid DESC', LIMIT => $count,
+    });
+    my @items = $rv ? dbGetRows($sth) : ();
+    $sth->finish() if !$rv && $sth;
+    $_->{date} = md($_->{created}) for @items;
+
+    my $html = '';
+    my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+    $tt->process('homenews.tt', {
+        items => \@items, failed => !$rv, main_url => getConfig('main_url'),
+    }, \$html) || die "Template process failed: ", $tt->error(), "\n";
+    return $html;
+}
+
 # post a news item
 #
 sub postNews {

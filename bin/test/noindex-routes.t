@@ -104,6 +104,7 @@ sub getLatestModifications { return '' }
 sub getLatestMessages { return '' }
 sub getTopUsers { return '' }
 sub getCurrentPoll { return '' }
+sub getHomeNews { return '<p>Homepage news</p>' }
 my ($builder) = $source =~ /^(sub buildMainPageTT \{.*?)(?=^sub |\z)/ms;
 die 'buildMainPageTT not found' unless defined $builder;
 eval $builder;
@@ -116,6 +117,7 @@ die $@ if $@;
         my $request = IndexingRequest->new();
         my $no_index = applyIndexingPolicy($request, '', $sa);
         my $html = buildMainPageTT({sa => $sa, q => 'polar'}, {data => {access => 0}}, $no_index);
+        like($html, qr/<p>Homepage news<\/p>/, 'real homepage builder connects news to the sidebar');
         if ($sa) {
             like($html, qr/name="robots" content="noindex,follow"/, 'real front-page builder passes the noindex flag');
             like($html, qr/class="gcse-searchresults-only"/, 'Google search widget is still rendered');
