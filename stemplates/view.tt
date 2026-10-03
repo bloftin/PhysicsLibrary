@@ -2,6 +2,10 @@
   <head>
     <title>[% title | html %][% IF site_name && title != site_name %] | [% site_name | html %][% END %]</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    [% IF canonical_url %]
+      <link rel="canonical" href="[% canonical_url | html %]" />
+    [% END %]
     
     [% IF no_index %]
       <meta name="robots" content="noindex,follow" />

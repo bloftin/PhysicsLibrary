@@ -6,7 +6,8 @@ use FindBin;
 use URI::Escape qw(uri_escape_utf8);
 use Encode ();
 
-our ($dbh, $DEBUG, $NoosphereTitle, $AllowCache, $MAINTENANCE, $stats);
+our ($dbh, $DEBUG, $NoosphereTitle, $NoosphereCanonical, $AllowCache, $MAINTENANCE, $stats);
+our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 my $dbms = 'MariaDB';
 my $main_url = 'https://physicslibrary.org';
 my @rows;
@@ -29,6 +30,10 @@ sub inMaintenance { return 0; }
 sub dbConnect { return 'test database'; }
 sub initStats { $stats = 1; }
 sub handleLogin { $logins++; return (uid => -1); }
+sub requestAccountOriginError { return ''; }
+sub requestFormDecorate { return $_[0]; }
+sub requestFormToken { return undef; }
+sub setStandardSecurityHeaders { }
 sub getNoTemplateContent { die 'Random request reached template processing'; }
 sub getObj { die 'Random request rendered an article before redirecting'; }
 
@@ -43,6 +48,7 @@ sub getObj { die 'Random request rendered an article before redirecting'; }
   sub new { bless {headers => bless({}, 'RandomHeaders'), body => ''}, shift; }
   sub headers_out { $_[0]->{headers}; }
   sub uri { return '/'; }
+  sub unparsed_uri { return '/'; }
   sub status { $_[0]->{status} = $_[1]; }
   sub content_type { $_[0]->{type} = $_[1] if @_ > 1; return $_[0]->{type}; }
   sub print { $_[0]->{body} .= $_[1]; }
