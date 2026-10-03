@@ -1,5 +1,14 @@
 <!-- math box -->
 <style>
+	.pl-article-box { margin: 0; min-width: 0; width: 100%; }
+	.pl-article-box-header { background: #003399; border-bottom: 1px solid #002266; box-sizing: border-box; color: #fff; font: bold 1rem/1.2 Arial, Helvetica, sans-serif; padding: .15rem .5rem; }
+	.pl-article-heading { align-items: baseline; display: flex; flex-wrap: wrap; gap: .15rem .75rem; }
+	.pl-article-title { flex: 1 1 20rem; font: inherit; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+	.pl-article-type { font-size: .75rem; font-weight: normal; margin-left: auto; }
+	.pl-article-parent { display: inline-block; margin-right: .35rem; }
+	.pl-article-box-header a { color: #fff; }
+	.pl-article-box-header a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+	.pl-article-box > .pl-rendered-content { box-sizing: border-box; min-width: 0; overflow-x: auto; text-align: left; width: 100%; }
 	.pl-rendered-content table.BORDER,
 	.pl-rendered-content table.tabular {
 		border-collapse: collapse;
@@ -44,29 +53,8 @@
 		vertical-align: middle;
 	}
 </style>
-<table width="100%" style="table-layout: fixed;">
-	<tr>
-		<td bgcolor="#000000">
-			<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0" style="table-layout: fixed;">
-
-				<!-- title -->
-				<tr>
-					<td WIDTH="100%" BGCOLOR="#003399">
-						<font color="white" class="box_title"><NS:template title raw/></font>
-						<NS:template ratingsbar raw/>
-					</td>
-				</tr>
-				
-				<!-- content -->
-				<tr>
-					<td WIDTH="100%" BGCOLOR="#ffffff" align="center">
-						<div class="pl-rendered-content" style="width: 100%; overflow-x: auto; text-align: left;">
-							<NS:template content raw/>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
+<section class="pl-article-box">
+	<header class="pl-article-box-header"><NS:template title raw/><NS:template ratingsbar raw/></header>
+	<div class="pl-rendered-content"><NS:template content raw/></div>
+</section>
 <!-- end math box -->
