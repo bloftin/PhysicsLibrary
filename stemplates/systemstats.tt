@@ -1,0 +1,43 @@
+<style type="text/css">
+.pl-system-stats { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-system-stats-summary { color: #526170; font-size: .88rem; margin: 0 0 .9rem; }
+.pl-system-stats-table-wrap { overflow-x: auto; }
+.pl-system-stats-table { border-collapse: collapse; font-variant-numeric: tabular-nums; min-width: 38rem; width: 100%; }
+.pl-system-stats-table th, .pl-system-stats-table td { border-bottom: 1px solid #cbd6de; font-size: .86rem; padding: .6rem .7rem; text-align: right; white-space: nowrap; }
+.pl-system-stats-table thead th { background: #eef3f7; color: #314353; font-size: .82rem; }
+.pl-system-stats-table th:first-child { text-align: left; }
+.pl-system-stats-table tbody th { font-weight: normal; }
+.pl-system-stats-table .pl-system-stats-total { background: #f1f6fa; color: #174e80; font-weight: bold; }
+.pl-system-stats-table .pl-system-stats-total th { font-weight: bold; }
+.pl-system-stats-table tbody tr:hover { background: #f5f8fa; }
+.pl-system-stats-note { color: #526170; font-size: .8rem; line-height: 1.45; margin: .65rem 0 0; }
+.pl-system-stats-host { border-top: 1px solid #b6c5d2; margin-top: 1.35rem; padding-top: .8rem; }
+.pl-system-stats-host h2 { color: #314353; font-size: 1rem; margin: 0 0 .7rem; }
+.pl-system-stats-host dl { display: grid; gap: .8rem 2rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin: 0; }
+.pl-system-stats-host dt { color: #526170; font-size: .8rem; margin-bottom: .25rem; }
+.pl-system-stats-host dd { font-size: .9rem; font-variant-numeric: tabular-nums; margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 520px) { .pl-system-stats-host dl { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="pl-system-stats">
+  [% INCLUDE modernboxheader.tt title = title %]
+  <p class="pl-system-stats-summary">Library totals and recent activity.</p>
+  <div class="pl-system-stats-table-wrap" tabindex="0" role="region" aria-label="Library activity by period">
+    <table class="pl-system-stats-table">
+      <thead><tr><th scope="col">Period</th>[% FOREACH metric IN metrics %]<th scope="col">[% metric.label %]</th>[% END %]</tr></thead>
+      <tbody>
+        [% FOREACH row IN rows %]
+          <tr[% IF row.total %] class="pl-system-stats-total"[% END %]><th scope="row">[% row.label %]</th>[% FOREACH count IN row.counts %]<td>[% count %]</td>[% END %]</tr>
+        [% END %]
+      </tbody>
+    </table>
+  </div>
+  <p class="pl-system-stats-note">Entries created, members joined, corrections filed, messages posted, and recorded views in each period.</p>
+  <section class="pl-system-stats-host" aria-label="Server status">
+    <h2>Server status</h2>
+    <dl>
+      <div><dt>Uptime</dt><dd>[% host.uptime %]</dd></div>
+      <div><dt>Load average (1 / 5 / 15 minutes)</dt><dd>[% IF host.load %][% host.load.join(' / ') %][% ELSE %]Unavailable[% END %]</dd></div>
+    </dl>
+  </section>
+</div>

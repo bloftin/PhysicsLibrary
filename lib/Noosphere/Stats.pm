@@ -1,6 +1,5 @@
 package Noosphere;
 #use strict;
-use Apache2::SubProcess ();
 use Noosphere::Util;
 use Noosphere::StatCache;
 
@@ -240,7 +239,6 @@ sub hitObject {
 # getSystemStats - get the system stats page
 #
 sub getSystemStats {
-	my $html = '';
 	my $periods;
 	
 	$periods = [
@@ -267,55 +265,67 @@ sub getSystemStats {
 		['last year',">now() - interval 365 DAY"]
     ] if getConfig('dbms') eq 'MariaDB';
 
-	my $timefields = {
-		'objects'=>'created',
-		'users'=>'joined',
-		'corrections'=>'filed',
-		'messages'=>'created',
-		'hits'=>'at'
-	};
-
-	$html .= "<table align=\"center\" cellpadding=\"5\" cellspacing=\"0\">";
-	$html .= "<tr bgcolor=\"#eeeeee\">";
-	$html .= "<td>&nbsp;</td>";
-	foreach my $table (keys %$timefields) {
-		$html .= "<td>$table</td>";
-	}
-	$html .= "</tr>";
+	return errorMessage('System statistics are unavailable for this database.') unless $periods;
+	my @metrics = (
+		{ table => 'objects', field => 'created', label => 'Entries' },
+		{ table => 'users', field => 'joined', label => 'Members' },
+		{ table => 'corrections', field => 'filed', label => 'Corrections' },
+		{ table => 'messages', field => 'created', label => 'Messages' },
+		{ table => 'hits', field => 'at', label => 'Recorded views' },
+	);
+	my @rows;
 	foreach my $period (@$periods) {
-		$html .= "<tr>"; 
-		$html .= "<td bgcolor=\"#eeeeee\">$period->[0]</td>";
-		foreach my $lookup (keys %$timefields) {
-			my $cnt = dbRowCount($lookup,"$timefields->{$lookup}$period->[1]");
-			$html .= "<td align=\"center\">$cnt</td>";
+		my @counts;
+		foreach my $metric (@metrics) {
+			my $count = dbRowCount($metric->{table}, "$metric->{field}$period->[1]");
+			if (defined $count && $count =~ /^\d+$/) {
+				$count =~ s/(\d)(?=(\d{3})+$)/$1,/g;
+			} else {
+				$count = 'Unavailable';
+			}
+			push @counts, $count;
 		}
-		$html .= "</tr>";
+		push @rows, {
+			label => $period->[0] eq 'total' ? 'All time' : ucfirst($period->[0]),
+			total => $period->[0] eq 'total', counts => \@counts,
+		};
 	}
-	$html .= "</table>";
-
-	$html .= "<center>";
-
-	# get the global request object (requires PerlOptions +GlobalRequest)
-    my $r = Apache2::RequestUtil->request;
-
-	##my $uptime = system("/usr/bin/uptime");
-	my $updtime = "Feature not working yet";
-
-	my $dir = '/var/www/pp/data/cache/temp';
-	my $program = "/usr/bin/uptime";
-
-	my $command = "$program 2>&1";
-	($in_fh, $out_fh, $err_fh) = $r->spawn_proc_prog($program);
-	my $output = read_data($out_fh);
- 	my $error  = read_data($err_fh);
-
-	$html .= "<br>System uptime : $output<br><br>";
-
-	$html .= "</center>";
-
-	return paddingTable(clearBox(getConfig('projname').' Stats',$html));
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('systemstats.tt', {
+		title => getConfig('projname').' Stats', metrics => \@metrics, rows => \@rows,
+		host => getSystemStatsHost(),
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return paddingTable($html);
 }
 
+# Read host status without spawning a subprocess in an Apache request.
+sub getSystemStatsHost {
+	my $proc_root = shift || '/proc';
+	my %host = (uptime => 'Unavailable');
+	if (open my $fh, '<', "$proc_root/uptime") {
+		my $line = <$fh>;
+		close $fh;
+		if (defined $line && $line =~ /^\s*(\d+(?:\.\d+)?)\s/) {
+			my $seconds = int($1);
+			my @parts;
+			foreach my $unit ([86400, 'day'], [3600, 'hour'], [60, 'minute']) {
+				my $value = int($seconds / $unit->[0]);
+				$seconds %= $unit->[0];
+				push @parts, $value.' '.$unit->[1].($value == 1 ? '' : 's') if $value;
+			}
+			$host{uptime} = @parts ? join(' ', @parts) : 'Less than a minute';
+		}
+	}
+	if (open my $fh, '<', "$proc_root/loadavg") {
+		my $line = <$fh>;
+		close $fh;
+		if (defined $line && $line =~ /^(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s/) {
+			$host{load} = [$1, $2, $3];
+		}
+	}
+	return \%host;
+}
 
 
 # getTopUsers - get the top users box that shows top users by score
