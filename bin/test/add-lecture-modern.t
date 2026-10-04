@@ -183,4 +183,10 @@ subtest 'quoted and markup-like draft values round-trip safely' => sub {
     }
 };
 
+my ($menu_background) = readFile("$root/stemplates/sidebar.tt") =~ /\.pl-sidebar-body\s*\{\s*background:\s*(#[\da-f]+)/i;
+ok(defined $menu_background, 'sidebar menu background is defined');
+like(readFile("$root/stemplates/addlecture.tt"),
+    qr/\.pl-add-lecture-filebox\s*\{\s*background:\s*\Q$menu_background\E;\s*border: 1px solid #cbd6de;.*?padding: \.75rem;/,
+    'lecture filebox stands out with the menu background, border and inner spacing');
+
 done_testing();
