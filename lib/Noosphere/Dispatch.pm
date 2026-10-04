@@ -251,6 +251,7 @@ sub dispatch {
   'license' => \&getLicense,
   'about' => \&getAbout,
   'feedback' => \&getFeedback,
+  'snapshots' => \&getSnapshots,
   'sitedoc' => \&siteDoc,  # collaborative site docs
   'templatetestperl' => \&templateTestPerl,  # A page dedicated to Template Toolkit testing
 

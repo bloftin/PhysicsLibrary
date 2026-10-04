@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::Snapshots;
 
 # show license information for the site
 #

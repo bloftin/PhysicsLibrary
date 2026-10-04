@@ -16,6 +16,7 @@ sub read_file {
 
 my %pages = (
     about => 'The Physics Library Story',
+    snapshots => 'Snapshots',
     license => 'Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License',
     reqlist => 'Requests', orphanage => 'Orphanage',
     userarticlesbeta => 'My Articles', unclassified => 'Unclassified Articles',
@@ -70,6 +71,7 @@ for my $case (
     ['Corrections', 'globalViewCorrections'], ['Collab', 'collabMain'], ['Msc', 'pacsSearch'],
     ['Polls', 'viewPolls'], ['Forums', 'getForumsTop'], ['Docs', 'getFeedback'],
     ['Docs', 'getLicense'],
+    ['Snapshots', 'getSnapshots'],
     ['Users', 'showUserActivity'], ['Users', 'userList'],
 ) {
     my ($module, $handler) = @$case;

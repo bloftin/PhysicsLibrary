@@ -56,12 +56,12 @@ subtest 'rendered sidebar' => sub {
     like($account, qr/Mailbox.*\(2\)/, 'unread mail count visible');
     like($account, qr/Notices.*\(3\)/, 'notice count visible');
     ok($tt->process('mainmenu.tt', {requests=>'(43)',orphans=>'(1)',corrections=>'(18)'}, \$menu), 'main menu renders');
-    for my $op (qw(reqlist orphanage unclassified unproven globalcors viewpolls forums feedback license about)) {
+    for my $op (qw(reqlist orphanage unclassified unproven globalcors viewpolls forums feedback license about snapshots)) {
         like($menu, qr/op=$op"/, "main menu route $op preserved");
     }
     like($menu, qr{/browse/categories/}, 'classification link retained');
     like($menu, qr{https://github.com/bloftin/PhysicsLibrary/issues}, 'bug report link retained');
-    like($menu, qr{https://aux.physicslibrary.org/snapshots/}, 'snapshot link retained');
+    like($menu, qr{href="/\?op=snapshots"}, 'snapshot link stays in the site layout');
     like($menu, qr/Requests.*\(43\)/, 'main menu counts visible');
     ok($tt->process('adminmenu.tt', {main_url=>''}, \$admin), 'admin template renders');
     for my $op (qw(postnews newpoll adminstats dbadmin cachecont blacklist webstats)) {
