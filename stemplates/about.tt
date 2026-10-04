@@ -5,11 +5,10 @@
 .pl-about p { font-size: .9rem; line-height: 1.6; margin: .85rem 0; }
 .pl-about-credits { margin: 1.2rem 0; }
 .pl-about-credits h2 { color: #17212b; font-size: 1rem; margin: 0 0 .5rem; }
-.pl-about-credit-list { border-top: 1px solid #b6c5d2; column-gap: 2rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; margin: 0; padding: 0; }
+.pl-about-credit-list { border-top: 1px solid #b6c5d2; list-style: none; margin: 0; padding: 0; }
 .pl-about-credit-list li { border-bottom: 1px solid #cbd6de; font-size: .86rem; line-height: 1.5; padding: .5rem .15rem; }
 .pl-about-credit-list span { color: #526170; }
 .pl-about-history { border-top: 1px solid #b6c5d2; padding-top: .2rem; }
-@media (max-width: 700px) { .pl-about-credit-list { grid-template-columns: 1fr; } }
 </style>
 
 <div class="pl-about">

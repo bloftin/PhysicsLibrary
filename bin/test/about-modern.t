@@ -59,9 +59,7 @@ my ($original_text, $original_links) = page_content(read_file('stemplates/about.
 my ($new_text, $new_links) = page_content($html);
 is($new_text, $original_text, 'all original visible words remain in their original order');
 is_deeply($new_links, $original_links, 'all original link destinations are unchanged');
-like($html, qr/grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/,
-    'credits use two compact columns on larger screens');
-like($html, qr/\@media \(max-width: 700px\).*grid-template-columns: 1fr/s,
-    'credits use one column on narrow screens');
+unlike($html, qr/grid-template-columns|column-count|columns:/,
+    'credits remain a single-column list at every screen size');
 
 done_testing();
