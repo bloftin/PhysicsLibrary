@@ -217,6 +217,11 @@ Section 2 : Installation Procedure
 
       $NSROOT/install/SEARCH-INDEXING.md
 
+ 9d. The Snapshots landing page lists archives from $NSROOT/data/snapshots
+     inside the main site layout.  Existing download sign-in checks remain
+     in place.  See $NSROOT/install/SNAPSHOTS.md for storage and verification
+     details; no additional scheduled job or database migration is needed.
+
 10. Set one-time tasks to initialize at system startup.  Inspect the file 
 
      $NSROOT/bin/init.sh 

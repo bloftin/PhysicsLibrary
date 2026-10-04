@@ -74,7 +74,7 @@ sub requestFormReadRoutes {
         useractivity sysstats userlist unclassified hitinfo reqlist oldreqs
         getcors editcors editfiledcors getobj listobj browse authorlist search
         oldsearch adv_search latexguidelines assocguidelines license about
-        feedback sitedoc checkword help viewobj explain_err);
+        feedback snapshots sitedoc checkword help viewobj explain_err);
 }
 
 sub requestFormNeedsProtection {
