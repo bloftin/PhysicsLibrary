@@ -16,7 +16,7 @@ my $tt = Template->new({ INCLUDE_PATH => "$root/stemplates" });
 my $inserts = 0;
 my @file_calls;
 sub getConfig {
-    return { stemplate_path => "$root/stemplates", exp_tbl => 'lec', books_tbl => 'books',
+    return { stemplate_path => "$root/stemplates", exp_tbl => 'lec', books_tbl => 'books', papers_tbl => 'papers',
         template_cmd_prefix => 'NS', siteaddrs => {},
         main_url => 'https://physicslibrary.org' }->{$_[0]};
 }
@@ -247,7 +247,80 @@ subtest 'book handler preserves draft, validation and submission flow' => sub {
     my $calls_before = scalar @file_calls;
     is(addGeneric($params, {uid => -1}), 'Must be logged in to add to the collection!', 'anonymous book creation stays blocked');
     is(scalar @file_calls, $calls_before, 'anonymous book access does not reach file management');
-    unlike(addGeneric({%$params, to => 'papers'}, $user), qr/class="pl-add-book"/, 'paper creation keeps its legacy template');
+    unlike(addGeneric({%$params, to => 'papers'}, $user), qr/class="pl-add-book"/, 'paper creation does not use the book template');
+};
+
+subtest 'paper form preserves all original text and input options' => sub {
+    for my $case (
+        ['empty', {}],
+        ['filled', {title => 'Geometrical diffraction', authors => 'A. Author',
+            keywords => 'diffraction, rays', class => '42.25.Fx,02.30.Xx',
+            comments => '2026, 12 pages', rights => 'Public domain',
+            data => "A research paper on diffraction.\nWith ray diagrams."}],
+        ['validation error', {title => 'Draft paper',
+            error => 'Need an abstract.<br />Need at least one author.<br />Need a rights statement.<br />'}],
+        ['uploaded files', {filelist => 'notes.pdf', filechanges => 'yes', tempdir => 'tmp/demo'}],
+        ['filebox error', {ferror => 'Problem getting the remote file<br/>', fb_urls => 'https://example.invalid/paper.pdf'}],
+    ) {
+        my ($state, $values) = @$case;
+        my $vars = {isa => 'Paper', section => 'Papers', op => 'addobj', to => 'papers',
+            fmanager_flag => 1, %$values, fmanager => filebox_html($values)};
+        my $html = render_form('addpaper.tt', $vars);
+        is_deeply(form_contract($html), form_contract(render_form('addgeneric.tt', $vars)),
+            "$state retains every word, link, field, value and submission option");
+        like($html, qr/\Q$vars->{fmanager}\E/, "$state embeds the original filebox unchanged");
+        my $user = {uid => 7, ticket => 'a' x 64, data => {active => 1}};
+        my $protected = form_contract(requestFormDecorate($html, $user, '/?op=addobj;to=papers'));
+        is(scalar @{$protected->{forms}}, 1, "$state keeps filebox in the protected form");
+        is(scalar grep($_->{name} eq '_form_token', @{$protected->{controls}}), 1,
+            "$state receives a single CSRF field");
+        ok(!grep($_->{name} eq 'urls' || $_->{name} eq 'isbn', @{$protected->{controls}}),
+            "$state does not introduce book or lecture fields");
+    }
+    my %fields = map { $_ => q{A "quoted" <tag> & </textarea><script>alert(1)</script>} }
+        qw(title authors keywords class comments rights data);
+    my $html = render_form('addpaper.tt', {isa => 'Paper', op => 'addobj', to => 'papers', %fields});
+    my $contract = form_contract($html);
+    my %values = map { $_->{name} => $_->{value} } @{$contract->{controls}};
+    for my $name (sort keys %fields) {
+        is($values{$name}, $fields{$name}, "$name draft value round-trips safely");
+        like($html, qr/<label for="paper-\Q$name\E">/, "$name has an associated label");
+    }
+    unlike($html, qr/<script>alert\(1\)<\/script>/, 'paper values cannot inject executable markup');
+    ok(!grep($_->{required}, @{$contract->{controls}}), 'partial paper uploads are not blocked by browser validation');
+    unlike($html, qr/Manage This Object's Filebox/, 'paper filebox respects the existing display flag');
+};
+
+subtest 'paper handler preserves upload-first submission flow' => sub {
+    $inserts = 0;
+    my $user = {uid => 7};
+    my $params = {op => 'addobj', to => 'papers', title => 'Draft paper', keywords => 'diffraction',
+        class => '42.25.Fx', comments => '2026, 12 pages', data => '', authors => '',
+        rights => '', filelist => '', urls => ''};
+    like(addGeneric($params, $user), qr/class="pl-add-paper"/, 'papers route selects the dedicated modern template');
+    like(addGeneric({%$params, post => 'finished'}, $user), qr/Need an abstract\.<br \/>/,
+        'paper validation messages are unchanged');
+    my $complete = {%$params, data => 'Abstract', authors => 'Author', rights => 'Public domain'};
+    like(addGeneric({%$complete, post => 'finished'}, $user),
+        qr/Need some files to be uploaded or URLs given\.<br \/>/,
+        'paper form still cannot finish without uploaded files');
+    my $upload = {filename => 'paper.pdf'};
+    my $partial = addGeneric({%$params, filebox => 'upload'}, $user, $upload);
+    is($file_calls[-1][1], $upload, 'paper upload is passed to the existing file manager');
+    like($partial, qr/name="keywords"[^>]*value="diffraction"/, 'upload refresh keeps keywords');
+    like($partial, qr/name="class"[^>]*value="42.25.Fx"/, 'upload refresh keeps classification');
+    like(addGeneric({%$params, filebox => 'remove', remove => 'notes.pdf'}, $user),
+        qr/value="Draft paper"/, 'file removal refresh keeps the title');
+    is($inserts, 0, 'invalid, upload and removal submissions do not finish the paper');
+    my $saved = addGeneric({%$complete, post => 'finished', filelist => 'notes.pdf', tempdir => 'tmp/demo'}, $user);
+    like($saved, qr/Paper Added: Thank you for uploading your contribution/, 'paper with uploaded files confirms insertion');
+    like($saved, qr/from=papers&id=42/, 'success link still opens the new paper');
+    is($inserts, 1, 'paper is inserted exactly once');
+    my $calls_before = scalar @file_calls;
+    is(addGeneric($params, {uid => -1}), 'Must be logged in to add to the collection!', 'anonymous paper creation stays blocked');
+    is(scalar @file_calls, $calls_before, 'anonymous paper access does not reach file management');
+    like(addGeneric({%$params, to => 'lec'}, $user), qr/class="pl-add-lecture"/, 'lectures still select their own template');
+    like(addGeneric({%$params, to => 'books'}, $user), qr/class="pl-add-book"/, 'books still select their own template');
 };
 
 my ($menu_background) = readFile("$root/stemplates/sidebar.tt") =~ /\.pl-sidebar-body\s*\{\s*background:\s*(#[\da-f]+)/i;
@@ -258,5 +331,8 @@ like(readFile("$root/stemplates/addlecture.tt"),
 like(readFile("$root/stemplates/addbook.tt"),
     qr/\.pl-add-book-filebox\s*\{\s*background:\s*\Q$menu_background\E;\s*border: 1px solid #cbd6de;.*?padding: \.75rem;/,
     'book filebox matches the menu background, border and inner spacing');
+like(readFile("$root/stemplates/addpaper.tt"),
+    qr/\.pl-add-paper-filebox\s*\{\s*background:\s*\Q$menu_background\E;\s*border: 1px solid #cbd6de;.*?padding: \.75rem;/,
+    'paper filebox matches the menu background, border and inner spacing');
 
 done_testing();

@@ -1,0 +1,76 @@
+<style type="text/css">
+.pl-add-paper { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-add-paper a { color: #064d93; }
+.pl-add-paper-guidelines { border-bottom: 1px solid #b6c5d2; font-size: .88rem; line-height: 1.5; padding: .2rem 0 .65rem; }
+.pl-add-paper-guidelines ul { margin: .5rem 0 0; padding-left: 1.4rem; }
+.pl-add-paper-guidelines li { margin-bottom: .35rem; }
+.pl-add-paper-required { color: #a00000; }
+.pl-add-paper-form { margin-top: 1rem; }
+.pl-add-paper-field { margin: 0 0 1rem; min-width: 0; }
+.pl-add-paper-field label { display: block; font-size: .9rem; font-weight: bold; line-height: 1.4; margin-bottom: .35rem; }
+.pl-add-paper-field input, .pl-add-paper-field textarea,
+.pl-add-paper-filebox textarea, .pl-add-paper-filebox input[type="file"] { box-sizing: border-box; max-width: 100%; width: 100%; }
+.pl-add-paper-field input, .pl-add-paper-field textarea, .pl-add-paper-filebox textarea { background: #fff; border: 1px solid #8093a5; border-radius: 2px; color: #17212b; font: .95rem Arial, Helvetica, sans-serif; padding: .45rem .5rem; }
+.pl-add-paper-field textarea, .pl-add-paper-filebox textarea { line-height: 1.45; resize: vertical; }
+.pl-add-paper-field small { color: #526170; display: block; font-size: .8rem; line-height: 1.4; margin-top: .35rem; }
+.pl-add-paper input[type="submit"] { background: #1b507d; border: 1px solid #153f65; border-radius: 2px; color: #fff; cursor: pointer; font: .9rem Arial, Helvetica, sans-serif; padding: .4rem .75rem; }
+.pl-add-paper input:focus-visible, .pl-add-paper textarea:focus-visible, .pl-add-paper a:focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
+.pl-add-paper-error { background: #fff3f1; border-left: 3px solid #a00000; color: #a00000; line-height: 1.5; margin-bottom: 1rem; padding: .65rem .75rem; }
+.pl-add-paper-filebox { background: #f1f4f7; border: 1px solid #cbd6de; box-sizing: border-box; font-size: .9rem; line-height: 1.45; margin-top: 1rem; overflow-wrap: anywhere; padding: .75rem; }
+.pl-add-paper-filebox table { border-collapse: collapse; max-width: 100%; width: 100%; }
+.pl-add-paper-filebox td { background: transparent; padding: 0; text-align: left; }
+.pl-add-paper-filebox center { font-weight: bold; text-align: left; }
+.pl-add-paper-filebox font { font-size: inherit; }
+.pl-add-paper-filebox input[type="file"] { font: inherit; margin: .35rem 0; }
+.pl-add-paper-filebox table table table td { padding-right: .65rem; vertical-align: top; }
+</style>
+
+<div class="pl-add-paper">
+  [% heading = 'Add a ' _ isa; INCLUDE modernboxheader.tt title = heading %]
+  <section class="pl-add-paper-guidelines" aria-label="Paper guidelines">
+    <b>Paper guidelines</b>:
+    <ul>
+      <li>This section is chiefly for your original work. It does not have to be published, but should be research-oriented. Theses and dissertations can go here as well. However, we are not attempting to take on the role of online publisher of research papers, so don't put other people's work here.</li>
+      <li><b>"Rights" are required for every item</b>! If you dont know what the rights are, please check before doing anything (including asking the author of the work if need be). If you are the author, please formulate a rights statement ("Public domain" is a nice one).</li>
+      <li><b>You must upload the paper</b>. There is currently no external linking to papers. Use the Filebox Manager at the bottom to upload.</li>
+      <li>Starred (<span class="pl-add-paper-required">*</span>) fields are required. </li>
+    </ul>
+  </section>
+
+  <form class="pl-add-paper-form" method="post" action="https://physicslibrary.org/" enctype="multipart/form-data" accept-charset="UTF-8">
+    [% IF error %]<div class="pl-add-paper-error" role="alert">[% error %]</div>[% END %]
+    <div class="pl-add-paper-field">
+      <label for="paper-title">Title<span class="pl-add-paper-required">*</span>:</label>
+      <input type="text" name="title" id="paper-title" size="75" value="[% title | html %]" aria-required="true" />
+    </div>
+    <div class="pl-add-paper-field">
+      <label for="paper-authors">Authors<span class="pl-add-paper-required">*</span>:</label>
+      <input type="text" name="authors" id="paper-authors" size="75" value="[% authors | html %]" aria-required="true" />
+    </div>
+    <div class="pl-add-paper-field">
+      <label for="paper-keywords">Keywords (<a href="/?op=assocguidelines">Guidelines</a>):</label>
+      <input type="text" name="keywords" id="paper-keywords" size="75" value="[% keywords | html %]" />
+    </div>
+    <div class="pl-add-paper-field">
+      <label for="paper-class">Classification (See <a target="physicslibrary.popup" href="/?op=pacsbrowse">PACS</a>):</label>
+      <input type="text" name="class" id="paper-class" size="75" value="[% class | html %]" aria-describedby="paper-class-examples" />
+      <small id="paper-class-examples">(examples: "01.65.+g", "00.,45.20.Jj,04.25.Dm". "pacs:" can be omitted, assumed by default.)</small>
+    </div>
+    <div class="pl-add-paper-field">
+      <label for="paper-comments">Additional Comments (typically date, # of pages, chapters, etc):</label>
+      <input type="text" name="comments" id="paper-comments" size="75" max="128" value="[% comments | html %]" />
+    </div>
+    <div class="pl-add-paper-field">
+      <label for="paper-rights">Rights statement<span class="pl-add-paper-required">*</span> (URLs will become hyperlinks):</label>
+      <textarea name="rights" id="paper-rights" cols="75" rows="4" aria-required="true">[% rights | html %]</textarea>
+    </div>
+    <div class="pl-add-paper-field">
+      <label for="paper-data">Abstract<span class="pl-add-paper-required">*</span>:</label>
+      <textarea name="data" id="paper-data" cols="75" rows="8" aria-required="true">[% data | html %]</textarea>
+    </div>
+    <input type="hidden" name="op" value="[% op | html %]" />
+    <input type="hidden" name="to" value="[% to | html %]" />
+    <input type="submit" name="post" value="finished" />
+    [% IF fmanager_flag %]<div class="pl-add-paper-filebox">[% fmanager %]</div>[% END %]
+  </form>
+</div>
