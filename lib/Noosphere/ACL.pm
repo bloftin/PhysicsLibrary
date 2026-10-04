@@ -8,7 +8,9 @@ package Noosphere;
 ##############################################################################
 
 use Noosphere::Groups;
+use Template;
 use strict;
+our $dbh;
 
 # get an ACL editor for an object
 #
@@ -24,6 +26,15 @@ sub ACLEditor {
 	my $table = $params->{from};
 
 	my $default = ($table eq getConfig('dacl_tbl') ? 1 : 0);
+	if ($default) {
+		return loginExpired() unless defined($userinf->{uid}) && !ref($userinf->{uid}) && $userinf->{uid} =~ /\A[1-9][0-9]*\z/;
+		my %owned = map { $_->{uid} => 1 } @{getDefaultACLRules($userinf->{uid}, 1)};
+		foreach my $key (keys %$params) {
+			if ($key =~ /^(?:update|delete)_([0-9]+)$/ && !$owned{$1}) {
+				return errorMessage("You don't have permissions to modify that default rule.");
+			}
+		}
+	}
 	
 	# get user's permissions for this object. 
 	#
@@ -50,7 +61,7 @@ sub ACLEditor {
 	# access rules
 	#
 	if (defined $params->{combineall}) {
-		my $count = globalInstallDefaultACL($userinf->{uid}, 1);
+		my $count = globalInstallDefaultACL($userinf->{uid}, 0);
 	if ($count == 0) {
 			$error .= "No objects to update!<br />";
 	} else {
@@ -115,6 +126,8 @@ sub ACLEditor {
 	}
 	}
 	
+	return renderDefaultPermissions($params, $userinf, $error) if $default;
+
 	# set the default selector html based on whether or not a default rule 
 	#	exists for this object
 	#
@@ -160,6 +173,24 @@ sub ACLEditor {
 	return paddingTable(makeBox($title, $template->expand())); 
 }
 
+sub renderDefaultPermissions {
+	my ($params, $userinf, $message) = @_;
+	my $rules = getDefaultACLRules($userinf->{uid}, 1);
+	$_->{subject_name} = getSubjectName($_) foreach @$rules;
+	my $groups = getAdminGroupHash($userinf->{uid});
+	my @groups = map { +{id => $_, name => $groups->{$_}} }
+		sort { $groups->{$a} cmp $groups->{$b} } keys %$groups;
+	$message =~ s/<br\s*\/?\s*>/\n/g;
+	my $tt = Template->new({INCLUDE_PATH => getConfig('template_path')});
+	my $html = '';
+	$tt->process('defaultpermissions.tt', {
+		main_url => getConfig('main_url'), table => getConfig('dacl_tbl'), rules => $rules, groups => \@groups,
+		hasdef => hasDefaultDefaultRule($userinf->{uid}), message => $message,
+		subject => $params->{subjectid_new},
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return $html;
+}
+
 # get the ACL rule widgets for this object
 #
 sub getACLRules {
@@ -188,6 +219,7 @@ sub getACLRules {
 #
 sub getDefaultACLRules {
 	my $userid = shift;
+	my $structured = shift;
 
 	my $tacl = getConfig('dacl_tbl');
 	
@@ -203,6 +235,7 @@ sub getDefaultACLRules {
 		push @rows, {%temp};
 	}
 
+	return \@rows if $structured;
 	return getAccessRuleEditor(@rows);
 }
 
