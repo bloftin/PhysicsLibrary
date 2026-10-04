@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Template;
 
 sub validWatchObjectArgs {
 	my ($table, $objectid) = @_;
@@ -117,13 +118,15 @@ sub getWatchWidget {
 sub listWatches {
 	my $params = shift;
 	my $userinf = shift;
+	return loginExpired() unless ref($userinf) eq 'HASH' &&
+		validWatchUserId($userinf->{uid}) && $userinf->{uid} > 0;
 	
 	my $offset = $params->{'offset'}||0;
 	my $total = $params->{'total'}||-1;
 	#my $page=getConfig('listings_page');
 	my $page = $userinf->{'prefs'}->{'pagelength'};
 
-	my $html .= '';
+	my @watches;
 	my $wtbl = getConfig('watch_tbl');
 	
 	my ($rv,$sth);
@@ -133,7 +136,7 @@ sub listWatches {
 	if (defined $params->{'delsel'}) {
 		foreach my $key (keys %$params) {
 			if ($key =~ /^del_([0-9]+)/) {
-				($rv,$sth) = dbDelete($dbh,{FROM=>$wtbl,WHERE=>"uid=$1"});
+				($rv,$sth) = dbDelete($dbh,{FROM=>$wtbl,WHERE=>"uid=$1 and userid=$userinf->{uid}"});
 			}
 		}
 		$total = -1;	 # force recalculating new total.
@@ -145,7 +148,7 @@ sub listWatches {
 
 		my @rows = dbGetRows($sth);
 		foreach my $row (@rows) {
-			($rv,$sth) = dbDelete($dbh,{FROM=>$wtbl,WHERE=>"uid=$row->{uid}"});
+			($rv,$sth) = dbDelete($dbh,{FROM=>$wtbl,WHERE=>"uid=$row->{uid} and userid=$userinf->{uid}"});
 		}
 		$total = -1;	 # force recalculating new total.
 	}
@@ -157,7 +160,13 @@ sub listWatches {
 		$total = $sth->rows();
 		$sth->finish();
 	}
-	return paddingTable(clearBox('Your Watches','No watches.')) if ($total<=0);
+	if ($total <= 0) {
+		my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+		my $html = '';
+		$tt->process('watches.tt', {watches => []}, \$html)
+			|| die "Template process failed: ", $tt->error(), "\n";
+		return $html;
+	}
 
 	# actually get the watches
 	#
@@ -169,43 +178,29 @@ sub listWatches {
 
 	my $i = 1 + $offset;
 	my $curtable = '';
-	$html .= "<form method=\"post\" action=\"/\">\n";
 	foreach my $row (@rows) {
 		my $tdesc = tabledesc($row->{'tbl'});
 		my $title = lookuptitle($row->{'tbl'}, $row->{'objectid'});
 
 		my $link = '';
 		if ($title) {
-			$link = contextLink($row->{'tbl'}, $row->{'objectid'}, $title);
+			$link = contextLink($row->{'tbl'}, $row->{'objectid'}, htmlescape($title));
 		} else {
-			$link = "[object $row->{tbl}:$row->{objectid} has been deleted]";
+			$link = htmlescape("[object $row->{tbl}:$row->{objectid} has been deleted]");
 		}
 
-		if ($row->{'tbl'} ne $curtable || $curtable eq '') {
-			$html .= "<br><center><b>$tdesc</b></center><br>\n";
-			$curtable = $row->{'tbl'};
-		}
-
-		$html .= "$i. ";
-		$html .= "<input type=\"checkbox\" name=\"del_$row->{uid}\"> ";
-		$html .= "$link<br>\n";
+		push @watches, {uid => $row->{uid}, ord => $i, link => $link,
+			description => $tdesc, heading => ($row->{tbl} ne $curtable || $curtable eq ''),
+			label => $title || "object $row->{tbl}:$row->{objectid}"};
+		$curtable = $row->{tbl};
 		$i++;
 	}
-	$html .= "<br>\n";
-	$html .= "<input type=\"hidden\" name=\"offset\" value=\"$offset\">\n";
-	$html .= "<input type=\"hidden\" name=\"total\" value=\"$total\">\n";
-	$html .= "<input type=\"hidden\" name=\"op\" value=\"watches\">\n";
-	$html .= "<center>\n";
-	$html .= "<input type=\"submit\" name=\"delsel\" value=\"delete selected\">\n";
-	$html .= "<input type=\"submit\" name=\"delall\" value=\"delete all\">\n";
-	$html .= "</form>\n";
-	
-	$html .= "<br>\n";
-	$html .= getPager({op=>'watches',offset=>$offset,total=>$total},$userinf);
-
-	$html .= "</center>\n";
-
-	return paddingTable(clearBox('Your Watches',$html));
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('watches.tt', {watches => \@watches, offset => $offset, total => $total,
+		pager => getPager({op=>'watches',offset=>$offset,total=>$total},$userinf)}, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # update any watches to a specific object, based on an incoming message

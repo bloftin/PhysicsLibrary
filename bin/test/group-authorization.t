@@ -40,11 +40,13 @@ sub getConfig {
     return 'groups' if $key eq 'groups_tbl';
     return 'gmember' if $key eq 'gmember_tbl';
     return 'users' if $key eq 'user_tbl';
+    return "$FindBin::Bin/../../stemplates" if $key eq 'template_path';
     return 100 if $key eq 'access_admin';
     return undef;
 }
 
 sub errorMessage { return 'ERROR: '.$_[0] }
+sub loginExpired { return 'Login Expired'; }
 sub paddingTable { return $_[0] }
 sub makeBox { return $_[1] }
 sub qhtmlescape { return $_[0] }

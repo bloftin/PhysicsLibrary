@@ -1,0 +1,26 @@
+[% INCLUDE settingsstyles.tt %]
+<div class="pl-settings">
+  [% INCLUDE modernboxheader.tt title = 'Your Watches' %]
+  <div class="pl-settings-body">
+    [% IF watches.size %]
+    <form method="post" action="/">
+      <input type="hidden" name="offset" value="[% offset | html %]">
+      <input type="hidden" name="total" value="[% total | html %]">
+      <input type="hidden" name="op" value="watches">
+      <ul class="pl-settings-list">
+      [% FOREACH watch IN watches %]
+        <li>
+          [% IF watch.heading %]<h2>[% watch.description | html %]</h2>[% END %]
+          <div class="pl-settings-row"><span>[% watch.ord | html %].</span><input type="checkbox" name="del_[% watch.uid | html %]" aria-label="Select [% watch.label | html %]"><span>[% watch.link %]</span></div>
+        </li>
+      [% END %]
+      </ul>
+      <div class="pl-settings-actions">
+        <input type="submit" name="delsel" value="delete selected">
+        <input type="submit" name="delall" value="delete all">
+      </div>
+    </form>
+    [% pager %]
+    [% ELSE %]<p>No watches.</p>[% END %]
+  </div>
+</div>

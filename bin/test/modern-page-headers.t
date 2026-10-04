@@ -20,6 +20,8 @@ my %pages = (
     sitedoc => 'PhysicsLibrary Documentation',
     oldnews => 'Old News',
     newsarticle => 'News headline',
+    settings => 'Your Settings', settingspage => 'Editing your groups',
+    watches => 'Your Watches',
     addlecture => 'Add a Lecture',
     addbook => 'Add a Book',
     addpaper => 'Add a Paper',

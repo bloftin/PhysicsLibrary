@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
+use Template;
 use lib "$FindBin::Bin/../../lib";
 
 our ($request, $record, $saved, $query, $failure, $reads, $template_vars);
@@ -21,7 +22,7 @@ our $secret = 'synthetic-test-key-not-a-deployment-value';
     sub paddingTable { return $_[0]; }
     sub getConfig {
         return {
-            stemplate_path => "$FindBin::Bin/../../stemplates", siteaddrs => {},
+            stemplate_path => "$FindBin::Bin/../../stemplates", template_path => "$FindBin::Bin/../../stemplates", siteaddrs => {},
             main_url => 'https://example.invalid', template_cmd_prefix => 'NS',
         }->{$_[0]};
     }
@@ -69,7 +70,7 @@ open my $in, '<', "$FindBin::Bin/../../lib/Noosphere/UserData.pm" or die $!;
 my $source = do { local $/; <$in> };
 close $in;
 for my $name (qw(profileEditableFields profileUserValid profileFormToken
-        profileTokenMatches changeUserData editUserData)) {
+        profileTokenMatches changeUserData renderSettingsPage editUserData)) {
     my ($sub) = $source =~ /^(sub \Q$name\E \{.*?)(?=^sub |\z)/ms;
     die "$name not found" unless defined $sub;
     eval "package Noosphere; our \$dbh; $sub";
