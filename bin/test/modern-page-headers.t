@@ -19,6 +19,7 @@ my %pages = (
     assocguidelines => 'Association Guidelines',
     sitedoc => 'PhysicsLibrary Documentation',
     oldnews => 'Old News',
+    newsarticle => 'News headline',
     addlecture => 'Add a Lecture',
     addbook => 'Add a Book',
     addpaper => 'Add a Paper',

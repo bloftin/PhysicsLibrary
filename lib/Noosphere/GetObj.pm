@@ -72,7 +72,9 @@ sub getObj {
 		$from eq getConfig('exp_tbl') ||
 		$from eq getConfig('books_tbl')
 	);
-	my $modern_entry = $from eq getConfig('en_tbl');
+	my $is_news = $from eq getConfig('news_tbl');
+	my $modern_entry = $from eq getConfig('en_tbl') || $is_news;
+	$file = 'newsobj.tt' if $is_news;
 	#dwarn "name";
 	#dwarn $name;
 	#dwarn "id";
@@ -228,6 +230,9 @@ sub getObj {
 		$admin = getEncyclopediaAdminControls($userinf,$from,$id,$params->{'method'}, 1);
 		$interact = entryInteractionSection('Interact', getEncyclopediaInteract($rec, 1));
 	}
+	elsif ($is_news) {
+		$interact = entryInteractionSection('Interact', getNewsInteract($rec, 1));
+	}
 	elsif ($from eq getConfig('papers_tbl') ||
 		$from eq getConfig('exp_tbl') ||
 		$from eq getConfig('books_tbl')) {
@@ -296,14 +301,7 @@ sub getObj {
 
 sub renderNews {
 	my $rec = shift;
-
-	my $html = new TemplateNS('newsobj.html');
-
-	my $newsbox = clearBox($rec->{'title'},formatnewsitem_full($rec));
-	my $interact = makeBox('Interact',getNewsInteract($rec));
-	$html->setKeys('newsbox' => $newsbox, 'interact' => $interact);
-
-	return $html;
+	return formatnewsitem_full($rec);
 }
 
 # get the author controls menu
@@ -494,6 +492,13 @@ sub getPaperInteract {
 
 sub getNewsInteract {
 	my $rec = shift;
+	my $modern = shift;
+	if ($modern) {
+		return entryInteractionActions([
+			{label => 'Post', url => entryInteractionURL('postmsg',
+				from => getConfig('news_tbl'), id => $rec->{uid})},
+		], 'News actions');
+	}
 	my $html = "";
 	my $table = getConfig('news_tbl');
 

@@ -247,16 +247,16 @@ sub formatnewsitem {
 
 sub formatnewsitem_full {
 	my $row = shift;
-	my $news = new TemplateNS("newsbox.html");
- #       dwarn "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^";
-	$news->setKeys(
-			'title' => $row->{'title'},
-		'date' => $row->{'created'},
-			'user' => "<a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{'userid'}\">$row->{'username'}<\/a>",
-		'body' => (!$row->{'body'} || $row->{'body'} eq 'null' ? '' : $row->{'body'}),
-		'intro' => $row->{'intro'}
-	);
-	return $news->expand();
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('newsarticle.tt', {
+		title => $row->{title}, date => $row->{created},
+		username => $row->{username},
+		author_url => getConfig('main_url')."/?op=getuser&id=".$row->{userid},
+		body => (!$row->{body} || $row->{body} eq 'null' ? '' : $row->{body}),
+		intro => $row->{intro},
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 1;
