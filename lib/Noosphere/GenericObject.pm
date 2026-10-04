@@ -34,6 +34,7 @@ sub addGeneric {
 
 	my $isa = getIsA($table);
 	my $section = getIsA($table, 1);
+	$tt_file = 'addlecture.tt' if ($table eq getConfig('exp_tbl'));
 
 	#dwarn "isa: $isa";
 	#dwarn "section: $section";
@@ -83,7 +84,7 @@ sub addGeneric {
     };
 
 	my $tt = Template->new({
-		INCLUDE_PATH => '/var/www/pp/stemplates',
+		INCLUDE_PATH => getConfig('stemplate_path'),
 	});
 
 	

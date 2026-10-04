@@ -15,6 +15,7 @@ sub read_file {
 }
 
 my %pages = (
+    addlecture => 'Add a Lecture',
     about => 'The Physics Library Story',
     snapshots => 'Snapshots',
     license => 'Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License',
@@ -40,6 +41,7 @@ for my $page (sort keys %pages) {
     for my $total (0, 2) {
         my $html = '';
         ok($tt->process("$page.tt", {
+            isa => 'Lecture',
             title => $pages{$page}, total => $total, showing_from => 1, showing_to => 2,
             sort => 'created_desc', objects => [], groups => [],
             orphaned => [], adoptable => [], open_requests => [], fulfilled_requests => [],
