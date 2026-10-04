@@ -15,6 +15,7 @@ sub read_file {
 }
 
 my %pages = (
+    about => 'The Physics Library Story',
     reqlist => 'Requests', orphanage => 'Orphanage',
     userarticlesbeta => 'My Articles', unclassified => 'Unclassified Articles',
     unproven => 'Unproven Theorems', globalcors => 'Pending Corrections',

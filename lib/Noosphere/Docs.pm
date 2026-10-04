@@ -21,7 +21,7 @@ sub getAbout {
   my $vars;
 
   my $tt = Template->new({
-		INCLUDE_PATH => '/var/www/pp/stemplates',
+		INCLUDE_PATH => getConfig('template_path'),
 	});
 
 	
