@@ -1,27 +1,39 @@
-<font size="+2">The Physics Library Story</font>
-<p>
-Just as Physics would not exist without math, so also Physics Library would not exist without <a href="https://www.planetmath.org">PlanetMath</a>.
+<style type="text/css">
+.pl-about { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; overflow-wrap: anywhere; }
+.pl-about a { color: #064d93; }
+.pl-about a:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-about p { font-size: .9rem; line-height: 1.6; margin: .85rem 0; }
+.pl-about-credits { margin: 1.2rem 0; }
+.pl-about-credits h2 { color: #17212b; font-size: 1rem; margin: 0 0 .5rem; }
+.pl-about-credit-list { border-top: 1px solid #b6c5d2; list-style: none; margin: 0; padding: 0; }
+.pl-about-credit-list li { border-bottom: 1px solid #cbd6de; font-size: .86rem; line-height: 1.5; padding: .5rem .15rem; }
+.pl-about-credit-list span { color: #526170; }
+.pl-about-history { border-top: 1px solid #b6c5d2; padding-top: .2rem; }
+</style>
 
-Some credits:
-<ul>
- <li>Aaron Krowne - design, coding
- <li>Ben Loftin - PlanetPhysics and Physics Library setup, testing, coding
- <li>Logan Hanks - coding
- <li>Joel Irby - coding
- <li>Nathan Egge - design, coding
- <li>djao - licensing, testing, content
- <li>ink - original logo
- <li>zoner - new logo
- <li>joe s. - initial hosting
- <li>drini - testing, content
- <li>Yuxin Chen - computer admin
- <li>undernet #math - moral support!
-</ul>
+<div class="pl-about">
+  [% INCLUDE modernboxheader.tt title = 'The Physics Library Story' %]
+  <p>Just as Physics would not exist without math, so also Physics Library would not exist without <a href="https://www.planetmath.org">PlanetMath</a>.</p>
 
-<hr>
+  <section class="pl-about-credits" aria-labelledby="about-credits-heading">
+    <h2 id="about-credits-heading">Some credits:</h2>
+    <ul class="pl-about-credit-list">
+      <li><strong>Aaron Krowne</strong><span> - design, coding</span></li>
+      <li><strong>Ben Loftin</strong><span> - PlanetPhysics and Physics Library setup, testing, coding</span></li>
+      <li><strong>Logan Hanks</strong><span> - coding</span></li>
+      <li><strong>Joel Irby</strong><span> - coding</span></li>
+      <li><strong>Nathan Egge</strong><span> - design, coding</span></li>
+      <li><strong>djao</strong><span> - licensing, testing, content</span></li>
+      <li><strong>ink</strong><span> - original logo</span></li>
+      <li><strong>zoner</strong><span> - new logo</span></li>
+      <li><strong>joe s.</strong><span> - initial hosting</span></li>
+      <li><strong>drini</strong><span> - testing, content</span></li>
+      <li><strong>Yuxin Chen</strong><span> - computer admin</span></li>
+      <li><strong>undernet #math</strong><span> - moral support!</span></li>
+    </ul>
+  </section>
 
-<p>
-
-Physics Library was initially PlanetPhysics and was hosted in Blacksburg, VA, with the Virginia Tech <a href="https://www.dlib.vt.edu">Digital Library Research Lab</a> in the <a href="https://www.cc.vt.edu">Computing Center</a>.
-
-</p>
+  <div class="pl-about-history">
+    <p>Physics Library was initially PlanetPhysics and was hosted in Blacksburg, VA, with the Virginia Tech <a href="https://www.dlib.vt.edu">Digital Library Research Lab</a>. </p>
+  </div>
+</div>
