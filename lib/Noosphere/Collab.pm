@@ -754,7 +754,7 @@ sub editCollab {
 	if (defined $params->{'preview'}) {
 		$AllowCache = 0;
 
-		my @errors = checkCollab($params, $userinf);
+		@errors = checkCollab($params, $userinf);
 
 		if (!@errors) {
 			my $pcontent = renderCollabPreview($params, getPreferredRenderMethod($userinf->{'prefs'}->{'cmethod'})) || '';
@@ -815,7 +815,7 @@ sub editCollab {
 
 		# give up any lock there might be
 		#
-		$dbh->do("update $table set _lock=0 where uid=$params->{id}");
+		$dbh->do("update $table set _lock=0 where uid=$params->{id}") unless $params->{'new'};
 		
 		# return to collab main page
 		#
@@ -875,6 +875,8 @@ sub checkCollab {
 	if (!$params->{'title'}) {
 		push @errors, "A title is required.";
 	}
+
+	return @errors if $params->{'new'};
 	
 	# concurrency
 	#
