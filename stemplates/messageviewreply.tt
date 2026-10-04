@@ -1,0 +1,5 @@
+<li>
+  <a class="pl-message-reply-subject" href="[% message_url | html %]">[% subject | html %]</a>
+  <p class="pl-message-meta">by <a href="[% author_url | html %]">[% username | html %]</a> on [% date | html %] [% watching %]</p>
+  [% replies %]
+</li>

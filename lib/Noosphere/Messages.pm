@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Noosphere::EntryInteractions;
 
 use vars qw($reader);
 
@@ -265,47 +266,39 @@ sub msgCountWithNewXML {
 sub getMessage {
 	my $params = shift;
 	my $userinf = shift;
-	
 	my $uid = $params->{id};
-	
-	my $template = new TemplateNS('dispmessage.html');
-	
-	my $html = '';
-	my $interact = '';
-	my $msg = '';
-
-	# get the data
-	#
+	return "Couldn't find that message!" unless defined($uid) && !ref($uid) && $uid =~ /\A[0-9]+\z/;
+	local $reader = $userinf;
 	(my $rv,my $sth) = dbSelect($dbh,{WHAT => '*', 
 	FROM => 'messages', 
 	WHERE => "uid = $uid", 
 	'ORDER BY' => 'created'});
-
-	if (! $rv ) { 
-		dwarn "uh oh... couldn't find any message $uid";
+	if (!$rv || !$sth) {
+		$sth->finish() if $sth;
 		return "Couldn't find that message!";
 	}
-
-	# handle watch toggling
-	#
-	changeWatch($params, $userinf, 'messages', $params->{id});
-
 	my $row = $sth->fetchrow_hashref();
-	my $up = getUpArrow("".getConfig("main_url")."/?op=getobj&from=$row->{tbl}&id=$row->{objectid}",'parent',"parent object");
- 
-	my $authorinf = _userfields_by_id($row->{userid},'username','email','homepage');
-	$msg .= clearBox("$up Viewing Message",
-			printmessage($row, $userinf, $authorinf, {single=>1}));
-
-	my $itemplate = new TemplateNS('dispmessage_interact.html');
-	$itemplate->setKeys('id' => $row->{'objectid'}, 'replyto'=>$row->{'uid'});
-	$interact .= makeBox('Interact',$itemplate->expand());
-	
-	$template->setKeys('message' => $msg, 'interact' => $interact, 'replyto' => $row->{'uid'}, 'id' => $row->{'objectid'});
-	
-	$html .= $template->expand(); 
-	
-	return $html;
+	$sth->finish();
+	return "Couldn't find that message!" unless $row;
+	return errorMessage("You don't have permission to view that message.")
+		if getConfig('acl_tables')->{$row->{tbl}} && !hasPermissionTo($row->{tbl}, $row->{objectid}, $userinf, 'read');
+	changeWatch($params, $userinf, 'messages', $row->{uid});
+	my $authorinf = _userfields_by_id($row->{userid}, 'username');
+	my $parent_url = entryInteractionURL('getobj', from => $row->{tbl}, id => $row->{objectid});
+	my @actions = (
+		{label => 'Reply', url => entryInteractionURL('postmsg', id => $row->{objectid}, replyto => $row->{uid})},
+		{label => 'Up', url => $row->{replyto} == -1 ? $parent_url : entryInteractionURL('getmsg', id => $row->{replyto})},
+	);
+	push @actions, {label => 'Top', url => entryInteractionURL('getmsg', id => $row->{threadid})} if $row->{replyto} != -1;
+	return entryInteractionTemplate('messageview.tt', {
+		subject => $row->{subject}, username => $authorinf->{username},
+		author_url => entryInteractionURL('getuser', id => $row->{userid}),
+		date => nicifyTimestamp($row->{created}), body => stdmsg($row->{body}),
+		parent_url => $parent_url, watching => getWatchString($row),
+		replies => getreplies($userinf, $row->{uid}, 0, 1, undef, 1),
+		watch => $row->{threadid} == $row->{uid} ? getWatchWidget({from => 'messages', id => $row->{uid}, op => 'getmsg'}, $userinf) : '',
+		interact => entryInteractionSection('Interact', entryInteractionActions(\@actions, 'Message actions')),
+	});
 }
 
 # main call to display the discussion attached to an object 
@@ -654,11 +647,13 @@ sub getreplies {
 	my $msgexpand = shift;
 	my $level = shift;
 	my $lastid = shift;
+	my $modern = shift;
 
 	my $replies = '';
 	my $html;
 
-	$replies = _r_getmessages($userinf,$uid,$msgexpand,$level,$lastid);	
+	$replies = _r_getmessages($userinf,$uid,$msgexpand,$level,$lastid,$modern);
+	return $replies if $modern;
 	if ($replies ne "") {
 		$html = "<tr><td>$replies</td></tr>\n";
 	}
@@ -674,21 +669,36 @@ sub _r_getmessages {
 	my $msgexpand = shift;
 	my $level = shift;
 	my $lastid = shift;
+	my $modern = shift;
 
 	my $html = '';
 	my $authorinf = '';
 
-	(my $rv, my $sth) = dbSelect($dbh,{WHAT => 'objectid,tbl,uid,created,subject,userid,body',
+	(my $rv, my $sth) = dbSelect($dbh,{WHAT => 'objectid,tbl,uid,created,subject,userid,body'.($modern ? ',threadid' : ''),
 																		 FROM => 'messages',
 									 WHERE => "replyto = $uid",
 									 'ORDER BY' => 'created'});
+	if ($modern && (!$rv || !$sth)) {
+		$sth->finish() if $sth;
+		return '';
+	}
 
 	my @rows = dbGetRows($sth);
 
 	if ($#rows >= 0 ) { 
-	$html .= "<ul>\n";
+	$html .= $modern ? '<ul class="pl-message-replies">' : "<ul>\n";
 		foreach my $row (@rows) {
 		$authorinf = _userfields_by_id($row->{userid},'username','uid');
+		if ($modern) {
+			$html .= entryInteractionTemplate('messageviewreply.tt', {
+				subject => $row->{subject}, username => $authorinf->{username},
+				message_url => entryInteractionURL('getmsg', id => $row->{uid}),
+				author_url => entryInteractionURL('getuser', id => $row->{userid}),
+				date => nicifyTimestamp($row->{created}), watching => getWatchString($row),
+				replies => _r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 1),
+			});
+			next;
+		}
 
 		if ($msgexpand gt "$level" || $msgexpand eq "-1") {
 		$html .= "<table with=\"100%\"><td>";
