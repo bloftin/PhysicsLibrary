@@ -1,0 +1,4 @@
+<section class="pl-entry-section[% IF admin %] pl-entry-section-admin[% END %]" aria-label="[% title | html %]">
+  <header class="pl-entry-section-header"><h2>[% title | html %]</h2></header>
+  <div class="pl-entry-section-body">[% content %]</div>
+</section>

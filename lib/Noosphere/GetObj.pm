@@ -1,6 +1,7 @@
 package Noosphere;
 use strict;
 use Noosphere::TemplateNS;
+use Noosphere::EntryInteractions;
 use URI::Escape qw(uri_escape_utf8);
 use vars qw($NoosphereTitle $NoosphereCanonical);
 
@@ -71,6 +72,7 @@ sub getObj {
 		$from eq getConfig('exp_tbl') ||
 		$from eq getConfig('books_tbl')
 	);
+	my $modern_entry = $from eq getConfig('en_tbl');
 	#dwarn "name";
 	#dwarn $name;
 	#dwarn "id";
@@ -194,7 +196,10 @@ sub getObj {
 		my $lastmsg = get_lastseen($from,$id,$userinf->{'uid'});
 		#dwarn "lastmsg:\n $lastmsg";
 
-		$messages = clearBox('Discussion',getMessages($from,$id,$desc,$params,$userinf,($userinf->{'uid'} < 0 ) ? undef : $lastmsg));
+		my $discussion = getMessages($from,$id,$desc,$params,$userinf,
+			($userinf->{'uid'} < 0 ) ? undef : $lastmsg, $modern_entry);
+		$messages = $modern_entry ? entryInteractionSection('Discussion', $discussion) :
+			clearBox('Discussion', $discussion);
 		##$html->setKey('messages', $messages);
 		#dwarn "messages\n: $messages";
 		my $curlast = get_lastmsg($from,$id);
@@ -220,8 +225,8 @@ sub getObj {
 	#
 	
 	if ($from eq getConfig('en_tbl')) {
-		$admin = getEncyclopediaAdminControls($userinf,$from,$id,$params->{'method'});
-		$interact = makeBox('Interact',getEncyclopediaInteract($rec));
+		$admin = getEncyclopediaAdminControls($userinf,$from,$id,$params->{'method'}, 1);
+		$interact = entryInteractionSection('Interact', getEncyclopediaInteract($rec, 1));
 	}
 	elsif ($from eq getConfig('papers_tbl') ||
 		$from eq getConfig('exp_tbl') ||
@@ -231,15 +236,15 @@ sub getObj {
 
 	# get owner controls
 	if ($userinf->{'uid'} == $rec->{'userid'}) {
-		$author = getOwnerControls($from,$rec->{'uid'});
+		$author = getOwnerControls($from,$rec->{'uid'}, $modern_entry);
 	}
 	# or author controls
 	elsif ($userinf->{'uid'} > 0 && hasPermissionTo($from,$id,$userinf,'write')) {
-		$author = getAuthorControls($from,$rec->{'uid'},$userinf);
+		$author = getAuthorControls($from,$rec->{'uid'},$userinf, $modern_entry);
 	}
 
 	if ($from eq getConfig('en_tbl')) {
-		$corrections = clearBox('Pending Errata and Addenda',getPendingCorrections($id));
+		$corrections = entryInteractionSection('Pending Errata and Addenda', getPendingCorrections($id, 1));
 	}
 	$params->{'id'} = $id;
 	$watch = getWatchWidget($params, $userinf);
@@ -269,6 +274,7 @@ sub getObj {
 
 	my $vars = {
         renderObj       => $html,
+		modern_entry    => $modern_entry,
 		watch           => $watch,
 		admin           => $admin,
 		author          => $author,
@@ -306,6 +312,16 @@ sub getAuthorControls {
 	my $table = shift;
 	my $id = shift;
 	my $userinf = shift;
+	my $modern = shift;
+	if ($modern) {
+		my @actions = (
+			{label => 'Edit content', url => entryInteractionURL('edit', from => $table, id => $id)},
+			{label => 'Edit linking policy', url => entryInteractionURL('linkpolicy', from => $table, id => $id)},
+		);
+		push @actions, {label => 'Change access', url => entryInteractionURL('acledit', from => $table, id => $id)}
+			if hasPermissionTo($table, $id, $userinf, 'acl');
+		return entryInteractionSection('Author Controls', entryInteractionActions(\@actions, 'Author actions'));
+	}
 
 	my $html = '';
 
@@ -325,6 +341,22 @@ sub getAuthorControls {
 sub getOwnerControls {
 	my $table = shift;
 	my $id = shift;
+	my $modern = shift;
+	if ($modern) {
+		my @actions;
+		for my $action (
+			['edit', 'Edit content'], ['rerender', 'Rerender'],
+			['linkpolicy', 'Edit linking policy'], ['acledit', 'Change access'],
+			['creategroup', 'Create editor group'], ['transfer', 'Transfer'],
+			['delobj', 'Delete', 1],
+			($table ne getConfig('collab_tbl') ? (['abandon', 'Abandon', 1]) : ()),
+		) {
+			push @actions, {label => $action->[1], danger => $action->[2],
+				url => entryInteractionURL($action->[0], from => $table, id => $id,
+					$action->[2] ? (ask => 'yes') : ())};
+		}
+		return entryInteractionSection('Owner Controls', entryInteractionActions(\@actions, 'Owner actions'));
+	}
 
 	my $html = '';
 
@@ -346,11 +378,37 @@ sub getOwnerControls {
 #
 sub getEncyclopediaInteract {
 	my $rec = shift;
+	my $modern = shift;
 	my $html = "";
 	my $table = getConfig('en_tbl');
 
 	# get classification string, so we can propegate it to attachments
 	#
+	if ($modern) {
+		my @actions = (
+			{label => 'Post', url => entryInteractionURL('postmsg', from => $table, id => $rec->{uid})},
+			{label => 'Correct', url => entryInteractionURL('correct', from => $table, id => $rec->{uid})},
+			{label => 'Update request', url => entryInteractionURL('updatereq', identifier => $rec->{name})},
+		);
+		my @attachments;
+		if ($rec->{type} == THEOREM() || $rec->{type} == CONJECTURE()) {
+			push @attachments, ['Proof', 'Prove', 'proof of '.$rec->{title}],
+				['Result', 'Add result', $rec->{title}.' result'],
+				['Corollary', 'Add corollary', 'corollary of '.$rec->{title}];
+		}
+		push @attachments, ['Derivation', 'Add derivation', 'derivation of '.$rec->{title}]
+			if $rec->{type} == DEFINITION();
+		push @attachments, ['Example', 'Add example', 'example of '.$rec->{title}],
+			[undef, 'Add (any)', 'something related to '.$rec->{title}];
+		# Pass raw values to URI; pre-escaping here would double-encode classifications.
+		my $classification = classstring($table, $rec->{uid});
+		for my $attachment (@attachments) {
+			push @actions, {label => $attachment->[1], url => entryInteractionURL('adden',
+				class => $classification, parent => $rec->{name}, title => $attachment->[2],
+				defined($attachment->[0]) ? (type => $attachment->[0]) : ())};
+		}
+		return entryInteractionActions(\@actions, 'Article actions', 1);
+	}
 	my $class = urlescape(classstring($table,$rec->{uid}));
 	
 	$html .= "<center>rate";

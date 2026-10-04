@@ -1,0 +1,6 @@
+<nav class="pl-entry-actions" aria-label="[% label | html %]">
+  [% IF rating %]<span class="pl-entry-action-disabled" aria-disabled="true" title="Rating is not available">Rate</span>[% END %]
+  [% FOREACH action IN actions %]
+    <a[% IF action.danger %] class="pl-entry-action-danger"[% END %] href="[% action.url | html %]">[% action.label | html %]</a>
+  [% END %]
+</nav>

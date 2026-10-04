@@ -1,0 +1,30 @@
+<style type="text/css">
+.pl-entry-section { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: .75rem 0 0; min-width: 0; overflow-wrap: anywhere; }
+.pl-entry-section-header { background: #003399; border-bottom: 1px solid #002266; color: #fff; padding: .15rem .5rem; }
+.pl-entry-section-header h2 { color: #fff; font: bold 1rem Arial, Helvetica, sans-serif; letter-spacing: 0; line-height: 1.2; margin: 0; overflow-wrap: anywhere; }
+.pl-entry-section-admin .pl-entry-section-header { background: #990000; border-bottom-color: #660000; }
+.pl-entry-section-body { border-bottom: 1px solid #cbd6de; font-size: .9rem; line-height: 1.5; padding: .55rem .5rem; }
+.pl-entry-section a { color: #064d93; }
+.pl-entry-section a:focus-visible, .pl-entry-section button:focus-visible, .pl-entry-section select:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-entry-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .35rem 1rem; }
+.pl-entry-actions a { display: inline-block; font-size: .85rem; padding: .15rem 0; }
+.pl-entry-actions .pl-entry-action-danger { color: #990000; }
+.pl-entry-action-disabled { color: #64717d; font-size: .85rem; }
+.pl-entry-discussion-options { align-items: end; display: flex; flex-wrap: wrap; gap: .5rem .75rem; margin: 0 0 .65rem; }
+.pl-entry-discussion-option { align-items: center; display: flex; gap: .35rem; max-width: 100%; }
+.pl-entry-discussion-options label { font-size: .8rem; font-weight: bold; }
+.pl-entry-discussion-options select { background: #fff; border: 1px solid #9aaab9; box-sizing: border-box; color: #1d2935; font: normal .85rem Arial, Helvetica, sans-serif; height: 1.85rem; max-width: 100%; min-width: 5rem; padding: .15rem .3rem; }
+.pl-entry-section button { background: #194f78; border: 1px solid #153f60; color: #fff; cursor: pointer; font: normal .85rem Arial, Helvetica, sans-serif; min-height: 1.85rem; padding: .2rem .65rem; }
+.pl-entry-section button:hover { background: #123e60; }
+.pl-entry-empty { color: #445b70; margin: 0; }
+.pl-entry-errata { list-style: decimal; margin: 0; padding-left: 1.25rem; }
+.pl-entry-errata li { padding: .3rem 0; }
+.pl-entry-erratum-title { font-weight: bold; }
+.pl-entry-erratum-meta { color: #445b70; font-size: .85rem; }
+.pl-entry-errata-all { font-size: .85rem; margin: .5rem 0 0; }
+.pl-entry-message-watch-actions { margin: .65rem 0 0; }
+@media (max-width: 640px) {
+  .pl-entry-section-body { padding: .5rem; }
+  .pl-entry-discussion-options { align-items: start; }
+}
+</style>

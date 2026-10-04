@@ -1,0 +1,15 @@
+[% IF rows.size %]
+  <ol class="pl-entry-errata">
+    [% FOREACH row IN rows %]
+      <li>
+        <a class="pl-entry-erratum-title" href="[% row.url | html %]">[% row.title | html %]</a>
+        <span class="pl-entry-erratum-meta">by <a href="[% row.author_url | html %]">[% row.username | html %]</a> on [% row.filed | html %]</span>
+      </li>
+    [% END %]
+  </ol>
+[% ELSE %]
+  <p class="pl-entry-empty">None.</p>
+[% END %]
+[% IF total > 0 %]
+  <p class="pl-entry-errata-all"><a href="[% all_url | html %]">View all [% total | html %]</a></p>
+[% END %]
