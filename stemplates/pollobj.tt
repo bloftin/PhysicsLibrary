@@ -1,0 +1,6 @@
+[% INCLUDE entryinteractionstyles.tt %]
+<div class="pl-poll-object">
+  [% renderObj %]
+  [% messages %]
+  [% interact %]
+</div>

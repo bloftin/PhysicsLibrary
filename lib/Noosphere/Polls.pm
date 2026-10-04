@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Noosphere::EntryInteractions;
 
 # add a poll
 #
@@ -307,91 +308,39 @@ sub viewPolls {
 sub viewPoll {
 	my $params = shift;
 	my $userinf = shift;
-	#dwarn "viewPoll Started";
-	my $voted = (defined $params->{voted})?$params->{voted}:0;
 	my $id = $params->{id};
-	
-	my $maxpels = getConfig('votingbar_pels');
-	my $maxchars = getConfig('votingbar_chars');
 	my $table = getConfig('polls_tbl');
-	my $maxvotes = 0;
-	my $desc = 0;
+	return errorMessage('Invalid poll id.') unless defined($id) && $id =~ /\A\d+\z/;
+
+	my ($rv, $sth) = dbSelect($dbh, {
+		WHAT => '*,(start<=CURRENT_TIMESTAMP and finish>CURRENT_TIMESTAMP) as opened',
+		FROM => $table, WHERE => "uid=$id", LIMIT => '1',
+	});
+	return errorMessage('Poll query failed!') unless $rv && $sth;
+	my $poll = $sth->fetchrow_hashref();
+	$sth->finish();
+	return errorMessage('Could not find poll!') unless $poll;
+
+	my @results;
 	my $total = 0;
-	my $html = '';
-
-	(my $rv,my $sth)=dbSelect($dbh,{WHAT=>'*',
-		FROM=>$table,
-		WHERE=>"uid=$id",LIMIT=>"1"});
-
-	my $poll=$sth->fetchrow_hashref();
-	my @options=split(/,/,$poll->{options});
-
-	$html.="<table width=\"100%\" cellpadding=\"2\" cellspacing=\"0\">";
-	$html.="<tr><td colspan=\"3\" align=\"center\">$poll->{title}</td></tr>";
-	
-	# spacer row for w3m
-	#
-	$html.="<tr><td colspan=\"3\" align=\"center\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>";
-
-	my %counts;
-	
-	# pass one - get a total, get the largest count, build count hash.
-	#
-	foreach my $option (@options) {
-		my $count = getOptionCount($poll->{uid},$option);
-		$counts{$option} = $count;
-		if ($count > $maxvotes) { $maxvotes=$count; }
+	for my $option (split(/,/, $poll->{options})) {
+		my $count = getOptionCount($poll->{uid}, $option);
+		return errorMessage('Poll results are temporarily unavailable.') unless defined($count);
+		push @results, { option => $option, count => $count };
 		$total += $count;
 	}
-
-	# pass two - draw graph
-	#
-	my $ord = 1;
-	foreach my $option (@options) {
-		my $color = ($ord % 2 == 1) ? '#eeeeee' : '#ffffff';
-		$html .= "<tr bgcolor=\"$color\">";
-		my $width = $maxvotes ? ($counts{$option}*$maxpels)/$maxvotes : 0;
-		my $chars = $maxvotes ? ($counts{$option}*$maxchars)/$maxvotes : 0;
-		my $barchar = getConfig('votingbar_char');
-		my $bar = " ";
-		for (my $i=0;$i<$chars;$i++) { $bar="$bar$barchar"; }
-			$html .=" <td width=\"50\">$option</td><td align=\"left\"><img alt=\"$bar\" src=\"".getConfig('image_url')."/votingbar.png\" width=\"$width\" height=\"22\"></td>";
-			$html .= "<td align=\"center\">($counts{$option})</td>";
-			$html .= "</tr>";
-			$ord++;
-		}
-	
-		# pass 3 - show percentage summary
-		#
-		my @pcts = ();
-		foreach my $option (@options) {
-		my $pct = $total ? ($counts{$option}*100)/$total : 0;
-		my $str = sprintf "%3.1f",$pct;
-		push @pcts,"$option=$str%";
+	for my $result (@results) {
+		my $pct = $total ? $result->{count} * 100 / $total : 0;
+		$result->{percent} = sprintf('%.1f', $pct);
+		$result->{bar_width} = sprintf('%.4f', $pct);
 	}
-	$html .= "<tr><td colspan=\"3\" align=\"center\">".join(', ',@pcts)."</td></tr>";
-	
-	$html .= "<tr><td colspan=\"3\" align=\"center\">$total people voted total.</td></tr>";
-	$html .= "</table>";
 
-	# get discussion
-	#
-	#my $messages=clearBox('Discussion',getMessages($table,$id,$desc,$params,$userinf));
-	# ugly hack
-	my $messages="###NSTAG###messages raw/>";	 # this will be filled in by getobj
-
-	$html .= $messages;
- 
-	my $interact = makeBox('Interact',"<center><a href=\"".getConfig("main_url")."/?op=postmsg&from=$table&id=$id\">post</a></center>");
-
-	$html.=$interact;
-
-# ugly hack (in two ways)
-	my $txt = paddingTable(clearBox("Viewing Poll",$html)); 
-	my $prefix = getConfig('template_cmd_prefix');
-	$txt =~ s/###NSTAG###/<$prefix:template /o;
-	#dwarn "viewPoll Ended";
-	return templateFromText($txt);
+	return entryInteractionTemplate('pollview.tt', {
+		poll => $poll, results => \@results, total => $total,
+		start => ymd($poll->{start}), finish => ymd($poll->{finish}),
+		index_url => entryInteractionURL('viewpolls'),
+		vote_url => entryInteractionURL('getpoll', id => $poll->{uid}),
+	});
 }
 
 # return a count of votes for each option of a poll
@@ -404,7 +353,10 @@ sub getOptionCount {
 																	FROM=>'actions',
 									WHERE=>"type=".ACT_VOTE." and objectid=$id and data='".sq($option)."'"});
 	 
+	return undef unless $rv && $sth;
 	my $row=$sth->fetchrow_hashref();
+	$sth->finish();
+	return undef unless $row && defined($row->{ct});
 	my $count=$row->{ct};
 
 	return $count;
