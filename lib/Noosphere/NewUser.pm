@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Template;
 use Noosphere::PasswordStorage;
 
 use Digest::SHA qw(sha256_hex);
@@ -70,7 +71,11 @@ sub getNewUser {
 			$template->setKeys('error' => $error, 'user' => $params->{'user'}, 'email' => $params->{'email'});
 		}
 	}
-	return paddingTable(makeBox($boxtitle, $template->expand())); 
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('accountpage.tt', {title => $boxtitle, content => $template->expand()}, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 sub getActivate {

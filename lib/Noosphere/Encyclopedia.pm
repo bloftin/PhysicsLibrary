@@ -1617,7 +1617,11 @@ sub renderEnPreview {
 sub getAssocGuidelines {
 	my $guidelines = new TemplateNS('assoc_guidelines.html');
 
-	return paddingTable(clearBox('Association Guidelines', $guidelines->expand()));
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('assocguidelines.tt', {content => $guidelines->expand()}, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # get a little latex guidelines screen 

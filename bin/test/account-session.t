@@ -7,7 +7,8 @@ use lib "$FindBin::Bin/../../lib";
 use Digest::SHA qw(sha256_hex);
 
 our %config = (user_tbl => 'users', cookie_timeout => 14 * 24 * 60,
-    access_admin => 50, main_url => 'https://example.invalid');
+    access_admin => 50, main_url => 'https://example.invalid',
+    template_path => "$FindBin::Bin/../../stemplates");
 {
     package Noosphere;
     sub getConfig { return $main::config{$_[0]}; }

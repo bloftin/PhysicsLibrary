@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Template;
 use Noosphere::PasswordStorage;
 
 use Digest::SHA qw(sha256_hex);
@@ -86,7 +87,6 @@ sub changePassword {
 sub pwChangeRequest {
   my $params = shift;
 
-  my $template = new TemplateNS('reqpwchange.html');
   my $error = "";
 
   if (defined $params->{submit}) {
@@ -108,15 +108,24 @@ sub pwChangeRequest {
        # send out the message
 	   sendPwChangeMail($row->{username},$email, $hash);
 	 }
-     return paddingTable(makeBox('Mail Sent', passwordResetRequestMessage()));
+     my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+     my $html = '';
+     $tt->process('accountpage.tt', {title => 'Mail Sent', content => passwordResetRequestMessage()}, \$html)
+       || die "Template process failed: ", $tt->error(), "\n";
+     return $html;
   } 
 
   # return initial form
   #
+  my $template = new TemplateNS('reqpwchange.html');
   $template->setKey('username',ref($params->{username}) ? '' : $params->{username});
   $template->setKey('error',$error);
   
-  return paddingTable(makeBox('Request a Password Change',$template->expand()));
+  my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+  my $html = '';
+  $tt->process('accountpage.tt', {title => 'Request a Password Change', content => $template->expand()}, \$html)
+    || die "Template process failed: ", $tt->error(), "\n";
+  return $html;
 }
 
 # send out the message with further instructions, return an acknowledgement

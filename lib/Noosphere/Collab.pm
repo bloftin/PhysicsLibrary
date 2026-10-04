@@ -108,7 +108,11 @@ sub siteDoc {
 	print OUT $sitedoc;
 	close(OUT);
 
-	return $sitedoc;
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('sitedoc.tt', {content => $sitedoc}, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 sub siteDocOld {
