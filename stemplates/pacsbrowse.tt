@@ -1,8 +1,7 @@
 <style type="text/css">
 .pl-subject-browser { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-subject-browser a { color: #064d93; }
-.pl-subject-browser-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-subject-browser h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-subject-browser-header { margin: 0 0 1rem; }
 .pl-subject-browser-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-subject-browser-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
 .pl-subject-browser-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
@@ -32,10 +31,10 @@
 </style>
 
 <div class="pl-subject-browser" id="subject-browser-top">
-  <header class="pl-subject-browser-header">
-    <h1>Browse by Subject</h1>
+  <div class="pl-subject-browser-header">
+    [% INCLUDE modernboxheader.tt title = 'Browse by Subject' %]
     <p class="pl-subject-browser-summary">Explore Physics Library articles through the Physics and Astronomy Classification Scheme.</p>
-  </header>
+  </div>
 
   <nav class="pl-subject-browser-nav" aria-label="Encyclopedia navigation">
     [% IF domain == 'objects' %]

@@ -53,7 +53,7 @@ sub showUserActivity {
 	my $html = '';
 	$tt->process('useractivity.tt', { members => \@members }, \$html)
 		|| die "Template process failed: ", $tt->error(), "\n";
-	return paddingTable($html);
+	return $html;
 }
 
 # userList - get a user list
@@ -190,7 +190,7 @@ sub userList {
 		last => @members ? $params->{'offset'} + scalar(@members) : 0,
 		pager => $pager,
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
-	return paddingTable($html);
+	return $html;
 }
 
 1;

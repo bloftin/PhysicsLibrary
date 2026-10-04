@@ -401,7 +401,7 @@ sub collabMain {
 		filter => $filter,
 		search => qhtmlescape($search),
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
-	return paddingTable($html);
+	return $html;
 }
 
 # Legacy XSL presentation retained temporarily as a reference while the

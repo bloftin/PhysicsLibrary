@@ -1,7 +1,5 @@
 <style type="text/css">
 .pl-mailbox { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
-.pl-mailbox .pl-modern-box-header { background: #003399; border-bottom: 1px solid #002266; padding: .15rem .5rem; }
-.pl-mailbox .pl-modern-box-header h1 { font-size: 1rem; line-height: 1.2; overflow-wrap: anywhere; }
 .pl-mailbox-nav { align-items: center; border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .86rem; gap: .5rem 1.2rem; padding: .45rem 0 .65rem; }
 .pl-mailbox-nav a { color: #174e80; }
 .pl-mailbox-nav .pl-mailbox-compose { margin-left: auto; font-weight: bold; }

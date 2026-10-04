@@ -1,9 +1,8 @@
 <style type="text/css">
 .pl-papers { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-papers a { color: #064d93; }
-.pl-papers-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-papers-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
-.pl-papers h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-papers-header { margin: 0 0 1rem; }
+.pl-papers-header-row { align-items: center; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
 .pl-papers-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-papers-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
 .pl-papers-create:hover, .pl-papers-create:focus { background: #103a61; }
@@ -24,10 +23,13 @@
 </style>
 
 <div class="pl-papers">
-  <header class="pl-papers-header">
-    <div class="pl-papers-header-row"><h1>Physics Library Papers</h1><a class="pl-papers-create" href="/?op=addobj&amp;to=papers">Add Paper</a></div>
-    <p class="pl-papers-summary">Explore research papers contributed to the Physics Library.</p>
-  </header>
+  <div class="pl-papers-header">
+    [% INCLUDE modernboxheader.tt title = 'Physics Library Papers' %]
+    <div class="pl-papers-header-row">
+      <p class="pl-papers-summary">Explore research papers contributed to the Physics Library.</p>
+      <a class="pl-papers-create" href="/?op=addobj&amp;to=papers">Add Paper</a>
+    </div>
+  </div>
 
   <nav class="pl-papers-nav" aria-label="Papers navigation">
     <a href="/?op=browse&amp;from=papers" aria-current="page">Papers</a>

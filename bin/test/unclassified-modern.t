@@ -22,7 +22,7 @@ like($stats, qr/qhtmlescape\(\$username\)/, 'contributor names are escaped befor
 like($stats, qr/op=adminclassify/, 'classification route remains available');
 like($stats, qr/getPager\(\$params, \$userinf, 1\)/, 'existing paging behavior is retained');
 like($stats, qr/where c\.objectid is null/, 'unclassified query semantics are retained');
-like($template, qr/<h1>Unclassified Articles<\/h1>/, 'template provides the page heading');
+like($template, qr/INCLUDE modernboxheader\.tt title = 'Unclassified Articles'/, 'template provides the page heading');
 like($template, qr/awaiting subject classification/, 'template explains the queue');
 like($template, qr/\[% pager %\]/, 'template displays pagination');
 like($template, qr/Classify<\/a>/, 'template exposes classification action');

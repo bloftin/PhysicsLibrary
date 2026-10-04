@@ -82,7 +82,7 @@ sub unprovenTheorems {
 		pager    => $pager,
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html);
+	return $html;
 }
 
 
@@ -198,7 +198,7 @@ sub unclassifiedObjects {
 		pager   => $pager,
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html);
+	return $html;
 }
 
 
@@ -296,7 +296,7 @@ sub getSystemStats {
 		title => getConfig('projname').' Stats', metrics => \@metrics, rows => \@rows,
 		host => getSystemStatsHost(),
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
-	return paddingTable($html);
+	return $html;
 }
 
 # Read host status without spawning a subprocess in an Apache request.

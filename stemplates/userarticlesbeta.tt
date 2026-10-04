@@ -1,9 +1,8 @@
 <style type="text/css">
 .pl-articles-beta { max-width: 76rem; margin: 0 auto; color: #1d2935; font-family: Arial, Helvetica, sans-serif; }
 .pl-articles-beta a { color: #064d93; }
-.pl-articles-beta-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-articles-beta-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
-.pl-articles-beta-header h1 { color: #122c4b; display: inline; font-size: 1.55rem; margin: 0; }
+.pl-articles-beta-header { margin: 0 0 1rem; }
+.pl-articles-beta-header-row { align-items: center; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
 .pl-articles-beta-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-articles-beta-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
 .pl-articles-beta-create:hover, .pl-articles-beta-create:focus { background: #103a61; }
@@ -35,8 +34,11 @@
 
 <div class="pl-articles-beta">
   <div class="pl-articles-beta-header">
-    <div class="pl-articles-beta-header-row"><h1>My Articles</h1><a class="pl-articles-beta-create" href="/?op=adden">Create Article</a></div>
-    [% IF total %]<p class="pl-articles-beta-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] article[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-articles-beta-summary">No articles match this view.</p>[% END %]
+    [% INCLUDE modernboxheader.tt title = 'My Articles' %]
+    <div class="pl-articles-beta-header-row">
+      [% IF total %]<p class="pl-articles-beta-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] article[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-articles-beta-summary">No articles match this view.</p>[% END %]
+      <a class="pl-articles-beta-create" href="/?op=adden">Create Article</a>
+    </div>
   </div>
 
   <form class="pl-articles-beta-toolbar" method="get" action="/">

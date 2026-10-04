@@ -299,7 +299,7 @@ sub viewPolls {
 		closed_polls => \@closed_polls,
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html);
+	return $html;
 }
 
 # view results for a poll 

@@ -21,7 +21,7 @@ like($stats, qr/mathTitle\(\$row->\{'title'\}, 'highlight'\)/, 'theorem titles r
 like($stats, qr/op=adden.*?type=Proof/s, 'proof creation route remains available');
 like($stats, qr/getPager\(\$params, \$userinf, 1\)/, 'existing paging behavior is retained');
 like($stats, qr/getUnprovenTheorems\(\)/, 'existing unproven-theorem selection is retained');
-like($template, qr/<h1>Unproven Theorems<\/h1>/, 'template provides the page heading');
+like($template, qr/INCLUDE modernboxheader\.tt title = 'Unproven Theorems'/, 'template provides the page heading');
 like($template, qr/awaiting a proof/, 'template explains the queue');
 like($template, qr/\[% pager %\]/, 'template displays pagination');
 like($template, qr/Write proof<\/a>/, 'template exposes proof contribution action');

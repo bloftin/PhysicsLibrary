@@ -24,7 +24,7 @@ like($global, qr/qhtmlescape\(\$row->\{title\}\).*qhtmlescape\(\$row->\{objtitle
 like($global, qr/qhtmlescape\(\$row->\{userfrom\}\).*qhtmlescape\(\$row->\{userto\}\)/s, 'user names are escaped before presentation');
 like($global, qr/where c\.closed is null/, 'pending-correction query semantics are retained');
 like($global, qr/getPager\(\{op=>\$params->\{'op'\}, total=>\$total, offset=>\$offset\},\$userinf,2\)/, 'existing paging behavior is retained');
-like($template, qr/<h1>Pending Corrections<\/h1>/, 'template provides the page heading');
+like($template, qr/INCLUDE modernboxheader\.tt title = 'Pending Corrections'/, 'template provides the page heading');
 like($template, qr/awaiting review or resolution/, 'template explains the queue');
 like($template, qr/\[% pager %\]/, 'template displays pagination');
 like($template, qr/View correction<\/a>/, 'template exposes correction view action');

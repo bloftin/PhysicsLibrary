@@ -76,7 +76,7 @@ SKIP: {
     skip 'Template Toolkit unavailable', 5 unless $tt;
     my $rendered = '';
     ok($tt->process('notices.tt', $vars, \$rendered), 'real template renders') or diag($tt->error);
-    like($rendered, qr/background: #003399/, 'original title-box blue is scoped to notices');
+    like($rendered, qr/background: #003399/, 'notices retain the original title-box blue');
     like($rendered, qr/name="delunsel"/, 'bulk deletion controls render');
     like($rendered, qr/&lt;Notice&gt;/, 'representative notice renders');
     $tt->process('notices.tt', {title => 'Your Notices', count => 0}, \$rendered);

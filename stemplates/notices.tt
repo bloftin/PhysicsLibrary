@@ -1,7 +1,5 @@
 <style type="text/css">
 .pl-notices { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
-.pl-notices .pl-modern-box-header { background: #003399; border-bottom: 1px solid #002266; padding: .15rem .5rem; }
-.pl-notices .pl-modern-box-header h1 { font-size: 1rem; line-height: 1.2; }
 .pl-notices-summary, .pl-notice-meta, .pl-notice-default { color: #526170; font-size: .82rem; }
 .pl-notices-toolbar { align-items: center; display: flex; flex-wrap: wrap; gap: .5rem; padding: .65rem 0; }
 .pl-notices button { background: #eef3f7; border: 1px solid #b6c5d2; border-radius: 3px; color: #243d55; cursor: pointer; font: inherit; font-size: .82rem; padding: .4rem .65rem; }

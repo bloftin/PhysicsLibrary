@@ -1,8 +1,7 @@
 <style type="text/css">
 .pl-pacs-search { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-pacs-search a { color: #064d93; }
-.pl-pacs-search-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-pacs-search h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-pacs-search-header { margin: 0 0 1rem; }
 .pl-pacs-search-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-pacs-search-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .87rem; gap: .35rem .9rem; margin: 0 0 1rem; padding: 0 0 .6rem; }
 .pl-pacs-search-nav a[aria-current="page"] { color: #17212b; font-weight: bold; text-decoration: none; }
@@ -29,10 +28,10 @@
 </style>
 
 <div class="pl-pacs-search">
-  <header class="pl-pacs-search-header">
-    <h1>Search Subjects</h1>
+  <div class="pl-pacs-search-header">
+    [% INCLUDE modernboxheader.tt title = 'Search Subjects' %]
     <p class="pl-pacs-search-summary">Find PACS classifications by code or description, then continue into the subject hierarchy.</p>
-  </header>
+  </div>
 
   <nav class="pl-pacs-search-nav" aria-label="Encyclopedia navigation">
     <a href="/encyclopedia">Alphabetical index</a>

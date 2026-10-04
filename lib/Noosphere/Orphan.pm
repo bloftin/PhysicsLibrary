@@ -421,7 +421,7 @@ sub orphanage {
 		adoptable_total => scalar(@adoptable_rows),
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html);
+	return $html;
 }
 
 sub isAdoptable

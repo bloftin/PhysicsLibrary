@@ -579,7 +579,7 @@ sub reqList {
 	my $ret = $tt->process('reqlist.tt', $vars, \$html)
 		|| die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html);
+	return $html;
 }
 
 # Retained only as a reference while installations move from the XSL template.

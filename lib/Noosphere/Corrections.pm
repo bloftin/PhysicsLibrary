@@ -374,7 +374,7 @@ sub globalViewCorrections {
 		pager       => $pager,
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html);
+	return $html;
 
 }
 

@@ -1,9 +1,8 @@
 <style type="text/css">
 .pl-papers-list { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-papers-list a { color: #064d93; }
-.pl-papers-list-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-papers-list-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
-.pl-papers-list h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-papers-list-header { margin: 0 0 1rem; }
+.pl-papers-list-header-row { align-items: center; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
 .pl-papers-list-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-papers-list-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
 .pl-papers-list-create:hover, .pl-papers-list-create:focus { background: #103a61; }
@@ -30,10 +29,13 @@
 </style>
 
 <div class="pl-papers-list">
-  <header class="pl-papers-list-header">
-    <div class="pl-papers-list-header-row"><h1>Search Papers</h1><a class="pl-papers-list-create" href="/?op=addobj&amp;to=papers">Add Paper</a></div>
-    [% IF total %]<p class="pl-papers-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching paper[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-papers-list-summary">No papers match this view.</p>[% END %]
-  </header>
+  <div class="pl-papers-list-header">
+    [% INCLUDE modernboxheader.tt title = 'Search Papers' %]
+    <div class="pl-papers-list-header-row">
+      [% IF total %]<p class="pl-papers-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching paper[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-papers-list-summary">No papers match this view.</p>[% END %]
+      <a class="pl-papers-list-create" href="/?op=addobj&amp;to=papers">Add Paper</a>
+    </div>
+  </div>
 
   <nav class="pl-papers-list-nav" aria-label="Papers navigation">
     <a href="/?op=browse&amp;from=papers">Papers</a>

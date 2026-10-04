@@ -45,7 +45,7 @@ sub getFeedback {
   $tt->process('feedback.tt', {
     email => qhtmlescape(getAddr('feedback')),
   }, \$html) || die "Template process failed: ", $tt->error(), "\n";
-  return paddingTable($html);
+  return $html;
 }
 # get the Google seach page
 #

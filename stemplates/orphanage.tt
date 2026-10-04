@@ -1,8 +1,7 @@
 <style type="text/css">
 .pl-orphanage { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-orphanage a { color: #064d93; }
-.pl-orphanage-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-orphanage h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-orphanage-header { margin: 0 0 1rem; }
 .pl-orphanage-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-orphanage-intro { background: #eef3f7; border: 1px solid #b6c5d2; color: #3e5265; font-size: .86rem; margin: 0 0 1rem; padding: .75rem; }
 .pl-orphanage-section { margin: 1.1rem 0; }
@@ -20,10 +19,10 @@
 </style>
 
 <div class="pl-orphanage">
-  <header class="pl-orphanage-header">
-    <h1>Orphanage</h1>
+  <div class="pl-orphanage-header">
+    [% INCLUDE modernboxheader.tt title = 'Orphanage' %]
     <p class="pl-orphanage-summary">Articles seeking a new maintainer.</p>
-  </header>
+  </div>
 
   <p class="pl-orphanage-intro">Adopting an article transfers its stewardship to you. Please review the article before accepting responsibility for future updates and corrections.</p>
 

@@ -1,9 +1,8 @@
 <style type="text/css">
 .pl-books-list { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-books-list a { color: #064d93; }
-.pl-books-list-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-books-list-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
-.pl-books-list h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-books-list-header { margin: 0 0 1rem; }
+.pl-books-list-header-row { align-items: center; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
 .pl-books-list-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-books-list-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
 .pl-books-list-create:hover, .pl-books-list-create:focus { background: #103a61; }
@@ -30,10 +29,13 @@
 </style>
 
 <div class="pl-books-list">
-  <header class="pl-books-list-header">
-    <div class="pl-books-list-header-row"><h1>Search Books</h1><a class="pl-books-list-create" href="/?op=addobj&amp;to=books">Add Book</a></div>
-    [% IF total %]<p class="pl-books-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching book[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-books-list-summary">No books match this view.</p>[% END %]
-  </header>
+  <div class="pl-books-list-header">
+    [% INCLUDE modernboxheader.tt title = 'Search Books' %]
+    <div class="pl-books-list-header-row">
+      [% IF total %]<p class="pl-books-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching book[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-books-list-summary">No books match this view.</p>[% END %]
+      <a class="pl-books-list-create" href="/?op=addobj&amp;to=books">Add Book</a>
+    </div>
+  </div>
 
   <nav class="pl-books-list-nav" aria-label="Books navigation">
     <a href="/?op=browse&amp;from=books">Books</a>

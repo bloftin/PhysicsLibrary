@@ -1,5 +1,5 @@
 <style type="text/css">
-.pl-modern-box-header { background: #174e80; border-bottom: 3px solid #103a61; box-sizing: border-box; color: #fff; margin: 0 0 .65rem; padding: .55rem .8rem; }
-.pl-modern-box-header h1 { color: #fff; font: bold 1.35rem Arial, Helvetica, sans-serif; margin: 0; }
+.pl-modern-box-header { background: #003399; border-bottom: 1px solid #002266; box-sizing: border-box; color: #fff; margin: 0 0 .65rem; padding: .15rem .5rem; }
+.pl-modern-box-header h1 { color: #fff; font: bold 1rem Arial, Helvetica, sans-serif; letter-spacing: 0; line-height: 1.2; margin: 0; min-width: 0; overflow-wrap: anywhere; }
 </style>
 <header class="pl-modern-box-header"><h1>[% title | html %]</h1></header>
