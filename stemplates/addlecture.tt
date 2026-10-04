@@ -16,7 +16,7 @@
 .pl-add-lecture input[type="submit"] { background: #1b507d; border: 1px solid #153f65; border-radius: 2px; color: #fff; cursor: pointer; font: .9rem Arial, Helvetica, sans-serif; padding: .4rem .75rem; }
 .pl-add-lecture input:focus-visible, .pl-add-lecture textarea:focus-visible, .pl-add-lecture a:focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
 .pl-add-lecture-error { background: #fff3f1; border-left: 3px solid #a00000; color: #a00000; line-height: 1.5; margin-bottom: 1rem; padding: .65rem .75rem; }
-.pl-add-lecture-filebox { border-top: 1px solid #b6c5d2; font-size: .9rem; line-height: 1.45; margin-top: 1rem; overflow-wrap: anywhere; padding-top: .75rem; }
+.pl-add-lecture-filebox { background: #f1f4f7; border: 1px solid #cbd6de; box-sizing: border-box; font-size: .9rem; line-height: 1.45; margin-top: 1rem; overflow-wrap: anywhere; padding: .75rem; }
 .pl-add-lecture-filebox table { border-collapse: collapse; max-width: 100%; width: 100%; }
 .pl-add-lecture-filebox td { background: transparent; padding: 0; text-align: left; }
 .pl-add-lecture-filebox center { font-weight: bold; text-align: left; }

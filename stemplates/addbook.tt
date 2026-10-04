@@ -1,0 +1,85 @@
+<style type="text/css">
+.pl-add-book { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-add-book a { color: #064d93; }
+.pl-add-book-guidelines { border-bottom: 1px solid #b6c5d2; font-size: .88rem; line-height: 1.5; padding: .2rem 0 .65rem; }
+.pl-add-book-guidelines ul { margin: .5rem 0 0; padding-left: 1.4rem; }
+.pl-add-book-guidelines li { margin-bottom: .35rem; }
+.pl-add-book-required { color: #a00000; }
+.pl-add-book-form { margin-top: 1rem; }
+.pl-add-book-field { margin: 0 0 1rem; min-width: 0; }
+.pl-add-book-field label { display: block; font-size: .9rem; font-weight: bold; line-height: 1.4; margin-bottom: .35rem; }
+.pl-add-book-field input, .pl-add-book-field textarea,
+.pl-add-book-filebox textarea, .pl-add-book-filebox input[type="file"] { box-sizing: border-box; max-width: 100%; width: 100%; }
+.pl-add-book-field input, .pl-add-book-field textarea, .pl-add-book-filebox textarea { background: #fff; border: 1px solid #8093a5; border-radius: 2px; color: #17212b; font: .95rem Arial, Helvetica, sans-serif; padding: .45rem .5rem; }
+.pl-add-book-field textarea, .pl-add-book-filebox textarea { line-height: 1.45; resize: vertical; }
+.pl-add-book-field small { color: #526170; display: block; font-size: .8rem; line-height: 1.4; margin-top: .35rem; }
+.pl-add-book input[type="submit"] { background: #1b507d; border: 1px solid #153f65; border-radius: 2px; color: #fff; cursor: pointer; font: .9rem Arial, Helvetica, sans-serif; padding: .4rem .75rem; }
+.pl-add-book input:focus-visible, .pl-add-book textarea:focus-visible, .pl-add-book a:focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
+.pl-add-book-error { background: #fff3f1; border-left: 3px solid #a00000; color: #a00000; line-height: 1.5; margin-bottom: 1rem; padding: .65rem .75rem; }
+.pl-add-book-filebox { background: #f1f4f7; border: 1px solid #cbd6de; box-sizing: border-box; font-size: .9rem; line-height: 1.45; margin-top: 1rem; overflow-wrap: anywhere; padding: .75rem; }
+.pl-add-book-filebox table { border-collapse: collapse; max-width: 100%; width: 100%; }
+.pl-add-book-filebox td { background: transparent; padding: 0; text-align: left; }
+.pl-add-book-filebox center { font-weight: bold; text-align: left; }
+.pl-add-book-filebox font { font-size: inherit; }
+.pl-add-book-filebox input[type="file"] { font: inherit; margin: .35rem 0; }
+.pl-add-book-filebox table table table td { padding-right: .65rem; vertical-align: top; }
+</style>
+
+<div class="pl-add-book">
+  [% heading = 'Add a ' _ isa; INCLUDE modernboxheader.tt title = heading %]
+  <section class="pl-add-book-guidelines" aria-label="Book guidelines">
+    <b>Book guidelines</b>:
+    <ul>
+      <li>This section is for <b>books only</b>, published or unpublished. I.e., lecture notes would not go here.</li>
+      <li><b>"Rights" are required for every item!</b> If you dont know what the rights are, please check before doing anything (including asking the author of the work if need be).</li>
+      <li><b>Either at least one URL or some uploaded files are required</b>.  Uploads are preferable to linking, but require redistribution rights. Try to get permission to upload if it is needed, if possible.</li>
+      <li><b>To add a cover image for the book</b>, upload files "coverimage.ext" and "coverimage_big.ext" (for the zoomed-in version), where "ext" is any image format extension (e.g. "jpg", "gif", "png").</li>
+      <li>Starred (<span class="pl-add-book-required">*</span>) fields are required. </li>
+    </ul>
+  </section>
+
+  <form class="pl-add-book-form" method="post" action="https://physicslibrary.org/" enctype="multipart/form-data" accept-charset="UTF-8">
+    [% IF error %]<div class="pl-add-book-error" role="alert">[% error %]</div>[% END %]
+    <div class="pl-add-book-field">
+      <label for="book-title">Title<span class="pl-add-book-required">*</span>:</label>
+      <input type="text" name="title" id="book-title" size="75" value="[% title | html %]" aria-required="true" />
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-authors">Authors<span class="pl-add-book-required">*</span>:</label>
+      <input type="text" name="authors" id="book-authors" size="75" value="[% authors | html %]" aria-required="true" />
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-keywords">Keywords (<a href="/?op=assocguidelines">Guidelines</a>):</label>
+      <input type="text" name="keywords" id="book-keywords" size="75" value="[% keywords | html %]" />
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-class">Classification (See <a target="physicslibrary.popup" href="/?op=pacsbrowse">PACS</a>):</label>
+      <input type="text" name="class" id="book-class" size="75" value="[% class | html %]" aria-describedby="book-class-examples" />
+      <small id="book-class-examples">(examples: "01.65.+g", "00.,45.20.Jj,04.25.Dm". "pacs:" can be omitted, assumed by default.)</small>
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-isbn">ISBN #:</label>
+      <input type="text" name="isbn" id="book-isbn" size="16" value="[% isbn | html %]" />
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-comments">Additional Comments (typically date, # of pages, chapters, etc):</label>
+      <input type="text" name="comments" id="book-comments" size="75" max="128" value="[% comments | html %]" />
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-rights">Rights statement<span class="pl-add-book-required">*</span> (URLs will become hyperlinks):</label>
+      <textarea name="rights" id="book-rights" cols="75" rows="4" aria-required="true">[% rights | html %]</textarea>
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-data">Abstract<span class="pl-add-book-required">*</span>:</label>
+      <textarea name="data" id="book-data" cols="75" rows="8" aria-required="true">[% data | html %]</textarea>
+    </div>
+    <div class="pl-add-book-field">
+      <label for="book-urls">URLs for any remote content (one per line):</label>
+      <textarea name="urls" id="book-urls" cols="75" rows="4">[% urls | html %]</textarea>
+    </div>
+    <input type="hidden" name="op" value="[% op | html %]" />
+    <input type="hidden" name="to" value="[% to | html %]" />
+    <input type="submit" name="post" value="finished" />
+    [% IF fmanager_flag %]<div class="pl-add-book-filebox">[% fmanager %]</div>[% END %]
+  </form>
+</div>
