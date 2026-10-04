@@ -1,0 +1,11 @@
+<style type="text/css">
+.pl-association-guidelines { color: #1d2935; font-family: Arial, Helvetica, sans-serif; }
+.pl-association-guidelines a { color: #064d93; }
+.pl-association-guidelines-body { line-height: 1.55; padding: .5rem; overflow-wrap: anywhere; }
+.pl-association-guidelines h2 { border-top: 1px solid #cbd6de; font-size: 1rem; margin: 1rem 0 .5rem; padding-top: .75rem; }
+.pl-association-guidelines h3 { font-size: .95rem; }
+</style>
+<div class="pl-association-guidelines">
+  [% INCLUDE modernboxheader.tt title = 'Association Guidelines' %]
+  <div class="pl-association-guidelines-body">[% content %]</div>
+</div>

@@ -1,0 +1,20 @@
+<style type="text/css">
+.pl-account { color: #1d2935; font-family: Arial, Helvetica, sans-serif; }
+.pl-account a { color: #064d93; }
+.pl-account-body { line-height: 1.5; max-width: 42rem; padding: .75rem .5rem; overflow-wrap: anywhere; }
+.pl-account-form { background: #f1f4f7; border: 1px solid #cbd6de; padding: .8rem; }
+.pl-account-field { margin: 0 0 .8rem; }
+.pl-account-field label { display: block; font-size: .9rem; font-weight: bold; margin-bottom: .25rem; }
+.pl-account-field input { box-sizing: border-box; font: inherit; max-width: 100%; padding: .35rem .5rem; width: 100%; }
+.pl-account-license { display: flex; align-items: flex-start; gap: .5rem; font-size: .88rem; margin-bottom: .9rem; }
+.pl-account-license input { flex: 0 0 auto; margin: .35rem 0 0; }
+.pl-account button, .pl-account input[type="submit"] { background: #1c517b; border: 1px solid #164369; color: white; cursor: pointer; font: inherit; padding: .35rem .8rem; }
+.pl-account-error { color: #a00000; }
+.pl-account-error:empty { display: none; }
+.pl-account :focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
+.pl-account-body > p:first-child, .pl-account-form > p:first-child { margin-top: 0; }
+</style>
+<div class="pl-account">
+  [% INCLUDE modernboxheader.tt %]
+  <div class="pl-account-body">[% content %]</div>
+</div>

@@ -14,7 +14,8 @@ our (%headers, @mail, @setup);
     our $dbh;
     sub getConfig {
         return {user_tbl => 'users', groups_tbl => 'groups', default_preamble => 'test-preamble',
-            siteaddrs => {main => 'example.invalid'}}->{$_[0]};
+            siteaddrs => {main => 'example.invalid'},
+            template_path => "$FindBin::Bin/../../stemplates"}->{$_[0]};
     }
     sub errorMessage { return $_[0]; }
     sub paddingTable { return $_[0]; }

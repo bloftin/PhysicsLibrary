@@ -15,6 +15,10 @@ sub read_file {
 }
 
 my %pages = (
+    accountpage => 'Create New User Account',
+    assocguidelines => 'Association Guidelines',
+    sitedoc => 'PhysicsLibrary Documentation',
+    oldnews => 'Old News',
     addlecture => 'Add a Lecture',
     addbook => 'Add a Book',
     addpaper => 'Add a Paper',
@@ -73,6 +77,9 @@ like($escaped, qr/<h1>Inbox &lt;script&gt; &amp; &quot;notes&quot;<\/h1>/,
 
 for my $case (
     ['Encyclopedia', 'getEncyclopedia'],
+    ['Encyclopedia', 'getAssocGuidelines'],
+    ['Login', 'logoutPage'], ['NewUser', 'getNewUser'],
+    ['Password', 'pwChangeRequest'], ['Collab', 'siteDoc'], ['News', 'getNewsSummary'],
     ['Encyclopedia', 'addEncyclopedia'], ['Encyclopedia', 'insertEncyclopedia'],
     ['Requests', 'reqList'], ['Orphan', 'orphanage'], ['UserData', 'userObjectListPage'],
     ['Stats', 'unprovenTheorems'], ['Stats', 'unclassifiedObjects'], ['Stats', 'getSystemStats'],

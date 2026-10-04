@@ -1,0 +1,17 @@
+<style type="text/css">
+.pl-site-doc { color: #1d2935; font-family: Arial, Helvetica, sans-serif; }
+.pl-site-doc a { color: #064d93; }
+.pl-site-doc-body { line-height: 1.5; overflow-wrap: anywhere; padding: .5rem; }
+.pl-site-doc section { border-top: 1px solid #cbd6de; margin-top: 1rem; padding-top: .75rem; }
+.pl-site-doc h2 { font-size: 1rem; margin: 0 0 .6rem; }
+.pl-site-doc dt { font-size: .95rem; font-weight: bold; margin-top: .65rem; }
+.pl-site-doc dd { font-size: .9rem; margin: .2rem 0 .65rem; }
+.pl-site-doc li { margin: .35rem 0; }
+.pl-site-doc pre { background: #f1f4f7; border: 1px solid #cbd6de; box-sizing: border-box; font-size: .85rem; max-width: 100%; padding: .7rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.pl-site-doc-edit { color: #526170; font-size: .85rem; margin-top: .2rem; }
+.pl-site-doc-body > p:first-child { margin-top: .25rem; }
+</style>
+<div class="pl-site-doc">
+  [% INCLUDE modernboxheader.tt title = 'PhysicsLibrary Documentation' %]
+  [% content %]
+</div>

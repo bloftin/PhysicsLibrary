@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Template;
 
 # callback to get top news XML
 #
@@ -194,22 +195,22 @@ sub getNewsSummary {
 	
 	if (! $rv) {
 		dwarn "no news items!";
-		return "no news items to summarize!";
 	}
 
-	my @rows = dbGetRows($sth);
+	my @rows = $rv ? dbGetRows($sth) : ();
 	
 	my $i = $offset+1;
 	foreach my $row (@rows) {
-		my $time = mdhm($row->{created});
-		$html .= "$i. <font size=\"-1\">$time</font> <a href=\"".getConfig("main_url")."/?op=getobj&from=$table&id=".$row->{uid}."\">".$row->{'title'}."</a>";
-	$html .= " by $row->{username}<br>";
+		$row->{date} = mdhm($row->{created});
+		$row->{href} = getConfig('main_url')."/?op=getobj&from=$table&id=".$row->{uid};
+		$row->{number} = $i;
 	$i++;
 	}
 
-	$html .= getPager($params,$userinf);
-
-	return paddingTable(clearBox("Old News",$html));
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('oldnews.tt', {items => \@rows, pager => $rv ? getPager($params,$userinf) : ''}, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 sub formatnewsitem {

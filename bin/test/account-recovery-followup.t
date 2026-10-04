@@ -14,7 +14,7 @@ eval { require DBI; require DBD::SQLite; 1 }
     package Noosphere;
     sub getConfig {
         return {user_tbl => 'users', main_url => 'https://example.invalid',
-            projname => 'PhysicsLibrary'}->{$_[0]};
+            projname => 'PhysicsLibrary', template_path => "$FindBin::Bin/../../stemplates"}->{$_[0]};
     }
     sub getAddr { return 'feedback@example.invalid'; }
     sub sendMail { push @main::mail, [@_]; }
@@ -22,6 +22,7 @@ eval { require DBI; require DBD::SQLite; 1 }
     sub paddingTable { return $_[0]; }
     sub makeBox { return join ' ', @_; }
     sub htmlescape { return $_[0]; }
+    sub urlescape { return $_[0]; }
 }
 require Noosphere::Password;
 

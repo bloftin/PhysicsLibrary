@@ -96,6 +96,10 @@ my $quoted_password = q{a'\b; active=0 --};
     sub process {
         my ($self, $file, $vars, $output) = @_;
         $main::login_template_vars = $vars;
+        if ($file eq 'accountpage.tt') {
+            $$output = $vars->{title} . ' ' . $vars->{content};
+            return 1;
+        }
         $$output = $vars->{Error} || '';
         return 1;
     }

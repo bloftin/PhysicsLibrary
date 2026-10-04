@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Template;
 use Noosphere::PasswordStorage;
 use Noosphere::Ticket;
 
@@ -121,13 +122,20 @@ sub handleLogin {
 
 sub logoutPage {
     my ($params, $user_info) = @_;
-    return paddingTable(makeBox('Logout', 'You are signed out.')) unless $user_info->{uid} > 0;
-    my $token = logoutFormToken($user_info->{ticket});
-    return paddingTable(makeBox('Logout',
+    my $content = 'You are signed out.';
+    if ($user_info->{uid} > 0) {
+        my $token = logoutFormToken($user_info->{ticket});
+        $content =
         '<form method="post" action="/"><p>Sign out of this browser?</p>'.
         '<input type="hidden" name="op" value="logout" />'.
         '<input type="hidden" name="logout_token" value="'.$token.'" />'.
-        '<button type="submit">Logout</button></form>'));
+        '<button type="submit">Logout</button></form>';
+    }
+    my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+    my $html = '';
+    $tt->process('accountpage.tt', {title => 'Logout', content => $content}, \$html)
+        || die "Template process failed: ", $tt->error(), "\n";
+    return $html;
 }
 
 # get the contents of the login/logged-in box displayed on the left

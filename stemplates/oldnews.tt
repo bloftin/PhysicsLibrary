@@ -1,0 +1,27 @@
+<style type="text/css">
+.pl-old-news { color: #1d2935; font-family: Arial, Helvetica, sans-serif; }
+.pl-old-news a { color: #064d93; }
+.pl-old-news-list { list-style: none; margin: .6rem 0; padding: 0; }
+.pl-old-news-row { border-bottom: 1px solid #cbd6de; display: grid; align-items: baseline; gap: .35rem .75rem; grid-template-columns: 2.5rem minmax(0, 1fr) auto auto; padding: .55rem .5rem; overflow-wrap: anywhere; }
+.pl-old-news-title { font-size: .95rem; font-weight: bold; }
+.pl-old-news-date, .pl-old-news-author, .pl-old-news-number { color: #526170; font-size: .85rem; }
+.pl-old-news-pager { border-top: 1px solid #b6c5d2; font-size: .88rem; padding: .5rem; text-align: center; }
+.pl-old-news-empty { padding: .5rem; }
+@media (max-width: 700px) { .pl-old-news-row { grid-template-columns: 2rem minmax(0, 1fr); } .pl-old-news-date, .pl-old-news-author { grid-column: 2; } }
+</style>
+<div class="pl-old-news">
+  [% INCLUDE modernboxheader.tt title = 'Old News' %]
+  [% IF items.size %]
+  <ol class="pl-old-news-list">
+    [% FOREACH item IN items %]
+    <li class="pl-old-news-row">
+      <span class="pl-old-news-number">[% item.number | html %].</span>
+      <a class="pl-old-news-title" href="[% item.href | html %]">[% item.title | html %]</a>
+      <span class="pl-old-news-date">[% item.date | html %]</span>
+      <span class="pl-old-news-author">by [% item.username | html %]</span>
+    </li>
+    [% END %]
+  </ol>
+  [% ELSE %]<p class="pl-old-news-empty">no news items to summarize!</p>[% END %]
+  [% IF pager %]<div class="pl-old-news-pager">[% pager %]</div>[% END %]
+</div>
