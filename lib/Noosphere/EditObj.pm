@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::EntryInteractions;
 
 # this is the main object editor entry point now
 #
@@ -136,18 +137,12 @@ sub editEncyclopedia {
 		if ($error eq '') {
 			reviseEncyclopedia($rec, $params, $userinf);
 
-			return paddingTable(makeBox('Object Revised',"
-			Your object has been successfully revised.	<p/>
-			Quick links:
-			<p/>
-			<ul>
-				<li><a href=\"".getConfig("main_url")."/?op=getobj&from=$params->{from}&id=$params->{id}\">view the object</a></li>
-				<li><a href=\"".getConfig("main_url")."/?op=edit&from=$params->{from}&id=$params->{id}\">edit the object again</a></li>
-				<li><a href=\"".getConfig("main_url")."/?op=edituserobjs\">edit your other objects</a></li>
-				<li><a href=\"".getConfig("main_url")."/?op=editcors\">your corrections</a></li>
-			</ul>
-			<br/>"
-			));
+			return entryInteractionTemplate('revisedencyclopedia.tt', {
+				view_url => entryInteractionURL('getobj', from => $table, id => $rec->{uid}),
+				edit_url => entryInteractionURL('edit', from => $table, id => $rec->{uid}),
+				objects_url => entryInteractionURL('edituserobjs'),
+				corrections_url => entryInteractionURL('editcors'),
+			});
 		} else {
 			#dwarn "editEncyclopedia post error"; 
 			$error = editEnPreview($rec, $params, $userinf, $template, $error);

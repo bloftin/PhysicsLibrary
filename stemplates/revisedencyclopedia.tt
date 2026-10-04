@@ -1,0 +1,22 @@
+<style type="text/css">
+.pl-entry-revised { color: #1d2935; font: .9rem/1.5 Arial, Helvetica, sans-serif; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.pl-entry-revised p { margin: .75rem 0; }
+.pl-entry-revised h2 { font-size: .9rem; line-height: 1.5; margin: 0 0 .35rem; }
+.pl-entry-revised-links { display: flex; flex-wrap: wrap; gap: .35rem 1.25rem; list-style: none; margin: 0; padding: 0; }
+.pl-entry-revised-links li { max-width: 100%; }
+.pl-entry-revised-links a { color: #064d93; display: inline-block; padding: .15rem 0; }
+.pl-entry-revised-links a:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+</style>
+<section class="pl-entry-revised">
+  [% INCLUDE modernboxheader.tt title = 'Object Revised' %]
+  <p>Your object has been successfully revised.</p>
+  <nav aria-labelledby="pl-entry-revised-quick-links">
+    <h2 id="pl-entry-revised-quick-links">Quick links:</h2>
+    <ul class="pl-entry-revised-links">
+      <li><a href="[% view_url | html %]">view the object</a></li>
+      <li><a href="[% edit_url | html %]">edit the object again</a></li>
+      <li><a href="[% objects_url | html %]">edit your other objects</a></li>
+      <li><a href="[% corrections_url | html %]">your corrections</a></li>
+    </ul>
+  </nav>
+</section>
