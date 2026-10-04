@@ -37,7 +37,7 @@ sub getForumsTop {
 	my $html = '';
 	$tt->process('forumslist.tt', { forums => \@forums }, \$html)
 		|| die "Template process failed: ", $tt->error(), "\n";
-	return paddingTable($html);
+	return $html;
 }
 
 # called by getobj, this interprets the object table entry in terms of a forum

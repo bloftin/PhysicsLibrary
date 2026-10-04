@@ -144,7 +144,7 @@ sub pacsSearch {
 		article_results_limited => $article_results_limited,
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html);
+	return $html;
 }
 
 sub pacsBrowseLeaves {

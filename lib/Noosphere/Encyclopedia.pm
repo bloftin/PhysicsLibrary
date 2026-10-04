@@ -698,7 +698,6 @@ sub getEncyclopedia {
 		selected_letter => qhtmlescape($letter),
 	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	$html = paddingTable($html);
 	#dwarn "getEncyclopedia end";
 	return $html;
 }

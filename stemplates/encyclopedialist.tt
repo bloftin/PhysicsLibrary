@@ -1,9 +1,8 @@
 <style type="text/css">
 .pl-encyclopedia-list { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-encyclopedia-list a { color: #064d93; }
-.pl-encyclopedia-list-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-encyclopedia-list-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
-.pl-encyclopedia-list h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-encyclopedia-list-header { margin: 0 0 1rem; }
+.pl-encyclopedia-list-header-row { align-items: center; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
 .pl-encyclopedia-list-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-encyclopedia-list-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
 .pl-encyclopedia-list-create:hover, .pl-encyclopedia-list-create:focus { background: #103a61; }
@@ -31,10 +30,13 @@
 </style>
 
 <div class="pl-encyclopedia-list">
-  <header class="pl-encyclopedia-list-header">
-    <div class="pl-encyclopedia-list-header-row"><h1>Search Encyclopedia</h1><a class="pl-encyclopedia-list-create" href="/?op=adden">Create Article</a></div>
-    [% IF total %]<p class="pl-encyclopedia-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching article[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-encyclopedia-list-summary">No encyclopedia articles match this view.</p>[% END %]
-  </header>
+  <div class="pl-encyclopedia-list-header">
+    [% INCLUDE modernboxheader.tt title = 'Search Encyclopedia' %]
+    <div class="pl-encyclopedia-list-header-row">
+      [% IF total %]<p class="pl-encyclopedia-list-summary">Showing [% showing_from %]-[% showing_to %] of [% total %] matching article[% IF total != 1 %]s[% END %].</p>[% ELSE %]<p class="pl-encyclopedia-list-summary">No encyclopedia articles match this view.</p>[% END %]
+      <a class="pl-encyclopedia-list-create" href="/?op=adden">Create Article</a>
+    </div>
+  </div>
 
   <nav class="pl-encyclopedia-list-nav" aria-label="Encyclopedia navigation">
     <a href="/encyclopedia">Alphabetical index</a>

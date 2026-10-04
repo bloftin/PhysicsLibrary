@@ -1,9 +1,8 @@
 <style type="text/css">
 .pl-encyclopedia { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-encyclopedia a { color: #064d93; }
-.pl-encyclopedia-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-encyclopedia-header-row { align-items: center; display: flex; gap: 1rem; justify-content: space-between; }
-.pl-encyclopedia h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-encyclopedia-header { margin: 0 0 1rem; }
+.pl-encyclopedia-header-row { align-items: center; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
 .pl-encyclopedia-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-encyclopedia-create { background: #174e80; border: 1px solid #103a61; color: #fff !important; font-size: .86rem; font-weight: bold; padding: .35rem .65rem; text-decoration: none; white-space: nowrap; }
 .pl-encyclopedia-create:hover, .pl-encyclopedia-create:focus { background: #103a61; }
@@ -30,10 +29,13 @@
 </style>
 
 <div class="pl-encyclopedia">
-  <header class="pl-encyclopedia-header">
-    <div class="pl-encyclopedia-header-row"><h1>Physics Library Encyclopedia</h1><a class="pl-encyclopedia-create" href="/?op=adden">Create Article</a></div>
-    <p class="pl-encyclopedia-summary">[% article_count %] articles and [% concept_count %] concepts available to explore.</p>
-  </header>
+  <div class="pl-encyclopedia-header">
+    [% INCLUDE modernboxheader.tt title = 'Physics Library Encyclopedia' %]
+    <div class="pl-encyclopedia-header-row">
+      <p class="pl-encyclopedia-summary">[% article_count %] articles and [% concept_count %] concepts available to explore.</p>
+      <a class="pl-encyclopedia-create" href="/?op=adden">Create Article</a>
+    </div>
+  </div>
 
   <nav class="pl-encyclopedia-nav" aria-label="Encyclopedia navigation">
     <a href="/encyclopedia" aria-current="page">Alphabetical index</a>

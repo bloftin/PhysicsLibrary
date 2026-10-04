@@ -461,7 +461,7 @@ sub userObjectListPage {
 	
 	my $ret = $tt->process($tt_file, $vars, \$html) || die "Template process failed: ", $tt->error(), "\n";
 
-	return paddingTable($html) if $view->{modern};
+	return $html if $view->{modern};
 	return paddingTable(clearBox($view->{box_title} || 'Your Objects',$html));
 }
 

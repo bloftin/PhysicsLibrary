@@ -27,7 +27,7 @@ like($source, qr/adoptable_total\s*=>\s*scalar\(\@adoptable_rows\)/,
     'template receives the adoptable article total');
 
 my $template = read_file("$root/stemplates/orphanage.tt");
-like($template, qr/<h1>Orphanage<\/h1>/,
+like($template, qr/INCLUDE modernboxheader\.tt title = 'Orphanage'/,
     'template provides the page heading');
 like($template, qr/Orphaned Articles/,
     'template separates fully orphaned articles');

@@ -1,8 +1,7 @@
 <style type="text/css">
 .pl-unproven { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
 .pl-unproven a { color: #064d93; }
-.pl-unproven-header { border-bottom: 2px solid #153b62; margin: 0 0 1rem; padding: 0 0 .65rem; }
-.pl-unproven h1 { color: #122c4b; font-size: 1.55rem; margin: 0; }
+.pl-unproven-header { margin: 0 0 1rem; }
 .pl-unproven-summary { color: #526170; font-size: .88rem; margin: .4rem 0 0; }
 .pl-unproven-intro { background: #eef3f7; border: 1px solid #b6c5d2; color: #3e5265; font-size: .86rem; margin: 0 0 1rem; padding: .75rem; }
 .pl-unproven-pager { border-bottom: 1px solid #b6c5d2; font-size: .9rem; margin: 0 0 .55rem; padding: 0 0 .45rem; text-align: center; }
@@ -20,10 +19,10 @@
 </style>
 
 <div class="pl-unproven">
-  <header class="pl-unproven-header">
-    <h1>Unproven Theorems</h1>
+  <div class="pl-unproven-header">
+    [% INCLUDE modernboxheader.tt title = 'Unproven Theorems' %]
     <p class="pl-unproven-summary">[% total %] theorem[% IF total != 1 %]s[% END %] awaiting a proof.</p>
-  </header>
+  </div>
 
   <p class="pl-unproven-intro">These theorems have no attached proof. Review one and contribute a proof to strengthen the collection.</p>
 

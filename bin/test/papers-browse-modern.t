@@ -33,7 +33,7 @@ like($list, qr/Latest additions/,
 like($list, qr/Add Paper/,
 	'Papers landing page keeps the add-paper action');
 
-like($list, qr/<h1>Search Papers<\/h1>/,
+like($list, qr/INCLUDE modernboxheader\.tt title = 'Search Papers'/,
 	'Papers list provides a search heading');
 like($list, qr/name="q" value="\[% search \| html %\]"/,
 	'Papers list preserves the search query');

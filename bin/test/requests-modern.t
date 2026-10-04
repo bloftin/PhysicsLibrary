@@ -30,7 +30,7 @@ like($req_list, qr/message_total.*message_unseen/s,
     'request listing retains discussion and unread-message state');
 
 my $template = read_file("$repo/stemplates/reqlist.tt");
-like($template, qr/<h1>Requests<\/h1>/, 'modern request view has a clear title');
+like($template, qr/INCLUDE modernboxheader\.tt title = 'Requests'/, 'modern request view has a clear title');
 like($template, qr/Create Request/, 'modern request view provides a creation action');
 like($template, qr/Open Requests.*Awaiting Confirmation/s,
     'modern request view separates open and reported fulfillment work');
