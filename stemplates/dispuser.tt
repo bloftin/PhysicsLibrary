@@ -1,135 +1,38 @@
-<html>
-  <head>
-    <title>User Info</title>
-  </head>
-  <body>
-    <!-- title box -->
-       
-    <table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
-      <tr>
-        <td align="left" WIDTH="100%" BGCOLOR="#003399">
-          <font color="white" class="box_title">
-            User Info for [% user.username %]
-                
-          </font>
-        </td>
-      </tr>
-    </table>
-
-    <div>
-            [% IF user.active == 1 %]
-              <table cellpadding="2">
-                <tr>
-                    <td bgcolor="#dddddd">User ID:</td>
-                    <td>[% user.username %]</td>
-                </tr>
-                [% IF user.forename || user.surname %]
-                  <tr>
-                    <td bgcolor="#dddddd">Name:</td>
-                    <td>
-                      [% user.forename %] [% user.surname %] 
-                    </td>
-                  </tr>
-                [% END %]
-                [% IF loggedin == 1 %]
-                  <tr>
-                    <td bgcolor="#dddddd">E-mail Address:</td>
-                    <td>
-                      [% IF show_email %]
-                        [% user.email | html %]
-                      [% ELSE %]
-                        Email hidden by user preferences.
-                      [% END %]
-                    </td>
-                  </tr>
-                [% END %]
-                [% IF user.state.trim or user.city.trim or user.country.trim %]
-                  <tr>
-                    <td bgcolor="#dddddd">From:</td>
-                    <td>
-                      [% IF user.state %]
-                        [% user.city %], [% user.state %], [% user.country %]
-                      [% ELSE %] 
-                        [% user.city %], [% user.country %]
-                      [% END %]
-                    </td>
-                  </tr>
-                [% END %]
-                <tr>
-                  <td bgcolor="#dddddd">Joined On:</td>
-			            <td>[% user.joined %]</td>
-			          </tr>
-                <tr>
-                  <td bgcolor="#dddddd">Last Logged in:</td>
-			            <td>[% user.last %]</td>
-			          </tr>
-
-                [% IF user.homepage.trim %]
-                  <tr>
-                    <td bgcolor="#dddddd">Homepage:</td>
-                    [% IF user.homepage.search('http')%] 
-                      <td>
-                        [% USE pagelink = url(user.homepage) -%]
-                        <a href=[% pagelink %]>[% user.homepage %]</a>
-                      </td>
-                    [% ELSE %]
-                      <td>
-                        [% user.homepage %]
-                      </td>
-                      <td>
-                        Note: if you want a hyperlink to site add http:// or https://
-                      </td>
-                    [% END %]
-                  </tr>
-                [% END %]
-                <tr>
-                  <td bgcolor="#dddddd">Access Level:</td>
-                  <td>[% user.access %]</td>
-                </tr>
-                <tr>
-                  <td bgcolor="#dddddd">Score:</td>
-                  [% IF isadmin %]
-                    <td>[% user.score %] </td>
-                    <td>
-                    <font size="-1">
-						          <a href="{//globals/main_url}/?op=editscore&amp;user=[%- userID -%]">(admin edit)</a>
-						        </font>
-                    </td>
-                  [% ELSE %]
-                    <td>[% user.score %] </td>
-                  [% END %]
-                </tr>
-          
-              </table>
-
-              <p></p>
-
-                [%user.username%]'s
-                <ul>
-                  <li> <a href="[% msg_link %]">Message Count ([% mc %]) </a> </li>
-                  <li> <a href="[% obj_link %]">Object Count ([% oc %]) </a> </li>
-                  <li> <a href="[% cfc_link %]">Corrections Filed ([% cfc %]) </a> </li>
-                  <li> <a href="[% crc_link %]">Corrections Received ([% crc %]) </a> </li>   
-                </ul>
-
-              [% IF user.bio.trim %]
-
-                <hr />
-
-                  <center> <font size="+1">Bio:</font> </center>
-
-                  <p>
-                         [% user.bio %]
-                  </p>
-                  
-              [% END %]
-
-                <hr />
-            [% ELSE %] 
-              <font color="#ff0000" size="+1">(This account has been deactivated)</font>
-            [% END %]
-        
-    </div>
-  </body>
-
-</html>
+[% INCLUDE settingsstyles.tt %]
+<div class="pl-settings">
+  [% profile_title = 'User Info for ' _ user.username %]
+  [% INCLUDE modernboxheader.tt title = profile_title %]
+  <div class="pl-settings-body">
+    [% IF user.active == 1 %]
+    <dl>
+      <div class="pl-settings-detail"><dt>User ID:</dt><dd>[% user.username | html %]</dd></div>
+      [% IF user.forename || user.surname %]<div class="pl-settings-detail"><dt>Name:</dt><dd>[% user.forename | html %] [% user.surname | html %]</dd></div>[% END %]
+      [% IF loggedin == 1 %]
+      <div class="pl-settings-detail"><dt>E-mail Address:</dt><dd>[% IF show_email %][% user.email | html %][% ELSE %]Email hidden by user preferences.[% END %]</dd></div>
+      [% END %]
+      [% IF user.state.trim or user.city.trim or user.country.trim %]
+      <div class="pl-settings-detail"><dt>From:</dt><dd>[% user.city | html %], [% IF user.state %][% user.state | html %], [% END %][% user.country | html %]</dd></div>
+      [% END %]
+      <div class="pl-settings-detail"><dt>Joined On:</dt><dd>[% user.joined | html %]</dd></div>
+      <div class="pl-settings-detail"><dt>Last Logged in:</dt><dd>[% user.last | html %]</dd></div>
+      [% IF user.homepage.trim %]
+      <div class="pl-settings-detail"><dt>Homepage:</dt><dd>
+        [% IF user.homepage.search('(?i)^https?://') %]
+        <a href="[% user.homepage | html %]">[% user.homepage | html %]</a>
+        [% ELSE %][% user.homepage | html %]<p class="pl-settings-note">Note: if you want a hyperlink to site add http:// or https://</p>[% END %]
+      </dd></div>
+      [% END %]
+      <div class="pl-settings-detail"><dt>Access Level:</dt><dd>[% user.access | html %]</dd></div>
+      <div class="pl-settings-detail"><dt>Score:</dt><dd>[% user.score | html %] [% IF isadmin %]<a href="/?op=editscore&amp;user=[% userID | html %]">(admin edit)</a>[% END %]</dd></div>
+    </dl>
+    <h2>[% user.username | html %]'s</h2>
+    <ul class="pl-settings-list">
+      <li><a href="[% msg_link | html %]">Message Count ([% mc | html %])</a></li>
+      <li><a href="[% obj_link | html %]">Object Count ([% oc | html %])</a></li>
+      <li><a href="[% cfc_link | html %]">Corrections Filed ([% cfc | html %])</a></li>
+      <li><a href="[% crc_link | html %]">Corrections Received ([% crc | html %])</a></li>
+    </ul>
+    [% IF user.bio.trim %]<h2>Bio:</h2><div class="pl-settings-rich">[% user.bio %]</div>[% END %]
+    [% ELSE %]<p class="pl-settings-error">(This account has been deactivated)</p>[% END %]
+  </div>
+</div>

@@ -36,15 +36,13 @@ sub getSettings {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $template = new XSLTemplate('settings.xsl');
-	
-	$template->addText('<settings>');
-
-	$template->setKey('id', $userinf->{'uid'});
-
-	$template->addText('</settings>');
-
-	return $template->expand();
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('settings.tt', {
+		id => $userinf->{uid}, main_url => getConfig('main_url'),
+		site_name => getConfig('projname'),
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 
 }
 
@@ -957,7 +955,6 @@ sub editUserPrefs {
 	my $prefs = $user_info->{'prefs'};
 	my $groupings = getConfig('prefs_groupings');
 	my $inputs = '';
-	my $html = '';
 
 	if ($user_info->{uid} < 1 ) { return loginExpired(); }
 
@@ -971,26 +968,19 @@ sub editUserPrefs {
 		my @keys = grep { $_ ne 'neverlogout' } @{$group->[1]};
 		next unless @keys;
 
-		$inputs .= "<tr><td bgcolor=\"#eeeeee\">";
-		$inputs .= "<font size=\"+1\">$groupname</font>";
-		$inputs .= "</td></tr>";
-
-		$inputs .= "<tr><td><br />";
-		$inputs .= "<table align=\"center\">";
+		$inputs .= '<fieldset><legend>'.htmlescape($groupname).'</legend>';
 		foreach my $key (@keys) {
 			my ($widget,$desc) = getPrefsWidget($user_info,$key);
 			if ($widget ne '') {
-				$inputs .= "<tr><td>$desc:</td><td align=\"center\">$widget</td></tr>";
+				my $class = getConfig('prefs_schema')->{$key}[1] eq 'check' ? ' pl-settings-pref-check' : '';
+				$inputs .= '<label class="pl-settings-pref'.$class.'"><span>'.htmlescape($desc).':</span>'.$widget.'</label>';
 			}
 		}
-		$inputs .= "</table>";
-		$inputs .= "<br/></td></tr>";
+		$inputs .= '</fieldset>';
 	}
 	$content->setKey('inputs', $inputs);
  
-	$html = makeBox("Edit Preferences for <b>".$user_info->{'data'}->{'username'}."</b>",$content->expand()); 
-
-	return paddingTable($html); 
+	return renderSettingsPage('Edit Preferences for '.$user_info->{data}->{username}, $content->expand());
 }
 
 # the user data editor (data other than prefs)
@@ -1015,8 +1005,16 @@ sub editUserData {
  my $content = new TemplateNS('edituser.html');
  $content->setKeys(map { $_ => $data->{$_} } (profileEditableFields(), 'email'));
  $content->setKeys(error => $error, profile_token => $token);
- return paddingTable(makeBox('Edit User Info for <b>'.htmlescape($data->{username}).'</b>',
-   $content->expand()));
+ return renderSettingsPage('Edit User Info for '.$data->{username}, $content->expand());
+}
+
+sub renderSettingsPage {
+ my ($title, $content) = @_;
+ my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+ my $html = '';
+ $tt->process('settingspage.tt', {title => $title, content => $content}, \$html)
+   || die "Template process failed: ", $tt->error(), "\n";
+ return $html;
 }
 
 # the user prefs editor

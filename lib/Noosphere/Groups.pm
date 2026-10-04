@@ -7,6 +7,7 @@ package Noosphere;
 ###############################################################################
 
 use strict;
+use Template;
 
 our $dbh;
 
@@ -89,6 +90,8 @@ sub createEditorGroup {
 sub groupEditor  {
 	my $params = shift;
 	my $userinf = shift;
+	return loginExpired() unless ref($userinf) eq 'HASH' &&
+		_validGroupUserId($userinf->{uid}) && $userinf->{uid} > 0;
 
 	my $error = '';
 
@@ -121,7 +124,11 @@ sub groupEditor  {
 	my $adminlist = getAdminGroups($userinf->{uid});
 	$template->setKey('adminlist',$adminlist);
 
-	return paddingTable(makeBox('Editing your groups', $template->expand()));
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('settingspage.tt', {title => 'Editing your groups', content => $template->expand()}, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # get a hash of groups adminned by a user, of the format groupid => name
@@ -175,14 +182,16 @@ sub getAdminGroups {
 	my @rows = dbGetRows($sth);
 
 	foreach my $row (@rows) {
-	  $html .= "<input type=\"checkbox\" name=\"selected_$row->{groupid}\"> ";
-	$html .= " <a href=\"".getConfig("main_url")."/?op=memberedit&gid=$row->{groupid}\">$row->{groupname}</a> ";
+	  my $name = qhtmlescape($row->{groupname});
+	  my $url = qhtmlescape(getConfig('main_url')."/?op=memberedit&gid=$row->{groupid}");
+	  $html .= '<li><div class="pl-settings-row"><input type="checkbox" name="selected_'.$row->{groupid}.'" aria-label="Select '.$name.'">';
+	$html .= '<span><a href="'.$url.'">'.$name.'</a> ';
 	my $count = getMemberCount($row->{groupid});
-	  $html .= "($count ".($count == 1?'member':'members').")<br />";
-	$html .= "<blockquote>$row->{description}</blockquote>";
+	  $html .= "($count ".($count == 1?'member':'members').")</span></div>";
+	$html .= '<p>'.htmlescape($row->{description}).'</p></li>';
 	}
 
-	return $html || "[none]";
+	return $html ? '<ul class="pl-settings-list">'.$html.'</ul>' : '[none]';
 }
 
 # edit the membership of a group. also configure the group title/descr.

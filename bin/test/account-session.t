@@ -121,7 +121,9 @@ subtest 'preferences omit obsolete unlimited session option' => sub {
     local *Noosphere::changePrefs = sub { return ''; };
     local *Noosphere::getUserPrefs = sub { return {}; };
     local *Noosphere::getPrefsWidget = sub { return ('widget', $_[1]); };
+    local *Noosphere::renderSettingsPage = sub { return $_[1]; };
     local $config{prefs_groupings} = [['General', ['pagesize']], ['Security', ['neverlogout']]];
+    local $config{prefs_schema} = {pagesize => ['Page size', 'text']};
     my $html = Noosphere::editUserPrefs({}, {uid => 1, data => {username => 'member'}, prefs => {}});
     like($html, qr/pagesize/, 'ordinary preference remains');
     unlike($html, qr/neverlogout|Security/, 'obsolete option and empty group omitted');

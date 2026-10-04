@@ -1,0 +1,14 @@
+[% INCLUDE settingsstyles.tt %]
+<div class="pl-settings">
+  [% INCLUDE modernboxheader.tt title = 'Your Settings' %]
+  <div class="pl-settings-body">
+    <p>Here you can configure, tweak, and toggle your preferences and personal information:</p>
+    <ul class="pl-settings-menu">
+      <li><a href="[% main_url | html %]/?op=edituser">Your Info</a> (<a href="[% main_url | html %]/?op=getuser&amp;id=[% id | html %]">view</a>) - Information about you. Includes bio and default preamble.</li>
+      <li><a href="[% main_url | html %]/?op=editprefs">Preferences</a> - Your [% site_name | html %] configuration options.</li>
+      <li><a href="[% main_url | html %]/?op=acledit&amp;from=acl_default">Default Permissions</a> - Configure the default access rules for your encyclopedia objects (includes setting free-form access, a-la Wiki).</li>
+      <li><a href="[% main_url | html %]/?op=groupedit">Your Groups</a> - Make groups for your trusted associates, so you can grant them access more conveniently.</li>
+      <li><a href="[% main_url | html %]/?op=watches">Your Watches</a> - Manage in one place all the watches you have on [% site_name | html %] objects.</li>
+    </ul>
+  </div>
+</div>
