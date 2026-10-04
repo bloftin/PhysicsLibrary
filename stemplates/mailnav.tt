@@ -1,0 +1,6 @@
+<nav class="pl-mailbox-nav" aria-label="Mail folders">
+  [% IF folder == 'mailbox' %]<strong aria-current="page">New mail</strong>[% ELSE %]<a href="[% main_url | html %]/?op=mailbox">New mail</a>[% END %]
+  [% IF folder == 'oldmail' %]<strong aria-current="page">Old mail</strong>[% ELSE %]<a href="[% main_url | html %]/?op=oldmail">Old mail</a>[% END %]
+  [% IF folder == 'sentmail' %]<strong aria-current="page">Sent mail</strong>[% ELSE %]<a href="[% main_url | html %]/?op=sentmail">Sent mail</a>[% END %]
+  [% IF folder == 'sendmail' %]<strong class="pl-mailbox-compose" aria-current="page">Write mail</strong>[% ELSE %]<a class="pl-mailbox-compose" href="[% main_url | html %]/?op=sendmail">Write mail</a>[% END %]
+</nav>

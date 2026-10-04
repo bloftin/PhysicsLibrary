@@ -1,0 +1,12 @@
+[% INCLUDE mailstyles.tt %]
+<div class="pl-mailbox">
+  [% INCLUDE modernboxheader.tt title = title %]
+  [% INCLUDE mailnav.tt %]
+  <div class="pl-mailbox-message">
+    [% IF unsent %]
+    <p>Your message has been unsent. To return to your mailbox, click <a href="[% main_url | html %]/?op=mailbox">here</a>. To return to sent mail, click <a href="[% main_url | html %]/?op=sentmail">here</a>.</p>
+    [% ELSE %]
+    <p>Your message was sent. Click <a href="[% main_url | html %]/?op=mailbox">here</a> to go back to your mailbox.</p>
+    [% END %]
+  </div>
+</div>

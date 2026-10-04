@@ -1,89 +1,67 @@
 package Noosphere;
 
 use strict;
+use Template;
+use URI;
 
-# getOriginalMailValues - get values from mail we're replying to and put them
-#												 into template.
-#
-sub getOriginalMailValues {
-	my $template = shift;
-	my $params = shift;
-	
-	my $id = $params->{id};
+sub renderMailPage {
+	my ($file, $vars) = @_;
+	my $html = '';
+	my $tt = Template->new({INCLUDE_PATH => getConfig('template_path')});
+	$tt->process($file, {main_url => getConfig('main_url'), %$vars}, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
+}
 
-	my ($rv,$sth) = dbSelect($dbh,{
-		WHAT=>'mail.*,users.username',
-		FROM=>'mail,users',
-		WHERE=>"users.uid=mail.userfrom and mail.uid=$id"});
-
+sub getMailRecord {
+	my ($id, $userinf) = @_;
+	return (undef, errorMessage('Missing id parameter.')) unless defined $id;
+	return (undef, errorMessage('Invalid message id.')) if ref($id) || $id !~ /\A[0-9]+\z/;
+	my ($rv, $sth) = dbSelect($dbh, {
+		WHAT => 'mail.*,u1.username as fromname, u2.username as toname',
+		FROM => 'mail,users as u1, users as u2',
+		WHERE => "mail.userfrom=u1.uid and mail.userto=u2.uid and mail.uid=$id and (mail.userfrom=$userinf->{uid} or mail.userto=$userinf->{uid})",
+	});
+	return (undef, errorMessage('Query error, contact admin.')) unless $rv;
 	my $rec = $sth->fetchrow_hashref();
 	$sth->finish();
-
-	my $body = $rec->{body};
-	my $disporig = htmlescape($rec->{body});
-	$disporig =~ s/\n/<br \/>/g;
-	$template->setKeys('original' => $body, 'disporig' => $disporig, 'sendto' => $rec->{username});
+	return (undef, errorMessage('Message could not be found.')) unless $rec;
+	return (undef, errorMessage('You cannot view mail you did not send or receive.'))
+		if $rec->{userfrom} != $userinf->{uid} && $rec->{userto} != $userinf->{uid};
+	return ($rec, '');
 }
 
 # replyMail - reply to a message
 # 
 sub replyMail	{
-	my $params = shift;
-	my $userinf = shift;
-	
-	return needAccount() if $userinf->{'uid'} <= 0;
-
-	my $template = new TemplateNS('replymail.html');
-	my $error = '';
-
+	my ($params, $userinf) = @_;
+	return needAccount() if $userinf->{uid} <= 0;
+	my ($rec, $error) = getMailRecord($params->{id}, $userinf);
+	return $error unless $rec;
+	return errorMessage('You cannot reply to mail you sent.') if $rec->{userfrom} == $userinf->{uid};
+	# Derive the recipient and quoted original from the authorized record, not hidden fields.
+	my %values = (%$params, sendto => $rec->{fromname});
+	my $spell = '';
 	if (defined $params->{post}) {
-		$error = checkSendMail($params,$userinf);
+		$error = checkSendMail(\%values, $userinf);
 		if ($error eq '') {
-			# actually send
-			insertMail($params,$userinf);
-			return paddingTable(makeBox("Reply Sent","Your message was sent. Click <a href=\"".getConfig("main_url")."/?op=mailbox\">here</a> to go back to your mailbox."));
-		} else {
-			getOriginalMailValues($template,$params);
-			$template->setKeys(%$params);
+			insertMail(\%values, $userinf);
+			return renderMailPage('mailnotice.tt', {title => 'Reply Sent'});
 		}
-	}
-	
-	elsif (defined $params->{spell}) {
-		my $text = $params->{body};
+	} elsif (defined $params->{spell}) {
+		my $text = $params->{body} || '';
 		$text =~ s/>.*?\n//gs;
 		$text =~ s/^\s*//s;
-		#dwarn "submitting to spell : $text";
-		my $spell = checkdoc($text);
-		$template->setKey('spell', "Spell check (broken words in red, clickable):<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$spell</td></tr></table><hr>");
-		getOriginalMailValues($template,$params);
-		$template->setKeysIfUnset(%$params);
+		$spell = checkdoc($text);
+	} elsif (defined $params->{quote}) {
+		$values{body} = getquoted($rec->{body})."\n\n".($params->{body} || '');
+	} else {
+		$values{subject} = $rec->{subject} || '';
+		$values{subject} = "Re: $values{subject}" unless $values{subject} =~ /^\s*Re:/i;
+		$values{body} = '';
 	}
-
-	elsif (defined $params->{quote}) {
-		my $quoted = getquoted($params->{original});
-		if (nb($params->{body})) {
-			$params->{body} = "$quoted\n\n$params->{body}";
-		} else {
-			$params->{body} = "$quoted\n\n";
-		}
-		getOriginalMailValues($template,$params);
-		$template->setKeys(%$params);
-	}
- 
-	else {
-		my $subj = $params->{rsubject};
-		if ($subj !~ /^\s*Re:/i) {
-			$subj = "Re: $subj";
-		}
-		$template->setKey('subject', $subj);
-		getOriginalMailValues($template,$params);
-		$template->setKeys(%$params);
-		$template->unsetKeys('body', 'spell', 'error');
-	}
-
-	$template->setKey('error', $error);
-
-	return paddingTable(makeBox('Reply to Mail Message',$template->expand()));
+	return renderMailPage('mailcompose.tt', {title => 'Reply to Mail Message', reply => 1,
+		values => \%values, original => $rec->{body}, error => $error, spell => $spell});
 }
 
 # unsendMail - unsend a mail message
@@ -96,31 +74,21 @@ sub unsendMail {
 
 	return needAccount() if $userinf->{'uid'} <= 0;
 
-	return errorMessage('Missing id parameter.') if (not defined $params->{id});
-
-	my ($rv,$sth)=dbSelect($dbh,{
-			WHAT=>'*',
-			FROM=>'mail',
-			WHERE=>"uid=$id"});
- 
-	return errorMessage("Query error, contact admin.") if (!$rv);
-	
-	return errorMessage("Message could not be found. ".getConfig('projname')." may be inconsitant, notify an admin.") if ($sth->rows() < 1);
-	
-	my $row = $sth->fetchrow_hashref();
+	my ($row, $error) = getMailRecord($id, $userinf);
+	return $error unless $row;
 
 	return errorMessage("You cannot unsend mail you did not send.") if ($row->{userfrom} != $userinf->{uid});
 
-	return errorMessage("You cannot unsend mail that has been read.") if ($row->{'_read'} == 1);
+	return errorMessage("You cannot unsend mail that has been read.") if (defined($row->{_read}) && $row->{_read} == 1);
  
 	# if we're still here, go ahead and "unsend" (i.e., delete the record)
 	#
-	($rv,$sth) = dbDelete($dbh,{
+	my ($rv,$sth) = dbDelete($dbh,{
 						FROM=>'mail',
 						WHERE=>"uid=$id"});
 	$sth->finish();
 
-	return paddingTable(makeBox('Mail Unsent',"Your message has been unsent. To return to your mailbox, click <a href=\"".getConfig("main_url")."/?op=mailbox\">here</a>. To return to sent mail, click <a href=\"".getConfig("main_url")."/?op=sentmail\">here</a>."));
+	return renderMailPage('mailnotice.tt', {title => 'Mail Unsent', unsent => 1});
 }
 
 # getNewMailCount - get a count of new (unread) mail messages
@@ -144,60 +112,17 @@ sub getNewMailCount {
 # getMail - get/display a mail message
 #
 sub getMail {
-	my $params = shift;
-	my $userinf = shift;
-	
-	my $id = $params->{id};
-	my $template = new XSLTemplate('dispmail.xsl');
-	my $sender = 0;
-	my $recipient = 0;
-
-	return needAccount() if $userinf->{'uid'} <= 0;
-	
-	my ($rv,$sth)=dbSelect($dbh,{
-			WHAT=>'mail.*,u1.username as fromname, u2.username as toname ',
-			FROM=>'mail,users as u1, users as u2',
-			WHERE=>"mail.userfrom=u1.uid and mail.userto=u2.uid and mail.uid=$id"});
-
-	return errorMessage("Query error, contact admin.") if (!$rv);
-	
-	my $rec = $sth->fetchrow_hashref();
-
-	# figure out if we're the recipient, if so, mark mail as read if its not.
-	#
-	if ($rec->{'userto'} == $userinf->{'uid'}) {
-		$recipient = 1;
-		markMailRead($id) if (not defined $userinf->{'read'});
-	}
-
-	# build output data
-	#
-	$template->addText('<dispmail>');
-	$template->setKeys(%$rec);
-
-	# if we're the sender, do not allow replying.
-	#
-	$template->setKey('reply', !($rec->{'userfrom'} == $userinf->{'uid'}));
-
-	# if we're the sender, and not also the recipient, and the message 
-	# has not yet been read, allow unsending
-	#
-	$template->setKey('unsend', (($rec->{'userfrom'} == $userinf->{'uid'}) and ($recipient == 0) and (not defined $rec->{'_read'})));
- 
-	my $body = $rec->{'body'};
-	$body = htmlescape($body);
-	$body =~ s/\n/<br \/>/g;
-	$template->setKey('body_formatted', $body);
-
-	if (!$rec->{'subject'} =~ /^[Rr]e:/) {
-		$template->setKey('rsubject', $rec->{'subject'});
-	} else {
-		$template->setKey('rsubject', "Re: $rec->{subject}");
-	}
-	
-	$template->addText('</dispmail>');
-
-	return $template->expand();
+	my ($params, $userinf) = @_;
+	return needAccount() if $userinf->{uid} <= 0;
+	my ($rec, $error) = getMailRecord($params->{id}, $userinf);
+	return $error unless $rec;
+	my $recipient = $rec->{userto} == $userinf->{uid};
+	markMailRead($rec->{uid}) if $recipient && !defined $rec->{_read};
+	my $reply = URI->new('/');
+	$reply->query_form(op => 'replymail', id => $rec->{uid}, rsubject => $rec->{subject});
+	return renderMailPage('mailview.tt', {title => 'Viewing Mail Message', rec => $rec,
+		reply => $rec->{userfrom} != $userinf->{uid}, reply_url => "$reply",
+		unsend => !$recipient && !defined $rec->{_read}});
 }
 
 # markMailread - set the "read" flag of a mail message, no questions asked
@@ -243,179 +168,60 @@ sub mailBox {
 # sentMail - get mail box screen
 #
 sub sentMail {
-	my $params = shift;
-	my $userinf = shift;
-	
-	my $scale = 2;
-	my $template = new TemplateNS('pmsentmail.html');
-	my $offset = $params->{'offset'} || 0;
-	my $limit = int($userinf->{'prefs'}->{'pagelength'} / $scale);
-
-	my $list = '';
-
-	return errorMessage('Must be logged in to use '.getConfig('projname').' mail') if ($userinf->{uid} < 1);
-
-	# get total
-	$params->{'total'} = dbRowCount('mail', "mail.userfrom=$userinf->{uid}");
-
-	# get items
-	my ($rv,$sth) = dbSelect($dbh,{
-			WHAT=>'mail.*,users.username',
-			FROM=>'mail,users',
-			WHERE=>"users.uid=mail.userto and mail.userfrom=$userinf->{uid}",
-			'ORDER BY'=>'sent',
-			DESC=>'',
-			OFFSET=>$offset, 
-			LIMIT=>$limit});
-
-	return errorMessage("Query error, contact admin.") if (!$rv);
- 
-	my @rows = dbGetRows($sth);
- 
-	if ($#rows > -1) {
-
-		$list .= getPager($params, $userinf, $scale);
-		$list .= "<br />";
-
-		$list .= "<table width=\"100%\">";
-		$list .= "<tr>
-			 <td align=\"center\"><b>date</b></td>
-			 <td width=\"80%\" align=\"center\"><b>subject</b></td>
-			 <td align=\"center\"><b>to</b></td>
-			 <td align=\"center\"><b>read</b></td>
-			</tr>";
-		my $parity = 1;
-		foreach my $row (@rows) {
-			my $date = ymd($row->{'sent'});
-			my $bg = $parity ? " bgcolor=\"#eeeeee\"" : "";
-		
-			$list .= "<tr $bg>";
-			$list .= "<td>$date</td>";
-			$list .= "<td><a href=\"".getConfig("main_url")."/?op=getmail&id=$row->{uid}\">$row->{subject}</a></td>";
-			$list .= "<td align=\"center\"><a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{userto}\">$row->{username}</a></td>";
-			my $read = "n";
-			$read = "y" if (defined $row->{'_read'} and $row->{'_read'} == 1);
-			$list .= "<td align=\"center\">$read</td>";
-			$list .= "</tr>";
-			$parity = $parity ? 0 : 1;
-		} 
-		$list .= "</table>";
-
-		$list .= getPager($params, $userinf, $scale);
-	} else {
-		$list = "No sent mail.";
-	}
- 
-	$template->setKey('sentmail', $list);
-	
-	return paddingTable(clearBox('Your '.getConfig('projname').' Mail Box',$template->expand()));
+	return mailFolder($_[0], $_[1], 'sentmail');
 }
 
 # oldMail - get Old Mail list
 #
 sub oldMail {
-	my $params = shift;
-	my $userinf = shift;
-	
-	my $template = new TemplateNS('oldmail.html');
-	my $list = '';
-	my $scale = 2;
-	my $offset = $params->{'offset'} || 0;
-	my $limit = int($userinf->{'prefs'}->{'pagelength'} / $scale);
+	return mailFolder($_[0], $_[1], 'oldmail');
+}
 
-	return errorMessage('Must be logged in to use '.getConfig('projname').' mail') if ($userinf->{uid} < 1);
-
-	# get total
-	$params->{'total'} = dbRowCount('mail', "mail.userto=$userinf->{uid} and _read=1");
-
-	# get messages 
-	my ($rv,$sth) = dbSelect($dbh,{
-			WHAT=>'mail.subject,mail.sent,mail.uid,mail.userfrom,users.username',
-			FROM=>'mail,users',
-			WHERE=>"users.uid=mail.userfrom and mail.userto=$userinf->{uid} and _read=1",
-			'ORDER BY'=>'sent',
-			DESC=>'',
-			LIMIT=>$limit,
-			OFFSET=>$offset});
-	
-	return errorMessage("Query error, contact admin.") if (!$rv);
- 
+sub mailFolder {
+	my ($params, $userinf, $folder) = @_;
+	return errorMessage('Must be logged in to use '.getConfig('projname').' mail') if $userinf->{uid} < 1;
+	my $sent = $folder eq 'sentmail';
+	my $scope = $sent ? "mail.userfrom=$userinf->{uid}" : "mail.userto=$userinf->{uid} and _read=1";
+	my $participant = $sent ? 'userto' : 'userfrom';
+	my $total = dbRowCount('mail', $scope);
+	my ($rv, $sth) = dbSelect($dbh, {
+		WHAT => $sent ? 'mail.*,users.username' : 'mail.subject,mail.sent,mail.uid,mail.userfrom,users.username',
+		FROM => 'mail,users', WHERE => "users.uid=mail.$participant and $scope",
+		'ORDER BY' => 'sent', DESC => '', OFFSET => $params->{offset} || 0,
+		LIMIT => int($userinf->{prefs}->{pagelength} / 2),
+	});
+	return errorMessage('Query error, contact admin.') unless $rv;
 	my @rows = dbGetRows($sth);
- 
-	if ($#rows > -1) {
-		$list .= getPager($params, $userinf, $scale);
-		$list .= "<br/>";
-
-		$list .= "<table width=\"100%\">";
-		$list .= "<tr>
-			 <td align=\"center\"><b>date</b></td>
-			 <td width=\"80%\" align=\"center\"><b>subject</b></td>
-			 <td align=\"center\"><b>from</b></td></tr>";
-		my $parity = 1;
-		foreach my $row (@rows) {
-			my $date = ymd($row->{sent});
-			my $bg = $parity?" bgcolor=\"#eeeeee\"":"";
-			
-			$list .= "<tr $bg>";
-			$list .= "<td>$date</td>";
-			$list .= "<td><a href=\"".getConfig("main_url")."/?op=getmail&id=$row->{uid}\">$row->{subject}</a></td>";
-			$list .= "<td><a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{userfrom}\">$row->{username}</a></td>";
-			$list .= "</tr>";
-			$parity = $parity ? 0 : 1;
-		} 
-		$list .= "</table>";
-
-		$list .= getPager($params, $userinf, $scale);
-	} else {
-		$list = "No old mail.";
+	foreach my $row (@rows) {
+		$row->{date} = ymd($row->{sent});
+		$row->{read_label} = defined($row->{_read}) && $row->{_read} == 1 ? 'Read' : 'Unread' if $sent;
 	}
- 
-	$template->setKey('oldmail', $list);
-	
-	return paddingTable(clearBox('Your '.getConfig('projname').' Mail Box',$template->expand()));
+	my $pager = @rows ? getPager({op => $folder, total => $total, offset => $params->{offset} || 0}, $userinf, 2) : '';
+	return renderMailPage('mailbox.tt', {title => 'Your '.getConfig('projname').' Mail Box',
+		folder => $folder, rows => \@rows, count => $total, pager => $pager});
 }
 
 sub sendMailForm {
-	my $params = shift;
-	my $userinf = shift;
-	
-	my $template = new TemplateNS('sendmail.html');
-	my $error = '';
-
-	return needAccount() if $userinf->{'uid'} <= 0;
-	
-	if (defined $params->{'post'}) {
-		$error = checkSendMail($params,$userinf);
-		if ($error eq "") {
-			# actually send
-			insertMail($params,$userinf);
-			return paddingTable(makeBox("Mail Sent","Your message was sent. Click <a href=\"".getConfig("main_url")."/?op=mailbox\">here</a> to go back to your mailbox."));
-		} else {
-			$template->setKeys(%$params);
-			$template->unsetKey('spell');
+	my ($params, $userinf) = @_;
+	return needAccount() if $userinf->{uid} <= 0;
+	my %values = %$params;
+	my ($error, $spell) = ('', '');
+	if (defined $params->{post}) {
+		$error = checkSendMail($params, $userinf);
+		if ($error eq '') {
+			insertMail($params, $userinf);
+			return renderMailPage('mailnotice.tt', {title => 'Mail Sent'});
 		}
-	} 
-	
-	elsif (defined $params->{spell}) {
-		my $text = $params->{body};
+	} elsif (defined $params->{spell}) {
+		my $text = $params->{body} || '';
 		$text =~ s/>.*?\n//gs;
 		$text =~ s/^\s*//s;
-		#dwarn "submitting to spell : $text";
-		my $spell = checkdoc($text);
-		$template->setKey('spell', "Spell check (broken words in red, clickable):<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$spell</td></tr></table><hr>");
-		$template->setKeysIfUnset(%$params);
+		$spell = checkdoc($text);
+	} else {
+		delete @values{qw(subject body)};
 	}
-
-	# get pristine form
-	#
-	else {
-		$template->setKeys(%$params);
-		$template->unsetKeys('subject', 'body', 'spell');
-	}
-
-	$template->setKey('error', $error);
-
-	return paddingTable(makeBox('Send Mail',$template->expand()));
+	return renderMailPage('mailcompose.tt', {title => 'Send Mail', folder => 'sendmail',
+		values => \%values, error => $error, spell => $spell});
 }
 
 sub checkSendMail {
