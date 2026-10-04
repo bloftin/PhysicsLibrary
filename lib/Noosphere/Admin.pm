@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Template;
 use Noosphere::RequestForm;
 
 use Noosphere::IR;
@@ -1369,10 +1370,11 @@ sub webStats
 	return noAccess() if ($userinf->{data}->{access} < getConfig('access_admin'));
 
 	my $statsurl = 'https://aux.physicslibrary.org/stats/awstats.physicslibrary.org.html';
-	my $html = "<p><a href=\"$statsurl\">Open web stats in a separate page</a></p>";
-	$html .= "<iframe src=\"$statsurl\" width=\"100%\" height=\"900\" style=\"border: 1px solid #cccccc; background: #ffffff;\" title=\"PhysicsLibrary web stats\"></iframe>";
-
-	return paddingTable(clearBox("Web Statistics", $html));
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	my $html = '';
+	$tt->process('webstats.tt', { stats_url => $statsurl }, \$html)
+		|| die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 sub adminDBStats
