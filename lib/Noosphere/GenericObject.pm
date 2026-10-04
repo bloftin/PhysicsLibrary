@@ -35,6 +35,7 @@ sub addGeneric {
 	my $isa = getIsA($table);
 	my $section = getIsA($table, 1);
 	$tt_file = 'addlecture.tt' if ($table eq getConfig('exp_tbl'));
+	$tt_file = 'addbook.tt' if ($table eq getConfig('books_tbl'));
 
 	#dwarn "isa: $isa";
 	#dwarn "section: $section";

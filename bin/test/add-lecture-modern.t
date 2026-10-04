@@ -16,7 +16,7 @@ my $tt = Template->new({ INCLUDE_PATH => "$root/stemplates" });
 my $inserts = 0;
 my @file_calls;
 sub getConfig {
-    return { stemplate_path => "$root/stemplates", exp_tbl => 'lec',
+    return { stemplate_path => "$root/stemplates", exp_tbl => 'lec', books_tbl => 'books',
         template_cmd_prefix => 'NS', siteaddrs => {},
         main_url => 'https://physicslibrary.org' }->{$_[0]};
 }
@@ -41,7 +41,7 @@ sub filebox_html {
     $t->setKeys(ferror => $params->{ferror} // '', fb_urls => $params->{fb_urls} // '',
         tempdir => $params->{tempdir} // 'tmp/demo', filelist => $params->{filelist} // '',
         filechanges => $params->{filechanges} // '',
-        rmlist => $params->{filelist} ? '<input type="checkbox" name="remove" value="notes.pdf" /><a href="/cache/tmp/demo/notes.pdf">notes.pdf</a><br />' : '[no files]');
+        rmlist => $params->{rmlist} // ($params->{filelist} ? '<input type="checkbox" name="remove" value="notes.pdf" /><a href="/cache/tmp/demo/notes.pdf">notes.pdf</a><br />' : '[no files]'));
     return $t->expand();
 }
 sub handleFileManager {
@@ -161,8 +161,8 @@ subtest 'lecture route and submission still use the existing handler' => sub {
     is(scalar @file_calls, $calls_before, 'anonymous access does not reach file management');
     for my $table (qw(books papers)) {
         my $html = addGeneric({%$params, to => $table}, $user);
-        unlike($html, qr/class="pl-add-lecture"/, "$table retains its original template");
-        like($html, qr/NAME="isbn"/, 'book ISBN option is unaffected') if $table eq 'books';
+        unlike($html, qr/class="pl-add-lecture"/, "$table does not use the lecture template");
+        like($html, qr/name="isbn"/, 'book ISBN option is unaffected') if $table eq 'books';
     }
 };
 
@@ -182,5 +182,81 @@ subtest 'quoted and markup-like draft values round-trip safely' => sub {
         like($html, qr/<label for="lecture-\Q$name\E">/, "$name has an associated label");
     }
 };
+
+subtest 'book form preserves all original text and input options' => sub {
+    for my $case (
+        ['empty', {}],
+        ['filled', {title => 'Mechanics book', authors => 'A. Author', keywords => 'inertia',
+            class => '45.20.Jj', isbn => '978-0-123456-47-2', comments => '2026, 200 pages',
+            rights => 'Public domain', data => "A textbook on mechanics.\nWith exercises.",
+            urls => "https://example.invalid/book\nhttps://example.invalid/appendix"}],
+        ['validation error', {title => 'Draft book', isbn => '978-0-123456-47-2',
+            error => 'Need an abstract.<br />Need at least one author.<br />Need a rights statement.<br />'}],
+        ['uploaded files', {filelist => 'notes.pdf', filechanges => 'yes', tempdir => 'tmp/demo'}],
+        ['filebox error', {ferror => 'Problem getting the remote file<br/>', fb_urls => 'https://example.invalid/book.pdf'}],
+        ['cover images', {filelist => 'coverimage.png;coverimage_big.png', filechanges => 'yes',
+            rmlist => '<input type="checkbox" name="remove" value="coverimage.png" /><a href="/cache/tmp/demo/coverimage.png">coverimage.png</a><br /><input type="checkbox" name="remove" value="coverimage_big.png" /><a href="/cache/tmp/demo/coverimage_big.png">coverimage_big.png</a><br />'}],
+    ) {
+        my ($state, $values) = @$case;
+        my $vars = {isa => 'Book', section => 'Books', op => 'addobj', to => 'books',
+            fmanager_flag => 1, %$values, fmanager => filebox_html($values)};
+        my $html = render_form('addbook.tt', $vars);
+        is_deeply(form_contract($html), form_contract(render_form('addgeneric.tt', $vars)),
+            "$state retains every word, link, field, value and submission option");
+        like($html, qr/\Q$vars->{fmanager}\E/, "$state embeds the original filebox unchanged");
+        my $user = {uid => 7, ticket => 'a' x 64, data => {active => 1}};
+        my $protected = form_contract(requestFormDecorate($html, $user, '/?op=addobj;to=books'));
+        is(scalar @{$protected->{forms}}, 1, "$state keeps filebox in the protected form");
+        is(scalar grep($_->{name} eq '_form_token', @{$protected->{controls}}), 1,
+            "$state receives a single CSRF field");
+    }
+    my %fields = map { $_ => q{A "quoted" <tag> & </textarea><script>alert(1)</script>} }
+        qw(title authors keywords class isbn comments rights data urls);
+    my $html = render_form('addbook.tt', {isa => 'Book', op => 'addobj', to => 'books', %fields});
+    my $contract = form_contract($html);
+    my %values = map { $_->{name} => $_->{value} } @{$contract->{controls}};
+    for my $name (sort keys %fields) {
+        is($values{$name}, $fields{$name}, "$name draft value round-trips safely");
+        like($html, qr/<label for="book-\Q$name\E">/, "$name has an associated label");
+    }
+    unlike($html, qr/<script>alert\(1\)<\/script>/, 'book values cannot inject executable markup');
+    ok(!grep($_->{required}, @{$contract->{controls}}), 'partial book uploads are not blocked by browser validation');
+    unlike($html, qr/Manage This Object's Filebox/, 'book filebox respects the existing display flag');
+};
+
+subtest 'book handler preserves draft, validation and submission flow' => sub {
+    $inserts = 0;
+    my $user = {uid => 7};
+    my $params = {op => 'addobj', to => 'books', title => 'Draft book', isbn => '978-0-123456-47-2',
+        data => '', authors => '', rights => '', filelist => '', urls => ''};
+    like(addGeneric($params, $user), qr/class="pl-add-book"/, 'books route selects the dedicated modern template');
+    like(addGeneric({%$params, post => 'finished'}, $user), qr/Need an abstract\.<br \/>/,
+        'book validation messages are unchanged');
+    my $upload = {filename => 'book.pdf'};
+    my $partial = addGeneric({%$params, filebox => 'upload'}, $user, $upload);
+    is($file_calls[-1][1], $upload, 'book upload is passed to the existing file manager');
+    like($partial, qr/name="isbn"[^>]*value="978-0-123456-47-2"/, 'upload refresh keeps the ISBN');
+    like(addGeneric({%$params, filebox => 'remove', remove => 'notes.pdf'}, $user),
+        qr/value="Draft book"/, 'file removal refresh keeps the title');
+    is($inserts, 0, 'invalid, upload and removal submissions do not finish the book');
+    my $saved = addGeneric({%$params, post => 'finished', data => 'Abstract', authors => 'Author',
+        rights => 'Public domain', urls => 'https://example.invalid/book'}, $user);
+    like($saved, qr/Book Added: Thank you for uploading your contribution/, 'valid book submission confirms insertion');
+    like($saved, qr/from=books&id=42/, 'success link still opens the new book');
+    is($inserts, 1, 'book is inserted exactly once');
+    my $calls_before = scalar @file_calls;
+    is(addGeneric($params, {uid => -1}), 'Must be logged in to add to the collection!', 'anonymous book creation stays blocked');
+    is(scalar @file_calls, $calls_before, 'anonymous book access does not reach file management');
+    unlike(addGeneric({%$params, to => 'papers'}, $user), qr/class="pl-add-book"/, 'paper creation keeps its legacy template');
+};
+
+my ($menu_background) = readFile("$root/stemplates/sidebar.tt") =~ /\.pl-sidebar-body\s*\{\s*background:\s*(#[\da-f]+)/i;
+ok(defined $menu_background, 'sidebar menu background is defined');
+like(readFile("$root/stemplates/addlecture.tt"),
+    qr/\.pl-add-lecture-filebox\s*\{\s*background:\s*\Q$menu_background\E;\s*border: 1px solid #cbd6de;.*?padding: \.75rem;/,
+    'lecture filebox stands out with the menu background, border and inner spacing');
+like(readFile("$root/stemplates/addbook.tt"),
+    qr/\.pl-add-book-filebox\s*\{\s*background:\s*\Q$menu_background\E;\s*border: 1px solid #cbd6de;.*?padding: \.75rem;/,
+    'book filebox matches the menu background, border and inner spacing');
 
 done_testing();
