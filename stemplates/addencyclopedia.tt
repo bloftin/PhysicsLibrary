@@ -1,203 +1,134 @@
-<!-- meta charset is needed to convert treat table encoding of request select items -->
 <meta charset="UTF-8">
+<style type="text/css">
+.pl-add-entry { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0; min-width: 0; }
+.pl-add-entry a { color: #064d93; }
+.pl-add-entry-guidelines { border-bottom: 1px solid #b6c5d2; font-size: .88rem; line-height: 1.5; padding: .65rem 0; }
+.pl-add-entry-guidelines ul { margin: .5rem 0 0; padding-left: 1.4rem; }
+.pl-add-entry-guidelines li { margin-bottom: .35rem; }
+.pl-add-entry-form { margin-top: 1rem; }
+.pl-add-entry-grid { display: grid; gap: 0 1rem; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+.pl-add-entry-associations { border: 0; border-top: 1px solid #b6c5d2; margin: 0 0 1rem; min-width: 0; padding: .75rem 0 0; }
+.pl-add-entry-associations legend { font-size: .95rem; font-weight: bold; padding: 0 .4rem 0 0; }
+.pl-add-entry-associations .pl-add-entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pl-add-entry-field { margin: 0 0 1rem; min-width: 0; }
+.pl-add-entry-field label { display: block; font-size: .9rem; font-weight: bold; line-height: 1.4; margin-bottom: .35rem; }
+.pl-add-entry-field input[type="text"], .pl-add-entry-field select, .pl-add-entry-field textarea,
+.pl-add-entry-filebox textarea, .pl-add-entry-filebox input[type="file"] { box-sizing: border-box; max-width: 100%; width: 100%; }
+.pl-add-entry-field input[type="text"], .pl-add-entry-field select, .pl-add-entry-field textarea, .pl-add-entry-filebox textarea { background: #fff; border: 1px solid #8093a5; border-radius: 2px; color: #17212b; font: .95rem Arial, Helvetica, sans-serif; padding: .45rem .5rem; }
+.pl-add-entry-field textarea { font-family: Consolas, "Courier New", monospace; line-height: 1.45; resize: vertical; }
+.pl-add-entry-field small, .pl-add-entry-associations small { color: #526170; display: block; font-size: .8rem; line-height: 1.4; margin-top: .35rem; }
+.pl-add-entry-check { align-items: center; display: flex; gap: .5rem; margin-bottom: 1rem; }
+.pl-add-entry-check label { font-size: .9rem; }
+.pl-add-entry input[type="submit"] { background: #1b507d; border: 1px solid #153f65; border-radius: 2px; color: #fff; cursor: pointer; font: .9rem Arial, Helvetica, sans-serif; padding: .4rem .75rem; }
+.pl-add-entry input:focus-visible, .pl-add-entry select:focus-visible, .pl-add-entry textarea:focus-visible, .pl-add-entry a:focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
+.pl-add-entry-error { background: #fff3f1; border-left: 3px solid #a00000; color: #a00000; line-height: 1.5; margin-bottom: 1rem; padding: .65rem .75rem; }
+.pl-add-entry-preview { border-top: 1px solid #b6c5d2; margin: 0 0 1rem; min-width: 0; padding-top: .75rem; }
+.pl-add-entry-preview h2 { font-size: .95rem; margin: 0 0 .5rem; }
+.pl-add-entry-preview-output { min-width: 0; overflow-x: auto; }
+.pl-add-entry-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.pl-add-entry-filebox { background: #f1f4f7; border: 1px solid #cbd6de; box-sizing: border-box; font-size: .9rem; line-height: 1.45; margin-top: 1rem; overflow-wrap: anywhere; padding: .75rem; }
+.pl-add-entry-filebox table { border-collapse: collapse; max-width: 100%; width: 100%; }
+.pl-add-entry-filebox td { background: transparent; padding: 0; text-align: left; }
+.pl-add-entry-filebox center { font-weight: bold; text-align: left; }
+.pl-add-entry-filebox font { font-size: inherit; }
+.pl-add-entry-filebox input[type="file"] { font: inherit; margin: .35rem 0; }
+.pl-add-entry-filebox table table table td { padding-right: .65rem; vertical-align: top; }
+@media (max-width: 640px) { .pl-add-entry-grid, .pl-add-entry-associations .pl-add-entry-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>
 
-Notes and caveats for adding encyclopedia entries:
+<div class="pl-add-entry">
+  [% INCLUDE modernboxheader.tt title = 'Add an Encyclopedia Entry' %]
+  <section class="pl-add-entry-guidelines" aria-label="Entry guidelines">
+    Notes and caveats for adding encyclopedia entries:
+    <ul>
+      <li><b>Please search for your topic before you attempt to add!</b>. You <b>can</b> write alternate entries, however, <a href="https://aux.planetphysics.org/doc/newuser.html#alternate">if justified</a>.</li>
+      <li>Check the requests list (or the pulldown below). Your entry may fulfill a request.</li>
+      <li>You can use TeX-style international trigraphs (i.e., <b>\&quot;o</b> to make <b>&#x00F6;</b>) in your entry <b>and</b> its <a href="https://aux.planetphysics.org/doc/newuser.html#metadata">metadata</a>.</li>
+    </ul>
+  </section>
 
-<p />
-
-<ul>
-    <li><b>Please search for your topic before you attempt to add!</b>.  You <b>can</b> write alternate entries, however, <a href="https://aux.planetphysics.org/doc/newuser.html#alternate">if justified</a>. </li>
-    <li>Check the requests list (or the pulldown below). Your entry may fulfill a request.</li>
-    <li>You can use TeX-style international trigraphs (i.e., <b>\&quot;o</b> to make <b>&#x00F6;</b>) in your entry <b>and</b> its <a href="https://aux.planetphysics.org/doc/newuser.html#metadata">metadata</a>.</li>
-</ul>
-
-<hr />
-
-<p />
-
-
-<form method="post" action="https://physicslibrary.org/" enctype="multipart/form-data" accept-charset="UTF-8">
-
-    <font color="#ff0000" size="+1">[% error %]</font>
-    Type:
-
-    <select name="type">
-        [% FOREACH item IN type_hash.keys.nsort %]
-            <option value="[% type_hash.$item %]" [% 'selected' IF type_hash.$item == type %]>[% type_hash.$item %]</option>
+  <form class="pl-add-entry-form" method="post" action="https://physicslibrary.org/" enctype="multipart/form-data" accept-charset="UTF-8">
+    [% IF error %]<div class="pl-add-entry-error" role="alert">[% error %]</div>[% END %]
+    <div class="pl-add-entry-grid">
+      <div class="pl-add-entry-field">
+        <label for="entry-type">Type:</label>
+        <select name="type" id="entry-type">
+          [% FOREACH item IN type_hash.keys.nsort %]
+          <option value="[% type_hash.$item | html %]" [% 'selected' IF type_hash.$item == type %]>[% type_hash.$item | html %]</option>
+          [% END %]
+        </select>
+      </div>
+      <div class="pl-add-entry-field">
+        <label for="entry-title">Title:</label>
+        <input type="text" name="title" id="entry-title" size="50" maxlength="254" value="[% params.title | html %]" aria-describedby="entry-title-note" />
+        <small id="entry-title-note">(Try to write titles as they would occur naturally in text. Commas are for index terms, to pass them verbatim write ",,")</small>
+      </div>
+    </div>
+    <div class="pl-add-entry-field">
+      <label for="entry-parent">Attached to (if applicable):</label>
+      <input type="text" name="parent" id="entry-parent" size="30" value="[% parent | html %]" aria-describedby="entry-parent-note" />
+      <small id="entry-parent-note">(Proofs, examples, corollaries, derivations, and results <b>must</b> be attached to a parent.)</small>
+    </div>
+    <div class="pl-add-entry-check">
+      <label for="entry-self">Contains own proof (for theorems):</label>
+      <input type="checkbox" name="self" id="entry-self" [% 'checked' IF params.self == 'on' %] />
+    </div>
+    <div class="pl-add-entry-field">
+      <label for="entry-request">Fill a request with this entry:</label>
+      <select name="request" id="entry-request">
+        [% FOREACH item IN fillreq.keys.sort %]
+        <option value="[% item | html %]" [% 'selected="selected"' IF item == params.request %]>[% fillreq.$item | html %]</option>
         [% END %]
-    </select>
-
-    Title: 
-    
-    <input class="small" TYPE="text" NAME="title" SIZE="50" MAXLENGTH="254" value="[%- params.title -%]">
-
-    <div style="height: 20px; display: block;">
-        <font size="-2">(Try to write titles as they would occur naturally in text.  Commas are for index terms, to pass them verbatim write ",,")</font>
+      </select>
     </div>
-		
-	<p></p>
-
-     Attached to (if applicable): 
-
-    <input class="small" TYPE="text" NAME="parent" SIZE="30" value="[% parent %]">
-		
-	<div style="height: 20px; display: block;">
-        <font size="-2">(Proofs, examples, corollaries, derivations, and results <b>must</b> be attached to a parent.)</font>
+    [% IF classification_supported %]
+    <div class="pl-add-entry-field">
+      <label for="entry-class">Classification (See <a target="planetphysics.popup" href="/?op=pacsbrowse">PACS</a>):</label>
+      <input type="text" name="class" id="entry-class" size="75" value="[% params.class | html %]" aria-describedby="entry-class-note" />
+      <small id="entry-class-note">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be omitted, assumed by default.)</small>
     </div>
-
-    Contains own proof (for theorems):
-
-        <input class="small" TYPE="checkbox" NAME="self" [% 'checked' IF params.self == 'on' %]>
-
-    <p></p>
-
-    Fill a request with this entry:
-
-    <select name="request">
-         [% FOREACH item IN fillreq.keys.sort %]
-             <option
-                 value="[% item %]" [% 'selected="selected"' IF item == params.request %]>[%- fillreq.$item -%]
-             </option>
-         [% END %]
-    </select>
-
-    <p></p>
-
-    [%- IF classification_supported -%]
-        Classification (See <a target="planetphysics.popup" href="/?op=pacsbrowse">PACS</a>):
-        <input TYPE="text" NAME="class" SIZE="75" value="[% params.class %]">
-        <div style="height: 20px; display: block;">
-            <font size="-2">(examples: "95.", "02.70.Hm, 01.30.Pp". "pacs:" can be omitted, assumed by default.)</font>
+    [% END %]
+    <fieldset class="pl-add-entry-associations">
+      <legend>Associations (<a href="/?op=assocguidelines">Guidelines</a>)</legend>
+      <div class="pl-add-entry-grid">
+        [% FOREACH field IN ['synonyms', 'defines', 'related', 'keywords'] %]
+        <div class="pl-add-entry-field">
+          <label for="entry-[% field %]">[% SWITCH field; CASE 'synonyms' %]Synonyms:[% CASE 'defines' %]Defines:[% CASE 'related' %]Related*:[% CASE 'keywords' %]Keywords:[% END %]</label>
+          <input type="text" name="[% field %]" id="entry-[% field %]" size="40" value="[% params.$field | html %]" />
         </div>
-
-    [%- END -%]
-
-    <!--====================-->
-    <!-- ASSOCIATIONS TABLE -->
-    <!--====================-->
-
-    <table> 
-        <font face="sans-serif">
-
-            <tr><td colspan="2" align="center">
-                Associations (<a href="/?op=assocguidelines">Guidelines</a>)
-            </td></tr>	
-
-            <tr>
-			<td>Synonyms:</td>
-			
-                <td> 
-                    <input TYPE="text" NAME="synonyms" SIZE="40" value="[% params.synonyms %]">
-                </td>
-		    </tr>	
-
-            <tr>
-			    <td>Defines:</td>
-			
-			    <td> 
-                    <input TYPE="text" NAME="defines" SIZE="40" value="[% params.defines %]">
-			    </td>
-
-
-		    </tr>
-
-            <tr>
-                <td>Related*:</td>
-                
-                <td> 
-                    <input TYPE="text" NAME="related" SIZE="40" value="[% params.related %]">
-                </td>
-		    </tr>
-
-            <tr>
-                <td>Keywords:</td>
-                
-                <td> 
-                    <input TYPE="text" NAME="keywords" SIZE="40" value="[% params.keywords %]">
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="2" align="right">
-                    * <font size="-2">Canonical names only! (I.e. "PascalsRule" instead of "Pascal's Rule")</font>.
-                </td>
-		    </tr>
-
-        </font>
-    </table>
-
-    <p></p>
-
-    Pronunciation (<a href="/?op=sitedoc">Guidelines</a>):
-
-    <input TYPE="text" NAME="pronounce" SIZE="40" value="[% params.pronounce %]"> 
-	
-	<p></p>
-
-    <!--==========================-->
-    <!-- preview (if we have one) -->
-    <!--==========================-->
-
+        [% END %]
+      </div>
+      <small>* Canonical names only! (I.e. "PascalsRule" instead of "Pascal's Rule").</small>
+    </fieldset>
+    <div class="pl-add-entry-field">
+      <label for="entry-pronounce">Pronunciation (<a href="/?op=sitedoc">Guidelines</a>):</label>
+      <input type="text" name="pronounce" id="entry-pronounce" size="40" value="[% params.pronounce | html %]" />
+    </div>
     [% IF preview %]
-
-        Preview: 
-
-        [% showpreview %]
-
-        <p></p>
-
+    <section class="pl-add-entry-preview" aria-label="Entry preview">
+      <h2>Preview:</h2>
+      <div class="pl-add-entry-preview-output">[% showpreview %]</div>
+    </section>
     [% END %]
-
-    Preamble (new commands, nonstandard packages):
-
-    <div style="height: 1px; display: block;"></div>
-
-    <table width="0" cellpadding="0" cellspacing="4">
-        <tr> 
-            <td>
-                <textarea name="preamble" cols="80" rows="8">[% preamble %]</textarea>
-            </td>
-
-            <td valign="top">
-                <input type="submit" name="getpre" value="get preamble" />
-            </td>
-        </tr>
-    </table>
-
-    <p></p>
-
-    Content (edit your LaTeX here. See <a href="/?op=sitedoc">planetphysics Content and Style Guide</a>
-    ):
-
-    <div style="height: 1px; display: block;"></div>
-
-    <textarea name="data" cols="80" rows="20">[% data %]</textarea>
-
-    <input type="hidden" name="id" value=[% id %]>
-    <input type="hidden" name="op" value=[% op %]>
-    <input type="hidden" name="version" value="0">
-    <input type="hidden" name="table" value="objects">
-    <input type="hidden" name="from" value="objects">
-
-
-    <div style="height: 1px; display: block;"></div>
-
-    <input TYPE="submit" name="preview" VALUE="preview" /> 
-
-    [% IF preview %]
-        <input TYPE="submit" name="post" VALUE="save changes" />
-    [% END %]
-
-    [% IF corrections_flag %]
-        [% corrections %]
-    [% END %]
-
-    [% IF fmanager_flag %]
-        [% fmanager %]
-    [% END %]
-
-    
-    <p></p>
-
-</form>
-
+    <div class="pl-add-entry-field">
+      <label for="entry-preamble">Preamble (new commands, nonstandard packages):</label>
+      <textarea name="preamble" id="entry-preamble" cols="80" rows="8">[% preamble | html %]</textarea>
+      <input type="submit" name="getpre" value="get preamble" />
+    </div>
+    <div class="pl-add-entry-field">
+      <label for="entry-data">Content (edit your LaTeX here. See <a href="/?op=sitedoc">planetphysics Content and Style Guide</a> ):</label>
+      <textarea name="data" id="entry-data" cols="80" rows="20">[% data | html %]</textarea>
+    </div>
+    <input type="hidden" name="id" value="[% id | html %]" />
+    <input type="hidden" name="op" value="[% op | html %]" />
+    <input type="hidden" name="version" value="0" />
+    <input type="hidden" name="table" value="objects" />
+    <input type="hidden" name="from" value="objects" />
+    <div class="pl-add-entry-actions">
+      <input type="submit" name="preview" value="preview" />
+      [% IF preview %]<input type="submit" name="post" value="save changes" />[% END %]
+    </div>
+    [% IF corrections_flag %][% corrections %][% END %]
+    [% IF fmanager_flag %]<div class="pl-add-entry-filebox">[% fmanager %]</div>[% END %]
+  </form>
+</div>
