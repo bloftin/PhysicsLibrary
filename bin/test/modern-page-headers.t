@@ -62,6 +62,7 @@ like($escaped, qr/<h1>Inbox &lt;script&gt; &amp; &quot;notes&quot;<\/h1>/,
     'dynamic titles remain HTML-escaped');
 
 for my $case (
+    ['Encyclopedia', 'getEncyclopedia'],
     ['Requests', 'reqList'], ['Orphan', 'orphanage'], ['UserData', 'userObjectListPage'],
     ['Stats', 'unprovenTheorems'], ['Stats', 'unclassifiedObjects'], ['Stats', 'getSystemStats'],
     ['Corrections', 'globalViewCorrections'], ['Collab', 'collabMain'], ['Msc', 'pacsSearch'],
@@ -74,7 +75,7 @@ for my $case (
     ok(defined($body), "$handler exists");
     like($body, qr/return \$html(?: if \$view->\{modern\})?;/,
         "$handler returns the modern view without the legacy spacing table");
-    unlike($body, qr/return paddingTable\(\$html\)/,
+    unlike($body, qr/paddingTable\(\$html\)/,
         "$handler does not offset the title bar from the sidebar");
 }
 like(read_file('lib/Noosphere/UserData.pm'), qr/return paddingTable\(clearBox\(/,
