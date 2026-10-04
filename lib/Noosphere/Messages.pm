@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Noosphere::EntryInteractions;
 
 use vars qw($reader);
 
@@ -265,47 +266,39 @@ sub msgCountWithNewXML {
 sub getMessage {
 	my $params = shift;
 	my $userinf = shift;
-	
 	my $uid = $params->{id};
-	
-	my $template = new TemplateNS('dispmessage.html');
-	
-	my $html = '';
-	my $interact = '';
-	my $msg = '';
-
-	# get the data
-	#
+	return "Couldn't find that message!" unless defined($uid) && !ref($uid) && $uid =~ /\A[0-9]+\z/;
+	local $reader = $userinf;
 	(my $rv,my $sth) = dbSelect($dbh,{WHAT => '*', 
 	FROM => 'messages', 
 	WHERE => "uid = $uid", 
 	'ORDER BY' => 'created'});
-
-	if (! $rv ) { 
-		dwarn "uh oh... couldn't find any message $uid";
+	if (!$rv || !$sth) {
+		$sth->finish() if $sth;
 		return "Couldn't find that message!";
 	}
-
-	# handle watch toggling
-	#
-	changeWatch($params, $userinf, 'messages', $params->{id});
-
 	my $row = $sth->fetchrow_hashref();
-	my $up = getUpArrow("".getConfig("main_url")."/?op=getobj&from=$row->{tbl}&id=$row->{objectid}",'parent',"parent object");
- 
-	my $authorinf = _userfields_by_id($row->{userid},'username','email','homepage');
-	$msg .= clearBox("$up Viewing Message",
-			printmessage($row, $userinf, $authorinf, {single=>1}));
-
-	my $itemplate = new TemplateNS('dispmessage_interact.html');
-	$itemplate->setKeys('id' => $row->{'objectid'}, 'replyto'=>$row->{'uid'});
-	$interact .= makeBox('Interact',$itemplate->expand());
-	
-	$template->setKeys('message' => $msg, 'interact' => $interact, 'replyto' => $row->{'uid'}, 'id' => $row->{'objectid'});
-	
-	$html .= $template->expand(); 
-	
-	return $html;
+	$sth->finish();
+	return "Couldn't find that message!" unless $row;
+	return errorMessage("You don't have permission to view that message.")
+		if getConfig('acl_tables')->{$row->{tbl}} && !hasPermissionTo($row->{tbl}, $row->{objectid}, $userinf, 'read');
+	changeWatch($params, $userinf, 'messages', $row->{uid});
+	my $authorinf = _userfields_by_id($row->{userid}, 'username');
+	my $parent_url = entryInteractionURL('getobj', from => $row->{tbl}, id => $row->{objectid});
+	my @actions = (
+		{label => 'Reply', url => entryInteractionURL('postmsg', id => $row->{objectid}, replyto => $row->{uid})},
+		{label => 'Up', url => $row->{replyto} == -1 ? $parent_url : entryInteractionURL('getmsg', id => $row->{replyto})},
+	);
+	push @actions, {label => 'Top', url => entryInteractionURL('getmsg', id => $row->{threadid})} if $row->{replyto} != -1;
+	return entryInteractionTemplate('messageview.tt', {
+		subject => $row->{subject}, username => $authorinf->{username},
+		author_url => entryInteractionURL('getuser', id => $row->{userid}),
+		date => nicifyTimestamp($row->{created}), body => stdmsg($row->{body}),
+		parent_url => $parent_url, watching => getWatchString($row),
+		replies => getreplies($userinf, $row->{uid}, 0, 1, undef, 1),
+		watch => $row->{threadid} == $row->{uid} ? getWatchWidget({from => 'messages', id => $row->{uid}, op => 'getmsg'}, $userinf) : '',
+		interact => entryInteractionSection('Interact', entryInteractionActions(\@actions, 'Message actions')),
+	});
 }
 
 # main call to display the discussion attached to an object 
@@ -320,6 +313,8 @@ sub getMessages {
 	my $modern = shift;
 
 	my $html = '';				# init
+	my $forum = defined($modern) && $modern eq 'forum';
+	my $watch_form = !$forum || $userinf->{uid} > 0;
 
 	$params->{offset} = $params->{offset} || 0;
 
@@ -327,7 +322,7 @@ sub getMessages {
 	my $rv;
 	my $sth;
 
-	$reader = $userinf;	 # global for identifying reader
+	local $reader = $userinf;	 # reader state belongs to this request
 
 	_object_exists($table,$objid) || return "object not found";
 
@@ -365,6 +360,7 @@ sub getMessages {
 			WHERE => "objectid = $objid and tbl='$table'"});
 	}
 
+	return 'Query error.' unless $rv && $sth;
 	$params->{'total'} = $sth->rows();
 	$sth->finish();
 	
@@ -386,7 +382,7 @@ sub getMessages {
 			'ORDER BY' => 'created',uc($msgorder)=>''}); 
 	}
 								
-	if (! $rv ) { 
+	if (! $rv || !$sth) {
 		dwarn "uh oh... error doing message query for $objid";
 		return "Query error.";
 	}
@@ -425,39 +421,43 @@ sub getMessages {
 	my @rows = dbGetRows($sth);
 
 	if ($count) {
-		$html .= "<form method=\"post\" action=\"/\">\n";
-		if ($msgexpand eq '0') {
+		$html .= "<form method=\"post\" action=\"/\">\n" if $watch_form;
+		if ($msgexpand eq '0' && !$forum) {
 			$html .= "<hr>";
 		}
 
 		my $pager = getPager($params, $userinf, $scale);
-		$html .= "<font size=\"-1\">$pager<br /></font>" if (not $pager =~ /displaying\s+all/i);
+		my $pager_html = $forum ? '<nav class="pl-forum-pager" aria-label="Message pages">'.$pager.'</nav>' : "<font size=\"-1\">$pager<br /></font>";
+		$html .= $pager_html if (not $pager =~ /displaying\s+all/i);
+		$html .= '<ul class="pl-message-replies">' if $forum;
 
 		foreach my $row ( @rows) {
 			$html .= printmessage($row,
 				$userinf,
 				_userfields_by_id($row->{userid},'username','email','homepage'),
-				{msgstyle=>$msgstyle,msgexpand=>$msgexpand,lastid=>$lastid}); 
+				{msgstyle=>$msgstyle,msgexpand=>$msgexpand,lastid=>$lastid, forum=>$forum});
 		} 
+		$html .= '</ul>' if $forum;
+		$html .= $pager_html if (not $pager =~ /displaying\s+all/i);
 
-		$html .= "<font size=\"-1\">$pager<br/></font>" if (not $pager =~ /displaying\s+all/i);
+		if ($watch_form) {
+			$formvars = hashToFormVars({op => $params->{'op'},
+				from => $table,
+				id => $objid,
+				offset => $params->{'offset'},
+				total => $params->{'total'},
+				msgstyle=>$msgstyle,
+				msgorder=>$msgorder,
+				msgexpand=>$msgexpand});
 
-		$formvars = hashToFormVars({op => $params->{'op'},
-			from => $table,
-			id => $objid,
-			offset => $params->{'offset'},
-			total => $params->{'total'},
-			msgstyle=>$msgstyle,
-			msgorder=>$msgorder,
-			msgexpand=>$msgexpand});
-		
-		if ($modern) {
-			$html .= $formvars.'<div class="pl-entry-message-watch-actions">'.
-				'<button type="submit" name="watch" value="toggle watches">Toggle watches</button></div></form>';
-		} else {
-			$html .= " $formvars
-			<p /><center><input type=\"submit\" name=\"watch\" value=\"toggle watches\"></center>
-			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><td></form></td></table>";
+			if ($modern) {
+				$html .= $formvars.'<div class="pl-entry-message-watch-actions">'.
+					'<button type="submit" name="watch" value="toggle watches">Toggle watches</button></div></form>';
+			} else {
+				$html .= " $formvars
+				<p /><center><input type=\"submit\" name=\"watch\" value=\"toggle watches\"></center>
+				<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><td></form></td></table>";
+			}
 		}
 
 	} else {
@@ -479,6 +479,10 @@ sub printmessage {
 	my $msgexpand = $opts->{msgexpand};
 	my $lastid = $opts->{lastid};
 	my $single = $opts->{single} || 0;
+	if ($opts->{forum}) {
+		return forumMessageRow($row, $userinf, $authorinf, $lastid, $msgexpand ne '0',
+			$msgstyle ne 'flat' ? getreplies($userinf, $row->{uid}, $msgexpand, 1, $lastid, 'forum') : '');
+	}
 	
 	my $html = '';
 	
@@ -499,6 +503,23 @@ sub printmessage {
 	$html .= "</table>\n";
 	
 	return $html;
+}
+
+# Semantic forum rows share the individual message view's formatting and URLs.
+sub forumMessageRow {
+	my ($row, $userinf, $authorinf, $lastid, $expanded, $replies) = @_;
+	return entryInteractionTemplate('forummessage.tt', {
+		uid => $row->{uid}, subject => $row->{subject}, username => $authorinf->{username},
+		date => nicifyTimestamp($row->{created}), watching => getWatchString($row),
+		can_watch => $userinf->{uid} > 0 && $row->{threadid} == $row->{uid},
+		new_message => defined($lastid) && $lastid < $row->{uid}, expanded => $expanded,
+		body => $expanded ? stdmsg($row->{body}) : '', replies => $replies,
+		message_url => entryInteractionURL('getmsg', id => $row->{uid}),
+		author_url => entryInteractionURL('getuser', id => $row->{userid}),
+		reply_url => entryInteractionURL('postmsg', id => $row->{objectid}, replyto => $row->{uid}),
+		up_url => $row->{replyto} == -1 ? entryInteractionURL('getobj', from => $row->{tbl}, id => $row->{objectid}) : entryInteractionURL('getmsg', id => $row->{replyto}),
+		top_url => $row->{replyto} != -1 ? entryInteractionURL('getmsg', id => $row->{threadid}) : '',
+	});
 }
 
 # print collapsed message header
@@ -654,11 +675,13 @@ sub getreplies {
 	my $msgexpand = shift;
 	my $level = shift;
 	my $lastid = shift;
+	my $modern = shift;
 
 	my $replies = '';
 	my $html;
 
-	$replies = _r_getmessages($userinf,$uid,$msgexpand,$level,$lastid);	
+	$replies = _r_getmessages($userinf,$uid,$msgexpand,$level,$lastid,$modern);
+	return $replies if $modern;
 	if ($replies ne "") {
 		$html = "<tr><td>$replies</td></tr>\n";
 	}
@@ -674,21 +697,42 @@ sub _r_getmessages {
 	my $msgexpand = shift;
 	my $level = shift;
 	my $lastid = shift;
+	my $modern = shift;
 
 	my $html = '';
 	my $authorinf = '';
 
-	(my $rv, my $sth) = dbSelect($dbh,{WHAT => 'objectid,tbl,uid,created,subject,userid,body',
+	(my $rv, my $sth) = dbSelect($dbh,{WHAT => 'objectid,tbl,uid,created,subject,userid,body'.($modern ? ',threadid' : ''),
 																		 FROM => 'messages',
 									 WHERE => "replyto = $uid",
 									 'ORDER BY' => 'created'});
+	if ($modern && (!$rv || !$sth)) {
+		$sth->finish() if $sth;
+		return '';
+	}
 
 	my @rows = dbGetRows($sth);
 
 	if ($#rows >= 0 ) { 
-	$html .= "<ul>\n";
+	$html .= $modern ? '<ul class="pl-message-replies">' : "<ul>\n";
 		foreach my $row (@rows) {
 		$authorinf = _userfields_by_id($row->{userid},'username','uid');
+		if ($modern) {
+			if ($modern eq 'forum') {
+				$html .= forumMessageRow($row, $userinf, $authorinf, $lastid,
+					$msgexpand eq '-1' || $msgexpand > $level,
+					_r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 'forum'));
+				next;
+			}
+			$html .= entryInteractionTemplate('messageviewreply.tt', {
+				subject => $row->{subject}, username => $authorinf->{username},
+				message_url => entryInteractionURL('getmsg', id => $row->{uid}),
+				author_url => entryInteractionURL('getuser', id => $row->{userid}),
+				date => nicifyTimestamp($row->{created}), watching => getWatchString($row),
+				replies => _r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 1),
+			});
+			next;
+		}
 
 		if ($msgexpand gt "$level" || $msgexpand eq "-1") {
 		$html .= "<table with=\"100%\"><td>";
@@ -854,81 +898,54 @@ sub _object_exists {
 sub postMessage {
 	my $params = shift;
 	my $userinfo = shift;
-	
-	my $template;
-	my $post;
-	my $boxtitle;
-	my $html = '';
 
 	if ($userinfo->{'uid'} <= 0) {
 		return postError("You can't post as anonymous.");
 	}
-	
-	# preview directive
-	#
-	if (defined($params->{preview})) {
-		($template, $post, $boxtitle) = getPostForm($params);
-		my $text = stdmsg($params->{body});
-		$post->setKey('preview', "Preview:<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$text</td></tr></table><hr>");
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
+
+	# Resolve the reply destination from the stored message, not form fields.
+	my %values = %$params;
+	my $parent;
+	if (defined($values{replyto}) && nb($values{replyto})) {
+		return errorMessage("Couldn't find that message!")
+			if ref($values{replyto}) || $values{replyto} !~ /\A[0-9]+\z/;
+		my ($rv, $sth) = dbSelect($dbh, {WHAT => '*', FROM => 'messages',
+			WHERE => "uid = $values{replyto}"});
+		return errorMessage("Couldn't find that message!") unless $rv && $sth;
+		$parent = $sth->fetchrow_hashref();
+		$sth->finish();
+		return errorMessage("Couldn't find that message!") unless $parent;
+		my $acl_tables = getConfig('acl_tables') || {};
+		if ($acl_tables->{$parent->{tbl}} &&
+			!hasPermissionTo($parent->{tbl}, $parent->{objectid}, $userinfo, 'read')) {
+			return errorMessage("You don't have permission to read this message.");
+		}
+		@values{qw(id from)} = @{$parent}{qw(objectid tbl)};
 	}
-	
-	# spell directive
-	#
-	elsif (defined($params->{spell})) {
-		($template, $post, $boxtitle) = getPostForm($params);
-		my $text = $params->{body};
+	$values{body} = '' unless defined $values{body};
+	my ($preview, $spell, $error);
+	if (defined($params->{preview})) {
+		$preview = stdmsg($values{body});
+	} elsif (defined($params->{spell})) {
+		my $text = $values{body};
 		$text =~ s/>.*?\n//gs;
 		$text =~ s/^\s*//s;
-		#	dwarn "*** spell: submitting to spellcheck : [$text]";
-		my $spell = checkdoc($text);
-		#	dwarn "*** spell: got back [$spell]";
-		$post->setKey('spell', "Spell check (broken words in red, clickable):<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$spell</td></tr></table><hr>");
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
-	}
-	
-	# quote directive
-	#
-	elsif (defined($params->{quote})) {
-		($template, $post, $boxtitle) = getPostForm($params);
-		my $quoted = getquotedmessage($params->{'replyto'});
-		if (defined($params->{'body'})) {
-			my $body = $params->{'body'};
-			$post->setKey('body', "$quoted\n\n$body");
+		$spell = checkdoc($text);
+	} elsif (defined($params->{quote})) {
+		$values{body} = getquoted($parent->{body}).
+			(defined($params->{body}) ? "\n\n".$values{body} : '') if $parent;
+	} elsif ($values{body} ne '') {
+		if (!defined($values{subject}) || $values{subject} eq '') {
+			$error = 'Need a subject.';
 		} else {
-			$post->setKey('body', $quoted);
+			my $visible = hasVisibleMessages($values{from}, $values{id});
+			return submit_message(\%values, $userinfo, $visible);
 		}
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
-	}
-	
-	# got body, check if we got subject, if so, go ahead with post
-	#
-	elsif ($params->{'body'} ne "") {
-		if ($params->{'subject'} eq "") {
-			return postError("Need a subject.");
-		} else {
-			my $visible = hasVisibleMessages($params->{'from'}, $params->{'id'});
-			$html .= submit_message($params, $userinfo, $visible);
-		}
-	} 
-	
-	# got subject so far, give error 
-	#
-	elsif ($params->{'subject'} ne "" ) {
-		$html .= postError("Need a message body."); 
-	} 
-	# got nothing so far, just get form
-	#
-	else {
-		($template, $post, $boxtitle) = getPostForm($params);
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
+	} elsif (defined($values{subject}) && $values{subject} ne '') {
+		$error = 'Need a message body.';
 	}
 
-	return $html;
+	return getPostForm(\%values, $parent, $preview, $spell, $error);
 }
 
 # get error to show user if a post didn't go through
@@ -942,51 +959,25 @@ sub postError {
 # get and populate message posting form
 #
 sub getPostForm {
-	my $params = shift;
-	
-	my $template;
-	my $boxtitle;
-	my $post;
-	
-	if (defined($params->{'replyto'}) && nb($params->{'replyto'})) {
-		$template = new TemplateNS('replymessage.html');
-		my $original = makeBox('Replying to','<table width="100%" border="0" cellpadding="0" cellspacing="0"><td bgcolor="#ffffff">'.singlemessage_byid($params->{'replyto'}).'</td></table>');
-	$boxtitle = 'Compose Post';
-	$post = new TemplateNS('postmsgform.html');
-		my $q = "<input type=\"submit\" name=\"quote\" value=\"quote\">";
-	$template->setKeys('original' => $original);
-	$post->setKeys('replyto' => $params->{'replyto'}, 'quote' => $q);
-	} else {
-		$template = new TemplateNS('postmessage.html');
-	$boxtitle = 'Compose Post';
-	$post = new TemplateNS('postmsgform.html');
-	$template->setKeys('replyto' => $params->{'replyto'});
+	my ($params, $parent, $preview, $spell, $error) = @_;
+	my %values = %$params;
+	my %original;
+	if ($parent) {
+		my $author = _userfields_by_id($parent->{userid}, 'username');
+		%original = (
+			subject => $parent->{subject}, username => $author->{username},
+			date => nicifyTimestamp($parent->{created}), body => stdmsg($parent->{body}),
+			author_url => entryInteractionURL('getuser', id => $parent->{userid}),
+			message_url => entryInteractionURL('getmsg', id => $parent->{uid}),
+		);
+		$values{subject} = $parent->{subject} =~ /^Re:/ ? $parent->{subject} : "Re: $parent->{subject}"
+			unless defined $values{subject};
 	}
-	if (not defined($params->{quote})) {
-		if (defined($params->{body})) {
-		my $body = $params->{body};
-		$post->setKey('body', $body);
-		}
-	}
- 
-	if (defined($params->{'subject'})) {
-		my $s = $params->{'subject'};
-	$post->setKey('subject', $s);
-	} else {
-		if (defined($params->{'replyto'})) {
-		my $subj =_subject_by_id($params->{'replyto'});
-		if ($subj =~ /^Re:/) { 
-			$post->setKey('subject', $subj);
-		} else {
-			$post->setKey('subject', "Re: $subj");
-		}
-	}
-	}
-	
-	$post->setKeys('id' => $params->{id}, 'from' => $params->{from});
-	$post->setKeysIfUnset(%$params);
-
-	return ($template, $post, $boxtitle);
+	return entryInteractionTemplate('messagecompose.tt', {
+		values => \%values, original => $parent ? \%original : undef,
+		preview => $preview, has_preview => defined($preview), spell => $spell,
+		has_spell => defined($spell), error => $error,
+	});
 }
 
 # actually insert a message into the database

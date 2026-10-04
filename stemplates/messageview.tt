@@ -1,0 +1,14 @@
+[% INCLUDE entryinteractionstyles.tt %]
+[% INCLUDE messagestyles.tt %]
+<section class="pl-message-view">
+  [% INCLUDE modernboxheader.tt title = 'Viewing Message' %]
+  <nav class="pl-message-parent" aria-label="Message location"><a href="[% parent_url | html %]">Parent object</a></nav>
+  <article>
+    <h2 class="pl-message-subject">[% subject | html %]</h2>
+    <p class="pl-message-meta">by <a href="[% author_url | html %]">[% username | html %]</a> on [% date | html %] [% watching %]</p>
+    <div class="pl-message-view-body">[% body %]</div>
+  </article>
+  [% IF watch %]<div class="pl-message-watch">[% watch %]</div>[% END %]
+  [% IF replies %]<section class="pl-message-reply-section" aria-label="Replies"><h2>Replies</h2>[% replies %]</section>[% END %]
+  [% interact %]
+</section>

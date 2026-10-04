@@ -1,7 +1,9 @@
- <tr>
-  <td>[% forumobj %]</td>
- </tr>
- <tr>
-   <td>[% commands %]</td>
- </tr>
+[% INCLUDE messagestyles.tt %]
+<section class="pl-forum-intro">
+  [% INCLUDE modernboxheader.tt %]
+  <p>Welcome to the [% forum_title | html %] forum!</p>
+  <div class="pl-forum-description">[% data %]</div>
+  <nav class="pl-message-parent" aria-label="Forum location"><a href="[% forums_url | html %]">back to forums top</a></nav>
+</section>
+[% commands %]
 

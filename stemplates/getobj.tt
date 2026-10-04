@@ -1,5 +1,5 @@
 [% IF modern_entry %][% INCLUDE entryinteractionstyles.tt %][% END %]
-<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; table-layout: fixed;">
+<table[% IF is_forum %] class="pl-forum-view"[% END %] width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; table-layout: fixed;">
 
     <tr>
         <td>
@@ -9,7 +9,7 @@
 
     <tr>
         <td>
-		    [%  watch %]
+		    [% IF is_forum AND watch %]<div class="pl-message-watch">[% watch %]</div>[% ELSE %][% watch %][% END %]
 	    </td>
     </tr>
     <tr>
