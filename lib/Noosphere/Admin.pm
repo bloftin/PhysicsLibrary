@@ -995,11 +995,25 @@ sub getEncyclopediaAdminControls {
 	my $from = shift;
 	my $id = shift;
 	my $method = shift;
+	my $modern = shift;
 
 	my $methodstr = "";
 	$methodstr = "&method=$method" if ($method);
 
 	if ($userinf->{data}->{access} >= getConfig('access_admin')) {
+		if ($modern) {
+			my @actions = (
+				{label => 'Rerender', url => entryInteractionURL('rerender', from => $from, id => $id,
+					$method ? (method => $method) : ())},
+				{label => 'Quick edit', url => entryInteractionURL('adminedit', from => $from, id => $id)},
+				{label => 'Edit linking policy', url => entryInteractionURL('linkpolicy', from => $from, id => $id)},
+			);
+			push @actions, {label => 'Classify', url => entryInteractionURL('adminclassify', from => $from, id => $id)}
+				if getConfig('classification_supported');
+			push @actions, {label => 'Delete', danger => 1,
+				url => entryInteractionURL('delobj', from => $from, id => $id, ask => 'yes')};
+			return entryInteractionSection('Admin Controls', entryInteractionActions(\@actions, 'Admin actions'), 1);
+		}
 		my $admin = '';
 
 		$admin .= "<center> \n";

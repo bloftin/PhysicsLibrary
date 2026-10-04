@@ -45,6 +45,7 @@ sub update_lastseen { }
 sub getMessages { return ''; }
 sub clearBox { return $_[1]; }
 sub makeBox { return $_[1]; }
+sub entryInteractionSection { return $_[1]; }
 sub getEncyclopediaAdminControls { return ''; }
 sub getEncyclopediaInteract { return ''; }
 sub getPendingCorrections { return ''; }

@@ -317,6 +317,7 @@ sub getMessages {
 	my $params = shift;
 	my $userinf = shift;
 	my $lastid = shift;	 # id of last seen message, use to highlight new msgs
+	my $modern = shift;
 
 	my $html = '';				# init
 
@@ -392,9 +393,12 @@ sub getMessages {
 
 	# build message display parameter forms
 	#
-	my $msgstylesel = getSelectBox('msgstyle',getConfig('msgstylesel'),$msgstyle);
-	my $msgordersel = getSelectBox('msgorder',getConfig('msgordersel'),$msgorder);
-	my $msgexpandsel = getSelectBox('msgexpand',getConfig('msgexpandsel'),$msgexpand);
+	my $msgstylesel = getSelectBox('msgstyle',getConfig('msgstylesel'),$msgstyle,
+		$modern ? 'id="pl-entry-msgstyle"' : undef);
+	my $msgordersel = getSelectBox('msgorder',getConfig('msgordersel'),$msgorder,
+		$modern ? 'id="pl-entry-msgorder"' : undef);
+	my $msgexpandsel = getSelectBox('msgexpand',getConfig('msgexpandsel'),$msgexpand,
+		$modern ? 'id="pl-entry-msgexpand"' : undef);
 	my $formvars = hashToFormVars(
 		{op => $params->{op},
 		 from => $table,
@@ -406,6 +410,12 @@ sub getMessages {
 		Style: $msgstylesel Expand: $msgexpandsel Order: $msgordersel
 	$formvars
 		<input type=\"submit\" value=\"reload\"/></form>";
+	if ($modern) {
+		$form = entryInteractionTemplate('entrydiscussionoptions.tt', {
+			style => $msgstylesel, expand => $msgexpandsel,
+			order => $msgordersel, fields => $formvars,
+		});
+	}
 
 	$html .= $form;
 	
@@ -441,12 +451,17 @@ sub getMessages {
 			msgorder=>$msgorder,
 			msgexpand=>$msgexpand});
 		
-		$html .= " $formvars
-		<p /><center><input type=\"submit\" name=\"watch\" value=\"toggle watches\"></center>
-		<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><td></form></td></table>";
+		if ($modern) {
+			$html .= $formvars.'<div class="pl-entry-message-watch-actions">'.
+				'<button type="submit" name="watch" value="toggle watches">Toggle watches</button></div></form>';
+		} else {
+			$html .= " $formvars
+			<p /><center><input type=\"submit\" name=\"watch\" value=\"toggle watches\"></center>
+			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><td></form></td></table>";
+		}
 
 	} else {
-		$html .= "<p />No messages.";
+		$html .= $modern ? '<p class="pl-entry-empty">No messages.</p>' : "<p />No messages.";
 	}
 
 	return $html;

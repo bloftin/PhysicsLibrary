@@ -939,6 +939,7 @@ sub countGlobalPendingCorrections {
 #
 sub getPendingCorrections {
 	my $id = shift;
+	my $modern = shift;
 	
 	my $html = '';
 
@@ -955,6 +956,16 @@ sub getPendingCorrections {
 	}
 
 	my @rows=dbGetRows($sth);
+	if ($modern) {
+		my @errata = map { +{
+			%$_, url => entryInteractionURL('getobj', from => $cor, id => $_->{uid}),
+			author_url => entryInteractionURL('getuser', id => $_->{userid}),
+		} } @rows;
+		return entryInteractionTemplate('entryerrata.tt', {
+			rows => \@errata, total => totalCorrections($id),
+			all_url => entryInteractionURL('getcors', id => $id),
+		});
+	}
 
 	if ($sth->rows() > 0 ) {
 		my $i=1;

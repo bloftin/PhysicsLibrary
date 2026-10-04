@@ -1,0 +1,7 @@
+<form class="pl-entry-discussion-options" method="get" action="/">
+  <div class="pl-entry-discussion-option"><label for="pl-entry-msgstyle">Style</label> [% style %]</div>
+  <div class="pl-entry-discussion-option"><label for="pl-entry-msgexpand">Expand</label> [% expand %]</div>
+  <div class="pl-entry-discussion-option"><label for="pl-entry-msgorder">Order</label> [% order %]</div>
+  [% fields %]
+  <button type="submit">Reload</button>
+</form>
