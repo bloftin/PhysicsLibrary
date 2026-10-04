@@ -313,6 +313,8 @@ sub getMessages {
 	my $modern = shift;
 
 	my $html = '';				# init
+	my $forum = defined($modern) && $modern eq 'forum';
+	my $watch_form = !$forum || $userinf->{uid} > 0;
 
 	$params->{offset} = $params->{offset} || 0;
 
@@ -320,7 +322,7 @@ sub getMessages {
 	my $rv;
 	my $sth;
 
-	$reader = $userinf;	 # global for identifying reader
+	local $reader = $userinf;	 # reader state belongs to this request
 
 	_object_exists($table,$objid) || return "object not found";
 
@@ -358,6 +360,7 @@ sub getMessages {
 			WHERE => "objectid = $objid and tbl='$table'"});
 	}
 
+	return 'Query error.' unless $rv && $sth;
 	$params->{'total'} = $sth->rows();
 	$sth->finish();
 	
@@ -379,7 +382,7 @@ sub getMessages {
 			'ORDER BY' => 'created',uc($msgorder)=>''}); 
 	}
 								
-	if (! $rv ) { 
+	if (! $rv || !$sth) {
 		dwarn "uh oh... error doing message query for $objid";
 		return "Query error.";
 	}
@@ -418,39 +421,43 @@ sub getMessages {
 	my @rows = dbGetRows($sth);
 
 	if ($count) {
-		$html .= "<form method=\"post\" action=\"/\">\n";
-		if ($msgexpand eq '0') {
+		$html .= "<form method=\"post\" action=\"/\">\n" if $watch_form;
+		if ($msgexpand eq '0' && !$forum) {
 			$html .= "<hr>";
 		}
 
 		my $pager = getPager($params, $userinf, $scale);
-		$html .= "<font size=\"-1\">$pager<br /></font>" if (not $pager =~ /displaying\s+all/i);
+		my $pager_html = $forum ? '<nav class="pl-forum-pager" aria-label="Message pages">'.$pager.'</nav>' : "<font size=\"-1\">$pager<br /></font>";
+		$html .= $pager_html if (not $pager =~ /displaying\s+all/i);
+		$html .= '<ul class="pl-message-replies">' if $forum;
 
 		foreach my $row ( @rows) {
 			$html .= printmessage($row,
 				$userinf,
 				_userfields_by_id($row->{userid},'username','email','homepage'),
-				{msgstyle=>$msgstyle,msgexpand=>$msgexpand,lastid=>$lastid}); 
+				{msgstyle=>$msgstyle,msgexpand=>$msgexpand,lastid=>$lastid, forum=>$forum});
 		} 
+		$html .= '</ul>' if $forum;
+		$html .= $pager_html if (not $pager =~ /displaying\s+all/i);
 
-		$html .= "<font size=\"-1\">$pager<br/></font>" if (not $pager =~ /displaying\s+all/i);
+		if ($watch_form) {
+			$formvars = hashToFormVars({op => $params->{'op'},
+				from => $table,
+				id => $objid,
+				offset => $params->{'offset'},
+				total => $params->{'total'},
+				msgstyle=>$msgstyle,
+				msgorder=>$msgorder,
+				msgexpand=>$msgexpand});
 
-		$formvars = hashToFormVars({op => $params->{'op'},
-			from => $table,
-			id => $objid,
-			offset => $params->{'offset'},
-			total => $params->{'total'},
-			msgstyle=>$msgstyle,
-			msgorder=>$msgorder,
-			msgexpand=>$msgexpand});
-		
-		if ($modern) {
-			$html .= $formvars.'<div class="pl-entry-message-watch-actions">'.
-				'<button type="submit" name="watch" value="toggle watches">Toggle watches</button></div></form>';
-		} else {
-			$html .= " $formvars
-			<p /><center><input type=\"submit\" name=\"watch\" value=\"toggle watches\"></center>
-			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><td></form></td></table>";
+			if ($modern) {
+				$html .= $formvars.'<div class="pl-entry-message-watch-actions">'.
+					'<button type="submit" name="watch" value="toggle watches">Toggle watches</button></div></form>';
+			} else {
+				$html .= " $formvars
+				<p /><center><input type=\"submit\" name=\"watch\" value=\"toggle watches\"></center>
+				<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><td></form></td></table>";
+			}
 		}
 
 	} else {
@@ -472,6 +479,10 @@ sub printmessage {
 	my $msgexpand = $opts->{msgexpand};
 	my $lastid = $opts->{lastid};
 	my $single = $opts->{single} || 0;
+	if ($opts->{forum}) {
+		return forumMessageRow($row, $userinf, $authorinf, $lastid, $msgexpand ne '0',
+			$msgstyle ne 'flat' ? getreplies($userinf, $row->{uid}, $msgexpand, 1, $lastid, 'forum') : '');
+	}
 	
 	my $html = '';
 	
@@ -492,6 +503,23 @@ sub printmessage {
 	$html .= "</table>\n";
 	
 	return $html;
+}
+
+# Semantic forum rows share the individual message view's formatting and URLs.
+sub forumMessageRow {
+	my ($row, $userinf, $authorinf, $lastid, $expanded, $replies) = @_;
+	return entryInteractionTemplate('forummessage.tt', {
+		uid => $row->{uid}, subject => $row->{subject}, username => $authorinf->{username},
+		date => nicifyTimestamp($row->{created}), watching => getWatchString($row),
+		can_watch => $userinf->{uid} > 0 && $row->{threadid} == $row->{uid},
+		new_message => defined($lastid) && $lastid < $row->{uid}, expanded => $expanded,
+		body => $expanded ? stdmsg($row->{body}) : '', replies => $replies,
+		message_url => entryInteractionURL('getmsg', id => $row->{uid}),
+		author_url => entryInteractionURL('getuser', id => $row->{userid}),
+		reply_url => entryInteractionURL('postmsg', id => $row->{objectid}, replyto => $row->{uid}),
+		up_url => $row->{replyto} == -1 ? entryInteractionURL('getobj', from => $row->{tbl}, id => $row->{objectid}) : entryInteractionURL('getmsg', id => $row->{replyto}),
+		top_url => $row->{replyto} != -1 ? entryInteractionURL('getmsg', id => $row->{threadid}) : '',
+	});
 }
 
 # print collapsed message header
@@ -690,6 +718,12 @@ sub _r_getmessages {
 		foreach my $row (@rows) {
 		$authorinf = _userfields_by_id($row->{userid},'username','uid');
 		if ($modern) {
+			if ($modern eq 'forum') {
+				$html .= forumMessageRow($row, $userinf, $authorinf, $lastid,
+					$msgexpand eq '-1' || $msgexpand > $level,
+					_r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 'forum'));
+				next;
+			}
 			$html .= entryInteractionTemplate('messageviewreply.tt', {
 				subject => $row->{subject}, username => $authorinf->{username},
 				message_url => entryInteractionURL('getmsg', id => $row->{uid}),

@@ -73,7 +73,8 @@ sub getObj {
 		$from eq getConfig('books_tbl')
 	);
 	my $is_news = $from eq getConfig('news_tbl');
-	my $modern_entry = $from eq getConfig('en_tbl') || $is_news || $from eq getConfig('cor_tbl') || $is_generic_library_item;
+	my $is_forum = $from eq getConfig('forum_tbl');
+	my $modern_entry = $from eq getConfig('en_tbl') || $is_news || $is_forum || $from eq getConfig('cor_tbl') || $is_generic_library_item;
 	$file = 'newsobj.tt' if $is_news;
 	#dwarn "name";
 	#dwarn $name;
@@ -81,7 +82,7 @@ sub getObj {
 	#dwarn $id;
 
 	my $tt = Template->new({
-		INCLUDE_PATH => '/var/www/pp/stemplates',
+		INCLUDE_PATH => getConfig('template_path'),
 	});
 
 	# resolve name query into id so we only have one method to write code for
@@ -199,7 +200,7 @@ sub getObj {
 		#dwarn "lastmsg:\n $lastmsg";
 
 		my $discussion = getMessages($from,$id,$desc,$params,$userinf,
-			($userinf->{'uid'} < 0 ) ? undef : $lastmsg, $modern_entry);
+			($userinf->{'uid'} < 0 ) ? undef : $lastmsg, $is_forum ? 'forum' : $modern_entry);
 		$messages = $modern_entry ? entryInteractionSection('Discussion', $discussion) :
 			clearBox('Discussion', $discussion);
 		##$html->setKey('messages', $messages);
@@ -280,6 +281,7 @@ sub getObj {
 	my $vars = {
         renderObj       => $html,
 		modern_entry    => $modern_entry,
+		is_forum        => $is_forum,
 		watch           => $watch,
 		admin           => $admin,
 		author          => $author,

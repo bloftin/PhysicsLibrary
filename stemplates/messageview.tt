@@ -1,23 +1,5 @@
 [% INCLUDE entryinteractionstyles.tt %]
-<style type="text/css">
-.pl-message-view { color: #1d2935; font: .9rem/1.5 Arial, Helvetica, sans-serif; margin: 0; min-width: 0; overflow-wrap: anywhere; }
-.pl-message-view a { color: #064d93; }
-.pl-message-view a:focus-visible, .pl-message-view input:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
-.pl-message-parent { border-bottom: 1px solid #b8c9d8; font-size: .85rem; margin: 0 0 .75rem; padding-bottom: .5rem; }
-.pl-message-subject { font-size: 1.05rem; line-height: 1.4; margin: 0 0 .25rem; }
-.pl-message-meta { color: #445b70; font-size: .85rem; margin: 0; }
-.pl-message-view-body { font-size: .95rem; line-height: 1.6; margin: 1rem 0; }
-.pl-message-view-body .source { font: inherit; }
-.pl-message-reply-section h2 { border-bottom: 1px solid #b8c9d8; font-size: .95rem; margin: .9rem 0 .5rem; padding-bottom: .35rem; }
-.pl-message-replies { list-style: none; margin: 0; padding: 0; }
-.pl-message-replies > li { border-top: 1px solid #d7e0e8; padding: .5rem 0; }
-.pl-message-replies > li:first-child { border-top: 0; }
-.pl-message-replies .pl-message-replies { border-left: 2px solid #d7e0e8; margin: .5rem 0 0 .5rem; padding-left: .65rem; }
-.pl-message-reply-subject { font-weight: bold; }
-.pl-message-watch { margin: .75rem 0; }
-.pl-message-watch form { margin: 0; }
-.pl-message-watch input[type="submit"] { background: #194f78; border: 1px solid #153f60; color: #fff; cursor: pointer; font: .85rem Arial, Helvetica, sans-serif; padding: .25rem .6rem; }
-</style>
+[% INCLUDE messagestyles.tt %]
 <section class="pl-message-view">
   [% INCLUDE modernboxheader.tt title = 'Viewing Message' %]
   <nav class="pl-message-parent" aria-label="Message location"><a href="[% parent_url | html %]">Parent object</a></nav>

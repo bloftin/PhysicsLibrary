@@ -1,0 +1,17 @@
+<li>
+  <div class="pl-forum-message-heading">
+    [% IF can_watch %]<label class="pl-forum-message-watch"><input type="checkbox" name="watch_[% uid | html %]">Toggle watch</label>[% END %]
+    <a class="pl-message-reply-subject" href="[% message_url | html %]">[% subject | html %]</a>
+    [% IF new_message %]<span class="pl-forum-message-new" aria-label="New message">*</span>[% END %]
+  </div>
+  <p class="pl-message-meta">by <a href="[% author_url | html %]">[% username | html %]</a> on [% date | html %] [% watching %]</p>
+  [% IF expanded %]
+  <div class="pl-message-view-body">[% body %]</div>
+  <nav class="pl-forum-message-actions" aria-label="Message actions">
+    <a href="[% reply_url | html %]">Reply</a>
+    <a href="[% up_url | html %]">Up</a>
+    [% IF top_url %]<a href="[% top_url | html %]">Top</a>[% END %]
+  </nav>
+  [% END %]
+  [% replies %]
+</li>
