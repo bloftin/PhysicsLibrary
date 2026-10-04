@@ -48,6 +48,7 @@ sub templateTestPerl
 sub siteDoc {
 	my $params = shift;
 	my $userinf = shift;
+	return getNewUserGuide() if (($params->{guide} || '') eq 'newuser');
 
 	##my $template = new XSLTemplate('sitedoc.xsl');
 

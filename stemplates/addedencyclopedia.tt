@@ -1,0 +1,10 @@
+<style type="text/css">
+.pl-entry-added { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0; min-width: 0; }
+.pl-entry-added p { font-size: .95rem; line-height: 1.5; margin: 1rem 0; overflow-wrap: anywhere; }
+.pl-entry-added a { color: #064d93; }
+.pl-entry-added a:focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
+</style>
+<section class="pl-entry-added">
+  [% INCLUDE modernboxheader.tt title = 'Added' %]
+  <p>Thank you for your addition to [% project_name | html %]. Click <a href="[% entry_url | html %]">here</a> to see it.</p>
+</section>

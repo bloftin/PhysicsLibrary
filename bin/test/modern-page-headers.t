@@ -18,6 +18,9 @@ my %pages = (
     addlecture => 'Add a Lecture',
     addbook => 'Add a Book',
     addpaper => 'Add a Paper',
+    addencyclopedia => 'Add an Encyclopedia Entry',
+    addedencyclopedia => 'Added',
+    newuserguide => 'PhysicsLibrary New User Guide',
     about => 'The Physics Library Story',
     snapshots => 'Snapshots',
     license => 'Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License',
@@ -70,6 +73,7 @@ like($escaped, qr/<h1>Inbox &lt;script&gt; &amp; &quot;notes&quot;<\/h1>/,
 
 for my $case (
     ['Encyclopedia', 'getEncyclopedia'],
+    ['Encyclopedia', 'addEncyclopedia'], ['Encyclopedia', 'insertEncyclopedia'],
     ['Requests', 'reqList'], ['Orphan', 'orphanage'], ['UserData', 'userObjectListPage'],
     ['Stats', 'unprovenTheorems'], ['Stats', 'unclassifiedObjects'], ['Stats', 'getSystemStats'],
     ['Corrections', 'globalViewCorrections'], ['Collab', 'collabMain'], ['Msc', 'pacsSearch'],

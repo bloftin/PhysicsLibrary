@@ -1,0 +1,81 @@
+<style type="text/css">
+.pl-newuser-guide { color: #1d2935; font: .95rem/1.5 Arial, Helvetica, sans-serif; margin: 0; min-width: 0; }
+.pl-newuser-guide a { color: #064d93; }
+.pl-newuser-guide nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; gap: .4rem 1rem; padding: .65rem 0; }
+.pl-newuser-guide section { border-bottom: 1px solid #d3dee7; padding: .75rem 0; }
+.pl-newuser-guide h2 { font-size: 1rem; margin: 0 0 .5rem; }
+.pl-newuser-guide p { margin: .5rem 0; }
+.pl-newuser-guide ul, .pl-newuser-guide ol { margin: .5rem 0; padding-left: 1.4rem; }
+.pl-newuser-guide li { margin-bottom: .4rem; }
+.pl-newuser-guide dt { font-weight: bold; margin-top: .65rem; }
+.pl-newuser-guide dd { margin: .15rem 0 .65rem; }
+.pl-newuser-guide code { font-family: Consolas, "Courier New", monospace; overflow-wrap: anywhere; }
+.pl-newuser-guide a:focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
+</style>
+<article class="pl-newuser-guide">
+  [% INCLUDE modernboxheader.tt title = 'PhysicsLibrary New User Guide' %]
+  <nav aria-label="Guide sections">
+    <a href="#getting-started">Getting started</a>
+    <a href="#alternate">Alternate entries</a>
+    <a href="#metadata">Metadata</a>
+    <a href="#preview">LaTeX and preview</a>
+    <a href="#files">Files and figures</a>
+    <a href="#mathworld">Sources and reuse</a>
+    <a href="/?op=sitedoc">All documentation</a>
+  </nav>
+  <section id="getting-started">
+    <h2>Getting started</h2>
+    <p>PhysicsLibrary is a collaborative physics library. This guide covers contributing an encyclopedia entry.</p>
+    <ol>
+      <li><a href="/?op=newuser">Create an account</a> and sign in before contributing.</li>
+      <li><a href="/encyclopedia">Search and browse the encyclopedia</a> before writing. Check the <a href="/?op=reqlist">requests list</a> for topics the community needs.</li>
+      <li>Open <a href="/?op=adden">Add an Encyclopedia Entry</a>, fill in the metadata, and write the content in LaTeX.</li>
+      <li>Preview your entry, review the rendered output and any messages, then use <b>save changes</b> to submit it. The Added page links to your new entry.</li>
+    </ol>
+    <p>For an existing entry, use its discussion or correction controls to suggest improvements. Edit directly when you have permission.</p>
+  </section>
+  <section id="alternate">
+    <h2>When is an alternate entry justified?</h2>
+    <p>An alternate entry should add something substantially different: a different derivation or proof, a useful physical interpretation, an approach for a different audience, or a clearly distinguished convention or scope.</p>
+    <p>Do not duplicate an existing entry just to change its wording or title. If the existing entry needs a correction or a small addition, use its correction or discussion controls instead.</p>
+    <p>Make the difference clear in the title and introduction, and reference the existing entry so readers can compare the approaches. Proofs, examples, corollaries, derivations, and results must be attached to a parent entry; use the parent reference in the form.</p>
+  </section>
+  <section id="metadata">
+    <h2>Entry metadata</h2>
+    <p>Metadata describes and connects your entry. Follow the <a href="/?op=assocguidelines">association guidelines</a> when filling in synonyms, defined concepts, and related entries.</p>
+    <dl>
+      <dt>Type and title</dt>
+      <dd>Choose the entry type that fits the content. Write the title as it would naturally occur in text. Commas separate index terms; use <code>,,</code> when a comma is part of the title.</dd>
+      <dt>Attached to and contains own proof</dt>
+      <dd>Give the parent reference for an attached entry. For a theorem, mark contains own proof when the proof is included in the entry.</dd>
+      <dt>Fill a request</dt>
+      <dd>Select a request when your entry addresses it. Leave the selection at [none] otherwise.</dd>
+      <dt>Classification</dt>
+      <dd>Choose relevant categories with the <a href="/?op=pacsbrowse">PACS browser</a>. Separate multiple codes with commas, for example <code>02.70.Hm, 01.30.Pp</code>. The <code>pacs:</code> prefix can be omitted.</dd>
+      <dt>Synonyms and defines</dt>
+      <dd>Synonyms are other names for the main concept. Defines lists additional concepts defined in this entry. These terms participate in the encyclopedia's concept index.</dd>
+      <dt>Related</dt>
+      <dd>Use canonical entry names, not display titles: for example <code>PascalsRule</code> rather than <code>Pascal's Rule</code>.</dd>
+      <dt>Keywords and pronunciation</dt>
+      <dd>Keywords describe the subject matter for searching. Pronunciation is optional information about saying the entry title.</dd>
+    </dl>
+    <p>TeX-style international character commands can be used in the content and metadata. For example, <code>\"o</code> represents an o with an umlaut.</p>
+  </section>
+  <section id="preview">
+    <h2>LaTeX and preview</h2>
+    <p>Put new commands and nonstandard packages in the preamble, and the article text in the content editor. Keep your article readable with a clear introduction, definitions of symbols, assumptions, derivations or examples where appropriate, and references.</p>
+    <p>Use <b>preview</b> before saving. Check equations, links, classification, tables, and figures. Address errors and review warnings. Preview does not publish the entry; <b>save changes</b> submits it.</p>
+    <p>The <a href="/?op=sitedoc">documentation center</a> has further formatting examples and links to collaborative style guides.</p>
+  </section>
+  <section id="files">
+    <h2>Files and figures</h2>
+    <p>Use the Filebox Manager in the entry form to upload figures and other supporting files. Multiple files can be selected together. The filebox can also fetch files from URLs entered one per line.</p>
+    <p>Use the uploaded filename in your LaTeX. For diagrams, also upload their editable source files. Review the file list after uploading or removing files, and preview again to check that figures render as expected.</p>
+    <p>Uploading a file does not finish the article submission; continue with preview and save changes.</p>
+  </section>
+  <section id="mathworld">
+    <h2>Sources, MathWorld, and reuse</h2>
+    <p>Cite the sources behind definitions, results, and explanations. When drawing on a source such as MathWorld, check its reuse terms before bringing text or figures into an entry. Being available to read online does not by itself make material freely reusable.</p>
+    <p>Review the <a href="/?op=license">PhysicsLibrary license page</a> and the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 terms</a>. If you are unsure about reuse permission, write an original explanation and reference the source instead of copying it.</p>
+  </section>
+</article>

@@ -713,6 +713,7 @@ sub addEncyclopedia {
 	my $template = new XSLTemplate('addencyclopedia.xsl');
 	my $table = getConfig('en_tbl');
 	my $preview_content = '';
+	my $preview_error = '';
 	my $preview = '';
 	my $preamble = '';
 	my $id = '';
@@ -742,7 +743,7 @@ sub addEncyclopedia {
 	elsif (defined $params->{'preview'}) {
 		$AllowCache = 0;	# kill caching
 		#dwarn "addEncyclopedia previewEncyclopedia before";
-		$preview_content = previewEncyclopedia($template,$params,$user_info);
+		($preview_content, $preview_error) = previewEncyclopedia($template,$params,$user_info);
 		#dwarn "preview_content:\n $preview_content";
 		#dwarn "addEncyclopedia previewEncyclopedia after";
 		#dwarn "previewEncyclopedia after cwd: $CWD";
@@ -825,6 +826,7 @@ sub addEncyclopedia {
 			preamble                    => $preamble,
 			preview						=> $preview,
 			showpreview					=> $preview_content,
+			error                       => $preview_error,
 			id							=> $id,
 			op							=> $op,
 			tempdir						=> $tempdir,
@@ -837,7 +839,7 @@ sub addEncyclopedia {
     };
 
 	my $tt = Template->new({
-		INCLUDE_PATH => '/var/www/pp/stemplates',
+		INCLUDE_PATH => getConfig('template_path'),
 	});
 
 	
@@ -856,7 +858,7 @@ sub addEncyclopedia {
 	#dwarn "addEncyclopedia end";
 	#dwarn "addEncyclopedia end cwd: $CWD";
 	#return paddingTable(clearBox('Add to the Encyclopedia',$template->expand()));
-	return paddingTable(clearBox('Add to the Encyclopedia',$html));
+	return $html;
 }
 
 sub addEncyclopediaHybrid {
@@ -1224,7 +1226,13 @@ sub insertEncyclopedia {
 	$stats->invalidate('unclassified_objects') if (!$classcount);
 	$stats->invalidate('latestadds');
 	
-	return paddingTable(clearBox('Added',"Thank you for your addition to ".getConfig('projname').".	Click <a href=\"".getConfig("main_url")."/?op=getobj&from=$table&name=$name\">here</a> to see it."));
+	my $html = '';
+	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+	$tt->process('addedencyclopedia.tt', {
+		project_name => getConfig('projname'),
+		entry_url => getConfig('main_url')."/?op=getobj&from=$table&name=".urlescape($name),
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # "publish" an item from a foreign collection.  note: need a local userid.
@@ -1381,7 +1389,8 @@ sub previewEncyclopedia {
 	#dwarn "previewEncyclopedia ended";
 	#dwarn "previewEncyclopedia end cwd: $CWD";
 	$template->setKey('error', $error);
-	return $preview;
+	# The TT creation form needs the messages as well; legacy XSL callers use a scalar.
+	return wantarray ? ($preview, $error) : $preview;
 }
 
 # make sure encyclopedia metadata is kosher
@@ -1437,7 +1446,7 @@ sub checkEncyclopediaEntry {
 		my @rels=split(/\s*,\s*/,$params->{related});
 		foreach my $rel (@rels) {
 			if (not objectExistsByName($rel)) {
-			$error .= "Cannot find related object '$rel'<br />";
+			$error .= "Cannot find related object '".qhtmlescape($rel)."'<br />";
 		}
 		}
 	}

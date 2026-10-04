@@ -5,10 +5,10 @@
 	<p />
 
 	<ul>
-	  <li><b>Please search for your topic before you attempt to add!</b>.  You <b>can</b> write alternate entries, however, <a href="https://aux.planetphysics.org/doc/newuser.html#alternate">if justified</a>. </li>
+	  <li><b>Please search for your topic before you attempt to add!</b>.  You <b>can</b> write alternate entries, however, <a href="/?op=sitedoc;guide=newuser#alternate">if justified</a>. </li>
 	  <li>Check the requests list (or the pulldown below). Your entry may fulfill a request.</li>
-	  <li>You can use TeX-style international trigraphs (i.e., <b>\&quot;o</b> to make <b>&#x00F6;</b>) in your entry <b>and</b> its <a href="https://aux.planetphysics.org/doc/newuser.html#metadata">metadata</a>.</li>
-	  <li>Please see an <a href="https://aux.planetphysics.org/doc/newuser.html#mathworld">important notice</a> about using MathWorld</li>.
+	  <li>You can use TeX-style international trigraphs (i.e., <b>\&quot;o</b> to make <b>&#x00F6;</b>) in your entry <b>and</b> its <a href="/?op=sitedoc;guide=newuser#metadata">metadata</a>.</li>
+	  <li>Please see an <a href="/?op=sitedoc;guide=newuser#mathworld">important notice</a> about using MathWorld</li>.
 	</ul>
 	
 	<hr />
