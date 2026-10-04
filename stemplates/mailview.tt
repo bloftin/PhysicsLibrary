@@ -1,0 +1,20 @@
+[% INCLUDE mailstyles.tt %]
+<div class="pl-mailbox">
+  [% INCLUDE modernboxheader.tt title = title %]
+  [% INCLUDE mailnav.tt %]
+  <article class="pl-mailbox-message">
+    <dl class="pl-mailbox-details">
+      <div><dt>From:</dt><dd><a href="[% main_url | html %]/?op=getuser&amp;id=[% rec.userfrom | html %]">[% rec.fromname | html %]</a></dd></div>
+      <div><dt>To:</dt><dd><a href="[% main_url | html %]/?op=getuser&amp;id=[% rec.userto | html %]">[% rec.toname | html %]</a></dd></div>
+      <div><dt>Date:</dt><dd>[% rec.sent | html %]</dd></div>
+    </dl>
+    <h2>Subject: [% IF rec.subject.length %][% rec.subject | html %][% ELSE %](No subject)[% END %]</h2>
+    <h2>Message:</h2>
+    <div class="pl-mailbox-text">[% rec.body | html %]</div>
+    <nav class="pl-mailbox-actions" aria-label="Message actions">
+      <a href="[% main_url | html %]/?op=mailbox">Mailbox</a>
+      [% IF reply %]<a href="[% reply_url | html %]">Reply</a>[% END %]
+      [% IF unsend %]<a href="[% main_url | html %]/?op=unsend&amp;id=[% rec.uid | html %]">Unsend</a>[% END %]
+    </nav>
+  </article>
+</div>

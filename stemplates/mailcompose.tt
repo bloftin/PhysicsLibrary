@@ -1,0 +1,43 @@
+[% INCLUDE mailstyles.tt %]
+<div class="pl-mailbox">
+  [% INCLUDE modernboxheader.tt title = title %]
+  [% INCLUDE mailnav.tt %]
+  <form class="pl-mailbox-form" method="post" action="/">
+    [% IF error %]<div class="pl-mailbox-error" role="alert">[% error %]</div>[% END %]
+    [% IF spell %]<section class="pl-mailbox-spell">Spell check (broken words in red, clickable):<div>[% spell %]</div></section>[% END %]
+    <div class="pl-mailbox-field">
+      [% IF reply %]
+      <p>To: [% values.sendto | html %]</p>
+      <input type="hidden" name="sendto" value="[% values.sendto | html %]">
+      [% ELSE %]
+      <label for="pl-mail-to">To:</label>
+      <input type="text" name="sendto" id="pl-mail-to" value="[% values.sendto | html %]" size="20">
+      [% END %]
+    </div>
+    <div class="pl-mailbox-field">
+      <label for="pl-mail-subject">Subject:</label>
+      <input type="text" name="subject" id="pl-mail-subject" value="[% values.subject | html %]" size="50">
+    </div>
+    <div class="pl-mailbox-field">
+      <label for="pl-mail-body">[% IF reply %]Reply:[% ELSE %]Message:[% END %]</label>
+      <textarea name="body" id="pl-mail-body" cols="65" rows="10">[% values.body | html %]</textarea>
+    </div>
+    <input type="hidden" name="op" value="[% IF reply %]replymail[% ELSE %]sendmail[% END %]">
+    [% IF reply %]
+    <input type="hidden" name="id" value="[% values.id | html %]">
+    <input type="hidden" name="original" value="[% original | html %]">
+    [% END %]
+    <div class="pl-mailbox-actions">
+      <button type="submit" name="post" value="send">Send</button>
+      [% IF reply %]<button class="secondary" type="submit" name="quote" value="quote">Quote</button>[% END %]
+      <button class="secondary" type="submit" name="spell" value="spell">Spell</button>
+    </div>
+    [% IF reply %]
+    <section class="pl-mailbox-original">
+      <h2>Original Message:</h2>
+      <div class="pl-mailbox-text">[% original | html %]</div>
+      <a href="[% main_url | html %]/?op=getmail&amp;id=[% values.id | html %]">Back to message</a>
+    </section>
+    [% END %]
+  </form>
+</div>

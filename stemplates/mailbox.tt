@@ -1,41 +1,21 @@
-<style type="text/css">
-.pl-mailbox { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
-.pl-mailbox-nav { align-items: center; border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .86rem; gap: .5rem 1.2rem; padding: .45rem 0 .65rem; }
-.pl-mailbox-nav a { color: #174e80; }
-.pl-mailbox-nav .pl-mailbox-compose { margin-left: auto; font-weight: bold; }
-.pl-mailbox-summary { color: #526170; font-size: .82rem; margin: .8rem 0; }
-.pl-mailbox-list { list-style: none; margin: 0; padding: 0; }
-.pl-mailbox-row { align-items: baseline; border-bottom: 1px solid #cbd6de; display: grid; font-size: .86rem; gap: .5rem 1rem; grid-template-columns: minmax(0, 1fr) minmax(6rem, 12rem) 6rem; padding: .65rem .2rem; }
-.pl-mailbox-row:first-child { border-top: 1px solid #cbd6de; }
-.pl-mailbox-row:hover { background: #f5f8fa; }
-.pl-mailbox-subject { color: #174e80; font-weight: bold; }
-.pl-mailbox-sender { color: #174e80; }
-.pl-mailbox-row a { overflow-wrap: anywhere; }
-.pl-mailbox-date { color: #526170; font-size: .8rem; font-variant-numeric: tabular-nums; text-align: right; }
-.pl-mailbox-empty { border-top: 1px solid #cbd6de; color: #526170; padding: 1rem 0; }
-@media (max-width: 600px) {
-  .pl-mailbox-row { grid-template-columns: minmax(0, 1fr) 6rem; gap: .35rem .75rem; }
-  .pl-mailbox-subject { grid-column: 1 / -1; }
-}
-</style>
+[% DEFAULT folder = 'mailbox' %]
+[% INCLUDE mailstyles.tt %]
 <div class="pl-mailbox">
   [% INCLUDE modernboxheader.tt title = title %]
-  <nav class="pl-mailbox-nav" aria-label="Mail folders">
-    <strong aria-current="page">New mail</strong>
-    <a href="[% main_url | html %]/?op=oldmail">Old mail</a>
-    <a href="[% main_url | html %]/?op=sentmail">Sent mail</a>
-    <a class="pl-mailbox-compose" href="[% main_url | html %]/?op=sendmail">Write mail</a>
-  </nav>
-  <p class="pl-mailbox-summary">[% count %] unread message[% IF count != 1 %]s[% END %]</p>
-  [% IF count %]
-  <ul class="pl-mailbox-list" aria-label="Unread messages">
+  [% INCLUDE mailnav.tt %]
+  <p class="pl-mailbox-summary">[% count | html %] [% IF folder == 'sentmail' %]sent[% ELSIF folder == 'oldmail' %]old[% ELSE %]unread[% END %] message[% IF count != 1 %]s[% END %]</p>
+  [% IF rows.size %]
+  [% IF pager %]<nav class="pl-mailbox-pager" aria-label="Mail pages">[% pager %]</nav>[% END %]
+  <ul class="pl-mailbox-list" aria-label="[% IF folder == 'sentmail' %]Sent[% ELSIF folder == 'oldmail' %]Old[% ELSE %]Unread[% END %] messages">
     [% FOREACH row IN rows %]
-    <li class="pl-mailbox-row">
+    <li class="pl-mailbox-row[% IF folder == 'sentmail' %] pl-mailbox-row-sent[% END %]">
       <a class="pl-mailbox-subject" href="[% main_url | html %]/?op=getmail&amp;id=[% row.uid | html %]">[% IF row.subject.length %][% row.subject | html %][% ELSE %](No subject)[% END %]</a>
-      <a class="pl-mailbox-sender" href="[% main_url | html %]/?op=getuser&amp;id=[% row.userfrom | html %]">[% row.username | html %]</a>
+      <span class="pl-mailbox-participant">[% IF folder == 'sentmail' %]To[% ELSE %]From[% END %] <a class="pl-mailbox-sender" href="[% main_url | html %]/?op=getuser&amp;id=[% IF folder == 'sentmail' %][% row.userto | html %][% ELSE %][% row.userfrom | html %][% END %]">[% row.username | html %]</a></span>
       <span class="pl-mailbox-date">[% row.date | html %]</span>
+      [% IF folder == 'sentmail' %]<span class="pl-mailbox-read">[% row.read_label | html %]</span>[% END %]
     </li>
     [% END %]
   </ul>
-  [% ELSE %]<p class="pl-mailbox-empty">No new mail.</p>[% END %]
+  [% IF pager %]<nav class="pl-mailbox-pager" aria-label="Mail pages">[% pager %]</nav>[% END %]
+  [% ELSE %]<p class="pl-mailbox-empty">[% IF folder == 'sentmail' %]No sent mail.[% ELSIF folder == 'oldmail' %]No old mail.[% ELSE %]No new mail.[% END %]</p>[% END %]
 </div>
