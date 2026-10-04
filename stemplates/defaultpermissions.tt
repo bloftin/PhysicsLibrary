@@ -1,0 +1,110 @@
+[% INCLUDE settingsstyles.tt %]
+<style type="text/css">
+.pl-default-permissions form { max-width: none; }
+.pl-default-permissions { contain: inline-size; }
+.pl-default-permissions select { width: 100%; min-width: 0; }
+.pl-acl-new { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .5rem 1.5rem; }
+.pl-acl-new fieldset { margin-top: 0; }
+.pl-acl-options { display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+.pl-acl-table { border-collapse: collapse; width: 100%; }
+.pl-acl-table th, .pl-acl-table td { border-bottom: 1px solid #cbd6de; padding: .45rem .5rem; text-align: left; vertical-align: top; }
+.pl-acl-table th { background: #edf3f7; font-size: .85rem; }
+.pl-acl-table td { overflow-wrap: anywhere; }
+.pl-acl-table input[type="text"] { min-width: 5rem; }
+.pl-acl-table .pl-settings-actions { margin: 0; }
+.pl-acl-scroll { contain: inline-size; max-width: 100%; overflow-x: auto; }
+.pl-acl-message { white-space: pre-line; }
+.pl-acl-retro { border-top: 1px solid #cbd6de; margin-top: 1rem; }
+.pl-acl-warning { background: #fff5e3; border-left: 3px solid #a96716; padding: .5rem .65rem; }
+@media (max-width: 650px) { .pl-acl-new { grid-template-columns: minmax(0, 1fr); } }
+</style>
+<div class="pl-settings pl-default-permissions">
+  [% INCLUDE modernboxheader.tt title = 'Editing default Access Control List' %]
+  <div class="pl-settings-body">
+    <p><a href="[% main_url | html %]/?op=settings">Your Settings</a></p>
+    <p>The default ACL list allows you to set the access rules which will be applied to each new object you create. This should include a default-flagged rule for the "general public", and any special rules you want applied to certain groups for all of your objects. If you want "wiki-like" universal editing permissions for all of your objects, this is the place to do it.</p>
+    [% IF message %]<p class="pl-settings-error pl-acl-message" role="status">[% message | html %]</p>[% END %]
+    <form name="newaclform" method="post" action="">
+      <input type="hidden" name="op" value="acledit">
+      <input type="hidden" name="from" value="[% table | html %]">
+      <input type="hidden" name="id" value="">
+      <h2>Add a new rule:</h2>
+      <div class="pl-acl-new">
+        <fieldset>
+          <legend>Select a subject</legend>
+          <div class="pl-settings-field">
+            <label for="pl-acl-group">Your groups: <span class="pl-settings-note">by group quick-select</span></label>
+            <select id="pl-acl-group" name="gselbox" onchange="if(this.value) { this.form.elements.subjectid_new.value=this.value; this.form.elements.uog_new[1].checked=true; }">
+              <option value="">[ please select ]</option>
+              [% FOREACH group IN groups %]<option value="[% group.id | html %]">[% group.name | html %]</option>[% END %]
+            </select>
+          </div>
+          <div class="pl-settings-field">
+            <label for="pl-acl-subject">or manually: subject (user or group) id or name:</label>
+            <input id="pl-acl-subject" type="text" name="subjectid_new" value="[% subject | html %]">
+          </div>
+          <div class="pl-acl-options"><span>subject is a:</span>
+            <label><input type="radio" name="uog_new" value="u" checked> user</label>
+            <label><input type="radio" name="uog_new" value="g"> group</label>
+          </div>
+        </fieldset>
+        <div>
+          <fieldset>
+            <legend>Set Permissions</legend>
+            <div class="pl-acl-options">
+              <label><input type="checkbox" name="read_new" checked> Read</label>
+              <label><input type="checkbox" name="write_new" checked> Write</label>
+              <label><input type="checkbox" name="acl_new"> ACL</label>
+            </div>
+          </fieldset>
+          [% UNLESS hasdef %]
+          <fieldset>
+            <legend>Set Default Status</legend>
+            <label><input type="checkbox" name="default_new" checked> This is the default rule:</label>
+            <p>Setting this will cause any subject selection above to be ignored, as the default rule applies to any user.</p>
+          </fieldset>
+          [% END %]
+        </div>
+      </div>
+      <div class="pl-settings-actions"><button type="submit" name="addrule" value="add rule">Add rule</button></div>
+      <h2>Change existing rules:</h2>
+      [% IF rules.size %]
+      <div class="pl-acl-scroll" tabindex="0" role="region" aria-label="Existing access rules">
+        <table class="pl-acl-table">
+          <thead><tr><th scope="col">Subject Name</th><th scope="col">Subject ID</th><th scope="col">Default?</th><th scope="col">User/Group</th><th scope="col">Permissions (R/W/A)</th><th scope="col">Actions</th></tr></thead>
+          <tbody>
+            [% FOREACH rule IN rules %]
+            <tr>
+              <td>[% rule.subject_name | html %]</td>
+              <td><input type="text" name="subjectid_[% rule.uid | html %]" aria-label="Subject ID for rule [% rule.uid | html %]" value="[% IF rule.default_or_normal == 'd' %][default][% ELSE %][% rule.subjectid | html %][% END %]"></td>
+              <td><input type="checkbox" name="default_[% rule.uid | html %]" aria-label="Default for rule [% rule.uid | html %]" [% IF rule.default_or_normal == 'd' %]checked[% END %]></td>
+              <td><div class="pl-acl-options">
+                <label><input type="radio" name="uog_[% rule.uid | html %]" value="u" [% IF rule.user_or_group == 'u' %]checked[% END %]> user</label>
+                <label><input type="radio" name="uog_[% rule.uid | html %]" value="g" [% IF rule.user_or_group == 'g' %]checked[% END %]> group</label>
+              </div></td>
+              <td><div class="pl-acl-options">
+                <label><input type="checkbox" name="read_[% rule.uid | html %]" [% IF rule.read %]checked[% END %]> Read</label>
+                <label><input type="checkbox" name="write_[% rule.uid | html %]" [% IF rule.write %]checked[% END %]> Write</label>
+                <label><input type="checkbox" name="acl_[% rule.uid | html %]" [% IF rule.acl %]checked[% END %]> ACL</label>
+              </div></td>
+              <td><div class="pl-settings-actions">
+                <button type="submit" name="update_[% rule.uid | html %]" value="update">Update</button>
+                <button type="submit" name="delete_[% rule.uid | html %]" value="delete">Delete</button>
+              </div></td>
+            </tr>
+            [% END %]
+          </tbody>
+        </table>
+      </div>
+      [% ELSE %]<p>No existing rules.</p>[% END %]
+      <div class="pl-acl-retro">
+        <h2>Retroactively apply rules:</h2>
+        <div class="pl-settings-actions">
+          <button type="submit" name="combineall" value="combine">Combine with existing rules</button>
+          <button type="submit" name="replaceall" value="replace">Replace existing rules</button>
+        </div>
+        <p class="pl-acl-warning">Warning: This is a <strong>global</strong> change, i.e. it will effect <strong>all</strong> of your objects! If you have made rules for particular groups or users for some objects, "combine" will preserve these rules (though conflicting rules will be overwritten). "Replace" will result in them being deleted, and each object will have a completely new access control list.</p>
+      </div>
+    </form>
+  </div>
+</div>
