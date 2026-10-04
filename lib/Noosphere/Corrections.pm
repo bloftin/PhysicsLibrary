@@ -1,6 +1,8 @@
 package Noosphere;
 
 use Noosphere::Util;
+use Noosphere::EntryInteractions;
+use Template;
 
 use strict;
 
@@ -8,9 +10,14 @@ use strict;
 #
 sub getCorrectionInteract {
 	my $rec = shift;
+	my $modern = shift;
 
 	my $table = getConfig('cor_tbl');
 	my $en = getConfig('en_tbl');		# TODO: generalize
+	return entryInteractionSection('Interact', entryInteractionActions([
+		{label => 'New correction', url => entryInteractionURL('correct', from => $en, id => $rec->{objectid})},
+		{label => 'Post message', url => entryInteractionURL('postmsg', from => $table, id => $rec->{uid})},
+	], 'Correction interactions')) if $modern;
 
 	return makeBox('Interact',"<center><a href=\"".getConfig("main_url")."/?op=correct&amp;from=$en&amp;id=$rec->{objectid}\">new correction</a> | <a href=\"".getConfig("main_url")."/?op=postmsg&amp;from=$table&amp;id=$rec->{uid}\">post message</a></center>");
 }
@@ -448,83 +455,49 @@ sub editCorrections {
 # correction retract form
 #
 sub editFiledCorrections {
-	my $params = shift;
-	my $userinf = shift;
-	
-	my $limit = $userinf->{'prefs'}->{'pagelength'};
-	my $offset = $params->{'offset'}||0;
-	my $total = $params->{'total'}||-1;
-	my $html = '';
+	my ($params, $userinf) = @_;
+	return errorMessage("Must be logged in to view corrections you've filed") if ($userinf->{uid} < 1);
+	my $limit = int($userinf->{prefs}->{pagelength} / 2);
+	my $offset = $params->{offset} || 0;
+	my $total = $params->{total} || -1;
 	my $table = getConfig('en_tbl');
 	my $cor = getConfig('cor_tbl');
-	my $order = "DESC";
-	my ($rv,$sth);
-
-	$limit = int($limit /2);
-
-	if($total == -1) {
-		($rv,$sth) = dbSelect($dbh,{
-			WHAT=>"count(*) as cnt",
-			FROM=>"corrections,$table,users",
-			WHERE=>"corrections.userid=$userinf->{uid} and $table.uid=corrections.objectid and users.uid=$table.userid"});
-
-		my $row = $sth->fetchrow_hashref();
-		$total = $row->{cnt};
+	my $order = $params->{asc} ? 'ASC' : 'DESC';
+	my ($rv, $sth);
+	if ($total == -1) {
+		($rv, $sth) = dbSelect($dbh, {WHAT => 'count(*) as cnt',
+			FROM => "corrections,$table,users",
+			WHERE => "corrections.userid=$userinf->{uid} and $table.uid=corrections.objectid and users.uid=$table.userid"});
+		return errorMessage('Error with query. Contact admin.') unless $rv;
+		$total = $sth->fetchrow_hashref()->{cnt};
 		$sth->finish();
 	}
-
-	$order = "ASC" if $params->{asc};
-
-	($rv,$sth) = dbSelect($dbh,{WHAT=>"corrections.*,$table.title as objtitle,users.username, users.uid as fromid",
-		 FROM=>"corrections,$table,users",
-		 WHERE=>"corrections.userid=$userinf->{uid} and $table.uid=corrections.objectid and users.uid=$table.userid",
-	 	'ORDER BY'=>'filed',
-		'OFFSET'=>$offset,
-		'LIMIT'=>$limit,
-		$order=>''});
-
-	if (! $rv) {
-		return errorMessage("Error with query. Contact admin (unless you are an admin-- then panic.)");
-	}
-
-	$html .= "<center>(edit <a href=\"".getConfig("main_url")."/?op=editcors\">corrections filed to you</a>)</center>";
-	$html .= "<p>";
-
+	($rv, $sth) = dbSelect($dbh, {
+		WHAT => "corrections.*,$table.title as objtitle,users.username, users.uid as fromid",
+		FROM => "corrections,$table,users",
+		WHERE => "corrections.userid=$userinf->{uid} and $table.uid=corrections.objectid and users.uid=$table.userid",
+		'ORDER BY' => 'filed', OFFSET => $offset, LIMIT => $limit, $order => '',
+	});
+	return errorMessage('Error with query. Contact admin (unless you are an admin-- then panic.)') unless $rv;
 	my @rows = dbGetRows($sth);
-
-	if ($sth->rows() > 0 ) {
-		my $i = 1;
-		$html .= "<table>";
-		$html .= "<tr><td></td><td align=\"center\">date</td><td width=\"90%\" align=\"center\">correction and object title</td><td align=\"center\">to user</td></tr>";
-		foreach my $row (@rows) {
-			my $ar = "x";
-			my $bg = ($i % 2 == 1) ? "bgcolor=\"#eeeeee\"" : '';
-			$html .= "<tr $bg>";
-			if (not defined $row->{closed}) {
-				$ar = "[&nbsp;<a href=\"".getConfig("main_url")."/?op=retractcor&amp;id=$row->{objectid}&amp;correct=$row->{uid}&amp;continue=editfiledcors\">-</a>&nbsp;]";
-			} else {
-				$ar = "+" if ($row->{accepted} == 1);
-				$ar = "-" if ($row->{accepted} == 2);
-			}
-			my $date = ymd($row->{filed});
-			$html .= "<td align=\"center\">$ar</td>";
-			$html .= "<td valign=\"top\">$date</td>";
-			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$cor&amp;id=$row->{uid}\">$row->{title}</a><br>to: <a href=\"".getConfig("main_url")."/?op=getobj&amp;from=$table&amp;id=$row->{objectid}\">$row->{objtitle}</a></td>";
-			$html .= "<td valign=\"top\"><a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$row->{fromid}\">$row->{username}</a></td>";
-			$html .= "</tr>";
-			$i++;
-		}
-		$html .= "</table>";
-		$html .= "<br>";
-		$html .= "<center><font size=\"-1\">(For entries where '[ - ]' appears, click on '-' if you'd like to retract the correction.)</font></center>";
-
-		$html .= getPager({op=>$params->{'op'}, total=>$total, offset=>$offset},$userinf,2);
+	foreach my $row (@rows) {
+		$row->{date} = ymd($row->{filed});
+		$row->{pending} = !defined $row->{closed};
+		$row->{status} = $row->{pending} ? 'Pending'
+			: !defined $row->{accepted} ? 'Closed'
+			: $row->{accepted} == 1 ? 'Accepted'
+			: $row->{accepted} == 2 ? 'Retracted' : 'Rejected';
 	}
-	else {
-		$html .= "No filed corrections";
-	}
-
-	return paddingTable(clearBox("Corrections You've Filed",$html));
+	my $pager = getPager({op => 'editfiledcors', total => $total, offset => $offset,
+		($params->{asc} ? (asc => 1) : ())}, $userinf, 2);
+	my $tt = Template->new({INCLUDE_PATH => getConfig('template_path')});
+	my $html = '';
+	$tt->process('editcors.tt', {
+		title => "Corrections You've Filed", filed => 1, rows => \@rows, total => $total,
+		pager => $pager, main_url => getConfig('main_url'), object_table => $table,
+		correction_table => $cor,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	return $html;
 }
 
 # closeCorrection
@@ -767,115 +740,61 @@ sub getCorrections {
 #	from main GetObj function.
 #
 sub renderCorrection {
-	my $params = shift;
-	my $userinf = shift;
-	
-	my $id = $params->{'id'};
-	my $html = '';
-	my $pending = 0;
+	my ($params, $userinf) = @_;
+	my $id = $params->{id};
 	my $table = getConfig('en_tbl');
-
-	my $template = new TemplateNS('corobj.html');
-	 
-	my ($rv,$sth) = dbSelect($dbh,{WHAT=>"corrections.*,users.username,$table.userid as ownerid",
-		FROM=>"corrections,users,$table",
-		WHERE=>"corrections.userid=users.uid and corrections.uid=$id and $table.uid=corrections.objectid"});
-
-	if (! $rv) {
-		return "Error with query. Contact admin";
-	}
-
-	if ($sth->rows() <= 0) {
-		return errorMessage("Couldn't find that record!");
-	}
- 
+	my ($rv, $sth) = dbSelect($dbh, {
+		WHAT => "corrections.*,users.username,$table.userid as ownerid",
+		FROM => "corrections,users,$table",
+		WHERE => "corrections.userid=users.uid and corrections.uid=$id and $table.uid=corrections.objectid",
+	});
+	return errorMessage('Error with query. Contact admin') unless $rv;
+	return errorMessage("Couldn't find that record!") unless $sth->rows() > 0;
 	my $rec = $sth->fetchrow_hashref();
-
-	# format and output record
-	#
-	$html .= "<center>$rec->{title} by <a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$rec->{userid}\">$rec->{username}</a></center><br>";
-	$html .= "Correction id: $rec->{uid}<br>";
-	$html .= "Filed on: $rec->{filed}<br>";
-	$html .= "Status: ";
-	if (defined $rec->{closed}) {
-		$html .= "<b>";
-		$html .= "Accepted" if ($rec->{accepted}==1);
-		$html .= "Rejected" if ($rec->{accepted}==0);
-		$html .= "Retracted" if ($rec->{accepted}==2);
-		$html .= "</b> on $rec->{closed}";
-	} else {
-		$html .= "<b>Pending</b>";
-		$pending = 1;
-	}
-	$html .= "<br>";
-	my %thash = %{getConfig('correction_types')};
-	%thash = reverse %thash;
-	$html .= "Type: $thash{$rec->{type}}";
-	$html .= "<br><br>";
-	$html .= "Correction text:";
-	$html .= "<br>";
-	my $text = stdmsg($rec->{data});
-	
-	$html .= "<table width=\"100%\" cellpadding=\"5\"> <td bgcolor=\"#ffffff\"> $text </td> </table>";
+	$sth->finish();
+	my $pending = !defined $rec->{closed};
+	my $status = $pending ? 'Pending' : !defined $rec->{accepted} ? 'Closed'
+		: $rec->{accepted} == 1 ? 'Accepted' : $rec->{accepted} == 2 ? 'Retracted' : 'Rejected';
+	my %types = reverse %{getConfig('correction_types')};
+	my @actions;
 	if ($pending) {
-		if ($rec->{'ownerid'} == $userinf->{'uid'} ||
-			hasPermissionTo($table,$rec->{'objectid'},$userinf,'write')) {
-
-			$html .= "<center>[ ";
-			$html .= "<a href=\"".getConfig("main_url")."/?op=rejectcor&amp;id=$rec->{objectid}&amp;correct=$rec->{uid}\">x</a> ";
-			$html .= "| <a href=\"?op=edit&amp;from=$table&amp;id=$rec->{objectid}&amp;correct=$rec->{uid}\">+</a> ";
-			
-			# only owners can xfer
-			if ($rec->{'ownerid'} == $userinf->{'uid'}) {
-				$html .= "| <a href=\"?op=sendobj&amp;from=$table&amp;id=$rec->{objectid}&amp;user=$userinf->{uid}&amp;touser=$rec->{userid}\">transfer</a>"
-			}
-
-			$html .= " ]</center>";
+		if ($rec->{ownerid} == $userinf->{uid} ||
+			hasPermissionTo($table, $rec->{objectid}, $userinf, 'write')) {
+			push @actions, {label => 'Reject', url => entryInteractionURL('rejectcor', id => $rec->{objectid}, correct => $rec->{uid})};
+			push @actions, {label => 'Edit to resolve', url => entryInteractionURL('edit', from => $table, id => $rec->{objectid}, correct => $rec->{uid})};
+			push @actions, {label => 'Transfer', url => entryInteractionURL('sendobj', from => $table, id => $rec->{objectid},
+				user => $userinf->{uid}, touser => $rec->{userid})} if $rec->{ownerid} == $userinf->{uid};
 		}
-		if ($rec->{'userid'} == $userinf->{'uid'}) {
-			$html .= "<center>[ <a href=\"".getConfig("main_url")."/?op=retractcor&amp;id=$rec->{objectid}&amp;correct=$rec->{uid}&amp;continue=viewcor\">retract this correction</a> ]</center>";
-		}
-	} else {
-		if (defined $rec->{comment}) {
-
-			my %person;
-			my $who = '';
-
-			# accepted or rejected by object owner
-			if ($rec->{accepted} <= 1) {
-			    #my $closerid = getownerid($rec->{objectid});
-			    my $objownerid = getownerid($rec->{objectid});
-				%person = getfieldsbyid(($rec->{closedbyid}==0 ? $objownerid : $rec->{closedbyid}),'users','uid,username');
-				$who = ((($rec->{closedbyid}!=0)&&($rec->{closedbyid}!=$objownerid)) ? 'former ' : '')."object owner";
-			} 
-			# retracted by correction filer
-			else {
-				%person = getfieldsbyid($rec->{userid},'users','uid,username');
-				$who = "correction filer";
-			}
-
-			if (nb($rec->{comment})) {
-				my $comment = stdmsg($rec->{comment});
-				$html .= "<br>Comment from $who <a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$person{uid}\">$person{username}</a>:";
-				$html .= "<br>";
-				$html .= "<table width=\"100%\" cellpadding=\"5\"> <td bgcolor=\"#ffffff\"> $comment </td> </table>";
-			} else {
-				$html .= "<br>No comment from $who <a href=\"".getConfig("main_url")."/?op=getuser&amp;id=$person{uid}\">$person{username}</a>.";
-			}
-		} 
+		push @actions, {label => 'Retract this correction', url => entryInteractionURL('retractcor',
+			id => $rec->{objectid}, correct => $rec->{uid}, continue => 'viewcor')} if $rec->{userid} == $userinf->{uid};
 	}
-	
-	my %object = getfieldsbyid($rec->{objectid},$table,'title'); 
-	my $title = $object{title};
-	
-	my $up = getUpArrow("".getConfig("main_url")."/?op=getobj&amp;from=$table&amp;id=$rec->{objectid}",'parent');
-	my $correction = makeBox("$up Viewing Correction to '$title'",$html);
-
-	my $interact = getCorrectionInteract($rec);
-
-	$template->setKey('correction',$correction);
-	$template->setKey('interact',$interact);
-
+	my (%person, $who, $comment);
+	my $has_comment = !$pending && defined $rec->{comment};
+	if ($has_comment) {
+		if (!defined($rec->{accepted}) || $rec->{accepted} <= 1) {
+			my $ownerid = getownerid($rec->{objectid});
+			my $closerid = $rec->{closedbyid} || $ownerid;
+			%person = getfieldsbyid($closerid, 'users', 'uid,username');
+			$who = ($closerid != $ownerid ? 'former ' : '').'object owner';
+		} else {
+			%person = getfieldsbyid($rec->{userid}, 'users', 'uid,username');
+			$who = 'correction filer';
+		}
+		$comment = stdmsg($rec->{comment}) if nb($rec->{comment});
+	}
+	my %object = getfieldsbyid($rec->{objectid}, $table, 'title');
+	my $tt = Template->new({INCLUDE_PATH => getConfig('template_path')});
+	my $html = '';
+	$tt->process('correctiondetail.tt', {
+		title => "Viewing Correction to '$object{title}'", rec => $rec, object_title => $object{title},
+		main_url => getConfig('main_url'), object_table => $table, pending => $pending,
+		status => $status, type => $types{$rec->{type}}, text => stdmsg($rec->{data}),
+		actions => @actions ? entryInteractionActions(\@actions, 'Correction actions') : '', has_comment => $has_comment,
+		comment => $comment, who => $who, person => \%person, signed_in => $userinf->{uid} > 0,
+	}, \$html) || die "Template process failed: ", $tt->error(), "\n";
+	my $template = new TemplateNS('corobj.html');
+	$template->setKey('correction', $html);
+	$template->setKey('interact', getCorrectionInteract($rec, 1));
 	return $template;
 }
 

@@ -73,7 +73,7 @@ sub getObj {
 		$from eq getConfig('books_tbl')
 	);
 	my $is_news = $from eq getConfig('news_tbl');
-	my $modern_entry = $from eq getConfig('en_tbl') || $is_news;
+	my $modern_entry = $from eq getConfig('en_tbl') || $is_news || $from eq getConfig('cor_tbl');
 	$file = 'newsobj.tt' if $is_news;
 	#dwarn "name";
 	#dwarn $name;

@@ -1,5 +1,5 @@
 <style type="text/css">
-.pl-object-corrections { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-object-corrections { color: #1d2935; contain: inline-size; font-family: Arial, Helvetica, sans-serif; margin: 0; min-width: 0; }
 .pl-object-corrections a { color: #174e80; }
 .pl-object-corrections-nav { border-bottom: 1px solid #b6c5d2; display: flex; flex-wrap: wrap; font-size: .86rem; gap: .5rem 1.2rem; padding: .45rem 0 .65rem; }
 .pl-object-corrections-summary { color: #526170; font-size: .82rem; margin: .8rem 0; }
@@ -18,10 +18,15 @@
 <div class="pl-object-corrections">
   [% INCLUDE modernboxheader.tt title = title %]
   <nav class="pl-object-corrections-nav" aria-label="Your corrections">
+    [% IF filed %]
+    <a href="[% main_url | html %]/?op=editcors">To your objects</a>
+    <strong aria-current="page">Your filed corrections</strong>
+    [% ELSE %]
     <strong aria-current="page">To your objects</strong>
     <a href="[% main_url | html %]/?op=editfiledcors">Your filed corrections</a>
+    [% END %]
   </nav>
-  <p class="pl-object-corrections-summary">[% total %] correction[% IF total != 1 %]s[% END %] to your objects</p>
+  <p class="pl-object-corrections-summary">[% total %] correction[% IF total != 1 %]s[% END %] [% IF filed %]you've filed[% ELSE %]to your objects[% END %]</p>
   [% IF rows.size %]
     <nav class="pl-object-corrections-pager" aria-label="Correction pages">[% pager %]</nav>
     <div class="pl-object-corrections-list">
@@ -32,16 +37,20 @@
           <span class="pl-object-correction-status[% IF row.pending %] pending[% END %]">[% row.status | html %]</span>
         </div>
         <p class="pl-object-correction-target">For <a href="[% main_url | html %]/?op=getobj&amp;from=[% object_table | html %]&amp;id=[% row.objectid | html %]">[% row.objtitle | html %]</a></p>
-        <p class="pl-object-correction-meta">Filed [% row.date | html %] by <a href="[% main_url | html %]/?op=getuser&amp;id=[% row.userid | html %]">[% row.username | html %]</a></p>
+        <p class="pl-object-correction-meta">Filed [% row.date | html %] [% IF filed %]to <a href="[% main_url | html %]/?op=getuser&amp;id=[% row.fromid | html %]">[% row.username | html %]</a>[% ELSE %]by <a href="[% main_url | html %]/?op=getuser&amp;id=[% row.userid | html %]">[% row.username | html %]</a>[% END %]</p>
         [% IF row.pending %]
         <div class="pl-object-correction-actions">
+          [% IF filed %]
+          <a href="[% main_url | html %]/?op=retractcor&amp;id=[% row.objectid | html %]&amp;correct=[% row.uid | html %]&amp;continue=editfiledcors">Retract this correction</a>
+          [% ELSE %]
           <a href="[% main_url | html %]/?op=edit&amp;from=[% object_table | html %]&amp;id=[% row.objectid | html %]&amp;correct=[% row.uid | html %]">Edit to resolve</a>
           <a href="[% main_url | html %]/?op=rejectcor&amp;id=[% row.objectid | html %]&amp;correct=[% row.uid | html %]">Reject</a>
+          [% END %]
         </div>
         [% END %]
       </article>
     [% END %]
     </div>
     <nav class="pl-object-corrections-pager" aria-label="Correction pages">[% pager %]</nav>
-  [% ELSE %]<p class="pl-object-corrections-empty">No corrections.</p>[% END %]
+  [% ELSE %]<p class="pl-object-corrections-empty">[% IF filed %]No filed corrections[% ELSE %]No corrections.[% END %]</p>[% END %]
 </div>

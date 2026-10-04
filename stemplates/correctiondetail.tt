@@ -1,0 +1,52 @@
+[% INCLUDE entryinteractionstyles.tt %]
+<style type="text/css">
+.pl-correction-page { color: #1d2935; contain: inline-size; font-family: Arial, Helvetica, sans-serif; min-width: 0; overflow-wrap: anywhere; }
+.pl-correction-page a { color: #064d93; }
+.pl-correction-body { line-height: 1.5; padding: .25rem .5rem .75rem; }
+.pl-correction-nav { display: flex; flex-wrap: wrap; gap: .4rem 1rem; font-size: .85rem; margin: 0 0 .75rem; }
+.pl-correction-body h2 { font-size: 1rem; margin: 0 0 .35rem; }
+.pl-correction-byline { color: #526170; font-size: .85rem; margin: 0 0 .8rem; }
+.pl-correction-details { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin: 0 0 1rem; }
+.pl-correction-details div { min-width: 0; }
+.pl-correction-details dt { color: #526170; font-size: .8rem; }
+.pl-correction-details dd { font-size: .9rem; margin: 0; }
+.pl-correction-details .pending { color: #925800; }
+.pl-correction-content { contain: inline-size; max-width: 100%; overflow-x: auto; }
+.pl-correction-content img { height: auto; max-width: 100%; }
+.pl-correction-content pre { white-space: pre-wrap; }
+.pl-correction-comment { border-top: 1px solid #cbd6de; margin-top: 1rem; padding-top: .75rem; }
+.pl-correction-controls { margin-top: .75rem; }
+.pl-correction-controls:empty, .pl-correction-watch:empty { display: none; }
+.pl-correction-watch { font-size: .85rem; padding: .35rem .5rem; }
+.pl-correction-page .pl-entry-section-body { contain: inline-size; overflow-x: auto; }
+.pl-correction-page .pl-entry-section-body img { height: auto; max-width: 100%; }
+.pl-correction-page :focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+</style>
+[% INCLUDE modernboxheader.tt title = title %]
+<div class="pl-correction-body">
+  <nav class="pl-correction-nav" aria-label="Correction navigation">
+    <a href="[% main_url | html %]/?op=getobj&amp;from=[% object_table | html %]&amp;id=[% rec.objectid | html %]">parent</a>
+    [% IF signed_in %]<a href="[% main_url | html %]/?op=editfiledcors">Your filed corrections</a>[% END %]
+  </nav>
+  <h2>[% rec.title | html %]</h2>
+  <p class="pl-correction-byline">by <a href="[% main_url | html %]/?op=getuser&amp;id=[% rec.userid | html %]">[% rec.username | html %]</a></p>
+  <dl class="pl-correction-details">
+    <div><dt>Correction id:</dt><dd>[% rec.uid | html %]</dd></div>
+    <div><dt>Filed on:</dt><dd>[% rec.filed | html %]</dd></div>
+    <div><dt>Status:</dt><dd><strong[% IF pending %] class="pending"[% END %]>[% status | html %]</strong>[% IF rec.closed %] on [% rec.closed | html %][% END %]</dd></div>
+    <div><dt>Type:</dt><dd>[% type | html %]</dd></div>
+  </dl>
+  <h2>Correction text:</h2>
+  <div class="pl-correction-content">[% text %]</div>
+  <div class="pl-correction-controls">[% actions %]</div>
+  [% IF has_comment %]
+  <div class="pl-correction-comment">
+    [% IF comment %]
+    <h2>Comment from [% who | html %] <a href="[% main_url | html %]/?op=getuser&amp;id=[% person.uid | html %]">[% person.username | html %]</a>:</h2>
+    <div class="pl-correction-content">[% comment %]</div>
+    [% ELSE %]
+    <p>No comment from [% who | html %] <a href="[% main_url | html %]/?op=getuser&amp;id=[% person.uid | html %]">[% person.username | html %]</a>.</p>
+    [% END %]
+  </div>
+  [% END %]
+</div>
