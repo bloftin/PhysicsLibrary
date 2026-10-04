@@ -20,6 +20,7 @@ my %pages = (
     addpaper => 'Add a Paper',
     addencyclopedia => 'Add an Encyclopedia Entry',
     addedencyclopedia => 'Added',
+    newuserguide => 'PhysicsLibrary New User Guide',
     about => 'The Physics Library Story',
     snapshots => 'Snapshots',
     license => 'Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License',

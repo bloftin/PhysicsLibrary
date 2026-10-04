@@ -178,6 +178,10 @@ for my $case (
     subtest "$name preserves the original form contract" => sub {
         my %vars = (%base, %$overrides);
         my $old = contract(render_form('addencyclopedia-legacy.tt', \%vars));
+        # The only intentional link changes migrate the unavailable legacy guide.
+        for my $link (@{$old->{links}}) {
+            $link->{href} =~ s{https://aux\.planetphysics\.org/doc/newuser\.html}{/?op=sitedoc;guide=newuser};
+        }
         my $html = render_form('addencyclopedia.tt', \%vars);
         my $new = contract($html);
         is_deeply($new->{forms}, $old->{forms}, 'POST, multipart encoding, charset and action unchanged');

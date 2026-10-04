@@ -3,6 +3,15 @@ package Noosphere;
 use strict;
 use Noosphere::Snapshots;
 
+# Version-controlled contribution guidance, available through the documentation center.
+sub getNewUserGuide {
+  my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+  my $html = '';
+  $tt->process('newuserguide.tt', {}, \$html)
+    || die "Template process failed: ", $tt->error(), "\n";
+  return $html;
+}
+
 # show license information for the site
 #
 sub getLicense {

@@ -34,6 +34,13 @@
                                 <xsl:with-param name="content">
                                     <dl>
                                         <dt>
+                                            <a href="/?op=sitedoc;guide=newuser">PhysicsLibrary New User Guide</a>
+                                        </dt>
+                                        <dd>
+                                            Getting started with encyclopedia contributions, alternate entries,
+                                            metadata, LaTeX previews, file uploads, and references.
+                                        </dd>
+                                        <dt>
                                             <a href="/?op=getobj&amp;from=papers&amp;id=142">
                                                 Aaron Krowne's PlanetMath / Noosphere thesis
                                             </a>
