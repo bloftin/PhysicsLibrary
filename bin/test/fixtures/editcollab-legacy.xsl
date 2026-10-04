@@ -15,7 +15,7 @@
 	<xsl:choose>
 
 		<!-- update mode (get revision comment) -->
-			
+
 		<xsl:when test="mode='update'">
 
 			Here you can enter a revision comment for your changes.   We <b>strongly recommend</b> you do this, for the convenience of everyone involved.
@@ -27,15 +27,15 @@
 			<input type="hidden" name="title" value="{title}"/>
 			<input type="hidden" name="data" value="{data}"/>
 			<input type="hidden" name="tempdir" value="{tempdir}"/>
-	
+
 			<p />
-			
+
 			<center>
 				<input type="submit" name="save" value="commit"/>
 			</center>
 
 		</xsl:when>
-		
+
 		<!-- preview mode -->
 
 		<xsl:when test="mode='preview'">
@@ -49,7 +49,7 @@
 				<p />
 
 				<xsl:choose>
-				
+
 					<xsl:when test="preview/content">
 
 						<center>
@@ -57,9 +57,9 @@
 						<xsl:call-template name="mathbox">
 						<xsl:with-param name="title">Preview of '<xsl:value-of select="title"/>'</xsl:with-param>
 						<xsl:with-param name="content">
-							
+
 							<xsl:copy-of select="preview/content"/>
-		
+
 						</xsl:with-param>
 						</xsl:call-template>
 
@@ -75,7 +75,7 @@
 				</xsl:choose>
 
 				<p />
-				
+
 				<xsl:if test="new=1"><input type="hidden" name="abstract" value="{abstract}"/></xsl:if>
 				<input type="hidden" name="title" value="{title}"/>
 				<input type="hidden" name="data" value="{data}"/>
@@ -98,7 +98,7 @@
 				<xsl:copy-of select="fmanager"/>
 
 				<p />
-				
+
 				<xsl:if test="new=1"><input type="hidden" name="abstract" value="{abstract}"/></xsl:if>
 				<input type="hidden" name="title" value="{title}"/>
 				<input type="hidden" name="data" value="{data}"/>
@@ -147,7 +147,7 @@
 					<p />
 
 					<textarea name="abstract" rows="5" cols="80">
-						<xsl:value-of select="abstract"/>	
+						<xsl:value-of select="abstract"/>
 					</textarea>
 
 					<p />
@@ -164,7 +164,7 @@
 				</td></tr></table>
 
 				<p />
-				
+
 				<input type="hidden" name="tempdir" value="{tempdir}"/>
 
 				<center>
@@ -181,7 +181,7 @@
 		</xsl:otherwise>
 
 	</xsl:choose>
-				
+
 	<input type="hidden" name="op" value="edit"/>
 	<input type="hidden" name="from" value="collab"/>
 	<input type="hidden" name="version" value="{version}"/>
@@ -191,7 +191,7 @@
 	</form>
 
 	</td></tr></table>
-			
+
 	</xsl:with-param>
 	</xsl:call-template>
 	</xsl:with-param>
