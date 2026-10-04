@@ -1,0 +1,20 @@
+<style type="text/css">
+.pl-news-article { color: #1d2935; font-family: Arial, Helvetica, sans-serif; }
+.pl-news-article a { color: #064d93; }
+.pl-news-meta { border-bottom: 1px solid #cbd6de; color: #526170; font-size: .85rem; line-height: 1.4; margin: 0; overflow-wrap: anywhere; padding: .5rem; }
+/* Wide legacy story tables must not enlarge the surrounding site layout. */
+.pl-news-story { box-sizing: border-box; contain: inline-size; line-height: 1.55; max-width: 100%; overflow-x: auto; overflow-wrap: anywhere; padding: .6rem .5rem; }
+.pl-news-intro { margin-bottom: .75rem; }
+.pl-news-story p:first-child { margin-top: 0; }
+.pl-news-story p:last-child { margin-bottom: 0; }
+.pl-news-story img, .pl-news-story video { height: auto; max-width: 100%; }
+.pl-news-story pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>
+<article class="pl-news-article">
+  [% INCLUDE modernboxheader.tt %]
+  <p class="pl-news-meta">posted by <a href="[% author_url | html %]">[% username | html %]</a> on [% date | html %]</p>
+  <div class="pl-news-story">
+    <div class="pl-news-intro">[% intro %]</div>
+    [% IF body %]<div class="pl-news-body">[% body %]</div>[% END %]
+  </div>
+</article>
