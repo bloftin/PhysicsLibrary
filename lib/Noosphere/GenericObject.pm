@@ -13,6 +13,8 @@ package Noosphere;
 
 use strict;
 use Cwd qw(chdir);
+use Noosphere::EntryInteractions;
+use URI;
 
 # add a generic object 
 #
@@ -596,7 +598,6 @@ sub renderGeneric {
 	# my $outertemplate = new TemplateNS('genericobj.html');
 	# my $template = new XSLTemplate('genericobj.xsl');
 
-	my $interact = makeBox('Interact', getGenericInteract($params->{from}, $rec));
 
 	# $template->addText("<object>\n");
 
@@ -606,13 +607,21 @@ sub renderGeneric {
 	# $template->addText($coverxml);
 	
 	# my $filexml = getFileListXML($params->{from}, $params->{id});
-	$files_html = getfilelist($params->{from}, $params->{id});
+	$files_html = getfilelist($params->{from}, $rec->{uid});
 	# $template->addText($filexml);
 
-	my $classhtml = printclass($params->{from}, $params->{id}, '-1');
+	my $classhtml = printclass($params->{from}, $rec->{uid}, '-1');
 	# $template->setKey('classification', $classhtml);
 
-	my @urls = $rec->{urls};
+	my @urls;
+	for my $line (split /\r?\n/, $rec->{urls} || '') {
+		$line =~ s/^\s+|\s+$//g;
+		next unless length $line;
+		my $url = URI->new($line);
+		my $scheme = lc($url->scheme || '');
+		my $href = $scheme =~ /^(?:https?|ftp)$/ && $url->can('host') && $url->host ? "$url" : '';
+		push @urls, {text => $line, url => $href};
+	}
 	##if ($#urls >= 0) { 
 	 	##$template->addText('<links>');
 	 	##foreach my $url (@urls) { 
@@ -646,16 +655,19 @@ sub renderGeneric {
 	#return $outertemplate;
 
 	my $tt = Template->new({
-		INCLUDE_PATH => '/var/www/pp/stemplates',
+		INCLUDE_PATH => getConfig('template_path'),
 	});
 
 
 	my $vars = {
-        title       => $rec->{title},
+        title       => "$isa: " . ($rec->{title} || ''),
 		isa			=> $isa,
 		authors     => $rec->{authors},
 		userid		=> $rec->{userid},
 		username	=> $rec->{username},
+		user_url    => $rec->{userid} > 0 ? entryInteractionURL('getuser', id => $rec->{userid}) : '',
+		browse_url  => entryInteractionURL('browse', from => $params->{from}),
+		section     => getIsA($params->{from}, 1),
 		comments	=> $rec->{comments},
 		abstract	=> $rec->{data},
 		rights      => $rec->{rights},
@@ -677,10 +689,18 @@ sub getGenericAdmin {
 	my $params = shift;
 	my $userinf = shift;
 	my $rec = shift;
+	my $modern = shift;
 
 	my $html = '';
 
 	return if ($userinf->{data}->{access} < getConfig('access_admin'));
+	if ($modern) {
+		return entryInteractionSection('Admin Controls', entryInteractionActions([
+			{label => 'Edit metadata', url => entryInteractionURL('adminedit', from => $params->{from}, id => $rec->{uid})},
+			{label => 'Classify', url => entryInteractionURL('adminclassify', from => $params->{from}, id => $rec->{uid})},
+			{label => 'Delete object', url => entryInteractionURL('delobj', from => $params->{from}, id => $rec->{uid}, ask => 'yes'), danger => 1},
+		], 'Library item administration'), 1);
+	}
 
 	$html = "<center>
 <a href=\"".getConfig("main_url")."/?op=adminedit&from=$params->{from}&id=$rec->{uid}\">edit metadata</a> |

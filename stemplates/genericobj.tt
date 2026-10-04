@@ -1,134 +1,38 @@
-<!-- this template displays papers, expositions, and books -->
-<!-- clear box -->
-<table width="100%" cellpadding="2" cellspacing="0">
-	<tr>
-		<td>
-			<table WIDTH="100%">
-
-				<!-- title -->
-				<tr>
-                    <td bgcolor="#000000">
-
-						<!-- title box -->
-						
-						<table WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">
-							<tr>
-								<td WIDTH="100%" BGCOLOR="#003399">
-									<font color="white" class="box_title">
-										[% isa %]: [% title %]
-									</font>
-								</td>
-							</tr>
-						</table>
-					</td>
-
-				</tr>
-			
-				<!-- content -->
-				<tr>
-                    <td>
-                        <table width="100%" border="0" cellpadding="0">
-                        
-                            <tr>
-                                <td>
-
-                                    <!-- handle title image and title-->
-                                    [% IF imageurl %]
-                                        <!-- generate the clickable title image -->
-                                        [% USE Image imageurl %]
-                                    [% END %]
-
-                                    <p><p/>
-
-                                    <!-- generate the title -->
-                                    <font size="+2">
-                                        [% title %]
-                                    </font>
-
-                                    <p><p/>
-
-                                    [% IF authors %]
-                                        Authors: [% authors %]
-                                        <p><p/>
-                                    [% END %]
-
-                                    Uploaded by: 
-
-                                    <a href=/?op=getuser;id=[% userid %]>[% username %]</a>
-                                </td>
-                            </tr>
-
-                        </table>
-
-                        <dl>
-
-                            [% IF comments%]
-                                <dt>Comments:</dt>
-                                <dd>[% comments %]</dd>
-                                </xsl:if>
-                            [% END %]
-                            
-                            <dt>Abstract:</dt>
-                            <dd> [% abstract %]</dd>
-
-                            <dt>Rights:</dt>
-                            <dd>
-                                [% IF rights %]
-                                    [% rights %]
-                                [% ELSE %]
-                                    [none given] (proceed with caution!)
-                                [% END %]
-                            </dd>
-
-                            [% IF files_html %]
-                                <dt>Download:</dt>
-
-                                <dd>
-                                    [% files_html %]
-                                </dd>        
-
-                            [% END %]
-
-                            [% IF links %]
-                                <dt>Links:</dt>
-
-                                [% FOREACH link In links %]
-                                    <dd>
-                                        [% link %]
-                                    </dd>
-                                [% END %]
-
-                            [% END %]
-                        </dl>
-
-                        [% IF class %]
-                            [% class %]
-                        [% END %]
-
-                        [%- IF isbn -%]
-                            <p><p/>
-                            <font size="-1">
-                                ISBN #:  [% ISBN %]
-                            </font>  
-                        [% END %]    
-                    </td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-<!-- end standard box -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+<style type="text/css">
+.pl-library-item { color: #1d2935; font: .9rem/1.5 Arial, Helvetica, sans-serif; min-width: 0; overflow-wrap: anywhere; }
+.pl-library-item a { color: #064d93; }
+.pl-library-item a:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-library-item-nav { border-bottom: 1px solid #b8c9d8; font-size: .85rem; margin: 0 0 .75rem; padding: 0 0 .5rem; }
+.pl-library-item-metadata { margin: 0; }
+.pl-library-item-metadata dt { font-weight: bold; margin-top: .75rem; }
+.pl-library-item-metadata dd { margin: .2rem 0 0; }
+.pl-library-item-text { white-space: pre-wrap; }
+.pl-library-item-downloads { background: #eef3f7; border: 1px solid #cbd6de; padding: .5rem .65rem; }
+.pl-library-item-downloads table, .pl-library-item-classification table { font: inherit; max-width: 100%; }
+.pl-library-item-downloads table { width: 100%; }
+.pl-library-item-downloads td, .pl-library-item-classification td { padding: .2rem .3rem; }
+.pl-library-item-downloads td:first-child { padding-left: 0; }
+.pl-library-item-links { list-style: none; margin: 0; padding: 0; }
+.pl-library-item-links li + li { margin-top: .25rem; }
+@media (max-width: 640px) {
+  .pl-library-item-downloads table, .pl-library-item-downloads tbody, .pl-library-item-downloads tr,
+  .pl-library-item-classification table, .pl-library-item-classification tbody, .pl-library-item-classification tr { display: block; width: auto; }
+  .pl-library-item-downloads td, .pl-library-item-classification td { display: block; padding: .15rem 0; }
+  .pl-library-item-downloads td:nth-child(2) { display: none; }
+}
+</style>
+<article class="pl-library-item">
+[% INCLUDE modernboxheader.tt %]
+<nav class="pl-library-item-nav" aria-label="Library section"><a href="[% browse_url | html %]">[% section | html %]</a></nav>
+<dl class="pl-library-item-metadata">
+  [% IF authors %]<dt>Authors:</dt><dd>[% authors | html %]</dd>[% END %]
+  <dt>Uploaded by:</dt><dd>[% IF user_url %]<a href="[% user_url | html %]">[% username | html %]</a>[% ELSE %][% username | html %][% END %]</dd>
+  [% IF comments %]<dt>Comments:</dt><dd class="pl-library-item-text">[% comments | html %]</dd>[% END %]
+  <dt>Abstract:</dt><dd class="pl-library-item-text">[% abstract | html %]</dd>
+  <dt>Rights:</dt><dd class="pl-library-item-text">[% IF rights %][% rights | html %][% ELSE %][none given] (proceed with caution!)[% END %]</dd>
+  [% IF files_html %]<dt>Download:</dt><dd class="pl-library-item-downloads">[% files_html %]</dd>[% END %]
+  [% IF links.size %]<dt>Links:</dt><dd><ul class="pl-library-item-links">[% FOREACH link IN links %]<li>[% IF link.url %]<a href="[% link.url | html %]">[% link.text | html %]</a>[% ELSE %][% link.text | html %][% END %]</li>[% END %]</ul></dd>[% END %]
+  [% IF class %]<dt>Classification:</dt><dd class="pl-library-item-classification">[% class %]</dd>[% END %]
+  [% IF isbn %]<dt>ISBN #:</dt><dd>[% isbn | html %]</dd>[% END %]
+</dl>
+</article>

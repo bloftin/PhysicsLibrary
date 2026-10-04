@@ -73,7 +73,7 @@ sub getObj {
 		$from eq getConfig('books_tbl')
 	);
 	my $is_news = $from eq getConfig('news_tbl');
-	my $modern_entry = $from eq getConfig('en_tbl') || $is_news || $from eq getConfig('cor_tbl');
+	my $modern_entry = $from eq getConfig('en_tbl') || $is_news || $from eq getConfig('cor_tbl') || $is_generic_library_item;
 	$file = 'newsobj.tt' if $is_news;
 	#dwarn "name";
 	#dwarn $name;
@@ -236,7 +236,7 @@ sub getObj {
 	elsif ($from eq getConfig('papers_tbl') ||
 		$from eq getConfig('exp_tbl') ||
 		$from eq getConfig('books_tbl')) {
-		$admin = getGenericAdmin($params, $userinf, $rec);
+		$admin = getGenericAdmin($params, $userinf, $rec, 1);
 	}
 
 	# get owner controls

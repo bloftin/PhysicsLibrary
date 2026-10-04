@@ -238,7 +238,8 @@ my $legacy = getEncyclopediaAdminControls(user(1,100), 'objects', 209, 'make4ht'
 like($legacy, qr/class="legacy-box"/, 'legacy callers keep their original wrapper');
 like(getPendingCorrections(209), qr/1\. <a/, 'legacy corrections list stays unchanged');
 my $generic = page(user(3), {from => 'papers'});
-unlike($generic, qr/pl-entry-section-header|pl-entry-discussion-options/, 'generic library pages are unaffected');
+unlike($generic, qr/<h2>Discussion|<form class="pl-entry-discussion-options"/, 'generic library pages still skip automatic discussion loading');
+like($generic, qr/\.pl-entry-section-header/, 'generic library controls receive shared modern styling');
 
 # Render representative full-page fixtures without a renderer or database for browser QA.
 if (my $dir = $ENV{ENTRY_INTERACTIONS_TEST_DIR}) {
