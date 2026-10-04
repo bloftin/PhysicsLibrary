@@ -864,81 +864,54 @@ sub _object_exists {
 sub postMessage {
 	my $params = shift;
 	my $userinfo = shift;
-	
-	my $template;
-	my $post;
-	my $boxtitle;
-	my $html = '';
 
 	if ($userinfo->{'uid'} <= 0) {
 		return postError("You can't post as anonymous.");
 	}
-	
-	# preview directive
-	#
-	if (defined($params->{preview})) {
-		($template, $post, $boxtitle) = getPostForm($params);
-		my $text = stdmsg($params->{body});
-		$post->setKey('preview', "Preview:<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$text</td></tr></table><hr>");
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
+
+	# Resolve the reply destination from the stored message, not form fields.
+	my %values = %$params;
+	my $parent;
+	if (defined($values{replyto}) && nb($values{replyto})) {
+		return errorMessage("Couldn't find that message!")
+			if ref($values{replyto}) || $values{replyto} !~ /\A[0-9]+\z/;
+		my ($rv, $sth) = dbSelect($dbh, {WHAT => '*', FROM => 'messages',
+			WHERE => "uid = $values{replyto}"});
+		return errorMessage("Couldn't find that message!") unless $rv && $sth;
+		$parent = $sth->fetchrow_hashref();
+		$sth->finish();
+		return errorMessage("Couldn't find that message!") unless $parent;
+		my $acl_tables = getConfig('acl_tables') || {};
+		if ($acl_tables->{$parent->{tbl}} &&
+			!hasPermissionTo($parent->{tbl}, $parent->{objectid}, $userinfo, 'read')) {
+			return errorMessage("You don't have permission to read this message.");
+		}
+		@values{qw(id from)} = @{$parent}{qw(objectid tbl)};
 	}
-	
-	# spell directive
-	#
-	elsif (defined($params->{spell})) {
-		($template, $post, $boxtitle) = getPostForm($params);
-		my $text = $params->{body};
+	$values{body} = '' unless defined $values{body};
+	my ($preview, $spell, $error);
+	if (defined($params->{preview})) {
+		$preview = stdmsg($values{body});
+	} elsif (defined($params->{spell})) {
+		my $text = $values{body};
 		$text =~ s/>.*?\n//gs;
 		$text =~ s/^\s*//s;
-		#	dwarn "*** spell: submitting to spellcheck : [$text]";
-		my $spell = checkdoc($text);
-		#	dwarn "*** spell: got back [$spell]";
-		$post->setKey('spell', "Spell check (broken words in red, clickable):<br><table width=\"100%\"><tr><td bgcolor=\"#ffffff\">$spell</td></tr></table><hr>");
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
-	}
-	
-	# quote directive
-	#
-	elsif (defined($params->{quote})) {
-		($template, $post, $boxtitle) = getPostForm($params);
-		my $quoted = getquotedmessage($params->{'replyto'});
-		if (defined($params->{'body'})) {
-			my $body = $params->{'body'};
-			$post->setKey('body', "$quoted\n\n$body");
+		$spell = checkdoc($text);
+	} elsif (defined($params->{quote})) {
+		$values{body} = getquoted($parent->{body}).
+			(defined($params->{body}) ? "\n\n".$values{body} : '') if $parent;
+	} elsif ($values{body} ne '') {
+		if (!defined($values{subject}) || $values{subject} eq '') {
+			$error = 'Need a subject.';
 		} else {
-			$post->setKey('body', $quoted);
+			my $visible = hasVisibleMessages($values{from}, $values{id});
+			return submit_message(\%values, $userinfo, $visible);
 		}
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
-	}
-	
-	# got body, check if we got subject, if so, go ahead with post
-	#
-	elsif ($params->{'body'} ne "") {
-		if ($params->{'subject'} eq "") {
-			return postError("Need a subject.");
-		} else {
-			my $visible = hasVisibleMessages($params->{'from'}, $params->{'id'});
-			$html .= submit_message($params, $userinfo, $visible);
-		}
-	} 
-	
-	# got subject so far, give error 
-	#
-	elsif ($params->{'subject'} ne "" ) {
-		$html .= postError("Need a message body."); 
-	} 
-	# got nothing so far, just get form
-	#
-	else {
-		($template, $post, $boxtitle) = getPostForm($params);
-		$template->setKey('post', makeBox($boxtitle, $post->expand()));
-		$html = $template->expand();
+	} elsif (defined($values{subject}) && $values{subject} ne '') {
+		$error = 'Need a message body.';
 	}
 
-	return $html;
+	return getPostForm(\%values, $parent, $preview, $spell, $error);
 }
 
 # get error to show user if a post didn't go through
@@ -952,51 +925,25 @@ sub postError {
 # get and populate message posting form
 #
 sub getPostForm {
-	my $params = shift;
-	
-	my $template;
-	my $boxtitle;
-	my $post;
-	
-	if (defined($params->{'replyto'}) && nb($params->{'replyto'})) {
-		$template = new TemplateNS('replymessage.html');
-		my $original = makeBox('Replying to','<table width="100%" border="0" cellpadding="0" cellspacing="0"><td bgcolor="#ffffff">'.singlemessage_byid($params->{'replyto'}).'</td></table>');
-	$boxtitle = 'Compose Post';
-	$post = new TemplateNS('postmsgform.html');
-		my $q = "<input type=\"submit\" name=\"quote\" value=\"quote\">";
-	$template->setKeys('original' => $original);
-	$post->setKeys('replyto' => $params->{'replyto'}, 'quote' => $q);
-	} else {
-		$template = new TemplateNS('postmessage.html');
-	$boxtitle = 'Compose Post';
-	$post = new TemplateNS('postmsgform.html');
-	$template->setKeys('replyto' => $params->{'replyto'});
+	my ($params, $parent, $preview, $spell, $error) = @_;
+	my %values = %$params;
+	my %original;
+	if ($parent) {
+		my $author = _userfields_by_id($parent->{userid}, 'username');
+		%original = (
+			subject => $parent->{subject}, username => $author->{username},
+			date => nicifyTimestamp($parent->{created}), body => stdmsg($parent->{body}),
+			author_url => entryInteractionURL('getuser', id => $parent->{userid}),
+			message_url => entryInteractionURL('getmsg', id => $parent->{uid}),
+		);
+		$values{subject} = $parent->{subject} =~ /^Re:/ ? $parent->{subject} : "Re: $parent->{subject}"
+			unless defined $values{subject};
 	}
-	if (not defined($params->{quote})) {
-		if (defined($params->{body})) {
-		my $body = $params->{body};
-		$post->setKey('body', $body);
-		}
-	}
- 
-	if (defined($params->{'subject'})) {
-		my $s = $params->{'subject'};
-	$post->setKey('subject', $s);
-	} else {
-		if (defined($params->{'replyto'})) {
-		my $subj =_subject_by_id($params->{'replyto'});
-		if ($subj =~ /^Re:/) { 
-			$post->setKey('subject', $subj);
-		} else {
-			$post->setKey('subject', "Re: $subj");
-		}
-	}
-	}
-	
-	$post->setKeys('id' => $params->{id}, 'from' => $params->{from});
-	$post->setKeysIfUnset(%$params);
-
-	return ($template, $post, $boxtitle);
+	return entryInteractionTemplate('messagecompose.tt', {
+		values => \%values, original => $parent ? \%original : undef,
+		preview => $preview, has_preview => defined($preview), spell => $spell,
+		has_spell => defined($spell), error => $error,
+	});
 }
 
 # actually insert a message into the database

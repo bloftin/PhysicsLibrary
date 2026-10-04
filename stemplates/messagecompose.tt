@@ -1,0 +1,59 @@
+<style type="text/css">
+.pl-message-compose { color: #1d2935; font: .9rem/1.5 Arial, Helvetica, sans-serif; margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.pl-message-compose a { color: #064d93; }
+.pl-message-compose a:focus-visible, .pl-message-compose input:focus-visible, .pl-message-compose textarea:focus-visible, .pl-message-compose button:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-message-original { margin-bottom: 1rem; }
+.pl-message-original h2 { font-size: 1.05rem; line-height: 1.4; margin: 0 0 .25rem; }
+.pl-message-original-meta { color: #445b70; font-size: .85rem; margin: 0; }
+.pl-message-compose-body { font-size: .95rem; line-height: 1.6; margin: .75rem 0; }
+.pl-message-compose-body .source { font: inherit; }
+.pl-message-compose form { margin: 0; }
+.pl-message-compose-field { margin: .75rem 0; }
+.pl-message-compose label { display: block; font-weight: bold; margin-bottom: .25rem; }
+.pl-message-compose input[type="text"], .pl-message-compose textarea { background: #fff; border: 1px solid #8ba1b5; box-sizing: border-box; color: #1d2935; display: block; font: inherit; max-width: 100%; padding: .4rem .5rem; width: 100%; }
+.pl-message-compose textarea { min-height: 14rem; resize: vertical; }
+.pl-message-compose-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.pl-message-compose button { background: #edf3f7; border: 1px solid #8ba1b5; color: #064d93; cursor: pointer; font: inherit; padding: .3rem .7rem; }
+.pl-message-compose button[name="post"] { background: #194f78; border-color: #153f60; color: #fff; margin-left: auto; }
+.pl-message-compose-note { color: #445b70; font-size: .8rem; margin: .75rem 0 0; }
+.pl-message-compose-result { border-bottom: 1px solid #b8c9d8; margin-bottom: .75rem; padding-bottom: .5rem; }
+.pl-message-compose-result h2 { font-size: .95rem; margin: 0 0 .25rem; }
+.pl-message-compose-error { background: #fff3f3; border-left: 3px solid #a60000; color: #a60000; margin: .75rem 0; padding: .4rem .6rem; }
+</style>
+<div class="pl-message-compose">
+  [% IF original %]
+  <section class="pl-message-original">
+    [% INCLUDE modernboxheader.tt title = 'Replying to' %]
+    <h2><a href="[% original.message_url | html %]">[% original.subject | html %]</a></h2>
+    <p class="pl-message-original-meta">by <a href="[% original.author_url | html %]">[% original.username | html %]</a> on [% original.date | html %]</p>
+    <div class="pl-message-compose-body">[% original.body %]</div>
+  </section>
+  [% END %]
+  <section>
+    [% INCLUDE modernboxheader.tt title = 'Compose Post' %]
+    <form method="post" action="/">
+      [% IF error %]<div class="pl-message-compose-error" role="alert">[% error | html %]</div>[% END %]
+      [% IF has_preview %]<section class="pl-message-compose-result"><h2>Preview:</h2><div class="pl-message-compose-body">[% preview %]</div></section>[% END %]
+      [% IF has_spell %]<section class="pl-message-compose-result"><h2>Spell check (broken words in red, clickable):</h2><div class="pl-message-compose-body">[% spell %]</div></section>[% END %]
+      <div class="pl-message-compose-field">
+        <label for="pl-post-subject">Subject:</label>
+        <input type="text" id="pl-post-subject" name="subject" value="[% values.subject | html %]" size="50">
+      </div>
+      <div class="pl-message-compose-field">
+        <label for="pl-post-body">Message:</label>
+        <textarea id="pl-post-body" name="body" cols="70" rows="15">[% values.body | html %]</textarea>
+      </div>
+      <input type="hidden" name="id" value="[% values.id | html %]">
+      <input type="hidden" name="replyto" value="[% values.replyto | html %]">
+      <input type="hidden" name="from" value="[% values.from | html %]">
+      <input type="hidden" name="op" value="postmsg">
+      <div class="pl-message-compose-actions">
+        <button type="submit" name="preview" value="preview">preview</button>
+        <button type="submit" name="spell" value="spellcheck">spellcheck</button>
+        [% IF original %]<button type="submit" name="quote" value="quote">quote</button>[% END %]
+        <button type="submit" name="post" value="post">post</button>
+      </div>
+      <p class="pl-message-compose-note">Note: Posts are in plain ASCII with whitespace preserved (do not use HTML!). URLs will be automatically hyperlinked when message is displayed.</p>
+    </form>
+  </section>
+</div>

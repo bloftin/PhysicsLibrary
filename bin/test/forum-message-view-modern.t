@@ -17,6 +17,7 @@ my $root = "$FindBin::Bin/../..";
 my %config = (
     template_path => "$root/stemplates", main_url => 'https://physicslibrary.org',
     acl_tables => {objects => 1, collab => 1},
+    message_maxcols => 80,
 );
 my %records = (
     395 => {uid => 395, threadid => 395, replyto => -1, tbl => 'forums', objectid => 0,
@@ -31,6 +32,11 @@ my %records = (
 );
 my (@queries, @authors, @permissions, @watch_changes, @watch_reads);
 my $finished;
+my (@spelling, @submissions, @visibility);
+sub checkdoc { push @spelling, $_[0]; return '<a class="spell" href="/?op=checkword&amp;word=typo">typo</a>'; }
+sub hasVisibleMessages { push @visibility, [@_]; return 0; }
+sub submit_message { push @submissions, [@_]; return 'Posted by existing submission handler'; }
+sub postError { $_[0] }
 sub getConfig { $config{$_[0]} }
 sub nb { defined($_[0]) && $_[0] =~ /\S/ }
 sub htmlescape { requestFormEscape($_[0]) }
@@ -69,7 +75,7 @@ sub hashToFormVars {
     sub finish { $finished++; }
 }
 for my $spec (
-    ['Messages', qw(getMessage getreplies _r_getmessages getWatchString printMsgHeaderLine getWatchBox)],
+    ['Messages', qw(getMessage getreplies _r_getmessages getWatchString printMsgHeaderLine getWatchBox postMessage getPostForm getquoted wordsplit)],
     ['Watches', qw(validWatchObjectArgs validWatchUserId changeWatch getWatchWidget)],
     ['Util', qw(stdmsg tohtmlascii)],
 ) {
@@ -202,6 +208,113 @@ for my $id (undef, '1 OR 1=1', -1, ['395'], "395\n") {
     like($legacy, qr/^<tr><td><ul>/, 'legacy discussion callers retain their original table wrapper');
     unlike($legacy, qr/pl-message-replies/, 'modern reply markup is opt-in');
 }
+sub compose {
+    my ($member, @params) = @_;
+    @queries = (); @authors = (); @permissions = (); @submissions = (); @spelling = (); @visibility = (); $finished = 0;
+    return postMessage({op => 'postmsg', id => 0, replyto => 395, @params}, $member);
+}
+sub form_values {
+    my %values;
+    my $textarea;
+    HTML::Parser->new(start_h => [sub {
+        my ($tag, $attrs) = @_;
+        $values{$attrs->{name}} = $attrs->{value} if $tag eq 'input' && $attrs->{name};
+        if ($tag eq 'textarea') { $textarea = $attrs->{name}; $values{$textarea} = ''; }
+    }, 'tagname, attr'], text_h => [sub { $values{$textarea} .= $_[0] if defined $textarea; }, 'dtext'],
+        end_h => [sub { undef $textarea if $_[0] eq 'textarea'; }, 'tagname'])->parse($_[0]);
+    return \%values;
+}
+my $composer = compose(user(2));
+like($composer, qr/<h1>Replying to<\/h1>.*<h1>Compose Post<\/h1>/s, 'reply context and composer use compact blue headers');
+like($composer, qr/Physics &lt;Library&gt; &amp; &quot;tips&quot;/, 'reply context subject safely escaped');
+like($composer, qr/User &lt;1&gt; &amp; Editor.*2025-03-04 05:31:13/s, 'reply context author and date retained');
+like($composer, qr/Original message\.<br \/>.*\\begin\{figure\}/s, 'reply context retains message formatting and source');
+unlike($composer, qr/<table|<center|bgcolor=|width="600"/, 'reply form removes fixed-width and legacy grey boxes');
+like($composer, qr/Note: Posts are in plain ASCII with whitespace preserved \(do not use HTML!\)\. URLs will be automatically hyperlinked when message is displayed\./, 'original posting note retained');
+for my $control (qw(preview spell quote post)) {
+    like($composer, qr/<button[^>]+type="submit"[^>]+name="$control"/, "$control control retained");
+}
+my $initial_values = form_values($composer);
+is_deeply($initial_values, {subject => 'Re: Physics <Library> & "tips"', body => '',
+    id => 0, replyto => 395, from => 'forums', op => 'postmsg'}, 'initial reply values include resolved forum zero and Re subject');
+is(scalar @queries, 1, 'reply context and default subject share one query');
+is($finished, 1, 'reply context statement finished');
+my $draft = "A draft\n\\begin{figure}\n</textarea><script>alert(1)</script>&";
+my $preview = compose(user(2), preview => 'preview', subject => 'Draft <subject> & "test"', body => $draft);
+like($preview, qr/<h2>Preview:<\/h2>/, 'preview shown in its own section');
+like($preview, qr/&lt;script&gt;alert\(1\)&lt;\/script&gt;/, 'preview still safely renders standard message text');
+is(form_values($preview)->{body}, $draft, 'preview preserves exact draft including textarea closing text');
+is(form_values($preview)->{subject}, 'Draft <subject> & "test"', 'preview preserves subject exactly');
+is(scalar @submissions, 0, 'preview does not submit');
+my $spelled = compose(user(2), spell => 'spellcheck', subject => 'Draft', body => "> quoted line\n  typo");
+is_deeply(\@spelling, ['typo'], 'spellcheck omits quoted lines as before');
+like($spelled, qr/Spell check \(broken words in red, clickable\):.*<a class="spell"/s, 'spellcheck label and clickable output retained');
+is(form_values($spelled)->{body}, "> quoted line\n  typo", 'spellcheck does not replace draft');
+is(scalar @submissions, 0, 'spellcheck does not submit');
+my $quoted = compose(user(2), quote => 'quote', body => 'My reply');
+is(form_values($quoted)->{body}, getquoted($records{395}{body})."\n\nMy reply", 'quote uses existing wrapping and prepends to draft');
+is(scalar @queries, 1, 'quote reuses fetched parent body');
+is(scalar @submissions, 0, 'quote does not submit');
+is(form_values(compose(user(2), quote => 'quote'))->{body}, getquoted($records{395}{body}),
+    'quote without a draft preserves the original quoted text exactly');
+{
+    local $records{395}{subject} = 'Re: Existing thread';
+    is(form_values(compose(user(2)))->{subject}, 'Re: Existing thread', 'reply subject prefix is not duplicated');
+}
+my $missing_subject = compose(user(2), subject => '', body => $draft, post => 'post');
+like($missing_subject, qr/role="alert">Need a subject\./, 'missing subject error stays with the compose form');
+is(form_values($missing_subject)->{body}, $draft, 'missing subject keeps draft');
+is(scalar @submissions, 0, 'missing subject cannot submit');
+my $missing_body = compose(user(2), subject => 'Draft', body => '', post => 'post');
+like($missing_body, qr/role="alert">Need a message body\./, 'missing body error stays with the compose form');
+is(form_values($missing_body)->{subject}, 'Draft', 'missing body keeps subject');
+is(scalar @submissions, 0, 'missing body cannot submit');
+is(compose(user(2), subject => 'Draft', body => 'My reply', post => 'post', id => 99, from => 'objects'),
+    'Posted by existing submission handler', 'post retains existing submission handler');
+is_deeply(\@visibility, [['forums', 0]], 'reply visibility uses stored parent destination');
+is_deeply($submissions[0], [{op => 'postmsg', id => 0, replyto => 395, from => 'forums',
+    subject => 'Draft', body => 'My reply', post => 'post'}, user(2), 0], 'post preserves user and visibility with normalized reply destination');
+my $new_post = compose(user(2), replyto => '', from => 'objects', id => 1359);
+unlike($new_post, qr/<h1>Replying to<\/h1>|name="quote"/, 'new post has no reply context or quote action');
+is(form_values($new_post)->{id}, 1359, 'new post keeps object destination');
+is(scalar @queries, 0, 'new post does not query a nonexistent reply');
+is(compose(user(2), replyto => undef, from => 'objects', id => 1359,
+    subject => 'New discussion', body => 'A new post', post => 'post'),
+    'Posted by existing submission handler', 'new discussion still submits through existing handler');
+is_deeply(\@visibility, [['objects', 1359]], 'new discussion keeps supplied parent destination');
+is(compose(user(-1)), "You can't post as anonymous.", 'anonymous posting remains blocked');
+is(scalar @queries, 0, 'anonymous users do not fetch private reply context');
+for my $id (['395'], '395 OR 1=1', -1, "395\n") {
+    is(compose(user(2), replyto => $id), "Couldn't find that message!", 'invalid reply id rejected');
+    is(scalar @queries, 0, 'invalid reply id cannot reach SQL');
+}
+{
+    local $missing = 1;
+    is(compose(user(2), quote => 'quote'), "Couldn't find that message!", 'missing reply handled without dereference');
+    is($finished, 1, 'missing reply statement finished');
+}
+{
+    local $success = 0;
+    is(compose(user(2)), "Couldn't find that message!", 'reply database failure handled');
+}
+{
+    local $records{395}{tbl} = 'collab';
+    local $records{395}{objectid} = 7;
+    local $allowed = 0;
+    unlike(compose(user(2), body => 'My reply', subject => 'Draft'), qr/Original message/, 'private reply context hidden from denied reader');
+    is(scalar @authors, 0, 'denied reply does not fetch author');
+    is(scalar @submissions, 0, 'denied reply does not submit');
+    is_deeply($permissions[0], ['collab', 7, user(2), 'read'], 'reply uses existing parent read ACL');
+    local $allowed = 1;
+    like(compose(user(2)), qr/Original message/, 'permitted reader gets private reply context');
+}
+my $protected_composer = requestFormDecorate($composer, user(2));
+like($protected_composer, qr/<form[^>]*method="post"/, 'composer uses POST');
+like($protected_composer, qr/name="_form_token"/, 'composer receives existing response-time CSRF token');
+my $forms = () = $protected_composer =~ /<form\b/g;
+my $compose_tokens = () = $protected_composer =~ /name="_form_token"/g;
+is($forms, 1, 'reply context does not nest forms');
+is($compose_tokens, 1, 'all compose actions share one CSRF token');
 if (my $dir = $ENV{MESSAGE_VIEW_TEST_DIR}) {
     my $tt = Template->new({INCLUDE_PATH => "$root/stemplates"});
     my ($menu, $sidebar) = ('', '');
@@ -215,7 +328,9 @@ if (my $dir = $ENV{MESSAGE_VIEW_TEST_DIR}) {
         local $records{395}{body} = 'Long source token: '.('x' x 200)."\nhttp://example.invalid/".('path' x 60);
         $long = page(user(-1));
     }
-    for my $case (['guest', $guest], ['member', $protected], ['reply', $child], ['empty', $leaf], ['long', $long]) {
+    for my $case (['guest', $guest], ['member', $protected], ['reply', $child], ['empty', $leaf], ['long', $long],
+        ['compose', $protected_composer], ['preview', $preview], ['spell', $spelled], ['quote', $quoted],
+        ['compose-error', $missing_subject], ['new-post', $new_post]) {
         my $html = '';
         $tt->process('view.tt', {title => 'Viewing Message', site_name => 'Physics Library',
             content => $case->[1], sidebar => $sidebar,
