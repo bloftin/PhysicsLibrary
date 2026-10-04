@@ -5,9 +5,11 @@ use strict;
 # show license information for the site
 #
 sub getLicense {
-  
-  return paddingTable(clearBox("Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License",(new TemplateNS("license.html"))->expand())); 
-  
+  my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
+  my $html = '';
+  $tt->process('license.tt', {}, \$html)
+    || die "Template process failed: ", $tt->error(), "\n";
+  return $html;
 }
 
 # get the "about" (history, background) page.
