@@ -1,0 +1,80 @@
+<style type="text/css">
+.pl-add-lecture { color: #1d2935; font-family: Arial, Helvetica, sans-serif; margin: 0 auto; max-width: 76rem; }
+.pl-add-lecture a { color: #064d93; }
+.pl-add-lecture-guidelines { border-bottom: 1px solid #b6c5d2; font-size: .88rem; line-height: 1.5; padding: .2rem 0 .65rem; }
+.pl-add-lecture-guidelines ul { margin: .5rem 0 0; padding-left: 1.4rem; }
+.pl-add-lecture-guidelines li { margin-bottom: .35rem; }
+.pl-add-lecture-required { color: #a00000; }
+.pl-add-lecture-form { margin-top: 1rem; }
+.pl-add-lecture-field { margin: 0 0 1rem; min-width: 0; }
+.pl-add-lecture-field label { display: block; font-size: .9rem; font-weight: bold; line-height: 1.4; margin-bottom: .35rem; }
+.pl-add-lecture-field input, .pl-add-lecture-field textarea,
+.pl-add-lecture-filebox textarea, .pl-add-lecture-filebox input[type="file"] { box-sizing: border-box; max-width: 100%; width: 100%; }
+.pl-add-lecture-field input, .pl-add-lecture-field textarea, .pl-add-lecture-filebox textarea { background: #fff; border: 1px solid #8093a5; border-radius: 2px; color: #17212b; font: .95rem Arial, Helvetica, sans-serif; padding: .45rem .5rem; }
+.pl-add-lecture-field textarea, .pl-add-lecture-filebox textarea { line-height: 1.45; resize: vertical; }
+.pl-add-lecture-field small { color: #526170; display: block; font-size: .8rem; line-height: 1.4; margin-top: .35rem; }
+.pl-add-lecture input[type="submit"] { background: #1b507d; border: 1px solid #153f65; border-radius: 2px; color: #fff; cursor: pointer; font: .9rem Arial, Helvetica, sans-serif; padding: .4rem .75rem; }
+.pl-add-lecture input:focus-visible, .pl-add-lecture textarea:focus-visible, .pl-add-lecture a:focus-visible { outline: 2px solid #064d93; outline-offset: 2px; }
+.pl-add-lecture-error { background: #fff3f1; border-left: 3px solid #a00000; color: #a00000; line-height: 1.5; margin-bottom: 1rem; padding: .65rem .75rem; }
+.pl-add-lecture-filebox { border-top: 1px solid #b6c5d2; font-size: .9rem; line-height: 1.45; margin-top: 1rem; overflow-wrap: anywhere; padding-top: .75rem; }
+.pl-add-lecture-filebox table { border-collapse: collapse; max-width: 100%; width: 100%; }
+.pl-add-lecture-filebox td { background: transparent; padding: 0; text-align: left; }
+.pl-add-lecture-filebox center { font-weight: bold; text-align: left; }
+.pl-add-lecture-filebox font { font-size: inherit; }
+.pl-add-lecture-filebox input[type="file"] { font: inherit; margin: .35rem 0; }
+.pl-add-lecture-filebox table table table td { padding-right: .65rem; vertical-align: top; }
+</style>
+
+<div class="pl-add-lecture">
+  [% heading = 'Add a ' _ isa; INCLUDE modernboxheader.tt title = heading %]
+  <section class="pl-add-lecture-guidelines" aria-label="Lecture guidelines">
+    <b>Lecture guidelines</b>:
+    <ul>
+      <li>This section is for lectures which are <b>not books</b>. They will generally be for educational purposes, but it is most important that they are not considered papers or books for them to appear here. Lecture notes for a course are a good example of what should go here.</li>
+      <li><b>"Rights" are required for every item</b>! If you dont know what the rights are, please check before doing anything (including asking the author of the work if need be). If you are the author, please formulate a rights statement ("Public domain" is a nice one).</li>
+      <li>You must either upload the exposition or provide URLs linking to it. <b>Uploads are preferable to linking</b>, but require rights to redistribute. Try to get permission to upload if possible.</li>
+      <li>Starred (<span class="pl-add-lecture-required">*</span>) fields are required. </li>
+    </ul>
+  </section>
+
+  <form class="pl-add-lecture-form" method="post" action="https://physicslibrary.org/" enctype="multipart/form-data" accept-charset="UTF-8">
+    [% IF error %]<div class="pl-add-lecture-error" role="alert">[% error %]</div>[% END %]
+    <div class="pl-add-lecture-field">
+      <label for="lecture-title">Title<span class="pl-add-lecture-required">*</span>:</label>
+      <input type="text" name="title" id="lecture-title" size="75" value="[% title | html %]" aria-required="true" />
+    </div>
+    <div class="pl-add-lecture-field">
+      <label for="lecture-authors">Authors<span class="pl-add-lecture-required">*</span>:</label>
+      <input type="text" name="authors" id="lecture-authors" size="75" value="[% authors | html %]" aria-required="true" />
+    </div>
+    <div class="pl-add-lecture-field">
+      <label for="lecture-keywords">Keywords (<a href="/?op=assocguidelines">Guidelines</a>):</label>
+      <input type="text" name="keywords" id="lecture-keywords" size="75" value="[% keywords | html %]" />
+    </div>
+    <div class="pl-add-lecture-field">
+      <label for="lecture-class">Classification (See <a target="physicslibrary.popup" href="/?op=pacsbrowse">PACS</a>):</label>
+      <input type="text" name="class" id="lecture-class" size="75" value="[% class | html %]" aria-describedby="lecture-class-examples" />
+      <small id="lecture-class-examples">(examples: "01.65.+g", "00.,45.20.Jj,04.25.Dm". "pacs:" can be omitted, assumed by default.)</small>
+    </div>
+    <div class="pl-add-lecture-field">
+      <label for="lecture-comments">Additional Comments (typically date, # of pages, chapters, etc):</label>
+      <input type="text" name="comments" id="lecture-comments" size="75" max="128" value="[% comments | html %]" />
+    </div>
+    <div class="pl-add-lecture-field">
+      <label for="lecture-rights">Rights statement<span class="pl-add-lecture-required">*</span> (URLs will become hyperlinks):</label>
+      <textarea name="rights" id="lecture-rights" cols="75" rows="4" aria-required="true">[% rights | html %]</textarea>
+    </div>
+    <div class="pl-add-lecture-field">
+      <label for="lecture-data">Abstract<span class="pl-add-lecture-required">*</span>:</label>
+      <textarea name="data" id="lecture-data" cols="75" rows="8" aria-required="true">[% data | html %]</textarea>
+    </div>
+    <div class="pl-add-lecture-field">
+      <label for="lecture-urls">URLs for any remote content (one per line):</label>
+      <textarea name="urls" id="lecture-urls" cols="75" rows="4">[% urls | html %]</textarea>
+    </div>
+    <input type="hidden" name="op" value="[% op | html %]" />
+    <input type="hidden" name="to" value="[% to | html %]" />
+    <input type="submit" name="post" value="finished" />
+    [% IF fmanager_flag %]<div class="pl-add-lecture-filebox">[% fmanager %]</div>[% END %]
+  </form>
+</div>
