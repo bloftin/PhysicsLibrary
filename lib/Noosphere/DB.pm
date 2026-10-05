@@ -116,11 +116,39 @@ sub dbGather {
 }
 
 # get the schema of a database
-#  (this is VERY postgres-specific, unfortunately)
 #
 sub dbGetSchema {
   my $dbh = shift;
   my $table = shift;
+
+  if (getConfig('dbms') eq 'mysql' || getConfig('dbms') eq 'MariaDB') {
+    local $dbh->{RaiseError} = 0;
+    local $dbh->{PrintError} = 0;
+    my @results;
+    for my $query (
+      "SELECT COLUMN_NAME AS colname, COLUMN_TYPE AS typename,
+        (IS_NULLABLE = 'NO') AS notnull, COLUMN_DEFAULT AS `default`
+        FROM information_schema.COLUMNS
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? ORDER BY ORDINAL_POSITION",
+      "SELECT INDEX_NAME AS indname, COLUMN_NAME AS oncol,
+        (INDEX_NAME = 'PRIMARY') AS `primary`, (NON_UNIQUE = 0) AS `unique`
+        FROM information_schema.STATISTICS
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? ORDER BY INDEX_NAME, SEQ_IN_INDEX"
+    ) {
+      my $sth = $dbh->prepare($query);
+      return unless $sth;
+      unless ($sth->execute($table)) { $sth->finish(); return; }
+      my $rows = $sth->fetchall_arrayref({});
+      my $failed = $sth->err;
+      $sth->finish();
+      return if $failed || !defined($rows);
+      push @results, $rows;
+    }
+    for my $column (@{$results[0]}) {
+      $column->{default} = '[none]' unless defined $column->{default};
+    }
+    return @results;
+  }
   
   # get table column schema
   #
@@ -179,6 +207,19 @@ sub dbGetSchema {
 #
 sub dbGetTables {
   my $dbh = shift;
+
+  if (getConfig('dbms') eq 'mysql' || getConfig('dbms') eq 'MariaDB') {
+    local $dbh->{RaiseError} = 0;
+    local $dbh->{PrintError} = 0;
+    my $sth = $dbh->prepare('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() ORDER BY TABLE_NAME');
+    return unless $sth;
+    unless ($sth->execute()) { $sth->finish(); return; }
+    my $rows = $sth->fetchall_arrayref();
+    my $failed = $sth->err;
+    $sth->finish();
+    return if $failed || !defined($rows);
+    return map { $_->[0] } @$rows;
+  }
 
   return $dbh->tables();
 }

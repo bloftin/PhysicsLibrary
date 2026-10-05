@@ -78,14 +78,18 @@ sub dbDelete { push @deletes, $_[1]; return (1, rows([], 'delete')); }
     package AdminPageRows;
     sub rows { scalar @{$_[0]->{rows}} }
     sub fetchrow_hashref { $_[0]->{rows}[$_[0]->{pos}++] }
+    sub fetchall_arrayref { $_[0]->{rows} }
+    sub err { 0 }
     sub finish { push @finished, $_[0]->{kind} }
     sub execute { push @executes, [$_[0]->{sql}, @_ > 1 ? @_[1..$#_] : ()]; return $failure eq 'query' ? 0 : 1; }
     package AdminPageDB;
     sub prepare {
         push @sql, $_[1];
         my $data = $_[1] =~ /^select count/ ? [{cnt => 12}] : $_[1] =~ /^select/ ? [map {{%$_}} @results] : [];
-        my $sth = Noosphere::rows($data, 'sql'); $sth->{sql} = $_[1]; return $sth;
+        my $sth = Noosphere::rows($data, 'sql'); $sth->{sql} = $_[1];
+        $sth->{NUM_OF_FIELDS} = $_[1] =~ /^select/i ? 1 : 0; return $sth;
     }
+    sub quote_identifier { '`'.$_[1].'`' }
     sub errstr { 'SQL error <unexpected> & "token"' }
     package AdminPageStats;
     sub invalidate { push @invalidations, $_[1] }
@@ -176,7 +180,13 @@ ok(grep($_ eq 'sql', @finished), 'row-count statement released');
 reset_calls();
 $html = dbAdmin({freeform => 'submit', query => 'select title from objects'}, user(1));
 $fixtures{results} = $html;
-is($sql[0], 'select title, objects.oid from objects', 'original nonaggregate query OID behavior preserved');
+is($sql[0], 'select title from objects', 'MariaDB query runs unchanged');
+like($html, qr/Vector &lt;Triple&gt; &amp; &quot;Product&quot;/, 'MariaDB results render as escaped table cells');
+unlike($html, qr/name="(?:update|delete|col_title|oid)"/, 'MariaDB results do not offer OID-based row editing');
+local $config{dbms} = 'pg';
+reset_calls();
+$html = dbAdmin({freeform => 'submit', query => 'select title from objects'}, user(1));
+is($sql[0], 'select title, objects.oid from objects', 'PostgreSQL nonaggregate OID behavior preserved');
 my $fields = form_fields($html);
 is($fields->{oid}, 15, 'hidden row OID retained');
 is($fields->{table}, 'objects', 'result update/delete table retained');
@@ -202,6 +212,7 @@ is($sql[0], 'delete from objects where oid=15', 'original result delete query re
     local @results;
     like(dbAdmin({freeform => 1, query => 'select * from objects'}, user(1)), qr/No matching rows\./, 'empty query result retained');
 }
+$config{dbms} = 'MariaDB';
 
 $html = $fixtures{blacklist};
 like($html, qr/Current Blacklist:.*Add Blacklist Mask:.*perl regular expression masks/s, 'blacklist sections and full explanation retained');
