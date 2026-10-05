@@ -2,6 +2,7 @@ package Noosphere;
 
 use strict;
 use Encode;
+use Noosphere::EntryInteractions;
 # get requests "interact" box
 #
 sub getReqInteract {
@@ -29,52 +30,51 @@ sub getUnfilledReqCount {
 # view old (confirmed+filled) requests
 #
 sub oldReqs {
-	my $params=shift;
-	my $userinf=shift;
+	my $params = shift;
+	my $userinf = shift;
+	my $table = getConfig('req_tbl');
+	my $offset = defined($params->{offset}) && $params->{offset} =~ /\A\d+\z/ ? int($params->{offset}) : 0;
+	my $total = defined($params->{total}) && $params->{total} =~ /\A[1-9]\d*\z/ ? int($params->{total}) : -1;
+	my $limit = $userinf->{prefs}->{pagelength};
+	$limit = 20 unless defined($limit) && $limit =~ /\A\d+\z/ && $limit > 0;
 
-	my $html='';
-	my $table=getConfig('req_tbl');
-
-	my $offset=$params->{offset}||0;
-	my $total=$params->{total}||-1;
-	#my $limit=getConfig('listings_page');
-	my $limit=$userinf->{'prefs'}->{'pagelength'};
-
-	# get total
-	#
 	if ($total == -1) {
-		my ($rv,$sth)=dbSelect($dbh,{WHAT=>'uid',FROM=>$table,WHERE=>'closed is not null'});
-	$total=$sth->rows(); 
-	$sth->finish();
+		my ($rv, $sth) = dbSelect($dbh, {WHAT => 'uid', FROM => $table, WHERE => 'closed is not null'});
+		return errorMessage('Request query failed!') unless $rv && $sth;
+		$total = $sth->rows();
+		$sth->finish();
 	}
 
-	return paddingTable(clearBox('Old Requests',"No old requests")) if ($total == 0);
-
-	# pull up the rows 
-	#
-	my ($rv,$sth)=dbSelect($dbh,{WHAT=>"$table.*, u1.username, u2.username as username2",FROM=>"$table, users as u1, users as u2" ,WHERE=>"closed is not null and u1.uid=$table.creatorid and u2.uid=$table.fulfillerid",'ORDER BY'=>'created',DESC=>'',OFFSET=>$offset,LIMIT=>$limit});
-	my $returned=$sth->rows();
-	my @rows=dbGetRows($sth);
-
-	my $start=$offset+1;
-	my $finish=$start+$returned-1;
-
-	# do the listing
-	#
-	my $ord=$start;
-	foreach my $row (@rows) {
-	my $date=ymd($row->{created});
-		$html.="$ord. $date <a href=\"".getConfig("main_url")."/?op=getobj&from=$table&id=$row->{uid}\">$row->{title}</a> <font size=\"-1\">requested by </font><a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{creatorid}\">$row->{username}</a></a>";
-	$html.=" (<font size=\"-1\"><b>filled</b> by</font> <a href=\"".getConfig("main_url")."/?op=getuser&id=$row->{fulfillerid}\">$row->{username2}</a>)";
-	$html.="<br>";
-		$ord++;
+	my @requests;
+	if ($total > 0) {
+		my ($rv, $sth) = dbSelect($dbh, {
+			WHAT => "$table.*, u1.username, u2.username as username2",
+			FROM => "$table, users as u1, users as u2",
+			WHERE => "closed is not null and u1.uid=$table.creatorid and u2.uid=$table.fulfillerid",
+			'ORDER BY' => 'created', DESC => '', OFFSET => $offset, LIMIT => $limit,
+		});
+		return errorMessage('Request query failed!') unless $rv && $sth;
+		for my $row (dbGetRows($sth)) {
+			push @requests, {
+				number => $offset + @requests + 1,
+				title => $row->{title}, date => ymd($row->{created}),
+				requester => $row->{username}, filler => $row->{username2},
+				title_url => entryInteractionURL('getobj', from => $table, id => $row->{uid}),
+				requester_url => entryInteractionURL('getuser', id => $row->{creatorid}),
+				filler_url => entryInteractionURL('getuser', id => $row->{fulfillerid}),
+			};
+		}
 	}
-		
-	$params->{total}=$total;
-	$params->{offset}=$offset;
-	$html.=getPager($params,$userinf);
-	
-	return paddingTable(clearBox("Old Requests: $start-$finish of $total" ,$html));
+	$params->{total} = $total;
+	$params->{offset} = $offset;
+	my $pager = $total ? getPager({op => 'oldreqs', total => $total, offset => $offset},
+		{%$userinf, prefs => {%{$userinf->{prefs}}, pagelength => $limit}}) : '';
+
+	return entryInteractionTemplate('oldrequests.tt', {
+		requests => \@requests, total => $total,
+		start => @requests ? $offset + 1 : 0, finish => $offset + @requests,
+		pager => $pager,
+	});
 }
 
 # confirm ALL requests
@@ -389,28 +389,25 @@ sub updateRequest {
 sub updateReq {
 	my $params = shift;
 	my $userinf = shift;
-
-	my $template = new TemplateNS("updatereq.html");
-	my $error = '';
-
 	return errorMessage("You have to be logged in for this!") if ($userinf->{uid} <= 0);
 
+	my @errors;
+	my $selected = defined($params->{request}) ? $params->{request} : '-1';
 	if (defined $params->{submit}) {
-		$error.="You must select a request.<br>" if ($params->{request} == -1 || $params->{request} eq "[none]");
-	$error.="No object found for identifier.<br>" if (!objectExistsByAny($params->{identifier}));
-
-	if (!$error) {
-			return updateRequest($params, $userinf);
-	}
-	} else {
-		$template->unsetKey('identifier');
+		push @errors, 'You must select a request.' unless $selected =~ /\A\d+\z/;
+		push @errors, 'No object found for identifier.'
+			unless nb($params->{identifier}) && objectExistsByAny($params->{identifier});
+		return updateRequest($params, $userinf) unless @errors;
 	}
 
-	my $updater = getRequestUpdater($params);
-	$template->setKeys(%$params);
-	$template->setKeys('error' => $error, 'updater' => $updater);
-	
-	return paddingTable(makeBox('Update a request',$template->expand()));
+	my $options = getUnfilledReqs();
+	return errorMessage('Request query failed!') unless $options;
+	my @options = map {{value => $_, label => $options->{$_}}}
+		sort {humanReadableCmp($options->{$a}, $options->{$b}) || $a cmp $b} keys %$options;
+	return entryInteractionTemplate('updaterequest.tt', {
+		options => \@options, selected => $selected, errors => \@errors,
+		identifier => defined($params->{identifier}) ? $params->{identifier} : '',
+	});
 }
 
 # return html for self-contained request updater widget
@@ -468,6 +465,7 @@ sub getUnfilledReqs {
 	my $table=getConfig('req_tbl');
 	
 	my ($rv,$sth)=dbSelect($dbh,{WHAT=>'uid,title',FROM=>$table,WHERE=>'fulfilled is null'});  #,'ORDER BY'=>'lower(title)'});
+	return undef unless $rv && $sth;
 	# BEN ADDING rows returned
 	#my $returned=$sth->rows();
 	my @rows=dbGetRows($sth);

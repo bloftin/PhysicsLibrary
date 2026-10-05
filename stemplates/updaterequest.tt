@@ -1,0 +1,26 @@
+[% INCLUDE requestworkflowstyles.tt %]
+<section class="pl-request-workflow" aria-label="Update a request">
+  [% INCLUDE modernboxheader.tt title = 'Update a request' %]
+  <nav class="pl-request-workflow-nav" aria-label="Request navigation">
+    <a href="/?op=reqlist">Requests</a>
+    <a href="/?op=oldreqs">Browse completed requests</a>
+  </nav>
+  [% IF errors.size %]
+    <div class="pl-request-update-errors" role="alert"><ul>[% FOREACH error IN errors %]<li>[% error | html %]</li>[% END %]</ul></div>
+  [% END %]
+  <form class="pl-request-update-form" method="post" action="/">
+    <div class="pl-request-update-field">
+      <label for="pl-request-update-request">Update filled status for:</label>
+      <select name="request" id="pl-request-update-request">
+        [% FOREACH option IN options %]<option value="[% option.value | html %]"[% IF selected == option.value %] selected="selected"[% END %]>[% option.label | html %]</option>[% END %]
+      </select>
+    </div>
+    <div class="pl-request-update-field">
+      <label for="pl-request-update-identifier">Object which fills this request:</label>
+      <input type="text" name="identifier" id="pl-request-update-identifier" value="[% identifier | html %]" aria-describedby="pl-request-update-identifier-help" required>
+      <p class="pl-request-update-help" id="pl-request-update-identifier-help">(id or canonical name)</p>
+    </div>
+    <input type="hidden" name="op" value="updatereq">
+    <button type="submit" name="submit" value="update">Update</button>
+  </form>
+</section>

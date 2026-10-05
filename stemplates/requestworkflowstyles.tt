@@ -1,0 +1,30 @@
+<style type="text/css">
+.pl-request-workflow { color: #1d2935; font-family: Arial, Helvetica, sans-serif; min-width: 0; overflow-wrap: anywhere; }
+.pl-request-workflow a { color: #064d93; }
+.pl-request-workflow :focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-request-workflow-nav { border-bottom: 1px solid #cbd6de; display: flex; flex-wrap: wrap; font-size: .85rem; gap: .35rem 1rem; margin: 0 0 .65rem; padding: .2rem 0 .65rem; }
+.pl-request-workflow-summary, .pl-request-workflow-empty { color: #445b70; font-size: .85rem; line-height: 1.5; margin: .65rem 0; }
+.pl-completed-requests { list-style: none; margin: 0; padding: 0; }
+.pl-completed-request { border-bottom: 1px solid #cbd6de; display: grid; font-size: .9rem; gap: .35rem .65rem; grid-template-columns: 1.75rem minmax(0, 1fr); line-height: 1.5; padding: .55rem 0; }
+.pl-completed-request:first-child { border-top: 1px solid #cbd6de; }
+.pl-completed-request-number { color: #445b70; font-size: .85rem; }
+.pl-completed-request-detail { align-items: baseline; display: flex; flex-wrap: wrap; gap: .2rem .8rem; min-width: 0; }
+.pl-completed-request-title { font-weight: bold; }
+.pl-completed-request-meta { color: #445b70; font-size: .82rem; }
+.pl-request-workflow-pager { font-size: .85rem; line-height: 1.6; padding: .65rem 0; text-align: center; }
+.pl-request-workflow-pager > br { display: none; }
+.pl-request-update-form { background: #f0f4f7; border: 1px solid #cbd6de; box-sizing: border-box; max-width: 44rem; padding: .75rem; }
+.pl-request-update-field { margin: 0 0 .85rem; min-width: 0; }
+.pl-request-update-field label { display: block; font-size: .85rem; font-weight: bold; margin-bottom: .3rem; }
+.pl-request-update-field input, .pl-request-update-field select { background: #fff; border: 1px solid #9aaab9; box-sizing: border-box; color: #1d2935; font: normal .95rem Arial, Helvetica, sans-serif; max-width: 100%; min-width: 0; padding: .4rem .5rem; width: 100%; }
+.pl-request-update-field select { height: 2.15rem; padding: .25rem .35rem; }
+.pl-request-update-help { color: #445b70; font-size: .8rem; margin: .3rem 0 0; }
+.pl-request-update-form button { background: #194f78; border: 1px solid #153f60; color: #fff; cursor: pointer; font: normal .85rem Arial, Helvetica, sans-serif; min-height: 1.85rem; padding: .3rem .75rem; }
+.pl-request-update-form button:hover { background: #123e60; }
+.pl-request-update-errors { background: #fff4f1; border-left: 3px solid #a12d23; color: #84231d; font-size: .9rem; line-height: 1.5; margin: 0 0 .75rem; padding: .5rem .75rem; }
+.pl-request-update-errors ul { margin: 0; padding-left: 1.25rem; }
+@media (max-width: 640px) {
+  .pl-request-update-form { padding: .6rem; }
+  .pl-completed-request { gap: .3rem .35rem; grid-template-columns: 1.4rem minmax(0, 1fr); }
+}
+</style>
