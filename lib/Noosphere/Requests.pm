@@ -6,13 +6,13 @@ use Noosphere::EntryInteractions;
 # get requests "interact" box
 #
 sub getReqInteract {
-	my $rec=shift;
-
-	my $table=getConfig('req_tbl');
-
-	my $title=urlescape($rec->{title});
-
-	return makeBox('Interact',"<center><a href=\"".getConfig("main_url")."/?op=addreq\">add</a> | <a href=\"".getConfig("main_url")."/?op=adden&request=$rec->{uid}&title=$title\">fill</a> | <a href=\"".getConfig("main_url")."/?op=updatereq&request=$rec->{uid}\">update</a> | <a href=\"".getConfig("main_url")."/?op=postmsg&from=$table&id=$rec->{uid}\">post</a></center>");
+	my $rec = shift;
+	return entryInteractionSection('Interact', entryInteractionActions([
+		{label => 'Add', url => entryInteractionURL('addreq')},
+		{label => 'Fill', url => entryInteractionURL('adden', request => $rec->{uid}, title => $rec->{title})},
+		{label => 'Update', url => entryInteractionURL('updatereq', request => $rec->{uid})},
+		{label => 'Post', url => entryInteractionURL('postmsg', from => getConfig('req_tbl'), id => $rec->{uid})},
+	], 'Request actions'));
 }
 
 # get a count of unfilled requests
@@ -655,14 +655,24 @@ sub reqListLegacy {
 #
 sub printContextLinks {
 	my $id = shift;	# request id
+	my $modern = shift;
 
 	my $html = '';
 	my $table = getConfig('req_tbl');
 
 		my ($rv,$sth) = dbSelect($dbh,{WHAT=>"destid,desttbl",FROM=>'objlinks',WHERE=>"srcid=$id and srctbl='$table'"});
 
-	if ($sth->rows()>0) {
-		my @rows = dbGetRows($sth);
+	return '' unless $rv && $sth;
+	my @rows = dbGetRows($sth);
+	if ($modern) {
+		return '' unless @rows;
+		my @links = map {{
+			label => lookupfield($_->{desttbl}, 'title', "uid=$_->{destid}"),
+			url => entryInteractionURL('getobj', from => $_->{desttbl}, id => $_->{destid}),
+		}} @rows;
+		return entryInteractionActions(\@links, 'Request context');
+	}
+	if (@rows) {
 
 		foreach my $link (@rows) {
 			my $title = lookupfield($link->{desttbl},'title',"uid=$link->{destid}");
@@ -678,96 +688,41 @@ sub printContextLinks {
 sub getReq {
 	my $params = shift;
 	my $userinf = shift;
-
 	my $id = $params->{id};
-
-	my $template = new TemplateNS('reqobj.html');
-
-	my $html = '';
 	my $table = getConfig('req_tbl');
-
-	my ($rv,$sth) = dbSelect($dbh,{WHAT=>"$table.*,username as createname",FROM=>"$table,users",WHERE=>"$table.uid=$id and users.uid=creatorid"});
-
-	return errorMessage('Error with query') if (!$rv); 
-	return errorMessage('Couldn\'t find record!') if ($sth->rows()<1);
-
+	my ($rv, $sth) = dbSelect($dbh, {
+		WHAT => "$table.*,username as createname", FROM => "$table,users",
+		WHERE => "$table.uid=$id and users.uid=creatorid",
+	});
+	return errorMessage('Error with query') unless $rv && $sth;
+	if ($sth->rows() < 1) {
+		$sth->finish();
+		return errorMessage('Couldn\'t find record!');
+	}
 	my $row = $sth->fetchrow_hashref();
 	$sth->finish();
 
-	my $status = "opened";
-	my $filledflag = 0;
-	
-	if (defined $row->{fulfilled}) {
-		$status = "filled (unconfirmed)";
-	$filledflag = 1;
-	}
-	if (defined $row->{closed}) {
-		$status = "filled (confirmed)";
-	}
-
-	$html .= "Request by: $row->{createname}<br>";
-	$html .= "Date: $row->{created}<br>";
-	$html .= "Status: $status<br>";
-	if ($filledflag) {
-		$html .= "Date: $row->{fulfilled}<br>";
-	}
-	
-	$html .= "<br>Title: $row->{title}<br>";
-
-	$html .= "<br>Text:<br>";
-	
-	$html .= "<table width=\"100%\" cellpadding=\"5\">";
-	$html .= "	<tr>";
-	$html .= "		<td bgcolor=\"#ffffff\">";
-	my $text = tohtmlascii($row->{data});
-	$html .= "		$text";
-	$html .= "		</td>";
-	$html .= "	</tr>";
-	$html .= "</table>";
-
-	# show context links
-	#
-	if ($filledflag) {
-	my $clinks = printContextLinks($id);
-
-	if ($clinks) {
-		$html .= "<br>Context: ";
-		$html .= "<table cellpadding=\"5\"><td>$clinks</td></table>";
-	}
-	}
-
-	# admin controls 
-	#
-	if ($userinf->{'data'}->{'access'} >= getConfig('access_admin')
-		&& (not defined $row->{'closed'})) {
-
-		$html .= "<center><br>";
-		$html .= "[ ";
-
-		if (defined $row->{'fulfilled'}) {
-			$html .= "<a href=\"".getConfig("main_url")."/?op=confirmreq&id=$params->{id}\">confirm</a> | ";
-			$html .= "<a href=\"".getConfig("main_url")."/?op=denyreq&id=$params->{id}\">deny</a> | ";
+	my $filled = defined $row->{fulfilled};
+	my $status = $filled ? 'filled (unconfirmed)' : 'opened';
+	$status = 'filled (confirmed)' if defined $row->{closed};
+	my $context = $filled ? printContextLinks($id, 1) : '';
+	my @admin;
+	if ($userinf->{data}->{access} >= getConfig('access_admin') && !defined($row->{closed})) {
+		if ($filled) {
+			push @admin,
+				{label => 'Confirm', url => entryInteractionURL('confirmreq', id => $id)},
+				{label => 'Deny', url => entryInteractionURL('denyreq', id => $id)};
 		}
-
-		$html .= "<a href=\"".getConfig("main_url")."/?op=deletereq&id=$params->{id}\">delete</a>";
-		$html .= " ]";
-		$html .= "</center>";
-		$html .= "<br>";
+		push @admin, {label => 'Delete', url => entryInteractionURL('deletereq', id => $id), danger => 1};
 	}
-
-	my $interact=getReqInteract($row);
-	
-	my $up='';
-	if ($filledflag && defined $row->{closed}) {
-		$up=getUpArrow("".getConfig("main_url")."/?op=oldreqs",'up');
-	} else {
-		$up=getUpArrow("".getConfig("main_url")."/?op=reqlist",'up');
-	}
-	
-	$template->setKey('request',makeBox("$up Viewing Request",$html));
-	$template->setKey('interact',$interact);
-
-	return $template;
+	return entryInteractionTemplate('requestview.tt', {
+		request => $row, status => $status, filled => $filled,
+		text => tohtmlascii($row->{data}), context => $context,
+		index_url => entryInteractionURL($filled && defined($row->{closed}) ? 'oldreqs' : 'reqlist'),
+		index_label => $filled && defined($row->{closed}) ? 'Browse completed requests' : 'Requests',
+		requester_url => entryInteractionURL('getuser', id => $row->{creatorid}),
+		admin => @admin ? entryInteractionSection('Admin Controls', entryInteractionActions(\@admin, 'Request administration'), 1) : '',
+	});
 }
 
 1;

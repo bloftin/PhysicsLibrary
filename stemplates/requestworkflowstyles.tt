@@ -23,6 +23,15 @@
 .pl-request-update-form button:hover { background: #123e60; }
 .pl-request-update-errors { background: #fff4f1; border-left: 3px solid #a12d23; color: #84231d; font-size: .9rem; line-height: 1.5; margin: 0 0 .75rem; padding: .5rem .75rem; }
 .pl-request-update-errors ul { margin: 0; padding-left: 1.25rem; }
+.pl-request-view-title { font-size: 1rem; line-height: 1.4; margin: .65rem 0; }
+.pl-request-view-meta { color: #445b70; display: flex; flex-wrap: wrap; font-size: .85rem; gap: .35rem 1.25rem; line-height: 1.5; margin: 0 0 .85rem; }
+.pl-request-view-meta div { display: flex; flex-wrap: wrap; gap: .25rem; min-width: 0; }
+.pl-request-view-meta dt { font-weight: bold; }
+.pl-request-view-meta dd { margin: 0; }
+.pl-request-view-label { font-size: .85rem; margin: .85rem 0 .35rem; }
+.pl-request-view-text { font-size: .9rem; line-height: 1.6; }
+.pl-request-view-context { font-size: .9rem; }
+.pl-request-view-watch { font-size: .85rem; margin: .65rem 0; }
 @media (max-width: 640px) {
   .pl-request-update-form { padding: .6rem; }
   .pl-completed-request { gap: .3rem .35rem; grid-template-columns: 1.4rem minmax(0, 1fr); }

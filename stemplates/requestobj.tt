@@ -1,0 +1,7 @@
+[% INCLUDE entryinteractionstyles.tt %]
+<div class="pl-request-workflow">
+  [% renderObj %]
+  [% IF watch %]<div class="pl-request-view-watch">[% watch %]</div>[% END %]
+  [% messages %]
+  [% interact %]
+</div>

@@ -1,0 +1,16 @@
+[% INCLUDE requestworkflowstyles.tt %]
+<section class="pl-request-view" aria-label="Viewing Request">
+  [% INCLUDE modernboxheader.tt title = 'Viewing Request' %]
+  <nav class="pl-request-workflow-nav" aria-label="Request navigation"><a href="[% index_url | html %]">[% index_label | html %]</a></nav>
+  <h2 class="pl-request-view-title">Title: [% request.title | html %]</h2>
+  <dl class="pl-request-view-meta">
+    <div><dt>Request by:</dt><dd><a href="[% requester_url | html %]">[% request.createname | html %]</a></dd></div>
+    <div><dt>Date:</dt><dd>[% request.created | html %]</dd></div>
+    <div><dt>Status:</dt><dd>[% status | html %]</dd></div>
+    [% IF filled %]<div><dt>Date:</dt><dd>[% request.fulfilled | html %]</dd></div>[% END %]
+  </dl>
+  <h3 class="pl-request-view-label">Text:</h3>
+  <div class="pl-request-view-text">[% text %]</div>
+  [% IF context %]<h3 class="pl-request-view-label">Context:</h3><div class="pl-request-view-context">[% context %]</div>[% END %]
+  [% admin %]
+</section>
