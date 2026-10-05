@@ -1,0 +1,52 @@
+<style type="text/css">
+.pl-poll-object, .pl-poll-view { color: #1d2935; font-family: Arial, Helvetica, sans-serif; min-width: 0; overflow-wrap: anywhere; }
+.pl-poll-view a { color: #064d93; }
+.pl-poll-view a:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-poll-question { font-size: 1rem; line-height: 1.4; margin: .65rem 0 .35rem; }
+.pl-poll-meta { color: #445b70; display: flex; flex-wrap: wrap; font-size: .85rem; gap: .25rem 1rem; line-height: 1.5; margin: 0 0 .65rem; }
+.pl-poll-nav { align-items: center; border-bottom: 1px solid #cbd6de; display: flex; flex-wrap: wrap; font-size: .85rem; gap: .4rem 1rem; margin: 0 0 .65rem; padding: 0 0 .65rem; }
+.pl-poll-view .pl-poll-vote { background: #194f78; border: 1px solid #153f60; color: #fff; padding: .3rem .65rem; text-decoration: none; }
+.pl-poll-view .pl-poll-vote:hover { background: #123e60; }
+.pl-poll-results { border-collapse: collapse; font-size: .9rem; table-layout: fixed; width: 100%; }
+.pl-poll-results caption { font-size: .9rem; font-weight: bold; padding: .2rem 0 .45rem; text-align: left; }
+.pl-poll-results th, .pl-poll-results td { border-bottom: 1px solid #cbd6de; line-height: 1.4; padding: .45rem .5rem; text-align: left; vertical-align: middle; }
+.pl-poll-results thead th { background: #eef3f7; color: #445b70; font-size: .8rem; }
+.pl-poll-results .pl-poll-count { text-align: right; width: 3rem; }
+.pl-poll-results .pl-poll-share { width: 30%; }
+.pl-poll-bar { background: #e1e8ed; display: block; height: .5rem; margin-top: .25rem; overflow: hidden; }
+.pl-poll-bar span { background: #194f78; display: block; height: 100%; }
+.pl-poll-total, .pl-poll-empty { color: #445b70; font-size: .85rem; line-height: 1.5; margin: .65rem 0 0; }
+@media (max-width: 640px) {
+  .pl-poll-results th, .pl-poll-results td { padding: .4rem .25rem; }
+  .pl-poll-results .pl-poll-count { width: 2.5rem; }
+}
+</style>
+
+<section class="pl-poll-view" aria-label="Poll results">
+  [% INCLUDE modernboxheader.tt title = 'Viewing Poll' %]
+  <h2 class="pl-poll-question">[% poll.title | html %]</h2>
+  <p class="pl-poll-meta">
+    <span>[% IF poll.opened %]Open[% ELSE %]Closed[% END %]</span>
+    <span>[% start | html %] to [% finish | html %]</span>
+  </p>
+  <nav class="pl-poll-nav" aria-label="Poll navigation">
+    <a href="[% index_url | html %]">All polls</a>
+    [% IF poll.opened %]<a class="pl-poll-vote" href="[% vote_url | html %]">Vote in poll</a>[% END %]
+  </nav>
+  [% IF results.size %]
+    <table class="pl-poll-results">
+      <caption>Results</caption>
+      <thead><tr><th scope="col">Response</th><th scope="col" class="pl-poll-count">Votes</th><th scope="col" class="pl-poll-share">Share</th></tr></thead>
+      <tbody>
+        [% FOREACH result IN results %]
+          <tr>
+            <th scope="row">[% result.option | html %]</th>
+            <td class="pl-poll-count">[% result.count | html %]</td>
+            <td class="pl-poll-share">[% result.percent | html %]%<span class="pl-poll-bar" aria-hidden="true"><span style="width: [% result.bar_width | html %]%;"></span></span></td>
+          </tr>
+        [% END %]
+      </tbody>
+    </table>
+  [% ELSE %]<p class="pl-poll-empty">No poll responses are available.</p>[% END %]
+  <p class="pl-poll-total">[% total | html %] people voted total.</p>
+</section>
