@@ -1,0 +1,23 @@
+[% INCLUDE requestworkflowstyles.tt %]
+<section class="pl-request-workflow" aria-label="Completed requests">
+  [% INCLUDE modernboxheader.tt title = 'Old Requests' %]
+  <nav class="pl-request-workflow-nav" aria-label="Request navigation">
+    <a href="/?op=reqlist">Requests</a>
+    <a href="/?op=updatereq">Update a request</a>
+  </nav>
+  [% IF requests.size %]
+    <p class="pl-request-workflow-summary">[% start | html %]-[% finish | html %] of [% total | html %]</p>
+    <ol class="pl-completed-requests" start="[% start | html %]">
+      [% FOREACH request IN requests %]
+        <li class="pl-completed-request">
+          <span class="pl-completed-request-number" aria-hidden="true">[% request.number | html %].</span>
+          <div class="pl-completed-request-detail">
+            <a class="pl-completed-request-title" href="[% request.title_url | html %]">[% request.title | html %]</a>
+            <span class="pl-completed-request-meta"><time datetime="[% request.date | html %]">[% request.date | html %]</time> requested by <a href="[% request.requester_url | html %]">[% request.requester | html %]</a> (<strong>filled</strong> by <a href="[% request.filler_url | html %]">[% request.filler | html %]</a>)</span>
+          </div>
+        </li>
+      [% END %]
+    </ol>
+  [% ELSE %]<p class="pl-request-workflow-empty">[% IF total %]No old requests on this page.[% ELSE %]No old requests[% END %]</p>[% END %]
+  [% IF pager %]<nav class="pl-request-workflow-pager" aria-label="Completed request pages">[% pager %]</nav>[% END %]
+</section>

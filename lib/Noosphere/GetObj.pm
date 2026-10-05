@@ -75,9 +75,11 @@ sub getObj {
 	my $is_news = $from eq getConfig('news_tbl');
 	my $is_forum = $from eq getConfig('forum_tbl');
 	my $is_poll = $from eq getConfig('polls_tbl');
-	my $modern_entry = $from eq getConfig('en_tbl') || $is_news || $is_forum || $is_poll || $from eq getConfig('cor_tbl') || $is_generic_library_item;
+	my $is_request = $from eq getConfig('req_tbl');
+	my $modern_entry = $from eq getConfig('en_tbl') || $is_news || $is_forum || $is_poll || $is_request || $from eq getConfig('cor_tbl') || $is_generic_library_item;
 	$file = 'newsobj.tt' if $is_news;
 	$file = 'pollobj.tt' if $is_poll;
+	$file = 'requestobj.tt' if $is_request;
 	#dwarn "name";
 	#dwarn $name;
 	#dwarn "id";
@@ -240,6 +242,9 @@ sub getObj {
 		$interact = entryInteractionSection('Interact', entryInteractionActions([
 			{label => 'Post', url => entryInteractionURL('postmsg', from => $from, id => $id)},
 		], 'Poll actions'));
+	}
+	elsif ($is_request) {
+		$interact = getReqInteract($rec);
 	}
 	elsif ($from eq getConfig('papers_tbl') ||
 		$from eq getConfig('exp_tbl') ||
