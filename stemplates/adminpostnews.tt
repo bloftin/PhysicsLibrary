@@ -1,0 +1,13 @@
+[% INCLUDE adminpagestyles.tt %]
+<section class="pl-admin-page" aria-label="Post News Item">
+  [% INCLUDE modernboxheader.tt title = 'Post News Item' %]
+  [% IF error %]<div class="pl-admin-error" role="alert">[% error %]</div>[% END %]
+  [% IF spell %]<div class="pl-admin-notice">[% spell %]</div>[% END %]
+  <form class="pl-admin-form" method="post" action="/">
+    <div class="pl-admin-field"><label for="pl-news-headline">Headline:</label><input type="text" name="headline" id="pl-news-headline" value="[% values.headline | html %]"></div>
+    <div class="pl-admin-field"><label for="pl-news-intro">Intro copy (teaser, shows up on main page):</label><textarea name="intro" id="pl-news-intro" rows="10">[% values.intro | html %]</textarea></div>
+    <div class="pl-admin-field"><label for="pl-news-body">Full copy (rest of article, do not repeat any of the above):</label><textarea name="body" id="pl-news-body" rows="15">[% values.body | html %]</textarea></div>
+    <input type="hidden" name="op" value="postnews">
+    <div class="pl-admin-actions"><button type="submit" name="submit" value="post">Post</button><button type="submit" name="submit" value="spell">Spell</button></div>
+  </form>
+</section>

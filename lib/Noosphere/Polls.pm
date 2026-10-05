@@ -5,30 +5,15 @@ use Noosphere::EntryInteractions;
 # add a poll
 #
 sub addPoll {
-	my $params = shift;
-	my $userinf = shift;
-
-	my $template = new XSLTemplate('newpoll.xsl');
-	
+	my ($params, $userinf) = @_;
+	return noAccess() if ($userinf->{data}->{access} < getConfig('access_admin'));
 	my $error = '';
-	
-	$template->addText('<newpoll>');
-
 	if (defined($params->{submit})) {
 		$error = checkNewPoll($params);
-		$template->addText("<error>$error</error>") if $error;
-		$template->setKeys(%$params);
-		if ($error eq "") {
-			return insertNewPoll($params,$userinf);
-		}
-	} else {
-		# init
-		$template->setKey('ttl', '7');
+		return insertNewPoll($params, $userinf) if $error eq '';
 	}
- 
-	$template->addText('</newpoll>');
-
-	return $template->expand();
+	return entryInteractionTemplate('adminnewpoll.tt', {values => $params, error => $error,
+		ttl => defined($params->{submit}) ? $params->{ttl} : '7'});
 }
 
 # insert a new poll to the database
@@ -72,7 +57,9 @@ sub insertNewPoll {
 
 	$sth->finish();
 
-	return paddingTable(makeBox('Poll created',"Your poll has been successfully created. You should go vote!"));
+	return entryInteractionTemplate('adminresult.tt', {
+		title => 'Poll created', message => 'Your poll has been successfully created. You should go vote!',
+	});
 }
 
 # error checking on new poll data

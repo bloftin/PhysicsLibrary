@@ -1,0 +1,22 @@
+[% INCLUDE adminpagestyles.tt %]
+<section class="pl-admin-page" aria-label="Database Admin">
+  [% INCLUDE modernboxheader.tt title = 'Database Admin' %]
+  <h2>Get table information</h2>
+  <form class="pl-admin-form" action="/" method="post">
+    <div class="pl-admin-field"><label for="pl-db-table">Select a table:</label>
+      <select name="table" id="pl-db-table">[% FOREACH table IN tables %]<option value="[% table | html %]"[% IF table == selected_table %] selected="selected"[% END %]>[% table | html %]</option>[% END %]</select>
+    </div>
+    <input type="hidden" name="op" value="dbadmin"><input type="hidden" name="qhist" value="[% qhist | html %]">
+    <button type="submit" name="schema" value=" go ">Go</button>
+  </form>
+  <h2>Freeform query</h2>
+  <form class="pl-admin-form" name="freeform" action="/" method="post">
+    <div class="pl-admin-field"><label for="pl-db-history">History:</label>
+      <select name="history" id="pl-db-history" onchange="this.form.elements.query.value=unescape(this.value)">[% FOREACH item IN history %]<option value="[% item.value | html %]"[% IF item.value == first_history %] selected="selected"[% END %]>[% item.label | html %]</option>[% END %]</select>
+    </div>
+    <div class="pl-admin-field"><label for="pl-db-query">Query:</label><textarea class="pl-admin-query" rows="5" name="query" id="pl-db-query">[% query | html %]</textarea></div>
+    <input type="hidden" name="op" value="dbadmin"><input type="hidden" name="qhist" value="[% qhist | html %]">
+    <button type="submit" name="freeform" value="submit">Submit</button>
+  </form>
+  [% IF output %]<div class="pl-admin-output">[% output %]</div>[% END %]
+</section>
