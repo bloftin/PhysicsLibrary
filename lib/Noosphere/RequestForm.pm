@@ -170,9 +170,12 @@ sub requestFormConfirmation {
     }
     my $message = requestFormEscape($warning || 'Review the details before continuing.');
     return '<style>'.
-        '.pl-confirm-action{max-width:46rem;margin:1.5rem auto;padding:1.25rem 1.35rem;'.
+        '.pl-confirm-action__header{background:#003399;border-bottom:1px solid #002266;'.
+        'box-sizing:border-box;color:#fff;margin:0;padding:.15rem .5rem}'.
+        '.pl-confirm-action__header h1{color:#fff;font:bold 1rem Arial,Helvetica,sans-serif;'.
+        'letter-spacing:0;line-height:1.2;margin:0;min-width:0;overflow-wrap:anywhere}'.
+        '.pl-confirm-action{max-width:46rem;margin:.65rem auto 0;padding:1.25rem 1.35rem;'.
         'border:1px solid #b8c9d8;background:#fff;color:#182633}'.
-        '.pl-confirm-action h2{margin:0;color:#173f67;font-size:1.45em}'.
         '.pl-confirm-action__intro{margin:.4rem 0 1rem;color:#455d73}'.
         '.pl-confirm-action__warning{margin:0 0 1rem;padding:.65rem .75rem;'.
         'border-left:4px solid #b24a23;background:#fff4e8;color:#652c18}'.
@@ -187,7 +190,8 @@ sub requestFormConfirmation {
         '.pl-confirm-action__cancel{color:#174f83}'.
         '@media(max-width:34rem){.pl-confirm-action{margin:.75rem 0;padding:1rem}'.
         '.pl-confirm-action__detail{grid-template-columns:1fr;gap:.15rem}}</style>'.
-        '<section class="pl-confirm-action"><h2>Confirm Action</h2>'.
+        '<header class="pl-confirm-action__header"><h1 id="pl-confirm-action-title">Confirm Action</h1></header>'.
+        '<section class="pl-confirm-action" aria-labelledby="pl-confirm-action-title">'.
         '<p class="pl-confirm-action__intro">No change has been made yet.</p>'.
         (defined($warning) ? '<p class="pl-confirm-action__warning">'.$message.'</p>' : '').
         '<dl class="pl-confirm-action__details">'.$details.'</dl>'.
