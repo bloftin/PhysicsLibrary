@@ -1,0 +1,8 @@
+[% INCLUDE adminpagestyles.tt %]
+<section class="pl-admin-page" aria-label="Administrative Statistics">
+  [% INCLUDE modernboxheader.tt title = 'Administrative Statistics' %]
+  <table class="pl-admin-table">
+    <thead><tr><th scope="col">Statistic</th><th scope="col" class="pl-admin-count">Value</th></tr></thead>
+    <tbody>[% FOREACH row IN rows %]<tr><th scope="row">[% row.label | html %]</th><td class="pl-admin-count">[% row.value | html %]</td></tr>[% END %]</tbody>
+  </table>
+</section>

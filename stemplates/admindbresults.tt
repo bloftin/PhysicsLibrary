@@ -1,0 +1,13 @@
+<h2>Results ([% records.size | html %]):</h2>
+[% FOREACH record IN records %]
+  <form class="pl-admin-form" method="post" action="/">
+    <div class="pl-admin-record-fields">[% FOREACH field IN record.fields %]
+      <div class="pl-admin-field"><label for="[% field.id | html %]">[% field.name | html %]:</label><input type="text" name="col_[% field.name | html %]" id="[% field.id | html %]" value="[% field.value | html %]"></div>
+    [% END %]</div>
+    [% IF record.oid %]
+      <input type="hidden" name="oid" value="[% record.oid | html %]"><input type="hidden" name="table" value="[% table | html %]">
+      <input type="hidden" name="op" value="dbadmin"><input type="hidden" name="qhist" value="[% qhist | html %]">
+      <div class="pl-admin-actions"><button type="submit" name="update" value="update">Update</button><button class="pl-admin-danger" type="submit" name="delete" value="delete">Delete</button></div>
+    [% END %]
+  </form>
+[% END %]

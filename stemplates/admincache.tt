@@ -1,0 +1,43 @@
+[% INCLUDE adminpagestyles.tt %]
+<section class="pl-admin-page" aria-label="Cache Control">
+  [% INCLUDE modernboxheader.tt title = title %]
+  [% IF feedback %]<div class="pl-admin-notice" role="status">[% feedback | html %]</div>[% END %]
+  [% IF group == 'stats' %]
+    <p>Cache table for statistics (<a href="/?op=cachecont&amp;group=stats">refresh</a>):</p>
+    <div class="pl-admin-table-scroll"><table class="pl-admin-table pl-admin-table-wide">
+      <thead><tr><th scope="col">key</th><th scope="col" class="pl-admin-date">last update</th><th scope="col" class="pl-admin-control">control</th></tr></thead>
+      <tbody>[% FOREACH row IN rows %]<tr><th scope="row">[% row.key | html %]</th><td>[% row.date | html %]</td><td>
+        [% IF row.valid %]<form method="post" action="/">
+          <input type="hidden" name="key" value="[% row.key | html %]"><input type="hidden" name="op" value="cachecont"><input type="hidden" name="group" value="stats">
+          <button type="submit" name="invalidate" value="invalidate">Invalidate</button>
+        </form>[% ELSE %](invalid)[% END %]
+      </td></tr>[% END %]</tbody>
+    </table></div>
+    [% UNLESS rows.size %]<p>No cache entries.</p>[% END %]
+    <nav class="pl-admin-links" aria-label="Cache navigation"><a href="[% edit_url | html %]">freeform edit this table</a><a href="/?op=cachecont">back</a></nav>
+  [% ELSIF group == 'en' %]
+    <p>Cache table for encyclopedia (<a href="/?op=cachecont&amp;group=en&amp;method=[% method | uri | html %]&amp;offset=[% offset | html %]">refresh</a>):</p>
+    <form class="pl-admin-form" method="get" action="/" name="methodform">
+      <div class="pl-admin-field"><label for="pl-cache-method">Viewing for:</label><select name="method" id="pl-cache-method" onchange="this.form.submit()">[% FOREACH item IN methods %]<option value="[% item.value | html %]"[% IF method == item.value %] selected="selected"[% END %]>[% item.label | html %]</option>[% END %]</select></div>
+      <input type="hidden" name="op" value="cachecont"><input type="hidden" name="group" value="en"><button type="submit">Reload</button>
+    </form>
+    [% IF pager %]<nav class="pl-admin-pager" aria-label="Cache pages">[% pager %]</nav>[% END %]
+    <div class="pl-admin-table-scroll"><table class="pl-admin-table pl-admin-table-wide">
+      <thead><tr><th scope="col">title</th><th scope="col" class="pl-admin-date">last update</th><th scope="col" class="pl-admin-flag">valid</th><th scope="col" class="pl-admin-flag">build</th><th scope="col" class="pl-admin-control">control</th></tr></thead>
+      <tbody>[% FOREACH row IN rows %]<tr><th scope="row"><a href="[% row.url | html %]">[% row.title | html %]</a></th><td>[% row.date | html %]</td><td>[% row.valid | html %]</td><td>[% row.build | html %]</td><td>
+        <form method="post" action="/">
+          <input type="hidden" name="id" value="[% row.objectid | html %]"><input type="hidden" name="from" value="[% row.tbl | html %]">
+          <input type="hidden" name="op" value="cachecont"><input type="hidden" name="group" value="en"><input type="hidden" name="method" value="[% method | html %]"><input type="hidden" name="offset" value="[% offset | html %]">
+          <button type="submit" name="invalidate" value="invalidate">Invalidate</button>
+        </form>
+      </td></tr>[% END %]</tbody>
+    </table></div>
+    [% UNLESS rows.size %]<p>No cache entries.</p>[% END %]
+    [% IF pager %]<nav class="pl-admin-pager" aria-label="Cache pages">[% pager %]</nav>[% END %]
+    <nav class="pl-admin-links" aria-label="Cache navigation"><a href="/?op=cachecont">back</a></nav>
+  [% ELSIF group == 'files' %]<p>Cache control for this group is not yet implemented.</p><nav class="pl-admin-links" aria-label="Cache navigation"><a href="/?op=cachecont">back</a></nav>
+  [% ELSE %]
+    <p>Please select a cache group:</p>
+    <ul class="pl-admin-list"><li><a href="/?op=cachecont&amp;group=stats">statistics</a></li><li><a href="/?op=cachecont&amp;group=en">encyclopedia entries</a></li><li><a href="/?op=cachecont&amp;group=files">files</a></li></ul>
+  [% END %]
+</section>

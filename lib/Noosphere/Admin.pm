@@ -1,6 +1,7 @@
 package Noosphere;
 use strict;
 use Template;
+use Noosphere::EntryInteractions;
 use Noosphere::RequestForm;
 
 use Noosphere::IR;
@@ -155,12 +156,11 @@ sub blacklistEditor {
 	my $params = shift;
 	my $userinf = shift;
 
-	my $html = '';
 	my $feedback = '';
 
 	return loginExpired() if ($userinf->{uid} <= 0);
 	
-	my $isadmin = ($userinf->{data}->{access}>=getConfig('access_admin'));
+	return noAccess() if ($userinf->{data}->{access} < getConfig('access_admin'));
 
 	# handle deletions/updates
 	#
@@ -174,7 +174,7 @@ sub blacklistEditor {
 			my ($rv, $sth) = dbDelete($dbh, {FROM=>getConfig('blist_tbl'), WHERE=>"uid=$id"});
 			$sth->finish();
 
-			$feedback = "Mask '".htmlescape($mask)."' deleted.";
+			$feedback = "Mask '".$mask."' deleted.";
 				
 		}
 		elsif ($key =~ /^update_(\d+)$/) {
@@ -189,7 +189,7 @@ sub blacklistEditor {
 			$sth->finish();
 
 			$feedback = "Record $id modified.";
-			$feedback = "Mask '".htmlescape($oldmask)."' changed to '".htmlescape($newmask)."'.";
+			$feedback = "Mask '".$oldmask."' changed to '".$newmask."'.";
 		}
 	}
 
@@ -204,84 +204,13 @@ sub blacklistEditor {
 
 		$sth->finish();
 
-		$feedback = "Mask '".htmlescape($params->{'new_mask'})."' added.";
+		$feedback = "Mask '".$params->{'new_mask'}."' added.";
 	}
 
-	# get the current blacklist
-	#
-	my ($rv, $sth) = dbSelect($dbh, {WHAT=>'*', FROM=>getConfig('blist_tbl'), 'ORDER BY'=>'uid'});
+	my ($rv, $sth) = dbSelect($dbh, {WHAT => '*', FROM => getConfig('blist_tbl'), 'ORDER BY' => 'uid'});
+	return errorMessage('Blacklist query failed.') unless $rv && $sth;
 	my @rows = dbGetRows($sth);
-
-	# display feedback
-	#
-	if ($feedback) {
-
-		$html .= "<font size=\"+1\" color=\"#ff0000\">$feedback</font><p>";
-	}
-
-	$html .= "<b>Current Blacklist:</b>";
-
-	$html .= "<p>";
-	
-	# display rows, row editor
-	#
-	if (@rows) {
-		$html .= "<table align=\"center\">";
-
-		# output the mask, along with a form to update or delete it
-		#
-		foreach my $row (@rows) {
-			$html .= "<tr>";
-
-			$html .= "<form method=\"post\" action=\"".getConfig('main_url')."/\">";
-
-			$html .= "<td>";
-	
-			$html .= "<input type=\"text\" size=\"50\" name=\"mask_$row->{uid}\" value=\"$row->{mask}\">";
-						
-			$html .= "</td>";
-
-			$html .= "<td>";
-
-			$html .= "<input type=\"submit\" name=\"update_$row->{uid}\" value=\"update\"> ";
-			$html .= "<input type=\"submit\" name=\"delete_$row->{uid}\" value=\"delete\">";
-
-			$html .= "</td>";
-
-
-			$html .= "<input type=\"hidden\" name=\"op\" value=\"$params->{op}\">";
-			$html .= "</form>";
-
-			$html .= "</tr>";
-		}
-
-		$html .= "</table>";
-
-	} else {
-		$html .= '<center>No entries in the blacklist currently</center>.';
-	}
-
-	$html .= "<p>";
-
-	# output add control
-	#
-	$html .= "<b>Add Blacklist Mask:</b>";
-
-	$html .= "<p>";
-
-	$html .= "<form method=\"post\" action=\"".getConfig('main_url')."/\">";
-	$html .= "<center><input type=\"text\" size=\"50\" name=\"new_mask\"> 
-		<input type=\"submit\" name=\"add\" value=\"add mask\"></center>";
-	$html .= "<input type=\"hidden\" name=\"op\" value=\"$params->{op}\">";
-	$html .= "</form>";
-
-	$html .= "<p>";
-
-	# about blurb
-	#
-	$html .= "<p><i>The blacklist is a list of perl regular expression masks which are checked against the email address of each new user.	When there is a match, the user's application is rejected.	This can be used to prevent attacks where one person creates many accounts, each with an email address that fits a regular pattern.</i>";
-
-	return paddingTable(makeBox('Blacklist Editor', $html));
+	return entryInteractionTemplate('adminblacklist.tt', {rows => \@rows, feedback => $feedback});
 }
 
 
@@ -412,223 +341,60 @@ sub delUser {
 sub cacheControl {
 	my $params = shift;
 	my $userinf = shift;
-
-	my $html = '';
-	my $group = '';
-
 	return noAccess() if ($userinf->{data}->{access} < getConfig('access_admin'));
-
-	if ($params->{group} eq 'stats') {
-
-		# handle an invalidation
-		#
+	my $group = $params->{group} || '';
+	my %vars = (group => $group, title => 'Cache Control', feedback => '');
+	if ($group eq 'stats') {
 		if ($params->{invalidate}) {
-
 			$stats->invalidate($params->{key});
-
-			$html .= "<center>";
-			$html .= "<font size=\"+1\" color=\"#ff0000\">";
-			$html .= "Invalidated key $params->{key}";
-			$html .= "</font>";
-			$html .= "<br /><br />";
-			$html .= "</center>";
+			$vars{feedback} = "Invalidated key $params->{key}";
 		}
-
-		# print out rows with invalidate control
-		#
-		my ($rv, $sth) = dbSelect($dbh, {WHAT=>'_key, valid, lastupdate', FROM=>getConfig('storage_tbl')});
+		my ($rv, $sth) = dbSelect($dbh, {WHAT => '_key, valid, lastupdate', FROM => getConfig('storage_tbl')});
+		return errorMessage('Cache query failed.') unless $rv && $sth;
 		my @rows = dbGetRows($sth);
-
-		$html .= "<p />Cache table for statistics (<a href=\"".getConfig("main_url")."/?op=cachecont&group=stats\">refresh</a>):<p/>";
-
-		$html .= "<table align=\"center\" cellpadding=\"2\">";
-		$html .= "<tr><td align=\"center\">key</td><td align=\"center\">last update</td><td align=\"center\">control</td></tr>";
-
-		my $ord = 0;
-		foreach my $row (@rows) {
-			my $color = ($ord % 2 == 0) ? '#eeeeee' : '#dddddd';
-			$html .= "<tr bgcolor=\"$color\">";	
-
-			$html .= "<td>";
-			$html .= $row->{'_key'};
-			$html .= "</td>";
-
-			$html .= "<td>";
-			my $date = makeDate($row->{'lastupdate'},1);
-			$html .= $date;
-			$html .= "</td>";
-
-			$html .= "<td>";
-			if ($row->{'valid'}) {
-				$html .= "<form method=\"post\" action=\"/\">";
-				$html .= "<input type=\"submit\" name=\"invalidate\" value=\"invalidate\"/>";
-				$html .= "<input type=\"hidden\" name=\"key\" value=\"$row->{_key}\"/>";
-				$html .= "<input type=\"hidden\" name=\"op\" value=\"cachecont\"/>";
-				$html .= "<input type=\"hidden\" name=\"group\" value=\"stats\"/>";
-				$html .= "</form>";
-			} else {
-				$html .= "(invalid)";
-			}
-			$html .= "</td>";
-
-			$html .= "</tr>";	
-			$ord++;
+		for my $row (@rows) {
+			$row->{key} = $row->{_key};
+			$row->{date} = makeDate($row->{lastupdate}, 1);
 		}
-		$html .= "</table>";
-
-		$html .= "<p />";
-		$html .= "<center>";
-		$html .= "<a href=\"".getConfig("main_url")."/?op=dbadmin&freeform=1&query=select+*+from+".getConfig('storage_tbl')."\">freeform edit this table</a> | ";
-		$html .= "<a href=\"".getConfig("main_url")."/?op=cachecont\">back</a>";
-		$html .= "</center>";
-		$html .= "<br />";
-
-		$group = 'Statistics';
-	}
-	elsif ($params->{group} eq 'en') {
-
-		my $scale = 1/2;	 # pager scale
-
+		$vars{rows} = \@rows;
+		$vars{title} .= ' : Statistics';
+		$vars{edit_url} = entryInteractionURL('dbadmin', freeform => 1, query => 'select * from '.getConfig('storage_tbl'));
+	} elsif ($group eq 'en') {
+		my $scale = 1/2;
 		my $method = $params->{method} || getDefaultRenderMethod();
 		$method = getDefaultRenderMethod() unless inset($method, getMethods());
-		my $offset = $params->{offset} || 0;
-		my $limit = int($userinf->{'prefs'}->{'pagelength'} / $scale);
-
+		my $offset = defined($params->{offset}) && $params->{offset} =~ /\A\d+\z/ ? int($params->{offset}) : 0;
+		my $pagelength = $userinf->{prefs}->{pagelength};
+		$pagelength = 20 unless defined($pagelength) && $pagelength =~ /\A[1-9]\d*\z/;
+		my $limit = int($pagelength / $scale);
 		my $total = getrowcount(getConfig('cache_tbl'), "method='$method'");
-
-		# handle an invalidation
-		#
 		if ($params->{invalidate}) {
-
 			setbuildflag_off($params->{from}, $params->{id}, $method);
 			setvalidflag_off($params->{from}, $params->{id}, $method);
-
 			my $title = lookupfield($params->{from}, 'title', "uid=$params->{id}");
-
-			$html .= "<center>";
-			$html .= "<font size=\"+1\" color=\"#ff0000\">";
-			$html .= "Invalidated entry '$title'";
-			$html .= "</font>";
-			$html .= "<br /><br />";
-			$html .= "</center>";
+			$vars{feedback} = "Invalidated entry '$title'";
 		}
-
-		# print out rows with invalidate control
-		#
-		# TODO: there is no really nice way to look up titles in a way that
-		# is fast and not table-dependent.... perhaps we could wrap this into
-		# a function that splits based on tbl and groups the lookups.
-		#
 		my $cache = getConfig('cache_tbl');
 		my $en = getConfig('en_tbl');
-		my ($rv, $sth);
-		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='$method' order by lower(e.title) offset $offset limit $limit")
-			if (getConfig('dbms') eq 'pg');
-		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='$method' order by lower(e.title) limit $offset, $limit")
-			if (getConfig('dbms') eq 'mysql');
-		($rv, $sth) = dbLowLevelSelect($dbh, "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='$method' order by lower(e.title) limit $offset, $limit")
-            if (getConfig('dbms') eq 'MariaDB');
-
+		my $sql = "select e.title, c.* from $en as e,$cache as c where e.uid=c.objectid and c.method='$method' order by lower(e.title)";
+		$sql .= getConfig('dbms') eq 'pg' ? " offset $offset limit $limit" : " limit $offset, $limit";
+		my ($rv, $sth) = dbLowLevelSelect($dbh, $sql);
+		return errorMessage('Cache query failed.') unless $rv && $sth;
 		my @rows = dbGetRows($sth);
-
-		$html .= "<p />Cache table for encylcopedia (<a href=\"".getConfig("main_url")."/?op=cachecont&group=en&method=$method&offset=$offset\">refresh</a>):";
-
-		$params->{total} = $total;
-		$html .= getPager($params, $userinf, $scale);
-
-		# get the method selector
-		#
-		$html .= "<center>";
-		my $methodsel = getSelectBoxOrdered('method',
-			getConfig('prefs_schema')->{method}->[3],
-			[getMethods()],
-			$method,
-			'onchange="methodform.submit()"');
-		my $formvars = hashToFormVars(hashExcept($params,'method','offset'));		
-		$html .= "<form method=\"get\" action=\"/\" name=\"methodform\">
-			 Viewing for:	$methodsel
-			 $formvars	
-			 <input type=\"submit\" value=\"reload\"></form>";
-		$html .= "</center>";
-
-		$html .= "<br />";
-
-		# main table, and header
-		#
-		$html .= "<table align=\"center\" cellpadding=\"2\">";
-		$html .= "<tr><td align=\"center\">title</td><td align=\"center\">last update</td><td>valid</td><td>build</td><td align=\"center\">control</td></tr>";
-
-		my $ord = 0;
-		foreach my $row (@rows) {
-			my $color = ($ord % 2 == 0) ? '#eeeeee' : '#dddddd';
-			$html .= "<tr bgcolor=\"$color\">";	
-
-			$html .= "<td>";
-			$html .= "<a href=\"".getConfig("main_url")."/?op=getobj&from=$row->{tbl}&id=$row->{objectid}\">$row->{title}</a>";
-			$html .= "</td>";
-
-			$html .= "<td>";
-			my $date = mdhm($row->{touched});
-			$html .= $date;
-			$html .= "</td>";
-
-			$html .= "<td>$row->{valid}</td>";
-			$html .= "<td>$row->{build}</td>";
-
-			$html .= "<td>";
-			$html .= "<form method=\"post\" action=\"/\">";
-			$html .= "<input type=\"submit\" name=\"invalidate\" value=\"invalidate\"/>";
-			$html .= "<input type=\"hidden\" name=\"id\" value=\"$row->{objectid}\"/>";
-			$html .= "<input type=\"hidden\" name=\"from\" value=\"$row->{tbl}\"/>";
-			$html .= "<input type=\"hidden\" name=\"op\" value=\"cachecont\"/>";
-			$html .= "<input type=\"hidden\" name=\"group\" value=\"en\"/>";
-			$html .= "</form>";
-			$html .= "</td>";
-
-			$html .= "</tr>";	
-			$ord++;
+		for my $row (@rows) {
+			$row->{date} = mdhm($row->{touched});
+			$row->{url} = entryInteractionURL('getobj', from => $row->{tbl}, id => $row->{objectid});
 		}
-		$html .= "</table>";
-
-		$html .= "<p />";
-		$html .= "<center>";
-		$html .= getPager($params, $userinf, $scale);
-		$html .= "<br />";
-		$html .= "<a href=\"".getConfig("main_url")."/?op=cachecont\">back</a>";
-		$html .= "</center>";
-		$html .= "<br />";
-
-		$group = 'Encyclopedia Entries';
+		$params->{total} = $total;
+		my @methods = map {{value => $_, label => getConfig('prefs_schema')->{method}->[3]->{$_}}} getMethods();
+		%vars = (%vars, rows => \@rows, method => $method, methods => \@methods, offset => $offset,
+			pager => getPager({op => 'cachecont', group => 'en', method => $method, offset => $offset, total => $total},
+				{%$userinf, prefs => {%{$userinf->{prefs}}, pagelength => $pagelength}}, $scale));
+		$vars{title} .= ' : Encyclopedia Entries';
+	} elsif ($group eq 'files') {
+		$vars{title} .= ' : Files';
 	}
-	elsif ($params->{group} eq 'files') {
-
-		$html = "Cache control for this group is not yet implemented.";
-
-		$group = 'Files';
-	}
-
-	# show group selection menu
-	#	
-	else {
-
-		$html .= "<table align=\"center\"><tr><td>";
-		$html .= "<br />Please select a cache group:<br />";
-
-		$html .= "<ul>";
-		$html .= "<li><a href=\"".getConfig("main_url")."/?op=cachecont&group=stats\">statistics</a></li>";
-		$html .= "<li><a href=\"".getConfig("main_url")."/?op=cachecont&group=en\">encyclopedia entries</a></li>";
-		$html .= "<li><a href=\"".getConfig("main_url")."/?op=cachecont&group=files\">files</a></li>";
-		$html .= "</ul>";
-		$html .= "</td></tr></table>";
-
-		$html .= "<br/><br/>";
-	}
-
-	my $title = 'Cache Control';
-	if ($group) {
-		$title .= " : $group";
-	}
-	return paddingTable(makeBox($title, $html));
+	return entryInteractionTemplate('admincache.tt', \%vars);
 }
 
 # database admin interface (really this is a slightly specialized web version 
@@ -642,7 +408,6 @@ sub dbAdmin {
 
 	return noAccess() if ($userinf->{data}->{access} < getConfig('access_admin'));
 	
-	my $html = '';
 	my $output = '';
 	my $rv = 0;		 # query return value
 	my $table = ''; # table for select query
@@ -651,7 +416,7 @@ sub dbAdmin {
 
 	# update query history 
 	#
-	my @history = map { urlunescape($_); } split(/;/, $params->{qhist});
+	my @history = map { urlunescape($_); } split(/;/, ($params->{qhist} || ''));
 	if (nb($query)) {
 		splice @history, 0, 0, $query;	# "push" onto front latest entry
 	}
@@ -660,8 +425,6 @@ sub dbAdmin {
 		splice @history, scalar @history - $over, $over;
 	}
 	my $firstval = scalar @history > 0 ? $history[0] : '';
-	my $histsel = getSelectBoxFromArray('history', \@history, $firstval,
-	 'onChange="document.freeform.query.value=unescape(this.value)"');
 	my $newqhist = join(';', map { urlescape($_); } @history);
 
 	# process a query
@@ -674,7 +437,7 @@ sub dbAdmin {
 
 		my ($cols, $indices) = dbGetSchema($dbh, $params->{table});
 		
-	$output .= "<center><b>Schema for table '$params->{table}'</b>:</center><br>";
+	$output .= "<h2>Schema for table '".requestFormEscape($params->{table})."':</h2>";
 
 		# print out column schema
 	#
@@ -683,7 +446,7 @@ sub dbAdmin {
 	# print out indices info
 		#
 	if (scalar @$indices > 0) {
-		$output .= "<br><center><b>Indices on table '$params->{table}'</b>:</center><br>";
+		$output .= "<h2>Indices on table '".requestFormEscape($params->{table})."':</h2>";
 		$output .= printTabular($indices, ['indname', 'oncol', 'primary', 'unique']);
 		}
 
@@ -692,9 +455,8 @@ sub dbAdmin {
 	my $sth = $dbh->prepare("select count(*) as cnt from $params->{table}");
 	$sth->execute();
 	my $row = $sth->fetchrow_hashref();
-	
-	$output .= "<br><center><b>Rows in table</b>:</center><br>";
-	$output .= "<center>$row->{cnt}</center>";
+	$sth->finish();
+	$output .= '<h2>Rows in table:</h2><p>'.requestFormEscape($row->{cnt}).'</p>';
 	}
 	
 	# handle a result set delete
@@ -773,7 +535,7 @@ sub dbAdmin {
 	} else {
 		if (!$rv) {
 				my $error = $dbh->errstr;
-		$output = "<font size=\"+1\" color=\"#ff0000\">$error</font>";
+		$output = '<p class="pl-admin-error">'.requestFormEscape($error).'</p>';
 		} else {
 			if ($params->{query} =~ /^\s*select/) {
 				$output = "No matching rows.";
@@ -782,211 +544,38 @@ sub dbAdmin {
 	}
 	}
 
-	# prep some stuff
-	#
-	my @tables = dbGetTables($dbh);
-	my $tblhash = {map {$_ => $_} @tables};
-	my $tblsel = getSelectBox('table', $tblhash, $params->{'table'});
-	
-	# ok, start outputting the form interface
-	#
-	$html .= "<table align=\"center\"><tr><td>";	 # main table
-
-	# schema query section
-	#
-	$html .= "<table align=\"center\" cellpadding=\"5\" width=\"100%\"><tr><td bgcolor=\"#eeeeee\">";
-	$html .= "<form action=\"/\" method=\"post\">";
-	$html .= "<b>Get table information</b>:<br><br>";
-	$html .= "Select a table: $tblsel ";
-	$html .= "<input type=\"submit\" name=\"schema\" value=\" go \">";
-	$html .= "<input type=\"hidden\" name=\"op\" value=\"dbadmin\">";
-	$html .= "<input type=\"hidden\" name=\"qhist\" value=\"$newqhist\"><br>";
-	$html .= "</form>";
-	$html .= "</td></tr></table>";
-	
-	# build-a-query section
-	#
-=disabled
-	$html .= "<table align=\"center\" cellpadding=\"5\" width=\"100%\"><tr><td bgcolor=\"#eeeeee\">";
-	$html .= "<form action=\"/\" method=\"post\">";
-	$html .= "<b>Build-a-query</b>:<br><br>";
-	$html .= "Select a table: $tblsel<br>";
-	$html .= "Proceed to next step for: ";
-	$html .= "<input type=\"submit\" name=\"build_select\" value=\"select\"> ";
-	$html .= "<input type=\"submit\" name=\"build_update\" value=\"update\"> ";
-	$html .= "<input type=\"submit\" name=\"build_insert\" value=\"insert\"> ";
-	$html .= "<input type=\"submit\" name=\"build_delete\" value=\"delete\">";
-	$html .= "<input type=\"hidden\" name=\"op\" value=\"dbadmin\">";
-	$html .= "</form>";
-	$html .= "</td></tr></table>";
-=cut
-
-	# freeform query section
-	#
-	$html .= "<table align=\"center\" cellpadding=\"5\" width=\"100%\"><tr><td bgcolor=\"#eeeeee\">";
-	$html .= "<form name=\"freeform\" action=\"/\" method=\"post\">";
-	$html .= "<b>Freeform query</b>:<br><br>";
-	$html .= "History: $histsel <br>";
-	$html .= "<textarea rows=\"5\" cols=\"70\" name=\"query\">$query</textarea>";
-	$html .= "<input type=\"hidden\" name=\"op\" value=\"dbadmin\"><br>";
-	$html .= "<input type=\"hidden\" name=\"qhist\" value=\"$newqhist\"><br>";
-	$html .= "<center>";
-	$html .= "<input type=\"submit\" name=\"freeform\" value=\"submit\">";
-	$html .= "</center>";
-	$html .= "</form>";
-	$html .= "</td></tr></table>";
-
-	$html .= "</td></tr></table>";	# main table
-
-	# display result output
-	#
-	if ($output) {
-		$html .= '<hr>' . $output . '<br>';
-	}
-	elsif (nb($params->{query})) {
-	if (!$rv) {
-		$html .= "<font size=\"+1\" color=\"#ff0000\">Query error.</font>";
-	}
-	}
-
-	return paddingTable(makeBox('Database Admin', $html));
+	my @tables = sort { $a cmp $b } dbGetTables($dbh);
+	my @history_options = map {{value => urlescape($_), label => $_}} @history;
+	$output = '<p class="pl-admin-error">Query error.</p>' if !$output && nb($params->{query}) && !$rv;
+	return entryInteractionTemplate('admindatabase.tt', {
+		tables => \@tables, selected_table => $params->{table}, query => $query,
+		history => \@history_options, first_history => urlescape($firstval), qhist => $newqhist, output => $output,
+	});
 }
 
 # do a tabular html print, using an arrayref to hashrefs, all of which have
 # the same keys
 #
 sub printTabular {
-	my $rows = shift;
-	my $order = shift;
-	
-	my $output = '';
-
-	$output .= "<table cellpadding=\"2\" border=\"1\" align=\"center\" bgcolor=\"#ccccff\">";
-
-	# print header, using key names
-	#
-	$output .= "<tr>";
-	foreach my $key ($order ? @$order : keys %{$rows->[0]}) {
-		$output .= "<td align=\"center\">$key</td>";
-	}
-	$output .= "</tr>";
-
-	# print rows
-	#
-	foreach my $row (@$rows) {
-		$output .= "<tr>";
-		foreach my $key ($order ? @$order : keys %$row) {
-		$output .= "<td bgcolor=\"#eeeeee\">$row->{$key}</td>";
-	}
-		$output .= "</tr>";
-	}
-
-	$output .= "</table>";
-
-	return $output;
+	my ($rows, $order) = @_;
+	my @columns = $order ? @$order : @$rows ? sort keys %{$rows->[0]} : ();
+	return entryInteractionTemplate('admintabular.tt', {rows => $rows, columns => \@columns});
 }
 
 # prints dbadmin select query result rows, augmented with update/delete 
 # controls.
 #
 sub printResultRows {
-	my $resultset = shift;
-	my $table = shift;
-	my $showoid = shift;
-	my $qhist = shift;		 # query history
-
-	my $default_size = 15; # default form input size
-	my $max_size = 75;
-	my $fudge_factor = 10; # if average is only this much off from max, then 
-						 # max will be used instead of average.
-
-	my $html = '';
-	
-	# print rows
-	#
-	my $cnt = scalar @$resultset;
-	$html .= "Results ($cnt):<br>";
-
-	# compute average lengths of each field, for formatting
-	#
-	my %averages;
-	foreach my $key (keys %{$resultset->[0]}) {
-		my $count = 0;
-		my $sum = 0;
-		my $max = 0;
-
-		# get sum of nonblank field lengths
-		foreach my $row (@$resultset) {
-			if (nb($row->{$key})) {
-			my $len = length($row->{$key});
-		$sum += $len;
-		if ($len > $max) {
-					$max = $len;
-		 }
-		$count++;
-		}
+	my ($resultset, $table, $showoid, $qhist) = @_;
+	my @records;
+	for my $row (@$resultset) {
+		my $index = @records;
+		my @fields = map {{
+			name => $_, value => $row->{$_}, id => 'pl-db-field-'.$index.'-'.$_,
+		}} grep {$_ ne 'oid' || $showoid} sort keys %$row;
+		push @records, {fields => \@fields, oid => $row->{oid}};
 	}
-
-		# calculate average
-	if ($count > 0) {
-			$averages{$key} = int($sum/$count);
-		if ($averages{$key} == 0) {
-				$averages{$key} = $default_size;
-		}
-		if ($averages{$key} < $max && $max - $averages{$key} < $fudge_factor) {
-		$averages{$key} = $max;
-		}
-	} 
-	}
-
-	$html .= "<table cellspacing=\"0\" cellpadding=\"5\" width=\"100%\">";
-
-	# data rows, each with an update and delete control
-	#
-	my $ord = 0;
-	foreach my $row (@$resultset) {
-		
-		my $color = $ord % 2 == 0 ? '#ccccff' : '#dddddd';
-	$html .= "<form method=\"post\" action=\"/\">";
-		$html .= "<tr><td bgcolor=\"$color\">";
-	my $col = 0;
-	foreach my $key (keys %$row) {
-		next if ($key eq 'oid' && !$showoid);
-
-		my $size = $averages{$key} || $default_size;
-		$size = $size > $max_size ? $max_size : $size;
-
-		# calculate linebreak.
-		$col += $size + length($key);
-		if ($col > $max_size) {
-			$html .= "<br>";
-			$col = $size + length($key);
-	 		}
-		
-		$html .= "<font face=\"courier, fixed\" size=\"-1\">$key: </font><input type=\"text\" size=\"$size\" name=\"col_$key\" value=\"".qhtmlescape($row->{$key})."\"> ";
-	}
-
-		$html .= "</td></tr>";
-
-	if ($row->{oid}) {
-			$html .= "<tr><td align=\"center\" bgcolor=\"$color\">";
-		$html .= "<input type=\"submit\" name=\"update\" value=\"update\"> ";
-		$html .= "<input type=\"submit\" name=\"delete\" value=\"delete\">";
-		$html .= "<input type=\"hidden\" name=\"oid\" value=\"$row->{oid}\"> ";
-		$html .= "<input type=\"hidden\" name=\"table\" value=\"$table\"> ";
-		$html .= "<input type=\"hidden\" name=\"op\" value=\"dbadmin\">";
-			$html .= "<input type=\"hidden\" name=\"qhist\" value=\"$qhist\"><br>";
-			$html .= "</td></tr>";
-	}
-	
-	$html .= "</form>";
-
-	$ord++;
-	}
-
-	$html .= "</table>";
-
-	return $html;
+	return entryInteractionTemplate('admindbresults.tt', {records => \@records, table => $table, qhist => $qhist});
 }
 
 # encyclopedia-specific admin controls
@@ -1342,24 +931,12 @@ sub adminEditNote {
 	return $id;
 }
 
-sub adminStats
-{
-	my $params = shift;
-	my $userinf = shift;
-
+sub adminStats {
+	my ($params, $userinf) = @_;
 	return noAccess() if ($userinf->{data}->{access} < getConfig('access_editobj'));
-
-#my $template = new Template("adminstats.html");
-
-# various statistics are computed here
-#adminDBStats($template);
-#FileCache::setStatKeys($template);
-
-		my $template = new XSLTemplate("adminstats.xsl");
-
-		adminDBStats($template);
-
-	return paddingTable(clearBox("Administrative Statistics", $template->expand()));
+	my $fields = adminDBStats();
+	my @rows = map {{label => $_, value => $fields->{$_}}} sort keys %$fields;
+	return entryInteractionTemplate('adminstatistics.tt', {rows => \@rows});
 }
 
 sub webStats
@@ -1406,6 +983,7 @@ sub adminDBStats
 	$fields{"Unproven Theorems"} = scalar keys(%{getUnprovenTheorems()});
 #$template->setKeys(%fields);
 
+	return \%fields unless $template;
 	foreach my $key (keys(%fields)) {
 			$template->addText("<stat name=\"$key\">$fields{$key}</stat>\n");
 	}

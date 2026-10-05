@@ -1,0 +1,6 @@
+[% INCLUDE adminpagestyles.tt %]
+<section class="pl-admin-page" aria-label="[% title | html %]">
+  [% INCLUDE modernboxheader.tt title = title %]
+  <p role="status">[% message | html %]</p>
+  [% IF url %]<p>[% link_prefix | html %]<a href="[% url | html %]">[% link_label | html %]</a>[% link_suffix | html %]</p>[% END %]
+</section>

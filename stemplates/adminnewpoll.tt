@@ -1,0 +1,11 @@
+[% INCLUDE adminpagestyles.tt %]
+<section class="pl-admin-page" aria-label="Create Poll">
+  [% INCLUDE modernboxheader.tt title = 'Create Poll' %]
+  [% IF error %]<div class="pl-admin-error" role="alert">[% error %]</div>[% END %]
+  <form class="pl-admin-form" method="post" action="/">
+    <div class="pl-admin-field"><label for="pl-poll-question">Question:</label><input type="text" name="question" id="pl-poll-question" value="[% values.question | html %]"></div>
+    <div class="pl-admin-field"><label for="pl-poll-response">Response options (comma-separated list) :</label><textarea name="response" id="pl-poll-response" rows="4">[% values.response | html %]</textarea></div>
+    <div class="pl-admin-field pl-admin-short"><label for="pl-poll-ttl">Time to live (days):</label><input type="text" name="ttl" id="pl-poll-ttl" inputmode="numeric" value="[% ttl | html %]"></div>
+    <input type="hidden" name="op" value="newpoll"><button type="submit" name="submit" value="create">Create</button>
+  </form>
+</section>

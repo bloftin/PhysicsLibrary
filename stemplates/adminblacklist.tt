@@ -1,0 +1,20 @@
+[% INCLUDE adminpagestyles.tt %]
+<section class="pl-admin-page" aria-label="Blacklist Editor">
+  [% INCLUDE modernboxheader.tt title = 'Blacklist Editor' %]
+  [% IF feedback %]<div class="pl-admin-notice" role="status">[% feedback | html %]</div>[% END %]
+  <h2>Current Blacklist:</h2>
+  <div class="pl-admin-blacklist">[% FOREACH row IN rows %]
+    <form class="pl-admin-row-form" method="post" action="/">
+      <div class="pl-admin-field"><label for="pl-blacklist-[% row.uid | html %]">Mask [% row.uid | html %]</label><input type="text" name="mask_[% row.uid | html %]" id="pl-blacklist-[% row.uid | html %]" value="[% row.mask | html %]"></div>
+      <div class="pl-admin-actions"><button type="submit" name="update_[% row.uid | html %]" value="update">Update</button><button class="pl-admin-danger" type="submit" name="delete_[% row.uid | html %]" value="delete">Delete</button></div>
+      <input type="hidden" name="op" value="blacklist">
+    </form>
+  [% END %]</div>
+  [% UNLESS rows.size %]<p>No entries in the blacklist currently.</p>[% END %]
+  <h2>Add Blacklist Mask:</h2>
+  <form class="pl-admin-form" method="post" action="/">
+    <div class="pl-admin-field"><label for="pl-blacklist-new">Mask</label><input type="text" name="new_mask" id="pl-blacklist-new"></div>
+    <input type="hidden" name="op" value="blacklist"><button type="submit" name="add" value="add mask">Add mask</button>
+  </form>
+  <p>The blacklist is a list of perl regular expression masks which are checked against the email address of each new user. When there is a match, the user's application is rejected. This can be used to prevent attacks where one person creates many accounts, each with an email address that fits a regular pattern.</p>
+</section>

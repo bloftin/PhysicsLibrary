@@ -1,6 +1,7 @@
 package Noosphere;
 use strict;
 use Template;
+use Noosphere::EntryInteractions;
 
 # callback to get top news XML
 #
@@ -56,28 +57,18 @@ sub getHomeNews {
 # post a news item
 #
 sub postNews {
-	my $params = shift;
-	my $userinf = shift;
- #       dwarn "((((((((((((((((((((((((((((((((((((((((((((((((";
+	my ($params, $userinf) = @_;
 	return noAccess() if ($userinf->{data}->{access} < getConfig('access_postnews'));
-	
-	my $template=new TemplateNS('postnewsform.html');
-	
+	my ($error, $spell) = ('', '');
 	if (defined($params->{submit})) {
-		if ($params->{submit} eq "spell") {
-		my $spell = checkdoc($params->{intro} . $params->{body});
-		$template->setKey('spell', "$spell<hr>");
-		$template->setKeys(%$params);
-	} else {
-			my $error = checkPostNews($params); 
-		$template->setKey('error', $error);
-		$template->setKeys(%$params);
-		if ($error eq '') {
-			return insertNewsItem($params,$userinf); 
+		if ($params->{submit} eq 'spell') {
+			$spell = checkdoc($params->{intro} . $params->{body});
+		} else {
+			$error = checkPostNews($params);
+			return insertNewsItem($params, $userinf) if $error eq '';
 		}
 	}
-	}
-	return paddingTable(makeBox('Post News Item',$template->expand()));
+	return entryInteractionTemplate('adminpostnews.tt', {values => $params, error => $error, spell => $spell});
 }
 
 # actually insert a news item
@@ -106,7 +97,10 @@ sub insertNewsItem {
 	#
 	$stats->invalidate('top_news');
 
-	return paddingTable(makeBox('News Item Added',"Your post made it. Click <a href=\"".getConfig("main_url")."/?op=main\">here</a> to check it out."));
+	return entryInteractionTemplate('adminresult.tt', {
+		title => 'News Item Added', message => 'Your post made it.', url => entryInteractionURL('main'),
+		link_prefix => 'Click ', link_label => 'here', link_suffix => ' to check it out.',
+	});
 }
 
 # check for okay-ness of a news post
