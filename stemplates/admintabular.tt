@@ -1,6 +1,6 @@
-[% IF rows.size %]
+[% IF cells.size %]
 <div class="pl-admin-table-scroll"><table class="pl-admin-table">
   <thead><tr>[% FOREACH column IN columns %]<th scope="col">[% column | html %]</th>[% END %]</tr></thead>
-  <tbody>[% FOREACH row IN rows %]<tr>[% FOREACH column IN columns %]<td>[% row.$column | html %]</td>[% END %]</tr>[% END %]</tbody>
+  <tbody>[% FOREACH row IN cells %]<tr>[% FOREACH cell IN row %]<td>[% cell | html %]</td>[% END %]</tr>[% END %]</tbody>
 </table></div>
 [% ELSE %]<p>No matching rows.</p>[% END %]

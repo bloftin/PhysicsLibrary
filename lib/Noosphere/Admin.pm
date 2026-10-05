@@ -411,6 +411,10 @@ sub dbAdmin {
 	my $output = '';
 	my $rv = 0;		 # query return value
 	my $table = ''; # table for select query
+	my $legacy_oid = getConfig('dbms') eq 'pg';
+	local $dbh->{RaiseError} = 0;
+	local $dbh->{PrintError} = 0;
+	my @tables = sort { $a cmp $b } dbGetTables($dbh);
 
 	my $query = $params->{query} || '';
 
@@ -434,42 +438,45 @@ sub dbAdmin {
 	# process schema query 
 	#
 	if ($params->{'schema'}) {
-
-		my ($cols, $indices) = dbGetSchema($dbh, $params->{table});
-		
-	$output .= "<h2>Schema for table '".requestFormEscape($params->{table})."':</h2>";
-
-		# print out column schema
-	#
-	$output .= printTabular($cols, ['colname', 'typename', 'notnull', 'default']);
-
-	# print out indices info
-		#
-	if (scalar @$indices > 0) {
-		$output .= "<h2>Indices on table '".requestFormEscape($params->{table})."':</h2>";
-		$output .= printTabular($indices, ['indname', 'oncol', 'primary', 'unique']);
+		if (!defined($params->{table}) || !grep { $_ eq $params->{table} } @tables) {
+			$output = '<p class="pl-admin-error">Unknown table.</p>';
+		} else {
+			my ($cols, $indices) = dbGetSchema($dbh, $params->{table});
+			if (!$cols || !$indices) {
+				$output = '<p class="pl-admin-error">'.requestFormEscape($dbh->errstr || 'Schema query failed.').'</p>';
+			} else {
+				$output .= "<h2>Schema for table '".requestFormEscape($params->{table})."':</h2>";
+				$output .= printTabular($cols, ['colname', 'typename', 'notnull', 'default']);
+				if (@$indices) {
+					$output .= "<h2>Indices on table '".requestFormEscape($params->{table})."':</h2>";
+					$output .= printTabular($indices, ['indname', 'oncol', 'primary', 'unique']);
+				}
+				my $name = $legacy_oid ? $params->{table} : $dbh->quote_identifier($params->{table});
+				my $sth = $dbh->prepare("select count(*) as cnt from $name");
+				my $row = $sth && $sth->execute() ? $sth->fetchrow_hashref() : undef;
+				$output .= $row ? '<h2>Rows in table:</h2><p>'.requestFormEscape($row->{cnt}).'</p>'
+					: '<p class="pl-admin-error">'.requestFormEscape($dbh->errstr || 'Row count failed.').'</p>';
+				$sth->finish() if $sth;
+			}
 		}
-
-	# other statistics
-	#
-	my $sth = $dbh->prepare("select count(*) as cnt from $params->{table}");
-	$sth->execute();
-	my $row = $sth->fetchrow_hashref();
-	$sth->finish();
-	$output .= '<h2>Rows in table:</h2><p>'.requestFormEscape($row->{cnt}).'</p>';
 	}
 	
 	# handle a result set delete
 	#
+	elsif (($params->{delete} || $params->{update}) && !$legacy_oid) {
+		$output = '<p class="pl-admin-error">Inline row editing is not available for this database.</p>';
+	}
 	elsif ($params->{'delete'}) {
 
 		my $sth = $dbh->prepare("delete from $params->{table} where oid=$params->{oid}");
-	$rv = $sth->execute();
-	$sth->finish();
+	$rv = $sth ? $sth->execute() : undef;
 
 	if ($rv) {
 			$output = "Delete successful.";
+	} else {
+		$output = '<p class="pl-admin-error">'.requestFormEscape($dbh->errstr || 'Delete failed.').'</p>';
 	}
+	$sth->finish() if $sth;
 	}
 
 	# handle a query result update
@@ -491,12 +498,14 @@ sub dbAdmin {
 	my $set = join (', ', @sets);
 	
 		my $sth = $dbh->prepare("update $params->{table} set $set where oid=$params->{oid}");
-	$rv = $sth->execute(@vals);
-	$sth->finish();
+	$rv = $sth ? $sth->execute(@vals) : undef;
 
 	if ($rv) {
 			$output = "Update successful.";
+	} else {
+		$output = '<p class="pl-admin-error">'.requestFormEscape($dbh->errstr || 'Update failed.').'</p>';
 	}
+	$sth->finish() if $sth;
 	}
 
 	# handle a freeform query
@@ -506,45 +515,54 @@ sub dbAdmin {
 	my $query = $params->{query};
 	my $showoid = 0;
 
-	if ($query =~ /^\s*select\s+(.+?)\s+from\s+(\w+)(.*)$/i) {
+	if ($legacy_oid && $query =~ /^\s*select\s+(.+?)\s+from\s+(\w+)(.*)$/is) {
 		my $rowlist = $1;
 		$table = $2;
 		my $rest = $3;
 
 			# if oid is in query, make it visible
-			if ($rowlist =~ /(^|\W)oid(\W|$)/) {
+			if ($rowlist =~ /(^|\W)oid(\W|$)/i) {
 			$showoid = 1;
 		} 
 		
 		# otherwise, add it to query, keep it invisible, assuming this isn't
 		# an aggregate query
 		#
-		elsif (not $rowlist =~ /(^|\W)(avg|count|max|min|stddev|sum|variance)(\W|$)/) {
+		elsif (not $rowlist =~ /(^|\W)(avg|count|max|min|stddev|sum|variance)(\W|$)/i) {
 			$query = "select $rowlist, $table.oid from $table$rest";
 		}
 	}
 
 		my $sth = $dbh->prepare($query);
-	$rv = $sth->execute;
-	if ($rv > 0) {
-			@resultset = dbGetRows($sth);
+	$rv = $sth ? $sth->execute() : undef;
+	my $query_error = $rv ? '' : ($dbh->errstr || 'Query failed.');
+	my $has_fields = $sth && $sth->{NUM_OF_FIELDS};
+	if ($rv && $has_fields) {
+		my $rows = $sth->fetchall_arrayref({});
+		if (!defined($rows) || $sth->err) {
+			$rv = undef;
+			$query_error = $sth->errstr || $dbh->errstr || 'Result fetch failed.';
+		} else {
+			@resultset = @$rows;
+		}
 	}
+	$sth->finish() if $sth;
 		
 	if (scalar @resultset > 0) {
 		$output = printResultRows(\@resultset, $table, $showoid, $newqhist);
 	} else {
 		if (!$rv) {
-				my $error = $dbh->errstr;
-		$output = '<p class="pl-admin-error">'.requestFormEscape($error).'</p>';
+		$output = '<p class="pl-admin-error">'.requestFormEscape($query_error).'</p>';
 		} else {
-			if ($params->{query} =~ /^\s*select/) {
+			if ($has_fields) {
 				$output = "No matching rows.";
+			} else {
+				$output = '<p class="pl-admin-notice">Query successful ('.requestFormEscape(0 + $rv).' rows affected).</p>';
 			}
 		}
 	}
 	}
 
-	my @tables = sort { $a cmp $b } dbGetTables($dbh);
 	my @history_options = map {{value => urlescape($_), label => $_}} @history;
 	$output = '<p class="pl-admin-error">Query error.</p>' if !$output && nb($params->{query}) && !$rv;
 	return entryInteractionTemplate('admindatabase.tt', {
@@ -559,7 +577,8 @@ sub dbAdmin {
 sub printTabular {
 	my ($rows, $order) = @_;
 	my @columns = $order ? @$order : @$rows ? sort keys %{$rows->[0]} : ();
-	return entryInteractionTemplate('admintabular.tt', {rows => $rows, columns => \@columns});
+	my @cells = map { my $row = $_; [map { $row->{$_} } @columns] } @$rows;
+	return entryInteractionTemplate('admintabular.tt', {cells => \@cells, columns => \@columns});
 }
 
 # prints dbadmin select query result rows, augmented with update/delete 
@@ -567,6 +586,9 @@ sub printTabular {
 #
 sub printResultRows {
 	my ($resultset, $table, $showoid, $qhist) = @_;
+	if (getConfig('dbms') ne 'pg') {
+		return '<h2>Results ('.scalar(@$resultset).'):</h2>'.printTabular($resultset);
+	}
 	my @records;
 	for my $row (@$resultset) {
 		my $index = @records;
