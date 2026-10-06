@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use Noosphere::Morphology;
 
 our (@dictionary_inserts, @word_index_inserts, @state_inserts, @state_deletes, @dropped, $nextid, %words);
 
@@ -10,7 +12,7 @@ our (@dictionary_inserts, @word_index_inserts, @state_inserts, @state_deletes, @
 	package Noosphere;
 	our $dbh;
 	sub getPlainText { return $_[0]; }
-	sub getwordlist { return qw(oscillation oscillation dynamics); }
+	sub getConfig { return []; }
 	sub dropFromWordIndex { push @main::dropped, [@_]; }
 	sub getwid { return $main::words{$_[0]}; }
 	sub nextval { return ++$main::nextid; }
@@ -19,6 +21,7 @@ our (@dictionary_inserts, @word_index_inserts, @state_inserts, @state_deletes, @
 		my ($dbh, $args) = @_;
 		if ($args->{INTO} eq 'words') {
 			my ($uid, $word) = $args->{VALUES} =~ /^(\d+),'(.*)'$/;
+			die 'dictionary word exceeds varchar(32)' if length($word) > 32;
 			$main::words{$word} = $uid;
 			push @main::dictionary_inserts, $args;
 		} elsif ($args->{INTO} eq 'wordidx') {
@@ -50,17 +53,30 @@ sub load_sub {
 }
 
 load_sub('Indexing.pm', 'wordIndexEntry');
+load_sub('Indexing.pm', 'getwordlist');
+load_sub('Indexing.pm', 'isstopword');
 load_sub('Indexing.pm', 'markWordIndexStale');
 load_sub('Indexing.pm', 'markWordIndexCurrent');
 
 $Noosphere::dbh = bless({}, 'XrefIndexDatabase');
-Noosphere::wordIndexEntry('objects', {id => 116, data => 'ignored by test'});
+Noosphere::wordIndexEntry('objects', {id => 116, data => 'oscillation oscillation dynamics'});
 
 is_deeply($dropped[0], [116, 'objects'], 'replaces the prior index for the article');
 is(scalar(@dictionary_inserts), 2, 'creates each missing distinct dictionary word once');
 is(scalar(@word_index_inserts), 2, 'creates one word-index row per distinct word');
 is_deeply([sort values %words], [1, 2], 'allocates dictionary identifiers through the sequence');
 like($word_index_inserts[0]->{VALUES}, qr/^\d+,116,'objects'$/, 'indexes the selected article and table');
+
+my $url_fragment = 'ch//archive/electronic/other/ext/ext';
+my $boundary_word = 'b' x 32;
+my $oversized_word = 'b' x 33;
+is_deeply([Noosphere::getwordlist("$url_fragment center $boundary_word $oversized_word")],
+	['center', $boundary_word], 'word list respects the dictionary width without truncating or dropping surrounding words');
+my $before = scalar @dictionary_inserts;
+Noosphere::wordIndexEntry('objects', {id => 392, data => "$url_fragment center $boundary_word $oversized_word"});
+is(scalar(@dictionary_inserts) - $before, 2, 'oversized URL fragment no longer blocks indexing article 392');
+ok(exists $words{center}, 'center is indexed despite the bad URL token');
+ok(!exists $words{$url_fragment} && !exists $words{$oversized_word}, 'oversized words never reach the dictionary insert');
 
 Noosphere::markWordIndexCurrent(116, 'objects');
 is($state_deletes[-1]->{WHERE}, "objectid=116 and tbl='objects'", 'current marker first clears stale state');

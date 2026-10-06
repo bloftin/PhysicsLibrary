@@ -48,10 +48,19 @@ if (!$apply) {
 }
 
 my $indexed = 0;
+my $failed = 0;
 foreach my $entry (@entries) {
 	my $ok = eval {
 		$Noosphere::dbh->begin_work();
 		Noosphere::wordIndexEntry($table, $entry);
+		# A title added before this source was indexed could not invalidate
+		# its renders. Backfilling the index must also refresh those links.
+		my $cache = Noosphere::getConfig('cache_tbl');
+		my $rv = $Noosphere::dbh->do(
+			"update $cache set valid=0, touched=CURRENT_TIMESTAMP where tbl=? and objectid=?",
+			undef, $table, $entry->{uid},
+		);
+		die "could not invalidate cached article $entry->{uid}\n" unless defined $rv;
 		Noosphere::markWordIndexCurrent($entry->{uid}, $table);
 		$Noosphere::dbh->commit();
 		1;
@@ -60,6 +69,7 @@ foreach my $entry (@entries) {
 		my $error = $@ || 'unknown error';
 		eval { $Noosphere::dbh->rollback(); };
 		warn "could not index article $entry->{uid}: $error";
+		$failed++;
 		next;
 	}
 	$indexed++;
@@ -68,3 +78,4 @@ foreach my $entry (@entries) {
 
 print "indexed $indexed article(s)\n";
 $Noosphere::dbh->disconnect();
+exit($failed ? 1 : 0);
