@@ -211,6 +211,9 @@ sub getwordlist {
 		# do elementary stemming of word
 		#
 		$list[$i] = bogostem($list[$i]);
+		# Both database schemas limit dictionary words to 32 characters. Use
+		# the same filter for source indexing and new-title invalidation.
+		$remove = 1 if (length($list[$i]) > 32);
 
 		# so-called "stopwords"
 		#
