@@ -190,6 +190,16 @@ writefile($manifest_path, readfile("$repo/examples/spectroscopic-binary/binary-s
 is_deeply([map { $_->{id} } @{resources()}], ['binary-star-observer', 'spectroscopic-binary'], 'article attachment preserves the existing binary observer lab');
 reset_files();
 $multi->{resources}{'python-example'} = {%{$multi->{resources}{'julia-oscillator'}}, language => 'Python', version => '3.12'};
+writefile($manifest_path, readfile("$repo/examples/em-field-lab/computational-resources.json"));
+my $field_lab = resources();
+is(scalar @$field_lab, 1, 'field-lab manifest selects its reviewed publication');
+is($field_lab->[0]{title}, 'Wave and Field Explorer (EM01)', 'field-lab title comes from catalog');
+is(scalar @{$field_lab->[0]{datasets}}, 1, 'field-lab exposes independent Julia field references');
+for my $url (render($field_lab) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'field-lab publication asset exists: ' . $url);
+}
+reset_files();
 writefile($catalog_path, encode_json($multi));
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['python-example']}));
 like(render(resources()), qr/Python 3\.12/, 'presentation is not Julia-specific');
