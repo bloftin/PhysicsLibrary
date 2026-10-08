@@ -1,0 +1,9 @@
+{
+  "name": "physicslibrary-spectroscopic-binary",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {"build": "node build.mjs", "test": "node --test test/model.test.mjs"},
+  "dependencies": {"astronomia": "4.1.1", "d3": "7.9.0", "lucide": "0.468.0", "three": "0.180.0"},
+  "devDependencies": {"esbuild": "0.25.10"}
+}
