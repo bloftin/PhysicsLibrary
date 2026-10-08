@@ -177,6 +177,18 @@ for my $url (render($binary) =~ /href="([^"]+)"/g) {
 }
 reset_files();
 my $multi = decode_json(encode_json($catalog));
+writefile($manifest_path, readfile("$repo/examples/spectroscopic-binary/computational-resources.json"));
+my $spectroscopic = resources();
+is(scalar @$spectroscopic, 1, 'spectroscopic manifest selects its reviewed publication');
+is($spectroscopic->[0]{title}, 'Spectroscopic Binary Lab', 'spectroscopic title comes from catalog');
+is(scalar @{$spectroscopic->[0]{datasets}}, 2, 'spectroscopic resource exposes orbital and spectral Julia references');
+for my $url (render($spectroscopic) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'spectroscopic publication asset exists: ' . $url);
+}
+writefile($manifest_path, readfile("$repo/examples/spectroscopic-binary/binary-stars-computational-resources.json"));
+is_deeply([map { $_->{id} } @{resources()}], ['binary-star-observer', 'spectroscopic-binary'], 'article attachment preserves the existing binary observer lab');
+reset_files();
 $multi->{resources}{'python-example'} = {%{$multi->{resources}{'julia-oscillator'}}, language => 'Python', version => '3.12'};
 writefile($catalog_path, encode_json($multi));
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['python-example']}));

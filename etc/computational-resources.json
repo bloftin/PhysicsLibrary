@@ -1,6 +1,20 @@
 {
   "schema_version": 1,
   "resources": {
+    "spectroscopic-binary": {
+      "title": "Spectroscopic Binary Lab",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline 3D binary orbit with synchronized radial velocities, Doppler line profiles and trailed spectra; SB1/SB2 mass constraints and independent inclination hypotheses. Includes Julia reference calculations, locked environments, tests and an offline project; no server-side computation.",
+      "explorer": "index.html",
+      "source": "spectroscopic-binary.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia orbital states and radial velocities", "file": "reference.csv"},
+        {"label": "Julia reference absorption spectra", "file": "spectrum-reference.csv"}
+      ]
+    },
     "binary-star-observer": {
       "title": "Binary Star Observer and Eclipse Probability",
       "language": "Julia",

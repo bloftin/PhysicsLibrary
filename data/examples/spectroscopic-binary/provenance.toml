@@ -1,0 +1,21 @@
+reference_generator = "julia --startup-file=no --project=. spectroscopic-binary.jl"
+julia_version = "1.10.12"
+browser_solver = "astronomia 4.1.1 kepler3 and bracketed binaryRoot"
+renderer = "Three.js 0.180.0; D3 7.9.0; procedural spheres; no remote assets"
+frame = "relative a=1; Earth +Z; sky X-Y; Rx(i) Rz(omega); star2-star1 relative orbit"
+radial_velocity = "gamma minus barycentric vZ; positive is recession"
+doppler = "optical low-velocity convention; lambda0=500 nm"
+spectrum = "Gaussian absorption, intrinsic FWHM and Gaussian instrument c/R; continuum weighted"
+sb1 = "secondary absorption suppressed; featureless secondary continuum retained"
+mass_unit = "nominal solar GM=1.3271244e11 km^3/s^2 (IAU 2015 B3)"
+phase = "mean anomaly / 2pi, zero at periastron"
+reference_cases = 7
+reference_states = 1015
+reference_spectra_samples = 7602
+reference_csv_sha256 = "3478fc51782177ad6fca660f6b0eaaa2a3a4cde934ebf91dbed721ab6340d62e"
+spectrum_reference_csv_sha256 = "e99ad2e0f2065d06b24b2a973ff17ea1b6be5b0588fa8b9ba4467b60db4e98a7"
+spectroscopic_binary_jl_sha256 = "7f2dca239fec5e1165f1c3cc52190affc368f056edf92deffd003acf923b9061"
+model_js_sha256 = "3d788959ad731680f4ec4ac7373c2366f5e55cfd1441e8a5eb65524f0eb40f4f"
+Manifest_toml_sha256 = "8d88f52d74183c951753e489a2b869bdcc5c230b2eeadc158e43d0a14ee15506"
+pnpm_lock_yaml_sha256 = "192fca70ec8a87863f55418fde4a65c37f39ebd5977bf460b078a3e4c26d7c34"
+viewer_sha256 = "209d7967f9e0977bd5c578595330fdf21a551a004afe4828a40ce3a79ff94ee1"
