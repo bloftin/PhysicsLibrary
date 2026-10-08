@@ -1,0 +1,8 @@
+[deps]
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+Transits = "2e59a628-7bac-4d38-8059-3a73ba0928ab"
+
+[compat]
+julia = "1.10"
+JSON = "=1.10.0"
+Transits = "=0.4.1"

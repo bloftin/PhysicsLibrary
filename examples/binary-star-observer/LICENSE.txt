@@ -1,0 +1,6 @@
+Original code: Copyright 2026 Physics Library contributors.
+GPL version 3 or later. The offline project includes COPYING.
+Reference numerical data and original explanatory text: CC BY-SA 4.0.
+Physics Library branding is excluded from these grants.
+Third-party software retains its own licenses; see THIRD-PARTY.txt.
+This educational model is not an observational inference or navigation service.

@@ -1,6 +1,19 @@
 {
   "schema_version": 1,
   "resources": {
+    "binary-star-observer": {
+      "title": "Binary Star Observer and Eclipse Probability",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline 3D binary lab with Earth projection, synchronized two-star light curves and an isotropic eclipse-probability explorer. Includes Transits.jl reference data, locked Julia and browser environments, tests and an offline project; no server-side computation.",
+      "explorer": "index.html",
+      "source": "binary-star-observer.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia binary states and reference light curves", "file": "reference.csv"}
+      ]
+    },
     "orbital-elements": {
       "title": "Orbital Elements and Kepler Propagation",
       "language": "Julia",
