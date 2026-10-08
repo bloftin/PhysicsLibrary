@@ -1,0 +1,17 @@
+Orbital Elements and Kepler Propagation - Physics Library
+
+Original software in this resource is licensed under the GNU General Public
+License, version 3 or (at your option) any later version. The full license
+is included as COPYING in the offline project archive.
+
+Original mathematical explanations and reference data are licensed under
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Bundled Three.js and astronomia use the MIT license. Lucide uses the ISC
+license. Their complete notices are included in THIRD-PARTY.txt. The visual
+design was inspired by https://ki-math.github.io/orbital-elements-viewer/;
+no source code, models, textures or images were copied from that project.
+
+Physics Library names and branding are not granted by these software licenses.
+There is no warranty. Presets are illustrative, not live ephemerides.

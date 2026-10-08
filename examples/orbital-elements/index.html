@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore classical orbital elements in 3D: Kepler propagation, ECI geometry and secular J2 precession. A Physics Library GPSORB computational resource.">
+  <title>Orbital Elements | Physics Library</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="https://physicslibrary.org/">PhysicsLibrary<span>.org</span></a>
+    <div class="title"><h1>Orbital Elements</h1><span>GPSORB / computational resource</span></div>
+    <a href="https://physicslibrary.org/?op=listobj&amp;from=objects&amp;q=GPSORB">Orbit articles <i data-lucide="arrow-up-right"></i></a>
+  </header>
+  <main>
+    <section class="scene" aria-label="Three-dimensional orbital geometry">
+      <div id="viewport"><canvas id="orbit" aria-label="Interactive ECI orbit, orbital plane, equatorial plane and satellite"></canvas><div id="labels" aria-hidden="true"></div></div>
+      <div class="scene-toolbar">
+        <div class="playback"><button id="play" title="Play orbit" aria-label="Play orbit"><i data-lucide="play"></i></button><button id="reset" title="Reset orbit" aria-label="Reset orbit"><i data-lucide="rotate-ccw"></i></button><select id="speed" aria-label="Playback speed"><option value="orbit">1 orbit / 12 s</option><option value="100">100x real time</option><option value="1000">1000x real time</option><option value="day">1 day / 12 s</option></select></div>
+        <div class="views" role="group" aria-label="Camera viewpoint">
+          <button data-view="oblique" aria-pressed="true" title="Oblique view" aria-label="Oblique view"><i data-lucide="rotate-3d"></i></button>
+          <button data-view="north" aria-pressed="false" title="From north pole" aria-label="From north pole"><i data-lucide="circle-dot"></i></button>
+          <button data-view="node" aria-pressed="false" title="Along node line" aria-label="Along node line"><i data-lucide="move-horizontal"></i></button>
+          <button data-view="orbit" aria-pressed="false" title="Face-on to orbital plane" aria-label="Face-on to orbital plane"><i data-lucide="orbit"></i></button>
+          <button id="fit" title="Fit orbit in view" aria-label="Fit orbit in view"><i data-lucide="maximize"></i></button>
+        </div>
+      </div>
+      <div class="scene-stamp"><span class="status-dot"></span><span id="frame-mode">Earth-centered inertial</span><span id="elapsed">0.00 h</span></div>
+      <div class="scene-footer">
+        <div class="legend"><span class="equator">Equatorial plane</span><span class="orbital">Orbital plane</span><span class="apsides">Apsides</span><span class="nodes">Node line</span></div>
+        <div class="toggles"><label><input id="planes" type="checkbox" checked> Planes</label><label><input id="angles" type="checkbox" checked> Angles</label><label><input id="velocity" type="checkbox" checked> Velocity</label><label><input id="labels-toggle" type="checkbox" checked> Labels</label></div>
+      </div>
+      <p id="render-error" role="alert" hidden>WebGL is unavailable. Numerical orbit controls and CSV export remain available.</p>
+    </section>
+    <aside class="controls" aria-label="Orbit controls and numerical state">
+      <nav class="tabs" aria-label="Orbit panels" role="tablist"><button id="elements-tab" role="tab" aria-controls="elements-panel" data-tab="elements" aria-selected="true">Elements</button><button id="state-tab" role="tab" aria-controls="state-panel" data-tab="state" aria-selected="false">State</button><button id="notes-tab" role="tab" aria-controls="notes-panel" data-tab="notes" aria-selected="false">Theory</button></nav>
+      <div id="elements-panel" class="panel" role="tabpanel" aria-labelledby="elements-tab">
+        <div class="presets" role="group" aria-label="Example orbit"><button data-preset="gps" aria-pressed="true">GPS</button><button data-preset="iss" aria-pressed="false">ISS-like</button><button data-preset="sso" aria-pressed="false">Sun-sync</button><button data-preset="geo" aria-pressed="false">GEO</button><button data-preset="gto" aria-pressed="false">GTO</button><button data-preset="molniya" aria-pressed="false">Molniya</button></div>
+        <h2>Size and shape</h2>
+        <div class="element" data-element="a"><div class="field"><button class="element-name" data-highlight="a" aria-pressed="false"><b class="symbol gold">a</b> Semi-major axis</button><input id="num-a" type="number" min="6700" max="65000" step="10" value="26560" aria-label="Semi-major axis in kilometres"><span>km</span></div><input id="rng-a" type="range" min="6700" max="65000" step="10" value="26560" aria-label="Semi-major axis slider"></div>
+        <div class="element" data-element="e"><div class="field"><button class="element-name" data-highlight="e" aria-pressed="false"><b class="symbol coral">e</b> Eccentricity</button><input id="num-e" type="number" min="0" max="0.95" step="0.0001" value="0.01" aria-label="Eccentricity"><span></span></div><input id="rng-e" type="range" min="0" max="0.95" step="0.0001" value="0.01" aria-label="Eccentricity slider"></div>
+        <h2>Plane orientation</h2>
+        <div class="element" data-element="i"><div class="field"><button class="element-name" data-highlight="i" aria-pressed="false"><b class="symbol teal">i</b> Inclination</button><input id="num-i" type="number" min="0" max="180" step="0.1" value="55" aria-label="Inclination in degrees"><span>&deg;</span></div><input id="rng-i" type="range" min="0" max="180" step="0.1" value="55" aria-label="Inclination slider"></div>
+        <div class="element" data-element="raan"><div class="field"><button class="element-name" data-highlight="raan" aria-pressed="false"><b class="symbol pink">&Omega;</b> RAAN</button><input id="num-raan" type="number" min="0" max="360" step="0.1" value="40" aria-label="RAAN in degrees"><span>&deg;</span></div><input id="rng-raan" type="range" min="0" max="360" step="0.1" value="40" aria-label="RAAN slider"></div>
+        <h2>Orientation and phase</h2>
+        <div class="element" data-element="argp"><div class="field"><button class="element-name" data-highlight="argp" aria-pressed="false"><b class="symbol sky">&omega;</b> Argument of perigee</button><input id="num-argp" type="number" min="0" max="360" step="0.1" value="45" aria-label="Argument of perigee in degrees"><span>&deg;</span></div><input id="rng-argp" type="range" min="0" max="360" step="0.1" value="45" aria-label="Argument of perigee slider"></div>
+        <div class="element" data-element="nu"><div class="field"><button class="element-name" data-highlight="nu" aria-pressed="false"><b class="symbol lime">&nu;</b> True anomaly</button><input id="num-nu" type="number" min="0" max="360" step="0.1" value="30" aria-label="True anomaly in degrees"><span>&deg;</span></div><input id="rng-nu" type="range" min="0" max="360" step="0.1" value="30" aria-label="True anomaly slider"></div>
+        <label class="j2"><input id="j2" type="checkbox"> Secular J<sub>2</sub> precession</label>
+        <p id="singularities" class="notice" hidden></p>
+        <p id="collision" class="notice warning" role="status" hidden></p>
+        <div class="summary"><div><span>Perigee altitude</span><strong id="perigee"></strong></div><div><span>Apogee altitude</span><strong id="apogee"></strong></div><div><span>Period</span><strong id="period"></strong></div><div><span>Speed</span><strong id="speed-value"></strong></div></div>
+      </div>
+      <div id="state-panel" class="panel" role="tabpanel" aria-labelledby="state-tab" hidden>
+        <h2>Instantaneous ECI state</h2><dl class="state-readouts"><dt>Position r [km]</dt><dd id="position-vector"></dd><dt>Osculating velocity v [km/s]</dt><dd id="velocity-vector"></dd><dt>Current altitude</dt><dd id="altitude"></dd><dt>Flight-path angle &gamma;</dt><dd id="flight-path"></dd><dt>Eccentric anomaly E</dt><dd id="eccentric-anomaly"></dd><dt>Mean anomaly M</dt><dd id="mean-anomaly"></dd><dt>Specific energy [km&sup2;/s&sup2;]</dt><dd id="energy"></dd><dt>Angular momentum [km&sup2;/s]</dt><dd id="momentum"></dd><dt>J<sub>2</sub> node rate [deg/day]</dt><dd id="node-rate"></dd><dt>J<sub>2</sub> apsidal rate [deg/day]</dt><dd id="apsidal-rate"></dd></dl>
+        <button id="download" class="command"><i data-lucide="download"></i> Export one orbit CSV</button>
+      </div>
+      <div id="notes-panel" class="panel theory" role="tabpanel" aria-labelledby="notes-tab" hidden>
+        <h2>Geometry in the GPSORB series</h2>
+        <p>The Earth is at a focus, not at the centre of the ellipse. The inertial X direction is a fixed equinox reference; Z points north.</p>
+        <dl><dt>a and e</dt><dd>Size and shape. The perigee and apogee radii are a(1 &minus; e) and a(1 + e).</dd><dt>i and &Omega;</dt><dd>Inclination tilts the orbital plane. RAAN turns its ascending-node direction around Z.</dd><dt>&omega; and &nu;</dt><dd>Argument of perigee is measured within the orbit from the ascending node. True anomaly is measured from perigee to the satellite.</dd></dl>
+        <p class="equation">r = a(1 &minus; e&sup2;) / (1 + e cos &nu;)<br>M = E &minus; e sin E<br>R = R<sub>z</sub>(&Omega;) R<sub>x</sub>(i) R<sub>z</sub>(&omega;)</p>
+        <p>Kepler playback advances mean anomaly uniformly, so the satellite moves faster near perigee. Optional J<sub>2</sub> applies first-order secular node and apsidal rates with fixed a, e and i. The displayed velocity is the instantaneous two-body osculating velocity.</p>
+        <p>This is a bound Earth-orbit geometry model, not an LNAV/CNAV broadcast ephemeris decoder. It omits drag, short-period J<sub>2</sub> terms, lunar/solar forces, GPS harmonic corrections and Earth-fixed coordinates. Presets are illustrative, not live satellite states.</p>
+        <ul class="articles"><li><a href="https://physicslibrary.org/?op=getobj&amp;from=objects&amp;id=1261">GPSORB05: Classical orbital elements</a></li><li><a href="https://physicslibrary.org/?op=getobj&amp;from=objects&amp;id=1262">GPSORB06: Kepler's equation</a></li><li><a href="https://physicslibrary.org/?op=getobj&amp;from=objects&amp;id=1263">GPSORB07: PQW to ECI</a></li><li><a href="https://physicslibrary.org/?op=getobj&amp;from=objects&amp;id=1265">GPSORB09: Perifocal state vectors</a></li><li><a href="https://physicslibrary.org/?op=getobj&amp;from=objects&amp;id=1266">GPSORB10: J<sub>2</sub> precession</a></li></ul>
+        <p class="references"><a href="orbital-elements.jl">Julia source</a> &middot; <a href="reference.csv">Reference states</a><br><a href="orbital-elements.zip">Offline project</a> &middot; <a href="provenance.toml">Provenance</a><br><a href="LICENSE.txt">License</a> &middot; <a href="THIRD-PARTY.txt">Dependencies</a><br>Visual inspiration: <a href="https://ki-math.github.io/orbital-elements-viewer/">Ki-math orbital-elements viewer</a></p>
+      </div>
+      <footer class="constants">&mu; = 398600.4418 km&sup3;/s&sup2;<br>R<sub>E</sub> = 6378.137 km &nbsp; J<sub>2</sub> = 1.08262668 &times; 10<sup>&minus;3</sup></footer>
+    </aside>
+  </main>
+  <script src="viewer.js" defer></script>
+</body>
+</html>

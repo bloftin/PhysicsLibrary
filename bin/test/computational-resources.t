@@ -121,6 +121,16 @@ for my $url (render($pulley) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'pulley publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/orbital-elements/computational-resources.json"));
+my $elements = resources();
+is(scalar @$elements, 1, 'orbital-elements manifest selects its reviewed publication');
+is($elements->[0]{title}, 'Orbital Elements and Kepler Propagation', 'orbital-elements title comes from catalog');
+is(scalar @{$elements->[0]{datasets}}, 1, 'orbital-elements resource exposes Julia reference data');
+for my $url (render($elements) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'orbital-elements publication asset exists: ' . $url);
+}
+reset_files();
 my $license = readfile("$repo/data/examples/julia-oscillator/LICENSE.txt");
 like($license, qr/GNU General Public License, version 3/, 'software license is GPLv3');
 like($license, qr/Creative\s+Commons\s+Attribution-ShareAlike/, 'article and math materials retain Physics Library CC BY-SA terms');

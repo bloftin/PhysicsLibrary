@@ -1,0 +1,4 @@
+* text eol=lf
+*.zip binary
+# Bundled GLSL strings retain upstream whitespace.
+viewer.js whitespace=-blank-at-eol
