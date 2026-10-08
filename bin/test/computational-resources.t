@@ -166,6 +166,16 @@ for my $url (@multi_urls) {
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['newton-constant-acceleration', 'julia-oscillator']}));
 is_deeply([map { $_->{id} } @{resources()}], ['newton-constant-acceleration', 'julia-oscillator'], 'articles can choose a different multi-resource order');
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/binary-star-observer/computational-resources.json"));
+my $binary = resources();
+is(scalar @$binary, 1, 'binary-star manifest selects its reviewed publication');
+is($binary->[0]{title}, 'Binary Star Observer and Eclipse Probability', 'binary-star title comes from catalog');
+is(scalar @{$binary->[0]{datasets}}, 1, 'binary-star resource exposes its Julia reference curves');
+for my $url (render($binary) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'binary-star publication asset exists: ' . $url);
+}
+reset_files();
 my $multi = decode_json(encode_json($catalog));
 $multi->{resources}{'python-example'} = {%{$multi->{resources}{'julia-oscillator'}}, language => 'Python', version => '3.12'};
 writefile($catalog_path, encode_json($multi));

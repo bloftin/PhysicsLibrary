@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Binary Star Observer | Physics Library</title><link rel="stylesheet" href="style.css"></head>
+<body>
+  <header class="masthead"><div><a class="brand" href="https://physicslibrary.org/">Physics Library</a><h1>Binary Star Observer</h1></div><a class="article-link" href="https://physicslibrary.org/encyclopedia/BinaryStarsAsPhysicalLaboratories.html">Binary stars <i data-lucide="arrow-up-right"></i></a></header>
+  <main>
+    <section class="workspace" aria-label="Binary system visualization">
+      <nav class="modes" role="tablist" aria-label="Views"><button id="observer-tab" role="tab" aria-selected="true" aria-controls="observer-panel">Observer lab</button><button id="probability-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="probability-panel">Eclipse probability</button><span class="mode-note">Detached binary &middot; a = 1</span></nav>
+      <div class="visual-row">
+        <section class="scene-region"><div class="scene-heading"><h2 id="scene-title">Orbit &amp; Earth line of sight</h2><div class="camera-tools"><button id="camera-reset" class="icon" title="Reset inspection camera" aria-label="Reset inspection camera"><i data-lucide="rotate-ccw"></i></button><button id="camera-earth" class="icon" title="Look along Earth's line of sight" aria-label="Look along Earth's line of sight"><i data-lucide="eye"></i></button><button id="camera-top" class="icon" title="Look along the orbital pole" aria-label="Look along the orbital pole"><i data-lucide="orbit"></i></button></div></div><div id="scene"><p id="webgl-fallback" hidden>3D rendering is unavailable. Earth projection and calculations remain available.</p></div><div class="scene-key"><span class="star1-key">Star 1</span><span class="star2-key">Star 2</span><span class="earth-key">Earth (+Z)</span><span class="pole-key">Orbital pole</span></div></section>
+        <section id="earth-panel" class="earth-region"><div class="scene-heading"><h2>View from Earth</h2><div class="segmented" aria-label="Earth view"><button id="disk-view" aria-pressed="true" title="Magnified stellar disks"><i data-lucide="circle"></i></button><button id="point-view" aria-pressed="false" title="Unresolved photometric source"><i data-lucide="sparkle"></i></button></div></div><canvas id="earth-canvas" aria-label="Projected binary on the sky plane"></canvas><p id="projection-label">Magnified disks &middot; sky plane X&ndash;Y</p><strong id="eclipse-state">No eclipse</strong></section>
+      </div>
+      <section id="observer-panel" role="tabpanel" aria-labelledby="observer-tab">
+        <div class="plot-heading"><h2>Relative brightness</h2><span id="flux-readout"></span><span class="quiet">Combined light &middot; outside eclipse = 1</span></div>
+        <svg id="light-curve" role="img" tabindex="0" aria-label="Normalized brightness versus orbital phase"></svg>
+        <div class="transport"><button id="play" class="icon" title="Play orbit" aria-label="Play orbit"><i data-lucide="play"></i></button><label for="phase">Phase</label><input id="phase" type="range" min="0" max="1" step=".0001" value=".25"><output id="phase-value" for="phase">0.250</output><select id="speed" aria-label="Playback speed"><option value=".04">Slow</option><option value=".08" selected>Normal</option><option value=".16">Fast</option></select><button id="export" class="icon" title="Download light curve CSV" aria-label="Download light curve CSV"><i data-lucide="download"></i></button></div>
+        <div id="event-summary" class="event-summary"></div><p class="phase-caption">Phase is time / period measured from periastron. Eclipse A: star 1 behind; eclipse B: star 2 behind.</p>
+      </section>
+      <section id="probability-panel" role="tabpanel" aria-labelledby="probability-tab" hidden>
+        <div class="probability-head"><h2>Random orbital orientations</h2><span>Uniform in cos i &middot; fixed e and &omega;</span></div>
+        <div class="probability-metrics"><div><span>Any eclipse</span><strong id="p-any"></strong></div><div><span>Both eclipses</span><strong id="p-both"></strong></div><div><span>Only one eclipse</span><strong id="p-only"></strong></div><div><span>Neither</span><strong id="p-none"></strong></div></div>
+        <div class="probability-detail"><dl><dt>Eclipse A &middot; star 1 behind</dt><dd id="p-a"></dd><dt>Eclipse B &middot; star 2 behind</dt><dd id="p-b"></dd><dt>Any total coverage of the rear star</dt><dd id="p-total"></dd><dt>Minimum inclination for any eclipse</dt><dd id="i-critical"></dd><dt>Selected inclination</dt><dd id="selected-outcome"></dd></dl><div><h3>2,400 equally weighted orientations</h3><div id="ensemble-bar"></div><p id="ensemble-count"></p><p class="quiet">Green: both &middot; amber: only one &middot; gray: neither<br>Probabilities describe geometry, not survey detectability.</p></div></div>
+        <p class="equation">Circular orbit: P(any eclipse) = (R<sub>1</sub> + R<sub>2</sub>) / a.<br>Eccentric orbit: separate conjunction boundaries; P(any) = max(P<sub>A</sub>, P<sub>B</sub>), P(both) = min(P<sub>A</sub>, P<sub>B</sub>).</p>
+      </section>
+    </section>
+    <aside class="controls">
+      <label for="preset" class="preset-label">Binary system</label><select id="preset"><option value="unequal">Unequal stars</option><option value="twins">Circular twins</option><option value="grazing">Grazing eclipses</option><option value="missed">Missed eclipses</option><option value="eccentric">Eccentric: one eclipse</option><option value="article">Article: 2 R&#9737; / 0.05 AU</option></select>
+      <h2>Orientation</h2>
+      <div class="control"><label for="i"><span>Inclination i</span><output id="i-value"></output></label><input id="i" type="range" min="0" max="90" step=".1" value="87"><div class="endpoints"><span>Face-on 0&deg;</span><span>Edge-on 90&deg;</span></div></div>
+      <div class="control"><label for="w"><span>Periastron angle &omega;</span><output id="w-value"></output></label><input id="w" type="range" min="0" max="360" step="1" value="0"></div>
+      <h2>Stellar disks</h2>
+      <div class="control"><label for="s"><span>Radius sum (R<sub>1</sub> + R<sub>2</sub>) / a</span><output id="s-value"></output></label><input id="s" type="range" min=".02" max=".5" step=".001" value=".28"></div>
+      <div class="control"><label for="k"><span>Radius ratio R<sub>2</sub> / R<sub>1</sub></span><output id="k-value"></output></label><input id="k" type="range" min=".25" max="4" step=".01" value=".55"></div>
+      <div class="derived"><span>R<sub>1</sub> / a <strong id="r1"></strong></span><span>R<sub>2</sub> / a <strong id="r2"></strong></span></div>
+      <div class="control"><label for="j"><span>Surface brightness J<sub>2</sub> / J<sub>1</sub></span><output id="j-value"></output></label><input id="j" type="range" min=".05" max="2" step=".01" value=".35"></div>
+      <label class="check"><input id="limb" type="checkbox"> Quadratic limb darkening</label><p class="quiet coefficients">u<sub>1</sub> = 0.40 &middot; u<sub>2</sub> = 0.25 &middot; both stars</p>
+      <h2>Orbit</h2>
+      <div class="control"><label for="e"><span>Eccentricity e</span><output id="e-value"></output></label><input id="e" type="range" min="0" max=".8" step=".01" value="0"></div>
+      <div class="control"><label for="q"><span>Mass ratio M<sub>2</sub> / M<sub>1</sub></span><output id="q-value"></output></label><input id="q" type="range" min=".25" max="4" step=".01" value=".65"></div>
+      <p id="detached" class="constraint" role="status"></p>
+      <details><summary>Model &amp; Julia source</summary><p>Keplerian, spherical detached stars with no third light, spots, reflection, tidal distortion or Doppler beaming. Stellar colors are labels, not temperatures.</p><p>Earth sees projected X&ndash;Y disks along fixed +Z. Inspection-camera motion does not change that observer. The unresolved view represents combined photometric light, not resolved telescope imaging.</p><p>Quadratic intensity: I(&mu;) / I(1) = 1 &minus; 0.4(1 &minus; &mu;) &minus; 0.25(1 &minus; &mu;)&sup2;. The browser interpolates a precomputed Transits.jl kernel; uniform disks use exact overlap geometry.</p><p>Probability boundaries maximize allowed |cos i| over each half-orbit, rather than approximating conjunction as exactly edge-on. The two events share the same inclination.</p><p>Timing, eclipse duration and depth do not uniquely determine a binary without additional constraints.</p><p><a href="https://physicslibrary.org/encyclopedia/GeometricEclipseProbability.html">Geometric eclipse probability</a><br><a href="binary-star-observer.jl">Julia source</a> &middot; <a href="reference.csv">Reference curves</a><br><a href="binary-star-observer.zip">Offline project</a> &middot; <a href="provenance.toml">Provenance</a><br><a href="LICENSE.txt">License</a> &middot; <a href="THIRD-PARTY.txt">Dependencies</a></p></details>
+    </aside>
+  </main>
+  <script src="viewer.js" defer></script>
+</body></html>

@@ -1,0 +1,9 @@
+{
+  "name": "physicslibrary-binary-star-observer",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {"build": "node build.mjs", "test": "node --test test/model.test.mjs"},
+  "dependencies": {"astronomia": "4.1.1", "d3": "7.9.0", "fmin": "0.0.2", "lucide": "0.468.0", "three": "0.180.0", "venn.js": "0.2.20"},
+  "devDependencies": {"esbuild": "0.25.10"}
+}
