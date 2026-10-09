@@ -1,6 +1,17 @@
 {
   "schema_version": 1,
   "resources": {
+    "em-field-lab": {
+      "title": "Wave and Field Explorer (EM01)",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline 3D scalar/vector plane-field lab with spatial snapshots, fixed-probe histories, transverse directions and propagation delay. Includes Julia reference calculations, locked environments, tests and an offline project; no server-side computation.",
+      "explorer": "index.html",
+      "source": "em-field-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [{"label": "Julia scalar and vector field reference samples", "file": "reference.csv"}]
+    },
     "spectroscopic-binary": {
       "title": "Spectroscopic Binary Lab",
       "language": "Julia",

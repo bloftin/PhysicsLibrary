@@ -1,0 +1,19 @@
+reference_generator = "julia --startup-file=no --project=. em-field-lab.jl"
+julia_version = "1.10.12"
+reference_method = "independent rotation matrices and cospi phase evaluation; standard libraries"
+browser_method = "analytic plane wave; Three.js vector basis; D3 contours and plots"
+renderer = "Three.js 0.180.0; D3 7.9.0; procedural field glyphs and scalar texture; no remote assets"
+model = "monochromatic linearly polarized transverse plane wave in vacuum; no antenna response"
+speed_m_s = 299792458
+coordinates = "r/lambda, time/T; frequency changes physical metres and seconds"
+scalar = "psi=E0*cos(2pi*(n dot r/lambda - time/T)+initial_phase)"
+vector = "E=e*psi; n=Rz(phi)*Ry(theta)*z; e=Rz(phi)*Ry(theta)*(x*cos(beta)+y*sin(beta))"
+probe_delay = "B=A+spacing*n; time delay=spacing*T; monochromatic phase modulo 2pi"
+reference_cases = 7
+reference_samples = 1820
+reference_csv_sha256 = "8685c864aa82276716ac9f75b163c5a25e5d82cd869928d8690e5dbd64434afa"
+em_field_lab_jl_sha256 = "a1f85d6301cae3597fcf828efd4360a9f2a13d5733b6340bb2645b6f2a60e1bf"
+model_js_sha256 = "ebb4adf2e1b19e3320f6cdb9f508b6ba4fe55313e643fcd479519c7591938fd8"
+Manifest_toml_sha256 = "8d88f52d74183c951753e489a2b869bdcc5c230b2eeadc158e43d0a14ee15506"
+pnpm_lock_yaml_sha256 = "9e1257192c162f10d8611035e8b22c85cd09d905df1240d6dd986e7cea7c27cb"
+viewer_sha256 = "6b37925674f9887df8d38f27b350fc9ae57ad8c0fc947175b0c225aa1becede3"
