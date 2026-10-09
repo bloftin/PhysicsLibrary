@@ -26,8 +26,11 @@ die "Choose --status or --apply\n" if $apply && $status;
 my $db = Noosphere::dbConnect() or die "Cannot connect to database\n";
 $db->{RaiseError}=1;
 $db->{PrintError}=0;
-die "Full-text index requires MySQL/MariaDB\n" unless $db->{Driver}{Name} eq 'mysql';
-$db->do('SET NAMES utf8mb4');
+my $driver = $db->{Driver}{Name} || '';
+die "Full-text index requires MySQL/MariaDB\n" unless $driver eq 'mysql' || $driver eq 'MariaDB';
+# DBD::MariaDB negotiates utf8mb4 and decodes text itself; the legacy mysql
+# driver needs an explicit connection charset without changing its byte mode.
+$db->do('SET NAMES utf8mb4') if $driver eq 'mysql';
 my $documents = Noosphere::nativeSearchIdentifier('search_documents_tbl');
 if ($status) {
     my @rows = Noosphere::nativeSearchRows($db, "SELECT tbl,status,COUNT(*) AS total,

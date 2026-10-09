@@ -55,14 +55,17 @@ implementation. See [native-search.md](native-search.md) for that architecture.
 Keep `NATIVE_FULLTEXT_ENABLED` off until these steps are complete. Deploying this
 PR alone keeps metadata-only search working, without referencing a missing table.
 
-1. Use MariaDB with InnoDB FULLTEXT support and DBD::mysql (tested with MariaDB
-   10.6.23). PostgreSQL deployments keep metadata-only search.
+1. Use MariaDB with InnoDB FULLTEXT support and either DBD::mysql (`mysql`) or
+   DBD::MariaDB (`MariaDB`). Keep the site's existing driver configuration;
+   PostgreSQL deployments keep metadata-only search. The engine tests accept
+   either driver against a disposable MariaDB database.
 2. Install a trusted Pandoc build supporting `--sandbox` (2.15 or newer), available
    to `apache`; set the non-secret `SEARCH_PANDOC` option to its absolute executable
    path if not `/usr/bin/pandoc`. No Lua filters, preambles, external includes,
    network fetches, or rendering tools are supplied to it. Test the parser before
    enabling the worker. Old builds fail the readiness check without writing.
-3. Confirm UTF-8 content/connection settings. The worker uses `SET NAMES utf8mb4`;
+3. Confirm UTF-8 content/connection settings. With DBD::mysql the worker uses
+   `SET NAMES utf8mb4`; DBD::MariaDB manages its UTF-8 connection and text decoding;
    index columns use `utf8mb4_unicode_ci`. Search explicitly handles UTF-8 bindings
    and snippet bytes on the legacy undecoded mysql connection too. Existing
    mojibake in source data is not repaired by this PR.
@@ -146,11 +149,14 @@ stop the timer if needed. Leaving the additive table in place is harmless.
 ## Validation
 
 ```sh
-prove bin/test/native-search.t bin/test/search-index.t bin/test/noindex-routes.t
+prove bin/test/native-search.t bin/test/search-index.t bin/test/search-index-driver.t bin/test/noindex-routes.t
 # Parser cases require a Pandoc with --sandbox support:
 SEARCH_TEST_PANDOC=/usr/bin/pandoc prove -v bin/test/search-index.t
 # Dedicated disposable database only, ending in _test; test tables are dropped:
 FULLTEXT_TEST_DSN='dbi:mysql:database=pl_search_test;mysql_socket=/path/to/test.sock' \
+  SEARCH_TEST_PANDOC=/usr/bin/pandoc prove -v bin/test/full-text-search-mariadb.t
+# The site's distinct MariaDB driver can use the same disposable engine tests:
+FULLTEXT_TEST_DSN='dbi:MariaDB:database=pl_search_test;mariadb_socket=/path/to/test.sock' \
   SEARCH_TEST_PANDOC=/usr/bin/pandoc prove -v bin/test/full-text-search-mariadb.t
 # Optional real-engine synthetic benchmark and browser fixture:
 FULLTEXT_TEST_DSN='dbi:mysql:database=pl_search_test;mysql_socket=/path/to/test.sock' \
@@ -170,4 +176,5 @@ for count/page/snippets. This is not production latency or a production memory
 benchmark. CLI status and health snapshots remain important during rollout.
 
 References: [MariaDB FULLTEXT overview](https://mariadb.com/docs/server/ha-and-performance/optimization-and-tuning/optimization-and-indexes/full-text-indexes/full-text-index-overview),
-[Pandoc sandbox](https://pandoc.org/MANUAL.html#option--sandbox).
+[Pandoc sandbox](https://pandoc.org/MANUAL.html#option--sandbox),
+[DBD::MariaDB Unicode support](https://metacpan.org/pod/DBD::MariaDB#UNICODE-SUPPORT).

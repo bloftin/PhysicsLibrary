@@ -16,10 +16,13 @@ use Noosphere::SearchIndex;
 # This test creates/drops fixture tables in an explicitly supplied disposable
 # database. Never point it at the production database.
 plan skip_all=>'Set FULLTEXT_TEST_DSN to a disposable MariaDB database ending in _test'
-    unless ($ENV{FULLTEXT_TEST_DSN} || '') =~ /\Adbi:mysql:database=[a-z0-9_]+_test;/;
+    unless ($ENV{FULLTEXT_TEST_DSN} || '') =~ /\Adbi:(?:mysql|MariaDB):database=[a-z0-9_]+_test;/;
+my $mysql_driver = $ENV{FULLTEXT_TEST_DSN} =~ /\Adbi:mysql:/;
+my %connect_options = (RaiseError=>1,PrintError=>0);
+$connect_options{mysql_enable_utf8mb4}=1 if $mysql_driver;
 my $db=$Noosphere::dbh=DBI->connect($ENV{FULLTEXT_TEST_DSN}, undef, undef,
-    {RaiseError=>1,PrintError=>0,mysql_enable_utf8mb4=>1});
-$db->do('SET NAMES utf8mb4');
+    \%connect_options);
+$db->do('SET NAMES utf8mb4') if $mysql_driver;
 my $root="$FindBin::Bin/../..";
 my %config=(template_path=>"$root/stemplates",en_tbl=>'objects',books_tbl=>'books',papers_tbl=>'papers',exp_tbl=>'lec',
     index_tbl=>'objindex',acl_tbl=>'acl',acl_tables=>{map{$_=>1}qw(objects books papers lec)},
@@ -125,9 +128,10 @@ like($rows->[0]{snippet_html},qr/<mark>Über<\/mark>/,'UTF-8 snippet highlighted
 ($total,$rows)=result('orbital');
 like((grep{$_->{uid}==9}@$rows)[0]{snippet_html},qr/&lt;script&gt;.*&amp;/,'HTML-looking source escaped');
 ($total)=result('the');is($total,4,'stopwords disabled for new index without changing server global setting');
-{
+SKIP: {
     # Mirror the legacy undecoded mysql connection, including latin1 client
     # negotiation, without changing the new index's UTF-8 text/collation.
+    skip 'DBD::MariaDB always negotiates Unicode; no legacy byte/latin1 mode',2 unless $mysql_driver;
     local $db->{mysql_enable_utf8mb4}=0;
     $db->do('SET NAMES latin1');
     my ($count,$unicode_rows)=result('Über');
@@ -190,7 +194,11 @@ ok(index_object('papers',2,'new spectroscopy abstract'),'resource ready after re
 {
     my $boot = q{BEGIN { $INC{'Noosphere/DB.pm'}=1; }
         use DBI; package Noosphere;
-        sub dbConnect { DBI->connect($ENV{FULLTEXT_TEST_DSN},undef,undef,{RaiseError=>1,PrintError=>0,mysql_enable_utf8mb4=>1}) }
+        sub dbConnect {
+            my %options=(RaiseError=>1,PrintError=>0);
+            $options{mysql_enable_utf8mb4}=1 if $ENV{FULLTEXT_TEST_DSN} =~ /\Adbi:mysql:/;
+            DBI->connect($ENV{FULLTEXT_TEST_DSN},undef,undef,\%options);
+        }
         sub getConfig { my %c=(en_tbl=>'objects',books_tbl=>'books',papers_tbl=>'papers',exp_tbl=>'lec',
             acl_tbl=>'acl',acl_tables=>{map{$_=>1}qw(objects books papers lec)},gmember_tbl=>'group_members',groups_tbl=>'groups',
             search_documents_tbl=>'search_documents',search_pandoc=>$ENV{SEARCH_TEST_PANDOC} || '/usr/bin/pandoc'); return $c{$_[0]}; }
