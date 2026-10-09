@@ -27,10 +27,13 @@ my $record = {uid => 42, userid => 7, version => 3, title => 'Original title',
 my $admin = {uid => 9, data => {access => 100}};
 my (@updates, @snapshots, @invalidations, @events);
 my $selects = 0;
+my $fulltext = 0;
+my @search_invalidations;
 
 sub getConfig {
     return {
         en_tbl => 'objects', en_schema => $schema,
+        books_tbl => 'books', papers_tbl => 'papers', exp_tbl => 'lec', native_fulltext_enabled => $fulltext,
         generic_schema => {books => {title => $schema->{title}}},
         access_editobj => 100, cache_root => "$root/cache", file_root => "$root/files",
         cache_url => '/cache', file_url => '/files', main_url => 'https://physicslibrary.org',
@@ -54,6 +57,7 @@ sub noAccess { 'ACCESS DENIED'; }
 sub readFile { open my $in, '<', $_[0] or die $!; local $/; return <$in>; }
 sub dbSelect { $selects++; return (1, bless({}, 'AdminFileboxStatement')); }
 sub dbUpdate { push @updates, $_[1]; return (1, bless({}, 'AdminFileboxStatement')); }
+sub nativeSearchForgetDocument { push @search_invalidations, [@_[1,2]]; }
 sub snapshot {
     push @snapshots, [@_];
     push @events, 'snapshot';
@@ -214,6 +218,16 @@ like($html, qr/Invalid object/, 'invalid object id is rejected');
 $html = adminObjectEditor({from => 'books', id => 42}, $admin, {});
 unlike($html, qr/Manage This Object's Filebox/, 'generic metadata editor is unchanged');
 like($html, qr/Editing metadata/, 'generic metadata title is retained');
+
+@updates=();
+$html=adminUpdateObjectMetadata(getConfig('generic_schema')->{books},{from=>'books',id=>42,title=>'Edited book title',remark=>'Revise book'},$admin,$record);
+like(join(' ',map{$_->{SET}}@updates),qr/modified=CURRENT_TIMESTAMP/,'resource edit maintains search freshness timestamp');
+is(scalar(@search_invalidations),0,'disabled index adds no edit-time index writes');
+$fulltext=1;
+@updates=();
+$html=adminUpdateObjectMetadata(getConfig('generic_schema')->{books},{from=>'books',id=>42,title=>'Another book title',remark=>'Revise book'},$admin,$record);
+is_deeply(\@search_invalidations,[['books',42]],'enabled resource edit invalidates correct search document');
+$fulltext=0;
 
 {
     no warnings qw(redefine once);

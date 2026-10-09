@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh Physics Library native full-text index
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=2min
+RandomizedDelaySec=15s
+Unit=physicslibrary-search-index.service
+
+[Install]
+WantedBy=timers.target

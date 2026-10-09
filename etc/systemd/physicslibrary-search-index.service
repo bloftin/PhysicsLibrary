@@ -1,0 +1,20 @@
+[Unit]
+Description=Physics Library native full-text index update
+After=mariadb.service
+
+[Service]
+Type=oneshot
+User=apache
+Group=apache
+WorkingDirectory=/var/www/pp
+ExecStart=/usr/bin/perl /var/www/pp/bin/update-search-index --apply --limit 5
+Nice=15
+CPUQuota=20%
+IOSchedulingClass=idle
+MemoryMax=256M
+LimitFSIZE=4M
+TimeoutStartSec=180
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true

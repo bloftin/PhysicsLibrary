@@ -1,5 +1,10 @@
 # Native library search (PR1)
 
+PR3 adds optional indexed prose and abstract search. See
+[indexed-full-text-search.md](indexed-full-text-search.md) for its separate
+migration, bounded worker, opt-in rollout, matching semantics, and validation.
+The metadata-only behavior described below remains the default until enabled.
+
 The header now sends `op=search&q=...` to a server-rendered search page. Root
 Google-style bookmarks with `q`, `cx`, `cof`, `ie`, and `sa` use the same handler.
 Explicit operations such as `listobj` and `getobj` retain their own behavior.

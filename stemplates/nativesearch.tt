@@ -15,6 +15,7 @@
 .pl-native-search-results > li { border-top: 1px solid #c9d7e3; overflow-wrap: anywhere; padding: .75rem .15rem; }
 .pl-native-search-results h2 { font-size: 1rem; line-height: 1.4; margin: 0 0 .3rem; }
 .pl-native-search-meta { color: #526170; font-size: .8rem; line-height: 1.5; margin: .25rem 0 0; }
+.pl-native-search-snippet { line-height: 1.5; margin: .4rem 0 0; max-width: 70rem; }
 .pl-native-search mark { background: #fff0b8; color: inherit; }
 .pl-native-search-topics { border-top: 1px solid #c9d7e3; margin-top: 1rem; padding-top: .65rem; }
 .pl-native-search-topics h2 { font-size: .95rem; margin: 0 0 .5rem; }
@@ -44,6 +45,7 @@
     <li>
       <h2><a href="[% result.href | html %]">[% result.title_html %]</a></h2>
       <p class="pl-native-search-meta">[% result.label | html %]</p>
+      [% IF result.snippet_html %]<p class="pl-native-search-snippet">[% result.snippet_html %]</p>[% END %]
       [% FOREACH meta IN result.metadata %]<p class="pl-native-search-meta"><strong>[% meta.label | html %]:</strong> [% meta.html %]</p>[% END %]
       [% IF result.classes.size %]<p class="pl-native-search-meta">PACS: [% FOREACH topic IN result.classes %]<a href="[% topic.href | html %]" title="[% topic.comment | html %]">[% topic.id | html %]</a>[% UNLESS loop.last %], [% END %][% END %]</p>[% END %]
     </li>

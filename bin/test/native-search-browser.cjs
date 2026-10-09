@@ -17,6 +17,8 @@ async function main() {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     let fixture = 'results';
+    const fixtures = ['results', 'subject', 'all', 'empty', 'none', 'calculus', 'pages'];
+    if (await fs.stat(path.join(qa, 'fulltext.html')).catch(() => null)) fixtures.push('fulltext');
     await page.route('https://physicslibrary.org/**', async route => {
       const url = new URL(route.request().url());
       if (url.pathname.startsWith('/images/')) {
@@ -32,7 +34,7 @@ async function main() {
     });
     for (const width of [1440, 768, 390, 320]) {
       await page.setViewportSize({width, height: 900});
-      for (fixture of ['results', 'subject', 'all', 'empty', 'none', 'calculus', 'pages']) {
+      for (fixture of fixtures) {
         await page.goto('https://physicslibrary.org/?op=search', {waitUntil: 'networkidle'});
         await page.locator('.pl-native-search').waitFor();
         assert.equal(await page.locator('meta[name=robots]').getAttribute('content'), 'noindex,follow');
@@ -59,6 +61,13 @@ async function main() {
         if (fixture === 'calculus' && (width === 1440 || width === 390)) {
           await page.screenshot({path: path.join(qa, `search-${width}.png`), fullPage: true});
         }
+        if (fixture === 'fulltext') {
+          assert.ok(await page.locator('.pl-native-search-snippet').count() > 0, 'real indexed snippets displayed');
+          assert.ok(await page.locator('.pl-native-search-snippet mark').count() > 0, 'snippet query terms highlighted');
+          const overflow = await page.locator('.pl-native-search-snippet').evaluateAll(nodes => nodes.some(n => n.scrollWidth > n.clientWidth + 1));
+          assert.equal(overflow, false, 'snippets wrap at every viewport');
+          if (width === 1440 || width === 390) await page.screenshot({path: path.join(qa, `fulltext-${width}.png`), fullPage: true});
+        }
       }
     }
     fixture = 'results';
@@ -84,7 +93,7 @@ async function main() {
     await page.waitForURL(url => url.searchParams.get('offset') === '20');
     assert.equal(new URL(page.url()).searchParams.get('q'), 'Batch');
     assert.deepEqual(errors, []);
-    console.log('PASS: seven states across four viewports; header alignment, logo, noindex, canonical result, query/collection/PACS submission, pagination, and no JS errors.');
+    console.log(`PASS: ${fixtures.length} states across four viewports; header alignment, logo, noindex, canonical result, query/collection/PACS submission, pagination, snippets when supplied, and no JS errors.`);
   } finally {
     await browser.close();
   }
