@@ -72,6 +72,7 @@ sub applyIndexingPolicy {
 		oldreqs
 		showwatchers
 		getcors
+		getrefs
 		edituserobjs
 		userobjs
 		edituserobjsbeta
@@ -679,6 +680,7 @@ sub cgi_handler {
 sub handler {
 	# mod_perl reuses the interpreter; page metadata belongs to this request only.
 	local $NoosphereCanonical = '';
+	local our $NoosphereDescription = '';
 	#dwarn "Noosphere Entry Point";
 		#my $req = shift;
 	#Ben, latest noosphere getting request this way
@@ -979,6 +981,7 @@ sub handler {
 				no_index	  => $no_index,
 				native_search => $params->{op} eq 'search',
 				canonical_url => $NoosphereCanonical,
+				article_description => $NoosphereCanonical ? $NoosphereDescription : '',
 				header        => $header,
 				sidebar       => $sidebar_html,
 				content       => $content,

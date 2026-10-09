@@ -18,7 +18,7 @@ our %config = (
     bannedips => {}, screen_scrapers => [],
 );
 our @records = (
-    {uid => 209, name => 'VectorTripleProduct'},
+    {uid => 209, name => 'VectorTripleProduct', modified => '2026-01-02 03:04:05'},
     {uid => 1081, name => 'ScalarTripleProduct'},
 );
 {
@@ -137,8 +137,12 @@ is($r->{headers}->{'Content-Length'}, length($r->{body}), 'length is measured in
 is($r->{headers}->{'X-Content-Type-Options'}, 'nosniff', 'standard security headers remain');
 ok(!exists $r->{headers}->{'X-Robots-Tag'}, 'sitemap has no search-route noindex header');
 ok(!exists $r->{headers}->{'Set-Cookie'}, 'sitemap does not create a session');
-unlike($r->{body}, qr/<html|request_form|csrf|<lastmod>|<priority>|<changefreq>/,
+unlike($r->{body}, qr/<html|request_form|csrf|<priority>|<changefreq>/,
     'no HTML, account token, or invented crawler metadata');
+like($r->{body}, qr{VectorTripleProduct\.html</loc>\s*<lastmod>2026-01-02</lastmod>},
+    'actual article edit date is emitted without an invented timezone');
+unlike($r->{body}, qr{ScalarTripleProduct\.html</loc>\s*<lastmod>}, 'unknown edit date is omitted');
+like($queries[0], qr/SELECT DISTINCT o\.uid, o\.name, o\.modified FROM/, 'modification date uses the existing single metadata query');
 is(scalar @queries, 1, 'one metadata query, not a query per article');
 unlike($queries[0], qr/\bdata\b|\bpreamble\b|\bcache\b|\bobjindex\b/, 'no content, render cache, or synonym index scan');
 is_deeply(\@bind, ['objects', 'objects'], 'ACL table values use bound parameters');
@@ -217,7 +221,7 @@ subtest 'public ACL filtering against a real isolated database' => sub {
         or plan skip_all => 'Optional SQL integration requires DBI and DBD::SQLite';
     local $db = DBI->connect('dbi:SQLite:dbname=:memory:', '', '',
         {RaiseError => 1, PrintError => 0, sqlite_unicode => 1});
-    $db->do('CREATE TABLE objects (uid INTEGER, name TEXT)');
+    $db->do('CREATE TABLE objects (uid INTEGER, name TEXT, modified TEXT)');
     $db->do('CREATE TABLE acl (tbl TEXT, objectid INTEGER, default_or_normal TEXT, user_or_group TEXT, subjectid INTEGER, _read INTEGER)');
     $db->do('CREATE TABLE group_members (userid INTEGER, groupid INTEGER)');
     $db->do('CREATE TABLE groups (groupid INTEGER)');
@@ -225,7 +229,7 @@ subtest 'public ACL filtering against a real isolated database' => sub {
     $db->do('INSERT INTO group_members VALUES (-1,4)');
     my @names = qw(Public Private NoACL AnonymousDenied OtherUserDenied GroupDenied OtherGroupDenied ConflictingDefaults NullRead PapersOnly EmptyName SentinelDenied Orphan);
     for my $i (0 .. $#names) {
-        $db->do('INSERT INTO objects VALUES (?,?)', undef, $i + 1, $names[$i]);
+        $db->do('INSERT INTO objects (uid,name) VALUES (?,?)', undef, $i + 1, $names[$i]);
     }
     $db->do('UPDATE objects SET name = ? WHERE uid = 11', undef, '');
     for my $row (
@@ -246,9 +250,12 @@ subtest 'public ACL filtering against a real isolated database' => sub {
     is_deeply(locations($r->{body}), [map { "https://physicslibrary.org/encyclopedia/$_.html" }
         qw(Public OtherUserDenied OtherGroupDenied Orphan)],
         'private/missing/conflicting/anonymous-denied ACLs are excluded; unrelated user/group denials and public orphans remain');
-    $db->do('INSERT INTO objects VALUES (209,?)', undef, 'VectorTripleProduct');
+    $db->do('INSERT INTO objects (uid,name) VALUES (209,?)', undef, 'VectorTripleProduct');
     $db->do('INSERT INTO acl VALUES (?,?,?,?,?,?)', undef, 'objects',209,'d','u',0,1);
     like(fetch_sitemap()->{body}, qr/VectorTripleProduct\.html/, 'new public article appears without cron, rendering, or cache rebuild');
+    $db->do('UPDATE objects SET modified = ? WHERE uid = 209', undef, '2026-02-03 04:05:06');
+    like(fetch_sitemap()->{body}, qr{VectorTripleProduct\.html</loc>\s*<lastmod>2026-02-03</lastmod>},
+        'real content edit appears in the next sitemap without a rebuild');
     $db->do('DELETE FROM objects WHERE uid = 209');
     unlike(fetch_sitemap()->{body}, qr/VectorTripleProduct/, 'deleted article disappears on the next fetch');
     $db->do('UPDATE acl SET _read = 0 WHERE tbl = ? AND objectid = 1', undef, 'objects');
@@ -260,6 +267,22 @@ subtest 'public ACL filtering against a real isolated database' => sub {
     $db->do('DROP TABLE acl');
     local $SIG{__WARN__} = sub {};
     is(fetch_sitemap()->{status}, 503, 'real SQL failure cannot disclose a partial sitemap');
+};
+
+subtest 'trustworthy calendar dates only' => sub {
+    my $now = 1791507931; # 2026-10-09 UTC
+    for my $value ('2026-10-03', '2026-10-03 12:34:56', '2026-10-03T12:34:56Z',
+        '2026-10-03 12:34:56.123456+00') {
+        is(Noosphere::getArticleLastmod($value, $now), '2026-10-03', 'stored date is retained, not generation time');
+    }
+    is(Noosphere::getArticleLastmod('2024-02-29 12:00:00', $now), '2024-02-29', 'leap day is valid');
+    is(Noosphere::getArticleLastmod('2000-02-29', $now), '2000-02-29', '400-year leap day is valid');
+    for my $bad (undef, '', '0000-00-00 00:00:00', '2026-02-29', '1900-02-29',
+        '2026-04-31', '2026-00-10', '2026-13-10', '2026-01-00', '2026-01-02 24:00:00',
+        '2026-01-02 12:60:00', '2026-01-02 12:00:60', '2026-01-02T12:00:00+99:99',
+        '2026-01-02T12:00:00+14:01', '2099-01-01', '2026-10-10', '2026-01-02<script>', []) {
+        is(Noosphere::getArticleLastmod($bad, $now), '', 'unknown, invalid or future timestamp is omitted');
+    }
 };
 
 done_testing();
