@@ -155,10 +155,10 @@ subtest 'real front-page templates' => sub {
             'original Welcome paragraph '.($index + 1).' retains all wording, emphasis, and links');
     }
     $html='';
-    ok($tt->process('mainpage.tt',{%rendered,search_results=>1,no_index=>1},\$html),'search-results branch renders');
-    like($html,qr/gcse-searchresults-only/,'Google results widget retained');
-    like($html,qr/name="robots" content="noindex,follow"/,'search-results noindex retained');
-    unlike($html,qr/Welcome!/,'welcome does not appear in search results');
+    ok($tt->process('mainpage.tt',{%rendered,search_results=>1,no_index=>1},\$html),'front page tolerates old search-results flag');
+    unlike($html,qr/gcse-searchresults-only/,'retired Google results widget is not rendered');
+    like($html,qr/name="robots" content="noindex,follow"/,'supplied noindex retained');
+    like($html,qr/Welcome!/,'front-page template remains the home page; native results use their own view');
     for my $template (qw(hometopusers homelatest homepoll homemessages homenews)) {
         ok($tt->process("$template.tt",{},\$html),"$template empty state renders");
     }

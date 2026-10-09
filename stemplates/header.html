@@ -31,16 +31,13 @@
 		</td>
 
 		<td align="right" valign="center">
-			<form action="https://physicslibrary.org" id="cse-search-box">
+			<form action="https://physicslibrary.org/" method="get" id="cse-search-box">
 				<div class="pl-header-search-controls">
-				  <input type="hidden" name="cx" value="d7c37e2bb0d444808" />
-				  <input type="hidden" name="cof" value="FORID:10" />
-				  <input type="hidden" name="ie" value="UTF-8" />
+				  <input type="hidden" name="op" value="search" />
 				  <input type="text" name="q" id="pl-header-search-q" size="31" aria-label="Search Physics Library" value="<NS:template q qhtml/>" />
-				  <input type="submit" name="sa" value="Search" />
+				  <input type="submit" value="Search" />
 				</div>
 			</form>
-			<script type="text/javascript" src="https://cse.google.com/cse.js?cx=d7c37e2bb0d444808"></script>
 			<script type="text/javascript">
 				(function() {
 					function restoreHeaderSearchQuery() {
@@ -48,9 +45,9 @@
 						if (!field || field.value) {
 							return;
 						}
-						var match = window.location.search.match(/[?&]q=([^&]*)/);
+						var match = window.location.search.match(/[?&](?:q|term)=([^&]*)/);
 						if (match) {
-							field.value = decodeURIComponent(match[1].replace(/\+/g, ' '));
+							try { field.value = decodeURIComponent(match[1].replace(/\+/g, ' ')); } catch (error) { }
 						}
 					}
 					restoreHeaderSearchQuery();

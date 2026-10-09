@@ -240,7 +240,7 @@ sub dispatch {
 
   # searching
   #
-  'search' => \&vsSearch,
+  'search' => \&nativeSearch,
   'oldsearch' => \&search,
   'adv_search' => \&advSearch,
 

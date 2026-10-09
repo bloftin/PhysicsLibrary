@@ -95,6 +95,7 @@ require Template;
     package TemplateNS;
     sub new { bless {}, shift }
     sub expand { return '' }
+    sub setKey { }
 }
 sub getLoginBox { return '' }
 sub getAdminMenu { return '' }
@@ -120,7 +121,7 @@ die $@ if $@;
         like($html, qr/<p>Homepage news<\/p>/, 'real homepage builder connects news to the sidebar');
         if ($sa) {
             like($html, qr/name="robots" content="noindex,follow"/, 'real front-page builder passes the noindex flag');
-            like($html, qr/class="gcse-searchresults-only"/, 'Google search widget is still rendered');
+            unlike($html, qr/class="gcse-searchresults-only"/, 'homepage no longer contains a Google results widget');
         } else {
             unlike($html, qr/name="robots" content="noindex/, 'real homepage builder remains indexable');
         }

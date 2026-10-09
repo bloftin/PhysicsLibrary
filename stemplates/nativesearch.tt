@@ -1,0 +1,55 @@
+<style>
+.pl-native-search { color: #1d2935; font: .88rem Arial, Helvetica, sans-serif; min-width: 0; }
+.pl-native-search h1 { background: #003399; border-bottom: 1px solid #002266; color: #fff; font-size: 1rem; line-height: 1.2; margin: 0 0 .65rem; padding: .15rem .5rem; }
+.pl-native-search a { color: #174e80; }
+.pl-native-search a:focus-visible, .pl-native-search input:focus-visible, .pl-native-search select:focus-visible, .pl-native-search button:focus-visible { outline: 2px solid #003399; outline-offset: 2px; }
+.pl-native-search form { align-items: end; background: #eff4f8; border: 1px solid #c9d7e3; display: grid; gap: .65rem; grid-template-columns: minmax(12rem, 1fr) minmax(9rem, .3fr) minmax(8rem, .25fr) auto; padding: .75rem; }
+.pl-native-search label { display: block; font-weight: bold; margin-bottom: .3rem; }
+.pl-native-search input, .pl-native-search select { background: #fff; border: 1px solid #91a7bb; box-sizing: border-box; font: inherit; min-height: 2rem; min-width: 0; padding: .35rem .45rem; width: 100%; }
+.pl-native-search button { background: #003399; border: 1px solid #002266; border-radius: 2px; color: #fff; cursor: pointer; font: inherit; min-height: 2rem; padding: .35rem .75rem; }
+.pl-native-search-nav { display: flex; flex-wrap: wrap; gap: .7rem; margin: .65rem 0; }
+.pl-native-search-summary { color: #526170; margin: .75rem 0; }
+.pl-native-search-error { background: #fff4f2; border-left: 3px solid #b52318; padding: .7rem; }
+.pl-native-search-subject { background: #f5f8fa; border-left: 3px solid #8ba8c1; padding: .6rem; }
+.pl-native-search-results { list-style: none; margin: 0; padding: 0; }
+.pl-native-search-results > li { border-top: 1px solid #c9d7e3; overflow-wrap: anywhere; padding: .75rem .15rem; }
+.pl-native-search-results h2 { font-size: 1rem; line-height: 1.4; margin: 0 0 .3rem; }
+.pl-native-search-meta { color: #526170; font-size: .8rem; line-height: 1.5; margin: .25rem 0 0; }
+.pl-native-search mark { background: #fff0b8; color: inherit; }
+.pl-native-search-topics { border-top: 1px solid #c9d7e3; margin-top: 1rem; padding-top: .65rem; }
+.pl-native-search-topics h2 { font-size: .95rem; margin: 0 0 .5rem; }
+.pl-native-search-topics ul { display: grid; gap: .4rem; list-style: none; margin: 0; padding: 0; }
+.pl-native-search-pages { display: flex; flex-wrap: wrap; gap: .75rem; margin: .9rem 0; }
+@media (max-width: 900px) { .pl-native-search form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .pl-native-search-query { grid-column: 1 / -1; } }
+@media (max-width: 480px) { .pl-native-search form { grid-template-columns: minmax(0, 1fr); } .pl-native-search-query { grid-column: auto; } }
+</style>
+<section class="pl-native-search" aria-labelledby="pl-native-search-title">
+  <h1 id="pl-native-search-title">Search Physics Library</h1>
+  <form action="/" method="get">
+    <input type="hidden" name="op" value="search">
+    <div class="pl-native-search-query"><label for="pl-native-search-q">Search</label><input id="pl-native-search-q" type="search" name="q" value="[% q | html %]" maxlength="256"></div>
+    <div><label for="pl-native-search-collection">Collection</label><select id="pl-native-search-collection" name="collection">[% FOREACH option IN collections %]<option value="[% option.value | html %]"[% IF option.value == collection %] selected[% END %]>[% option.label | html %]</option>[% END %]</select></div>
+    <div><label for="pl-native-search-pacs">PACS subject</label><input id="pl-native-search-pacs" name="subject" value="[% IF subject %][% subject.id | html %][% ELSE %][% subject_code | html %][% END %]" maxlength="24"></div>
+    <button type="submit">Search</button>
+  </form>
+  <nav class="pl-native-search-nav" aria-label="Library browsing"><a href="/encyclopedia">Alphabetical index</a><a href="/?op=pacsbrowse&amp;from=objects">Browse by subject</a></nav>
+  [% IF subject %]<p class="pl-native-search-subject">PACS [% subject.id | html %]: [% subject.comment | html %] <a href="[% remove_subject | html %]">Remove subject filter</a></p>[% END %]
+  [% IF error %]<p class="pl-native-search-error" role="alert">[% error | html %]</p>
+  [% ELSIF !has_search %]<p class="pl-native-search-summary">Enter a search term or PACS subject.</p>
+  [% ELSIF !total %]<p class="pl-native-search-summary">No matching entries.</p>
+  [% ELSE %]
+  <p class="pl-native-search-summary" role="status">Showing [% start %]-[% end %] of [% total %] matching entries.</p>
+  <ul class="pl-native-search-results">
+    [% FOREACH result IN results %]
+    <li>
+      <h2><a href="[% result.href | html %]">[% result.title_html %]</a></h2>
+      <p class="pl-native-search-meta">[% result.label | html %]</p>
+      [% FOREACH meta IN result.metadata %]<p class="pl-native-search-meta"><strong>[% meta.label | html %]:</strong> [% meta.html %]</p>[% END %]
+      [% IF result.classes.size %]<p class="pl-native-search-meta">PACS: [% FOREACH topic IN result.classes %]<a href="[% topic.href | html %]" title="[% topic.comment | html %]">[% topic.id | html %]</a>[% UNLESS loop.last %], [% END %][% END %]</p>[% END %]
+    </li>
+    [% END %]
+  </ul>
+  [% IF previous || next %]<nav class="pl-native-search-pages" aria-label="Search result pages">[% IF previous %]<a href="[% previous | html %]" rel="prev">Previous</a>[% END %][% FOREACH page IN page_links %][% IF page.current %]<strong aria-current="page">[% page.number %]</strong>[% ELSE %]<a href="[% page.href | html %]">[% page.number %]</a>[% END %][% END %][% IF next %]<a href="[% next | html %]" rel="next">Next</a>[% END %]</nav>[% END %]
+  [% END %]
+  [% IF subjects.size %]<aside class="pl-native-search-topics" aria-label="Related PACS subjects"><h2>Related subjects</h2><ul>[% FOREACH topic IN subjects %]<li><a href="[% topic.href | html %]">[% topic.id | html %] - [% topic.comment | html %]</a></li>[% END %]</ul></aside>[% END %]
+</section>

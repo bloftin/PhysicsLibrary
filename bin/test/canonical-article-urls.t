@@ -81,6 +81,7 @@ sub dwarn { }
 {
     package TemplateNS;
     sub new { return bless {}, shift; }
+    sub setKey { }
     sub expand { return ''; }
 }
 {

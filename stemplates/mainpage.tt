@@ -58,12 +58,6 @@
     <div class="pl-home-layout">
       <div class="pl-home-left" id="pl-home-navigation">[% sidebar %]</div>
       <main class="pl-home-main">
-        [% IF search_results %]
-        <section class="pl-home-widget" aria-label="Search results">
-          <h1 class="pl-home-title">Search Results</h1>
-          <div class="gcse-searchresults-only"></div>
-        </section>
-        [% ELSE %]
         <section class="pl-home-widget pl-home-welcome" aria-label="Welcome to Physics Library">
           <h1 class="pl-home-title">Welcome!</h1>
           <p> Physics Library is a virtual community which aims to help make physics knowledge more accessible.  Physics Library's content is created collaboratively: the main feature is the <a href="/encyclopedia">physics encyclopedia</a> with entries written and reviewed by members.   The entries are contributed under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/"> Creative Commons Attribution-ShareAlike CC BY-SA 4.0 License </a>.</p>
@@ -73,7 +67,6 @@
           <p>Browse Encyclopedia By: <a href="https://physicslibrary.org/encyclopedia">Encyclopedia</a>  </p>
         </section>
         [% latestmessages %]
-        [% END %]
       </main>
       <aside class="pl-home-right" id="pl-home-recent" aria-label="Community and recent entries">
         [% top_users %]
