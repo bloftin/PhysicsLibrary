@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+umask 077
+
+usage() {
+  cat <<'HELP'
+Usage: bash bin/backup-db --allow-write-lock [options]
+
+Make a private, verified MariaDB SQL dump, not a browsable snapshot.
+Uses existing local socket authentication; no application configuration is read.
+
+  --allow-write-lock   Acknowledge the global read lock: database writes may wait.
+  --database NAME     Database to dump (default: pp).
+  --output-dir PATH   Absolute private directory (default: /var/backups/physicslibrary).
+  --socket PATH       Optional absolute MariaDB Unix socket path.
+  --timeout SECONDS   Dump timeout, 1-86400 (default: 900).
+  --help              Show this help without connecting or writing.
+
+Normally run with sudo for local database-admin socket access. Partial files and
+diagnostics are retained on failure, never advertised as completed backups.
+No repair, table exclusions, pruning, restore, or service changes are performed.
+HELP
+}
+
+fail() { printf 'backup-db: %s\n' "$*" >&2; exit 1; }
+
+database=pp
+output_dir=/var/backups/physicslibrary
+socket=
+dump_timeout=900
+allow_write_lock=0
+
+while (( $# )); do
+  case "$1" in
+    --help) usage; exit 0 ;;
+    --allow-write-lock) allow_write_lock=1; shift ;;
+    --database|--output-dir|--socket|--timeout)
+      (( $# >= 2 )) || fail "Missing value for $1"
+      case "$1" in
+        --database) database=$2 ;;
+        --output-dir) output_dir=$2 ;;
+        --socket) socket=$2 ;;
+        --timeout) dump_timeout=$2 ;;
+      esac
+      shift 2 ;;
+    *) fail "Unknown option: $1 (see --help)" ;;
+  esac
+done
+
+[[ "$database" =~ ^[A-Za-z][A-Za-z0-9_]*$ ]] || fail 'Invalid database name'
+[[ "$output_dir" == /* ]] || fail '--output-dir must be absolute'
+[[ -z "$socket" || "$socket" == /* ]] || fail '--socket must be absolute'
+if [[ ! "$dump_timeout" =~ ^[1-9][0-9]{0,4}$ ]] || (( dump_timeout > 86400 )); then
+  fail '--timeout must be an integer from 1 to 86400'
+fi
+(( allow_write_lock )) || fail 'Writes may wait during the dump. Pass --allow-write-lock to acknowledge.'
+
+for utility in gzip sha256sum mktemp realpath stat flock timeout tail grep date mv; do
+  command -v "$utility" >/dev/null || fail "Required utility not found: $utility"
+done
+if command -v mariadb-dump >/dev/null; then
+  dump_command=$(command -v mariadb-dump)
+elif command -v mysqldump >/dev/null; then
+  dump_command=$(command -v mysqldump)
+else
+  fail 'Install the MariaDB client tools (mariadb-dump or its mysqldump alias).'
+fi
+
+output_dir=$(realpath -m -- "$output_dir")
+project_dir=$(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/..")
+case "$output_dir/" in
+  /var/www/*|/usr/share/nginx/html/*|/var/lib/mysql/*|"$project_dir/"*)
+    fail 'Backups must be outside the website/project and database data directories.' ;;
+esac
+mkdir -p -- "$output_dir"
+[[ $(stat -c '%u' -- "$output_dir") == "$EUID" ]] || fail 'Backup directory must be owned by the running user.'
+[[ $(stat -c '%a' -- "$output_dir") == 700 ]] || fail 'Backup directory must have mode 0700; existing permissions were not changed.'
+
+exec 9> "$output_dir/.backup-db.lock"
+flock -n 9 || fail 'Another backup is already running in this output directory.'
+
+run_dir=$(mktemp -d "$output_dir/$database-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXXXX")
+partial="$run_dir/dump.sql.gz.partial"
+diagnostics="$run_dir/dump.stderr"
+finish() {
+  local status=$?
+  if (( status != 0 )); then
+    printf 'Backup FAILED. Private partial files/diagnostics: %s\nDo not restore .partial files.\n' "$run_dir" >&2
+  fi
+}
+trap finish EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+args=(--no-defaults --protocol=socket)
+[[ -z "$socket" ]] || args+=("--socket=$socket")
+args+=(--lock-all-tables --quick --routines --events --triggers --hex-blob
+       --default-character-set=utf8mb4 --comments --dump-date "$database")
+
+printf 'Backing up %s; writes across the database server may wait (dump timeout: %ss).\n' "$database" "$dump_timeout"
+# Ignore client option files so an inherited --force or table exclusion cannot
+# turn an incomplete dump into a success. No password is supplied or extracted.
+if ! timeout --signal=TERM --kill-after=10 "$dump_timeout" "$dump_command" "${args[@]}" \
+     2> "$diagnostics" | gzip -1 > "$partial"; then
+  fail "Dump/compression failed. Inspect $diagnostics locally. No completed backup created."
+fi
+gzip -t -- "$partial" || fail 'Compressed dump failed its integrity check.'
+if ! gzip -dc -- "$partial" | tail -n 12 | grep -q '^-- Dump completed on '; then
+  fail 'SQL completion footer missing; no completed backup created.'
+fi
+
+if ! checksum_output=$(sha256sum -- "$partial"); then
+  fail 'Could not calculate SHA-256.'
+fi
+read -r checksum _ <<< "$checksum_output"
+[[ "$checksum" =~ ^[a-f0-9]{64}$ ]] || fail 'Could not calculate SHA-256.'
+printf '%s  dump.sql.gz\n' "$checksum" > "$run_dir/dump.sql.gz.sha256.partial"
+mv -- "$run_dir/dump.sql.gz.sha256.partial" "$run_dir/dump.sql.gz.sha256"
+mv -- "$partial" "$run_dir/dump.sql.gz"
+printf 'Backup completed: %s\nChecksum: %s\n' "$run_dir/dump.sql.gz" "$run_dir/dump.sql.gz.sha256"
+printf 'Copy both files to private off-instance storage. A separate restore test is still needed.\n'
