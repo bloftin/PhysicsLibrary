@@ -55,6 +55,9 @@ use vars qw(%base_config);
 
 	CLASSIFICATION_SUPPORTED => 1,
 	RENDERING_OUTPUT_FILE => 'planetphysics.html',
+	# Enable only after applying db/search-documents.mysql.sql and backfilling.
+	NATIVE_FULLTEXT_ENABLED => 0,
+	SEARCH_PANDOC => '/usr/bin/pandoc', # Must support --sandbox (Pandoc 2.15+).
 
 	# End of config
 );

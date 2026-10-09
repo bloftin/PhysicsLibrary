@@ -162,11 +162,43 @@ sub nativeSearchSql {
         my $table = nativeSearchIdentifier($collection->{key});
         my $en = $collection->{value} eq 'objects';
         my @fields = $en ? qw(title synonyms defines keywords) : qw(title authors keywords);
-        my (@where_bind, @rank_bind);
+        my (@where_bind, @rank_bind, @from_bind);
+        my $from = "$table o";
+        my $boolean = getConfig('native_fulltext_enabled') ? nativeSearchBooleanQuery($options->{query}) : '';
+        if (length $boolean) {
+            my $documents = nativeSearchIdentifier('search_documents_tbl');
+            # MATCH stays in its own indexed candidate query. ACL and freshness
+            # checks are applied against live content before counts/pagination.
+            # DISTINCT prevents derived-table merging into per-object lookups.
+            $from .= " LEFT JOIN (SELECT DISTINCT objectid, source_modified, source_version,
+                MATCH(search_text) AGAINST (CONVERT(CAST(? AS BINARY) USING utf8mb4) IN BOOLEAN MODE) AS relevance
+                FROM $documents FORCE INDEX (search_documents_text) WHERE tbl=? AND status='ready'
+                AND MATCH(search_text) AGAINST (CONVERT(CAST(? AS BINARY) USING utf8mb4) IN BOOLEAN MODE)>0) f
+                ON f.objectid=o.uid AND ".nativeSearchFreshSql('f', $en);
+            push @from_bind, $boolean, $table, $boolean;
+        }
         my @where = ('o.uid>=0', nativeSearchPublicSql($table, \@where_bind));
         push @where, "o.name<>''" if $en;
+        my (@metadata, @metadata_bind);
         for my $atom (@{$options->{query}{atoms}}) {
-            push @where, '(' . join(' OR ', map { nativeSearchMatch("o.$_", $atom, \@where_bind) } @fields) . ')';
+            push @metadata, '(' . join(' OR ', map { nativeSearchMatch("o.$_", $atom, \@metadata_bind) } @fields) . ')';
+        }
+        my $metadata = @metadata ? join(' AND ', @metadata) : '1=1';
+        if (length $boolean) {
+            # Verify literal phrases/short words on indexed candidate text;
+            # Boolean syntax from user input is never passed to the engine.
+            my $documents = nativeSearchIdentifier('search_documents_tbl');
+            my @verify = map {
+                my $sql = nativeSearchMatch('v.search_text', $_, \@where_bind);
+                $sql =~ s/\?/CONVERT(CAST(? AS BINARY) USING utf8mb4) COLLATE utf8mb4_unicode_ci/g;
+                $sql;
+            } @{$options->{query}{atoms}};
+            push @where, "(f.objectid IS NOT NULL AND EXISTS (SELECT 1 FROM $documents v
+                WHERE v.tbl='$table' AND v.objectid=o.uid AND ".join(' AND ', @verify).") OR ($metadata))";
+            push @where_bind, @metadata_bind;
+        } else {
+            push @where, $metadata;
+            push @where_bind, @metadata_bind;
         }
         if (my $subject = $options->{subject}) {
             my $class = nativeSearchIdentifier('class_tbl');
@@ -196,7 +228,12 @@ sub nativeSearchSql {
             }
             push @ranks, nativeSearchMatch('o.keywords', $phrase, \@rank_bind).' THEN 300';
         }
-        my $rank = @ranks ? 'CASE WHEN '.join(' WHEN ', @ranks).' ELSE 200 END' : '0';
+        if (length $boolean) {
+            push @ranks, "($metadata) THEN 200";
+            push @rank_bind, @metadata_bind;
+        }
+        my $rank = @ranks ? 'CASE WHEN '.join(' WHEN ', @ranks).(length($boolean) ? ' ELSE 100 END' : ' ELSE 200 END') : '0';
+        my $relevance = length($boolean) ? 'COALESCE(f.relevance,0)' : '0';
         my $where = join(' AND ', map { "($_)" } @where);
         my $name = $en ? 'o.name' : "''";
         my $type = $en ? 'o.type' : '0';
@@ -206,13 +243,65 @@ sub nativeSearchSql {
         push @result_parts, "SELECT '$table' AS tbl, '$collection->{value}' AS collection,
             o.uid, SUBSTR(o.title,1,512) AS title, $name AS name, $type AS type,
             $synonyms AS synonyms, $defines AS defines, $authors AS authors,
-            SUBSTR(o.keywords,1,1024) AS keywords, $rank AS score FROM $table o WHERE $where";
-        push @count_parts, "SELECT o.uid FROM $table o WHERE $where";
-        push @result_bind, @rank_bind, @where_bind;
-        push @count_bind, @where_bind;
+            SUBSTR(o.keywords,1,1024) AS keywords, $rank AS score, $relevance AS relevance FROM $from WHERE $where";
+        push @count_parts, "SELECT o.uid FROM $from WHERE $where";
+        push @result_bind, @rank_bind, @from_bind, @where_bind;
+        push @count_bind, @from_bind, @where_bind;
     }
     return (join(' UNION ALL ', @result_parts), \@result_bind,
         'SELECT COUNT(*) AS total FROM ('.join(' UNION ALL ', @count_parts).') matches', \@count_bind);
+}
+
+sub nativeSearchFreshSql {
+    my ($alias, $en) = @_;
+    return "$alias.source_modified=COALESCE(o.modified,'') AND $alias.source_version=".
+        ($en ? 'COALESCE(o.version,0)' : '0');
+}
+
+sub nativeSearchForgetDocument {
+    my ($db, $table, $uid) = @_;
+    return unless getConfig('native_fulltext_enabled');
+    eval {
+        local $db->{RaiseError}=1;
+        local $db->{PrintError}=0;
+        my $documents = nativeSearchIdentifier('search_documents_tbl');
+        my $sth = $db->prepare("DELETE FROM $documents WHERE tbl=? AND objectid=?");
+        $sth->execute($table, $uid);
+        $sth->finish;
+        1;
+    } or warn "PL_SEARCH index invalidation failed\n";
+}
+
+sub nativeSearchBooleanQuery {
+    my ($query) = @_;
+    my %seen;
+    my @words = grep { length($_) >= 3 && length($_) <= 84 && !$seen{lc($_)}++ }
+        map { /([\p{L}\p{N}_]+)/g } @{$query->{atoms}};
+    return join(' ', map { '+'.lc($_) } @words);
+}
+
+sub nativeSearchSnippets {
+    my ($db, $results, $query) = @_;
+    return unless getConfig('native_fulltext_enabled') && @$results;
+    my $documents = nativeSearchIdentifier('search_documents_tbl');
+    for my $collection (@{nativeSearchCollections()}) {
+        next if $collection->{value} eq 'all';
+        my @rows = grep { $_->{collection} eq $collection->{value} } @$results;
+        next unless @rows;
+        my $table = nativeSearchIdentifier($collection->{key});
+        my (@position_bind, @where_bind);
+        my @positions = map { push @position_bind, lc($_); "COALESCE(NULLIF(LOCATE(CONVERT(CAST(? AS BINARY) USING utf8mb4) COLLATE utf8mb4_unicode_ci,LOWER(s.body_text)),0),1000000)" } @{$query->{atoms}};
+        my $position = @positions ? 'LEAST('.join(',', @positions, '1000000').')' : '1';
+        my $acl = nativeSearchPublicSql($table, \@where_bind);
+        my @snippets = nativeSearchRows($db, "SELECT o.uid,
+            CAST(SUBSTR(s.body_text,GREATEST(1,COALESCE(NULLIF($position,1000000),1)-80),360) AS BINARY) AS snippet
+            FROM $table o JOIN $documents s ON s.tbl='$table' AND s.objectid=o.uid
+            WHERE s.status='ready' AND ".nativeSearchFreshSql('s', $collection->{value} eq 'objects')."
+            AND ($acl) AND o.uid IN (".join(',', ('?') x @rows).") LIMIT 20",
+            @position_bind, @where_bind, map { $_->{uid} } @rows);
+        my %by_id = map { $_->{uid} => nativeSearchDisplayText($_->{snippet}, 360) } @snippets;
+        $_->{snippet_html} = nativeSearchHighlight($by_id{$_->{uid}} || '', $query->{atoms}) for @rows;
+    }
 }
 
 sub nativeSearchDisplayText {
@@ -277,7 +366,8 @@ sub nativeSearch {
             my @count = nativeSearchRows($dbh, $count_sql, @$count_bind);
             $total = $count[0]{total};
             $offset = $total ? int(($total - 1) / 20) * 20 : 0 if $offset >= $total;
-            @results = nativeSearchRows($dbh, "SELECT * FROM ($sql) matches ORDER BY score DESC, LOWER(title), collection, uid LIMIT 20 OFFSET $offset", @$bind);
+            @results = nativeSearchRows($dbh, "SELECT * FROM ($sql) matches ORDER BY score DESC, relevance DESC, LOWER(title), collection, uid LIMIT 20 OFFSET $offset", @$bind);
+            nativeSearchSnippets($dbh, \@results, $options->{query});
             my %labels = map { $_->{value} => $_->{label} } @{nativeSearchCollections()};
             for my $row (@results) {
                 for my $field (qw(title name synonyms defines keywords authors)) {

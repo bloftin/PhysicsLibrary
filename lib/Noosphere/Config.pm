@@ -71,6 +71,9 @@ use constant CONFIG=>(
 	# search engine stuff
 	#
 	'search_limit' => 50,
+	'native_fulltext_enabled' => $Noosphere::baseconf::base_config{NATIVE_FULLTEXT_ENABLED} || 0,
+	'search_documents_tbl' => 'search_documents',
+	'search_pandoc' => $Noosphere::baseconf::base_config{SEARCH_PANDOC} || '/usr/bin/pandoc',
 	'searchd_sock' => "$Noosphere::baseconf::base_config{BASE_DIR}/bin/run/essex.sock",
 	'searchd_test_sock' => "$Noosphere::baseconf::base_config{BASE_DIR}/bin/run/essex.test.sock",
                       

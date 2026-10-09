@@ -1,0 +1,76 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use Getopt::Long qw(GetOptions);
+BEGIN { package Noosphere; use vars qw($dbh); }
+use Noosphere::DB;
+use Noosphere::NativeSearch;
+use Noosphere::SearchIndex;
+
+my ($apply, $status, $object, $help);
+my ($limit, $collection) = (5, 'all');
+GetOptions('apply'=>\$apply, 'status'=>\$status, 'limit=i'=>\$limit,
+    'collection=s'=>\$collection, 'object=i'=>\$object, 'help'=>\$help) or die "Invalid options\n";
+if ($help) {
+    print "Usage: perl -Ilib bin/update-search-index [--apply | --status] [--limit 1..50]\n",
+        "       [--collection objects|papers|books|lec|all] [--object ID]\n",
+        "Without --apply, lists pending public documents without parsing or writing.\n";
+    exit 0;
+}
+die "Limit must be 1..50\n" unless $limit >= 1 && $limit <= 50;
+die "Invalid collection\n" unless grep { $_->{value} eq $collection } @{Noosphere::nativeSearchCollections()};
+die "Object needs one collection and a nonnegative ID\n" if defined($object) && ($object < 0 || $collection eq 'all');
+die "Choose --status or --apply\n" if $apply && $status;
+my $db = Noosphere::dbConnect() or die "Cannot connect to database\n";
+$db->{RaiseError}=1;
+$db->{PrintError}=0;
+die "Full-text index requires MySQL/MariaDB\n" unless $db->{Driver}{Name} eq 'mysql';
+$db->do('SET NAMES utf8mb4');
+my $documents = Noosphere::nativeSearchIdentifier('search_documents_tbl');
+if ($status) {
+    my @rows = Noosphere::nativeSearchRows($db, "SELECT tbl,status,COUNT(*) AS total,
+        MIN(indexed_at) AS oldest,MAX(indexed_at) AS newest FROM $documents GROUP BY tbl,status ORDER BY tbl,status");
+    print "collection\tstatus\ttotal\toldest\tnewest\n";
+    print join("\t", @$_{qw(tbl status total oldest newest)})."\n" for @rows;
+    exit 0;
+}
+# Database advisory lock covers CLI and timer invocations across hosts. Never
+# hold a transaction or a content-table lock while running the parser.
+my ($locked) = Noosphere::nativeSearchRows($db, "SELECT GET_LOCK(?,0) AS acquired", 'pl-search-index');
+die "Search index update already running\n" unless $locked->{acquired};
+my @pending = Noosphere::searchIndexCandidates($db, {limit=>$limit, collection=>$collection, object=>$object});
+if (!$apply) {
+    print "pending $_->{collection}:$_->{uid}\n" for @pending;
+    print "selected ".scalar(@pending)." document(s); no changes made\n";
+    exit 0;
+}
+Noosphere::searchIndexText('Parser readiness check.', 'objects');
+my ($engine) = Noosphere::nativeSearchRows($db, 'SELECT @@innodb_ft_min_token_size AS minimum, @@innodb_ft_max_token_size AS maximum');
+die "Index requires innodb_ft_min_token_size=3 and innodb_ft_max_token_size=84\n"
+    unless $engine->{minimum} == 3 && $engine->{maximum} == 84;
+my $pruned = Noosphere::searchIndexPrune($db, $limit);
+my ($saved, $failed) = (0, 0);
+for my $item (@pending) {
+    my $record = Noosphere::searchIndexRecord($db, $item->{collection}, $item->{uid});
+    next unless $record;
+    my ($body, $state) = ('', 'ready');
+    if ($record->{source_bytes} > Noosphere::searchIndexSourceLimit()) {
+        $state = 'oversize';
+    } else {
+        eval {
+            my $source = $record->{source};
+            $source = Encode::decode('UTF-8', $source, Encode::FB_CROAK()) unless utf8::is_utf8($source);
+            $body = Noosphere::searchIndexText($source, $item->{collection});
+            1;
+        } or do { $state='failed'; $failed++; };
+    }
+    if (Noosphere::searchIndexSave($db, $item->{collection}, $item->{uid}, $record, $body, $state)) {
+        print "$state $item->{collection}:$item->{uid}\n";
+        $saved++;
+    } else { print "changed during indexing $item->{collection}:$item->{uid}; deferred\n"; }
+}
+print "updated $saved document(s); pruned $pruned; failed $failed\n";
+$db->disconnect;
+exit($failed ? 1 : 0);

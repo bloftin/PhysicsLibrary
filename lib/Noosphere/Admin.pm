@@ -887,12 +887,15 @@ sub adminUpdateObjectMetadata {
 	
 		# generic field updating
 		if (@update) {
+			my $search_resource = grep { my $table = getConfig($_); defined($table) && $params->{from} eq $table } qw(books_tbl papers_tbl exp_tbl);
+			push @update, 'modified=CURRENT_TIMESTAMP' if $search_resource;
 			my ($rv,$sth) = dbUpdate($dbh,{
 				WHAT => $params->{from},
 				SET => join(',',@update),
 				WHERE => "uid=$params->{id}"
 			});
 			$sth->finish();
+			nativeSearchForgetDocument($dbh, $params->{from}, $params->{id}) if $search_resource && getConfig('native_fulltext_enabled');
 		}
 
 		# do stuff for updating of encyclopedia objects. (invalidate, xref, etc) 
