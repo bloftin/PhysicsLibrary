@@ -6,6 +6,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 use Noosphere::RequestForm;
 use Noosphere::Dispatch;
+use Noosphere::NativeSearch;
 use HTML::Parser;
 use Encode ();
 use bytes ();
@@ -309,6 +310,7 @@ subtest 'HTTP handler integration with synthetic services' => sub {
     local *Noosphere::fillInLeftBar = sub { return ''; };
     local *Noosphere::buildMainPageTT = sub { return '<h1>Home</h1>'; };
     local *TemplateNS::new = sub { return bless {}, 'TemplateNS'; };
+    local *TemplateNS::setKey = sub { };
     local *TemplateNS::expand = sub { return ''; };
     local *Template::new = sub { return bless {}, 'Template'; };
     local *Template::process = sub { ${$_[3]} = '<html>'.$_[2]{content}.'</html>'; return 1; };

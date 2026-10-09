@@ -13,6 +13,7 @@ use Encode ();
 use Noosphere::RequestForm;
 use Noosphere::SecurityHeaders;
 use Noosphere::Sitemap;
+use Noosphere::NativeSearch;
 our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $NoosphereCanonical $AllowCache $MAINTENANCE $stats};
@@ -112,6 +113,7 @@ sub getNoTemplateContent {
 #
 sub getViewTemplateContent {
 	my ($params, $user_info, $upload) = @_;
+	normalizeNativeSearchRequest($params);
 	#my $content_type = $req->content_type;
 	#dwarn "headerAndCSS started req content type: $content_type";
 	# find function call in handler table and execute it with standard params
@@ -965,6 +967,7 @@ sub handler {
 			my $file = 'view.tt';
 			my $html = '';
 			my $headert = new TemplateNS( 'header.html' );
+			$headert->setKey('q', defined($params->{q}) ? $params->{q} : '') unless ref($params->{q});
 			my $header = $headert->expand();
 			my $sidebar_html = '';
 			my $no_index = applyIndexingPolicy($req, $params->{op});
@@ -974,6 +977,7 @@ sub handler {
 
 			my $vars = {
 				no_index	  => $no_index,
+				native_search => $params->{op} eq 'search',
 				canonical_url => $NoosphereCanonical,
 				header        => $header,
 				sidebar       => $sidebar_html,
@@ -1101,6 +1105,7 @@ sub buildMainPageTT {
 	my $head = $headt->expand();
 
 	my $headert = new TemplateNS( 'header.html' );
+	$headert->setKey('q', defined($params->{q}) ? $params->{q} : '') unless ref($params->{q});
 	my $header = $headert->expand();
 
 	my $loginbox = getLoginBox($params,$userinf);
@@ -1122,8 +1127,6 @@ sub buildMainPageTT {
 	my $poll = getCurrentPoll(1);
 	my $news = getHomeNews();
 
-	my $search_results = $params->{sa};
-	#dwarn "Searching: $search_results";
 	my $vars = {
         no_index        => $no_index,
         head      		=> $head,
@@ -1137,7 +1140,6 @@ sub buildMainPageTT {
 		latestrevisions => $lm,
 		poll            => $poll,
 		news            => $news,
-		search_results	=> $search_results,
 		top_users       => $top_users,
     };
 

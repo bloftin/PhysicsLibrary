@@ -10,7 +10,7 @@ use Noosphere::TemplateNS;
     sub getConfig {
         return {
             stemplate_path=>"$FindBin::Bin/../../stemplates", template_cmd_prefix=>'NS',
-            siteaddrs=>{main=>'physicslibrary.org',images=>'images.physicslibrary.org'},
+            siteaddrs=>{main=>'physicslibrary.org',image=>'images.physicslibrary.org'},
             main_url=>'https://physicslibrary.org',projname=>'Physics Library',
             slogan=>'An open source physics library',
         }->{$_[0]};
@@ -30,10 +30,9 @@ for my $route ('/encyclopedia','/?op=forums','/?op=sitedoc','/?op=randomentry') 
     like($html,qr/\Qhref="https:\/\/physicslibrary.org$route"\E/,'quick link retained: '.$route);
 }
 like($html,qr/#cse-search-box input\[type=submit\] \{ background: #003399/,'Search button matches original-blue controls');
-like($html,qr/<form action="https:\/\/physicslibrary.org" id="cse-search-box">/,'existing search destination preserved');
-for my $field (['cx','d7c37e2bb0d444808'],['cof','FORID:10'],['ie','UTF-8'],['sa','Search']) {
-    like($html,qr/name="$field->[0]" value="$field->[1]"/,'search field retained: '.$field->[0]);
-}
+like($html,qr/<form action="https:\/\/physicslibrary.org\/" method="get" id="cse-search-box">/,'native search submits to our site');
+like($html,qr/name="op" value="search"/,'header invokes native search');
+unlike($html,qr/cse\.google\.com|name="(?:cx|cof|ie|sa)"/,'header has no Google dependency');
 like($html,qr/aria-label="Search Physics Library"/,'query field has accessible label');
 like($html,qr/value="polar &quot;waves&quot; &amp; &lt;rays&gt;"/,'query safely repopulates field');
 like($html,qr/restoreHeaderSearchQuery/,'existing query-restoration script retained');
