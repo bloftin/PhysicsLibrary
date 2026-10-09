@@ -10,6 +10,7 @@ meta tag for:
 - The Papers, Books, and Lectures landing aliases `op=browse;from=papers`,
   `op=browse;from=books`, and `op=browse;from=lec`, which use those listings.
 - `op=search`, `oldsearch`, `adv_search`, and `pacssearch`.
+- `op=getrefs` reference-list utility pages; their links remain followable.
 - Google Custom Search results using the front-page template (`sa=Search`).
 
 The policy uses parsed operations, not raw query-string patterns, so parameter
@@ -98,14 +99,19 @@ https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicat
 encyclopedia article URLs. `robots.txt` advertises that address using the
 configured `main_url`, not the request's Host header.
 
-The sitemap queries article IDs and names, not LaTeX source or rendered caches.
+The sitemap queries article IDs, names, and stored modification dates, not
+LaTeX source or rendered caches.
 It uses the same canonical URL helper as article views and removes duplicate
 URLs. For ACL-controlled articles, it requires a world-readable default rule
 and conservatively excludes conflicting defaults and matching anonymous read
 denials. Private or unnamed articles are omitted. Search/listing pages, synonym
 aliases, old versions, papers, books, lectures, and cache assets are not included.
-It does not include `lastmod`: no render, hit, or generation timestamp is passed
-off as a significant article modification date.
+`lastmod`, when available, uses the article's stored `modified` date. Article
+creation and content edits already write this field; rendering, hits, and
+sitemap generation do not replace it. Unknown, zero, invalid, or future dates
+are omitted. Dates are emitted as `YYYY-MM-DD` because the historical database
+timestamp has no reliable timezone contract. A date later than today's UTC
+date is conservatively omitted until that day, rather than inventing a timezone.
 
 New public articles appear, and deleted or newly private articles disappear,
 on the next sitemap fetch. No migration, cron job, systemd unit, generated file,
@@ -148,3 +154,90 @@ References:
 - [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
 - [Bing: Sitemaps](https://www.bing.com/webmasters/help/sitemaps-3b5cf6ed)
 - [Sitemaps protocol and limits](https://www.sitemaps.org/protocol.html)
+
+## Article descriptions
+
+HTML article views (`make4ht` and `l2h`) now include an escaped description in
+the document head, drawn from the prose already fetched for that view. The
+extractor runs before ownership, editing, and preamble controls are appended.
+It uses HTML::Parser, inspects at most 65,536 characters of existing content,
+and limits descriptions to 200 characters. It excludes navigation, headings,
+scripts, styles, source/compiler blocks, hidden content, and math markup.
+Incomplete parser tails are not flushed as text. Image-only, PDF, source,
+short, and known rendering-placeholder views omit the description.
+
+There is no additional database query, cache read, render, external request,
+schema change, or scheduled job. Missing and permission-denied articles cannot
+emit a prose description. Request-local metadata prevents one article's text
+from leaking to another article, a search page, or the homepage under mod_perl.
+The body, title, canonical URL, and existing viewing controls are unchanged.
+Google may choose a different snippet; descriptions are not an indexing promise.
+
+Validate after a deliberate deployment when the server is healthy:
+
+```bash
+prove bin/test/article-metadata.t bin/test/article-sitemap.t bin/test/canonical-article-urls.t bin/test/noindex-routes.t bin/test/article-box-modern.t
+curl --max-time 10 -fsS 'https://physicslibrary.org/encyclopedia/VectorTripleProduct.html' | grep -E 'rel="canonical"|name="description"'
+curl --max-time 10 -sSI 'https://physicslibrary.org/?op=getrefs&from=objects&id=209' | grep -Ei '^HTTP/|^X-Robots-Tag:'
+```
+
+The article should be 200 with its canonical and, for a prose HTML view, a
+description. The reference list should send `X-Robots-Tag: noindex, follow`.
+Keep it crawlable so engines can observe that directive; do not add a robots
+disallow for it. If an article fetch hangs or fails, investigate availability
+before asking search engines to crawl more pages.
+
+## External coverage follow-up
+
+The article sitemap was introduced on October 3, 2026. During the October 8
+audit it was only about six days old; that is not evidence of an indexing
+failure. Deployment time, sitemap submission time, and the last successful
+crawler fetch can differ. Canonical/noindex changes also require recrawling.
+
+The audit visibly found Vector Triple Product's canonical article on
+DuckDuckGo, along with its BACK CAB alias and an old user-object listing.
+That confirms visibility on that engine, not that all duplicate signals have
+settled. A direct Bing coverage query encountered a verification challenge, so
+Bing's article coverage was not independently confirmed. DuckDuckGo says its
+traditional link results are largely sourced from Bing, making Bing Webmaster
+Tools useful, but a DuckDuckGo result does not replace Bing URL Inspection.
+Live site requests also timed out during an Apache availability incident;
+cached search results cannot establish the site's current response headers.
+After the owner's Apache restart, a bounded live recheck succeeded: robots.txt
+advertised the sitemap, the sitemap returned 200 XML with 1,266 canonical
+article URLs (including both triple-product examples), and Vector Triple
+Product returned 200 with its self-canonical and no noindex header. It had no
+description yet, which is addressed here. Those counts are an audit snapshot,
+not a fixed expected total for future deployments.
+
+Owner follow-up, once availability is stable:
+
+1. In Google Search Console and Bing Webmaster Tools, verify the exact HTTPS
+   property, submit `/sitemap.xml` if it has not already been submitted, and
+   record the last successful fetch, errors, and discovered URL count.
+2. Inspect Vector Triple Product and Scalar Triple Product individually.
+   Compare the live fetch with the indexed/crawled version, its crawl date,
+   allowed indexing, and selected versus declared canonical. Request indexing
+   for these examples after confirming their healthy responses, not the whole
+   site repeatedly.
+3. Recheck the existing coverage report after a recrawl. Separate duplicate
+   aliases and intentionally noindexed utility pages from genuinely excluded
+   canonical articles. Keep a small dated sample instead of interpreting a
+   `site:` search as a complete indexing inventory.
+4. Review crawler access failures and Apache saturation alongside coverage.
+   Do not remove crawl throttling, broadly allow `/cache/` or `/files/`, add
+   automatic restarts, or trigger mass rendering as an SEO workaround.
+
+No API key, automatic submission service, IndexNow registration, or old sitemap
+ping endpoint is added by this change. Google and Bing dashboard submissions
+and inspection require the site owner's account; they were not performed by
+this PR. This is infrastructure for clearer discovery and snippets, not a
+diagnosis that every excluded article lacks quality or a guarantee of indexing.
+
+Additional primary references:
+
+- [Google: Search snippets and meta descriptions](https://developers.google.com/search/docs/appearance/snippet)
+- [Google: Troubleshoot crawling errors](https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors)
+- [Google: Sitemap lastmod and retired ping endpoint](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping)
+- [DuckDuckGo: Sources of search results](https://duckduckgo.com/duckduckgo-help-pages/results/sources)
+- [Bing: Webmaster guidelines](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a)

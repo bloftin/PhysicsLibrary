@@ -46,6 +46,7 @@ sub getObjIdIsValid {
 # getObj - main object retrieval point, calls more specialized functions
 #
 sub getObj {
+	our $NoosphereDescription = '';
 	my $params = shift;
 	my $userinf = shift;
 	$NoosphereCanonical = '';

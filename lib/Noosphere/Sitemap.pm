@@ -21,6 +21,25 @@ sub getArticleRobotsText {
     return $text . 'Sitemap: ' . getArticleSitemapURL() . "\n";
 }
 
+sub getArticleLastmod {
+    my ($value, $now) = @_;
+    return '' unless defined($value) && !ref($value)
+        && $value =~ /\A(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-](\d{2})(?::?(\d{2}))?)?)?\z/;
+    my ($year, $month, $day, $hour, $minute, $second, $zone_hour, $zone_minute) = ($1, $2, $3, $4, $5, $6, $7, $8);
+    return '' if $year < 1 || $month < 1 || $month > 12 || $day < 1;
+    my @days = (31, 28 + ($year % 4 == 0 && ($year % 100 != 0 || $year % 400 == 0)),
+        31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+    return '' if $day > $days[$month - 1]
+        || (defined($hour) && ($hour > 23 || $minute > 59 || $second > 59))
+        || (defined($zone_hour) && ($zone_hour > 14 || ($zone_minute || 0) > 59
+            || ($zone_hour == 14 && ($zone_minute || 0) != 0)));
+    my $date = sprintf('%04d-%02d-%02d', $year, $month, $day);
+    my @today = gmtime(defined($now) ? $now : time);
+    return '' if $date gt sprintf('%04d-%02d-%02d', $today[5] + 1900, $today[4] + 1, $today[3]);
+    # The DB timestamp has no reliable timezone contract; publish only its date.
+    return $date;
+}
+
 sub getArticleSitemap {
     my ($db) = @_;
     getArticleSitemapURL(); # Validate the configured origin, never the request Host.
@@ -61,7 +80,7 @@ sub getArticleSitemap {
 
     local $db->{PrintError} = 0;
     local $db->{RaiseError} = 1;
-    my $sth = $db->prepare("SELECT DISTINCT o.uid, o.name FROM $table o WHERE $where ORDER BY o.uid LIMIT 50001");
+    my $sth = $db->prepare("SELECT DISTINCT o.uid, o.name, o.modified FROM $table o WHERE $where ORDER BY o.uid LIMIT 50001");
     die "Sitemap prepare failed\n" unless $sth;
     my @bind = getConfig('acl_tables')->{$table} ? ($table, $table) : ();
     die "Sitemap query failed\n" unless defined $sth->execute(@bind);
@@ -79,6 +98,8 @@ sub getArticleSitemap {
         next if $seen{$url}++;
         $writer->startTag('url');
         $writer->dataElement('loc', $url);
+        my $lastmod = getArticleLastmod($rec->{modified});
+        $writer->dataElement('lastmod', $lastmod) if length $lastmod;
         $writer->endTag('url');
         die "Sitemap requires splitting\n" if length($xml) > 50 * 1024 * 1024 - 1024;
     }

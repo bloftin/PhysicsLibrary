@@ -23,6 +23,9 @@
 
     [% IF canonical_url %]
       <link rel="canonical" href="[% canonical_url | html %]" />
+      [% IF article_description %]
+      <meta name="description" content="[% article_description | html %]" />
+      [% END %]
     [% END %]
     
     [% IF no_index %]

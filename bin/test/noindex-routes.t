@@ -65,7 +65,7 @@ for my $table (qw(objects papers books lec)) {
     my $request = IndexingRequest->new();
     ok(!applyIndexingPolicy($request, 'getobj'), "$table individual content remains indexable");
 }
-for my $op (qw(search oldsearch adv_search pacssearch)) {
+for my $op (qw(search oldsearch adv_search pacssearch getrefs)) {
     my $request = IndexingRequest->new();
     ok(applyIndexingPolicy($request, $op), "$op is not indexed");
     is($request->{headers}->{'X-Robots-Tag'}, 'noindex, follow', "$op sends the response header");

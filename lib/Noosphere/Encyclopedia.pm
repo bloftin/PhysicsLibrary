@@ -13,6 +13,7 @@ use Noosphere::Crossref;
 use Noosphere::Authors;
 use Noosphere::Charset;
 use Noosphere::ComputationalResources;
+use Noosphere::ArticleMetadata;
 use URI::Escape;
 use Encode qw(decode FB_CROAK is_utf8);
 use File::chdir;
@@ -24,6 +25,7 @@ use Template;
 # display an encyclopedia object
 # 
 sub renderEncyclopediaObj {
+	our $NoosphereDescription = '';
 	my $rec = shift;
 	my $params = shift;
 	my $userinf = shift;
@@ -32,6 +34,7 @@ sub renderEncyclopediaObj {
 	my $html = '';
 	my $en = getConfig('en_tbl');
 	my $content = getRenderedContentHtml($en,$rec,$method);
+	$NoosphereDescription = getArticleDescription($content, $method);
 	my $contentbox = '';
 	my $title = $rec->{'title'};
 	my $file = 'encyclopediaobject.tt';

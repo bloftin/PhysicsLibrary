@@ -52,7 +52,10 @@ sub getPendingCorrections { return ''; }
 sub getGenericAdmin { return ''; }
 sub getOwnerControls { return ''; }
 sub getWatchWidget { return ''; }
-sub renderEncyclopediaObj { return bless {}, 'CanonicalContent'; }
+sub renderEncyclopediaObj {
+    $main::NoosphereDescription = 'The vector triple product relates three vectors using two cross products.';
+    return bless {}, 'CanonicalContent';
+}
 sub renderGeneric { return bless {}, 'CanonicalContent'; }
 sub parseParams { return ({%{$_[0]->{params}}}, {}); }
 sub parseCookies { return (); }
@@ -144,6 +147,7 @@ sub canonical_is {
 my $vector = "$main_url/encyclopedia/VectorTripleProduct.html";
 my $scalar = "$main_url/encyclopedia/ScalarTripleProduct.html";
 $NoosphereCanonical = 'outer metadata';
+$main::NoosphereDescription = 'outer description';
 for my $case (
     ['/encyclopedia/VectorTripleProduct.html', {}],
     ['/Encyclopedia/VectorTripleProduct.htm', {}],
@@ -155,6 +159,8 @@ for my $case (
 ) {
     canonical_is(page(@$case), $vector, $case->[0]);
     is($NoosphereCanonical, 'outer metadata', 'handler restores metadata on return');
+    is($main::NoosphereDescription, 'outer description', 'handler restores description on return');
+    like($request->{body}, qr/name="description"/, 'successful article receives its prose description');
 }
 for my $method (qw(make4ht l2h png pdf src)) {
     canonical_is(page('/', {op => 'getobj', from => 'objects', id => 209,
@@ -175,13 +181,17 @@ for my $case (
     ['/', {op => 'listobj', from => 'objects', canonical_url => $vector}],
     ['/', {op => 'getrefs', from => 'objects', id => 209}],
 ) {
-    unlike(page(@$case), qr/rel="canonical"/, 'non-article or failed lookup has no article canonical');
+    my $html = page(@$case);
+    unlike($html, qr/rel="canonical"/, 'non-article or failed lookup has no article canonical');
+    unlike($html, qr/name="description"/, 'non-article or failed lookup has no leaked prose description');
 }
-is($request->{headers}->{'X-Robots-Tag'}, undef, 'ordinary helper policy is unchanged');
+is($request->{headers}->{'X-Robots-Tag'}, 'noindex, follow', 'reference-list utility is not indexed');
 page('/', {op => 'listobj', from => 'objects'});
 is($request->{headers}->{'X-Robots-Tag'}, 'noindex, follow', 'listing noindex policy remains intact');
 $permitted = 0;
-unlike(page('/encyclopedia/VectorTripleProduct.html', {}), qr/rel="canonical"/,
+my $denied = page('/encyclopedia/VectorTripleProduct.html', {});
+unlike($denied, qr/name="description"/, 'permission failure has no prose description');
+unlike($denied, qr/rel="canonical"/,
     'permission failure has no article canonical');
 $permitted = 1;
 

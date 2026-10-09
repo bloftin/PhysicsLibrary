@@ -6,6 +6,7 @@ use FindBin;
 use Template;
 use lib "$FindBin::Bin/../../lib";
 use Noosphere::TemplateNS;
+use Noosphere::ArticleMetadata;
 
 my $root = "$FindBin::Bin/../..";
 {
@@ -70,6 +71,12 @@ for my $method (qw(make4ht l2h png pdf src)) {
     like($html, qr/id="metadata"/, 'metadata is retained');
     like($html, qr/href="\/examples\/energy\/"/, 'computational resources remain available');
     is(scalar @Noosphere::render_calls, 1, 'article is fetched only once');
+    if ($method eq 'make4ht' || $method eq 'l2h') {
+        like($Noosphere::NoosphereDescription, qr/^Kinetic energy/, 'description uses the existing article body');
+        unlike($Noosphere::NoosphereDescription, qr/owner|account|preamble/, 'description is captured before attribution and controls are appended');
+    } else {
+        is($Noosphere::NoosphereDescription, '', 'non-HTML view cannot retain a previous prose description');
+    }
     is($Noosphere::render_calls[0][2], $method, 'renderer selection is unchanged');
     unlike($html, qr/<header[^>]*>.*?<table.*?<\/header>/s, 'header has no layout table');
     unlike($html, qr/bgcolor="#000000"/i, 'old black table frame is removed');
