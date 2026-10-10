@@ -425,9 +425,16 @@ sub nativeSearch {
     $params->{q} = $options->{q};
     my $pages = int(($total + 19) / 20);
     my $page = int($offset / 20) + 1;
+    my $last_page = $pages < 101 ? $pages : 101;
+    # Shift a ten-page window at either end without exceeding the offset cap.
+    my $first_page = $page - 4;
+    $first_page = $last_page - 9 if $first_page + 9 > $last_page;
+    $first_page = 1 if $first_page < 1;
+    my $window_end = $first_page + 9;
+    $window_end = $last_page if $window_end > $last_page;
     my @page_links = map { {number => $_, current => $_ == $page,
         href => nativeSearchURL($options, offset => ($_ - 1) * 20)} }
-        grep { $_ >= 1 && $_ <= $pages && ($_ - 1) * 20 <= 2000 } ($page - 2 .. $page + 2);
+        ($first_page .. $window_end);
     my $subject = $options->{subject};
     $subject->{comment} = nativeSearchDisplayText($subject->{comment}, 200) if $subject;
     my $html = '';

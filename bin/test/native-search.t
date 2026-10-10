@@ -124,6 +124,13 @@ sub titles {
     my $doc=XML::LibXML->load_html(string=>Encode::encode('UTF-8',$html),encoding=>'UTF-8',recover=>2,suppress_errors=>1,suppress_warnings=>1);
     return map {$_->textContent} $doc->findnodes('//ul[@class="pl-native-search-results"]/li/h2/a');
 }
+sub pager {
+    my ($html)=@_;
+    my $doc=XML::LibXML->load_html(string=>Encode::encode('UTF-8',$html),encoding=>'UTF-8',recover=>2,suppress_errors=>1,suppress_warnings=>1);
+    my @nodes=$doc->findnodes('//nav[@class="pl-native-search-pages"]/*');
+    return @nodes;
+}
+sub page_numbers { return map {0+$_->textContent} grep {$_->textContent =~ /^\d+$/} pager($_[0]); }
 my ($html,$status)=search(q=>'vector triple product');
 is_deeply([titles($html)],['Vector Triple Product','Vector Triple Product Exercises','Triple products in mechanics'],'exact title first, then title phrase, then keyword');
 like($html,qr{href="https://physicslibrary.org/encyclopedia/VectorTripleProduct.html"},'article uses canonical URL');
@@ -210,6 +217,49 @@ is((titles($second))[0],'Batch entry 320','stable second page');
 my ($last)=search(q=>'Batch',offset=>2000);
 is(scalar(titles($last)),5,'out-of-range offset clamps to last page');
 like($last,qr/Showing 41-45 of 45/,'clamped page counts correct');
+for my $spec ([$first,1],[$second,2],[$last,3]) {
+    is_deeply([page_numbers($spec->[0])],[1,2,3],'small result sets show every real page without phantom links');
+    is_deeply([map {0+$_->textContent} grep {($_->getAttribute('aria-current') || '') eq 'page'} pager($spec->[0])],
+        [$spec->[1]],'exactly the current page is marked');
+}
+is(scalar(pager($html)),0,'single-page results do not show pagination');
+is(scalar(pager($none)),0,'empty results do not show pagination');
+$db->begin_work;
+for my $i (500..734) {
+    article($i,sprintf('Pagerwindow entry %03d',$i));
+    $db->do("INSERT INTO classification VALUES ('objects',?,3,1,0)",undef,$i);
+}
+$db->commit;
+my %pager_options=(q=>'Pagerwindow',collection=>'objects',subject=>'02.30.Sa');
+my ($pager_first)=search(%pager_options);
+my ($pager_second)=search(%pager_options,offset=>20);
+my ($pager_middle)=search(%pager_options,offset=>100);
+my ($pager_last)=search(%pager_options,offset=>220);
+is_deeply([page_numbers($pager_first)],[1..10],'first page shows ten page numbers');
+is_deeply([page_numbers($pager_second)],[1..10],'early pages retain the same ten numbers');
+is_deeply([page_numbers($pager_middle)],[2..11],'middle window follows the current page');
+is_deeply([page_numbers($pager_last)],[3..12],'last window retains ten numbers');
+is(scalar(titles($pager_last)),15,'partial last page retains the existing page size');
+for my $spec ([$pager_first,1],[$pager_middle,6],[$pager_last,12]) {
+    is_deeply([map {0+$_->textContent} grep {($_->getAttribute('aria-current') || '') eq 'page'} pager($spec->[0])],
+        [$spec->[1]],'ten-number pager marks only the current page');
+}
+for my $link (grep {$_->nodeName eq 'a'} pager($pager_middle)) {
+    like($link->getAttribute('href'),qr/collection=objects&offset=\d+&op=search&q=Pagerwindow&subject=02\.30\.Sa/,
+        'numbered and previous/next links preserve query, collection, and subject');
+}
+ok(!grep({($_->getAttribute('rel') || '') eq 'prev'} pager($pager_first)),'first page has no previous link');
+ok(!grep({($_->getAttribute('rel') || '') eq 'next'} pager($pager_last)),'last page has no next link');
+$db->begin_work;
+for my $i (5000..7020) {article($i,sprintf('Capwindow entry %04d',$i));}
+$db->commit;
+my ($pager_cap)=search(q=>'Capwindow',offset=>2000);
+is_deeply([page_numbers($pager_cap)],[92..101],'ten-number window respects the maximum offset');
+ok(!grep({($_->getAttribute('rel') || '') eq 'next'} pager($pager_cap)),'offset cap has no unreachable next page');
+for my $table (qw(objects objindex acl classification)) {
+    my $id=$table eq 'objects' ? 'uid' : 'objectid';
+    $db->do("DELETE FROM $table WHERE $id BETWEEN 500 AND 734 OR $id BETWEEN 5000 AND 7020");
+}
 article(250,'Fresh metadata title',keywords=>'instant-update');
 is((titles((search(q=>'instant-update'))[0]))[0],'Fresh metadata title','new article immediately searchable without index rebuild');
 $db->do("UPDATE objects SET keywords='revisedword' WHERE uid=250");
@@ -282,7 +332,8 @@ if ($ENV{NATIVE_SEARCH_QA_DIR}) {
     require File::Path;
     require Noosphere::TemplateNS;
     File::Path::make_path($ENV{NATIVE_SEARCH_QA_DIR});
-    for my $spec (['results', $html], ['subject',$scope], ['all',$all], ['empty',$empty], ['none',$none], ['calculus',$calculus], ['pages',$first]) {
+    for my $spec (['results', $html], ['subject',$scope], ['all',$all], ['empty',$empty], ['none',$none], ['calculus',$calculus], ['pages',$first],
+        ['pager-first',$pager_first],['pager-middle',$pager_middle],['pager-last',$pager_last],['pager-cap',$pager_cap]) {
         my $header=TemplateNS->new('header.html');
         $header->setKey('q', $spec->[0] eq 'calculus' ? 'Calculus of Variations' : '');
         my $page='';
