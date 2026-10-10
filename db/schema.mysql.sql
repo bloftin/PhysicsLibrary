@@ -602,14 +602,14 @@ CREATE TABLE objindex (
   objectid int(11) NOT NULL default '0',
   tbl varchar(16) NOT NULL default '',
   userid int(11) NOT NULL default '0',
-  title varchar(128) NOT NULL default '',
-  cname varchar(128) NOT NULL default '',
+  title varchar(255) NOT NULL default '',
+  cname varchar(255) NOT NULL default '',
   type int(11) NOT NULL default '1',
   ichar char(1) default NULL,
   source varchar(16) default NULL,
-  KEY objindex_cnameidx (cname),
+  KEY objindex_cnameidx (cname(128)),
   KEY objindex_ichar_idx (ichar),
-  KEY objindex_title_idx (title),
+  KEY objindex_title_idx (title(128)),
   KEY objindex_userid_idx (userid),
   KEY objindex_objectid_idx (objectid)
 ) TYPE=InnoDB;
