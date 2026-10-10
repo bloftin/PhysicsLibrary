@@ -141,8 +141,8 @@ create table objindex (
  objectid bigint not null,
  tbl varchar(16) not null,
  userid bigint not null,
- title varchar(128) not null,
- cname varchar(128) not null,
+ title varchar(255) not null,
+ cname varchar(255) not null,
  type int not null default 1,
  source varchar(16),
  ichar character(1) 
