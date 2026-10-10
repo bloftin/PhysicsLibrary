@@ -154,6 +154,19 @@
         {"label": "Julia reference trajectories", "file": "reference.csv"}
       ]
     },
+    "oscillation-lab": {
+      "title": "Oscillation Lab",
+      "language": "Julia",
+      "version": "1.11.2",
+      "reproducibility": "Offline free, damped and driven spring-mass lab. Matrix-exponential motion and energy balances checked against nine independent Julia reference cases. Includes source, environments, tests and CSV; no server-side computation.",
+      "explorer": "index.html",
+      "source": "oscillation-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia oscillator trajectories and energy balances", "file": "reference.csv"}
+      ]
+    },
     "orbital-gravitation": {
       "title": "Orbital Motion from Universal Gravitation",
       "language": "Julia",

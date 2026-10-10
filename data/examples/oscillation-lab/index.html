@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Oscillation Lab | Physics Library</title><link rel="stylesheet" href="style.css"><script defer src="viewer.js"></script></head>
+<body>
+<header><div><a class="library" href="https://physicslibrary.org/encyclopedia/Oscillation.html">Physics Library</a><h1>Oscillation Lab</h1></div><div class="equation">m x&#8243; + c x&#8242; + k x = F(t)</div></header>
+<main>
+<aside aria-label="Oscillator parameters">
+  <div class="modes" role="group" aria-label="Motion model"><button data-mode="harmonic" aria-pressed="true">Harmonic</button><button data-mode="damped" aria-pressed="false">Damped</button><button data-mode="driven" aria-pressed="false">Driven</button></div>
+  <label class="preset">Initial case<select id="preset"><option value="release">Free release</option><option value="kick">Velocity kick</option><option value="damped">Weak damping</option><option value="critical">Critical return</option><option value="overdamped">Overdamped return</option><option value="resonance">Driven resonance</option><option value="undamped">Undamped resonance</option><option value="beats">Driven transient</option><option value="custom" disabled>Custom</option></select></label>
+  <div id="fields"></div>
+  <div class="natural"><h2>Natural motion</h2><dl><dt>Angular frequency</dt><dd id="omega0"></dd><dt>Period T&#8320;</dt><dd id="period"></dd><dt>Frequency f&#8320;</dt><dd id="frequency"></dd><dt>Damping c</dt><dd id="damping"></dd></dl></div>
+</aside>
+<section class="workspace" aria-label="Oscillator and trajectories">
+  <div class="scene-heading"><span id="classification">Undamped</span><span id="scale"></span></div>
+  <div id="scene"><div id="fallback" hidden>3D view unavailable. Numerical trajectories remain available below.</div><div class="scene-labels"><span class="spring-label">Spring k</span><span>Displacement x from equilibrium</span><span id="force-label" hidden>Applied force F(t)</span></div></div>
+  <div class="transport"><div class="tools"><button id="play" class="icon" aria-label="Play" title="Play"><i data-lucide="play"></i></button><button id="reset" class="icon" aria-label="Reset time" title="Reset time"><i data-lucide="rotate-ccw"></i></button><button id="step" class="icon" aria-label="Step forward" title="Step forward"><i data-lucide="step-forward"></i></button><button id="camera" class="icon" aria-label="Reset camera" title="Reset camera"><i data-lucide="scan"></i></button><button id="download" class="icon" aria-label="Download CSV" title="Download CSV"><i data-lucide="download"></i></button></div><label class="speed">Speed<select id="speed"><option value="0.25">0.25x</option><option value="1" selected>1x</option><option value="2">2x</option></select></label><output id="time">0.00 s</output><input id="timeline" type="range" min="0" max="1200" step="1" value="0" aria-label="Simulation time"></div>
+  <div class="readouts"><div><span>Displacement</span><strong id="position"></strong></div><div><span>Velocity</span><strong id="velocity"></strong></div><div><span>Acceleration</span><strong id="acceleration"></strong></div><div><span>Mechanical energy</span><strong id="energy"></strong></div></div>
+  <div class="charts"><section class="plot"><h2>Displacement</h2><div class="legend"><span class="teal">x (m)</span><span class="muted">t (s)</span></div><canvas id="history" aria-label="Displacement against time" role="img"></canvas></section><section class="plot"><h2>Phase Portrait</h2><div class="legend"><span class="coral">v (m/s)</span><span class="muted">x (m)</span></div><canvas id="phase-plot" aria-label="Velocity against displacement" role="img"></canvas></section><section class="plot"><h2>Energy and Work</h2><div class="legend"><span class="teal">K</span><span class="amber">U</span><span class="ink">E</span><span class="coral">Q</span><span class="violet">W</span><span class="muted">J</span></div><canvas id="energy-plot" aria-label="Kinetic, potential, mechanical energy, dissipated heat, and drive work against time" role="img"></canvas></section></div>
+  <div class="balance"><span>E(t) + Q(t) &#8722; W(t) = E(0)</span><span>Q: dissipated heat &#183; W: drive work</span><span id="balance"></span><span id="response" hidden></span></div>
+  <p id="error" role="alert" hidden></p>
+</section>
+</main>
+<footer><span>Linear spring &#183; viscous damping &#183; sinusoidal drive</span><nav><a href="oscillation-lab.zip">Julia project</a><a href="reference.csv">Reference data</a><a href="provenance.toml">Provenance</a><a href="LICENSE.txt">License</a></nav></footer>
+</body></html>
