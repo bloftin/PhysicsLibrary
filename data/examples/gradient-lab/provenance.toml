@@ -1,0 +1,19 @@
+reference_generator = "julia --startup-file=no --project=. gradient-lab.jl"
+julia_version = "1.11.2"
+reference_method = "independent explicit Julia scalar fields and analytic partial derivatives; central-difference tests"
+browser_method = "mathjs 14.8.1 symbolic partial differentiation and compiled expressions; no custom-expression execution"
+renderer = "Three.js 0.180.0; D3 7.9.0; procedural scalar surfaces and contours; no remote assets"
+coordinates = "dimensionless Cartesian x,y in [-2.5,2.5]; direction u is a Euclidean unit vector"
+gradient = "(df/dx,df/dy); directional derivative = gradient dot u"
+display = "normalized direction arrows; height scale fixed per field/shape at maximum amplitude 2; numerical slopes unscaled"
+steps = "normalized gradient, initial step length 0.16, Armijo fraction 0.1, backtracking factor 0.5, domain-limited"
+stationary_tolerance = 1e-7
+grid_side = 65
+reference_fields = 6
+reference_samples = 2178
+reference_csv_sha256 = "c515f13b3b780299939c8cd0c0b729a9361da9befbfb6eaccbdf67855ce9c8bb"
+gradient_lab_jl_sha256 = "9a1e4f03c92863749df986d106f4f12cab1a512a3a85b8337c2b28d3233a9282"
+model_js_sha256 = "0f4a51d226eccd431dbc26f1657d1c2e31d5d87fe2592ad78128b78473bca9be"
+Manifest_toml_sha256 = "f3cdfa68b910cf4508214ce1b409bcb54e8a6c2a290dc22ffbba314831cdc6dc"
+pnpm_lock_yaml_sha256 = "4b72e788929b87f283a77c6390e75a904b9ceeb6a1ab633f088c658f77a9bef2"
+viewer_sha256 = "9fad4c87c62a5eb00fcf82b013b57908a020267c10e8e42bcd3240cdbade3e2a"

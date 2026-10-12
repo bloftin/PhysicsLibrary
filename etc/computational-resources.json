@@ -154,6 +154,19 @@
         {"label": "Julia reference trajectories", "file": "reference.csv"}
       ]
     },
+    "gradient-lab": {
+      "title": "Gradient Lab",
+      "language": "Julia",
+      "version": "1.11.2",
+      "reproducibility": "Offline scalar surfaces, contour maps, directional derivatives and gradient steps. Symbolic browser gradients checked against 2178 independent Julia reference points. Includes source, environments, tests, CSV and provenance; no server-side computation.",
+      "explorer": "index.html",
+      "source": "gradient-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia scalar fields, gradients and directional derivatives", "file": "reference.csv"}
+      ]
+    },
     "oscillation-lab": {
       "title": "Oscillation Lab",
       "language": "Julia",
