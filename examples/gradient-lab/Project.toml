@@ -1,0 +1,10 @@
+name = "GradientLab"
+uuid = "ceb510b6-b4a2-4372-9c84-34f970acac18"
+version = "1.0.0"
+
+[deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1.11"

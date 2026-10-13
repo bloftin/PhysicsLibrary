@@ -210,6 +210,16 @@ for my $url (render($oscillation) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'oscillation publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/gradient-lab/computational-resources.json"));
+my $gradient = resources();
+is(scalar @$gradient, 1, 'gradient manifest selects its reviewed publication');
+is($gradient->[0]{title}, 'Gradient Lab', 'gradient title comes from catalog');
+is(scalar @{$gradient->[0]{datasets}}, 1, 'gradient exposes independent Julia references');
+for my $url (render($gradient) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'gradient publication asset exists: ' . $url);
+}
+reset_files();
 writefile($catalog_path, encode_json($multi));
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['python-example']}));
 like(render(resources()), qr/Python 3\.12/, 'presentation is not Julia-specific');

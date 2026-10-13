@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gradient Lab | Physics Library</title><link rel="stylesheet" href="style.css"><script defer src="viewer.js"></script></head>
+<body>
+<header><div><a class="library" href="https://physicslibrary.org/">Physics Library</a><h1>Gradient Lab</h1></div><div class="identity">&#8711;f = (f<sub>x</sub>, f<sub>y</sub>) <span>&#183;</span> D<sub>u</sub>f = &#8711;f &#183; u</div></header>
+<main>
+<aside aria-label="Scalar field and probe controls">
+  <label class="field-choice">Scalar field<select id="field"><option value="plane">Tilted plane</option><option value="bowl" selected>Elliptic bowl</option><option value="saddle">Saddle</option><option value="gaussian">Gaussian hill</option><option value="waves">Waves</option><option value="wells">Double well</option></select></label>
+  <div class="formula">f(x,y) = <output id="formula"></output></div>
+  <div id="fields"></div>
+  <div class="direction-tools"><button id="align" class="icon" title="Align with gradient" aria-label="Align with gradient"><i data-lucide="arrow-up-right"></i></button><button id="tangent" class="icon" title="Choose level-set tangent" aria-label="Choose level-set tangent"><i data-lucide="rotate-cw"></i></button><span>Direction u</span></div>
+  <div class="toggles"><label><input type="checkbox" id="vectors" checked> Gradient field</label><label><input type="checkbox" id="plane" checked> Tangent plane</label></div>
+  <div class="walking"><h2>Gradient Steps</h2><div class="modes" role="group" aria-label="Step direction"><button data-sign="1" aria-pressed="false">Ascent</button><button data-sign="-1" aria-pressed="true">Descent</button></div><div class="tools"><button id="play" class="icon" title="Run gradient steps" aria-label="Run gradient steps"><i data-lucide="play"></i></button><button id="step" class="icon" title="Take one gradient step" aria-label="Take one gradient step"><i data-lucide="step-forward"></i></button><button id="reset" class="icon" title="Reset probe and path" aria-label="Reset probe and path"><i data-lucide="rotate-ccw"></i></button><output id="step-count">0 steps</output></div><output id="status" aria-live="polite">Ready</output></div>
+</aside>
+<section class="workspace" aria-label="Gradient visualization">
+  <div class="views">
+    <section class="surface-view"><div class="view-head"><h2>Scalar Surface</h2><button id="camera" class="icon" title="Reset camera" aria-label="Reset camera"><i data-lucide="scan"></i></button></div><div id="scene"><div id="fallback" hidden>3D view unavailable. Contours and calculations remain available.</div></div><div class="view-caption"><span class="coral">Ascent tangent</span><span class="amber">Direction tangent</span><span id="height-scale"></span></div></section>
+    <section class="contour-view"><div class="view-head"><h2>Level Sets</h2><span id="point-label"></span></div><canvas id="contours" role="img" aria-label="Interactive contour map and gradient vector field" tabindex="0"></canvas><div class="view-caption"><span class="coral">&#8711;f direction</span><span class="amber">Unit u</span><span>Normalized arrows</span></div></section>
+  </div>
+  <div class="readouts"><div><span>Field value f</span><strong id="value"></strong></div><div><span>Gradient &#8711;f</span><strong id="gradient"></strong></div><div><span>Magnitude |&#8711;f|</span><strong id="magnitude"></strong></div><div><span>Directional slope</span><strong id="directional"></strong></div></div>
+  <div class="plots"><section class="plot"><h2>Section Along u</h2><div class="legend"><span class="teal">f(p + tu)</span><span class="amber">Tangent at p</span></div><canvas id="section" role="img" aria-label="Scalar field along the chosen direction and its local linear approximation"></canvas></section><section class="plot"><h2>Directional Derivative</h2><div class="legend"><span class="coral">D<sub>u</sub>f</span><span class="muted">Direction angle (degrees)</span></div><canvas id="direction-plot" role="img" aria-label="Directional derivative against direction angle"></canvas></section></div>
+  <div class="notes"><span id="direction-state"></span><span>|D<sub>u</sub>f| &#8804; |&#8711;f|</span><span id="range"></span></div>
+  <p id="error" role="alert" hidden></p>
+</section>
+</main>
+<footer><span>Dimensionless smooth scalar fields &#183; Euclidean gradient &#183; x,y &#8712; [&#8722;2.5,2.5]</span><div class="footer-actions"><button id="download" class="icon" title="Download field and gradient CSV" aria-label="Download field and gradient CSV"><i data-lucide="download"></i></button><nav><a href="gradient-lab.zip">Julia project</a><a href="reference.csv">Reference data</a><a href="provenance.toml">Provenance</a><a href="LICENSE.txt">License</a></nav></div></footer>
+</body></html>
