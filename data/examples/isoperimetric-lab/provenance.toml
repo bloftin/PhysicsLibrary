@@ -1,0 +1,22 @@
+article = "https://physicslibrary.org/encyclopedia/CalculusOfVariationsTheClassicalIsoperimetricProblemWorkedExamplesAndProofs.html"
+article_id = 1208
+exercises = [1, 3, 4, 6]
+reference_generator = "julia --startup-file=no --project=. isoperimetric-lab.jl"
+julia_version = "1.11.2"
+reference_method = "independent analytic Julia circle and regular-polygon geometry; 13 cases, 533 samples"
+browser_method = "mathjs 14.8.1 symbolic parametric derivatives and area slope; D3 7.9.0 polygon area/perimeter and chart scales"
+geometry = "planar Canvas2D; shared physical length scale within each comparison; angle-parameterized arcs including vertical endpoint tangents"
+sign_convention = "H=y+lambda*sqrt(1+y_prime^2); left-to-right upper arc has kappa=-1/R, hence lambda=-R"
+exercise_1 = "fixed half-chord a; alpha sets corresponding length L=2R*alpha; minor graph alpha<=pi/2; not a fixed-L deformation"
+exercise_3 = "R=a and L=pi*a; semicircle smooth parametrically but not C1 as a graph on the closed interval"
+exercise_4 = "fixed curved rope length L; endpoints slide on free straight shore; major arcs are parametric, not graphs; reflection bound L^2/(2*pi)"
+exercise_6 = "each circle/square/regular polygon separately scaled to the same closed perimeter P; polygons not inscribed in the displayed circle"
+scope = "exact circular families and regular polygons, not a general optimizer; interior stationarity distinct from endpoint conditions and global proof; animation is a geometric probe"
+reference_samples = 533
+reference_csv_sha256 = "953717389c13e0411f7a6f98f4af677a6f419d4320aab0d881906ba8e66df825"
+isoperimetric_lab_jl_sha256 = "f4a31f2aef5646768b54af3bd90f27d3fbfefa313d834b3d3786e8a16ea77d2f"
+model_js_sha256 = "11fa0e23d78882d0f15278bd23e276a00b3d7f36ca122bcb53d6682b391f8bcc"
+explanations_js_sha256 = "28bbcca454dc0b031005e34a106f8704e6466f23ed356a02a1017af2a84dde7f"
+Manifest_toml_sha256 = "f3cdfa68b910cf4508214ce1b409bcb54e8a6c2a290dc22ffbba314831cdc6dc"
+pnpm_lock_yaml_sha256 = "3d78243045e1f132a514445663c49664e7ce89db84c8dca5f549c8397d170179"
+viewer_sha256 = "8f9acb0ba0de4f87bf2d9cb969e3df6d68c5d5a33f8e29fc84b2773874c1b82a"

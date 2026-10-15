@@ -167,6 +167,19 @@
         {"label": "Julia functionals, constraints and first variations", "file": "reference.csv"}
       ]
     },
+    "isoperimetric-lab": {
+      "title": "Isoperimetric Geometry Lab (CV09E1)",
+      "language": "Julia",
+      "version": "1.11.2",
+      "reproducibility": "Offline CV09E1 exercises 1, 3, 4 and 6: fixed-chord arcs, semicircles, Dido shoreline and equal-perimeter polygons. Symbolic browser geometry checked against 533 independent Julia reference samples. Includes explanatory proofs, source, environments, tests, CSV and provenance; no server-side computation.",
+      "explorer": "index.html",
+      "source": "isoperimetric-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia circular arcs and equal-perimeter geometry", "file": "reference.csv"}
+      ]
+    },
     "gradient-lab": {
       "title": "Gradient Lab",
       "language": "Julia",
