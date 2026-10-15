@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Isoperimetric Geometry Lab | Physics Library</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><div><a class="series" href="https://physicslibrary.org/encyclopedia/CV09E1.html">Physics Library / CV09E1</a><h1>Isoperimetric Geometry Lab</h1></div><div class="commands"><button id="play" title="Animate probe or polygon sides" aria-label="Animate probe or polygon sides" aria-pressed="false"><i data-lucide="play"></i></button><button id="reset" title="Reset this exercise" aria-label="Reset this exercise"><i data-lucide="rotate-ccw"></i></button><button id="download" title="Download numerical CSV" aria-label="Download numerical CSV"><i data-lucide="download"></i></button></div></header>
+<main>
+<div class="selector"><label for="exercise">Worked example</label><select id="exercise"><option value="1">1. Fixed-chord graph: constant curvature</option><option value="3">3. The semicircle special case</option><option value="4">4. Dido's free shoreline endpoints</option><option value="6">6. Same perimeter, different areas</option></select></div>
+<div class="workspace">
+<aside aria-label="Geometric parameters">
+<h2 id="controls-title">Fixed endpoints</h2><p id="budget" class="budget"></p>
+<div class="field" data-modes="1 3"><label for="a">Half-chord a <output id="a-value"></output></label><input id="a" type="range" min=".5" max="3" step=".01"><label class="sr-only" for="a-number">Half-chord a value</label><input id="a-number" type="number" min=".5" max="3" step=".01"></div>
+<div class="field" data-modes="1 4"><label for="alpha">Half-angle &alpha; (degrees) <output id="alpha-value"></output></label><input id="alpha" type="range" min="15" max="90" step=".1"><label class="sr-only" for="alpha-number">Half-angle in degrees</label><input id="alpha-number" type="number" min="15" max="90" step=".1"></div>
+<div class="field" data-modes="4"><label for="length">Curved length L <output id="length-value"></output></label><input id="length" type="range" min="2" max="16" step=".01"><label class="sr-only" for="length-number">Curved length value</label><input id="length-number" type="number" min="2" max="16" step=".01"></div>
+<div class="field" data-modes="6"><label for="perimeter">Closed perimeter P <output id="perimeter-value"></output></label><input id="perimeter" type="range" min="4" max="20" step=".01"><label class="sr-only" for="perimeter-number">Closed perimeter value</label><input id="perimeter-number" type="number" min="4" max="20" step=".01"></div>
+<div class="field" data-modes="6"><label for="n">Polygon sides n <output id="n-value"></output></label><input id="n" type="range" min="3" max="60" step="1"><label class="sr-only" for="n-number">Polygon sides value</label><input id="n-number" type="number" min="3" max="60" step="1"></div>
+<div class="field" data-modes="1"><label for="ratio">Multiplier &lambda;/R <output id="ratio-value"></output></label><input id="ratio" type="range" min="-2" max="1" step=".01"><label class="sr-only" for="ratio-number">Multiplier divided by radius</label><input id="ratio-number" type="number" min="-2" max="1" step=".01"><button class="action" id="match">Match &lambda; = &minus;R</button></div>
+<div class="field" data-modes="1 3 4"><label for="probe">Arc position t/&alpha; <output id="probe-value"></output></label><input id="probe" type="range" min="-1" max="1" step=".01"><label class="sr-only" for="probe-number">Arc position value</label><input id="probe-number" type="number" min="-1" max="1" step=".01"></div>
+<div class="toggles"><label data-modes="1 3 4"><input id="vectors" type="checkbox" checked> Tangent T and left normal n</label><label data-modes="1 3 4"><input id="circle" type="checkbox"> Supporting circle</label><label data-modes="4"><input id="reflection" type="checkbox"> Reflected boundary</label></div>
+<button class="action" id="semicircle" data-modes="4">Set orthogonal endpoints</button><p id="error" role="alert" hidden></p>
+</aside>
+<div class="visuals"><section class="geometry"><div class="figure-head"><h2 id="figure-title"></h2><span id="family-label"></span></div><canvas id="geometry" role="img" aria-label="Circular arc with filled area, endpoints, tangent and normal"></canvas><p id="geometry-caption" class="caption"></p></section>
+<dl class="readouts"><div><dt id="metric1-label">Area A</dt><dd id="metric1"></dd></div><div><dt id="metric2-label">Curved length L</dt><dd id="metric2"></dd></div><div><dt id="metric3-label">Radius R</dt><dd id="metric3"></dd></div><div><dt id="metric4-label">EL residual</dt><dd id="metric4"></dd></div></dl>
+<section class="plot"><h2 id="plot-title"></h2><canvas id="trace" role="img" aria-label="Constraint and area comparison chart"></canvas><p id="plot-caption" class="caption"></p></section></div>
+</div>
+<section class="interpretation" aria-live="polite"><h2 id="interpretation-title"></h2><p id="interpretation"></p></section>
+<section class="guide"><h2 id="guide-title"></h2><div id="guide-body"></div></section>
+<footer>Lengths use one arbitrary common unit; areas use its square. Analytic geometry, not physical motion or a general curve optimizer. <a href="isoperimetric-lab.zip">Julia source and offline project</a> &middot; <a href="reference.csv">Julia reference data</a> &middot; <a href="provenance.toml">Provenance</a> &middot; <a href="LICENSE.txt">Licenses</a></footer>
+</main><script src="viewer.js"></script></body></html>

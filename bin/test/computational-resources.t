@@ -230,6 +230,16 @@ for my $url (render($constrained) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'constrained-variations publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/isoperimetric-lab/computational-resources.json"));
+my $isoperimetric = resources();
+is(scalar @$isoperimetric, 1, 'isoperimetric manifest selects its reviewed publication');
+is($isoperimetric->[0]{title}, 'Isoperimetric Geometry Lab (CV09E1)', 'isoperimetric title comes from catalog');
+is(scalar @{$isoperimetric->[0]{datasets}}, 1, 'isoperimetric exposes independent Julia references');
+for my $url (render($isoperimetric) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'isoperimetric publication asset exists: ' . $url);
+}
+reset_files();
 writefile($catalog_path, encode_json($multi));
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['python-example']}));
 like(render(resources()), qr/Python 3\.12/, 'presentation is not Julia-specific');
