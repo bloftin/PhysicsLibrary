@@ -1,0 +1,21 @@
+article = "https://physicslibrary.org/encyclopedia/CalculusOfVariationsConstrainedVariationsAndIsoperimetricProblems.html"
+article_id = 1207
+reference_generator = "julia --startup-file=no --project=. constrained-variations.jl"
+julia_version = "1.11.2"
+reference_method = "independent explicit Julia functionals and first-variation densities; trapezoidal verification of integral pairings"
+browser_method = "mathjs 14.8.1 symbolic coefficient derivatives; exact analytic functional formulas; fixed expression catalog"
+renderer = "Three.js 0.180.0; D3 7.9.0; procedural objective surfaces and constraint geometry; no remote assets"
+sign_convention = "J + lambda*(K-k0); grad J = -lambda*grad K; video convention mu = -lambda"
+mean_family = "y=6*a*x*(1-x)+6*b*x*(1-x)*(2*x-1); x in [0,1]; J=6*a^2+18*b^2/5; K=a=m"
+normalization_family = "y=sqrt(2/pi)*(a*sin(x)+b*sin(2*x)); x in [0,pi]; J=a^2+4*b^2; K=a^2+b^2=k0"
+geometry = "Euclidean gradients in coefficient space; tangent has unit coefficient norm; lower density panel is the L2 first-variation representation"
+display = "objective and scaled constraint normals share one displayed scale, never independently normalized; surface height scale shown"
+scope = "exact two-function slices; full first-variation residual shown; second mode not a full-space maximum; scan not physical dynamics"
+reference_cases = 14
+reference_samples = 574
+reference_csv_sha256 = "8afbd5f93b632520682b03707449ce6ca31044d9343f02ec20256af622b28128"
+constrained_variations_jl_sha256 = "19036ae85e03dce6b1ad8396f4d6d638f0e017c83992ea4a51526d1c091312c5"
+model_js_sha256 = "1dfd555572ed7bf2bd2fd5de761a378c53df12a003d007417bc98a0e726cdb28"
+Manifest_toml_sha256 = "f3cdfa68b910cf4508214ce1b409bcb54e8a6c2a290dc22ffbba314831cdc6dc"
+pnpm_lock_yaml_sha256 = "4b72e788929b87f283a77c6390e75a904b9ceeb6a1ab633f088c658f77a9bef2"
+viewer_sha256 = "961406d3a64a3830dc776656e9f9804469b20faece8c0ccada425c5d8393f8a3"

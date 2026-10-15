@@ -1,0 +1,10 @@
+name = "ConstrainedVariations"
+uuid = "eb938414-90ea-4362-aa57-4f063f4772e6"
+version = "1.0.0"
+
+[deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1.11"

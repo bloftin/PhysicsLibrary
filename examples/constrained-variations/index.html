@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Constrained Variations Lab | Physics Library</title><link rel="stylesheet" href="style.css"><script defer src="viewer.js"></script></head>
+<body>
+<header><div><a class="library" href="https://physicslibrary.org/encyclopedia/CalculusOfVariationsConstrainedVariationsAndIsoperimetricProblems.html">Physics Library &#183; CV09</a><h1>Constrained Variations Lab</h1></div><div class="identity">&#948;J + &#955;&#948;K = 0</div></header>
+<main>
+<aside aria-label="Functional and constraint controls">
+  <div class="modes" role="group" aria-label="Variational problem"><button data-mode="mean" aria-pressed="true">Fixed mean</button><button data-mode="normalization" aria-pressed="false">Normalization</button></div>
+  <div class="functionals"><div id="objective-formula"></div><div id="constraint-formula"></div><div id="basis-formula"></div></div>
+  <div id="fields"></div>
+  <div class="commands"><button id="minimum"><i data-lucide="target"></i>Show minimizer</button><button id="mode2" hidden><i data-lucide="waves"></i>Show second mode</button></div>
+  <div class="tools"><button id="fit" class="icon" title="Fit multiplier to the normal component" aria-label="Fit multiplier to the normal component"><i data-lucide="magnet"></i></button><button id="play" class="icon" title="Scan feasible family" aria-label="Scan feasible family"><i data-lucide="play"></i></button><button id="reset" class="icon" title="Reset trial curve" aria-label="Reset trial curve"><i data-lucide="rotate-ccw"></i></button><button id="download" class="icon" title="Download curve and first variations" aria-label="Download curve and first variations"><i data-lucide="download"></i></button></div>
+  <label class="toggle"><input id="raw-normal" type="checkbox">Unscaled &#8711;K</label>
+  <dl><dt>Normal-fit &#955;</dt><dd id="lambda-fit"></dd><dt>&#948;K[&#951;]</dt><dd id="delta-k"></dd><dt>&#948;J[&#951;]</dt><dd id="delta-j"></dd><dt>L&#178; residual</dt><dd id="l2-residual"></dd></dl>
+  <output id="status" aria-live="polite"></output>
+</aside>
+<section class="workspace" aria-label="Constraint geometry and functional variations">
+  <div class="views"><section class="surface-view"><div class="view-head"><h2>Objective and Feasible Family</h2><button id="camera" class="icon" title="Reset camera" aria-label="Reset camera"><i data-lucide="scan"></i></button></div><div id="scene"><div id="fallback" hidden>3D view unavailable. Constraint geometry and functional calculations remain available.</div></div><div class="caption"><span class="amber">K = k&#8320;</span><span>Height: J(a,b) &#215; <output id="height-scale"></output></span></div></section><section class="coefficient-view"><div class="view-head"><h2>Two-Coefficient Slice</h2><span id="coordinates"></span></div><canvas id="geometry" role="img" aria-label="Objective level sets, exact constraint, two normal vectors and admissible tangent" tabindex="0"></canvas><div class="caption"><span class="blue">&#8711;J</span><span class="amber">&#8722;&#955;&#8711;K</span><span class="green">Tangent direction</span><span id="arrow-scale"></span></div></section></div>
+  <div class="readouts"><div><span>Objective J[y]</span><strong id="objective"></strong></div><div><span>Constraint K[y]</span><strong id="constraint"></strong></div><div><span>Multiplier &#955;</span><strong id="multiplier"></strong></div><div><span>|&#8711;J + &#955;&#8711;K|</span><strong id="residual"></strong></div></div>
+  <div class="plots"><section class="plot"><h2>Curve and Admissible Variation</h2><div class="legend"><span class="ink">y(x)</span><span class="green">&#951;(x)</span></div><canvas id="curve" role="img" aria-label="Trial function and its endpoint-preserving constraint-tangent variation"></canvas></section><section class="plot"><h2>First-Variation Densities</h2><div class="legend"><span class="blue">g<sub>J</sub></span><span class="amber">&#8722;&#955;g<sub>K</sub></span><span class="muted">L&#178; representation</span></div><canvas id="densities" role="img" aria-label="Objective and multiplier-scaled constraint first-variation densities"></canvas></section><section class="plot"><h2>J Along the Constraint</h2><div class="legend"><span class="blue">J</span><span id="trace-axis" class="muted"></span></div><canvas id="trace" role="img" aria-label="Objective restricted to the exactly feasible coefficient family"></canvas></section></div>
+  <div class="notes"><span>&#8711;J = &#956;&#8711;K with &#956; = &#8722;&#955;</span><span>&#948;K[&#951;] = 0: &#951; is tangent, gradients are normal.</span><span id="classification"></span></div>
+  <p id="error" role="alert" hidden></p>
+</section>
+</main>
+<footer><span>Dimensionless, fixed-endpoint function families &#183; J + &#955;(K &#8722; k&#8320;)</span><nav><a href="constrained-variations.zip">Julia project</a><a href="reference.csv">Reference data</a><a href="provenance.toml">Provenance</a><a href="LICENSE.txt">License</a></nav></footer>
+</body></html>
