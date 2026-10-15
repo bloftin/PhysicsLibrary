@@ -10,6 +10,8 @@ The admissible first-order directions are tangent to `K=k0`; the functional grad
 
 The upper geometry uses Euclidean coefficient gradients (coordinate covectors identified with vectors). The lower density panel is the **L2 first-variation representation**, with integration by parts and fixed endpoints. These are different representations: the polynomial basis is not orthonormal, so coefficient vectors must not be interpreted as samples of the functional gradient. The common multiplier is consistent in both representations. The displayed L2 residual norm tests `gJ+lambda*gK`, not merely the two-coordinate residual.
 
+Explanations accompany both main figures and all three plots. A live interpretation distinguishes a feasible nonstationary curve, a stationary curve with the wrong multiplier, a matched minimum, the zero-gradient case, and the stationary second mode. The mathematical guide develops tangent/normal geometry, multiplier signs, the two gradient representations, and the worked derivation for the selected problem. These are mathematical explanations rather than a replacement for the interactive visuals.
+
 ## Fixed Mean
 
 On `[0,1]`, take `phi_0=6x(1-x)` and `phi_1=6x(1-x)(2x-1)`, with `y=a*phi_0+b*phi_1`. Both basis functions vanish at the endpoints; their integrals are 1 and 0.

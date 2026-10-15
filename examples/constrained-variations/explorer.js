@@ -19,6 +19,36 @@ $('reset').addEventListener('click',()=>reset());$('minimum').addEventListener('
 $('fit').addEventListener('click',()=>{run(false);p.lambda=at(p).lambdaFit;display();});$('play').addEventListener('click',()=>{phase=p.mode==='mean'?Math.asin(p.b):p.angle*Math.PI/180;lastScan=0;run(!running);});$('raw-normal').addEventListener('change',drawGeometry);
 $('camera').addEventListener('click',()=>view?.reset());$('download').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([csv(p)],{type:'text/csv'})),a=document.createElement('a');a.href=url;a.download='constrained-variations.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 function staticModel(){gridValues=[];for(let j=0;j<N;j++)for(let i=0;i<N;i++)gridValues.push(objective(p.mode,-C+2*C*i/(N-1),-C+2*C*j/(N-1)));levels=contours().size([N,N]).thresholds(scaleLinear().domain(extent(gridValues)).ticks(14))(gridValues);view?.build();modelMode=p.mode;}
+function explain(r){
+  const matched=r.residualL2<1e-7,stationary=Math.abs(r.dJ)<1e-7,second=p.mode==='normalization'&&Math.abs(r.a)<1e-7;
+  if(matched&&second){
+    $('interpretation-title').textContent='A stationary curve is not automatically a minimum';
+    $('interpretation-body').textContent=`Here \u03bb = ${num(p.lambda)} makes both the normal vectors and the first-variation densities agree after scaling. The second sine mode is stationary, with J = ${num(r.J)}. It is a maximum on this two-mode circle, but not in the full function space: a first-mode variation lowers J, while a higher-mode variation can raise it.`;
+  }else if(matched&&Math.hypot(...r.gJ)<1e-7){
+    $('interpretation-title').textContent='The zero-gradient case';
+    $('interpretation-body').textContent='The zero curve already minimizes J when the prescribed mean is zero. Its objective gradient vanishes, and the correct multiplier is \u03bb = 0. Both normal-balance arrows are therefore zero; there is no nonzero direction to align. The constraint is still normal because its own gradient is nonzero.';
+  }else if(matched){
+    $('interpretation-title').textContent='The normals match, and the tangent derivative vanishes';
+    $('interpretation-body').textContent=`At this curve, \u03b4J[\u03b7] = 0 and \u03bb = ${num(p.lambda)} gives \u2207J = \u2212\u03bb\u2207K. The blue and amber arrows coincide, perpendicular to the green tangent. More strongly, gJ + \u03bb gK vanishes across the whole interval, so every endpoint-preserving variation satisfies the augmented stationarity condition. For this example, the separate energy argument also establishes a global minimum.`;
+  }else if(stationary){
+    $('interpretation-title').textContent='The curve is stationary, but the multiplier is not matched';
+    $('interpretation-body').textContent=`J has zero first-order change along the constraint, so the chosen curve is already constrained-stationary. However, \u03bb = ${num(p.lambda)} does not cancel the normal component: the normal-fit value is ${num(r.lambdaFit)}. The nonzero residual describes this multiplier mismatch; it does not mean that the curve has ceased to be stationary on the constraint.`;
+  }else{
+    $('interpretation-title').textContent='Feasible does not yet mean stationary';
+    $('interpretation-body').textContent=`The curve satisfies K = ${num(r.K)}, but its tangent first variation is \u03b4J[\u03b7] = ${num(r.dJ)}, not zero. An allowed infinitesimal change therefore changes J. The best normal-fit multiplier, ${num(r.lambdaFit)}, can remove the part of \u2207J parallel to \u2207K, but cannot cancel the remaining tangent component. The curve itself must change before the complete balance is possible.`;
+  }
+  if(p.mode==='mean'){
+    $('problem-title').textContent='Fixed mean: why the answer is a parabola';
+    $('problem-family').textContent='Every curve has y = a\u00b76x(1\u2212x) + b\u00b76x(1\u2212x)(2x\u22121), with zero endpoint values. The first basis function has integral 1 and the second has integral 0. Consequently K[y] = a: the constraint fixes a = m, while b can change without changing the mean. This is the straight amber line in coefficient space.';
+    $('problem-solution').textContent='The objective is J = 6a\u00b2 + (18/5)b\u00b2, so the constrained minimum occurs at b = 0. The resulting curve is y* = 6mx(1\u2212x), with \u03bb = \u221212m. Its first-variation densities are gJ = \u2212y*\u2033 = 12m and gK = 1: two constant functions related by precisely the same multiplier as the upper normal vectors.';
+    $('problem-caution').textContent='This minimum is not just a two-coefficient artifact. For any endpoint-preserving, zero-mean perturbation u, integration by parts gives J[y*+u] \u2212 J[y*] = \u00bd\u222b(u\u2032)\u00b2 dx \u2265 0. The green variation is one such direction, but this argument covers all of them.';
+  }else{
+    $('problem-title').textContent='Normalization: why sine modes are stationary';
+    $('problem-family').textContent='Here y = \u221a(2/\u03c0)[a sin x + b sin 2x] on [0,\u03c0]. Orthonormality gives K[y] = a\u00b2 + b\u00b2 = k\u2080, so the exactly feasible coefficient family is a circle. The green tangent variation has zero first-order change in K, but a finite straight step y+\u03b5\u03b7 has K = k\u2080+\u03b5\u00b2. Tangency alone is not exact finite feasibility.';
+    $('problem-solution').textContent='The first-variation densities are gJ = \u22122y\u2033 and gK = 2y. Their balance requires y\u2033 = \u03bby. The pure first sine mode has \u03bb = \u22121 and J = k\u2080, the global minimum. The pure second mode has \u03bb = \u22124 and J = 4k\u2080. The multiplier is a constant eigenvalue parameter, not a function of x.';
+    $('problem-caution').textContent='The second mode sits at a high point of J on this displayed circle, yet is a saddle in the full normalized function space. Moving toward the first mode lowers J; adding a higher-frequency mode can raise it. Thus matching normals proves stationarity, not by itself a minimum or maximum.';
+  }
+}
 function display(){try{p=parameters(p);sync();if(modelMode!==p.mode)staticModel();const r=at(p),rows=curve(p),path=trace(p);$('error').hidden=true;
   const integral=p.mode==='mean'?'<span class="integral">&#8747;<sub>0</sub><sup>1</sup></span>':'<span class="integral">&#8747;<sub>0</sub><sup>&pi;</sup></span>';
   $('objective-formula').innerHTML='J[y] = '+(p.mode==='mean'?'&frac12; ':'')+integral+' (y&prime;)<sup>2</sup> dx';
@@ -27,6 +57,7 @@ function display(){try{p=parameters(p);sync();if(modelMode!==p.mode)staticModel(
   $('objective').textContent=num(r.J);$('constraint').textContent=num(r.K);$('multiplier').textContent=num(p.lambda);$('residual').textContent=num(r.residualNorm);$('lambda-fit').textContent=num(r.lambdaFit);$('delta-j').textContent=num(r.dJ);$('delta-k').textContent=num(r.dK);$('l2-residual').textContent=num(r.residualL2);$('coordinates').textContent=`(a,b) = (${num(r.a,2)}, ${num(r.b,2)})`;
   $('status').textContent=r.residualL2<1e-7?'Matched: \u03b4J + \u03bb\u03b4K = 0':Math.abs(r.dJ)<1e-7?'Tangent-stationary; multiplier mismatch':'Feasible, but not stationary';
   $('classification').textContent=p.mode==='mean'?(Math.abs(r.b)<1e-7?'Fixed-mean global minimizer.':'Energy gap J \u2212 Jmin = '+num(r.J-6*p.mean*p.mean)):(Math.abs(r.b)<1e-7?'First mode: global minimum.':Math.abs(r.a)<1e-7?'Second mode: stationary, not a full-space maximum.':'Mixed modes: not stationary.');
+  explain(r);
   $('trace-axis').textContent=p.mode==='mean'?'Shape coefficient b':'Mixture angle (degrees)';drawGeometry();drawChart('curve',rows,'x',['y','eta'],[ink,green],null,'x');drawChart('densities',rows,'x',['gJ','scaledK'],[blue,amber],null,'x');drawChart('trace',path,'q',['J'],[blue],{x:p.mode==='mean'?p.b:p.angle,y:r.J},p.mode==='mean'?'b':'\u00b0');view?.update(r,path);
 }catch(error){run(false);$('error').textContent=error.message;$('error').hidden=false;}}
 function setup(canvas){const dpr=Math.min(devicePixelRatio||1,2),w=canvas.clientWidth,h=canvas.clientHeight;canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);return {ctx,w,h};}
