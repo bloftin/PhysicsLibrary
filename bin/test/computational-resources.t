@@ -220,6 +220,16 @@ for my $url (render($gradient) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'gradient publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/constrained-variations/computational-resources.json"));
+my $constrained = resources();
+is(scalar @$constrained, 1, 'constrained-variations manifest selects its reviewed publication');
+is($constrained->[0]{title}, 'Constrained Variations Lab', 'constrained-variations title comes from catalog');
+is(scalar @{$constrained->[0]{datasets}}, 1, 'constrained-variations exposes independent Julia references');
+for my $url (render($constrained) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'constrained-variations publication asset exists: ' . $url);
+}
+reset_files();
 writefile($catalog_path, encode_json($multi));
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['python-example']}));
 like(render(resources()), qr/Python 3\.12/, 'presentation is not Julia-specific');

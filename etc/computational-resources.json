@@ -154,6 +154,19 @@
         {"label": "Julia reference trajectories", "file": "reference.csv"}
       ]
     },
+    "constrained-variations": {
+      "title": "Constrained Variations Lab",
+      "language": "Julia",
+      "version": "1.11.2",
+      "reproducibility": "Offline fixed-mean and normalized-mode functional families with constraint geometry, multiplier-scaled normals and first-variation densities. Checked against 574 independent Julia reference samples. Includes source, tests, environments and provenance; no server-side computation.",
+      "explorer": "index.html",
+      "source": "constrained-variations.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia functionals, constraints and first variations", "file": "reference.csv"}
+      ]
+    },
     "gradient-lab": {
       "title": "Gradient Lab",
       "language": "Julia",
