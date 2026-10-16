@@ -7,7 +7,7 @@
       <input id="pl-login-user" type="text" name="user" maxlength="48" autocomplete="username">
       <label for="pl-login-password">Password</label>
       <input id="pl-login-password" type="password" name="passwd" maxlength="32" autocomplete="current-password">
-      <input type="hidden" name="url" value="/">
+      <input type="hidden" name="url" value="[% (ReturnURL || '/') | html %]">
       <input type="hidden" name="op" value="login">
       <button type="submit">Login</button>
     </form>
