@@ -107,7 +107,7 @@ my $quoted_password = q{a'\b; active=0 --};
 
 for my $file (
     ['DB.pm', qw(dbSelectRowBound dbExecuteBound dbRunBound)],
-    ['Login.pm', qw(findLoginUser handleLogin getLoginBox)],
+    ['Login.pm', qw(loginReturnURL loginReturnTarget findLoginUser handleLogin getLoginBox)],
     ['Password.pm', qw(pwChange changePassword pwChangeRequest passwordResetRequestMessage passwordResetTokenLifetime
         passwordResetTime newPasswordResetToken validPasswordResetToken createPasswordResetTicket
         passwordResetCredentialStamp passwordResetTicket consumePasswordResetTicket)],

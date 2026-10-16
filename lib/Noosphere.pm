@@ -906,6 +906,12 @@ sub handler {
 	my %user_info = handleLogin($req, $params, \%cookies);
 	$RequestFormUser = \%user_info;
 
+    if ($params->{op} eq 'login' && $user_info{uid} > 0) {
+        $req->headers_out->set('Location' => loginReturnURL($params->{url}));
+        sendOutput($req, '', 303);
+        return;
+    }
+
 	if ($params->{'op'} eq 'randomentry') {
 		serveRandomEntry($req, $params);
 		return;

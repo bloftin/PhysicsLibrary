@@ -7,6 +7,7 @@ use lib "$FindBin::Bin/../../lib";
 use Noosphere::RequestForm;
 use Noosphere::Dispatch;
 use Noosphere::NativeSearch;
+use Noosphere::Login;
 use HTML::Parser;
 use Encode ();
 use bytes ();
@@ -363,6 +364,27 @@ subtest 'HTTP handler integration with synthetic services' => sub {
     is($request->{status}, 403, 'foreign login response');
     ok(!defined $Noosphere::RequestFormUser, 'request user does not survive handler return');
     ok(!$Noosphere::RequestFormValidated, 'validation does not survive handler return');
+    $request->{headers} = {Origin => 'https://example.invalid'};
+    $params = {op => 'login', url => '/?op=correct&from=objects&id=209'};
+    Noosphere::handler();
+    is($request->{status}, 303, 'successful sign-in redirects with GET, not a POST replay');
+    is($request->{out}{Location}, $params->{url}, 'successful sign-in returns to the correction form');
+    is($writes, 1, 'login redirect did not dispatch or repeat any action');
+    $params->{url} = '//elsewhere.invalid/';
+    Noosphere::handler();
+    is($request->{out}{Location}, '/', 'tampered external return address falls back locally');
+    $params->{url} = '/?op=correct&from=objects&id=209&post=1';
+    Noosphere::handler();
+    is($request->{out}{Location}, '/', 'submitted correction is not used as a return destination');
+    is($writes, 1, 'return-address tampering cannot execute an action');
+    $user = {uid => -1, data => {}};
+    delete $request->{out}{Location};
+    {
+        local $SIG{__WARN__} = sub { die $_[0] unless $_[0] =~ /got past opening main.html/; };
+        Noosphere::handler();
+    }
+    ok(!exists $request->{out}{Location}, 'failed sign-in does not redirect');
+    is($request->{status}, 200, 'failed sign-in keeps the form response');
 };
 
 done_testing();

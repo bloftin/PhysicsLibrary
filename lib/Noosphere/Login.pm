@@ -4,8 +4,54 @@ use strict;
 use Template;
 use Noosphere::PasswordStorage;
 use Noosphere::Ticket;
+use Noosphere::RequestForm;
+use URI;
+use URI::Escape ();
 
 our $dbh;
+
+# Only return to local navigation, never credentials or an action submission.
+sub loginReturnURL {
+    my ($value) = @_;
+    return '/' unless defined($value) && !ref($value) && length($value) <= 4096 &&
+        $value =~ m{\A/(?!/)} && $value !~ /[\x00-\x20\x7f\\]/;
+    my $uri = eval { URI->new($value) };
+    return '/' unless $uri && !defined($uri->scheme) && !defined($uri->authority) &&
+        !defined($uri->fragment);
+    my $path = $uri->path;
+    for (1 .. 4) {
+        return '/' if $path !~ m{\A/(?!/)} || $path =~ /[\x00-\x20\x7f\\]/ ||
+            $path =~ m{(?:\A|/)\.\.?(?:/|\z)};
+        my $decoded = URI::Escape::uri_unescape($path);
+        last if $decoded eq $path;
+        return '/' if $_ == 4;
+        $path = $decoded;
+    }
+    my (@query, %params);
+    @query = $uri->query_form;
+    while (@query) {
+        my ($key, $v) = splice(@query, 0, 2);
+        $key = lc($key);
+        return '/' if exists($params{$key}) || $key =~ /[\x00-\x20\x7f]/ ||
+            $key =~ /(?:passwd|password|token|ticket|secret|credential)/ ||
+            $key =~ /\A(?:user|url|post|submit\d*|save|confirm|watch)\z/ ||
+            $v =~ /[\x00-\x1f\x7f]/;
+        $params{$key} = $v;
+    }
+    my $op = $params{op} || '';
+    return '/' if $op =~ /\A(?:login|logout|newuser|activate|pwchange|pwchangereq)\z/;
+    # Existing GET rules distinguish read/editor pages from mutating actions.
+    return '/' if requestFormNeedsProtection({%params, op => $op || 'getobj'}, 'GET');
+    return "$uri";
+}
+
+sub loginReturnTarget {
+    my ($req, $params) = @_;
+    return loginReturnURL($params->{url}) if ($params->{op} || '') eq 'login';
+    return '/' unless $req && $req->method =~ /\A(?:GET|HEAD)\z/;
+    # Preserve the original pretty URL and query, not parsed or POST form data.
+    return loginReturnURL($req->unparsed_uri);
+}
 
 sub findLoginUser {
  my ($username, $password) = @_;
@@ -228,6 +274,7 @@ sub getLoginBox {
 		
 		my $vars = {
 			Error       => $error,
+            ReturnURL   => loginReturnTarget(scalar(eval { Apache2::RequestUtil->request }), $params),
     	};
 
 		my $tt = Template->new({
