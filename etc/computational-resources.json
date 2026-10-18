@@ -167,6 +167,19 @@
         {"label": "Julia functionals, constraints and first variations", "file": "reference.csv"}
       ]
     },
+    "vector-target-lab": {
+      "title": "Vector Path to a Target Surface (CV07)",
+      "language": "Julia",
+      "version": "1.11.2",
+      "reproducibility": "Offline vector Dirichlet paths to plane, sphere and ellipsoid targets; endpoint momentum, tangent variations and global minimum. Checked against 294 independent Julia samples. Includes explanations, source, environments, tests, CSV and provenance; no server-side computation.",
+      "explorer": "index.html",
+      "source": "vector-target-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia vector paths and endpoint conditions", "file": "reference.csv"}
+      ]
+    },
     "isoperimetric-lab": {
       "title": "Isoperimetric Geometry Lab (CV09E1)",
       "language": "Julia",
