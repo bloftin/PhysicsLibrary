@@ -17,7 +17,7 @@ async function main() {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     let fixture = 'results';
-    const fixtures = ['results', 'subject', 'all', 'empty', 'none', 'calculus', 'pages'];
+    const fixtures = ['results', 'subject', 'all', 'empty', 'none', 'calculus', 'pages', 'resources'];
     if (await fs.stat(path.join(qa, 'fulltext.html')).catch(() => null)) fixtures.push('fulltext');
     await page.route('https://physicslibrary.org/**', async route => {
       const url = new URL(route.request().url());
@@ -67,6 +67,13 @@ async function main() {
           const overflow = await page.locator('.pl-native-search-snippet').evaluateAll(nodes => nodes.some(n => n.scrollWidth > n.clientWidth + 1));
           assert.equal(overflow, false, 'snippets wrap at every viewport');
           if (width === 1440 || width === 390) await page.screenshot({path: path.join(qa, `fulltext-${width}.png`), fullPage: true});
+        }
+        if (fixture === 'resources') {
+          const link=page.getByRole('link',{name:'Gradient Lab',exact:true});
+          assert.equal(await link.getAttribute('href'),'https://images.physicslibrary.org/examples/gradient-lab/index.html');
+          assert.ok(await page.getByRole('link',{name:'Constrained Variations Lab',exact:true}).isVisible());
+          assert.equal(await page.locator('.pl-native-search-meta').evaluateAll(nodes=>nodes.some(n=>n.scrollWidth>n.clientWidth+1)),false,'resource labels wrap');
+          if(width===1440||width===390)await page.screenshot({path:path.join(qa,`resources-${width}.png`),fullPage:true});
         }
       }
     }

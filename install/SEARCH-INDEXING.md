@@ -155,6 +155,43 @@ References:
 - [Bing: Sitemaps](https://www.bing.com/webmasters/help/sitemaps-3b5cf6ed)
 - [Sitemaps protocol and limits](https://www.sitemaps.org/protocol.html)
 
+## Computational Resources In Native Search
+
+With native full-text search enabled, attached, reviewed computational resources
+are indexed alongside their public encyclopedia articles. Search for
+`computational resource` or `computational resources` (quoted or unquoted), a
+lab title, its language, or words from its reviewed description. A matching
+article appears once even if it has multiple labs. Results include direct
+explorer links. Collection and PACS filters still apply to the parent article.
+
+Only validated filebox manifests and reviewed catalog entries participate.
+An unattached publication in the catalog is not an article attachment and will
+not be found this way. Private, missing, invalid or unreviewed attachments are
+not exposed. Searching does not scan the filebox corpus, run Julia, render
+articles, parse TeX, or contact external services.
+
+No database migration or whole-library reindex is needed. After deploying and
+restarting Apache/mod_perl, backfill existing **ready, current** indexed articles
+without Pandoc, using the normal advisory lock and a maximum batch of 50:
+
+```bash
+sudo -u apache perl -Ilib bin/update-search-index --resources-only --limit 50
+sudo -u apache perl -Ilib bin/update-search-index --resources-only --apply --limit 50
+```
+
+Repeat until the dry run reports zero resource metadata updates. This mode
+reuses parsed article bodies, never uploads a manifest, and never changes the
+article source, render cache or cross-reference index. Missing, stale, failed
+or oversized search documents still need the ordinary index worker; they are
+not silently promoted to ready by a metadata refresh.
+
+The existing timer also refreshes at most `--limit` resource metadata rows in
+addition to its normal `--limit` article batch. Filebox manifest uploads/removals and catalog-only edits therefore
+update the search labels on subsequent runs even without an article revision.
+No additional timer or parser-version bump is required. Unchanged attachments
+do not cause repeated index writes. Live ACL/revision checks continue to protect
+both search matches and snippets.
+
 ## Article descriptions
 
 HTML article views (`make4ht` and `l2h`) now include an escaped description in

@@ -45,6 +45,7 @@
     <li>
       <h2><a href="[% result.href | html %]">[% result.title_html %]</a></h2>
       <p class="pl-native-search-meta">[% result.label | html %]</p>
+      [% IF result.computational_resources.size %]<p class="pl-native-search-meta"><strong>Computational resources:</strong> [% FOREACH resource IN result.computational_resources %]<a href="[% resource.explorer | html %]">[% resource.title | html %]</a> ([% resource.language | html %])[% UNLESS loop.last %]; [% END %][% END %]</p>[% END %]
       [% IF result.snippet_html %]<p class="pl-native-search-snippet">[% result.snippet_html %]</p>[% END %]
       [% FOREACH meta IN result.metadata %]<p class="pl-native-search-meta"><strong>[% meta.label | html %]:</strong> [% meta.html %]</p>[% END %]
       [% IF result.classes.size %]<p class="pl-native-search-meta">PACS: [% FOREACH topic IN result.classes %]<a href="[% topic.href | html %]" title="[% topic.comment | html %]">[% topic.id | html %]</a>[% UNLESS loop.last %], [% END %][% END %]</p>[% END %]

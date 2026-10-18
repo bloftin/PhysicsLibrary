@@ -9,6 +9,9 @@ use Encode ();
 use IPC::Open3;
 use Symbol qw(gensym);
 use Time::HiRes qw(time);
+use File::Temp qw(tempdir);
+use File::Path qw(make_path);
+use JSON::PP;
 use lib "$FindBin::Bin/../../lib";
 use Noosphere::NativeSearch;
 use Noosphere::SearchIndex;
@@ -266,6 +269,70 @@ if ($ENV{FULLTEXT_BENCH}) {
     is(scalar(@$rows),20,'result page remains bounded for large match set');
     @times=sort{$a<=>$b}@times;
     diag(sprintf('MariaDB 10.6 synthetic 1500-document benchmark, count/page/snippets: median %.3fs, p95 %.3fs (not production timing)', $times[10],$times[18]));
+}
+{
+    my $files = tempdir(CLEANUP=>1);
+    local @config{qw(base_dir file_root image_url)} = ($files,"$files/files",'https://images.example.test');
+    make_path("$files/etc", map { "$files/files/objects/$_" } (20,21,22));
+    my $write = sub { open my $f,'>:raw',$_[0] or die $!; print $f encode_json($_[1]); close $f; };
+    my $entry = {title=>'Gradient Lab',language=>'Julia',version=>'1.11.2',reproducibility=>'Scalar fields and directional derivatives.',
+        explorer=>'index.html',source=>'lab.zip',provenance=>'provenance.toml',license=>'LICENSE.txt',datasets=>[]};
+    my $catalog={schema_version=>1,resources=>{'gradient-lab'=>$entry,'constraint-lab'=>{%$entry,title=>'Constraint Lab'}}};
+    $write->("$files/etc/computational-resources.json",$catalog);
+    article(20,'Vector calculus','Über original prose retained.'); index_object('objects',20,'Über original prose retained.');
+    article(21,'Variational problems','Different prose retained.'); index_object('objects',21,'Different prose retained.');
+    article(22,'Private laboratory','Do not reveal this attachment.',private=>1);
+    $write->("$files/files/objects/20/computational-resources.json",{schema_version=>1,resources=>['gradient-lab']});
+    $write->("$files/files/objects/21/computational-resources.json",{schema_version=>1,resources=>['gradient-lab','constraint-lab']});
+    $write->("$files/files/objects/22/computational-resources.json",{schema_version=>1,resources=>['gradient-lab']});
+    my $options={collection=>'objects',limit=>1};
+    my @metadata=Noosphere::searchIndexResourceCandidates($db,$options);
+    is(scalar(@metadata),1,'resource-only selection obeys batch limit');
+    ($total)=result('computational resource');is($total,0,'dry selection leaves old index unchanged');
+    my $sync=sub {
+        my @pending=Noosphere::searchIndexResourceCandidates($db,{collection=>'all',limit=>50});
+        for my $row (@pending) { Noosphere::searchIndexSave($db,'objects',$row->{uid},$row->{record},$row->{body},'ready'); }
+        return scalar(@pending);
+    };
+    {
+        no warnings 'redefine';
+        local *Noosphere::searchIndexText=sub { die 'Metadata sync invoked Pandoc'; };
+        is($sync->(),2,'attached ready public articles updated without parsing');
+    }
+    for my $q ('computational resource','computational resources','"computational resource"','"computational resources"') {
+        ($total,$rows)=result($q);
+        is($total,2,"$q finds both articles, not a row per lab");
+    }
+    ($total)=result('Constraint Lab');is($total,1,'attached explorer title searchable');
+    ($total)=result('Julia directional derivatives');is($total,2,'language and reviewed description searchable');
+    my ($body)=$db->selectrow_array("SELECT body_text FROM search_documents WHERE tbl='objects' AND objectid=20");
+    is($body,'Über original prose retained.','metadata refresh preserves Unicode article body');
+    is($sync->(),0,'unchanged manifests/catalog do not cause repeated writes');
+    $db->do("UPDATE search_documents SET parser_version=0 WHERE tbl='objects' AND objectid=20");
+    is($sync->(),0,'old parser output is not promoted by metadata refresh');
+    $db->do("UPDATE search_documents SET parser_version=1,status='failed' WHERE tbl='objects' AND objectid=20");
+    is($sync->(),0,'failed parsing is not promoted by metadata refresh');
+    $db->do("UPDATE search_documents SET status='ready' WHERE tbl='objects' AND objectid=20");
+    $db->do("INSERT INTO classification VALUES('objects',20,1,2,0)");
+    ($total)=result('computational resource','objects',$subject);is($total,1,'PACS filter applies to resource matches');
+    my $html=Noosphere::nativeSearch({q=>'computational resource'},{uid=>-1});
+    like($html,qr{Computational resources:</strong>.*href="https://images\.example\.test/examples/gradient-lab/index\.html">Gradient Lab</a>}s,'public results expose reviewed explorer links');
+    $catalog->{resources}{'gradient-lab'}{title}='Gradient <b>Lab</b>';
+    $write->("$files/etc/computational-resources.json",$catalog);
+    is($sync->(),2,'catalog-only edit refreshes attached articles without revisions');
+    $html=Noosphere::nativeSearch({q=>'computational resource'},{uid=>-1});
+    like($html,qr/Gradient &lt;b&gt;Lab&lt;\/b&gt;/,'explorer labels escaped');
+    unlink "$files/files/objects/20/computational-resources.json" or die $!;
+    is($sync->(),1,'removed manifest selected from old indexed tag');
+    ($total)=result('computational resource');is($total,1,'removed resource labels disappear');
+    $db->do("UPDATE objects SET version=version+1 WHERE uid=21");
+    ($total)=result('computational resource');is($total,0,'stale revision still excluded at request time');
+    is($sync->(),0,'stale parsed bodies are never reused as current');
+    my $r=Noosphere::searchIndexRecord($db,'objects',21);Noosphere::searchIndexSave($db,'objects',21,$r,'Fresh prose','ready');
+    ($total)=result('computational resource');is($total,1,'ordinary indexing also adds attachment metadata');
+    $db->do("UPDATE acl SET _read=0 WHERE tbl='objects' AND objectid=21");
+    ($total)=result('computational resource');is($total,0,'privacy changes hide attachment matches immediately');
+    is($sync->(),0,'private articles skipped by metadata refresh');
 }
 local $config{native_fulltext_enabled}=0;
 ($total)=result('stellar');is($total,0,'feature off restores metadata-only path');
