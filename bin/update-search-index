@@ -9,13 +9,14 @@ use Noosphere::DB;
 use Noosphere::NativeSearch;
 use Noosphere::SearchIndex;
 
-my ($apply, $status, $object, $help);
+my ($apply, $status, $object, $help, $resources_only);
 my ($limit, $collection) = (5, 'all');
 GetOptions('apply'=>\$apply, 'status'=>\$status, 'limit=i'=>\$limit,
-    'collection=s'=>\$collection, 'object=i'=>\$object, 'help'=>\$help) or die "Invalid options\n";
+    'collection=s'=>\$collection, 'object=i'=>\$object, 'resources-only'=>\$resources_only, 'help'=>\$help) or die "Invalid options\n";
 if ($help) {
     print "Usage: perl -Ilib bin/update-search-index [--apply | --status] [--limit 1..50]\n",
         "       [--collection objects|papers|books|lec|all] [--object ID]\n",
+        "       [--resources-only] refreshes attached lab metadata using current ready bodies; no Pandoc.\n",
         "Without --apply, lists pending public documents without parsing or writing.\n";
     exit 0;
 }
@@ -23,6 +24,8 @@ die "Limit must be 1..50\n" unless $limit >= 1 && $limit <= 50;
 die "Invalid collection\n" unless grep { $_->{value} eq $collection } @{Noosphere::nativeSearchCollections()};
 die "Object needs one collection and a nonnegative ID\n" if defined($object) && ($object < 0 || $collection eq 'all');
 die "Choose --status or --apply\n" if $apply && $status;
+die "Resource metadata needs objects or all, without --status\n"
+    if $resources_only && ($status || ($collection ne 'all' && $collection ne 'objects'));
 my $db = Noosphere::dbConnect() or die "Cannot connect to database\n";
 $db->{RaiseError}=1;
 $db->{PrintError}=0;
@@ -43,18 +46,30 @@ if ($status) {
 # hold a transaction or a content-table lock while running the parser.
 my ($locked) = Noosphere::nativeSearchRows($db, "SELECT GET_LOCK(?,0) AS acquired", 'pl-search-index');
 die "Search index update already running\n" unless $locked->{acquired};
-my @pending = Noosphere::searchIndexCandidates($db, {limit=>$limit, collection=>$collection, object=>$object});
+my $options = {limit=>$limit, collection=>$collection, object=>$object};
+my @resources = Noosphere::searchIndexResourceCandidates($db, $options);
+my @pending = $resources_only ? () : Noosphere::searchIndexCandidates($db, $options);
 if (!$apply) {
+    print "pending computational metadata $_->{collection}:$_->{uid}\n" for @resources;
     print "pending $_->{collection}:$_->{uid}\n" for @pending;
-    print "selected ".scalar(@pending)." document(s); no changes made\n";
+    print "selected ".scalar(@resources)." resource metadata update(s); no changes made\n" if $resources_only || @resources;
+    print "selected ".scalar(@pending)." document(s); no changes made\n" unless $resources_only;
     exit 0;
 }
-Noosphere::searchIndexText('Parser readiness check.', 'objects');
+Noosphere::searchIndexText('Parser readiness check.', 'objects') unless $resources_only;
 my ($engine) = Noosphere::nativeSearchRows($db, 'SELECT @@innodb_ft_min_token_size AS minimum, @@innodb_ft_max_token_size AS maximum');
 die "Index requires innodb_ft_min_token_size=3 and innodb_ft_max_token_size=84\n"
     unless $engine->{minimum} == 3 && $engine->{maximum} == 84;
-my $pruned = Noosphere::searchIndexPrune($db, $limit);
+my $pruned = $resources_only ? 0 : Noosphere::searchIndexPrune($db, $limit);
 my ($saved, $failed) = (0, 0);
+my $metadata_saved = 0;
+for my $item (@resources) {
+    if (Noosphere::searchIndexSave($db, 'objects', $item->{uid}, $item->{record}, $item->{body}, 'ready')) {
+        print "resource metadata objects:$item->{uid}\n";
+        $metadata_saved++;
+    } else { print "changed during metadata refresh objects:$item->{uid}; deferred\n"; }
+}
+print "updated $metadata_saved resource metadata document(s)\n" if $resources_only || @resources;
 for my $item (@pending) {
     my $record = Noosphere::searchIndexRecord($db, $item->{collection}, $item->{uid});
     next unless $record;
@@ -74,6 +89,6 @@ for my $item (@pending) {
         $saved++;
     } else { print "changed during indexing $item->{collection}:$item->{uid}; deferred\n"; }
 }
-print "updated $saved document(s); pruned $pruned; failed $failed\n";
+print "updated $saved document(s); pruned $pruned; failed $failed\n" unless $resources_only;
 $db->disconnect;
 exit($failed ? 1 : 0);

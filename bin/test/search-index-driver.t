@@ -24,7 +24,8 @@ sub nativeSearchRows {
     die 'Unexpected query';
 }
 sub searchIndexCandidates { ({collection=>'objects',uid=>209}) }
-sub searchIndexText { 'Fixture plain text' }
+sub searchIndexResourceCandidates { $ENV{SEARCH_METADATA_ONLY_TEST} ? ({collection=>'objects',uid=>209,record=>{},body=>'Retained prose'}) : () }
+sub searchIndexText { die 'Metadata refresh invoked Pandoc' if $ENV{SEARCH_METADATA_ONLY_TEST}; 'Fixture plain text' }
 sub searchIndexRecord { {source_bytes=>7,source=>'Fixture'} }
 sub searchIndexSave { 1 }
 sub searchIndexPrune { 0 }
@@ -46,6 +47,7 @@ PERL
 sub cli {
     my ($driver,@args)=@_;
     local $ENV{SEARCH_DRIVER_TEST}=$driver;
+    local $ENV{SEARCH_METADATA_ONLY_TEST}=grep { $_ eq '--resources-only' } @args;
     my ($in,$out);
     my $err=gensym;
     my $pid=open3($in,$out,$err,$^X,"-I$root/lib",'-e',$boot,"$root/bin/update-search-index",@args);
@@ -69,6 +71,12 @@ for my $driver ('mysql','MariaDB') {
         if ($driver eq 'mysql') { like($out,qr/mysql charset set/,"$name retains mysql UTF-8 setup"); }
         else { unlike($out,qr/mysql charset set/,"$name preserves MariaDB-managed Unicode"); }
     }
+}
+for my $driver ('mysql','MariaDB') {
+    my ($code,$out,$err)=cli($driver,'--resources-only','--apply');
+    is($code,0,"$driver supports metadata-only refresh");
+    like($out,qr/resource metadata objects:209.*updated 1 resource metadata document\(s\)/s,'metadata refresh clearly reported');
+    unlike($out,qr/ready objects:209/,'metadata-only refresh does not parse normal candidates');
 }
 for my $driver ('Pg','SQLite','') {
     for my $args (['--status'], ['--limit','5'], ['--apply']) {

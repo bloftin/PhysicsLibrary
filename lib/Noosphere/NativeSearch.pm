@@ -5,6 +5,7 @@ use HTML::Entities qw(encode_entities);
 use URI::Escape qw(uri_escape_utf8);
 use Template;
 use Time::HiRes qw(time);
+use Noosphere::ComputationalResources;
 our ($dbh, $NoosphereTitle, $NoosphereCanonical, $RequestFormStatus);
 
 sub normalizeNativeSearchRequest {
@@ -377,6 +378,8 @@ sub nativeSearch {
                     : '/?op=getobj&from='.uri_escape_utf8($row->{tbl}).'&id='.$row->{uid};
                 $row->{label} = $row->{collection} eq 'objects' ? getTypeString($row->{type}) : $labels{$row->{collection}};
                 $row->{title_html} = nativeSearchHighlight($row->{title}, $options->{query}{atoms});
+                $row->{computational_resources} = $row->{collection} eq 'objects'
+                    ? getComputationalResources({uid => $row->{uid}}) : [];
                 $row->{metadata} = [map { {label => $_->[1], html => nativeSearchHighlight($row->{$_->[0]}, $options->{query}{atoms})} }
                     grep { length($row->{$_->[0]}) } (['synonyms', 'Other names'], ['defines', 'Defines'], ['keywords', 'Keywords'], ['authors', 'Authors'])];
             }

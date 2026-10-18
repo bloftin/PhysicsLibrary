@@ -9,6 +9,8 @@ use XML::LibXML;
 use URI::Escape qw(uri_escape_utf8);
 use Encode ();
 use Time::HiRes qw(time);
+use File::Temp qw(tempdir);
+use File::Path qw(make_path);
 use lib "$FindBin::Bin/../../lib";
 use Noosphere::NativeSearch;
 
@@ -328,12 +330,25 @@ is($request->{'X-Robots-Tag'},'noindex, follow','native search header policy');
     sub headers_out {$_[0]}
     sub set {$_[0]{$_[1]}=$_[2]}
 }
+my $resource_html;
+{
+    my $files=tempdir(CLEANUP=>1);
+    make_path("$files/objects/209");
+    open my $manifest,'>',"$files/objects/209/computational-resources.json" or die $!;
+    print $manifest '{"schema_version":1,"resources":["gradient-lab","constrained-variations"]}';close $manifest;
+    local @config{qw(base_dir file_root image_url)}=($root,$files,'https://images.physicslibrary.org');
+    ($resource_html)=search(q=>'Vector Triple Product');
+    like($resource_html,qr{Computational resources:</strong>.*Gradient Lab.*Constrained Variations Lab}s,'matching article lists multiple attached explorers');
+    like($resource_html,qr{href="https://images\.physicslibrary\.org/examples/gradient-lab/index\.html"},'explorer link comes from reviewed catalog');
+    my ($other)=search(q=>'Scalar Triple Product');
+    unlike($other,qr{Computational resources:</strong>},'article without attachment has no empty resource label');
+}
 if ($ENV{NATIVE_SEARCH_QA_DIR}) {
     require File::Path;
     require Noosphere::TemplateNS;
     File::Path::make_path($ENV{NATIVE_SEARCH_QA_DIR});
     for my $spec (['results', $html], ['subject',$scope], ['all',$all], ['empty',$empty], ['none',$none], ['calculus',$calculus], ['pages',$first],
-        ['pager-first',$pager_first],['pager-middle',$pager_middle],['pager-last',$pager_last],['pager-cap',$pager_cap]) {
+        ['pager-first',$pager_first],['pager-middle',$pager_middle],['pager-last',$pager_last],['pager-cap',$pager_cap],['resources',$resource_html]) {
         my $header=TemplateNS->new('header.html');
         $header->setKey('q', $spec->[0] eq 'calculus' ? 'Calculus of Variations' : '');
         my $page='';

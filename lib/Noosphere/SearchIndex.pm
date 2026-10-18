@@ -3,9 +3,72 @@ use strict;
 use Encode ();
 use File::Temp ();
 use IPC::Open3;
+use Noosphere::ComputationalResources;
 
 sub searchIndexParserVersion { 1 }
 sub searchIndexSourceLimit { 262144 }
+
+sub searchIndexDocumentText {
+    my ($collection, $uid, $record, $body) = @_;
+    my @fields = $collection eq 'objects' ? qw(title synonyms defines keywords) : qw(title authors keywords);
+    my $text = join(' ', map { nativeSearchDisplayText($record->{$_}, 2048) } @fields).' '.$body;
+    if ($collection eq 'objects') {
+        my $resources = getComputationalResources({uid => $uid});
+        if (@$resources) {
+            # Both forms are intentional: InnoDB FULLTEXT does not stem plurals.
+            $text .= ' Computational resources: '.join(' ', map {
+                join(' ', 'Computational resource:', @$_{qw(id title language version reproducibility)},
+                    map { $_->{label} } @{$_->{datasets}})
+            } @$resources);
+        }
+    }
+    return $text;
+}
+
+# Filebox/catalog changes do not revise the article. Refresh only their search
+# metadata, reusing a ready, current parsed body instead of rerunning Pandoc.
+sub searchIndexResourceCandidates {
+    my ($db, $options) = @_;
+    return () unless $options->{collection} eq 'all' || $options->{collection} eq 'objects';
+    my $root = getConfig('file_root');
+    return () unless defined($root) && length($root);
+    my $table = nativeSearchIdentifier('en_tbl');
+    my $documents = nativeSearchIdentifier('search_documents_tbl');
+    my %ids;
+    if (defined $options->{object}) { $ids{$options->{object}} = 1; }
+    else {
+        if (opendir(my $dir, "$root/$table")) {
+            while (my $id = readdir($dir)) {
+                $ids{$id} = 1 if $id =~ /\A[1-9][0-9]{0,18}\z/ &&
+                    -f "$root/$table/$id/computational-resources.json";
+            }
+            closedir($dir);
+        }
+        # Include previously tagged documents so deleted/revoked attachments
+        # lose their old labels on the next refresh too. Only IDs are loaded.
+        my @old = nativeSearchRows($db, "SELECT objectid FROM $documents WHERE tbl=? AND status='ready'
+            AND MATCH(search_text) AGAINST (? IN BOOLEAN MODE)
+            AND LOCATE('Computational resources:',search_text)>0", $table, '+computational +resource');
+        $ids{$_->{objectid}} = 1 for @old;
+    }
+    my @pending;
+    for my $uid (sort { $a <=> $b } keys %ids) {
+        my $record = searchIndexRecord($db, 'objects', $uid);
+        next unless $record;
+        my ($indexed) = nativeSearchRows($db, "SELECT source_modified,source_version,
+            CAST(body_text AS BINARY) AS body_text,CAST(search_text AS BINARY) AS search_text
+            FROM $documents WHERE tbl=? AND objectid=? AND status='ready' AND parser_version=? LIMIT 1",
+            $table, $uid, searchIndexParserVersion());
+        next unless $indexed && $indexed->{source_modified} eq $record->{source_modified} &&
+            $indexed->{source_version} == $record->{source_version};
+        my $body = Encode::decode('UTF-8', $indexed->{body_text}, Encode::FB_CROAK());
+        my $old = Encode::decode('UTF-8', $indexed->{search_text}, Encode::FB_CROAK());
+        next if searchIndexDocumentText('objects', $uid, $record, $body) eq $old;
+        push @pending, {collection => 'objects', uid => $uid, record => $record, body => $body};
+        last if @pending >= $options->{limit};
+    }
+    return @pending;
+}
 
 sub searchIndexCollection {
     my ($value) = @_;
@@ -119,8 +182,7 @@ sub searchIndexSave {
     my $current = searchIndexRecord($db, $collection, $uid);
     return 0 unless $current && $current->{source_modified} eq $record->{source_modified}
         && $current->{source_version} == $record->{source_version} && $current->{source} eq $record->{source};
-    my @fields = $collection eq 'objects' ? qw(title synonyms defines keywords) : qw(title authors keywords);
-    my $text = join(' ', map { nativeSearchDisplayText($current->{$_}, 2048) } @fields).' '.$body;
+    my $text = searchIndexDocumentText($collection, $uid, $current, $body);
     my $sth = $db->prepare("INSERT INTO $documents
         (tbl,objectid,source_modified,source_version,parser_version,status,indexed_at,body_text,search_text)
         VALUES (?,?,?,?,?,?,NOW(),?,?) ON DUPLICATE KEY UPDATE
