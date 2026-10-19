@@ -15,3 +15,25 @@
     <a href="/?op=pwchangereq">Forgot your password?</a>
   </div>
 </section>
+<script>
+(function () {
+  var form = document.getElementById('pl-login-user').form;
+  var button = form.querySelector('button[type="submit"]');
+  function resetLogin() {
+    form.removeAttribute('aria-busy');
+    button.disabled = false;
+    button.textContent = 'Login';
+  }
+  form.addEventListener('submit', function (event) {
+    if (event.defaultPrevented) return;
+    if (button.disabled) {
+      event.preventDefault();
+      return;
+    }
+    form.setAttribute('aria-busy', 'true');
+    button.textContent = 'Signing in...';
+    button.disabled = true;
+  });
+  window.addEventListener('pageshow', resetLogin);
+}());
+</script>

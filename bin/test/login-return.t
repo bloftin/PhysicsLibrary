@@ -76,8 +76,15 @@ subtest 'real login sidebar keeps and escapes the return field' => sub {
     $html = Noosphere::getLoginBox({op => 'login', url => $fields{url}}, {%$user, login_failed => 1});
     like($html, qr/Unable to sign in/, 'failed login remains visible');
     like($html, qr/name="url" value="\/\?op=correct&amp;from=objects&amp;id=209"/, 'failed login preserves destination');
+    $html = Noosphere::getLoginBox({op => 'login', url => $fields{url}}, {%$user, login_unavailable => 1});
+    like($html, qr/Sign-in is temporarily unavailable\. Please try again\./, 'session creation error is visible and actionable');
+    unlike($html, qr/Check your username and password/, 'server-side session failure does not blame the supplied credentials');
+    like($html, qr/name="url" value="\/\?op=correct&amp;from=objects&amp;id=209"/, 'session creation error preserves destination');
+    like($html, qr/button\.textContent = 'Signing in\.\.\.'/s, 'login has a pending submission indicator');
+    like($html, qr/window\.addEventListener\('pageshow', resetLogin\)/, 'back-forward navigation restores the submit button');
+    my $expected_scripts = () = $html =~ /<script\b/g;
     $html = Noosphere::getLoginBox({op => 'login', url => '/?op=search&q=%22%3E%3Cscript%3E'}, $user);
-    unlike($html, qr/<script>/, 'return URL cannot inject markup');
+    is(scalar(() = $html =~ /<script\b/g), $expected_scripts, 'return URL cannot inject additional script markup');
     like($html, qr/name="url" value="\/\?op=search&amp;q=%22%3E%3Cscript%3E"/, 'encoded search value remains data');
 };
 

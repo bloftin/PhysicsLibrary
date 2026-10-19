@@ -15,6 +15,7 @@
 .pl-sidebar-login label { color: #526170; font-size: .78rem; }
 .pl-sidebar-login input { border: 1px solid #b6c5d2; box-sizing: border-box; font: inherit; font-size: .86rem; min-width: 0; padding: .25rem; width: 100%; }
 .pl-sidebar-login button { background: #003399; border: 1px solid #002266; border-radius: 2px; color: #fff; cursor: pointer; font: inherit; font-size: .82rem; padding: .3rem .5rem; }
+.pl-sidebar-login button:disabled { background: #4b638c; cursor: wait; }
 .pl-sidebar-error { color: #990000; font-size: .8rem; margin: .2rem .25rem .5rem; overflow-wrap: anywhere; }
 </style>
 <aside class="pl-sidebar" aria-label="Site navigation">

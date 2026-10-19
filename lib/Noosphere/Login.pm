@@ -73,6 +73,7 @@ sub findLoginUser {
 #
 sub handleLogin {
 	my ($req, $params, $cookies) = @_;
+	my $signed_out = 0;
 	my $param_op = $params->{'op'};
 	#dwarn "handleLogin started";
 	#dwarn "params->{'op'} = $param_op";
@@ -99,6 +100,7 @@ sub handleLogin {
         $params->{logout_token} eq logoutFormToken($user_info{'ticket'})) {
 		#dwarn "logout selected";
 		revokeTicket($user_info{'ticket'});
+		$signed_out = 1;
 		$user_info{'ticket'} = undef;
 		$user_info{'uid'} = 0;
 
@@ -122,12 +124,14 @@ sub handleLogin {
 		#
 		else {
 			my $ticket = eval {
-                revokeTicket($user_info{'ticket'});
-                makeTicket($row->{uid}, $user_info{'ip'}, getConfig('cookie_timeout'),
+                my $new_ticket = makeTicket($row->{uid}, $user_info{'ip'}, getConfig('cookie_timeout'),
                     $user_info{'time'}, $row->{password_hash}, $row->{access});
+                revokeTicket($user_info{'ticket'}) if defined $new_ticket;
+                $new_ticket;
             };
             $user_info{'ticket'} = $ticket;
             $user_info{'uid'} = defined($ticket) ? $row->{uid} : 0;
+            $user_info{'login_unavailable'} = 1 unless defined $ticket;
             setCookie($req, 'ticket', $ticket, sessionLifetime()) if defined $ticket;
 		}
 	}
@@ -144,9 +148,12 @@ sub handleLogin {
 
     if ($user_info{'uid'} <= 0) {
         $user_info{'ticket'} = undef;
-        clearCookie($req, 'ticket') if defined($cookies->{ticket}) || $params->{op} eq 'login';
+        # A delayed response cannot know whether this browser has since signed in.
+        # Reject the request, but only an explicit logout may expire its cookie.
+        clearCookie($req, 'ticket') if $signed_out;
     }
-    if ($user_info{'uid'} > 0 || $params->{op} =~ /\A(?:login|logout|newuser|activate|edituser|pwchange|pwchangereq)\z/) {
+    if ($user_info{'uid'} > 0 || defined($cookies->{ticket}) ||
+        $params->{op} =~ /\A(?:login|logout|newuser|activate|edituser|pwchange|pwchangereq)\z/) {
         $req->headers_out->set('Cache-Control' => 'no-store');
         $req->headers_out->set('Referrer-Policy' => 'same-origin');
     }
@@ -266,7 +273,9 @@ sub getLoginBox {
 		return $loginbox;
 
 	} else {
-		my $error = $user_info->{login_failed}
+		my $error = $user_info->{login_unavailable}
+            ? 'Sign-in is temporarily unavailable. Please try again.'
+            : $user_info->{login_failed}
 			? 'Unable to sign in. Check your username and password, then try again.'
 			: '';
 		my $loginbox = '';
