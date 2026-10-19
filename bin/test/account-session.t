@@ -95,6 +95,17 @@ subtest 'bounded lifetime defaults' => sub {
     }
 };
 
+subtest 'delayed rejected requests cannot erase a newer browser session' => sub {
+    no warnings qw(redefine once);
+    local *Noosphere::checkTicket = sub { return -1; };
+    for my $method (qw(GET HEAD POST)) {
+        my ($user, $req) = request($method, {op => 'getobj'}, 'd' x 64);
+        ok($user->{uid} <= 0, "$method rejected session stays anonymous");
+        is_deeply($req->{headers}->{cookies}, [], "$method cannot expire a cookie replaced by a newer response");
+        is($req->{headers}->{fields}->{'Cache-Control'}, 'no-store', "$method rejected session response is not cached");
+    }
+};
+
 subtest 'account routes are not cached' => sub {
     for my $op (qw(login logout newuser activate edituser pwchange pwchangereq)) {
         my ($user, $req) = request('GET', {op => $op});
@@ -190,6 +201,33 @@ subtest 'session database and routes' => sub {
     isnt($rotated, $second, 'login rotates current browser session');
     is(Noosphere::checkTicket($second), -1, 'replaced session cannot be reused');
 
+    my ($stale_user, $stale_response) = request('GET', {op => 'getobj'}, $second);
+    ok($stale_user->{uid} <= 0, 'in-flight request with revoked session stays anonymous');
+    ($user, $req) = request('POST', {op => 'login', user => 'member', passwd => 'first-password'});
+    my %browser_cookies;
+    for my $response ($req, $stale_response) {
+        for my $header (@{$response->{headers}->{cookies}}) {
+            my ($name, $value) = $header =~ /\A([^=]+)=([^;]*)/;
+            $browser_cookies{$name} = $value;
+        }
+    }
+    is($browser_cookies{'__Host-pl_session'}, $user->{ticket}, 'late rejected response preserves newly issued browser cookie');
+    my ($after_race) = request('GET', {op => 'getobj'}, $browser_cookies{'__Host-pl_session'});
+    is($after_race->{uid}, 1, 'one successful sign-in remains usable after out-of-order responses');
+
+    my $before_failed_rotation = $user->{ticket};
+    $db->do("CREATE TRIGGER fail_session_insert BEFORE INSERT ON account_sessions BEGIN SELECT RAISE(ABORT, 'synthetic private detail'); END");
+    ($user, $req) = request('POST', {op => 'login', user => 'member', passwd => 'first-password'}, $before_failed_rotation);
+    is($user->{uid}, 0, 'failed issuance does not authenticate this request');
+    ok($user->{login_unavailable}, 'failed issuance has an explicit retry message');
+    is_deeply($req->{headers}->{cookies}, [], 'failed issuance leaves browser cookie unchanged');
+    $db->do('DROP TRIGGER fail_session_insert');
+    is(Noosphere::checkTicket($before_failed_rotation), 1, 'failed issuance does not revoke an existing valid session');
+    ($user, $req) = request('POST', {op => 'login', user => 'member', passwd => 'wrong'}, $before_failed_rotation);
+    ok($user->{login_failed}, 'wrong password still rejected');
+    is_deeply($req->{headers}->{cookies}, [], 'failed sign-in cannot overwrite a cookie from a newer sign-in');
+    is(Noosphere::checkTicket($before_failed_rotation), 1, 'failed sign-in does not silently sign out an existing browser');
+
     my $another_browser = Noosphere::makeTicket(1, '', 1, 0, $hash, 10);
     my $reset = Noosphere::createPasswordResetTicket('member');
     like(Noosphere::changePassword($reset, 'second-password'), qr/Password Changed/, 'real recovery changes password');
@@ -262,6 +300,7 @@ subtest 'session database and routes' => sub {
     is(Noosphere::checkTicket($outage_token), -1, 'database failure cannot authenticate');
     ($user, $req) = request('POST', {op => 'login', user => 'member', passwd => 'second-password'});
     is($user->{uid}, 0, 'session insert failure cannot authenticate');
+    ok($user->{login_unavailable}, 'session insert failure is visible instead of silently redisplaying the form');
     ok(!defined($user->{ticket}), 'failed insert supplies no ticket');
     unlike(join('', @{$req->{headers}->{cookies}}), qr/__Host-pl_session=[0-9a-f]{64}/, 'failed login emits no live cookie');
     eval { request('POST', {op => 'logout', logout_token => Noosphere::logoutFormToken($outage_token)}, $outage_token); };
