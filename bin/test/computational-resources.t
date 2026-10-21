@@ -240,6 +240,16 @@ for my $url (render($isoperimetric) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'isoperimetric publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/vector-target-lab/computational-resources.json"));
+my $vector_target = resources();
+is(scalar @$vector_target, 1, 'vector-target manifest selects its reviewed publication');
+is($vector_target->[0]{title}, 'Vector Path to a Target Surface (CV07)', 'vector-target title comes from catalog');
+is(scalar @{$vector_target->[0]{datasets}}, 1, 'vector-target exposes independent Julia references');
+for my $url (render($vector_target) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'vector-target publication asset exists: ' . $url);
+}
+reset_files();
 writefile($catalog_path, encode_json($multi));
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['python-example']}));
 like(render(resources()), qr/Python 3\.12/, 'presentation is not Julia-specific');
