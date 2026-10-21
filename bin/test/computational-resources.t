@@ -240,6 +240,16 @@ for my $url (render($isoperimetric) =~ /href="([^"]+)"/g) {
     ok(-f "$repo/data/examples/$url", 'isoperimetric publication asset exists: ' . $url);
 }
 reset_files();
+writefile($manifest_path, readfile("$repo/examples/one-point-oscillation/computational-resources.json"));
+my $one_point = resources();
+is(scalar @$one_point, 1, 'WM01 manifest selects its reviewed publication');
+is($one_point->[0]{title}, 'Oscillation at One Point (WM01)', 'WM01 title comes from catalog');
+is(scalar @{$one_point->[0]{datasets}}, 2, 'WM01 exposes Julia motion and crossing references');
+for my $url (render($one_point) =~ /href="([^"]+)"/g) {
+    $url =~ s{\Ahttps://images\.example\.test/examples/}{};
+    ok(-f "$repo/data/examples/$url", 'WM01 publication asset exists: ' . $url);
+}
+reset_files();
 writefile($catalog_path, encode_json($multi));
 writefile($manifest_path, encode_json({schema_version => 1, resources => ['python-example']}));
 like(render(resources()), qr/Python 3\.12/, 'presentation is not Julia-specific');
