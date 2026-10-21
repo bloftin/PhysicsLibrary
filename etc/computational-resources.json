@@ -193,6 +193,20 @@
         {"label": "Julia scalar fields, gradients and directional derivatives", "file": "reference.csv"}
       ]
     },
+    "one-point-oscillation": {
+      "title": "Oscillation at One Point (WM01)",
+      "language": "Julia",
+      "version": "1.11.2",
+      "reproducibility": "Offline WM01 displacement, amplitude, exact distance, period, frequency and same-position/opposite-direction comparisons. Three prescribed shapes checked against 3612 Julia samples and 12 crossing cases. Includes explanations, source, environments, tests, CSV and provenance; no server-side computation.",
+      "explorer": "index.html",
+      "source": "one-point-oscillation.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia one-point motion and distance", "file": "reference.csv"},
+        {"label": "Julia equal-displacement crossing comparisons", "file": "crossings.csv"}
+      ]
+    },
     "oscillation-lab": {
       "title": "Oscillation Lab",
       "language": "Julia",
