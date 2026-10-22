@@ -13,6 +13,9 @@ use vars qw(%base_config);
 	BASE_DIR => '/var/www/pm',
 	ENTITY_DIR => '/var/www/pm/data/entities',
 
+	# Temporary, credential-free login diagnostics (0 disables logging).
+	LOGIN_FLOW_LOGGING => 0,
+
 	# Web paths
 	
 	MAIN_SITE => 'planetphysics.org',

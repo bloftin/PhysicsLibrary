@@ -252,6 +252,7 @@ Crawl-delay: 10
 	"build_timeout"=>10,            # seconds
 	"on_demand_rendering_enabled"=>1, # emergency load guard: render from cron/admin, not web requests
 	"render_stage_logging"=>1, # diagnostic breadcrumbs for uncached renders; see etc/monitoring/render-stage-logging.md
+	"login_flow_logging"=>($Noosphere::baseconf::base_config{LOGIN_FLOW_LOGGING} || 0),
 	"keep_search_results"=>'30 MINUTE',
                       
 	# single rendering
