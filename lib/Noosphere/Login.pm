@@ -4,6 +4,7 @@ use strict;
 use Template;
 use Noosphere::PasswordStorage;
 use Noosphere::Ticket;
+use Noosphere::LoginLog;
 use Noosphere::RequestForm;
 use URI;
 use URI::Escape ();
@@ -55,17 +56,22 @@ sub loginReturnTarget {
 
 sub findLoginUser {
  my ($username, $password) = @_;
- return undef unless defined($username) && !ref($username) && length($username) &&
-   defined($password) && !ref($password) && length($password);
+ unless (defined($username) && !ref($username) && length($username) &&
+   defined($password) && !ref($password) && length($password)) {
+   Noosphere::LoginLog::emit('credentials', 'missing');
+   return undef;
+ }
  $username =~ s/^ +//;
  $username =~ s/ +$//;
  $username =~ s/ +/ /g;
- return eval {
+ my $user = eval {
    my $row = dbSelectRowBound($dbh,
      'SELECT uid, password_hash, access FROM users WHERE lower(username) = lower(?) AND active = 1 LIMIT 1',
      $username);
    $row && verifyAccountPassword($row->{password_hash}, $password) ? $row : undef;
  };
+ Noosphere::LoginLog::emit('credentials', $@ ? 'error' : $user ? 'accepted' : 'rejected');
+ return $user;
 }
 
 # handleLogin - main entry point for getting user information hash and 
@@ -101,6 +107,7 @@ sub handleLogin {
 		#dwarn "logout selected";
 		revokeTicket($user_info{'ticket'});
 		$signed_out = 1;
+		Noosphere::LoginLog::emit('logout', 'confirmed');
 		$user_info{'ticket'} = undef;
 		$user_info{'uid'} = 0;
 
@@ -129,10 +136,14 @@ sub handleLogin {
                 revokeTicket($user_info{'ticket'}) if defined $new_ticket;
                 $new_ticket;
             };
+            Noosphere::LoginLog::emit('session_issue', $@ ? 'error' : defined($ticket) ? 'accepted' : 'rejected');
             $user_info{'ticket'} = $ticket;
             $user_info{'uid'} = defined($ticket) ? $row->{uid} : 0;
             $user_info{'login_unavailable'} = 1 unless defined $ticket;
-            setCookie($req, 'ticket', $ticket, sessionLifetime()) if defined $ticket;
+            if (defined $ticket) {
+                setCookie($req, 'ticket', $ticket, sessionLifetime());
+                Noosphere::LoginLog::emit('session_cookie', 'set');
+            }
 		}
 	}
 

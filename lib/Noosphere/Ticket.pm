@@ -3,6 +3,7 @@ package Noosphere;
 use strict;
 use Digest::SHA qw(sha256_hex);
 use Noosphere::PasswordStorage;
+use Noosphere::LoginLog;
 
 our $dbh;
 
@@ -53,7 +54,12 @@ sub makeTicket {
 
 sub checkTicket {
     my ($token) = @_;
-    return -1 unless validSessionToken($token);
+    unless (validSessionToken($token)) {
+        Noosphere::LoginLog::emit('session_check', defined($token) ? 'malformed' : 'absent');
+        return -1;
+    }
+    my $stage = 'session_lookup';
+    my $outcome = 'unmatched';
     my $uid = eval {
         my $now = sessionTime();
         my $hash = sha256_hex($token);
@@ -68,16 +74,21 @@ sub checkTicket {
             my $stamp = sessionCredentialStamp($row->{password_hash}, $row->{access});
             if (!defined($stamp) || $stamp ne $row->{credential_stamp} ||
                 $row->{created} > $now || $now - $row->{created} >= sessionLifetime()) {
+                $stage = 'session_revoke';
                 dbExecuteBound($dbh, 'DELETE FROM account_sessions WHERE token_hash = ?', $hash);
+                $outcome = 'invalidated';
                 -1;
             } else {
+                $stage = 'session_touch';
                 dbExecuteBound($dbh,
                     'UPDATE account_sessions SET last_seen = ? WHERE token_hash = ? AND last_seen < ?',
                     $now, $hash, $now);
+                $outcome = 'accepted';
                 $row->{uid};
             }
         }
     };
+    Noosphere::LoginLog::emit($@ ? $stage : 'session_check', $@ ? 'error' : $outcome);
     return defined($uid) && $uid > 0 ? $uid : -1;
 }
 

@@ -14,6 +14,7 @@ use Noosphere::RequestForm;
 use Noosphere::SecurityHeaders;
 use Noosphere::Sitemap;
 use Noosphere::NativeSearch;
+use Noosphere::LoginLog;
 our ($RequestFormUser, $RequestFormStatus, $RequestFormValidated);
 use vars qw{%HANDLERS %NONTEMPLATE %CACHEDFILES};
 use vars qw{$dbh $DEBUG $NoosphereTitle $NoosphereCanonical $AllowCache $MAINTENANCE $stats};
@@ -436,6 +437,7 @@ sub sendOutput {
 	#dwarn "sendOutput req content type: $content_type";
 	$req->print($body);
 	$req->rflush(); 
+	Noosphere::LoginLog::emit('response', $status);
 }
 
 sub sendOutputOld {
@@ -678,6 +680,7 @@ sub cgi_handler {
 # main noosphere mod_perl entry point
 #
 sub handler {
+	local $Noosphere::LoginLog::CURRENT;
 	# mod_perl reuses the interpreter; page metadata belongs to this request only.
 	local $NoosphereCanonical = '';
 	local our $NoosphereDescription = '';
@@ -883,6 +886,9 @@ sub handler {
 		serveImageFile($req, $params);
 		return;
 	}
+	$Noosphere::LoginLog::CURRENT = Noosphere::LoginLog::context(
+		getConfig('login_flow_logging'), $req, $params, \%cookies);
+	Noosphere::LoginLog::emit('request', 'begin');
 
 	#dwarn "After serving images";
 	# initialize stat cache
@@ -898,6 +904,7 @@ sub handler {
 	local $RequestFormValidated = 0;
 	my $account_error = requestAccountOriginError($req, $params);
 	if (length $account_error) {
+		Noosphere::LoginLog::emit('origin', 'rejected');
 		$req->headers_out->set('Cache-Control' => 'no-store');
 		$req->headers_out->set('Referrer-Policy' => 'same-origin');
 		sendOutput($req, requestFormFailure(403, $account_error), 403);
