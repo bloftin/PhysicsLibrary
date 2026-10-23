@@ -6,7 +6,8 @@ use Noosphere::PasswordStorage;
 
 our $dbh;
 
-sub sessionTime { return time; }
+# Other Noosphere modules share this namespace; BIGINT session times stay integral.
+sub sessionTime { return CORE::time(); }
 
 sub sessionLifetime {
     my $minutes = getConfig('cookie_timeout');
