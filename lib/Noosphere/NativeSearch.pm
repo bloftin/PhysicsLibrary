@@ -4,7 +4,7 @@ use Encode ();
 use HTML::Entities qw(encode_entities);
 use URI::Escape qw(uri_escape_utf8);
 use Template;
-use Time::HiRes qw(time);
+use Time::HiRes ();
 use Noosphere::ComputationalResources;
 our ($dbh, $NoosphereTitle, $NoosphereCanonical, $RequestFormStatus);
 
@@ -340,7 +340,7 @@ sub nativeSearch {
     my ($params, $user) = @_;
     $NoosphereTitle = 'Search Physics Library';
     $NoosphereCanonical = '';
-    my $started = time;
+    my $started = Time::HiRes::time();
     my $options;
     my $error = '';
     my (@results, @subjects);
@@ -450,7 +450,7 @@ sub nativeSearch {
         next => $offset + 20 < $total && $offset < 2000 ? nativeSearchURL($options, offset => $offset + 20) : '',
         remove_subject => nativeSearchURL($options, subject => ''),
     }, \$html) || die "Search template failed\n";
-    my $elapsed = time - $started;
+    my $elapsed = Time::HiRes::time() - $started;
     warn sprintf("PL_SEARCH slow seconds=%.3f collection=%s query_chars=%d results=%d\n", $elapsed, $options->{collection}, length($options->{q}), scalar(@results)) if $elapsed > .5;
     return $html;
 }
