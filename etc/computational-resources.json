@@ -193,6 +193,20 @@
         {"label": "Julia scalar fields, gradients and directional derivatives", "file": "reference.csv"}
       ]
     },
+    "sinusoidal-traveling-wave": {
+      "title": "The Sinusoidal Traveling Wave (WM07)",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline traveling profile, fixed-point time history and space-time phase field, with both WM07 worked examples and equivalent sine/cosine forms. Checked against 2856 independent Julia samples. Includes source, environments, tests and CSV; no server-side computation.",
+      "explorer": "index.html",
+      "source": "sinusoidal-traveling-wave.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia space-time field and crest trajectories", "file": "reference.csv"},
+        {"label": "Julia worked events and wave parameters", "file": "events.csv"}
+      ]
+    },
     "harmonics-fourier-lab": {
       "title": "Harmonics and Fourier Lab (FS01)",
       "language": "Julia",
