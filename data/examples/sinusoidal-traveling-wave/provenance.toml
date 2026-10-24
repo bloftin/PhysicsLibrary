@@ -1,0 +1,26 @@
+article = "https://physicslibrary.org/encyclopedia/WaveMechanicsTheSinusoidalTravelingWave.html"
+article_alias = "WM07"
+article_id = 1160
+julia_version = "1.10.12"
+reference_generator = "julia --startup-file=no --project=. sinusoidal-traveling-wave.jl"
+reference_method = "independent cispi complex exponential evaluation; exact periodicity and fixed-phase branch checks"
+browser_method = "direct sine/cosine analytic kinematics; D3 scales, Canvas2D and a cached fixed-scale space-time field"
+renderer = "D3 7.9.0 and Lucide 0.468.0, bundled offline without runtime requests"
+scope = "WM07 prescribed transverse-displacement illustration; no force model, dispersion relation, PDE solution or wave-energy calculation"
+convention = "u=A cos(kx-direction*omega*t+phi), or sine; positive k and omega, direction=+1 for right, -1 for left"
+basis_switch = "phi_sine=phi_cosine+pi/2 modulo 2pi; switching form preserves the physical field and tracked crest"
+tracked_crest = "one fixed integer phase branch initially nearest x=1 m at t=0; never wrapped into the window; absent when A=0"
+units = "internal/export SI meters, seconds and radians; plotted vertical displacement in cm; horizontal x in m"
+domains = "fixed x in [0,2] m, t in [0,2] s, vertical plot +/-6 cm, field color scale +/-5 cm; no amplitude auto-normalization"
+playback = "selectable 0.1x, 0.25x or real time; stops at 2 seconds; never changes physical parameters"
+degenerate_case = "A=0 gives a flat field; wavelength, period, phase and direction are nominal settings, with no observed crest or smallest repeat"
+reference_cases = 8
+reference_samples = 2856
+worked_events = 8
+reference_csv_sha256 = "0eb1242d31ed22759186e8d935a3a9e2f627181ec745330857d7741d30e93fdb"
+events_csv_sha256 = "1cf9ca5fc3b5dc31565dee0b600d29ac090330eb24e858a431d70fc450b842c7"
+sinusoidal_traveling_wave_jl_sha256 = "00f3322c6bdcf360bf358f27b219e54dd0c0aacd95a08d73e478476696c86757"
+model_js_sha256 = "52c2dd6af7465b541e95bedcfdf6f42f2e1a6b9be192a46d21d79dbd7eafa45e"
+Manifest_toml_sha256 = "db6f41f5f03f102ae06a33a9bac6e57708033a3e297fec30b08da750224783c3"
+pnpm_lock_yaml_sha256 = "74cf4af8287380f3f5fbbfced59dfd65b15abb38783c36911d88893cf49b97f7"
+viewer_sha256 = "28810d97e4f46f9d1fdd48e5d74228e97f8b19ca3e23b3a17d853d84a7223926"
