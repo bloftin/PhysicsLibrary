@@ -12,6 +12,7 @@ use HTML::Parser;
 use Noosphere::EntryInteractions;
 use Noosphere::RequestForm;
 use Noosphere::TemplateNS;
+use Noosphere::DiscussionSafety;
 
 our ($dbh, $reader, $NoosphereCanonical, $NoosphereTitle);
 my $root = "$FindBin::Bin/../..";
@@ -62,6 +63,10 @@ sub dbSelect {
 }
 sub dbGetRows { @{$_[0]->{rows}} }
 sub _object_exists { 1 }
+{ no warnings 'redefine';
+sub discussionParentReadable { 1 }
+sub discussionRawMessage { my ($id) = @_; return (grep {$_->{uid} == $id} @messages)[0]; }
+}
 sub _userfields_by_id { {username => 'Message author'} }
 sub nicifyTimestamp { $_[0] }
 sub stdmsg { $_[0] }

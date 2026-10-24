@@ -1,6 +1,7 @@
 package Noosphere;
 
 use strict;
+use Noosphere::DiscussionSafety;
 use Socket;
 use Template;
 use Encode;
@@ -774,10 +775,11 @@ sub userGenericList {
 	# database invariance (this is ugly)
 	#
 	my ($q_usermsgs, $q_userobjs, $q_usercorsf, $q_usercorsr);
+	my $public_messages = discussionPublicWhere('messages');
 
-	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
-	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
-	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid order by created desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid AND ($public_messages) order by created desc limit $limit offset $offset" if getConfig('dbms') eq 'pg';
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid AND ($public_messages) order by created desc limit $offset, $limit" if getConfig('dbms') eq 'mysql';
+	$q_usermsgs = "select messages.created, messages.objectid, messages.uid, messages.subject, messages.tbl from messages where messages.userid=$uid AND ($public_messages) order by created desc limit $offset, $limit" if getConfig('dbms') eq 'MariaDB';
 
 	my $live_userobj_filter = indexedObjectExistsWhere(getConfig('index_tbl'));
 	$q_userobjs = "select objectid,title,tbl from ".getConfig('index_tbl')." where userid=$uid and $live_userobj_filter and tbl != 'users' and type = 1 order by lower(title) offset $offset limit $limit"  if getConfig('dbms') eq 'pg';
@@ -796,7 +798,7 @@ sub userGenericList {
 	#
 	my $specifics = {
 		'usermsgs'=>[
-		"select uid from messages where messages.userid=$uid",
+		"select uid from messages where messages.userid=$uid AND ($public_messages)",
 		$q_usermsgs,
 		\&formatUserMessageRec
 	 ],
@@ -822,7 +824,7 @@ sub userGenericList {
 	
 	# get total if we're lacking it
 	#
-	if ($total < 0) {
+	if ($total < 0 || $op eq 'usermsgs') {
 		my ($rv,$sth) = dbLowLevelSelect($dbh,$specifics->{$op}->[0]);
 		$total = $sth->rows();
 		$sth->finish();
@@ -849,6 +851,7 @@ sub userGenericList {
 		my $num = $offset+1;
 		
 		foreach my $row (@rows) {
+			next if $op eq 'usermsgs' && !discussionMessageReadable($row->{uid}, {uid => -1});
 			$template->addText("	<item_$op>");
 			my $xml=&{$specifics->{$op}->[2]}($row,$num);
 			$template->addText($xml);
@@ -1185,7 +1188,7 @@ sub getUser {
 		qw(username forename surname active state city country joined last homepage access score bio) };
 	$profile->{email} = $rec->{email} if $show_email;
 
-	my $mc = getrowcount('messages',"userid=$rec->{uid}");
+	my $mc = getrowcount('messages',"userid=$rec->{uid} AND (".discussionPublicWhere('messages').')');
 	my $msg_link = "".getConfig("main_url")."/?op=usermsgs;id=$rec->{uid}";
 	my $oc = getrowcount(getConfig('index_tbl'),"userid=$rec->{uid} and type = 1 and tbl != 'users'");
 	my $obj_link = "".getConfig("main_url")."/?op=userobjs;id=$rec->{uid}";
@@ -1268,7 +1271,7 @@ sub getUserOld {
 
 	# extract info
 	#
-	my $mc = getrowcount('messages',"userid=$rec->{uid}");
+	my $mc = getrowcount('messages',"userid=$rec->{uid} AND (".discussionPublicWhere('messages').')');
 	my $oc = getrowcount(getConfig('index_tbl'),"userid=$rec->{uid} and type = 1 and tbl != 'users'");
 	my $crc = getCorrectionsReceivedCount($rec->{uid});
 	my $cfc = getCorrectionsFiledCount($rec->{uid});

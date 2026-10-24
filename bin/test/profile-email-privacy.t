@@ -30,6 +30,7 @@ sub dbSelect { $queries++; return (1, bless({}, 'ProfileStatement')); }
   sub fetchrow_hashref { return $record; }
 }
 sub getrowcount { return 0; }
+sub discussionPublicWhere { '1=1' } # This fixture exercises email presentation, not discussion queries.
 sub getCorrectionsReceivedCount { return 0; }
 sub getCorrectionsFiledCount { return 0; }
 sub urlescape { return $_[0]; }

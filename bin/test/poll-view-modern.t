@@ -12,6 +12,7 @@ use HTML::Parser;
 use Noosphere::EntryInteractions;
 use Noosphere::RequestForm;
 use Noosphere::TemplateNS;
+use Noosphere::DiscussionSafety;
 use constant ACT_VOTE => 1;
 
 our ($dbh, $reader, $NoosphereCanonical, $NoosphereTitle);
@@ -49,6 +50,10 @@ sub getWatchWidget { '<a href="#existing-hidden-widget">Watch entry</a>' }
 sub nb { defined($_[0]) && length($_[0]) }
 sub TeXtoUTF8 { $_[0] }
 sub _object_exists { 1 }
+{ no warnings 'redefine';
+sub discussionParentReadable { 1 } # Presentation fixture; safety suite covers real ACLs.
+sub discussionRawMessage { my ($id) = @_; return (grep {$_->{uid} == $id} @messages)[0]; }
+}
 sub _userfields_by_id { {username => 'Comment author'} }
 sub hasWatch { 0 }
 sub toggleWatch { push @toggles, [@_] }
