@@ -160,6 +160,7 @@ sub dispatch {
   'showwatchers' => \&showWatchers,
   'getmsg' => \&getMessage,
   'postmsg' => \&postMessage,
+  'removemsg' => \&removeDiscussionMessage,
   'forums' => \&getForumsTop,
 
   # polls

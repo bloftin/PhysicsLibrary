@@ -28,6 +28,8 @@ my $tt = eval {
     sub noticeActivateDefault { push @defaults, $_[1] }
     sub noticeActivateDefaults { push @defaults, 'all' }
     sub getNoticeIDHash { (7 => 1, 8 => 1) }
+    our $discussion_readable = 1;
+    sub discussionNoticeReadable { $discussion_readable }
     sub getop { ('getobj', 'objects') }
     sub contextLink { '<a href="/?op=getobj&amp;id=116">Context</a>' }
 }
@@ -59,6 +61,12 @@ my $vars;
     is($NoticeTemplate::vars->{count}, 1, 'unread total is provided');
     like($Noosphere::queries[0]{WHERE}, qr/userid=1 and viewed=0/, 'inbox remains restricted to unread notices for this user');
     $vars = $NoticeTemplate::vars;
+    {
+        local $Noosphere::discussion_readable = 0;
+        Noosphere::viewNotices({}, {uid => 1});
+        is($NoticeTemplate::vars->{count}, 0, 'revoked discussion notice excluded from unread view count');
+        is_deeply($NoticeTemplate::vars->{notices}, [], 'revoked preview is not passed to template');
+    }
     Noosphere::viewNotices({delsel => 1, sel_7 => 'on'}, {uid => 1});
     is($Noosphere::deleted[-1], 'uid=7 and userid=1', 'selected deletion remains user-scoped');
     is($Noosphere::defaults[-1], 7, 'selected deletion activates its default');

@@ -12,6 +12,7 @@ use HTML::Parser;
 use Noosphere::EntryInteractions;
 use Noosphere::RequestForm;
 use Noosphere::TemplateNS;
+use Noosphere::DiscussionSafety;
 
 our ($dbh, $reader, $NoosphereTitle, $NoosphereCanonical);
 my $root = "$FindBin::Bin/../..";
@@ -47,6 +48,10 @@ sub getWatchWidget { $_[1]{uid} > 0 ? '<a href="#request-watch">Watch request</a
 sub nb { defined($_[0]) && $_[0] =~ /\S/ }
 sub TeXtoUTF8 { $_[0] }
 sub _object_exists { 1 }
+{ no warnings 'redefine';
+sub discussionParentReadable { 1 } # Presentation fixture; safety suite covers real ACLs.
+sub discussionRawMessage { my ($id) = @_; return (grep {$_->{uid} == $id} @messages)[0]; }
+}
 sub _userfields_by_id { {username => 'Comment author'} }
 sub hasWatch { 0 }
 sub toggleWatch { push @toggles, [@_] }

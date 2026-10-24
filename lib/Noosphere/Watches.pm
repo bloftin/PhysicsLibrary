@@ -2,6 +2,7 @@ package Noosphere;
 
 use strict;
 use Template;
+use Noosphere::DiscussionSafety;
 
 sub validWatchObjectArgs {
 	my ($table, $objectid) = @_;
@@ -32,6 +33,7 @@ sub changeWatch {
 
 	if (defined $params->{watch} && $userinf->{uid} > 0) {
 			if ($params->{watch} eq "add") {
+			return unless discussionWatchReadable($table, $id, $userinf);
 			addWatch($table, $id, $userinf->{uid});
 		}
 		elsif ($params->{watch} eq "remove") {
@@ -44,11 +46,13 @@ sub changeWatch {
 #
 sub showWatchers {
 	my $params = shift;
+	my $userinf = shift;
 	
 	my $table = $params->{from};
 	my $id = $params->{id};
 
 	return errorMessage('Unknown object type.') if (!validWatchObjectArgs($table, $id));
+	return errorMessage('Discussion not available.') unless discussionWatchReadable($table, $id, $userinf);
 
 	my $template = new XSLTemplate('showwatchers.xsl');
 
@@ -79,6 +83,8 @@ sub showWatchers {
 sub getWatchWidget {
 	my $params = shift;
 	my $userinf = shift;
+	return errorMessage('Discussion not available.') unless
+		discussionWatchReadable($params->{from}, $params->{id}, $userinf);
 
 	my $table = $params->{'from'};
 	my $objectid = $params->{'id'};
@@ -179,6 +185,11 @@ sub listWatches {
 	my $i = 1 + $offset;
 	my $curtable = '';
 	foreach my $row (@rows) {
+		unless (discussionWatchReadable($row->{tbl}, $row->{objectid}, $userinf)) {
+			push @watches, {uid => $row->{uid}, ord => $i++, link => '[Discussion not available]',
+				description => 'Unavailable', heading => 1, label => 'Unavailable discussion'};
+			next;
+		}
 		my $tdesc = tabledesc($row->{'tbl'});
 		my $title = lookuptitle($row->{'tbl'}, $row->{'objectid'});
 
@@ -226,6 +237,8 @@ sub updateWatches {
 
 		next if ($foruser == $aboutuser);			 # no self-watches.
 	next if (exists $senthash->{$foruser}); # no duplicate watches
+		next if $abouttbl eq 'messages' && (!discussionWatchReadable($abouttbl, $aboutid, {uid => $foruser}) ||
+			!discussionWatchReadable($fortbl, $forid, {uid => $foruser}));
 		
 	#dwarn "updatewatches *** : forid=$forid, fortbl=$fortbl, aboutid=$aboutid, abouttbl=$abouttbl, aboutuser=$aboutuser, foruser=$foruser, watchid=$watch, subject=$subject";
 	
@@ -255,6 +268,8 @@ sub updateEventWatches {
 
 		next if ($foruser == $eventuser);			 # no self-watches
 	next if (exists $senthash->{$foruser}); # no duplicate watches
+		next if discussionTableAllowed($fortbl) &&
+			!discussionParentReadable($fortbl, $forid, {uid => $foruser});
 		
 		fileNotice($foruser,$eventuser,$comment,$subject,[{id=>$forid,table=>$fortbl}]);				
 
@@ -331,6 +346,7 @@ sub toggleWatch {
 	if (hasWatch($table,$objectid,$userid)) {
 		delWatchByInfo($table,$objectid,$userid);
 	} else {
+		return unless discussionWatchReadable($table, $objectid, {uid => $userid});
 		addWatch($table,$objectid,$userid);
 	}
 }
@@ -344,6 +360,7 @@ sub addWatch {
 
 	return if (!validWatchObjectArgs($table, $objectid));
 	return if (!validWatchUserId($userid));
+	return unless $userid > 0 && discussionWatchReadable($table, $objectid, {uid => $userid});
 
 	my $wtbl=getConfig('watch_tbl');
 

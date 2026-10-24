@@ -10,6 +10,7 @@ use URI;
 use HTML::Parser;
 use Noosphere::EntryInteractions;
 use Noosphere::RequestForm;
+use Noosphere::DiscussionSafety;
 
 our ($dbh, $reader);
 our ($success, $missing, $allowed, $watched, $reply_failure) = (1, 0, 1, 0, 0);
@@ -17,6 +18,8 @@ my $root = "$FindBin::Bin/../..";
 my %config = (
     template_path => "$root/stemplates", main_url => 'https://physicslibrary.org',
     acl_tables => {objects => 1, collab => 1},
+    en_tbl => 'objects', forum_tbl => 'forums', collab_tbl => 'collab',
+    access_admin => 100,
     message_maxcols => 80,
 );
 my %records = (
@@ -43,6 +46,22 @@ sub htmlescape { requestFormEscape($_[0]) }
 sub errorMessage { $_[0] }
 sub nicifyTimestamp { $_[0] }
 sub hasPermissionTo { push @permissions, [@_]; return $allowed; }
+# Presentation fixtures; database-backed destination/ACL checks live in discussion-safety.t.
+{ no warnings 'redefine';
+sub discussionParentReadable {
+    return 0 unless discussionTableAllowed($_[0]) && discussionIdValid($_[1]);
+    return !$config{acl_tables}{$_[0]} || hasPermissionTo($_[0], $_[1], $_[2], 'read');
+}
+sub discussionWatchReadable { 1 }
+}
+sub dbSelectRowBound {
+    my ($db, $sql, $id) = @_;
+    my ($ok, $sth) = dbSelect($db, {WHERE => "uid = $id"});
+    return unless $ok;
+    my $row = $sth->fetchrow_hashref();
+    $sth->finish();
+    return $row;
+}
 sub dbSelect {
     my ($db, $q) = @_;
     push @queries, $q;
@@ -50,7 +69,7 @@ sub dbSelect {
     my @rows;
     if ($q->{WHERE} =~ /^uid = (\d+)$/) {
         @rows = ({%{$records{$1}}}) if !$missing && $records{$1};
-    } elsif ($q->{WHERE} =~ /^replyto = (\d+)$/) {
+    } elsif ($q->{WHERE} =~ /^replyto = (\d+)\b/) {
         return (0, undef) if $reply_failure;
         my $parent = $1;
         @rows = map { {%$_} } sort { $a->{created} cmp $b->{created} }
@@ -90,7 +109,7 @@ for my $spec (
     }
 }
 sub user {
-    return {uid => $_[0], ticket => 'a' x 64, data => {active => 1}};
+    return {uid => $_[0], ticket => 'a' x 64, data => {active => 1, access => $_[1] || 0}};
 }
 sub page {
     my ($user, @params) = @_;
@@ -158,6 +177,9 @@ HTML::Parser->new(start_h => [sub {
 is($nested_forms, 0, 'watch form is not nested');
 is($form_depth, 0, 'watch form closes correctly');
 is($tokens, 1, 'single mutation form receives one token');
+my $admin = page(user(2,100));
+like($admin, qr/op=removemsg&amp;id=395/, 'administrator has content-removal action');
+unlike($member, qr/op=removemsg/, 'ordinary member has no moderation action');
 my $watching = page(user(2), watch => 'add');
 is_deeply(\@watch_changes, [['add', 'messages', 395, 2]], 'existing add-watch mutation is retained');
 like($watching, qr/\(watching\)/, 'watching marker appears for the current reader');
@@ -190,13 +212,13 @@ for my $id (undef, '1 OR 1=1', -1, ['395'], "395\n") {
 }
 {
     local $missing = 1;
-    is(page(user(2), watch => 'add'), "Couldn't find that message!", 'missing message returns existing error text');
+    is(page(user(2), watch => 'add'), 'Message not available.', 'missing message returns unavailable error');
     is(scalar @watch_changes, 0, 'missing message cannot trigger a watch mutation');
     is($finished, 1, 'missing message statement is finished');
 }
 {
     local $success = 0;
-    is(page(user(2)), "Couldn't find that message!", 'database failure does not dereference a missing statement');
+    is(page(user(2)), 'Message not available.', 'database failure does not dereference a missing statement');
 }
 {
     local $reply_failure = 1;
@@ -285,17 +307,17 @@ is_deeply(\@visibility, [['objects', 1359]], 'new discussion keeps supplied pare
 is(compose(user(-1)), "You can't post as anonymous.", 'anonymous posting remains blocked');
 is(scalar @queries, 0, 'anonymous users do not fetch private reply context');
 for my $id (['395'], '395 OR 1=1', -1, "395\n") {
-    is(compose(user(2), replyto => $id), "Couldn't find that message!", 'invalid reply id rejected');
+    is(compose(user(2), replyto => $id), 'Discussion not available.', 'invalid reply id rejected');
     is(scalar @queries, 0, 'invalid reply id cannot reach SQL');
 }
 {
     local $missing = 1;
-    is(compose(user(2), quote => 'quote'), "Couldn't find that message!", 'missing reply handled without dereference');
+    is(compose(user(2), quote => 'quote'), 'Discussion not available.', 'missing reply handled without dereference');
     is($finished, 1, 'missing reply statement finished');
 }
 {
     local $success = 0;
-    is(compose(user(2)), "Couldn't find that message!", 'reply database failure handled');
+    is(compose(user(2)), 'Discussion not available.', 'reply database failure handled');
 }
 {
     local $records{395}{tbl} = 'collab';
@@ -328,7 +350,7 @@ if (my $dir = $ENV{MESSAGE_VIEW_TEST_DIR}) {
         local $records{395}{body} = 'Long source token: '.('x' x 200)."\nhttp://example.invalid/".('path' x 60);
         $long = page(user(-1));
     }
-    for my $case (['guest', $guest], ['member', $protected], ['reply', $child], ['empty', $leaf], ['long', $long],
+    for my $case (['guest', $guest], ['member', $protected], ['admin', $admin], ['reply', $child], ['empty', $leaf], ['long', $long],
         ['compose', $protected_composer], ['preview', $preview], ['spell', $spelled], ['quote', $quoted],
         ['compose-error', $missing_subject], ['new-post', $new_post]) {
         my $html = '';

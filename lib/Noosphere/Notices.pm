@@ -1,5 +1,6 @@
 package Noosphere;
 use strict;
+use Noosphere::DiscussionSafety;
 
 
 # get a hash of notice IDs for a user
@@ -33,7 +34,7 @@ sub deleteNotices {
 
 	# get a list of notices which have object links pointing to the target object
 	#
-	my $sth = $dbh->prepare("select srcid from $olinks where desttbl = '$table' and destid = $objectid");
+	my $sth = $dbh->prepare("select srcid from $olinks where srctbl='notices' and desttbl = '$table' and destid = $objectid");
 	$sth->execute();
 	my @notices;
 	while (my $row = $sth->fetchrow_arrayref()) {
@@ -48,6 +49,7 @@ sub deleteNotices {
 	# now delete notices
 	#
 	if (@notices) {
+		$dbh->do("delete from $olinks where srctbl='notices' and srcid in (".join(', ',@notices).")");
 		$dbh->do("delete from $notices where uid in (".join(', ',@notices).")");
 	}
 }
@@ -307,12 +309,13 @@ sub viewNotices {
 
 	my @notices;
 	foreach my $row (@rows) {
+		next unless discussionNoticeReadable($row->{uid}, $userinf);
 		push @notices, formatNotice($row);
 	}
 	my $message = $html;
 	my $tt = Template->new({ INCLUDE_PATH => getConfig('template_path') });
 	$tt->process('notices.tt', { title => 'Your Notices', notices => \@notices,
-		count => scalar @rows, message => $message }, \$html)
+		count => scalar @notices, message => $message }, \$html)
 		|| die "Template process failed: ", $tt->error(), "\n";
 	return $html;
 }
