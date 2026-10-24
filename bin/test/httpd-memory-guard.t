@@ -44,13 +44,17 @@ like(
 my @crawler_rules = $config =~ /RewriteCond\s+%\{HTTP_USER_AGENT\}\s+\([^\n]*\bSogou\b[^\n]*\bBytespider\b[^\n]*\bdwnupd\b[^\n]*\)\s+\[NC\]/g;
 is(scalar @crawler_rules, 3, 'all HTTPS virtual hosts reject the observed abusive crawlers');
 
-my @query_scanner_rules = $config =~ /RewriteCond\s+%\{QUERY_STRING\}\s+\(\^\|\&\)p=php\(\?:\/\|\%2f\|\$\)\s+\[NC\]\s*\n\s*RewriteRule\s+\^\s+-\s+\[F,L\]/g;
-is(scalar @query_scanner_rules, 3, 'all HTTPS virtual hosts reject observed php traversal query probes');
+my @scanner_includes = $config =~ /^\s*Include \/var\/www\/pp\/etc\/httpd-scanner-404\.conf\s*$/mg;
+is(scalar @scanner_includes, 3, 'all HTTPS virtual hosts use the shared early scanner guard');
 
-my @probe_path_rules = $config =~ /RewriteRule\s+\^\/\?\(\?:root\|home\|srv\|storage\|vendor\|config\|wordpress\|wp-admin\|wp-content\|wp-includes\)\(\?:\/\|\$\)\s+-\s+\[F,L,NC\]/g;
-is(scalar @probe_path_rules, 3, 'all HTTPS virtual hosts reject common probe-only path roots');
-
-my @credential_rules = $config =~ /RewriteRule\s+\^\/\?\(\?:\.\*\?\/\)\?\\\.\(\?:env\(\?:\[\.~\]\.\*\)\?\|git\|aws\|ssh\|claude\|codex\|gemini\|config\|openclaw\|nerve\)\(\?:\/\|\$\)\s+-\s+\[F,L,NC\]/g;
-is(scalar @credential_rules, 3, 'all HTTPS virtual hosts reject credential-directory probes');
+open $in, '<', "$FindBin::Bin/../../etc/httpd-scanner-404.conf" or die $!;
+my $scanner = do { local $/; <$in> };
+close $in;
+like($scanner, qr/RewriteCond\s+%\{QUERY_STRING\}\s+\(\^\|&\)p=php.*?RewriteRule\s+\^\s+-\s+\[R=404,L\]/s,
+    'observed PHP traversal-query probes still stop before application handling');
+like($scanner, qr/^RewriteRule .*root\|home\|srv\|storage\|vendor\|config\|wordpress.*\[R=404,L,NC\]$/m,
+    'common scanner-only path roots retain early rejection');
+like($scanner, qr/^RewriteRule .*\|git\|aws\|ssh\|claude\|codex\|gemini\|config\|openclaw\|nerve.*\[R=404,L,NC\]$/m,
+    'credential-directory probes retain early rejection');
 
 done_testing();
