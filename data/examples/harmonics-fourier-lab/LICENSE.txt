@@ -1,0 +1,5 @@
+Original code: Copyright 2026 Physics Library contributors, GPL version 3 or later.
+The offline source project includes COPYING.
+Original explanatory text, figures, numerical reference data and generated sound: CC BY-SA 4.0.
+Bundled third-party software retains its own licenses; see THIRD-PARTY.txt.
+Sound is an educational synthesis, not a model of a particular instrument or a loudness standard.
