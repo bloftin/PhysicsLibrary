@@ -1,0 +1,5 @@
+[% INCLUDE entryinteractionstyles.tt %]
+[% WRAPPER entrysection.tt title='Admin Controls' admin=1 %]
+<p>Collection: <strong>[% collection | html %]</strong> &middot; Object ID: <strong>[% object_id | html %]</strong></p>
+[% INCLUDE entryactions.tt label='Restricted object administration' actions=[{label='Delete object', url=delete_url, danger=1}] %]
+[% END %]

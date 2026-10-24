@@ -116,7 +116,25 @@ sub getObj {
 
 		my $msg = "You don't have permission to view that object.<p>";
 		$msg .= "This may be a mistake.  Try contacting the <a href=\"".getConfig('main_url')."/?op=getuser&id=$rec->{userid}\">object owner</a> (preferably) or <a href=\"mailto:".getAddr('feedback')."\">administration</a> (if the owner is unresponsive).";
-		return errorMessage($msg);
+		my $denied = errorMessage($msg);
+		my $admin_access = getConfig('access_admin');
+		# Deletion has its own admin authorization; do not expose read-dependent controls.
+		if (($is_generic_library_item || $from eq getConfig('en_tbl')) &&
+			ref($userinf) eq 'HASH' && defined($userinf->{uid}) &&
+			!ref($userinf->{uid}) && $userinf->{uid} =~ /\A[0-9]+\z/ && $userinf->{uid} > 0 &&
+			ref($userinf->{data}) eq 'HASH' &&
+			defined($userinf->{data}{active}) && $userinf->{data}{active} eq '1' &&
+			defined($admin_access) && !ref($admin_access) &&
+			$admin_access =~ /\A[0-9]+\z/ && $admin_access > 0 &&
+			defined($userinf->{data}{access}) && !ref($userinf->{data}{access}) &&
+			$userinf->{data}{access} =~ /\A[0-9]+\z/ && $userinf->{data}{access} >= $admin_access) {
+			$denied .= entryInteractionTemplate('restrictedobjectadmin.tt', {
+				collection => $from,
+				object_id => $rec->{uid},
+				delete_url => entryInteractionURL('delobj', from => $from, id => $rec->{uid}, ask => 'yes'),
+			});
+		}
+		return $denied;
 	}
 
 	# Use the resolved record, not an alias or untrusted request URL.
