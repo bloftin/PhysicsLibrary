@@ -1,0 +1,28 @@
+article = "https://physicslibrary.org/encyclopedia/WM02.html"
+article_alias = "WM02"
+article_id = 1150
+julia_version = "1.10.12"
+reference_generator = "julia --startup-file=no --project=. sinusoidal-oscillation.jl"
+reference_method = "independent cispi complex exponential evaluation of values, phases, projections and time slopes"
+browser_method = "exact analytic sine/cosine time histories and geometric projection; D3 scales and Canvas2D"
+renderer = "D3 7.9.0 and Lucide 0.468.0 bundled offline without runtime requests"
+scope = "WM02 kinematic oscillation at one point; no spatial wave, force model, energy calculation or ODE solver"
+convention = "u=A cos(omega*t+phi), or equivalent sine; omega=2pi*f; T=1/f; positive rate"
+basis_switch = "phi_sine=phi_cosine+pi/2 modulo 2pi; reference orientation and projection axis change together, preserving u and its slope"
+circle = "standard counterclockwise angle from +x, horizontal cosine or vertical sine projection; geometric reference, not a physical particle orbit"
+radians = "arc s=r*alpha, alpha=phase modulo 2pi in [0,2pi); radius in [0.5,1.5] reference cm is independent of amplitude"
+units = "internal and exported meters, seconds and radians; selectable plotted cm or mm; slopes only classify rising/falling"
+domains = "fixed t in [0,4] seconds and displacement +/-5 cm (+/-50 mm); no amplitude or period auto-normalization"
+comparison = "optional doubled frequency (up to 8 Hz) or zero-phase cosine; same amplitude, physical seconds and equivalent conventions"
+playback = "0.1x, 0.25x or real time; quarter-period stepping; stops at 4 seconds"
+degenerate_case = "A=0 is constant, u/A undefined; phase and positive repetition rates are nominal, not observed"
+reference_cases = 9
+reference_samples = 1449
+worked_events = 9
+reference_csv_sha256 = "872811cf1e5382bf275ac06f5363b794876392ee6a6bf452c76a9d9ebb688317"
+events_csv_sha256 = "c0ab04bb2f8a6800ed8acecd48461f98f8c47c824164e30ef278795e51308b47"
+sinusoidal_oscillation_jl_sha256 = "2a66613f928b289f042c36ad92312017eee4f29a3ff3c4fc79ea80674253e9e5"
+model_js_sha256 = "ad28e64a529e41c12a964b0d5ea8202527cbb0983d1c6c3a7408be64aeb87830"
+Manifest_toml_sha256 = "db6f41f5f03f102ae06a33a9bac6e57708033a3e297fec30b08da750224783c3"
+pnpm_lock_yaml_sha256 = "74cf4af8287380f3f5fbbfced59dfd65b15abb38783c36911d88893cf49b97f7"
+viewer_sha256 = "7bb5f6be563896c6072d2b38dd0378f100f5adb224be78b14884661d50888deb"

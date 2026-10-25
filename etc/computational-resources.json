@@ -193,6 +193,20 @@
         {"label": "Julia scalar fields, gradients and directional derivatives", "file": "reference.csv"}
       ]
     },
+    "sinusoidal-oscillation": {
+      "title": "Sinusoidal Oscillation (WM02)",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline phase clock, radian arc and synchronized time history, with both WM02 examples, equivalent sine/cosine forms and f/T/omega controls. Checked against 1449 independent Julia samples. Includes source, environments, tests and CSV; no server computation.",
+      "explorer": "index.html",
+      "source": "sinusoidal-oscillation.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia phases, projections and time histories", "file": "reference.csv"},
+        {"label": "Julia worked events and repetition rates", "file": "events.csv"}
+      ]
+    },
     "sinusoidal-traveling-wave": {
       "title": "The Sinusoidal Traveling Wave (WM07)",
       "language": "Julia",
