@@ -1,0 +1,28 @@
+article = "https://physicslibrary.org/encyclopedia/InnerProductsOfFunctions.html"
+article_alias = "FS02"
+article_id = 1519
+julia_version = "1.10.12"
+reference_generator = "julia --startup-file=no --project=. inner-product-lab.jl"
+reference_method = "exact rational polynomial moments and finite sums; independent of browser floating-point evaluation"
+browser_method = "analytic polynomial-product integration, Euclidean and Frobenius sums; separate midpoint approximations"
+renderer = "D3 7.9.0 and Lucide 0.468.0 bundled offline without runtime requests"
+scope = "real dimensionless vectors in R2, degree-at-most-three polynomial function spaces, and real 2x2 matrices with the Frobenius metric"
+projection = "c*=inner(u,v)/inner(v,v); r=u-c*v; E(c)=inner(r,r); trial and optimum remain distinct"
+angle = "acos(inner(u,v)/(norm(u)*norm(v))) for nonzero objects; abstract span diagram is an isometric representation, not the angle of function graphs"
+weight = "uniform 1, right ramp 2(x-a)/(b-a), or 1+x^2; ramp is positive in the interior with a zero endpoint"
+sampling = "4 to 128 midpoint rectangles include w(x_i)*dx; analytic scalar and approximate sample sum are reported separately"
+matrix = "inner(A,B)=trace(transpose(A)*B)=sum(A_ij*B_ij); identity projection extracts half the trace"
+normalization = "target rescaled to unit norm; trial coefficient adjusted to preserve the trial projection; zero target cannot be normalized"
+zero_cases = "angle undefined if either object is zero; zero target has a zero projection object, non-unique coefficient and constant squared error"
+graphics = "source and error axes adapt with visible numerical ticks; spatial and abstract vector-plane axes retain equal units; matrix heatmaps share a scale"
+precision = "17-digit CSV references; screen readouts suppress magnitudes below 1e-10; orthogonality checks are numerical, not symbolic claims"
+reference_cases = 17
+geometry_reference_rows = 153
+function_reference_samples = 520
+reference_csv_sha256 = "fedcba41dc9f3b042fd9ea438cee6ab52daf404994dc1dfb00bdc50774e104e9"
+samples_csv_sha256 = "ea26448ba084aec56445361ae0cb79af090ce24395502448ae02acacbe0c99ca"
+inner_product_lab_jl_sha256 = "b8b938f8f094681658f16c73c4432c912bd7fed2315489a0c8eda1dc621e84c6"
+model_js_sha256 = "ac7767bbc1fd72d8b32b83284d056eeb72b82d036ac1877e3d40127d74b853f7"
+Manifest_toml_sha256 = "db6f41f5f03f102ae06a33a9bac6e57708033a3e297fec30b08da750224783c3"
+pnpm_lock_yaml_sha256 = "74cf4af8287380f3f5fbbfced59dfd65b15abb38783c36911d88893cf49b97f7"
+viewer_sha256 = "cb8407e2c9073e836e0cf661bd1ed35addbc06a0b59647469e0d4c3082adb4d6"

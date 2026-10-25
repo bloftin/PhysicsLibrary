@@ -193,6 +193,20 @@
         {"label": "Julia scalar fields, gradients and directional derivatives", "file": "reference.csv"}
       ]
     },
+    "inner-product-lab": {
+      "title": "Inner Product Lab (FS02)",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline vector, polynomial-function and abstract matrix geometry, with signed products, weighted integrals, midpoint sums, projection and residual tests. Checked against 153 exact-rational Julia results and 520 function samples. Includes source, environments, tests and CSV; no server computation.",
+      "explorer": "index.html",
+      "source": "inner-product-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia exact-rational inner products and projection geometry", "file": "reference.csv"},
+        {"label": "Julia function, integrand and residual samples", "file": "samples.csv"}
+      ]
+    },
     "sinusoidal-oscillation": {
       "title": "Sinusoidal Oscillation (WM02)",
       "language": "Julia",
