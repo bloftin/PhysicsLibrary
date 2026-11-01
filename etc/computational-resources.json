@@ -193,6 +193,21 @@
         {"label": "Julia scalar fields, gradients and directional derivatives", "file": "reference.csv"}
       ]
     },
+    "coulomb-lab": {
+      "title": "Coulomb's Law Lab",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline draggable two-to-six-charge force and electric-field lab, with superposition, ODEX field lines, probe and inverse-square comparison. Checked against 28 high-precision Julia forces and 1440 field samples. Includes source, environments, tests and SI CSV; no server computation.",
+      "explorer": "index.html",
+      "source": "coulomb-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia reference charge configurations", "file": "configurations.csv"},
+        {"label": "Julia net forces and external fields", "file": "forces.csv"},
+        {"label": "Julia electric-field samples", "file": "fields.csv"}
+      ]
+    },
     "inner-product-lab": {
       "title": "Inner Product Lab (FS02)",
       "language": "Julia",
