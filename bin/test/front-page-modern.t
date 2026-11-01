@@ -27,6 +27,9 @@ for my $spec (['Stats.pm', 'getTopUsers'], ['Stats.pm','getLatest'], ['Polls.pm'
     sub dbGetRows {@polls}
     sub mdhm {$_[0]}
     sub md {$_[0]}
+    # Query construction/ACL integration is covered by discussion-safety.t.
+    sub discussionPublicWhere { 'messages.visible = 1' }
+    sub discussionMessageChainValid { 1 }
     sub qhtmlescape {my $s=$_[0]; $s =~ s/&/&amp;/g; $s =~ s/</&lt;/g; $s =~ s/>/&gt;/g; $s =~ s/"/&quot;/g; $s}
     sub mathTitle {$_[0]}
     sub dwarn {die 'unexpected diagnostic'}

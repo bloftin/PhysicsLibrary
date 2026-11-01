@@ -11,6 +11,7 @@ use URI::Escape qw(uri_escape_utf8);
 use HTML::Parser;
 use Noosphere::EntryInteractions;
 use Noosphere::RequestForm;
+use Noosphere::DiscussionSafety;
 
 our ($dbh, $reader, $NoosphereTitle, $NoosphereCanonical);
 my $root = "$FindBin::Bin/../..";
@@ -44,6 +45,12 @@ sub hasPermissionTo { return $allowed if $_[3] eq 'read'; return $_[2]{uid} == 2
 sub hitObject { }
 sub lookupfield { 'Forum owner' }
 sub _object_exists { 1 }
+# Render fixtures only; discussion-safety.t exercises real parent/ACL queries.
+{ no warnings 'redefine';
+sub discussionParentReadable { $allowed }
+sub discussionWatchReadable { $allowed }
+sub discussionRawMessage { my ($id) = @_; return (grep {$_->{uid} == $id} @messages)[0]; }
+}
 sub _userfields_by_id { {username => 'User <'.$_[0].'> & Editor'} }
 sub nicifyTimestamp { $_[0] }
 sub humanReadableCmp { $_[0] cmp $_[1] }
@@ -67,7 +74,7 @@ sub dbSelect {
     push @queries, $q;
     my @rows;
     if ($q->{FROM} eq 'forums') { @rows = ({%$forum}); }
-    elsif ($q->{WHERE} =~ /^replyto = (\d+)$/) {
+    elsif ($q->{WHERE} =~ /^replyto = (\d+)\b/) {
         return (0, undef) if $failure eq 'reply';
         my $parent = $1;
         @rows = sort {$a->{created} cmp $b->{created}} grep {$_->{replyto} == $parent} @messages;

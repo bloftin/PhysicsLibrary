@@ -11,6 +11,7 @@ package Noosphere;
 
 use strict;
 use Noosphere::RequestForm;
+use Noosphere::DiscussionSafety;
 
 use Noosphere::Util;
 use Noosphere::UserData;
@@ -53,6 +54,7 @@ sub delObject {
 	# do the deletion
 	#
 	my $rv = _delObject($params, $userid);
+	return errorMessage('Object could not be deleted.') unless $rv;
 
 	return requestFormComplete('delobj', $params);
 }
@@ -77,6 +79,7 @@ sub _delObject {
 		$rv = delrows($params->{'from'},"uid=$params->{id}");
 	} 
 
+	return unless defined($rv) && $rv > 0;
 	# clean up stuff all objects have
 	
 	# object index
@@ -109,7 +112,11 @@ sub _delObject {
 	
 	# delete messages
 	#
-	delrows(getConfig('msg_tbl'),"objectid=$params->{id} and tbl='$params->{from}'");
+	if (discussionTableAllowed($params->{from})) {
+		deleteDiscussionState($params->{from}, $params->{id});
+	} else {
+		delrows(getConfig('msg_tbl'),"objectid=$params->{id} and tbl='$params->{from}'");
+	}
 
 	# delete cache flags
 	#
@@ -122,6 +129,7 @@ sub _delObject {
 	# remove dangling notices
 	#
 	deleteNotices($params->{'from'}, $params->{'id'});
+	return $rv;
 }
 
 # encyclopedia delete.	this must go and remove messages, corrections.

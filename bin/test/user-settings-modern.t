@@ -10,6 +10,7 @@ use HTML::TreeBuilder;
 use HTML::Parser;
 use Noosphere::TemplateNS;
 use Noosphere::RequestForm;
+use Noosphere::DiscussionSafety;
 use Digest::SHA qw(hmac_sha256_hex);
 
 my $root = "$FindBin::Bin/../..";
@@ -61,6 +62,10 @@ sub lookuptitle { $_[1] == 999 ? '' : 'Original <object> & title' }
 sub getop { $_[0] eq 'messages' ? ('getmsg', '') : ('getobj', $_[0]) }
 sub getPager { '<a href="/?op=watches&amp;offset=40&amp;total=100">Next page</a>' }
 sub getrowcount { 7 }
+our $watch_readable = 1;
+{ no warnings 'redefine';
+sub discussionWatchReadable { $watch_readable } # Real ACL integration has its own suite.
+}
 sub getCorrectionsReceivedCount { 3 }
 sub getCorrectionsFiledCount { 2 }
 sub urlescape { $_[0] }
@@ -281,6 +286,12 @@ subtest 'watch deletion ownership with a real database' => sub {
         'page deletion cannot remove watches owned by another user');
     $db->disconnect;
 };
+{
+    local $watch_readable = 0;
+    my $unavailable = listWatches({}, viewer(1));
+    unlike($unavailable, qr/Original &lt;object&gt;|op=getmsg|op=getobj/, 'revoked watch titles and destinations are hidden');
+    like($unavailable, qr/Discussion not available/, 'unavailable watches can still be selected for removal');
+}
 {
     local @watch_rows = ();
     $fixtures{'watches-empty'} = listWatches({}, viewer(1));

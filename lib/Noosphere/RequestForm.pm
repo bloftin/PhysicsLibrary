@@ -100,6 +100,7 @@ sub requestFormNeedsProtection {
         collab_edit_comment => 'id', postmsg => 'id from replyto subject',
         sendmail => 'sendto', replymail => 'id rsubject', postnews => '',
         newpoll => '', correct => 'id from', rejectcor => 'id correct',
+        removemsg => 'id',
         retractcor => 'id correct continue', addreq => '', updatereq => 'id',
         adminedit => 'id from', adminclassify => 'id from', editscore => '',
         blacklist => '', cachecont => 'group offset total method', dbadmin => '',
@@ -131,6 +132,7 @@ sub requestFormConfirmation {
         deactivate => 'This user will no longer be able to sign in. Continue?',
         reactivate => 'This user will be able to sign in again. Continue?',
         abandon => 'You will give up ownership of this object. Continue?',
+        removemsg => 'The subject and body of this message will be permanently removed. Replies will be kept. Continue?',
     );
     my %actions = (
         updatereq => 'Update request',
@@ -145,11 +147,13 @@ sub requestFormConfirmation {
         reactivate => 'Reactivate user',
         abandon => 'Give up ownership',
         rollback => 'Restore article version',
+        removemsg => 'Remove message content',
     );
     my %labels = (
         op => 'Action', request => 'Request', identifier => 'Filling article',
         id => 'Article ID', from => 'Collection', method => 'Format',
     );
+    $labels{id} = 'Message ID' if ($params->{op} || '') eq 'removemsg';
     my $warning = $warnings{$params->{op} || ''};
     my $fields = '';
     my $details = '';

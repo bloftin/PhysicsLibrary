@@ -113,7 +113,8 @@ sub getFrontPage {
 	#dwarn "PP TOP NEWS\n";
 	my $newsxml = $stats->get('top_news');
 	#dwarn "PP Latest MEssages\n";
-	my $messagexml = $stats->get('latest_messages');
+	# Recheck parent visibility rather than serving subjects cached before an ACL change.
+	my $messagexml = getLatestMessagesXML($params, $userinf);
 
 	#my $messages = getLatestMessagesXML($params, $userinf);
 	#dwarn "PP News XML\n";

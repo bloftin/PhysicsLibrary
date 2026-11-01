@@ -73,6 +73,7 @@ subtest 'mutations stop before dispatch' => sub {
         [acledit => {delete_42 => 1}], [memberedit => {del_42 => 1}],
         [groupedit => {delgroup => 1}], [creategroup => {}], [addusertogroup => {}],
         [rerender => {}], [delobj => {}], [rollback => {confirm => 1}],
+        [removemsg => {id => 395, confirm => 1}],
         [adminedit => {submit2 => 1}], [adminclassify => {submit => 1}],
         [dbadmin => {freeform => 1}], [blacklist => {add => 1}],
         [deactivate => {}], [reactivate => {}], [deluser => {}],
