@@ -5,6 +5,7 @@ use Test::More;
 use Digest::SHA qw(sha256_hex);
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
+use Noosphere::LoginLog;
 
 our (@queries, @results, @cookies, @mail, @setup, @policies);
 our ($failure, $finished, $login_template_vars);
