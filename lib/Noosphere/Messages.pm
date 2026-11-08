@@ -1,6 +1,7 @@
 package Noosphere;
 use strict;
 use Noosphere::EntryInteractions;
+use Noosphere::DiscussionSafety;
 
 use vars qw($reader);
 
@@ -59,16 +60,15 @@ sub messagesChrono {
 	
 	# get total if needed
 	#
-	if (not defined $params->{'total'}) {
-		$params->{'total'} = dbRowCount($mtbl);
-	}
+	my $public = discussionPublicWhere($mtbl);
+	$params->{'total'} = dbRowCount($mtbl, $public);
 
 	# query up the messages in order
 	#
 	my ($rv, $sth) = dbSelect($dbh, {
 		WHAT => "$mtbl.*, username", 
 		FROM => "$mtbl, $utbl", 
-		WHERE => "$mtbl.userid=$utbl.uid", 
+		WHERE => "$mtbl.userid=$utbl.uid AND ($public)",
 		'ORDER BY' => "$mtbl.created", 
 		DESC => 1,
 		LIMIT => $limit,
@@ -79,6 +79,7 @@ sub messagesChrono {
 
 	while (my $row = $sth->fetchrow_hashref()) {
 
+		next unless discussionMessageChainValid($row);
 		my $date = mdhm($row->{'created'});
 		my $title = htmlescape($row->{'subject'});
 		my $username = htmlescape($row->{'username'});
@@ -126,12 +127,13 @@ sub getLatestMessagesXML {
 	#
 	my $mtbl = getConfig('message_tbl');
 	my $utbl = getConfig('user_tbl');
-	my ($rv, $sth) = dbSelect($dbh, {WHAT=>"$mtbl.*, username", FROM=>"$mtbl, $utbl", WHERE=>"$mtbl.userid = $utbl.uid and $mtbl.visible = 1", 'ORDER BY'=>"$mtbl.created", DESC=>1, LIMIT=>getConfig('latest_messages')});
+	my ($rv, $sth) = dbSelect($dbh, {WHAT=>"$mtbl.*, username", FROM=>"$mtbl, $utbl", WHERE=>"$mtbl.userid = $utbl.uid AND (".discussionPublicWhere($mtbl).')', 'ORDER BY'=>"$mtbl.created", DESC=>1, LIMIT=>getConfig('latest_messages')});
 
 	$xml .= "	<messages>";
 
 	while (my $row = $sth->fetchrow_hashref()) {
         #        dwarn "Message ROW ***************";
+		next unless discussionMessageChainValid($row);
 		my $date = mdhm($row->{'created'});
 #      		dwarn "Message date = $date";
 		my $title = htmlescape($row->{'subject'});
@@ -170,7 +172,7 @@ sub getLatestMessages {
 	my ($rv, $sth) = dbSelect($dbh, {
 		WHAT => "$mtbl.*, username",
 		FROM => "$mtbl, $utbl",
-		WHERE => "$mtbl.userid = $utbl.uid and $mtbl.visible = 1",
+		WHERE => "$mtbl.userid = $utbl.uid AND (".discussionPublicWhere($mtbl).')',
 		'ORDER BY' => "$mtbl.created",
 		DESC => 1,
 		LIMIT => getConfig('latest_messages')
@@ -180,6 +182,7 @@ sub getLatestMessages {
 		my @messages;
 		if ($rv) {
 			while (my $row = $sth->fetchrow_hashref()) {
+				next unless discussionMessageChainValid($row);
 				push @messages, { %$row, date => mdhm($row->{created}) };
 			}
 			$sth->finish();
@@ -195,6 +198,7 @@ sub getLatestMessages {
 
 	my $html = '';
 	while (my $row = $sth->fetchrow_hashref()) {
+		next unless discussionMessageChainValid($row);
 		my $date = htmlescape(mdhm($row->{'created'}));
 		my $title = htmlescape($row->{'subject'});
 		my $username = htmlescape($row->{'username'});
@@ -269,19 +273,8 @@ sub getMessage {
 	my $uid = $params->{id};
 	return "Couldn't find that message!" unless defined($uid) && !ref($uid) && $uid =~ /\A[0-9]+\z/;
 	local $reader = $userinf;
-	(my $rv,my $sth) = dbSelect($dbh,{WHAT => '*', 
-	FROM => 'messages', 
-	WHERE => "uid = $uid", 
-	'ORDER BY' => 'created'});
-	if (!$rv || !$sth) {
-		$sth->finish() if $sth;
-		return "Couldn't find that message!";
-	}
-	my $row = $sth->fetchrow_hashref();
-	$sth->finish();
-	return "Couldn't find that message!" unless $row;
-	return errorMessage("You don't have permission to view that message.")
-		if getConfig('acl_tables')->{$row->{tbl}} && !hasPermissionTo($row->{tbl}, $row->{objectid}, $userinf, 'read');
+	my $row = discussionMessageReadable($uid, $userinf);
+	return errorMessage('Message not available.') unless $row;
 	changeWatch($params, $userinf, 'messages', $row->{uid});
 	my $authorinf = _userfields_by_id($row->{userid}, 'username');
 	my $parent_url = entryInteractionURL('getobj', from => $row->{tbl}, id => $row->{objectid});
@@ -290,12 +283,15 @@ sub getMessage {
 		{label => 'Up', url => $row->{replyto} == -1 ? $parent_url : entryInteractionURL('getmsg', id => $row->{replyto})},
 	);
 	push @actions, {label => 'Top', url => entryInteractionURL('getmsg', id => $row->{threadid})} if $row->{replyto} != -1;
+	push @actions, {label => 'Remove message content', danger => 1,
+		url => entryInteractionURL('removemsg', id => $row->{uid})}
+		if ($userinf->{uid} || 0) > 0 && ($userinf->{data}{access} || 0) >= (getConfig('access_admin') || 100);
 	return entryInteractionTemplate('messageview.tt', {
 		subject => $row->{subject}, username => $authorinf->{username},
 		author_url => entryInteractionURL('getuser', id => $row->{userid}),
 		date => nicifyTimestamp($row->{created}), body => stdmsg($row->{body}),
 		parent_url => $parent_url, watching => getWatchString($row),
-		replies => getreplies($userinf, $row->{uid}, 0, 1, undef, 1),
+		replies => getreplies($userinf, $row->{uid}, 0, 1, undef, 1, $row),
 		watch => $row->{threadid} == $row->{uid} ? getWatchWidget({from => 'messages', id => $row->{uid}, op => 'getmsg'}, $userinf) : '',
 		interact => entryInteractionSection('Interact', entryInteractionActions(\@actions, 'Message actions')),
 	});
@@ -324,7 +320,9 @@ sub getMessages {
 
 	local $reader = $userinf;	 # reader state belongs to this request
 
-	_object_exists($table,$objid) || return "object not found";
+	return 'Discussion not available.' unless discussionParentReadable($table, $objid, $userinf);
+	my $identity = discussionIdentityWhere('messages');
+	$identity .= ' AND messages.visible=1' unless $table eq (getConfig('collab_tbl') || '');
 
 	# set display preferences
 	#
@@ -332,18 +330,26 @@ sub getMessages {
 	my $msgstyle = (defined $params->{msgstyle}?$params->{msgstyle}:$prefs->{msgstyle});
 	my $msgexpand = (defined $params->{msgexpand}?$params->{msgexpand}:$prefs->{msgexpand});
 	my $msgorder = (defined $params->{msgorder}?$params->{msgorder}:($desc==1?"desc":$prefs->{msgorder}));
+	$msgstyle = 'threaded' unless defined($msgstyle) && $msgstyle =~ /\A(?:threaded|flat)\z/;
+	$msgorder = 'desc' unless defined($msgorder) && $msgorder =~ /\A(?:asc|desc)\z/;
+	$msgexpand = 1 unless defined($msgexpand) && $msgexpand =~ /\A(?:-1|[0-9]{1,2})\z/;
+	$params->{offset} = 0 unless $params->{offset} =~ /\A[0-9]{1,9}\z/;
 
 	# init page sizes
 	#
 	my $scale = ($msgstyle eq 'threaded')?4:2;
-	my $limit = int($userinf->{prefs}->{pagelength}/$scale);
+	my $limit = int(($userinf->{prefs}->{pagelength} || 20)/$scale);
+	$limit = 1 if $limit < 1;
+	$limit = 100 if $limit > 100;
 	
 	# handle watch stuff
 	# 
 	if (defined $params->{watch} && $reader->{uid} > 0) {
 		foreach my $key (keys %$params) {
 			if ($key =~ /^watch_([0-9]+)$/) {
-				toggleWatch('messages',$1,$reader->{uid});
+				my $thread = discussionMessageReadable($1, $userinf);
+				toggleWatch('messages',$thread->{uid},$reader->{uid}) if $thread &&
+					$thread->{tbl} eq $table && $thread->{objectid} == $objid && $thread->{uid} == $thread->{threadid};
 			}
 		}
 	}
@@ -353,11 +359,11 @@ sub getMessages {
 	if ($msgstyle eq 'threaded') {
 		($rv,$sth) = dbSelect($dbh,{WHAT => '*',
 			FROM => 'messages',
-			WHERE => "objectid = $objid and tbl='$table' and replyto = -1"});
+			WHERE => "objectid = $objid and tbl='$table' and replyto = -1 AND ($identity)"});
 	} else {
 		($rv,$sth) = dbSelect($dbh,{WHAT => '*',
 			FROM => 'messages',
-			WHERE => "objectid = $objid and tbl='$table'"});
+			WHERE => "objectid = $objid and tbl='$table' AND ($identity)"});
 	}
 
 	return 'Query error.' unless $rv && $sth;
@@ -369,14 +375,14 @@ sub getMessages {
 	if ($msgstyle eq "threaded") {
 		($rv,$sth) = dbSelect($dbh,{WHAT => '*',
 			FROM => 'messages',
-			WHERE => "objectid = $objid and tbl='$table' and replyto = -1",
+			WHERE => "objectid = $objid and tbl='$table' and replyto = -1 AND ($identity)",
 			OFFSET => $params->{offset},
 			LIMIT => $limit,
 			'ORDER BY' => 'created',uc($msgorder)=>''}); 
 	} else {
 		($rv,$sth) = dbSelect($dbh,{WHAT => '*',
 			FROM => 'messages',
-			WHERE => "objectid = $objid and tbl='$table'",
+			WHERE => "objectid = $objid and tbl='$table' AND ($identity)",
 			OFFSET => $params->{offset},
 			LIMIT => $limit,
 			'ORDER BY' => 'created',uc($msgorder)=>''}); 
@@ -432,6 +438,7 @@ sub getMessages {
 		$html .= '<ul class="pl-message-replies">' if $forum;
 
 		foreach my $row ( @rows) {
+			next unless discussionMessageChainValid($row);
 			$html .= printmessage($row,
 				$userinf,
 				_userfields_by_id($row->{userid},'username','email','homepage'),
@@ -481,7 +488,7 @@ sub printmessage {
 	my $single = $opts->{single} || 0;
 	if ($opts->{forum}) {
 		return forumMessageRow($row, $userinf, $authorinf, $lastid, $msgexpand ne '0',
-			$msgstyle ne 'flat' ? getreplies($userinf, $row->{uid}, $msgexpand, 1, $lastid, 'forum') : '');
+			$msgstyle ne 'flat' ? getreplies($userinf, $row->{uid}, $msgexpand, 1, $lastid, 'forum', $row) : '');
 	}
 	
 	my $html = '';
@@ -498,7 +505,7 @@ sub printmessage {
 	}
 
 	if ($msgstyle ne "flat") {
-		$html .= getreplies($userinf, $row->{'uid'}, $msgexpand, 1, $lastid); 
+		$html .= getreplies($userinf, $row->{'uid'}, $msgexpand, 1, $lastid, undef, $row);
 	}
 	$html .= "</table>\n";
 	
@@ -676,11 +683,15 @@ sub getreplies {
 	my $level = shift;
 	my $lastid = shift;
 	my $modern = shift;
+	my $anchor = shift || discussionMessageReadable($uid, $userinf);
+	return '' unless $anchor;
+	my $depth = discussionMessageChainValid($anchor);
+	return '' unless $depth;
 
 	my $replies = '';
 	my $html;
 
-	$replies = _r_getmessages($userinf,$uid,$msgexpand,$level,$lastid,$modern);
+	$replies = _r_getmessages($userinf,$uid,$msgexpand,$level,$lastid,$modern,$anchor,{},$depth);
 	return $replies if $modern;
 	if ($replies ne "") {
 		$html = "<tr><td>$replies</td></tr>\n";
@@ -698,15 +709,19 @@ sub _r_getmessages {
 	my $level = shift;
 	my $lastid = shift;
 	my $modern = shift;
+	my $anchor = shift || discussionMessageReadable($uid, $userinf);
+	my $seen = shift || {};
+	my $depth = shift || 1;
+	return '' unless $anchor && $level + $depth <= 128 && keys(%$seen) < 1000 && !$seen->{$uid}++;
 
 	my $html = '';
 	my $authorinf = '';
 
-	(my $rv, my $sth) = dbSelect($dbh,{WHAT => 'objectid,tbl,uid,created,subject,userid,body'.($modern ? ',threadid' : ''),
+	(my $rv, my $sth) = dbSelect($dbh,{WHAT => 'objectid,tbl,uid,created,subject,userid,body,threadid,replyto,visible',
 																		 FROM => 'messages',
-									 WHERE => "replyto = $uid",
-									 'ORDER BY' => 'created'});
-	if ($modern && (!$rv || !$sth)) {
+									 WHERE => "replyto = $uid AND tbl='$anchor->{tbl}' AND objectid=$anchor->{objectid} AND threadid=$anchor->{threadid}",
+									 'ORDER BY' => 'created', LIMIT => 1000});
+	if (!$rv || !$sth) {
 		$sth->finish() if $sth;
 		return '';
 	}
@@ -716,12 +731,15 @@ sub _r_getmessages {
 	if ($#rows >= 0 ) { 
 	$html .= $modern ? '<ul class="pl-message-replies">' : "<ul>\n";
 		foreach my $row (@rows) {
+		last if keys(%$seen) >= 1000;
+		next unless discussionSameParent($anchor, $row);
+		next if defined($row->{visible}) && !$row->{visible} && $row->{tbl} ne (getConfig('collab_tbl') || '');
 		$authorinf = _userfields_by_id($row->{userid},'username','uid');
 		if ($modern) {
 			if ($modern eq 'forum') {
 				$html .= forumMessageRow($row, $userinf, $authorinf, $lastid,
 					$msgexpand eq '-1' || $msgexpand > $level,
-					_r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 'forum'));
+					_r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 'forum', $anchor, $seen, $depth));
 				next;
 			}
 			$html .= entryInteractionTemplate('messageviewreply.tt', {
@@ -729,7 +747,7 @@ sub _r_getmessages {
 				message_url => entryInteractionURL('getmsg', id => $row->{uid}),
 				author_url => entryInteractionURL('getuser', id => $row->{userid}),
 				date => nicifyTimestamp($row->{created}), watching => getWatchString($row),
-				replies => _r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 1),
+				replies => _r_getmessages($userinf, $row->{uid}, $msgexpand, $level+1, $lastid, 1, $anchor, $seen, $depth),
 			});
 			next;
 		}
@@ -748,7 +766,7 @@ sub _r_getmessages {
 				$row->{uid}, 
 				$msgexpand, 
 				$level+1,
-				$lastid);
+				$lastid, undef, $anchor, $seen, $depth);
 		}
 	$html .= "</ul>\n";
 	}
@@ -903,25 +921,9 @@ sub postMessage {
 		return postError("You can't post as anonymous.");
 	}
 
-	# Resolve the reply destination from the stored message, not form fields.
-	my %values = %$params;
-	my $parent;
-	if (defined($values{replyto}) && nb($values{replyto})) {
-		return errorMessage("Couldn't find that message!")
-			if ref($values{replyto}) || $values{replyto} !~ /\A[0-9]+\z/;
-		my ($rv, $sth) = dbSelect($dbh, {WHAT => '*', FROM => 'messages',
-			WHERE => "uid = $values{replyto}"});
-		return errorMessage("Couldn't find that message!") unless $rv && $sth;
-		$parent = $sth->fetchrow_hashref();
-		$sth->finish();
-		return errorMessage("Couldn't find that message!") unless $parent;
-		my $acl_tables = getConfig('acl_tables') || {};
-		if ($acl_tables->{$parent->{tbl}} &&
-			!hasPermissionTo($parent->{tbl}, $parent->{objectid}, $userinfo, 'read')) {
-			return errorMessage("You don't have permission to read this message.");
-		}
-		@values{qw(id from)} = @{$parent}{qw(objectid tbl)};
-	}
+	my ($destination, $parent) = discussionPostDestination($params, $userinfo);
+	return errorMessage('Discussion not available.') unless $destination;
+	my %values = %$destination;
 	$values{body} = '' unless defined $values{body};
 	my ($preview, $spell, $error);
 	if (defined($params->{preview})) {
@@ -986,6 +988,13 @@ sub submit_message {
 	my $params = shift;
 	my $userinfo = shift;
 	my $visible = shift;	# optional visible parameter
+	my ($destination, $parent) = discussionPostDestination($params, $userinfo);
+	return errorMessage('Discussion not available.') unless $destination;
+	$params = $destination;
+	my $req = Apache2::RequestUtil->request;
+	my $blocked = requestFormGuard($req, {%$params, op => 'postmsg'}, $userinfo);
+	return $blocked if defined $blocked;
+	return requestFormFailure(405, 'This action requires a submitted form.') unless $req->method eq 'POST';
 
 	$visible = 1 if (not defined $visible);
 	
@@ -1014,7 +1023,7 @@ $userinfo->{data}->{sig}";
       #  dwarn "[$params->{replyto}]";
 #	$params->{'replyto'} = 'NULL';
     if (defined($params->{'replyto'}) && nb($params->{'replyto'})) {
-		$row = getmsgfields($params->{replyto},'tbl,threadid,userid');
+		$row = $parent;
 		$table = $row->{tbl};
 		$v = "now(),$nextid,$visible,$row->{threadid},$params->{id},'$row->{tbl}',$params->{replyto},$userid,'".sq($subject)."','".sq($body)."'";
 		$c = 'created,uid,visible,threadid,objectid,tbl,replyto,userid,subject,body';
@@ -1049,9 +1058,8 @@ $userinfo->{data}->{sig}";
 	
 	# update watches
 	#
-	my $parentobjid = lookupfield('messages','tbl',"uid=$row->{threadid}");
 	my %sentnotice;
-	updateWatches($params->{id},$params->{from} || $parentobjid,$nextid,'messages',$userid,"\"$subject\" (message post)",$body_fragment,\%sentnotice);
+	updateWatches($params->{id},$table,$nextid,'messages',$userid,"\"$subject\" (message post)",$body_fragment,\%sentnotice);
 
 	# if this is a reply...
 	#
@@ -1061,14 +1069,15 @@ $userinfo->{data}->{sig}";
 		# send notice if the user being replied to has reply notification on but
 		# has not already receieved notices from above.
 		#
-		if (userPref($row->{userid},'replynotify') eq 'on' && !$sentnotice{$row->{userid}}) {
+		if (userPref($row->{userid},'replynotify') eq 'on' && !$sentnotice{$row->{userid}} &&
+			discussionWatchReadable($params->{from}, $params->{id}, {uid => $row->{userid}})) {
 			 
 			fileNotice($row->{userid},
 				$userid,
 				"\"$subject\" (reply to you)",	
 				$body_fragment,
 				[{id=>$nextid,table=>'messages'},
-				 {id=>$params->{id},table=>$params->{from}||$parentobjid}]);
+				 {id=>$params->{id},table=>$table}]);
 		}
 
 	}
