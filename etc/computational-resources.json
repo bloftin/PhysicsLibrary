@@ -1,6 +1,20 @@
 {
   "schema_version": 1,
   "resources": {
+    "antenna-carrier-lab": {
+      "title": "Antenna, Charges and Energy Lab",
+      "language": "Julia",
+      "version": "1.10.12",
+      "reproducibility": "Offline receive/transmit dipole, local carrier drift, polarization, tuning, load power and retarded radiation. Checked against 1161 independent Julia samples and nine operating points. Includes source, environments, tests, CSV and provenance; no server computation.",
+      "explorer": "index.html",
+      "source": "antenna-carrier-lab.zip",
+      "provenance": "provenance.toml",
+      "license": "LICENSE.txt",
+      "datasets": [
+        {"label": "Julia carrier, current, charge and radiation histories", "file": "reference.csv"},
+        {"label": "Julia antenna impedance and power balances", "file": "parameters.csv"}
+      ]
+    },
     "potential-work-lab": {
       "title": "Charge, Potential and Work Lab (E01)",
       "language": "Julia",
